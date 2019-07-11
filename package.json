@@ -1,0 +1,45 @@
+{
+  "name": "MDwalks-UI",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "scripts": {
+    "test": "jest",
+    "build": "rollup -c",
+    "storybook": "start-storybook -p 9001 -c .storybook"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./setupTest.js"
+    ],
+    "moduleNameMapper": {
+      "^@Charts(.*)$": "<rootDir>/src/components/charts/$1",
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
+  },
+  "repository": "https://github.com/linewalks/MDwalks-UI.git",
+  "keywords": [
+    "data",
+    "react",
+    "charts"
+  ],
+  "author": "linewalks",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.5.4",
+    "@babel/preset-react": "^7.0.0",
+    "@storybook/react": "^5.1.9",
+    "d3": "^5.9.7",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "rollup": "^1.16.7",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-postcss": "^2.0.3",
+    "rollup-plugin-replace": "^2.2.0"
+  }
+}
