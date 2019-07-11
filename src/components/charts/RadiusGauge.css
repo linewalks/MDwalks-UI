@@ -1,0 +1,22 @@
+.gauge_point {
+  text-anchor: middle;
+  opacity: 0.4;
+  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
+  font-size: 11px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: -0.5px;
+  fill: '#000000';
+}
+
+.gauge_score {
+  text-anchor: middle;
+  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
+  font-size: 32px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: -0.5px;
+  fill: '#000000';
+}
