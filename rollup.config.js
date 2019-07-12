@@ -23,7 +23,11 @@ export default {
       modules: true,
       extensions: ['.css']
     }),
-    resolve(),
+    resolve({
+      jsnext: true,
+      main: true,
+      module: true
+    }),
     commonjs()
   ],
   external: ["react"],

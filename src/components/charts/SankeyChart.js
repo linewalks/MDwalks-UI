@@ -1,5 +1,5 @@
 import React from 'react'
-import * as d3Core from 'd3/dist/d3'
+import * as d3Core from 'd3'
 import * as sankeyCircular from 'd3-sankey-circular'
 import isEmpty from 'lodash/isEmpty'
 import isEqual from 'lodash/isEqual'
@@ -45,7 +45,7 @@ class SankeyChart extends React.Component {
   }
 
   initializeSVG = (d3, { width, height, margin }) => {
-    return d3
+    return this.d3
       .select(`div#chart_${this.id}`)
       .append('svg')
       .attr('id', this.id)
