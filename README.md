@@ -64,3 +64,28 @@
    | width | Number |         | 0 ~ Infinity | RadiusGauge Horizontal Area |
    | height | Number |        | 0 ~ Infinity | RadiusGauge Vertical Area | 
 
+  ![SankeyChart](./src/assets/img/SankeyChart.png)
+
+  ```javascript
+  import SankeyChart from '<SankeyChart Path>'
+  import data from '<SankeyChart Data Path>'
+  const App = () => {
+    eventHandler = () => {
+      console.log('hello')
+    }
+
+    return (
+      <div>
+        <SankeyChart data={data} onNodeClick={this.eventHandler} />
+      </div>
+    )
+  }
+  ```
+
+  * ### Props
+
+   |  Name |  Type  | Default |  Description        | 
+   |:------|:-------|:--------|:--------------------|
+   | data | Object |         | SankeyChart Data |
+   | onNodeClick | Function |         | SankeyChart Node Click Event Handler |
+   | onLinkClick | Function |         | SankeyChart Link Click Event Handler | 
