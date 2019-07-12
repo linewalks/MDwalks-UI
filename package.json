@@ -33,6 +33,8 @@
     "@babel/preset-react": "^7.0.0",
     "@storybook/react": "^5.1.9",
     "d3": "^5.9.7",
+    "d3-sankey-circular": "^0.34.0",
+    "lodash": "^4.17.14",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "rollup": "^1.16.7",
