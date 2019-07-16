@@ -40,7 +40,7 @@
    |:------|:-------|:--------|:------- |:--------------------|
    | score | Number |         | 0 ~ 100 | BarGauge fill width | 
 
-   * ### RadiusGauge Component
+* ### RadiusGauge Component
 
   ![RadiusGauge](./src/assets/img/RadiusGauge.png)
   
@@ -64,3 +64,24 @@
    | width | Number |         | 0 ~ Infinity | RadiusGauge Horizontal Area |
    | height | Number |        | 0 ~ Infinity | RadiusGauge Vertical Area | 
 
+* ### SelectedCard Component
+
+  ![SelectedCard](./src/assets/img/SelectedCard.png)
+  
+  ```javascript
+  import SelectedCard from '<SelectedCard Path>'
+
+  const App = () => {
+    return (
+      <div>
+        <SelectedCard selectedElement={['a', 'b', 'c']} />
+      </div>
+    )
+  }
+  ```
+
+  * ### Props
+
+   |  Name |  Type  | Default | Range   |  Description        | 
+   |:------|:-------|:--------|:------- |:--------------------|
+   | selectedElement | Array |   []     |   | Text Collection of Card Element |

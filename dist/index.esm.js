@@ -5726,4 +5726,31 @@ var RadiusGauge = function RadiusGauge(_ref) {
   }
 };
 
-export { BarGauge, RadiusGauge };
+var css$2 = ".SelectedCard_wrap_1200__2Uu8v {\n  max-width: 1200px;\n  width: 1200px;\n  margin: 0 auto;\n  text-align: center;\n}\n\n.SelectedCard_arrow__1KwcE {\n  display: inline-block;\n  background-repeat: no-repeat;\n  background-position-x: 100%;\n  background-position-y: 15px;\n  padding-right: 18px;\n  margin-right: 8px;\n}\n\n.SelectedCard_card_contatiner__3DS8T {\n  display: inline-block;\n  border-radius: 25px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);\n  background-color: #002b4f;\n  padding: 11px 24px 10px;\n}\n\n.SelectedCard_card__15x9m {\n  color: #ffffff;\n  line-height: 1;\n  font-size: 20px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n}";
+var styles$2 = {"wrap_1200":"SelectedCard_wrap_1200__2Uu8v","arrow":"SelectedCard_arrow__1KwcE","card_contatiner":"SelectedCard_card_contatiner__3DS8T","card":"SelectedCard_card__15x9m"};
+styleInject(css$2);
+
+var backgroundArrow = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDE0IDE0Ij4KICAgIDxwYXRoIGZpbGw9IiMwMDJENEYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTguNzA3IDEuNjM2bDQuNjU3IDQuNjU3YTEgMSAwIDAgMSAwIDEuNDE0bC00LjY1NyA0LjY1N0ExIDEgMCAwIDEgNyAxMS42NTdWMi4zNDNhMSAxIDAgMCAxIDEuNzA3LS43MDd6IiBvcGFjaXR5PSIuOCIvPgo8L3N2Zz4=';
+
+var SelectedCard = function SelectedCard(_ref) {
+  var selectedElement = _ref.selectedElement;
+  return React.createElement("div", {
+    className: styles$2.wrap_1200
+  }, selectedElement.map(function (element, idx) {
+    return React.createElement("article", {
+      key: idx,
+      className: styles$2.arrow,
+      style: idx !== selectedElement.length - 1 ? {
+        backgroundImage: "url(".concat(backgroundArrow, ")")
+      } : null
+    }, React.createElement("div", {
+      className: styles$2.card_contatiner,
+      key: idx
+    }, React.createElement("span", {
+      className: styles$2.card,
+      key: idx
+    }, element)));
+  }));
+};
+
+export { BarGauge, RadiusGauge, SelectedCard };
