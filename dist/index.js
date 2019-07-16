@@ -23790,6 +23790,41 @@ function (_React$Component) {
       }
     });
 
+    _defineProperty(_assertThisInitialized(_this), "highlightLink", function (id) {
+      var d3 = _this.d3;
+
+      for (var i = 0; i < id.length; i++) {
+        var _id$i$split = id[i].split('X'),
+            _id$i$split2 = _slicedToArray(_id$i$split, 2),
+            source = _id$i$split2[0],
+            target = _id$i$split2[1];
+
+        var forwardPath = d3.select("#".concat(source, "X").concat(target));
+        var reversePath = d3.select("#".concat(target, "X").concat(source));
+        var sourceXPosition = document.getElementById(source).getBoundingClientRect().x;
+        var targetXPosition = document.getElementById(target).getBoundingClientRect().x;
+
+        if (targetXPosition > sourceXPosition) {
+          forwardPath.style('opacity', 1).style('stroke', 'rgba(24, 155, 255, 0.4)');
+        } else {
+          reversePath.style('opacity', 1).style('stroke', 'rgba(255, 58, 31, 0.4)');
+        }
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createLinkId", function (selectedNodes) {
+      if (selectedNodes.length === 0) return null;
+      var idCollection = [];
+
+      for (var i = 0; i < selectedNodes.length; i++) {
+        if (i === selectedNodes.length - 1) break;
+        var id = "".concat(strIdConvert(selectedNodes[i]), "X").concat(strIdConvert(selectedNodes[i + 1]));
+        idCollection.push(id);
+      }
+
+      return idCollection;
+    });
+
     _defineProperty(_assertThisInitialized(_this), "renderPlaceholder", function () {
       return React.createElement("div", null, "No data is provided!");
     });
@@ -24001,10 +24036,19 @@ function (_React$Component) {
 
         _this.renderSankey();
       }
+
+      if (!isEqual_1(prevState.selectedNodes, _this.state.selectedNodes)) {
+        var LinkId = _this.createLinkId(_this.state.selectedNodes);
+
+        _this.highlightLink(LinkId);
+      }
     });
 
     _this.d3 = _objectSpread2({}, d3Core, {}, sankeyCircular$1);
     _this.id = props.id;
+    _this.state = {
+      selectedNodes: []
+    };
     return _this;
   }
 

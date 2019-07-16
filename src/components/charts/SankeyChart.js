@@ -12,6 +12,9 @@ class SankeyChart extends React.Component {
     super(props)
     this.d3 = { ...d3Core, ...sankeyCircular }
     this.id = props.id
+    this.state = {
+      selectedNodes: []
+    }
   }
 
   id // chart id
@@ -24,6 +27,35 @@ class SankeyChart extends React.Component {
         selectedNodes: this.state.selectedNodes.concat(selectedNode)
       })
     }
+  }
+
+  highlightLink = (id) => {
+    const d3 = this.d3;
+    for(let i = 0; i < id.length; i++) {
+      const [ source, target ] = id[i].split('X');
+      const forwardPath = d3.select(`#${source}X${target}`);
+      const reversePath = d3.select(`#${target}X${source}`);
+      
+      const sourceXPosition = document.getElementById(source).getBoundingClientRect().x;
+      const targetXPosition = document.getElementById(target).getBoundingClientRect().x;
+
+      if (targetXPosition > sourceXPosition) {
+        forwardPath.style('opacity', 1).style('stroke', 'rgba(24, 155, 255, 0.4)')
+      } else {
+        reversePath.style('opacity', 1).style('stroke', 'rgba(255, 58, 31, 0.4)')
+      }
+    }
+  }
+
+  createLinkId = (selectedNodes) => {
+    if (selectedNodes.length === 0) return null
+    const idCollection = [];
+    for (let i = 0; i < selectedNodes.length; i++) {
+      if (i === selectedNodes.length - 1) break;
+      let id = `${strIdConvert(selectedNodes[i])}X${strIdConvert(selectedNodes[i+1])}`;
+      idCollection.push(id)
+    }
+    return idCollection
   }
 
   renderPlaceholder = () => {
@@ -275,12 +307,18 @@ class SankeyChart extends React.Component {
       if (el) el.remove()
       this.renderSankey()
     }
+
     if (!isEqual(prevProps.nodes, this.props.nodes)) {
       // 별도의 svg가 생기는 것을 방지하기 위해 이미 생성된 svg를 제거합니다
       const el = document.getElementById(this.id)
       if (el) el.remove()
       this.renderSankey()
     }
+
+    if (!isEqual(prevState.selectedNodes, this.state.selectedNodes)) {
+      const LinkId = this.createLinkId(this.state.selectedNodes)
+      this.highlightLink(LinkId)
+    }    
   }
 
   render() {
