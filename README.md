@@ -40,7 +40,7 @@
    |:------|:-------|:--------|:------- |:--------------------|
    | score | Number |         | 0 ~ 100 | BarGauge fill width | 
 
-   * ### RadiusGauge Component
+* ### RadiusGauge Component
 
   ![RadiusGauge](./src/assets/img/RadiusGauge.png)
   
@@ -63,4 +63,34 @@
    | score | Number |         | 0 ~ 1   | RadiusGauge Pin Position |
    | width | Number |         | 0 ~ Infinity | RadiusGauge Horizontal Area |
    | height | Number |        | 0 ~ Infinity | RadiusGauge Vertical Area | 
+
+* ### SummaryCard Component
+
+  ![SummaryCard](./src/assets/img/SummaryCard.png)
+  
+  ```javascript
+  import SummaryCard from '<SummaryCard Path>'
+
+  const App = () => {
+    return (
+      <div>
+        <SummaryCard  
+          data={{
+            "Follow-up Patients": 24764,
+            "High Risk Patients": 4833,
+            "A.I. Analysis Features": 780,
+            "Total Patients": 572811
+          }}
+        />
+      </div>
+    )
+  }
+  ```
+
+  * ### Props
+
+   |  Name |  Type  | Default | Range   |  Description        | 
+   |:------|:-------|:--------|:------- |:--------------------|
+   | data | Object |         |   | Summary Card Information |
+
 
