@@ -40,6 +40,7 @@
    |:------|:-------|:--------|:------- |:--------------------|
    | score | Number |         | 0 ~ 100 | BarGauge fill width | 
 
+
 * ### RadiusGauge Component
 
   ![RadiusGauge](./src/assets/img/RadiusGauge.png)
@@ -64,6 +65,35 @@
    | width | Number |         | 0 ~ Infinity | RadiusGauge Horizontal Area |
    | height | Number |        | 0 ~ Infinity | RadiusGauge Vertical Area | 
 
+
+* Sankey Chart Component
+
+  ![SankeyChart](./src/assets/img/SankeyChart.png)
+
+  ```javascript
+  import SankeyChart from '<SankeyChart Path>'
+  import data from '<SankeyChart Data Path>'
+  const App = () => {
+    eventHandler = () => {
+      console.log('hello')
+    }
+
+    return (
+      <div>
+        <SankeyChart data={data} onNodeClick={this.eventHandler} />
+      </div>
+    )
+  }
+  ```
+  * ### Props
+
+   |  Name |  Type  | Default |  Description        | 
+   |:------|:-------|:--------|:--------------------|
+   | data | Object |         | SankeyChart Data |
+   | onNodeClick | Function |         | SankeyChart Node Click Event Handler |
+   | onLinkClick | Function |         | SankeyChart Link Click Event Handler | 
+
+
 * ### SelectedCard Component
 
   ![SelectedCard](./src/assets/img/SelectedCard.png)
@@ -82,9 +112,10 @@
 
     * ### Props
 
-   |  Name |  Type  | Default | Range   |  Description        | 
-   |:------|:-------|:--------|:------- |:--------------------|
-   | selectedElement | Array |   []     |   | Text Collection of Card Element |
+   |  Name |  Type  | Default | Description        | 
+   |:------|:-------|:--------|:--------------------|
+   | selectedElement | Array |   []    | Text Collection of Card Element |
+
 
 * ### SummaryCard Component
 
@@ -110,7 +141,6 @@
   ```
 
   * ### Props
-
-   |  Name |  Type  | Default | Range   |  Description        | 
-   |:------|:-------|:--------|:------- |:--------------------|
-   | data | Object |         |   | Summary Card Information |
+   |  Name |  Type  | Default | Description        | 
+   |:------|:-------|:------- |:--------------------|
+   | data | Object |         | Summary Card Information |
