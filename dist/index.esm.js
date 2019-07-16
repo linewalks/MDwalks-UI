@@ -17885,21 +17885,6 @@ function zoom() {
 
 var d3Core = /*#__PURE__*/Object.freeze({
   version: version,
-  cluster: cluster,
-  hierarchy: hierarchy,
-  pack: index$2,
-  packSiblings: siblings,
-  packEnclose: enclose,
-  partition: partition,
-  stratify: stratify,
-  tree: tree,
-  treemap: index$3,
-  treemapBinary: binary,
-  treemapDice: treemapDice,
-  treemapSlice: treemapSlice,
-  treemapSliceDice: sliceDice,
-  treemapSquarify: squarify,
-  treemapResquarify: resquarify,
   bisect: bisectRight,
   bisectRight: bisectRight,
   bisectLeft: bisectLeft,
@@ -17931,6 +17916,10 @@ var d3Core = /*#__PURE__*/Object.freeze({
   transpose: transpose,
   variance: variance,
   zip: zip,
+  axisTop: axisTop,
+  axisRight: axisRight,
+  axisBottom: axisBottom,
+  axisLeft: axisLeft,
   brush: brush,
   brushX: brushX,
   brushY: brushY,
@@ -18082,10 +18071,21 @@ var d3Core = /*#__PURE__*/Object.freeze({
   geoRotation: rotation,
   geoStream: geoStream,
   geoTransform: transform,
-  axisTop: axisTop,
-  axisRight: axisRight,
-  axisBottom: axisBottom,
-  axisLeft: axisLeft,
+  cluster: cluster,
+  hierarchy: hierarchy,
+  pack: index$2,
+  packSiblings: siblings,
+  packEnclose: enclose,
+  partition: partition,
+  stratify: stratify,
+  tree: tree,
+  treemap: index$3,
+  treemapBinary: binary,
+  treemapDice: treemapDice,
+  treemapSlice: treemapSlice,
+  treemapSliceDice: sliceDice,
+  treemapSquarify: squarify,
+  treemapResquarify: resquarify,
   interpolate: interpolateValue,
   interpolateArray: array$1,
   interpolateBasis: basis$1,
@@ -18480,6 +18480,24 @@ function _defineProperty(obj, key, value) {
   }
 
   return obj;
+}
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
 }
 
 function ownKeys(object, enumerableOnly) {
@@ -23539,6 +23557,12 @@ var findIndex_1 = findIndex;
 // Sankey Component Util
 var strIdConvert = function strIdConvert(id) {
   return id.split(' ').join('_');
+}; // Table Component Util
+
+var tableHeaderConvert = function tableHeaderConvert(header) {
+  return header.split('_').map(function (title) {
+    return "".concat(title[0].toUpperCase()).concat(title.slice(1));
+  }).join(' ');
 };
 
 var sankeyData = {
@@ -24110,8 +24134,8 @@ var SelectedCard = function SelectedCard(_ref) {
   }));
 };
 
-var css$3 = ".SummaryCard_wrap_1200__3wrA9 {\n  max-width: 1200px;\n  width: 1200px;\n  margin: 0 auto;\n}\n\n.SummaryCard_article__1i0ET {\n  width: 282px;\n  height: 170px;\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);\n  background-color: #ffffff;\n  font-size: 0;\n  display: inline-block;\n  text-align: center;\n  margin-right: 24px;\n}\n\n.SummaryCard_article__1i0ET:last-child {\n  margin-right: 0;\n}\n\n.SummaryCard_article__1i0ET > div {\n  position: relative;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  background-repeat: no-repeat;\n  background-position-x: 12px;\n  background-position-y: 52px;\n}\n\n.SummaryCard_summary_b_42__sRaMy {\n  font-size: 42px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n  color: #002d4f;\n}\n\n.SummaryCard_article__1i0ET dd {\n  display: block;\n  margin-inline-start: 40px;\n}\n\n.SummaryCard_article__1i0ET dl {\n  width: 100%;\n  text-align: right;\n  padding-right: 44px;\n}\n\n.SummaryCard_article__1i0ET dl,\n.SummaryCard_article__1i0ET dd {\n  margin: 0;\n}\n\n.SummaryCard_article__1i0ET dt {\n  color: rgba(0, 0, 0, 0.4);\n}\n\n.SummaryCard_article__1i0ET .SummaryCard_body_b_16__3I3-j {\n  font-size: 16px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n}";
-var styles$3 = {"wrap_1200":"SummaryCard_wrap_1200__3wrA9","article":"SummaryCard_article__1i0ET","summary_b_42":"SummaryCard_summary_b_42__sRaMy","body_b_16":"SummaryCard_body_b_16__3I3-j"};
+var css$3 = ".SummaryCard_wrap_1200__3gB3b {\n  max-width: 1200px;\n  width: 1200px;\n  margin: 0 auto;\n}\n\n.SummaryCard_article__1Rb6Q {\n  width: 282px;\n  height: 170px;\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);\n  background-color: #ffffff;\n  font-size: 0;\n  display: inline-block;\n  text-align: center;\n  margin-right: 24px;\n}\n\n.SummaryCard_article__1Rb6Q:last-child {\n  margin-right: 0;\n}\n\n.SummaryCard_article__1Rb6Q > div {\n  position: relative;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  background-repeat: no-repeat;\n  background-position-x: 12px;\n  background-position-y: 52px;\n}\n\n.SummaryCard_summary_b_42__3hOVh {\n  font-size: 42px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n  color: #002d4f;\n}\n\n.SummaryCard_article__1Rb6Q dd {\n  display: block;\n  margin-inline-start: 40px;\n}\n\n.SummaryCard_article__1Rb6Q dl {\n  width: 100%;\n  text-align: right;\n  padding-right: 44px;\n}\n\n.SummaryCard_article__1Rb6Q dl,\n.SummaryCard_article__1Rb6Q dd {\n  margin: 0;\n}\n\n.SummaryCard_article__1Rb6Q dt {\n  color: rgba(0, 0, 0, 0.4);\n}\n\n.SummaryCard_article__1Rb6Q .SummaryCard_body_b_16__178_6 {\n  font-size: 16px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n}";
+var styles$3 = {"wrap_1200":"SummaryCard_wrap_1200__3gB3b","article":"SummaryCard_article__1Rb6Q","summary_b_42":"SummaryCard_summary_b_42__3hOVh","body_b_16":"SummaryCard_body_b_16__178_6"};
 styleInject(css$3);
 
 var SummaryCard = function SummaryCard(_ref) {
@@ -24145,4 +24169,117 @@ var SummaryCard = function SummaryCard(_ref) {
   }));
 };
 
-export { BarGauge, RadiusGauge, SankeyChart, SelectedCard, SummaryCard };
+var css$4 = ".Table_table__3W-tG {\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%;\n}\n\n.Table_body_b_16__2HKYm {\n  font-size: 16px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n}\n\n.Table_th__2UhMg {\n  padding: 28px 24px;\n  text-align: center;\n  background: #f2f2f2;\n  border-bottom: 2px solid #d4d4d4;\n  color: rgba(0, 0, 0, 0.7);\n}\n\n.Table_th__2UhMg:first-child {\n  border-radius: 10px 0 0 0; \n}\n\n.Table_th__2UhMg:last-child {\n  border-radius: 0 10px 0 0;\n}\n\n.Table_tr__3D6bR {\n  cursor: pointer;\n}\n\n.Table_tr__3D6bR:nth-child(even) .Table_td__1_pu2 {\n  background: #ffffff;\n}\n\n.Table_tr__3D6bR:nth-child(odd) .Table_td__1_pu2 {\n  background: #fafafa;\n}\n\n.Table_td__1_pu2 {\n  padding: 24px;\n  text-align: center;\n}\n\n.Table_th__2UhMg:first-child, .Table_th__2UhMg:last-child, .Table_td__1_pu2:first-child, .Table_td__1_pu2:last-child {\n  white-space: nowrap;\n  width: 1%;\n}\n\n.Table_th__2UhMg:first-child, .Table_td__1_pu2:first-child {\n  padding-left: 50px;\n}\n\n.Table_th__2UhMg:last-child, .Table_td__1_pu2:last-child {\n  padding-right: 50px;\n}\n\n.Table_empty_table_grey_list__33788 {\n  padding: 80px;\n}\n\n.Table_empty_table_grey_list__33788 td {\n  margin: 0 auto;\n  text-align: center;\n}\n\n.Table_empty_table_grey_list__33788 span {\n  margin: auto;\n  color: #161616;\n  display: block;\n  font-size: 20px;\n  opacity: 0.6;\n}\n\n.Table_empty_table_grey_header__3mHSH {\n  font-size: 16px;\n  color: rgba(#000000, 0.36);\n}";
+var styles$4 = {"table":"Table_table__3W-tG","body_b_16":"Table_body_b_16__2HKYm","th":"Table_th__2UhMg","tr":"Table_tr__3D6bR","td":"Table_td__1_pu2","empty_table_grey_list":"Table_empty_table_grey_list__33788","empty_table_grey_header":"Table_empty_table_grey_header__3mHSH"};
+styleInject(css$4);
+
+var THead = function THead(_ref) {
+  var headers = _ref.headers,
+      subHeaders = _ref.subHeaders;
+
+  var createHeader = function createHeader(headerData, subHeaderData) {
+    if (isEmpty_1(subHeaderData)) {
+      return React.createElement("tr", null, headerData.map(function (header, idx) {
+        return React.createElement("th", {
+          key: header,
+          className: styles$4.th
+        }, tableHeaderConvert(header));
+      }));
+    } else {
+      return React.createElement("tr", null, headerData.map(function (header, idx) {
+        if (idx === 0) {
+          return React.createElement("th", {
+            rowSpan: 2,
+            key: idx,
+            className: styles$4.th
+          }, header);
+        } else {
+          var subHeaderColNum = subHeaders[header].length;
+          return React.createElement("th", {
+            colSpan: subHeaderColNum,
+            key: idx,
+            className: styles$4.th
+          }, header);
+        }
+      }));
+    }
+  };
+
+  var createSubHeader = function createSubHeader(subHeaderData) {
+    var subTitleGroup = Object.values(subHeaderData).join().split(',');
+    return React.createElement("tr", null, subTitleGroup.map(function (subTitle, idx) {
+      return React.createElement("td", {
+        key: idx
+      }, subTitle);
+    }));
+  };
+
+  return React.createElement("thead", {
+    className: styles$4.body_b_16
+  }, createHeader(headers, subHeaders), subHeaders === undefined ? null : createSubHeader(subHeaders));
+};
+
+var visualAlert = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjkwIiBoZWlnaHQ9IjIzMCIgdmlld0JveD0iMCAwIDI5MCAyMzAiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9ImEiIGQ9Ik0yOTAgMjA1LjYxNEMyNjAuODI2IDE4NC4zMDYgMjA2LjgxMSAxNzAgMTQ1IDE3MGMtNjEuODExIDAtMTE1LjgyNiAxNC4zMDYtMTQ1IDM1LjYxNFYwaDI5MHYyMDUuNjE0eiIvPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYyIgeDE9IjM0LjcyNiUiIHgyPSIzNC43MjYlIiB5MT0iMCUiIHkyPSI4Ni44MDglIj4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzE4OUJGRiIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNCMkRFRkYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPHBhdGggaWQ9ImQiIGQ9Ik0yOSAwaDc2LjM3YTQgNCAwIDAgMSAyLjg3IDEuMjE1bDI1LjYzMSAyNi40MjJBNCA0IDAgMCAxIDEzNSAzMC40MjJWMTMxYTQgNCAwIDAgMS00IDRIMjlhNCA0IDAgMCAxLTQtNFY0YTQgNCAwIDAgMSA0LTR6Ii8+CiAgICAgICAgPGxpbmVhckdyYWRpZW50IGlkPSJmIiB4MT0iNDIuMTI5JSIgeDI9IjQyLjEyOSUiIHkxPSIwJSIgeTI9IjEwMCUiPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMTg5QkZGIi8+CiAgICAgICAgICAgIDxzdG9wIG9mZnNldD0iMTMuMzY4JSIgc3RvcC1jb2xvcj0iIzE4OUJGRiIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxODlCRkYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPHBhdGggaWQ9ImUiIGQ9Ik0zMSAwaDczLjUyM2E2IDYgMCAwIDEgNC4zMDcgMS44MjJsMjQuNDc3IDI1LjIzM0E2IDYgMCAwIDEgMTM1IDMxLjIzM1YxMjlhNiA2IDAgMCAxLTYgNkgzMWE2IDYgMCAwIDEtNi02VjZhNiA2IDAgMCAxIDYtNnoiLz4KICAgICAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSI0My40OCUiIHgyPSI0My40OCUiIHkxPSI1MCUiIHkyPSIyMDQuMzA4JSI+CiAgICAgICAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNFQUY2RkYiLz4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTg5QkZGIi8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgICA8cGF0aCBpZD0iaiIgZD0iTTE1NyAxMzZjLTE1LjQ2NCAwLTI4LTEyLjUzNi0yOC0yOHMxMi41MzYtMjggMjgtMjggMjggMTIuNTM2IDI4IDI4LTEyLjUzNiAyOC0yOCAyOHptMC0yYzE0LjM2IDAgMjYtMTEuNjQgMjYtMjZzLTExLjY0LTI2LTI2LTI2LTI2IDExLjY0LTI2IDI2IDExLjY0IDI2IDI2IDI2em0wLTI3LjQxNGw4LjQ4NS04LjQ4NSAxLjQxNCAxLjQxNC04LjQ4NSA4LjQ4NSA4LjQ4NSA4LjQ4NS0xLjQxNCAxLjQxNC04LjQ4NS04LjQ4NS04LjQ4NSA4LjQ4NS0xLjQxNC0xLjQxNCA4LjQ4NS04LjQ4NS04LjQ4NS04LjQ4NSAxLjQxNC0xLjQxNCA4LjQ4NSA4LjQ4NXoiLz4KICAgICAgICA8ZmlsdGVyIGlkPSJpIiB3aWR0aD0iMTQ0LjYlIiBoZWlnaHQ9IjE0NC42JSIgeD0iLTIyLjMlIiB5PSItMjAuNSUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+CiAgICAgICAgICAgIDxmZU9mZnNldCBkeT0iMSIgaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9InNoYWRvd09mZnNldE91dGVyMSIvPgogICAgICAgICAgICA8ZmVHYXVzc2lhbkJsdXIgaW49InNoYWRvd09mZnNldE91dGVyMSIgcmVzdWx0PSJzaGFkb3dCbHVyT3V0ZXIxIiBzdGREZXZpYXRpb249IjQiLz4KICAgICAgICAgICAgPGZlQ29sb3JNYXRyaXggaW49InNoYWRvd0JsdXJPdXRlcjEiIHZhbHVlcz0iMCAwIDAgMCAwIDAgMCAwIDAgMC41Njk2MjAyNTMgMCAwIDAgMCAxIDAgMCAwIDAuMzk5MDExMTQ1IDAiLz4KICAgICAgICA8L2ZpbHRlcj4KICAgICAgICA8ZWxsaXBzZSBpZD0ibCIgY3g9IjE0NiIgY3k9IjI0MyIgcng9IjE0NSIgcnk9IjcyIi8+CiAgICAgICAgPGZpbHRlciBpZD0iayIgd2lkdGg9IjExNS45JSIgaGVpZ2h0PSIxMzEuOSUiIHg9Ii03LjklIiB5PSItMTguOCUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+CiAgICAgICAgICAgIDxmZU9mZnNldCBkeT0iLTQiIGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJzaGFkb3dPZmZzZXRPdXRlcjEiLz4KICAgICAgICAgICAgPGZlR2F1c3NpYW5CbHVyIGluPSJzaGFkb3dPZmZzZXRPdXRlcjEiIHJlc3VsdD0ic2hhZG93Qmx1ck91dGVyMSIgc3RkRGV2aWF0aW9uPSI3Ii8+CiAgICAgICAgICAgIDxmZUNvbG9yTWF0cml4IGluPSJzaGFkb3dCbHVyT3V0ZXIxIiB2YWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAuNDcxOTA4NzcxIDAgMCAwIDAgMC44MzIxNDQ0NzUgMCAwIDAgMC43MDEyNDAxNjYgMCIvPgogICAgICAgIDwvZmlsdGVyPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDI0KSI+CiAgICAgICAgICAgIDxtYXNrIGlkPSJiIiBmaWxsPSIjZmZmIj4KICAgICAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICA8ZyBtYXNrPSJ1cmwoI2IpIiBvcGFjaXR5PSIuNiI+CiAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3NyA0MCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9InVybCgjYykiIGQ9Ik02IDI1aDczLjUyM2E2IDYgMCAwIDEgNC4zMDcgMS44MjJsMjQuNDc3IDI1LjIzM0E2IDYgMCAwIDEgMTEwIDU2LjIzM1YxNTRhNiA2IDAgMCAxLTYgNkg2YTYgNiAwIDAgMS02LTZWMzFhNiA2IDAgMCAxIDYtNnoiIG9wYWNpdHk9Ii41NTEiLz4KICAgICAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNkIi8+CiAgICAgICAgICAgICAgICAgICAgPG1hc2sgaWQ9ImgiIGZpbGw9IiNmZmYiPgogICAgICAgICAgICAgICAgICAgICAgICA8dXNlIHhsaW5rOmhyZWY9IiNlIi8+CiAgICAgICAgICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICAgICAgICAgIDx1c2UgZmlsbD0idXJsKCNmKSIgb3BhY2l0eT0iLjcyMiIgeGxpbms6aHJlZj0iI2UiLz4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSJ1cmwoI2cpIiBkPSJNMTA2LjcyOC0xLjE2NGwyOC42ODYgMzAuNDc5YTEgMSAwIDAgMS0uNzI4IDEuNjg1SDEwOWE0IDQgMCAwIDEtNC00Vi0uNDc4YTEgMSAwIDAgMSAxLjcyOC0uNjg2eiIgbWFzaz0idXJsKCNoKSIvPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDxnIG1hc2s9InVybCgjYikiPgogICAgICAgICAgICAgICAgPHVzZSBmaWxsPSIjMDAwIiBmaWx0ZXI9InVybCgjaSkiIHhsaW5rOmhyZWY9IiNqIi8+CiAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNqIi8+CiAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPGcgbWFzaz0idXJsKCNiKSIgb3BhY2l0eT0iLjIiPgogICAgICAgICAgICAgICAgPHVzZSBmaWxsPSIjMDAwIiBmaWx0ZXI9InVybCgjaykiIHhsaW5rOmhyZWY9IiNsIi8+CiAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiMxODlCRkYiIHhsaW5rOmhyZWY9IiNsIi8+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPGNpcmNsZSBjeD0iMjM5IiBjeT0iMTUzIiByPSIxOCIgZmlsbD0iIzE4OUJGRiIgb3BhY2l0eT0iLjEwNyIvPgogICAgICAgIDxjaXJjbGUgY3g9Ijc4LjUiIGN5PSI1NC41IiByPSIxMC41IiBmaWxsPSIjMTg5QkZGIiBvcGFjaXR5PSIuMyIvPgogICAgICAgIDxjaXJjbGUgY3g9IjU4IiBjeT0iMjkiIHI9IjI5IiBmaWxsPSIjMTg5QkZGIiBvcGFjaXR5PSIuMTA3Ii8+CiAgICAgICAgPGNpcmNsZSBjeD0iMjU3IiBjeT0iMTI2IiByPSI3IiBmaWxsPSIjMTg5QkZGIiBvcGFjaXR5PSIuMjk5Ii8+CiAgICA8L2c+Cjwvc3ZnPg==';
+
+var TBody = function TBody(_ref) {
+  var headers = _ref.headers,
+      rowData = _ref.rowData,
+      isRowLink = _ref.isRowLink;
+
+  var renderPlaceholder = function renderPlaceholder() {
+    return React.createElement("tr", null, React.createElement("td", {
+      colSpan: headers.length
+    }, React.createElement("img", {
+      src: visualAlert,
+      width: "290px",
+      height: "230px"
+    }), React.createElement("span", {
+      className: "body_r_20"
+    }, "There is no data", React.createElement("br", null), "Please search again")));
+  };
+
+  var goDetail = function goDetail(id) {
+    window.location.href = "id/".concat(id);
+  };
+
+  var createBody = function createBody(rowsData) {
+    return rowsData.map(function (data, idx) {
+      return React.createElement("tr", {
+        key: idx,
+        className: styles$4.tr,
+        onClick: isRowLink ? function () {
+          return goDetail(data.subject_id);
+        } : null
+      }, Object.values(data).map(function (row, idx) {
+        // if (data.hasOwnProperty('risk_score') && idx === 2) {
+        //   row = <BarGauge score={(row * 100).toFixed(2)} />
+        // }
+        if (row.match && row.match(/\d{4}-/)) {
+          var d = new Date(row);
+          row = "".concat(d.getFullYear(), "-").concat(('0' + (d.getMonth() + 1)).slice(-2), "-").concat(('0' + d.getDate()).slice(-2), " ").concat(('0' + d.getHours()).slice(-2), ":").concat(('0' + d.getMinutes()).slice(-2));
+        }
+
+        return React.createElement("td", {
+          className: styles$4.td,
+          key: idx
+        }, row);
+      }));
+    });
+  };
+
+  return React.createElement("tbody", {
+    className: isEmpty_1(rowData) ? styles$4.empty_table_grey_list : null
+  }, isEmpty_1(rowData) ? renderPlaceholder() : createBody(rowData));
+};
+
+var Table = function Table(_ref) {
+  var data = _ref.data,
+      isRowLink = _ref.isRowLink;
+  return React.createElement("table", {
+    className: styles$4.table
+  }, React.createElement(THead, data), React.createElement(TBody, _extends({}, data, {
+    isRowLink: isRowLink
+  })));
+};
+
+export { BarGauge, RadiusGauge, SankeyChart, SelectedCard, SummaryCard, Table };
