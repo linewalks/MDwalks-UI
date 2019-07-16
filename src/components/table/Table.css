@@ -1,6 +1,13 @@
 .table {
   border-collapse: collapse;
   border-spacing: 0;
+  width: 100%;
+}
+
+.body_b_16 {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: -0.5px;
 }
 
 .th {

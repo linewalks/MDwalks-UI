@@ -54,7 +54,7 @@ const THead = ({ headers, subHeaders }) => {
   }
 
   return (
-    <thead className="body_b_16">
+    <thead className={styles.body_b_16}>
       {createHeader(headers, subHeaders)}
       {subHeaders === undefined ? null : createSubHeader(subHeaders)}
     </thead>
