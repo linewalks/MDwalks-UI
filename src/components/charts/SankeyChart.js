@@ -227,6 +227,10 @@ class SankeyChart extends React.Component {
         this.getSelectedNode(this.getNodeName(data))
         onClick(this.state.selectedNodes)
       })
+    } else {
+      nodes.on('click', data => {
+        this.getSelectedNode(this.getNodeName(data))
+      })
     }
 
     return nodes

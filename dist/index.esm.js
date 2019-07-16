@@ -23935,6 +23935,10 @@ function (_React$Component) {
 
           onClick(_this.state.selectedNodes);
         });
+      } else {
+        nodes.on('click', function (data) {
+          _this.getSelectedNode(_this.getNodeName(data));
+        });
       }
 
       return nodes;
