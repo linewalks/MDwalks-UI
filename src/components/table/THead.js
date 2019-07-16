@@ -6,15 +6,23 @@ import styles from './Table.css'
 const THead = ({ headers, subHeaders }) => {
   const createHeader = (headerData, subHeaderData) => {
     if (isEmpty(subHeaderData)) {
-      return (
-        <tr>
-          {headerData.map((header, idx) => {
-            return (
-              <th key={header} className={styles.th}>{tableHeaderConvert(header)}</th>
-            )
-          })}
-        </tr>
-      )
+      if (isEmpty(headerData)) {
+        return (
+          <tr>
+            <th></th>
+          </tr>
+        )
+      } else {
+        return (
+          <tr>
+            {headerData.map((header, idx) => {
+              return (
+                <th key={header} className={styles.th}>{tableHeaderConvert(header)}</th>
+              )
+            })}
+          </tr>
+        )
+      }
     } else {
       return (
        <tr>
@@ -56,7 +64,7 @@ const THead = ({ headers, subHeaders }) => {
   return (
     <thead className={styles.body_b_16}>
       {createHeader(headers, subHeaders)}
-      {subHeaders === undefined ? null : createSubHeader(subHeaders)}
+      {isEmpty(subHeaders) ? null : createSubHeader(subHeaders)}
     </thead>
   )
 };
