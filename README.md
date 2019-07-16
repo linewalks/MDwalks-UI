@@ -64,6 +64,28 @@
    | width | Number |         | 0 ~ Infinity | RadiusGauge Horizontal Area |
    | height | Number |        | 0 ~ Infinity | RadiusGauge Vertical Area | 
 
+* ### SelectedCard Component
+
+  ![SelectedCard](./src/assets/img/SelectedCard.png)
+  
+  ```javascript
+  import SelectedCard from '<SelectedCard Path>'
+  
+  const App = () => {
+    return (
+      <div>
+        <SelectedCard selectedElement={['a', 'b', 'c']} />
+      </div>
+    )
+  }
+  ```
+
+    * ### Props
+
+   |  Name |  Type  | Default | Range   |  Description        | 
+   |:------|:-------|:--------|:------- |:--------------------|
+   | selectedElement | Array |   []     |   | Text Collection of Card Element |
+
 * ### SummaryCard Component
 
   ![SummaryCard](./src/assets/img/SummaryCard.png)
@@ -92,5 +114,3 @@
    |  Name |  Type  | Default | Range   |  Description        | 
    |:------|:-------|:--------|:------- |:--------------------|
    | data | Object |         |   | Summary Card Information |
-
-
