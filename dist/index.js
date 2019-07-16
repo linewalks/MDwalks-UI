@@ -5759,6 +5759,79 @@ var SelectedCard = function SelectedCard(_ref) {
   }));
 };
 
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}
+
+var css$3 = ".SummaryCard_wrap_1200__3wrA9 {\n  max-width: 1200px;\n  width: 1200px;\n  margin: 0 auto;\n}\n\narticle {\n  width: 282px;\n  height: 170px;\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);\n  background-color: #ffffff;\n  font-size: 0;\n  display: inline-block;\n  text-align: center;\n  margin-right: 24px;\n}\n\narticle:last-child {\n  margin-right: 0;\n}\n\narticle > div {\n  position: relative;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  background-repeat: no-repeat;\n  background-position-x: 12px;\n  background-position-y: 52px;\n}\n\n.SummaryCard_summary_b_42__sRaMy {\n  font-size: 42px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n  color: #002d4f;\n}\n\ndd {\n  display: block;\n  margin-inline-start: 40px;\n}\n\ndl {\n  width: 100%;\n  text-align: right;\n  padding-right: 44px;\n}\n\ndl, dd {\n  margin: 0;\n}\n\ndt {\n  color: rgba(0, 0, 0, 0.4);\n}\n\n.SummaryCard_body_b_16__3I3-j {\n  font-size: 16px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n}";
+var styles$3 = {"wrap_1200":"SummaryCard_wrap_1200__3wrA9","summary_b_42":"SummaryCard_summary_b_42__sRaMy","body_b_16":"SummaryCard_body_b_16__3I3-j"};
+styleInject(css$3);
+
+var SummaryCard = function SummaryCard(_ref) {
+  var data = _ref.data;
+  var summaryData = Object.entries(data);
+
+  if (summaryData.length === 0) {
+    summaryData = [{
+      "Event Occurrence": 0,
+      "Number of Patients": 0,
+      "Average Mortality Rate": 0.0,
+      "Average Length of Stay": 0
+    }];
+  }
+
+  return React.createElement("div", {
+    className: styles$3.wrap_1200
+  }, summaryData.map(function (_ref2, idx) {
+    var _ref3 = _slicedToArray(_ref2, 2),
+        name = _ref3[0],
+        value = _ref3[1];
+
+    return React.createElement("article", {
+      key: idx
+    }, React.createElement("div", null, React.createElement("dl", null, React.createElement("dd", {
+      className: styles$3.summary_b_42
+    }, value), React.createElement("dt", {
+      className: styles$3.body_b_16
+    }, name))));
+  }));
+};
+
 exports.BarGauge = BarGauge;
 exports.RadiusGauge = RadiusGauge;
 exports.SelectedCard = SelectedCard;
+exports.SummaryCard = SummaryCard;

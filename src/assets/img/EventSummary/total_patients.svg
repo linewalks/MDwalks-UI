@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="118" height="118" viewBox="0 0 118 118">
+    <defs>
+        <linearGradient id="a" x1="50%" x2="50%" y1="24.028%" y2="100%">
+            <stop offset="0%" stop-color="#40ACFF"/>
+            <stop offset="100%" stop-color="#FFF"/>
+        </linearGradient>
+        <linearGradient id="b" x1="50%" x2="50%" y1="16.634%" y2="100%">
+            <stop offset="0%" stop-color="#189BFF"/>
+            <stop offset="100%" stop-color="#FFF"/>
+        </linearGradient>
+        <filter id="c" width="158.1%" height="219.4%" x="-29.1%" y="-59.7%" filterUnits="objectBoundingBox">
+            <feOffset dy="3" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
+            <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0 0 0 0 0 0.412595114 0 0 0 0 0.727553216 0 0 0 0.12 0"/>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g opacity=".26">
+            <path fill="url(#a)" d="M32 19c6.344 0 11.487 5.143 11.487 11.487v6.582c0 6.344-5.143 11.487-11.487 11.487s-11.487-5.143-11.487-11.487v-6.582C20.513 24.143 25.656 19 32 19zM22.27 52.778H41.73c10.292 0 18.904 7.81 19.905 18.053L64 95H0l2.364-24.169c1.001-10.243 9.613-18.053 19.905-18.053z" opacity=".6" transform="translate(3)"/>
+            <path fill="url(#b)" d="M64.598 0c9.762 0 17.676 7.913 17.676 17.675v7.532c0 9.762-7.914 17.675-17.676 17.675-9.761 0-17.675-7.913-17.675-17.675v-7.532C46.923 7.913 54.837 0 64.598 0zm-15.24 48.441h31.284c14.365 0 26.4 10.872 27.856 25.164L112 108H18l3.502-34.395c1.456-14.292 13.49-25.164 27.856-25.164z" transform="translate(3)"/>
+        </g>
+        <g filter="url(#c)" transform="translate(20 62)">
+            <rect width="19" height="2" x="4" y="9" fill="#189BFF" opacity=".4" rx="1" transform="rotate(-17 13.5 10)"/>
+            <rect width="23" height="3" x="17.808" y="13.394" fill="#189BFF" opacity=".4" rx="1.5" transform="rotate(52 29.308 14.894)"/>
+            <rect width="21" height="3" x="40.123" y="20.328" fill="#189BFF" opacity=".4" rx="1.5" transform="rotate(-41 50.623 21.828)"/>
+            <circle cx="66" cy="8" r="8" fill="#FFF"/>
+            <circle cx="41" cy="30" r="6" fill="#FFF"/>
+            <circle cx="23" cy="7" r="4" fill="#FFF"/>
+            <circle cx="4" cy="13" r="4" fill="#FFF"/>
+        </g>
+    </g>
+</svg>

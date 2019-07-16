@@ -70,7 +70,7 @@
   
   ```javascript
   import SelectedCard from '<SelectedCard Path>'
-
+  
   const App = () => {
     return (
       <div>
@@ -80,8 +80,37 @@
   }
   ```
 
-  * ### Props
+    * ### Props
 
    |  Name |  Type  | Default | Range   |  Description        | 
    |:------|:-------|:--------|:------- |:--------------------|
    | selectedElement | Array |   []     |   | Text Collection of Card Element |
+
+* ### SummaryCard Component
+
+  ![SummaryCard](./src/assets/img/SummaryCard.png)
+  
+  ```javascript
+  import SummaryCard from '<SummaryCard Path>'
+
+  const App = () => {
+    return (
+      <div>
+        <SummaryCard  
+          data={{
+            "Follow-up Patients": 24764,
+            "High Risk Patients": 4833,
+            "A.I. Analysis Features": 780,
+            "Total Patients": 572811
+          }}
+        />
+      </div>
+    )
+  }
+  ```
+
+  * ### Props
+
+   |  Name |  Type  | Default | Range   |  Description        | 
+   |:------|:-------|:--------|:------- |:--------------------|
+   | data | Object |         |   | Summary Card Information |
