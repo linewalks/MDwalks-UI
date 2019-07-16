@@ -144,3 +144,47 @@
    |  Name |  Type  | Default | Description        | 
    |:------|:-------|:------- |:--------------------|
    | data | Object |         | Summary Card Information |
+
+  
+* ### Table
+
+  ![Table](./src/assets/img/Table.png)
+  ![Table_nodata](./src/assets/img/Table_nodata.png)
+  
+  ```javascript
+  import Table from '<Table Path>'
+
+  const App = () => {
+    return (
+      <div>
+        <Table 
+          data={{
+            headers: ['a', 'b', 'c'],
+            rowData: [
+              {
+                'a': 1,
+                'b': 2,
+                'c': 3
+              },
+              {
+                'a': 4,
+                'b': 5,
+                'c': 6
+              },
+              {
+                'a': 7,
+                'b': 8,
+                'c': 9
+              },
+            ]
+          }} 
+        />
+      </div>
+    )
+  }
+  ```
+
+  * ### Props
+   |  Name |  Type  | Default | Description        | 
+   |:------|:-------|:------- |:--------------------|
+   | data | Object |         | Table Information |
