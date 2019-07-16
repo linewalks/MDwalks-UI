@@ -37,26 +37,27 @@
   color: #002d4f;
 }
 
-dd {
+.article dd {
   display: block;
   margin-inline-start: 40px;
 }
 
-dl {
+.article dl {
   width: 100%;
   text-align: right;
   padding-right: 44px;
 }
 
-dl, dd {
+.article dl,
+.article dd {
   margin: 0;
 }
 
-dt {
+.article dt {
   color: rgba(0, 0, 0, 0.4);
 }
 
-.body_b_16 {
+.article .body_b_16 {
   font-size: 16px;
   font-weight: bold;
   letter-spacing: -0.5px;
