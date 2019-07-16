@@ -4,7 +4,7 @@
   margin: 0 auto;
 }
 
-article {
+.article {
   width: 282px;
   height: 170px;
   border-radius: 10px;
@@ -16,11 +16,11 @@ article {
   margin-right: 24px;
 }
 
-article:last-child {
+.article:last-child {
   margin-right: 0;
 }
 
-article > div {
+.article > div {
   position: relative;
   height: 100%;
   display: flex;

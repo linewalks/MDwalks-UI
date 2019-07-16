@@ -17,7 +17,7 @@ const SummaryCard = ({data}) => {
     <div className={styles.wrap_1200}>
       {summaryData.map(([name, value], idx) => {
         return (
-          <article key={idx}>
+          <article key={idx} className={styles.article}>
             <div>
               <dl>
                 <dd className={styles.summary_b_42}>
