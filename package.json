@@ -35,6 +35,8 @@
     "d3": "^5.9.7",
     "d3-sankey-circular": "^0.34.0",
     "lodash": "^4.17.14",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "rollup": "^1.16.7",
@@ -43,6 +45,6 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-replace": "^2.2.0",
-    "uglify-js": "^3.6.0"
+    "rollup-plugin-svg": "^2.0.0"
   }
 }

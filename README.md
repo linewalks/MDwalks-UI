@@ -40,7 +40,8 @@
    |:------|:-------|:--------|:------- |:--------------------|
    | score | Number |         | 0 ~ 100 | BarGauge fill width | 
 
-   * ### RadiusGauge Component
+
+* ### RadiusGauge Component
 
   ![RadiusGauge](./src/assets/img/RadiusGauge.png)
   
@@ -64,6 +65,9 @@
    | width | Number |         | 0 ~ Infinity | RadiusGauge Horizontal Area |
    | height | Number |        | 0 ~ Infinity | RadiusGauge Vertical Area | 
 
+
+* Sankey Chart Component
+
   ![SankeyChart](./src/assets/img/SankeyChart.png)
 
   ```javascript
@@ -81,7 +85,6 @@
     )
   }
   ```
-
   * ### Props
 
    |  Name |  Type  | Default |  Description        | 
@@ -89,3 +92,55 @@
    | data | Object |         | SankeyChart Data |
    | onNodeClick | Function |         | SankeyChart Node Click Event Handler |
    | onLinkClick | Function |         | SankeyChart Link Click Event Handler | 
+
+
+* ### SelectedCard Component
+
+  ![SelectedCard](./src/assets/img/SelectedCard.png)
+  
+  ```javascript
+  import SelectedCard from '<SelectedCard Path>'
+  
+  const App = () => {
+    return (
+      <div>
+        <SelectedCard selectedElement={['a', 'b', 'c']} />
+      </div>
+    )
+  }
+  ```
+
+    * ### Props
+
+   |  Name |  Type  | Default | Description        | 
+   |:------|:-------|:--------|:--------------------|
+   | selectedElement | Array |   []    | Text Collection of Card Element |
+
+
+* ### SummaryCard Component
+
+  ![SummaryCard](./src/assets/img/SummaryCard.png)
+  
+  ```javascript
+  import SummaryCard from '<SummaryCard Path>'
+
+  const App = () => {
+    return (
+      <div>
+        <SummaryCard  
+          data={{
+            "Follow-up Patients": 24764,
+            "High Risk Patients": 4833,
+            "A.I. Analysis Features": 780,
+            "Total Patients": 572811
+          }}
+        />
+      </div>
+    )
+  }
+  ```
+
+  * ### Props
+   |  Name |  Type  | Default | Description        | 
+   |:------|:-------|:------- |:--------------------|
+   | data | Object |         | Summary Card Information |

@@ -2,6 +2,7 @@ import babel from "rollup-plugin-babel";
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
+import svg from 'rollup-plugin-svg'
 import pkg from './package.json'
 
 export default {
@@ -26,9 +27,12 @@ export default {
     resolve({
       jsnext: true,
       main: true,
-      module: true
+      browser: true,
     }),
-    commonjs()
+    commonjs(),
+    svg({
+      base64: true
+    })
   ],
   external: ["react"],
 } 

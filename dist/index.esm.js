@@ -24079,4 +24079,65 @@ SankeyChart.defaultProps = {
   data: sankeyData
 };
 
-export { BarGauge, RadiusGauge, SankeyChart };
+var css$2 = ".SelectedCard_wrap_1200__2Uu8v {\n  max-width: 1200px;\n  width: 1200px;\n  margin: 0 auto;\n  text-align: center;\n}\n\n.SelectedCard_arrow__1KwcE {\n  display: inline-block;\n  background-repeat: no-repeat;\n  background-position-x: 100%;\n  background-position-y: 15px;\n  padding-right: 18px;\n  margin-right: 8px;\n}\n\n.SelectedCard_card_contatiner__3DS8T {\n  display: inline-block;\n  border-radius: 25px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);\n  background-color: #002b4f;\n  padding: 11px 24px 10px;\n}\n\n.SelectedCard_card__15x9m {\n  color: #ffffff;\n  line-height: 1;\n  font-size: 20px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n}";
+var styles$2 = {"wrap_1200":"SelectedCard_wrap_1200__2Uu8v","arrow":"SelectedCard_arrow__1KwcE","card_contatiner":"SelectedCard_card_contatiner__3DS8T","card":"SelectedCard_card__15x9m"};
+styleInject(css$2);
+
+var backgroundArrow = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDE0IDE0Ij4KICAgIDxwYXRoIGZpbGw9IiMwMDJENEYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTguNzA3IDEuNjM2bDQuNjU3IDQuNjU3YTEgMSAwIDAgMSAwIDEuNDE0bC00LjY1NyA0LjY1N0ExIDEgMCAwIDEgNyAxMS42NTdWMi4zNDNhMSAxIDAgMCAxIDEuNzA3LS43MDd6IiBvcGFjaXR5PSIuOCIvPgo8L3N2Zz4=';
+
+var SelectedCard = function SelectedCard(_ref) {
+  var selectedElement = _ref.selectedElement;
+  return React.createElement("div", {
+    className: styles$2.wrap_1200
+  }, selectedElement.map(function (element, idx) {
+    return React.createElement("article", {
+      key: idx,
+      className: styles$2.arrow,
+      style: idx !== selectedElement.length - 1 ? {
+        backgroundImage: "url(".concat(backgroundArrow, ")")
+      } : null
+    }, React.createElement("div", {
+      className: styles$2.card_contatiner,
+      key: idx
+    }, React.createElement("span", {
+      className: styles$2.card,
+      key: idx
+    }, element)));
+  }));
+};
+
+var css$3 = ".SummaryCard_wrap_1200__3wrA9 {\n  max-width: 1200px;\n  width: 1200px;\n  margin: 0 auto;\n}\n\narticle {\n  width: 282px;\n  height: 170px;\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);\n  background-color: #ffffff;\n  font-size: 0;\n  display: inline-block;\n  text-align: center;\n  margin-right: 24px;\n}\n\narticle:last-child {\n  margin-right: 0;\n}\n\narticle > div {\n  position: relative;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  background-repeat: no-repeat;\n  background-position-x: 12px;\n  background-position-y: 52px;\n}\n\n.SummaryCard_summary_b_42__sRaMy {\n  font-size: 42px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n  color: #002d4f;\n}\n\ndd {\n  display: block;\n  margin-inline-start: 40px;\n}\n\ndl {\n  width: 100%;\n  text-align: right;\n  padding-right: 44px;\n}\n\ndl, dd {\n  margin: 0;\n}\n\ndt {\n  color: rgba(0, 0, 0, 0.4);\n}\n\n.SummaryCard_body_b_16__3I3-j {\n  font-size: 16px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n}";
+var styles$3 = {"wrap_1200":"SummaryCard_wrap_1200__3wrA9","summary_b_42":"SummaryCard_summary_b_42__sRaMy","body_b_16":"SummaryCard_body_b_16__3I3-j"};
+styleInject(css$3);
+
+var SummaryCard = function SummaryCard(_ref) {
+  var data = _ref.data;
+  var summaryData = Object.entries(data);
+
+  if (summaryData.length === 0) {
+    summaryData = [{
+      "Event Occurrence": 0,
+      "Number of Patients": 0,
+      "Average Mortality Rate": 0.0,
+      "Average Length of Stay": 0
+    }];
+  }
+
+  return React.createElement("div", {
+    className: styles$3.wrap_1200
+  }, summaryData.map(function (_ref2, idx) {
+    var _ref3 = _slicedToArray(_ref2, 2),
+        name = _ref3[0],
+        value = _ref3[1];
+
+    return React.createElement("article", {
+      key: idx
+    }, React.createElement("div", null, React.createElement("dl", null, React.createElement("dd", {
+      className: styles$3.summary_b_42
+    }, value), React.createElement("dt", {
+      className: styles$3.body_b_16
+    }, name))));
+  }));
+};
+
+export { BarGauge, RadiusGauge, SankeyChart, SelectedCard, SummaryCard };
