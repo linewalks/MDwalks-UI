@@ -145,7 +145,7 @@
    |:------|:-------|:------- |:--------------------|
    | data | Object |         | Summary Card Information |
 
-  
+
 * ### Table
 
   ![Table](./src/assets/img/Table.png)
@@ -188,3 +188,49 @@
    |  Name |  Type  | Default | Description        | 
    |:------|:-------|:------- |:--------------------|
    | data | Object |         | Table Information |
+
+
+* ### Line Chart Component
+
+  ![LineChart](./src/assets/img/LineChart.png)
+
+  ```javascript
+  import LineChart from '<LineChart Path>'
+  const App = () => {
+    return (
+      <div>
+        <LineChart
+          title={'test'}
+          data={[
+            {
+              "name": "value",
+              "data": [
+                0.36,
+                0.9,
+              ]
+            }
+          ]}
+          xAxisCategory={[
+            "2030-06-26",
+            "2032-07-11",
+          ]}
+          xAxisTitle={'Date'}
+          xAxisTitleAlign={'middle'}
+          yAxisTitle={'value'}
+          yAxisTitleAlign={'middle'}  
+        />
+      </div>
+    )
+  }
+  ```
+
+  * ### Props
+   |  Name |  Type  | Default | Description        | 
+   |:------|:-------|:------- |:--------------------|
+   | title | String | 'Line Chart' | Line Chart Title |
+   | data | Array |  []   | Line Chart Data |
+   | xAxisCategory | Array |         | Line Chart XAxis Category |
+   | xAxisTitle | String | 'xAxis' | Line Chart XAxis Title |
+   | xAxisTitleAlign | String | 'middle' | Line Chart XAxis Title Position |
+   | yAxisTitle | String | 'yAxis' | Line Chart YAxis Title |
+   | yAxisTitleAlign | String | ''middle' | Line Chart YAxis Title Position |
