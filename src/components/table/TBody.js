@@ -7,7 +7,7 @@ const TBody = ({headers, rowData, isRowLink}) => {
   const renderPlaceholder = () => {
     return (
       <tr>
-        <td colSpan={headers.length}>
+        <td colSpan={isEmpty(headers) ? 1 : headers.length}>
           <img src={visualAlert} width="290px" height="230px" />
           <span className="body_r_20">There is no data<br />Please search again</span>
         </td>
