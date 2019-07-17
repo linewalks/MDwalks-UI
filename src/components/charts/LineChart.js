@@ -40,10 +40,6 @@ class LineChart extends Component {
 
       legend: {
         enabled: false,
-        // layout: this.props.legendLayout,
-        // align: this.props.legendAlign,
-        // verticalAlign: this.props.legendVerticalAlign,
-        // width: this.props.legendWidth,
       },
 
       tooltip: {
@@ -71,7 +67,6 @@ class LineChart extends Component {
       plotOptions: {
         series: {
           marker: {
-            // fillColor: 'red',
             radius: 5,
             width: 10,
             height: 10
@@ -126,14 +121,11 @@ class LineChart extends Component {
 LineChart.defaultProps = {
   title: 'Line Chart',
   data: [],
+  xAxisCategory: [],
   xAxisTitle: 'xAxis',
   xAxisTitleAlign: 'middle',
   yAxisTitle: 'yAxis',
   yAxisTitleAlign: 'middle',
-  legendLayout: 'vertical',
-  legendAlign: 'right',
-  legendVerticalAlign: 'middle',
-  legendWidth: 200,
 }
 
 export default LineChart;

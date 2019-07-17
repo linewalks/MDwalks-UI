@@ -186,7 +186,7 @@
    |:------|:-------|:------- |:--------------------|
    | title | String | 'Line Chart' | Line Chart Title |
    | data | Array |  []   | Line Chart Data |
-   | xAxisCategory | Array |         | Line Chart XAxis Category |
+   | xAxisCategory | Array | [] | Line Chart XAxis Category |
    | xAxisTitle | String | 'xAxis' | Line Chart XAxis Title |
    | xAxisTitleAlign | String | 'middle' | Line Chart XAxis Title Position |
    | yAxisTitle | String | 'yAxis' | Line Chart YAxis Title |

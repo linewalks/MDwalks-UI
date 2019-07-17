@@ -24828,11 +24828,7 @@ function (_Component) {
         tickInterval: _this.props.yAxisTickInterval
       },
       legend: {
-        enabled: false // layout: this.props.legendLayout,
-        // align: this.props.legendAlign,
-        // verticalAlign: this.props.legendVerticalAlign,
-        // width: this.props.legendWidth,
-
+        enabled: false
       },
       tooltip: {
         backgroundColor: '#ffffff',
@@ -24858,7 +24854,6 @@ function (_Component) {
       plotOptions: {
         series: {
           marker: {
-            // fillColor: 'red',
             radius: 5,
             width: 10,
             height: 10
@@ -24901,14 +24896,11 @@ function (_Component) {
 LineChart.defaultProps = {
   title: 'Line Chart',
   data: [],
+  xAxisCategory: [],
   xAxisTitle: 'xAxis',
   xAxisTitleAlign: 'middle',
   yAxisTitle: 'yAxis',
-  yAxisTitleAlign: 'middle',
-  legendLayout: 'vertical',
-  legendAlign: 'right',
-  legendVerticalAlign: 'middle',
-  legendWidth: 200
+  yAxisTitleAlign: 'middle'
 };
 
 export { BarGauge, LineChart, RadiusGauge, SankeyChart, SelectedCard, SummaryCard, Table };
