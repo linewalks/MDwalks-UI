@@ -146,13 +146,56 @@
    | data | Object |         | Summary Card Information |
 
 
+* ### Table
+
+  ![Table](./src/assets/img/Table.png)
+  ![Table_nodata](./src/assets/img/Table_nodata.png)
+  
+  ```javascript
+  import Table from '<Table Path>'
+
+  const App = () => {
+    return (
+      <div>
+        <Table 
+          data={{
+            headers: ['a', 'b', 'c'],
+            rowData: [
+              {
+                'a': 1,
+                'b': 2,
+                'c': 3
+              },
+              {
+                'a': 4,
+                'b': 5,
+                'c': 6
+              },
+              {
+                'a': 7,
+                'b': 8,
+                'c': 9
+              },
+            ]
+          }} 
+        />
+      </div>
+    )
+  }
+  ```
+
+  * ### Props
+   |  Name |  Type  | Default | Description        | 
+   |:------|:-------|:------- |:--------------------|
+   | data | Object |         | Table Information |
+
+
 * ### Line Chart Component
 
   ![LineChart](./src/assets/img/LineChart.png)
-  
+
   ```javascript
   import LineChart from '<LineChart Path>'
-
   const App = () => {
     return (
       <div>
@@ -186,7 +229,7 @@
    |:------|:-------|:------- |:--------------------|
    | title | String | 'Line Chart' | Line Chart Title |
    | data | Array |  []   | Line Chart Data |
-   | xAxisCategory | Array | [] | Line Chart XAxis Category |
+   | xAxisCategory | Array |         | Line Chart XAxis Category |
    | xAxisTitle | String | 'xAxis' | Line Chart XAxis Title |
    | xAxisTitleAlign | String | 'middle' | Line Chart XAxis Title Position |
    | yAxisTitle | String | 'yAxis' | Line Chart YAxis Title |
