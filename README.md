@@ -234,3 +234,81 @@
    | xAxisTitleAlign | String | 'middle' | Line Chart XAxis Title Position |
    | yAxisTitle | String | 'yAxis' | Line Chart YAxis Title |
    | yAxisTitleAlign | String | ''middle' | Line Chart YAxis Title Position |
+
+
+   * ### Timeline Component
+
+  ![Timeline](./src/assets/img/Timeline.png)
+
+  ```javascript
+  import Timeline from '<Timeline Path>'
+  const data = [
+    {
+      "dataPoints": [
+        {
+          "start_time": "2015-03-09T13:20:00",
+          "end_time": "2015-03-09T13:20:00"
+        },
+        {
+          "start_time": "2015-03-09T14:10:00",
+          "end_time": "2015-03-09T14:10:00"
+        },
+        {
+          "start_time": "2015-03-24T12:51:00",
+          "end_time": "2015-03-28T12:51:00"
+        },
+      ],
+      "label": [
+        "a"
+      ],
+      "order": 0
+    },
+    {
+      "dataPoints": [],
+      "label": [
+        "b"
+      ],
+      "order": 1
+    },
+    {
+      "dataPoints": [
+        {
+          "start_time": "2015-06-26T00:00:00",
+          "end_time": "2015-06-26T00:00:00"
+        }
+      ],
+      "label": [
+        "c"
+      ],
+      "order": 2
+    },
+    {
+      "dataPoints": [
+        {
+          "start_time": "2015-04-09T00:00:00",
+          "end_time": "2017-01-07T00:00:00"
+        }
+      ],
+      "label": [
+        "d"
+      ],
+      "order": 3
+    },
+  ] 
+
+  const App = () => {
+    return (
+      <div>
+        <Timeline
+          data={data}
+        />
+      </div>
+    )
+  }
+
+  ```
+
+  * ### Props
+  |  Name |  Type  | Default | Description        | 
+  |:------|:-------|:------- |:--------------------|
+  | data | Array |     | Timeline Data |
