@@ -39,8 +39,11 @@
 }
 
 .td {
-  padding: 24px;
   text-align: center;
+}
+
+.td > a > div, .td > div {
+  padding: 24px;
 }
 
 .th:first-child, .th:last-child, .td:first-child, .td:last-child {
