@@ -23574,6 +23574,62 @@ var tableHeaderConvert = function tableHeaderConvert(header) {
   return header.split('_').map(function (title) {
     return "".concat(title[0].toUpperCase()).concat(title.slice(1));
   }).join(' ');
+}; // TimelineChart Component Util
+function renderSVG(domObj, width, height) {
+  if (!(domObj instanceof selection)) {
+    throw new Error('domObj is not a d3.selection');
+  }
+
+  return domObj.append('svg').attr('width', width).attr('height', height);
+}
+function generateGroup(anchorEl, _ref) {
+  var _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      _ref$xOffset = _ref.xOffset,
+      xOffset = _ref$xOffset === void 0 ? 0 : _ref$xOffset,
+      _ref$yOffset = _ref.yOffset,
+      yOffset = _ref$yOffset === void 0 ? 0 : _ref$yOffset;
+  return anchorEl.append('g').attr('class', className).attr('transform', "translate(".concat(xOffset, ", ").concat(yOffset, ")"));
+}
+var getStartAndEndTime = function getStartAndEndTime(dataPoints) {
+  if (!(dataPoints instanceof Array)) {
+    throw new Error('datapoints should be a list');
+  }
+
+  var startTime = dataPoints[0].start_time;
+  var endTime = 0;
+  dataPoints.forEach(function (d) {
+    if (!Date.parse(d.start_time) || !Date.parse(d.end_time)) {
+      throw new Error('data point should have both start_time and end_time' + JSON.stringify(d));
+    }
+
+    if (Date.parse(d.start_time) < Date.parse(startTime)) {
+      startTime = d.start_time;
+    }
+
+    if (Date.parse(d.end_time) > Date.parse(endTime)) {
+      endTime = d.end_time;
+    }
+  });
+  return [Date.parse(startTime), Date.parse(endTime)];
+};
+var circleDataFilter = function circleDataFilter(data) {
+  return data.filter(function (d) {
+    return Date.parse(d.end_time) - Date.parse(d.start_time) === 0;
+  });
+};
+var rectDataFilter = function rectDataFilter(data) {
+  return data.filter(function (d) {
+    return Date.parse(d.end_time) - Date.parse(d.start_time) > 0;
+  });
+};
+var labelList = function labelList(data) {
+  var result = [];
+  data.forEach(function (d) {
+    var labelIdx = d.label.length - 1;
+    result.push(d.label[labelIdx]);
+  });
+  return result;
 };
 
 var sankeyData = {
@@ -24919,6 +24975,310 @@ LineChart.defaultProps = {
   yAxisTitleAlign: 'middle'
 };
 
+var css$5 = ".Timeline_timelineChart__3-Cf0 {\n  position: relative;\n}\n\n/* xAxis */\n.Timeline_xAxis__1hoKI, .Timeline_overViewXAxis__1DOvh {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline_labels__38Ge3 text {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline_labels__38Ge3 text:nth-child(n + 4) {\n  fill: rgba(0, 0, 0, 0.3);\n}\n.Timeline_verticalLineText__14s5V {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.Timeline_overViewXAxisGrid__29xyk path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.Timeline_tooltip__2qJdw {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.Timeline_tooltip__2qJdw .Timeline_tooltipDay__2iE2o {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.Timeline_tooltip__2qJdw .Timeline_tooltipLabel__2cWHt {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.Timeline_dot__QBZ1F {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
+var styles$5 = {"timelineChart":"Timeline_timelineChart__3-Cf0","xAxis":"Timeline_xAxis__1hoKI","overViewXAxis":"Timeline_overViewXAxis__1DOvh","labels":"Timeline_labels__38Ge3","verticalLineText":"Timeline_verticalLineText__14s5V","overViewXAxisGrid":"Timeline_overViewXAxisGrid__29xyk","tooltip":"Timeline_tooltip__2qJdw","tooltipDay":"Timeline_tooltipDay__2iE2o","tooltipLabel":"Timeline_tooltipLabel__2cWHt","dot":"Timeline_dot__QBZ1F"};
+styleInject(css$5);
+
+var Timeline =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Timeline, _Component);
+
+  function Timeline() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    _classCallCheck(this, Timeline);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Timeline)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_this), "errorMessage", function (errorType) {
+      console.log('error function');
+      var message;
+
+      if (errorType === 'typeOfVariable') {
+        message = 'type is invalid';
+      }
+
+      if (errorType === 'haveData') {
+        message = 'No data is provided';
+      }
+
+      select(".".concat(styles$5.timelineChart)).append('div').text(message);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderTimeline", function (data) {
+      var timelineData = data; // createFormattedSampledData()
+
+      var xAxisHeight = 32; // Time legend (X-axis) height
+
+      var yAxisWidth = 134; // Labels (Y-axis) width
+
+      var overViewAxisHeight = 50;
+      var height = 521; // Entire height
+
+      var width = 1152; // Entire width
+
+      var defaultPadding = 20;
+      var xAxisWidth = width - yAxisWidth - defaultPadding;
+      var svg = renderSVG(select(".".concat(styles$5.timelineChart)), width, height); // Create xAxis
+      // 1. Get min, max time
+
+      var _getStartAndEndTime = getStartAndEndTime(timelineData.map(function (d) {
+        return d.dataPoints;
+      }).flat()),
+          _getStartAndEndTime2 = _slicedToArray(_getStartAndEndTime, 2),
+          startTime = _getStartAndEndTime2[0],
+          endTime = _getStartAndEndTime2[1]; // 2. Create x axis scale
+
+
+      var xAxisScale = time().domain([startTime, endTime]).range([0, xAxisWidth]); // 3. Create xAxis
+
+      var xAxis = axisTop(xAxisScale); // Create groups
+      // 1. Entire timeline group
+
+      var gTimeline = generateGroup(svg, {
+        className: 'timeline'
+      }); // 2. xAxis group
+
+      var gXAxis = generateGroup(gTimeline, {
+        className: styles$5.xAxis,
+        xOffset: yAxisWidth + defaultPadding + 25,
+        yOffset: xAxisHeight
+      }); //  3. labels group
+
+      var gLabels = generateGroup(gTimeline, {
+        className: styles$5.labels,
+        xOffset: 25,
+        yOffset: 60
+      });
+      var labelStartYPosition = 0;
+      var labelLastYPosition = 348; // Create y axis scale
+
+      var yAxisScale = point$1().domain(labelList(timelineData)).range([labelStartYPosition, labelLastYPosition]); // Render elements
+      // 1. x Axis
+
+      gXAxis.call(xAxis);
+      gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H998.5V-6');
+      gXAxis.selectAll('.tick line').remove(); // 2. labels
+
+      gLabels.selectAll('.label').data(timelineData).enter().append('text').text(function (d) {
+        return d.label[d.label.length - 1];
+      }).attr('x', yAxisWidth).attr('y', function (d) {
+        return yAxisScale(d.label[d.label.length - 1]);
+      }).attr('dx', -15).attr('dy', '.5ex').attr('text-anchor', 'end').attr('class', 'label'); // Creat Grid Group
+
+      var gGrid = generateGroup(gTimeline, {
+        className: 'grid',
+        xOffset: yAxisWidth + defaultPadding + 25,
+        yOffset: xAxisHeight
+      }); // Create YAxis GridLines
+
+      var yAxisGridHeight = height - xAxisHeight - 82;
+      var yAxisGridLines = axisTop(xAxisScale).tickSize(-yAxisGridHeight).tickFormat(''); // Render YAxis Gridlines
+
+      var gYAxisGrid = gGrid.append('g').attr('class', 'yAxisGrid').call(yAxisGridLines);
+      gYAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+      gYAxisGrid.select('.domain').remove(); // Creat XAxis GridLines
+
+      var xAxisGridLines = axisRight(yAxisScale).tickSize(xAxisWidth).tickFormat(''); // Render XAxis Gridlines
+
+      var gXAxisGrid = gGrid.append('g').attr('class', 'xAxisGrid').attr('transform', 'translate(0, 23.5)').call(xAxisGridLines);
+      gXAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8');
+      gXAxisGrid.select('.domain').remove(); // add vertical line
+
+      var lineScale = time().domain([startTime, endTime]).range([yAxisWidth + defaultPadding + 25 - 1, width]);
+      var verticalLineText = svg.append('text').attr('class', styles$5.verticalLineText).attr('y', 42);
+
+      var mouseover = function mouseover() {
+        focus.style('opacity', 1);
+        verticalLineText.style('opacity', 1);
+      };
+
+      var mousemove = function mousemove(d, i, nodes) {
+        var date = xAxisScale.invert(mouse(nodes[i])[0]);
+        var linePositionX = Date.parse(date);
+        focus.attr('x1', xAxisScale(linePositionX)).attr('x2', xAxisScale(linePositionX)).attr('y1', 32).attr('y2', 439).attr('stroke', '#58595a');
+        verticalLineText.text(timeFormat('%Y.%m.%d')(lineScale.invert(mouse(nodes[i])[0]))).attr('x', xAxisScale(linePositionX));
+      };
+
+      var mouseout = function mouseout() {
+        focus.style('opacity', 0);
+        verticalLineText.style('opacity', 0);
+      };
+
+      var verticalLine = gTimeline.append('rect').style('fill', 'none').style('pointer-events', 'all').attr('x', 179).attr('y', 32).attr('width', xAxisWidth).attr('height', height - xAxisHeight - overViewAxisHeight).on('mouseover', mouseover).on('mousemove', mousemove).on('mouseout', mouseout); // Add color scale 
+
+      var circleColorScale = ordinal().domain(labelList(timelineData)).range(['#00745e', '#faafa5', '#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec']);
+      var rectColorScale = ordinal().domain(labelList(timelineData)).range(['#27b097', '#fa6b57', '#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec']);
+      var legendColorScale = ordinal(Paired); // Add tooltip
+
+      var tooltip = select(".".concat(styles$5.timelineChart)).append('div').attr('class', styles$5.tooltip).style('opacity', 0); //  Create Data Group
+
+      var gData = generateGroup(gTimeline, {
+        className: 'data',
+        xOffset: yAxisWidth + defaultPadding + 25,
+        yOffset: xAxisHeight
+      }); //  Add Circle Group
+
+      timelineData.forEach(function (data, idx) {
+        gData.append('g').attr('class', function (d) {
+          return "circles-".concat(idx);
+        }).selectAll('circle').data(circleDataFilter(data.dataPoints)).enter().append('circle').attr('cx', function (d, i) {
+          return xAxisScale(Date.parse(d.start_time));
+        }).attr('cy', yAxisScale(data.label[data.label.length - 1]) + 23.5).attr('r', 7.5).attr('fill', circleColorScale(data.label[data.label.length - 1])).attr('clip-path', 'url(#clip)').on('mouseover', function (d, i, nodes) {
+          var _d3$mouse = mouse(nodes[i]),
+              _d3$mouse2 = _slicedToArray(_d3$mouse, 2),
+              x = _d3$mouse2[0],
+              y = _d3$mouse2[1];
+
+          var label = data.label[data.label.length - 1];
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$5.tooltipLabel, "><span class=").concat(styles$5.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$5.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.start_time)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.end_time)), "</div>\n            </div>\n            ");
+          tooltip.transition().duration(200).style('opacity', 1);
+          tooltip.style('left', "".concat(x + 200, "px")).style('top', "".concat(y - 20, "px")).style('pointer-events', 'none').html(tooltipDescription);
+        }).on('mouseout', function (d) {
+          return tooltip.transition().duration(200).style('opacity', 0);
+        });
+      }); // Add Rect Group
+
+      timelineData.forEach(function (data, idx) {
+        gData.append('g').attr('class', "rects-".concat(idx)).selectAll('rect').data(rectDataFilter(data.dataPoints)).enter().append('rect').attr('x', function (d, i) {
+          return xAxisScale(Date.parse(d.start_time));
+        }).attr('y', yAxisScale(data.label[data.label.length - 1]) + 16).attr('height', 15).attr('width', function (d) {
+          return xAxisScale(Date.parse(d.end_time)) - xAxisScale(Date.parse(d.start_time));
+        }).attr('fill', rectColorScale(data.label[data.label.length - 1])).attr('clip-path', 'url(#clip)').on('mouseover', function (d, i, nodes) {
+          var _d3$mouse3 = mouse(nodes[i]),
+              _d3$mouse4 = _slicedToArray(_d3$mouse3, 2),
+              x = _d3$mouse4[0],
+              y = _d3$mouse4[1];
+
+          var label = data.label[data.label.length - 1];
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$5.tooltipLabel, "><span class=").concat(styles$5.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$5.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.start_time)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.end_time)), "</div>\n            </div>\n            ");
+          tooltip.transition().duration(200).style('opacity', 1);
+          tooltip.style('left', "".concat(x + 200, "px")).style('top', "".concat(y - 20, "px")).style('pointer-events', 'none').html(tooltipDescription);
+        }).on('mouseout', function (d) {
+          return tooltip.transition().duration(200).style('opacity', 0);
+        });
+      }); // add clip (avoid displaying the circle and rect outside the chart area)
+
+      var clip = gTimeline.append('defs').append('clipPath').attr('id', 'clip').append('rect').attr('x', 0).attr('y', 0).attr('width', xAxisWidth).attr('height', height - overViewAxisHeight - xAxisHeight * 2); // overviewAxis
+
+      var gOverViewAxis = generateGroup(gTimeline, {
+        className: 'overViewAxis',
+        xOffset: yAxisWidth + defaultPadding + 25,
+        yOffset: height - overViewAxisHeight - xAxisHeight
+      });
+      var overViewGrid = generateGroup(gOverViewAxis, {
+        className: styles$5.overViewXAxisGrid,
+        xOffset: 0,
+        yOffset: 0
+      }).call(axisTop(xAxisScale).tickSize(-overViewAxisHeight).tickFormat(''));
+      overViewGrid.selectAll('.domain').attr('stroke', '#003964');
+      overViewGrid.selectAll('.tick line').attr('stroke', 'none');
+      var overViewXAxis = generateGroup(gOverViewAxis, {
+        className: styles$5.overViewXAxis,
+        xOffset: 0,
+        yOffset: overViewAxisHeight + 10
+      }).call(axisBottom(xAxisScale).tickPadding(0));
+      overViewXAxis.selectAll('.domain').remove();
+      overViewXAxis.selectAll('.tick line').remove();
+      gTimeline.append('line').attr('x1', yAxisWidth + defaultPadding + 25).attr('x2', width).attr('y1', height - overViewAxisHeight - xAxisHeight).attr('y2', height - overViewAxisHeight - xAxisHeight).attr('stroke', '#003964');
+      gTimeline.append('line').attr('x1', yAxisWidth + defaultPadding + 25).attr('x2', width).attr('y1', height - xAxisHeight).attr('y2', height - xAxisHeight).attr('stroke', '#003964'); // Add brush
+
+      var brushLeftTopPositionX = 0;
+      var brushLeftTopPositionY = 0;
+      var brushRightTopPositionX = xAxisWidth;
+      var brushRightTopPositionY = overViewAxisHeight;
+
+      var brushed = function brushed() {
+        var selection = event.selection;
+        if (selection === null) return;
+        xAxisScale.domain([Date.parse(overViewXAxisScale.invert(selection[0])), Date.parse(overViewXAxisScale.invert(selection[1]))]);
+        lineScale.domain([Date.parse(overViewXAxisScale.invert(selection[0])), Date.parse(overViewXAxisScale.invert(selection[1]))]);
+        gXAxis.transition().duration(500).call(xAxis);
+        gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H998.5V-6');
+        gXAxis.selectAll('.tick line').remove();
+        gYAxisGrid.selectAll('tick').remove();
+        var yAxisGridLines = axisTop(xAxisScale).tickSize(-yAxisGridHeight).tickFormat('');
+        gYAxisGrid.transition().duration(500).call(yAxisGridLines);
+        gYAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+        gYAxisGrid.select('.domain').remove();
+        gData.selectAll('circle').transition().duration(500).attr('cx', function (d, i) {
+          return xAxisScale(Date.parse(d.start_time));
+        }).attr('clip-path', 'url(#clip)');
+        gData.selectAll('rect').transition().duration(500).attr('x', function (d, i) {
+          return xAxisScale(Date.parse(d.start_time));
+        }).attr('width', function (d) {
+          return xAxisScale(Date.parse(d.end_time)) - xAxisScale(Date.parse(d.start_time));
+        }).attr('clip-path', 'url(#clip)');
+      };
+
+      var brush = brushX().extent([[brushLeftTopPositionX, brushLeftTopPositionY], [brushRightTopPositionX, brushRightTopPositionY]]).on('end', brushed);
+      var overViewXAxisScale = time().domain([startTime, endTime]).range([0, xAxisWidth]);
+      var gBrush = generateGroup(gOverViewAxis, {
+        className: 'overViewXAxisBrush'
+      });
+      gBrush.call(brush); // add reset
+
+      select('#reset').on('click', function () {
+        xAxisScale.domain(overViewXAxisScale.domain());
+        lineScale.domain(overViewXAxisScale.domain());
+        gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M 0.5 0V0.5H998.5V-6');
+        gXAxis.selectAll('.tick line').remove();
+        var yAxisGridLines = axisTop(xAxisScale).tickSize(-yAxisGridHeight).tickFormat('');
+        gYAxisGrid.transition().duration(500).call(yAxisGridLines);
+        gYAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+        gYAxisGrid.select('.domain').remove();
+        gXAxis.transition().duration(500).call(xAxis);
+        gBrush.select('rect.selection').transition().duration(500).attr('width', 0);
+        gData.selectAll('circle').transition().duration(500).attr('cx', function (d, i) {
+          return xAxisScale(Date.parse(d.start_time));
+        });
+        gData.selectAll('rect').transition().duration(500).attr('x', function (d, i) {
+          return xAxisScale(Date.parse(d.start_time));
+        }).attr('width', function (d) {
+          return xAxisScale(Date.parse(d.end_time)) - xAxisScale(Date.parse(d.start_time));
+        });
+      });
+      var focus = gTimeline.append('line').attr('class', 'focus').attr('fill', 'none').style('pointer-events', 'none');
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
+      var data = _this.props.data;
+      console.log('didmount');
+
+      if (isEmpty_1(data)) {
+        console.log('didmount emtpy data');
+        return _this.errorMessage('haveData');
+      }
+
+      if (!Array.isArray(data)) {
+        return _this.errorMessage('typeOfVariable');
+      }
+
+      return _this.renderTimeline(data);
+    });
+
+    return _this;
+  }
+
+  _createClass(Timeline, [{
+    key: "render",
+    value: function render() {
+      return React__default.createElement("div", {
+        className: styles$5.timelineChart
+      }, console.log('render'));
+    }
+  }]);
+
+  return Timeline;
+}(React.Component);
+
 exports.BarGauge = BarGauge;
 exports.LineChart = LineChart;
 exports.RadiusGauge = RadiusGauge;
@@ -24926,3 +25286,4 @@ exports.SankeyChart = SankeyChart;
 exports.SelectedCard = SelectedCard;
 exports.SummaryCard = SummaryCard;
 exports.Table = Table;
+exports.Timeline = Timeline;
