@@ -4,7 +4,7 @@ import THead from './THead';
 import TBody from './TBody';
 import styles from './Table.css';
 
-const Table = ({ data, isRowLink }) => {
+const Table = ({ data, wrapTh, wrapTd }) => {
   if(isEmpty(data)) {
     return (
       <div>
@@ -14,8 +14,8 @@ const Table = ({ data, isRowLink }) => {
   } else {
     return (
       <table className={styles.table}>
-        <THead {...data} />
-        <TBody {...data} isRowLink={isRowLink} />
+        <THead {...data} wrapTh={wrapTh} />
+        <TBody {...data} wrapTd={wrapTd} />
       </table>
     );
   }

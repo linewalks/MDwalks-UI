@@ -24236,7 +24236,7 @@ var SummaryCard = function SummaryCard(_ref) {
   }));
 };
 
-var css$4 = ".Table_table__3W-tG {\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%;\n}\n\n.Table_body_b_16__2HKYm {\n  font-size: 16px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n}\n\n.Table_th__2UhMg {\n  padding: 28px 24px;\n  text-align: center;\n  background: #f2f2f2;\n  border-bottom: 2px solid #d4d4d4;\n  color: rgba(0, 0, 0, 0.7);\n}\n\n.Table_th__2UhMg:first-child {\n  border-radius: 10px 0 0 0; \n}\n\n.Table_th__2UhMg:last-child {\n  border-radius: 0 10px 0 0;\n}\n\n.Table_tr__3D6bR {\n  cursor: pointer;\n}\n\n.Table_tr__3D6bR:nth-child(even) .Table_td__1_pu2 {\n  background: #ffffff;\n}\n\n.Table_tr__3D6bR:nth-child(odd) .Table_td__1_pu2 {\n  background: #fafafa;\n}\n\n.Table_td__1_pu2 {\n  padding: 24px;\n  text-align: center;\n}\n\n.Table_th__2UhMg:first-child, .Table_th__2UhMg:last-child, .Table_td__1_pu2:first-child, .Table_td__1_pu2:last-child {\n  white-space: nowrap;\n  width: 1%;\n}\n\n.Table_th__2UhMg:first-child, .Table_td__1_pu2:first-child {\n  padding-left: 50px;\n}\n\n.Table_th__2UhMg:last-child, .Table_td__1_pu2:last-child {\n  padding-right: 50px;\n}\n\n.Table_empty_table_grey_list__33788 {\n  padding: 80px;\n}\n\n.Table_empty_table_grey_list__33788 td {\n  margin: 0 auto;\n  text-align: center;\n}\n\n.Table_empty_table_grey_list__33788 span {\n  margin: auto;\n  color: #161616;\n  display: block;\n  font-size: 20px;\n  opacity: 0.6;\n}\n\n.Table_empty_table_grey_header__3mHSH {\n  font-size: 16px;\n  color: rgba(#000000, 0.36);\n}";
+var css$4 = ".Table_table__3W-tG {\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%;\n}\n\n.Table_body_b_16__2HKYm {\n  font-size: 16px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n}\n\n.Table_th__2UhMg {\n  padding: 28px 24px;\n  text-align: center;\n  background: #f2f2f2;\n  border-bottom: 2px solid #d4d4d4;\n  color: rgba(0, 0, 0, 0.7);\n}\n\n.Table_th__2UhMg:first-child {\n  border-radius: 10px 0 0 0; \n}\n\n.Table_th__2UhMg:last-child {\n  border-radius: 0 10px 0 0;\n}\n\n.Table_tr__3D6bR {\n  cursor: pointer;\n}\n\n.Table_tr__3D6bR:nth-child(even) .Table_td__1_pu2 {\n  background: #ffffff;\n}\n\n.Table_tr__3D6bR:nth-child(odd) .Table_td__1_pu2 {\n  background: #fafafa;\n}\n\n.Table_td__1_pu2 {\n  text-align: center;\n}\n\n.Table_td__1_pu2 > a > div, .Table_td__1_pu2 > div {\n  padding: 24px;\n}\n\n.Table_th__2UhMg:first-child, .Table_th__2UhMg:last-child, .Table_td__1_pu2:first-child, .Table_td__1_pu2:last-child {\n  white-space: nowrap;\n  width: 1%;\n}\n\n.Table_th__2UhMg:first-child, .Table_td__1_pu2:first-child {\n  padding-left: 50px;\n}\n\n.Table_th__2UhMg:last-child, .Table_td__1_pu2:last-child {\n  padding-right: 50px;\n}\n\n.Table_empty_table_grey_list__33788 {\n  padding: 80px;\n}\n\n.Table_empty_table_grey_list__33788 td {\n  margin: 0 auto;\n  text-align: center;\n}\n\n.Table_empty_table_grey_list__33788 span {\n  margin: auto;\n  color: #161616;\n  display: block;\n  font-size: 20px;\n  opacity: 0.6;\n}\n\n.Table_empty_table_grey_header__3mHSH {\n  font-size: 16px;\n  color: rgba(#000000, 0.36);\n}";
 var styles$4 = {"table":"Table_table__3W-tG","body_b_16":"Table_body_b_16__2HKYm","th":"Table_th__2UhMg","tr":"Table_tr__3D6bR","td":"Table_td__1_pu2","empty_table_grey_list":"Table_empty_table_grey_list__33788","empty_table_grey_header":"Table_empty_table_grey_header__3mHSH"};
 styleInject(css$4);
 
@@ -24295,7 +24295,7 @@ var visualAlert = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5
 var TBody = function TBody(_ref) {
   var headers = _ref.headers,
       rowData = _ref.rowData,
-      isRowLink = _ref.isRowLink;
+      wrapTd = _ref.wrapTd;
 
   var renderPlaceholder = function renderPlaceholder() {
     return React__default.createElement("tr", null, React__default.createElement("td", {
@@ -24309,31 +24309,20 @@ var TBody = function TBody(_ref) {
     }, "There is no data", React__default.createElement("br", null), "Please search again")));
   };
 
-  var goDetail = function goDetail(id) {
-    window.location.href = "id/".concat(id);
-  };
-
   var createBody = function createBody(rowsData) {
     return rowsData.map(function (data, idx) {
       return React__default.createElement("tr", {
         key: idx,
-        className: styles$4.tr,
-        onClick: isRowLink ? function () {
-          return goDetail(data.subject_id);
-        } : null
+        className: styles$4.tr
       }, Object.values(data).map(function (row, idx) {
-        // if (data.hasOwnProperty('risk_score') && idx === 2) {
-        //   row = <BarGauge score={(row * 100).toFixed(2)} />
-        // }
-        if (row.match && row.match(/\d{4}-/)) {
-          var d = new Date(row);
-          row = "".concat(d.getFullYear(), "-").concat(('0' + (d.getMonth() + 1)).slice(-2), "-").concat(('0' + d.getDate()).slice(-2), " ").concat(('0' + d.getHours()).slice(-2), ":").concat(('0' + d.getMinutes()).slice(-2));
-        }
-
         return React__default.createElement("td", {
           className: styles$4.td,
           key: idx
-        }, row);
+        }, wrapTd ? wrapTd({
+          data: data,
+          label: headers[idx],
+          text: row
+        }) : React__default.createElement("div", null, row));
       }));
     });
   };
@@ -24345,15 +24334,18 @@ var TBody = function TBody(_ref) {
 
 var Table = function Table(_ref) {
   var data = _ref.data,
-      isRowLink = _ref.isRowLink;
+      wrapTh = _ref.wrapTh,
+      wrapTd = _ref.wrapTd;
 
   if (isEmpty_1(data)) {
     return React__default.createElement("div", null, "There is no data", React__default.createElement("br", null), "Please search agains");
   } else {
     return React__default.createElement("table", {
       className: styles$4.table
-    }, React__default.createElement(THead, data), React__default.createElement(TBody, _extends({}, data, {
-      isRowLink: isRowLink
+    }, React__default.createElement(THead, _extends({}, data, {
+      wrapTh: wrapTh
+    })), React__default.createElement(TBody, _extends({}, data, {
+      wrapTd: wrapTd
     })));
   }
 };
