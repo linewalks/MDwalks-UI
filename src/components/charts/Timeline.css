@@ -2,8 +2,21 @@
   position: relative;
 }
 
+.title {
+  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: -0.5px;
+  text-align: center;
+  color: #000000;
+  opacity: 0.6;      
+}
+
 /* xAxis */
-.xAxis, .overViewXAxis {
+.xAxis, .overViewXAxis, .gLineYAxis {
   font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
   font-size: 14px;
   font-weight: normal;
@@ -15,7 +28,7 @@
   color: rgba(0, 0, 0, 0.6);
 }
 /* labels */
-.labels text {
+.timelineLabels text {
   font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
   font-size: 14px;
   font-weight: normal;
@@ -27,7 +40,7 @@
   fill: rgba(0, 0, 0, 0.6);
 }
 /* labels */
-.labels text:nth-child(n + 4) {
+.timelineLabels text:nth-child(n + 4) {
   fill: rgba(0, 0, 0, 0.3);
 }
 .verticalLineText {

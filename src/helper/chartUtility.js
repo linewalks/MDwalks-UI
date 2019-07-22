@@ -72,3 +72,10 @@ export const labelList = data => {
   })
   return result
 }
+
+export const lineDataFormatConvert = data => {
+  const { xaxis: x, data: [{data: y}] } = data;
+  return x.map((d, idx) => {
+    return { x: d, y: y[idx] }
+  })
+}
