@@ -16,7 +16,7 @@
 }
 
 /* xAxis */
-.xAxis, .overViewXAxis, .gLineYAxis {
+.xAxis, .overViewXAxis {
   font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
   font-size: 14px;
   font-weight: normal;
@@ -28,7 +28,7 @@
   color: rgba(0, 0, 0, 0.6);
 }
 /* labels */
-.timelineLabels text {
+.timelineLabels text, .gLineYAxis {
   font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
   font-size: 14px;
   font-weight: normal;
@@ -37,12 +37,10 @@
   line-height: normal;
   letter-spacing: -0.5px;
   text-align: right;
-  fill: rgba(0, 0, 0, 0.6);
-}
-/* labels */
-.timelineLabels text:nth-child(n + 4) {
   fill: rgba(0, 0, 0, 0.3);
+  color: rgba(0, 0, 0, 0.3);
 }
+
 .verticalLineText {
   width: 61px;
   height: 18px;
