@@ -29,7 +29,7 @@ module.exports = {
         include: path.resolve(__dirname, "../")
       },{
         test: /\.(svg)(\?.*)?$/,
-        loader: '/home/lyohan/Workspace/MDwalks-UI/node_modules/file-loader/dist/cjs.js',
+        loader: 'file-loader',
         query: { name: 'static/media/[name].[hash:8].[ext]' }
       }
     ],
