@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
-import Table from '../src/components/table/Table';
+import Table from '@Table/Table';
 
 storiesOf('Table Component', module)
 .addDecorator(withKnobs)

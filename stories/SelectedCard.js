@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
-import SelectedCard from '../src/components/card/SelectedCard';
+import SelectedCard from '@Card/SelectedCard';
 
 storiesOf('SelectedCard Component', module)
   .addDecorator(withKnobs)

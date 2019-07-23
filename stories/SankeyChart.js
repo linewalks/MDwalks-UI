@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs } from '@storybook/addon-knobs';
 import SankeyChart from '@Charts/SankeyChart';
-import sankeyData from '../src/data/dataForSankey';
+import sankeyData from '@Data/dataForSankey';
 
 storiesOf('Sankey Chart Component', module)
   .addDecorator(withKnobs)
