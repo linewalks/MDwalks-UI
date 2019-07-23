@@ -5,7 +5,7 @@ import Table from '../src/components/table/Table';
 
 storiesOf('Table Component', module)
 .addDecorator(withKnobs)
-.add('score: 0', () => (
+.add('basic', () => (
   <Table 
     data={{
       headers: ['a', 'b', 'c'],
@@ -26,6 +26,14 @@ storiesOf('Table Component', module)
           'c': 9
         },
       ]
+    }} 
+  />
+))
+.add('with out any rowData', () => (
+  <Table 
+    data={{
+      headers: ['a', 'b', 'c'],
+     
     }} 
   />
 ))
