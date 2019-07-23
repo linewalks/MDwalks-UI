@@ -5,10 +5,6 @@ import { withKnobs } from '@storybook/addon-knobs';
 import SankeyChart from '@Charts/SankeyChart';
 import sankeyData from '@Data/dataForSankey';
 
-const eventHandler = (selectnodes) => {
-  console.log(selectnodes)
-}
-
 storiesOf('Sankey Chart Component', module)
   .addDecorator(withKnobs)
   .add('basic', () => (
@@ -20,7 +16,7 @@ storiesOf('Sankey Chart Component', module)
     <SankeyChart
       data={sankeyData}
       onNodeClick = {
-        eventHandler
+        action('Node has been clicked')
       }
     />
   ))
