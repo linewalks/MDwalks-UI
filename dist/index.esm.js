@@ -18445,6 +18445,20 @@ var RadiusGauge = function RadiusGauge(_ref) {
   }
 };
 
+function _typeof(obj) {
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function (obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function (obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -18910,7 +18924,7 @@ function constant$e(x) {
   };
 }
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
 } : function (obj) {
   return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
@@ -19186,10 +19200,10 @@ function sankeyCircular () {
       link.index = i;
       var source = link.source;
       var target = link.target;
-      if ((typeof source === "undefined" ? "undefined" : _typeof(source)) !== 'object') {
+      if ((typeof source === "undefined" ? "undefined" : _typeof$1(source)) !== 'object') {
         source = link.source = find$1(nodeById, source);
       }
-      if ((typeof target === "undefined" ? "undefined" : _typeof(target)) !== 'object') {
+      if ((typeof target === "undefined" ? "undefined" : _typeof$1(target)) !== 'object') {
         target = link.target = find$1(nodeById, target);
       }
       source.sourceLinks.push(link);
@@ -25394,12 +25408,15 @@ function (_Component) {
           timeData = _this$props.timeData,
           lineData = _this$props.lineData,
           chartWidth = _this$props.chartWidth,
-          chartHeight = _this$props.chartHeight; // if (isEmpty(data)) {
-      //   return this.errorMessage('haveData')
-      // }
-      // if (!Array.isArray(data)) {
-      //   return this.errorMessage('typeOfVariable')
-      // }
+          chartHeight = _this$props.chartHeight;
+
+      if (isEmpty_1(timeData) || isEmpty_1(lineData)) {
+        return _this.errorMessage('haveData');
+      }
+
+      if (!Array.isArray(timeData) || lineData !== null && _typeof(lineData) === 'object') {
+        return _this.errorMessage('typeOfVariable');
+      }
 
       return _this.renderTimeline(timeData, lineData, chartWidth, chartHeight);
     });

@@ -781,13 +781,13 @@ class Timeline extends Component {
 
   componentDidMount = () => {
     const { timeData, lineData, chartWidth, chartHeight } = this.props
-    // if (isEmpty(data)) {
-    //   return this.errorMessage('haveData')
-    // }
+    if (isEmpty(timeData) || isEmpty(lineData)) {
+      return this.errorMessage('haveData')
+    }
 
-    // if (!Array.isArray(data)) {
-    //   return this.errorMessage('typeOfVariable')
-    // }
+    if (!Array.isArray(timeData) || (lineData !== null && typeof lineData === 'object')) {
+      return this.errorMessage('typeOfVariable')
+    }
 
     return this.renderTimeline(timeData, lineData, chartWidth, chartHeight)
   }
