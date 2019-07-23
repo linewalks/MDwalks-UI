@@ -227,11 +227,7 @@ class SankeyChart extends React.Component {
         this.getSelectedNode(this.getNodeName(data))
         onClick(this.state.selectedNodes)
       })
-    } else {
-      nodes.on('click', data => {
-        this.getSelectedNode(this.getNodeName(data))
-      })
-    }
+    } 
 
     return nodes
   }
@@ -291,9 +287,16 @@ class SankeyChart extends React.Component {
     let nodes = this.renderNodes(nodeG, sankeyNodesData, { width })
     let links = this.renderLinks(linkG, sankeyLinksData)
 
-    nodes = this.attachEventHandlersToNode(d3, nodes, {
-      onClick: onNodeClick,
-    })
+    if (onNodeClick) {
+      nodes = this.attachEventHandlersToNode(d3, nodes, {
+        onClick: onNodeClick,
+      })
+    } else {
+      nodes.on('click', data => {
+        this.getSelectedNode(this.getNodeName(data))
+      })
+    }
+
     links = this.attachEventHandlersToNode(d3, links, {
       onClick: onLinkClick,
     })
@@ -326,6 +329,7 @@ class SankeyChart extends React.Component {
   }
 
   render() {
+    {console.log(this.state)}
     const { data, id } = this.props
     return isEmpty(data) ? (
       this.renderPlaceholder()
