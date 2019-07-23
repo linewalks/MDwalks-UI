@@ -329,7 +329,6 @@ class SankeyChart extends React.Component {
   }
 
   render() {
-    {console.log(this.state)}
     const { data, id } = this.props
     return isEmpty(data) ? (
       this.renderPlaceholder()

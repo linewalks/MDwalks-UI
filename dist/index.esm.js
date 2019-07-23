@@ -24019,10 +24019,6 @@ function (_React$Component) {
 
           onClick(_this.state.selectedNodes);
         });
-      } else {
-        nodes.on('click', function (data) {
-          _this.getSelectedNode(_this.getNodeName(data));
-        });
       }
 
       return nodes;
@@ -24088,9 +24084,16 @@ function (_React$Component) {
 
       var links = _this.renderLinks(linkG, sankeyLinksData);
 
-      nodes = _this.attachEventHandlersToNode(d3, nodes, {
-        onClick: onNodeClick
-      });
+      if (onNodeClick) {
+        nodes = _this.attachEventHandlersToNode(d3, nodes, {
+          onClick: onNodeClick
+        });
+      } else {
+        nodes.on('click', function (data) {
+          _this.getSelectedNode(_this.getNodeName(data));
+        });
+      }
+
       links = _this.attachEventHandlersToNode(d3, links, {
         onClick: onLinkClick
       });
