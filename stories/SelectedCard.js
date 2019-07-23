@@ -8,6 +8,6 @@ storiesOf('SelectedCard Component', module)
   .add('Selected Element of One', () => (
     <SelectedCard selectedElement={['a']} />
   ))
-  .add('Selected Element of Mutiple', () => (
+  .add('Selected Element of Multiple', () => (
     <SelectedCard selectedElement={['a', 'b', 'c']} />
   ))
