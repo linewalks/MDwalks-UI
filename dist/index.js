@@ -25033,6 +25033,7 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderTimeline", function (timeData, lineData, chartWidth, chartHeight) {
+      var brushEvent = _this.props.brushEvent;
       var timelineData = timeData;
       var lineChartData = lineDataFormatConvert(lineData);
       var width = chartWidth; // 차트가 그려지는 전체 영역 넓이
@@ -25333,8 +25334,20 @@ function (_Component) {
       var brushed = function brushed() {
         var selection = event.selection;
         if (selection === null) return;
-        xAxisScale.domain([Date.parse(overViewXAxisScale.invert(selection[0])), Date.parse(overViewXAxisScale.invert(selection[1]))]);
-        lineScale.domain([Date.parse(overViewXAxisScale.invert(selection[0])), Date.parse(overViewXAxisScale.invert(selection[1]))]);
+
+        var _selection = _slicedToArray(selection, 2),
+            brushStart = _selection[0],
+            brushEnd = _selection[1];
+
+        var start = overViewXAxisScale.invert(brushStart);
+        var end = overViewXAxisScale.invert(brushEnd);
+        var time = {
+          start: start,
+          end: end
+        };
+        typeof brushEvent === "function" ? brushEvent(time) : null;
+        xAxisScale.domain([Date.parse(start), Date.parse(end)]);
+        lineScale.domain([Date.parse(start), Date.parse(end)]);
         gXAxis.transition().duration(500).call(xAxis);
         gXAxis.transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5V0.5');
         gXAxis.transition().duration(500).selectAll('.tick line').remove(); // Line Chart Grid
@@ -25406,6 +25419,7 @@ function (_Component) {
         }); // Initialize Brush
 
         gBrush.select('rect.selection').transition().duration(500).attr('width', 0);
+        typeof brushEvent === "function" ? brushEvent() : null;
       });
       var focus = gTimeline.append('line').attr('class', 'focus').attr('fill', 'none').style('pointer-events', 'none');
     });
@@ -25421,7 +25435,7 @@ function (_Component) {
         return _this.errorMessage('haveData');
       }
 
-      if (!Array.isArray(timeData) || lineData !== null && _typeof(lineData) === 'object') {
+      if (!Array.isArray(timeData) || !(lineData !== null && _typeof(lineData) === 'object')) {
         return _this.errorMessage('typeOfVariable');
       }
 

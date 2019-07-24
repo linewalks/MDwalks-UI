@@ -421,6 +421,10 @@
   }
 
   const App = () => {
+    const eventHandler = (time) => {
+      console.log(time)
+    }
+
     return (
       <div>
         <Timeline
@@ -428,6 +432,7 @@
           lineData={lineData}
           chartWidth={1200}
           chartHeight={835}
+          brushEvent={eventHandler}
         />
       </div>
     )
@@ -442,3 +447,4 @@
   | lineData | Object |     | Line Chart Data |
   | chartWidth | Number |     | Entire Chart Width |
   | chartHeight | Number |     | Entire Chart Height |
+  | brushEvent | Function |    | Timeline Brush EventHandler |

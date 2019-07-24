@@ -19,6 +19,7 @@ class Timeline extends Component {
   }
 
   renderTimeline = (timeData, lineData, chartWidth, chartHeight) => {
+    const { brushEvent } = this.props;
     const timelineData = timeData;
     const lineChartData = lineDataFormatConvert(lineData);
     const width = chartWidth // 차트가 그려지는 전체 영역 넓이
@@ -553,15 +554,17 @@ class Timeline extends Component {
       const selection = d3.event.selection
       if (selection === null) return
 
-      xAxisScale.domain([
-        Date.parse(overViewXAxisScale.invert(selection[0])),
-        Date.parse(overViewXAxisScale.invert(selection[1])),
-      ])
+      const [ brushStart, brushEnd ] = selection
+      const start = overViewXAxisScale.invert(brushStart)
+      const end = overViewXAxisScale.invert(brushEnd)
+      const time = { start, end }
+      
+
+      typeof brushEvent === "function" ? brushEvent(time) : null
+
+      xAxisScale.domain([Date.parse(start), Date.parse(end)])
   
-      lineScale.domain([
-        Date.parse(overViewXAxisScale.invert(selection[0])),
-        Date.parse(overViewXAxisScale.invert(selection[1])),
-      ])
+      lineScale.domain([Date.parse(start), Date.parse(end)])
   
       gXAxis
         .transition()
@@ -762,15 +765,17 @@ class Timeline extends Component {
         .attr('x', (d, i) => xAxisScale(Date.parse(d.start_time)))
         .attr('width', d => xAxisScale(Date.parse(d.end_time)) - xAxisScale(Date.parse(d.start_time)))
 
-      
+     
       // Initialize Brush
       gBrush
         .select('rect.selection')
         .transition()
         .duration(500)
         .attr('width', 0)
+
+        typeof brushEvent === "function" ? brushEvent() : null
     })
-  
+
   
     const focus = gTimeline
       .append('line')
@@ -785,9 +790,10 @@ class Timeline extends Component {
       return this.errorMessage('haveData')
     }
 
-    if (!Array.isArray(timeData) || (lineData !== null && typeof lineData === 'object')) {
+    if (!Array.isArray(timeData) || !(lineData !== null && typeof lineData === 'object')) {
       return this.errorMessage('typeOfVariable')
     }
+    
 
     return this.renderTimeline(timeData, lineData, chartWidth, chartHeight)
   }
