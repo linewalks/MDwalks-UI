@@ -1,10 +1,41 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
 import { renderSVG, generateGroup,  getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, lineDataFormatConvert } from '../../helper/chartUtility'
-import styles from './Timeline.css'
+import styles from './LineMergeTimeline.css'
 import isEmpty from 'lodash/isEmpty'
 
-class Timeline extends Component {
+class LineMergeTimeline extends Component {
+  constructor(props) {
+    super(props);
+    const [startTime, endTime] = getStartAndEndTime(
+      this.props.timeData.map(d => d.dataPoints).flat(),
+    )
+
+    this.options = {
+      width: this.props.chartWidth || 1200, // 차트가 그려지는 전체 영역 넓이
+      height: this.props.chartHeight || 835, // 차트가 그려지는 전체 영영 높이
+      xAxisHeight: 64, // 화면상단에서 x축까지의 거리
+      yAxisWidth: 208, // 화면좌측에서 y축까지의 거리
+      overViewAxisHeight: 50, // 차트 브러쉬 높이
+      defaultPadding: {
+        top: 42, // x축에서 처음 그리드 라인까지의 거리
+        right: 30, // x축 오른쪽 끝과 차트 오른쪽 끝 사이의 거리
+        left: 23, // 축에서 라벨까지의 거리
+        bottom: 64 // 차트 전체높이에서 브러쉬 밑부분까지의 거리        
+      },
+      defaultMargin: {
+        top: 40
+      },
+      startTime,
+      endTime,
+      lineYAxisHeight: 206,
+      labelStartYPosition: 0,
+      labelLastYPosition: 369
+
+    }
+
+    this.xAxisWidth = this.options.width - this.options.yAxisWidth - this.options.defaultPadding.right
+  }
   errorMessage = (errorType) => {
     let message;
     if (errorType === 'typeOfVariable') {
@@ -18,83 +49,40 @@ class Timeline extends Component {
     d3.select(`.${styles.timelineChart}`).append('div').text(message)  
   }
 
-  renderTimeline = (timeData, lineData, chartWidth, chartHeight) => {
-    const { brushEvent } = this.props;
-    const timelineData = timeData;
-    const lineChartData = lineDataFormatConvert(lineData);
-    const width = chartWidth // 차트가 그려지는 전체 영역 넓이
-    const height = chartHeight // 차트가 그려지는 전체 영영 높이
-    const xAxisHeight = 64 // 화면상단에서 x축까지의 거리
-    const yAxisWidth = 208 // 화면좌측에서 y축까지의 거리
-    const overViewAxisHeight = 50 // 차트 브러쉬 높이
-    const defaultPadding = {
-      top: 42, // x축에서 처음 그리드 라인까지의 거리
-      right: 30, // x축 오른쪽 끝과 차트 오른쪽 끝 사이의 거리
-      left: 23, // 축에서 라벨까지의 거리
-      bottom: 64 // 차트 전체높이에서 브러쉬 밑부분까지의 거리
-    }
+  createXAxis = (xAxis) => {
+    const { yAxisWidth, xAxisHeight, startTime, endTime } = this.options
 
-    const defaultMargin = {
-      top: 40
-    }
-
-    const xAxisWidth = width - yAxisWidth - defaultPadding.right
-
-    const svg = renderSVG(d3.select(`.${styles.timelineChart}`), width, height)
-   
-    // Create Entire groups
-    // 1. Entire timeline group
-    const gTimeline = generateGroup(svg, { className: 'timeline' })
-    
     // Create xAxis
     // 1. Create xAxis group
-    const gXAxis = generateGroup(gTimeline, {
+    const gXAxis = generateGroup(d3.select('.timeline'), {
       className: styles.xAxis,
       xOffset: yAxisWidth,
       yOffset: xAxisHeight,
-    })
+    })  
 
-    // 2. Get min, max time
-    const [startTime, endTime] = getStartAndEndTime(
-      timelineData.map(d => d.dataPoints).flat(),
-    )
-
-    // 3. Create x axis scale
-    const xAxisScale = d3
-      .scaleTime()
-      .domain([startTime, endTime])
-      .range([0, xAxisWidth])
-
-    // 4. Create xAxis
-    const xAxis = d3.axisTop(xAxisScale).tickPadding(6)
-  
-
-    // 5. Render xAxis
+    // 2. Render xAxis
     gXAxis.call(xAxis)
     gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5 V0.5')
-    gXAxis.selectAll('.tick line').remove()
+    gXAxis.selectAll('.tick line').remove()    
+  }
 
-    //  Create line yAxis
-    // 1. Create Line YAxis group
-    const gLineYAxis = generateGroup(gTimeline, {
+  createLineYAxis = (lineYAxisScale) => {
+    const { yAxisWidth, xAxisHeight, defaultPadding, lineYAxisHeight } = this.options
+      // 1. Create Line YAxis group
+      const gLineYAxis = generateGroup(d3.select('.timeline'), {
       className: styles.gLineYAxis,
       xOffset: yAxisWidth,
       yOffset: xAxisHeight,
     })
-
-    // 2. Create Line YAxis scale
-    const lineYAxisHeight = 206;
-    const lineYAxisScale = d3.scaleLinear()
-                            .domain([0, 1])
-                            .range([lineYAxisHeight, defaultPadding.top])
-  
-    // 3. Create Line YAxis
+ 
+    // 2. Create Line YAxis
     const lineYAxis = d3.axisLeft(lineYAxisScale)
                       .tickValues([0, 0.25, 0.5, 0.75, 1])
                       .tickFormat(d => `${d}`)
                       .tickPadding(17)
 
-    const lineTitle = gTimeline
+    // 3. Add LineTitle
+    const lineTitle = d3.select('.timeline')
       .append('text')
       .text('MACE Risk by Visit')
       .attr('text-anchor', 'end')
@@ -102,16 +90,18 @@ class Timeline extends Component {
       .attr('x', yAxisWidth)
       .attr('y', xAxisHeight + 6)
       .attr('class', styles.title)
- 
-      // 4. Render Line YAxis 
+  
+    // 4. Render Line YAxis 
     gLineYAxis.call(lineYAxis)
     gLineYAxis.selectAll('.domain').remove()
     gLineYAxis.selectAll('.tick line').remove()
+  
+  }
 
-
-    // Create line chart grid
+  createLineGrid = (xAxisScale, lineYAxisScale) => {
+    const { xAxisHeight, yAxisWidth, defaultPadding, lineYAxisHeight } = this.options
     // 1. Creat  Entire LineGrid Group
-    const gLineGrid = generateGroup(gTimeline, {
+    const gLineGrid = generateGroup(d3.select('.timeline'), {
       className: 'gLineGrid',
       xOffset: yAxisWidth,
       yOffset: xAxisHeight
@@ -142,9 +132,9 @@ class Timeline extends Component {
     const lineXAxisGridLines = d3
       .axisRight(lineYAxisScale)
       .tickValues([0, 0.25, 0.5, 0.75, 1])
-      .tickSize(xAxisWidth + defaultPadding.right)
+      .tickSize(this.xAxisWidth + defaultPadding.right)
       .tickFormat('')
-  
+
     // 2. Render Line XAxis Gridlines
     const gLineXAxisGrid = gLineGrid
       .append('g')
@@ -152,24 +142,29 @@ class Timeline extends Component {
       .call(lineXAxisGridLines)
 
     // 3. CSS Line XAxis
-    gLineXAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('x2', xAxisWidth)
-    gLineXAxisGrid.select('.domain').remove()
+    gLineXAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('x2', this.xAxisWidth)
+    gLineXAxisGrid.select('.domain').remove()    
+  }
+
+  createVerticalLine = ( svg, xAxisScale, lineScale ) => {
+    const { xAxisHeight, yAxisWidth, defaultPadding, height, overViewAxisHeight } = this.options
+  
+    // Create Entire Vertical Line      
+    const focus = d3.select('.timeline')
+      .append('line')
+      .attr('class', 'focus')
+      .attr('fill', 'none')
+      .style('pointer-events', 'none')
 
 
-    // Create Entire Vertical Line
-    // 1. Create vertical line text
+     // 1. Create vertical line text
     const verticalLineText = svg
       .append('text')
       .attr('class', styles.verticalLineText)
       .attr('y', xAxisHeight)
 
-    // 2. Create vertical line scale
-    const lineScale = d3
-    .scaleTime()
-    .domain([startTime, endTime])
-    .range([yAxisWidth , width - defaultPadding.right])
 
-    // 3. Create vertical line mouse event 
+    // 2. Create vertical line mouse event 
     const mouseover = () => {
       focus.style('opacity', 1)
       verticalLineText.style('opacity', 1)
@@ -196,26 +191,23 @@ class Timeline extends Component {
       verticalLineText.style('opacity', 0)
     }
 
-    // 4. Create Vertical Area and Add Mouse Event
-    const verticalLine = gTimeline
+    // 3. Create Vertical Area and Add Mouse Event
+    const verticalLine = d3.select('.timeline')
       .append('rect')
       .style('fill', 'none')
       .style('pointer-events', 'all')
       .attr('x', yAxisWidth)
       .attr('y', xAxisHeight)
-      .attr('width', xAxisWidth)
+      .attr('width', this.xAxisWidth)
       .attr('height', height - xAxisHeight - overViewAxisHeight - defaultPadding.bottom)
       .on('mouseover', mouseover)
       .on('mousemove', mousemove)
       .on('mouseout', mouseout)
+  }
 
-    // Create tooltip
-    const tooltip = d3
-      .select(`.${styles.timelineChart}`)
-      .append('div')
-      .attr('class', styles.tooltip)
-      .style('opacity', 0)
-    
+  renderLineChart = (svg, lineChartData, xAxisScale, lineYAxisScale, line) => {
+    const { yAxisWidth, xAxisHeight, defaultPadding, lineYAxisHeight } = this.options  
+    // Create Line Chart
     //  Create Line Color Gradient
     const defs = svg.append("defs");
 
@@ -238,85 +230,75 @@ class Timeline extends Component {
       .attr("stop-color", "#189bff")
       .attr("stop-opacity", 1)
 
-  //  Create Line Point Gradient
-  const colorScale = d3.scaleLinear()
-    .domain([defaultPadding.top, lineYAxisHeight])
-    .range(["#002d4f", "#189bff"])
+    //  Create Line Point Gradient
+    const colorScale = d3.scaleLinear()
+      .domain([defaultPadding.top, lineYAxisHeight])
+      .range(["#002d4f", "#189bff"])
 
-  // Create Line Chart
-  // 1. Create line generator
-  const line = d3.line()
-    .x( d => xAxisScale(Date.parse(d.x))) // set the x values for the line generator
-    .y( d => lineYAxisScale(d.y)) // set the y values for the line generator 
 
-  // 2. Create Line Chart group
-  const gLine = generateGroup(gTimeline, {
-    className: 'gLine',
-    xOffset: yAxisWidth,
-    yOffset: xAxisHeight,
-  })
-
-  // 3. Render Line Chart
-  gLine
-    .append('g')
-    .append("path")
-    .datum(lineChartData)
-    .attr("class", "line")  
-    .attr("fill", "none")
-    .attr("stroke", "url(#svgGradient)")
-    .attr("stroke-width", 2)
-    .attr("d", line); 
-
-  // 4. Render Line Point
-  gLine
-    .append('g')
-    .selectAll(".lineDot")
-    .data(lineChartData)
-    .enter()
-    .append("circle") 
-    .attr("class", "lineDot") 
-    .attr('fill', d => colorScale(lineYAxisScale(d.y)))
-    .attr("cx", d => xAxisScale(Date.parse(d.x)))
-    .attr("cy", d => lineYAxisScale(d.y))
-    .attr("r", 5)    
-    .on('mouseover', d => {
-      const x = xAxisScale(Date.parse(d.x)) + yAxisWidth + 2.5
-      const y = lineYAxisScale(d.y)
-      const label = d.y
-      const tooltipDescription = `
-        <div>
-          <div><span class=${styles.tooltipLabel}>${label}</span></div>
-        </div>
-        `
-      tooltip.transition().duration(200).style('opacity', 1)
-
-      tooltip
-        .style('left', `${x}px`)
-        .style('top', `${y}px`)
-        .style('pointer-events', 'none')
-        .html(tooltipDescription)
+    // 1. Create Line Chart group
+    const gLine = generateGroup(d3.select('.timeline'), {
+      className: 'gLine',
+      xOffset: yAxisWidth,
+      yOffset: xAxisHeight,
     })
-    .on('mouseout', d => tooltip.transition().duration(200).style('opacity', 0))
 
+    // 2. Render Line Chart
+    gLine
+      .append('g')
+      .append("path")
+      .datum(lineChartData)
+      .attr("class", "line")  
+      .attr("fill", "none")
+      .attr("stroke", "url(#svgGradient)")
+      .attr("stroke-width", 2)
+      .attr("d", line); 
 
-    // Create Timeline Label
-    // 1. Create Timeline Label Scale
-    const labelStartYPosition = 0
-    const labelLastYPosition = 369
-    const timelineYAxisScale = d3
-      .scalePoint()
-      .domain(labelList(timelineData))
-      .range([labelStartYPosition, labelLastYPosition])
+    // 3. Render Line Point
+    gLine
+      .append('g')
+      .selectAll(".lineDot")
+      .data(lineChartData)
+      .enter()
+      .append("circle") 
+      .attr("class", "lineDot") 
+      .attr('fill', d => colorScale(lineYAxisScale(d.y)))
+      .attr("cx", d => xAxisScale(Date.parse(d.x)))
+      .attr("cy", d => lineYAxisScale(d.y))
+      .attr("r", 5)    
+      .on('mouseover', d => {
+        const x = xAxisScale(Date.parse(d.x)) + yAxisWidth + 2.5
+        const y = lineYAxisScale(d.y)
+        const label = d.y
+        const tooltip = d3.select(`.${styles.tooltip}`)
+        const tooltipDescription = `
+          <div>
+            <div><span class=${styles.tooltipLabel}>${label}</span></div>
+          </div>
+          `
+        tooltip.transition().duration(200).style('opacity', 1)
+
+        tooltip
+          .style('left', `${x}px`)
+          .style('top', `${y}px`)
+          .style('pointer-events', 'none')
+          .html(tooltipDescription)
+      })
+      .on('mouseout', d => d3.select(`.${styles.tooltip}`).transition().duration(200).style('opacity', 0))    
+  }
+
+  createTimelineLabel = (timelineYAxisScale, timelineData) => {
+    const { defaultPadding, defaultMargin, xAxisHeight, lineYAxisHeight, yAxisWidth } = this.options
   
-    // 2. Create Timeline Label Group
-    const gTimelineLabels = generateGroup(gTimeline, {
+    // 1. Create Timeline Label Group
+    const gTimelineLabels = generateGroup(d3.select('.timeline'), {
       className: styles.timelineLabels,
       xOffset: -defaultPadding.left,
       yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.top,
     })
 
-    // 3. Render Timeline Label
-    const timelineTitle = gTimeline
+    // 2. Render Timeline Label
+    const timelineTitle = d3.select('.timeline')
       .append('text')
       .text('Clinical Timeline')
       .attr('text-anchor', 'end')
@@ -335,10 +317,13 @@ class Timeline extends Component {
       .attr('y', d => timelineYAxisScale(d.label[d.label.length - 1]))
       .attr('text-anchor', 'end')
       .attr('class', 'timelineLabel')
+  }
 
-    // Create Timeline XAxis
+  createTimelineXAxis = (xAxis) => {
+    const { yAxisWidth, xAxisHeight, lineYAxisHeight, defaultMargin } = this.options
+
     // 1. Create Timeline XAxis Group
-    const gTimelineXAxis = generateGroup(gTimeline, {
+    const gTimelineXAxis = generateGroup(d3.select('.timeline'), {
       className: 'timelineXAxis',
       xOffset: yAxisWidth,
       yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top,
@@ -347,12 +332,14 @@ class Timeline extends Component {
     // 2. Render Timeline XAxis
     gTimelineXAxis.call(xAxis)
     gTimelineXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5V0.5')
-    gTimelineXAxis.selectAll('.tick').remove()
+    gTimelineXAxis.selectAll('.tick').remove()  
+  }
 
-  
+  createTimelineGrid = (xAxisScale, timelineYAxisScale) => {
+    const { yAxisWidth, xAxisHeight, lineYAxisHeight, defaultMargin, height, defaultPadding, overViewAxisHeight } = this.options
     // Creat Timeline Grid 
     // 1. Create Timeline Grid Group
-    const gTimelineGrid = generateGroup(gTimeline, {
+    const gTimelineGrid = generateGroup(d3.select('.timeline'), {
       className: 'gTimelineGrid',
       xOffset: yAxisWidth,
       yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top,
@@ -382,7 +369,7 @@ class Timeline extends Component {
     // 4.Creat Timeline XAxis GridLines
     const timelineXAxisGridLines = d3
       .axisRight(timelineYAxisScale)
-      .tickSize(xAxisWidth)
+      .tickSize(this.xAxisWidth)
       .tickFormat('')
 
     // 5. Render Timeline XAxis Gridlines
@@ -394,17 +381,16 @@ class Timeline extends Component {
 
     gTimelineXAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8')
     gTimelineXAxisGrid.select('.domain').remove()
-  
-   
-     
-    // Create Timeline Color Scale 
+  }
+
+  renderTimelineChart = (timelineData, xAxisScale, timelineYAxisScale) => {
+    const { yAxisWidth, xAxisHeight, lineYAxisHeight, defaultMargin } = this.options
+    // Create Timeline Chart
     const circleColorScale = d3.scaleOrdinal().domain(labelList(timelineData)).range(['#00745e','#faafa5','#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec'])
     const rectColorScale = d3.scaleOrdinal().domain(labelList(timelineData)).range(['#27b097','#fa6b57','#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec'])
-  
-  
-    // Create Timeline Chart
+    
     // 1. Create Timeline Data Group
-    const gTimelineData = generateGroup(gTimeline, {
+    const gTimelineData = generateGroup(d3.select('.timeline'), {
       className: 'timelineData',
       xOffset: yAxisWidth ,
       yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top * 2 - 2.5,
@@ -427,7 +413,7 @@ class Timeline extends Component {
         .on('mouseover', (d, i, nodes) => {
           const [x, y] = d3.mouse(nodes[i])
           const label = data.label[data.label.length - 1]
-
+          const tooltip = d3.select(`.${styles.tooltip}`)
           const tooltipDescription = `
             <div>
               <div class=${styles.tooltipLabel}><span class=${styles.dot}></span> ${label}</div>
@@ -442,7 +428,7 @@ class Timeline extends Component {
             .style('pointer-events', 'none')
             .html(tooltipDescription)
         })
-        .on('mouseout', d => tooltip.transition().duration(200).style('opacity', 0))
+        .on('mouseout', d => d3.select(`.${styles.tooltip}`).transition().duration(200).style('opacity', 0))
 
     })
 
@@ -464,7 +450,7 @@ class Timeline extends Component {
         .on('mouseover', (d, i, nodes) => {
           const [x, y] = d3.mouse(nodes[i])
           const label = data.label[data.label.length - 1]
-
+          const tooltip = d3.select(`.${styles.tooltip}`)
           const tooltipDescription = `
             <div>
               <div class=${styles.tooltipLabel}><span class=${styles.dot}></span> ${label}</div>
@@ -479,24 +465,17 @@ class Timeline extends Component {
             .style('pointer-events', 'none')
             .html(tooltipDescription)
         })
-        .on('mouseout', d => tooltip.transition().duration(200).style('opacity', 0))
+        .on('mouseout', d => d3.select(`.${styles.tooltip}`).transition().duration(200).style('opacity', 0))
 
     })
   
-    // Create Clip (avoid displaying the chart outside the chart area)
-    const clip = gTimeline
-      .append('defs')
-      .append('clipPath')
-      .attr('id', 'clip')
-      .append('rect')
-      .attr('x', 0)
-      .attr('y', -20)
-      .attr('width', xAxisWidth)
-      .attr('height', height - overViewAxisHeight - defaultPadding.bottom)
-  
+  }
+
+  createTimelineOverView = (xAxisScale) => {
+    const { defaultPadding, yAxisWidth, height, overViewAxisHeight, width } = this.options
     // Create OverViewAxis 
     // 1. Create OverViewAxis Group
-    const gOverViewAxis = generateGroup(gTimeline, {
+    const gOverViewAxis = generateGroup(d3.select('.timeline'), {
       className: 'overViewAxis',
       xOffset: yAxisWidth,
       yOffset: height - overViewAxisHeight - defaultPadding.bottom + 10,
@@ -527,26 +506,30 @@ class Timeline extends Component {
     overViewXAxis.selectAll('.tick line').remove()
 
     // 4. Render OverView Cover Line
-    gTimeline.append('line')
+    d3.select('.timeline')
+      .append('line')
       .attr('x1', yAxisWidth)
       .attr('x2', width - defaultPadding.right)
       .attr('y1', height - overViewAxisHeight - defaultPadding.bottom + 10)
       .attr('y2', height - overViewAxisHeight - defaultPadding.bottom + 10)
       .attr('stroke', '#003964')
   
-    gTimeline.append('line')
-    .attr('x1', yAxisWidth)
-    .attr('x2', width - defaultPadding.right)
-    .attr('y1', height - defaultPadding.bottom + 10)
-    .attr('y2', height - defaultPadding.bottom + 10)
-    .attr('stroke', '#003964')
+    d3.select('.timeline')
+      .append('line')
+      .attr('x1', yAxisWidth)
+      .attr('x2', width - defaultPadding.right)
+      .attr('y1', height - defaultPadding.bottom + 10)
+      .attr('y2', height - defaultPadding.bottom + 10)
+      .attr('stroke', '#003964')
+  }
 
-  
+  createBrush = (xAxisScale, lineScale, xAxis, line ,overViewXAxisScale) => {
+    const { height, xAxisHeight, defaultPadding, defaultMargin, overViewAxisHeight, lineYAxisHeight } = this.options
     // Create Brush
     // 1. Create Brush point
     const brushLeftTopPositionX = 0
     const brushLeftTopPositionY = 0
-    const brushRightTopPositionX = xAxisWidth
+    const brushRightTopPositionX = this.xAxisWidth
     const brushRightTopPositionY = overViewAxisHeight
   
     // 2. Create Brush Funtion
@@ -566,19 +549,19 @@ class Timeline extends Component {
   
       lineScale.domain([Date.parse(start), Date.parse(end)])
   
-      gXAxis
+      d3.select(`.${styles.xAxis}`)
         .transition()
         .duration(500)
         .call(xAxis)
   
-      gXAxis        
+      d3.select(`.${styles.xAxis}`)        
         .transition()
         .duration(500)
         .selectAll('.domain')
         .attr('stroke', '#c4c4c4')
         .attr('d', 'M0.5 0V0.5H962.5V0.5')
 
-      gXAxis        
+      d3.select(`.${styles.xAxis}`)        
         .transition()
         .duration(500)
         .selectAll('.tick line')
@@ -586,55 +569,55 @@ class Timeline extends Component {
 
 
       // Line Chart Grid
-      gLineYAxisGrid.selectAll('tick').remove()
+      d3.select('.lineYAxisGrid').selectAll('tick').remove()
 
       const lineYAxisGridLines = d3
         .axisTop(xAxisScale)
         .tickSize(-lineYAxisHeight)
         .tickFormat('')
     
-      gLineYAxisGrid
+      d3.select('.lineYAxisGrid')
         .transition()
         .duration(500)
         .call(lineYAxisGridLines)
       
   
-      gLineYAxisGrid
+      d3.select('.lineYAxisGrid')
         .selectAll('.tick line')
         .attr('stroke', '#e8e8e8')
         .attr('stroke-dasharray', '2')
   
-      gLineYAxisGrid.select('.domain').remove()
+      d3.select('.lineYAxisGrid').select('.domain').remove()
 
       // Timeline Chart Grid
-      gTimelineYAxisGrid.selectAll('tick').remove()
-
+      d3.select('.timelineYAxisGrid').selectAll('tick').remove()
+      const timelineYAxisGridHeight = height - (xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.bottom + overViewAxisHeight)
       const timelineYAxisGridLines = d3
         .axisTop(xAxisScale)
         .tickSize(-timelineYAxisGridHeight)
         .tickFormat('')
 
-      gTimelineYAxisGrid
+      d3.select('.timelineYAxisGrid')
         .transition()
         .duration(500)
         .call(timelineYAxisGridLines)
 
-      gTimelineYAxisGrid
+      d3.select('.timelineYAxisGrid')
         .selectAll('.tick line')
         .attr('stroke', '#e8e8e8')
         .attr('stroke-dasharray', '2')
 
-      gTimelineYAxisGrid.select('.domain').remove()
+      d3.select('.timelineYAxisGrid').select('.domain').remove()
 
       // Line Chart Data Render
-      gLine
+      d3.select('.gLine')
         .selectAll("path")
         .transition()
         .duration(500)
         .attr('d', line)
         .attr('clip-path', 'url(#clip)')
 
-      gLine
+      d3.select('.gLine')
         .selectAll(".lineDot")
         .transition()
         .duration(500)
@@ -642,14 +625,14 @@ class Timeline extends Component {
         .attr("cx", d => xAxisScale(Date.parse(d.x)))
 
       // Timeline Data Render
-      gTimelineData
+      d3.select('.timelineData')
         .selectAll('circle')
         .transition()
         .duration(500)
         .attr('cx', (d, i) => xAxisScale(Date.parse(d.start_time)))
         .attr('clip-path', 'url(#clip)')
 
-      gTimelineData
+      d3.select('.timelineData')
         .selectAll('rect')
         .transition()
         .duration(500)
@@ -667,34 +650,34 @@ class Timeline extends Component {
       ])
       .on('end', brushed)
   
-    const overViewXAxisScale = d3
-      .scaleTime()
-      .domain([startTime, endTime])
-      .range([0, xAxisWidth])
-  
-    const gBrush = generateGroup(gOverViewAxis, {
+    const gBrush = generateGroup(d3.select('.overViewAxis'), {
       className: 'overViewXAxisBrush'
     })
   
-    gBrush.call(brush)
-  
-    // Add Reset Button
-    d3.select('#reset').on('click', () => {
+    gBrush.call(brush)   
+  }
+
+  addChartReset = (id, xAxisScale, lineScale, overViewXAxisScale, line, xAxis) => {
+    const { lineYAxisHeight, height, xAxisHeight, defaultMargin, defaultPadding, overViewAxisHeight } = this.options
+    const { brushEvent } = this.props;
+    d3.select(`#${id}`).on('click', () => {
+
+      // Initialize XAxisScale, VerticalLineScale
       xAxisScale.domain(overViewXAxisScale.domain())
       lineScale.domain(overViewXAxisScale.domain())
-      gXAxis
+      d3.select(`.${styles.xAxis}`) 
         .transition()
         .duration(500)
         .call(xAxis)
 
-      gXAxis        
+      d3.select(`.${styles.xAxis}`)         
         .transition()
         .duration(500)
         .selectAll('.domain')
         .attr('stroke', '#c4c4c4')
         .attr('d', 'M0.5 0V0.5H962.5 V0.5')
       
-      gXAxis        
+      d3.select(`.${styles.xAxis}`)         
         .transition()
         .duration(500)
         .selectAll('.tick line').remove()
@@ -706,59 +689,60 @@ class Timeline extends Component {
       .tickSize(-lineYAxisHeight)
       .tickFormat('')
   
-      gLineYAxisGrid
+      d3.select('.lineYAxisGrid')
         .transition()
         .duration(500)
         .call(lineYAxisGridLines)
       
 
-      gLineYAxisGrid
+      d3.select('.lineYAxisGrid')
         .selectAll('.tick line')
         .attr('stroke', '#e8e8e8')
         .attr('stroke-dasharray', '2')
 
-      gLineYAxisGrid.select('.domain').remove()
-
+      d3.select('.lineYAxisGrid').select('.domain').remove()
+     
+      const timelineYAxisGridHeight = height - (xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.bottom + overViewAxisHeight)
       // Initialize Timeline Grid
       const timelineYAxisGridLines = d3
       .axisTop(xAxisScale)
       .tickSize(-timelineYAxisGridHeight)
       .tickFormat('')
 
-      gTimelineYAxisGrid
+      d3.select('.timelineYAxisGrid')
         .transition()
         .duration(500)
         .call(timelineYAxisGridLines)
 
-      gTimelineYAxisGrid
+      d3.select('.timelineYAxisGrid')
         .selectAll('.tick line')
         .attr('stroke', '#e8e8e8')
         .attr('stroke-dasharray', '2')
 
-      gTimelineYAxisGrid.select('.domain').remove()
+      d3.select('.timelineYAxisGrid').select('.domain').remove()
   
 
       // Initialize Line Chart Data
-      gLine
+      d3.select('.gLine')
         .selectAll("path")
         .transition()
         .duration(500)
         .attr('d', line)
 
-      gLine
+      d3.select('.gLine')
         .selectAll(".lineDot")
         .transition()
         .duration(500)
         .attr("cx", d => xAxisScale(Date.parse(d.x)))
       
       // Initialize Timeline 
-      gTimelineData
+      d3.select('.timelineData')
         .selectAll('circle')
         .transition()
         .duration(500)
         .attr('cx', (d, i) => xAxisScale(Date.parse(d.start_time)))
 
-      gTimelineData
+      d3.select('.timelineData')
         .selectAll('rect')
         .transition()
         .duration(500)
@@ -767,25 +751,102 @@ class Timeline extends Component {
 
      
       // Initialize Brush
-      gBrush
+      d3.select('.overViewXAxisBrush')
         .select('rect.selection')
         .transition()
         .duration(500)
         .attr('width', 0)
 
         typeof brushEvent === "function" ? brushEvent() : null
-    })
+    })  
+  }
 
-  
-    const focus = gTimeline
-      .append('line')
-      .attr('class', 'focus')
-      .attr('fill', 'none')
-      .style('pointer-events', 'none')
+
+
+
+  renderLineMergeTimeline = (timeData, lineData) => {
+    const timelineData = timeData;
+    const lineChartData = lineDataFormatConvert(lineData);
+    const { width, height, overViewAxisHeight, yAxisWidth, startTime, endTime, lineYAxisHeight, defaultPadding, labelStartYPosition, labelLastYPosition } = this.options
+    // Create tooltip
+    d3
+      .select(`.${styles.timelineChart}`)
+      .append('div')
+      .attr('class', styles.tooltip)
+      .style('opacity', 0)
+   
+    const svg = renderSVG(d3.select(`.${styles.timelineChart}`), this.options.width, this.options.height)
+   
+    // Create Entire groups
+    // 1. Entire timeline group
+    const gTimeline = generateGroup(svg, { className: 'timeline' })
+
+    // Create Clip (avoid displaying the chart outside the chart area)
+    const clip = gTimeline
+      .append('defs')
+      .append('clipPath')
+      .attr('id', 'clip')
+      .append('rect')
+      .attr('x', 0)
+      .attr('y', -20)
+      .attr('width', this.xAxisWidth)
+      .attr('height', height - overViewAxisHeight - defaultPadding.bottom)
+
+    // Create XAxisScale
+    const xAxisScale = d3
+      .scaleTime()
+      .domain([startTime, endTime])
+      .range([0, this.xAxisWidth])  
+    
+    // Create YAxisScale for LineChart
+    const lineYAxisScale = d3.scaleLinear()
+      .domain([0, 1])
+      .range([lineYAxisHeight, defaultPadding.top])
+
+    // Create VerticalLine Scale
+    const lineScale = d3
+      .scaleTime()
+      .domain([startTime, endTime])
+      .range([yAxisWidth , width - defaultPadding.right])
+
+    // Create TimelineYAxis Scale
+    const timelineYAxisScale = d3
+      .scalePoint()
+      .domain(labelList(timelineData))
+      .range([labelStartYPosition, labelLastYPosition])
+
+    // Create OverViewXAxis Scale
+    const overViewXAxisScale = d3
+      .scaleTime()
+      .domain([startTime, endTime])
+      .range([0, this.xAxisWidth])
+
+    // Create XAxis
+    const xAxis = d3.axisTop(xAxisScale).tickPadding(6)
+
+    // Create LineChart Coordinate Generator
+    const line = d3.line()
+      .x( d => xAxisScale(Date.parse(d.x))) // set the x values for the line generator
+      .y( d => lineYAxisScale(d.y)) // set the y values for the line generator 
+
+    this.createXAxis(xAxis)
+    this.createLineYAxis(lineYAxisScale)
+    this.createLineGrid(xAxisScale, lineYAxisScale)
+    this.createVerticalLine(svg, xAxisScale, lineScale)
+    this.renderLineChart(svg, lineChartData, xAxisScale, lineYAxisScale, line)  
+    this.createTimelineLabel(timelineYAxisScale, timelineData)
+    this.createTimelineXAxis(xAxis)
+    this.createTimelineGrid(xAxisScale, timelineYAxisScale)
+    this.renderTimelineChart(timelineData, xAxisScale, timelineYAxisScale)  
+    this.createTimelineOverView(xAxisScale)
+    this.createBrush(xAxisScale, lineScale, xAxis, line, overViewXAxisScale)
+    this.addChartReset('reset', xAxisScale, lineScale, overViewXAxisScale, line, xAxis)
+
+    // TODO: Code Refactoring Module
   }
 
   componentDidMount = () => {
-    const { timeData, lineData, chartWidth, chartHeight } = this.props
+    const { timeData, lineData } = this.props
     if (isEmpty(timeData) || isEmpty(lineData)) {
       return this.errorMessage('haveData')
     }
@@ -793,9 +854,8 @@ class Timeline extends Component {
     if (!Array.isArray(timeData) || !(lineData !== null && typeof lineData === 'object')) {
       return this.errorMessage('typeOfVariable')
     }
-    
 
-    return this.renderTimeline(timeData, lineData, chartWidth, chartHeight)
+    return this.renderLineMergeTimeline(timeData, lineData)
   }
 
   render() {    
@@ -806,4 +866,4 @@ class Timeline extends Component {
     );
   }
 }
-export default Timeline;
+export default LineMergeTimeline;
