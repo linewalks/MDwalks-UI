@@ -24989,27 +24989,21 @@ LineChart.defaultProps = {
   yAxisTitleAlign: 'middle'
 };
 
-var css$5 = ".Timeline_timelineChart__3-Cf0 {\n  position: relative;\n}\n\n.Timeline_title__XcEcX {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: #000000;\n  opacity: 0.6;      \n}\n\n/* xAxis */\n.Timeline_xAxis__1hoKI, .Timeline_overViewXAxis__1DOvh {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline_timelineLabels__1LISP text, .Timeline_gLineYAxis__a4fUH {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.3);\n  color: rgba(0, 0, 0, 0.3);\n}\n\n.Timeline_verticalLineText__14s5V {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.Timeline_overViewXAxisGrid__29xyk path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.Timeline_tooltip__2qJdw {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.Timeline_tooltip__2qJdw .Timeline_tooltipDay__2iE2o {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.Timeline_tooltip__2qJdw .Timeline_tooltipLabel__2cWHt {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.Timeline_dot__QBZ1F {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
-var styles$5 = {"timelineChart":"Timeline_timelineChart__3-Cf0","title":"Timeline_title__XcEcX","xAxis":"Timeline_xAxis__1hoKI","overViewXAxis":"Timeline_overViewXAxis__1DOvh","timelineLabels":"Timeline_timelineLabels__1LISP","gLineYAxis":"Timeline_gLineYAxis__a4fUH","verticalLineText":"Timeline_verticalLineText__14s5V","overViewXAxisGrid":"Timeline_overViewXAxisGrid__29xyk","tooltip":"Timeline_tooltip__2qJdw","tooltipDay":"Timeline_tooltipDay__2iE2o","tooltipLabel":"Timeline_tooltipLabel__2cWHt","dot":"Timeline_dot__QBZ1F"};
+var css$5 = ".LineMergeTimeline_timelineChart__K_r5D {\n  position: relative;\n}\n\n.LineMergeTimeline_title__23LoL {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: #000000;\n  opacity: 0.6;      \n}\n\n/* xAxis */\n.LineMergeTimeline_xAxis__1XWOw, .LineMergeTimeline_overViewXAxis__2OOtr {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.LineMergeTimeline_timelineLabels__3hBbH text, .LineMergeTimeline_gLineYAxis__2XLPB {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.3);\n  color: rgba(0, 0, 0, 0.3);\n}\n\n.LineMergeTimeline_verticalLineText__26Jw4 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.LineMergeTimeline_overViewXAxisGrid__KqAml path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.LineMergeTimeline_tooltip__2eLDR {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.LineMergeTimeline_tooltip__2eLDR .LineMergeTimeline_tooltipDay__2qZte {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.LineMergeTimeline_tooltip__2eLDR .LineMergeTimeline_tooltipLabel__KjfSB {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.LineMergeTimeline_dot__3kjm_ {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
+var styles$5 = {"timelineChart":"LineMergeTimeline_timelineChart__K_r5D","title":"LineMergeTimeline_title__23LoL","xAxis":"LineMergeTimeline_xAxis__1XWOw","overViewXAxis":"LineMergeTimeline_overViewXAxis__2OOtr","timelineLabels":"LineMergeTimeline_timelineLabels__3hBbH","gLineYAxis":"LineMergeTimeline_gLineYAxis__2XLPB","verticalLineText":"LineMergeTimeline_verticalLineText__26Jw4","overViewXAxisGrid":"LineMergeTimeline_overViewXAxisGrid__KqAml","tooltip":"LineMergeTimeline_tooltip__2eLDR","tooltipDay":"LineMergeTimeline_tooltipDay__2qZte","tooltipLabel":"LineMergeTimeline_tooltipLabel__KjfSB","dot":"LineMergeTimeline_dot__3kjm_"};
 styleInject(css$5);
 
-var Timeline =
+var LineMergeTimeline =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(Timeline, _Component);
+  _inherits(LineMergeTimeline, _Component);
 
-  function Timeline() {
-    var _getPrototypeOf2;
-
+  function LineMergeTimeline(props) {
     var _this;
 
-    _classCallCheck(this, Timeline);
+    _classCallCheck(this, LineMergeTimeline);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Timeline)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(LineMergeTimeline).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "errorMessage", function (errorType) {
       var message;
@@ -25025,85 +25019,57 @@ function (_Component) {
       select(".".concat(styles$5.timelineChart)).append('div').text(message);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "renderTimeline", function (timeData, lineData, chartWidth, chartHeight) {
-      var brushEvent = _this.props.brushEvent;
-      var timelineData = timeData;
-      var lineChartData = lineDataFormatConvert(lineData);
-      var width = chartWidth; // 차트가 그려지는 전체 영역 넓이
-
-      var height = chartHeight; // 차트가 그려지는 전체 영영 높이
-
-      var xAxisHeight = 64; // 화면상단에서 x축까지의 거리
-
-      var yAxisWidth = 208; // 화면좌측에서 y축까지의 거리
-
-      var overViewAxisHeight = 50; // 차트 브러쉬 높이
-
-      var defaultPadding = {
-        top: 42,
-        // x축에서 처음 그리드 라인까지의 거리
-        right: 30,
-        // x축 오른쪽 끝과 차트 오른쪽 끝 사이의 거리
-        left: 23,
-        // 축에서 라벨까지의 거리
-        bottom: 64 // 차트 전체높이에서 브러쉬 밑부분까지의 거리
-
-      };
-      var defaultMargin = {
-        top: 40
-      };
-      var xAxisWidth = width - yAxisWidth - defaultPadding.right;
-      var svg = renderSVG(select(".".concat(styles$5.timelineChart)), width, height); // Create Entire groups
-      // 1. Entire timeline group
-
-      var gTimeline = generateGroup(svg, {
-        className: 'timeline'
-      }); // Create xAxis
+    _defineProperty(_assertThisInitialized(_this), "createXAxis", function (xAxis) {
+      var _this$options = _this.options,
+          yAxisWidth = _this$options.yAxisWidth,
+          xAxisHeight = _this$options.xAxisHeight,
+          startTime = _this$options.startTime,
+          endTime = _this$options.endTime; // Create xAxis
       // 1. Create xAxis group
 
-      var gXAxis = generateGroup(gTimeline, {
+      var gXAxis = generateGroup(select('.timeline'), {
         className: styles$5.xAxis,
         xOffset: yAxisWidth,
         yOffset: xAxisHeight
-      }); // 2. Get min, max time
-
-      var _getStartAndEndTime = getStartAndEndTime(timelineData.map(function (d) {
-        return d.dataPoints;
-      }).flat()),
-          _getStartAndEndTime2 = _slicedToArray(_getStartAndEndTime, 2),
-          startTime = _getStartAndEndTime2[0],
-          endTime = _getStartAndEndTime2[1]; // 3. Create x axis scale
-
-
-      var xAxisScale = time().domain([startTime, endTime]).range([0, xAxisWidth]); // 4. Create xAxis
-
-      var xAxis = axisTop(xAxisScale).tickPadding(6); // 5. Render xAxis
+      }); // 2. Render xAxis
 
       gXAxis.call(xAxis);
       gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5 V0.5');
-      gXAxis.selectAll('.tick line').remove(); //  Create line yAxis
-      // 1. Create Line YAxis group
+      gXAxis.selectAll('.tick line').remove();
+    });
 
-      var gLineYAxis = generateGroup(gTimeline, {
+    _defineProperty(_assertThisInitialized(_this), "createLineYAxis", function (lineYAxisScale) {
+      var _this$options2 = _this.options,
+          yAxisWidth = _this$options2.yAxisWidth,
+          xAxisHeight = _this$options2.xAxisHeight,
+          defaultPadding = _this$options2.defaultPadding,
+          lineYAxisHeight = _this$options2.lineYAxisHeight; // 1. Create Line YAxis group
+
+      var gLineYAxis = generateGroup(select('.timeline'), {
         className: styles$5.gLineYAxis,
         xOffset: yAxisWidth,
         yOffset: xAxisHeight
-      }); // 2. Create Line YAxis scale
-
-      var lineYAxisHeight = 206;
-      var lineYAxisScale = linear$2().domain([0, 1]).range([lineYAxisHeight, defaultPadding.top]); // 3. Create Line YAxis
+      }); // 2. Create Line YAxis
 
       var lineYAxis = axisLeft(lineYAxisScale).tickValues([0, 0.25, 0.5, 0.75, 1]).tickFormat(function (d) {
         return "".concat(d);
-      }).tickPadding(17);
-      var lineTitle = gTimeline.append('text').text('MACE Risk by Visit').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + 6).attr('class', styles$5.title); // 4. Render Line YAxis 
+      }).tickPadding(17); // 3. Add LineTitle
+
+      var lineTitle = select('.timeline').append('text').text('MACE Risk by Visit').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + 6).attr('class', styles$5.title); // 4. Render Line YAxis 
 
       gLineYAxis.call(lineYAxis);
       gLineYAxis.selectAll('.domain').remove();
-      gLineYAxis.selectAll('.tick line').remove(); // Create line chart grid
-      // 1. Creat  Entire LineGrid Group
+      gLineYAxis.selectAll('.tick line').remove();
+    });
 
-      var gLineGrid = generateGroup(gTimeline, {
+    _defineProperty(_assertThisInitialized(_this), "createLineGrid", function (xAxisScale, lineYAxisScale) {
+      var _this$options3 = _this.options,
+          xAxisHeight = _this$options3.xAxisHeight,
+          yAxisWidth = _this$options3.yAxisWidth,
+          defaultPadding = _this$options3.defaultPadding,
+          lineYAxisHeight = _this$options3.lineYAxisHeight; // 1. Creat  Entire LineGrid Group
+
+      var gLineGrid = generateGroup(select('.timeline'), {
         className: 'gLineGrid',
         xOffset: yAxisWidth,
         yOffset: xAxisHeight
@@ -25116,17 +25082,25 @@ function (_Component) {
       gLineYAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
       gLineYAxisGrid.select('.domain').remove(); // 1. Creat Line XAxis GridLines
 
-      var lineXAxisGridLines = axisRight(lineYAxisScale).tickValues([0, 0.25, 0.5, 0.75, 1]).tickSize(xAxisWidth + defaultPadding.right).tickFormat(''); // 2. Render Line XAxis Gridlines
+      var lineXAxisGridLines = axisRight(lineYAxisScale).tickValues([0, 0.25, 0.5, 0.75, 1]).tickSize(_this.xAxisWidth + defaultPadding.right).tickFormat(''); // 2. Render Line XAxis Gridlines
 
       var gLineXAxisGrid = gLineGrid.append('g').attr('class', 'lineXAxisGrid').call(lineXAxisGridLines); // 3. CSS Line XAxis
 
-      gLineXAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('x2', xAxisWidth);
-      gLineXAxisGrid.select('.domain').remove(); // Create Entire Vertical Line
-      // 1. Create vertical line text
+      gLineXAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('x2', _this.xAxisWidth);
+      gLineXAxisGrid.select('.domain').remove();
+    });
 
-      var verticalLineText = svg.append('text').attr('class', styles$5.verticalLineText).attr('y', xAxisHeight); // 2. Create vertical line scale
+    _defineProperty(_assertThisInitialized(_this), "createVerticalLine", function (svg, xAxisScale, lineScale) {
+      var _this$options4 = _this.options,
+          xAxisHeight = _this$options4.xAxisHeight,
+          yAxisWidth = _this$options4.yAxisWidth,
+          defaultPadding = _this$options4.defaultPadding,
+          height = _this$options4.height,
+          overViewAxisHeight = _this$options4.overViewAxisHeight; // Create Entire Vertical Line      
 
-      var lineScale = time().domain([startTime, endTime]).range([yAxisWidth, width - defaultPadding.right]); // 3. Create vertical line mouse event 
+      var focus = select('.timeline').append('line').attr('class', 'focus').attr('fill', 'none').style('pointer-events', 'none'); // 1. Create vertical line text
+
+      var verticalLineText = svg.append('text').attr('class', styles$5.verticalLineText).attr('y', xAxisHeight); // 2. Create vertical line mouse event 
 
       var mouseover = function mouseover() {
         focus.style('opacity', 1);
@@ -25143,36 +25117,34 @@ function (_Component) {
       var mouseout = function mouseout() {
         focus.style('opacity', 0);
         verticalLineText.style('opacity', 0);
-      }; // 4. Create Vertical Area and Add Mouse Event
+      }; // 3. Create Vertical Area and Add Mouse Event
 
 
-      var verticalLine = gTimeline.append('rect').style('fill', 'none').style('pointer-events', 'all').attr('x', yAxisWidth).attr('y', xAxisHeight).attr('width', xAxisWidth).attr('height', height - xAxisHeight - overViewAxisHeight - defaultPadding.bottom).on('mouseover', mouseover).on('mousemove', mousemove).on('mouseout', mouseout); // Create tooltip
+      var verticalLine = select('.timeline').append('rect').style('fill', 'none').style('pointer-events', 'all').attr('x', yAxisWidth).attr('y', xAxisHeight).attr('width', _this.xAxisWidth).attr('height', height - xAxisHeight - overViewAxisHeight - defaultPadding.bottom).on('mouseover', mouseover).on('mousemove', mousemove).on('mouseout', mouseout);
+    });
 
-      var tooltip = select(".".concat(styles$5.timelineChart)).append('div').attr('class', styles$5.tooltip).style('opacity', 0); //  Create Line Color Gradient
+    _defineProperty(_assertThisInitialized(_this), "renderLineChart", function (svg, lineChartData, xAxisScale, lineYAxisScale, line) {
+      var _this$options5 = _this.options,
+          yAxisWidth = _this$options5.yAxisWidth,
+          xAxisHeight = _this$options5.xAxisHeight,
+          defaultPadding = _this$options5.defaultPadding,
+          lineYAxisHeight = _this$options5.lineYAxisHeight; // Create Line Chart
+      //  Create Line Color Gradient
 
       var defs = svg.append("defs");
       var gradient = defs.append("linearGradient").attr("id", "svgGradient").attr("x1", "0%").attr("x2", "0%").attr("y1", "0%").attr("y2", "100%");
       gradient.append("stop").attr('class', 'start').attr("offset", "0%").attr("stop-color", "#002d4f").attr("stop-opacity", 1);
       gradient.append("stop").attr('class', 'end').attr("offset", "100%").attr("stop-color", "#189bff").attr("stop-opacity", 1); //  Create Line Point Gradient
 
-      var colorScale = linear$2().domain([defaultPadding.top, lineYAxisHeight]).range(["#002d4f", "#189bff"]); // Create Line Chart
-      // 1. Create line generator
+      var colorScale = linear$2().domain([defaultPadding.top, lineYAxisHeight]).range(["#002d4f", "#189bff"]); // 1. Create Line Chart group
 
-      var line$1 = line().x(function (d) {
-        return xAxisScale(Date.parse(d.x));
-      }) // set the x values for the line generator
-      .y(function (d) {
-        return lineYAxisScale(d.y);
-      }); // set the y values for the line generator 
-      // 2. Create Line Chart group
-
-      var gLine = generateGroup(gTimeline, {
+      var gLine = generateGroup(select('.timeline'), {
         className: 'gLine',
         xOffset: yAxisWidth,
         yOffset: xAxisHeight
-      }); // 3. Render Line Chart
+      }); // 2. Render Line Chart
 
-      gLine.append('g').append("path").datum(lineChartData).attr("class", "line").attr("fill", "none").attr("stroke", "url(#svgGradient)").attr("stroke-width", 2).attr("d", line$1); // 4. Render Line Point
+      gLine.append('g').append("path").datum(lineChartData).attr("class", "line").attr("fill", "none").attr("stroke", "url(#svgGradient)").attr("stroke-width", 2).attr("d", line); // 3. Render Line Point
 
       gLine.append('g').selectAll(".lineDot").data(lineChartData).enter().append("circle").attr("class", "lineDot").attr('fill', function (d) {
         return colorScale(lineYAxisScale(d.y));
@@ -25184,33 +25156,45 @@ function (_Component) {
         var x = xAxisScale(Date.parse(d.x)) + yAxisWidth + 2.5;
         var y = lineYAxisScale(d.y);
         var label = d.y;
-        var tooltipDescription = "\n        <div>\n          <div><span class=".concat(styles$5.tooltipLabel, ">").concat(label, "</span></div>\n        </div>\n        ");
+        var tooltip = select(".".concat(styles$5.tooltip));
+        var tooltipDescription = "\n          <div>\n            <div><span class=".concat(styles$5.tooltipLabel, ">").concat(label, "</span></div>\n          </div>\n          ");
         tooltip.transition().duration(200).style('opacity', 1);
         tooltip.style('left', "".concat(x, "px")).style('top', "".concat(y, "px")).style('pointer-events', 'none').html(tooltipDescription);
       }).on('mouseout', function (d) {
-        return tooltip.transition().duration(200).style('opacity', 0);
-      }); // Create Timeline Label
-      // 1. Create Timeline Label Scale
+        return select(".".concat(styles$5.tooltip)).transition().duration(200).style('opacity', 0);
+      });
+    });
 
-      var labelStartYPosition = 0;
-      var labelLastYPosition = 369;
-      var timelineYAxisScale = point$1().domain(labelList(timelineData)).range([labelStartYPosition, labelLastYPosition]); // 2. Create Timeline Label Group
+    _defineProperty(_assertThisInitialized(_this), "createTimelineLabel", function (timelineYAxisScale, timelineData) {
+      var _this$options6 = _this.options,
+          defaultPadding = _this$options6.defaultPadding,
+          defaultMargin = _this$options6.defaultMargin,
+          xAxisHeight = _this$options6.xAxisHeight,
+          lineYAxisHeight = _this$options6.lineYAxisHeight,
+          yAxisWidth = _this$options6.yAxisWidth; // 1. Create Timeline Label Group
 
-      var gTimelineLabels = generateGroup(gTimeline, {
+      var gTimelineLabels = generateGroup(select('.timeline'), {
         className: styles$5.timelineLabels,
         xOffset: -defaultPadding.left,
         yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.top
-      }); // 3. Render Timeline Label
+      }); // 2. Render Timeline Label
 
-      var timelineTitle = gTimeline.append('text').text('Clinical Timeline').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + lineYAxisHeight + defaultMargin.top + 6).attr('class', styles$5.title);
+      var timelineTitle = select('.timeline').append('text').text('Clinical Timeline').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + lineYAxisHeight + defaultMargin.top + 6).attr('class', styles$5.title);
       gTimelineLabels.selectAll('.timelineLabel').data(timelineData).enter().append('text').text(function (d) {
         return d.label[d.label.length - 1];
       }).attr('x', yAxisWidth).attr('y', function (d) {
         return timelineYAxisScale(d.label[d.label.length - 1]);
-      }).attr('text-anchor', 'end').attr('class', 'timelineLabel'); // Create Timeline XAxis
-      // 1. Create Timeline XAxis Group
+      }).attr('text-anchor', 'end').attr('class', 'timelineLabel');
+    });
 
-      var gTimelineXAxis = generateGroup(gTimeline, {
+    _defineProperty(_assertThisInitialized(_this), "createTimelineXAxis", function (xAxis) {
+      var _this$options7 = _this.options,
+          yAxisWidth = _this$options7.yAxisWidth,
+          xAxisHeight = _this$options7.xAxisHeight,
+          lineYAxisHeight = _this$options7.lineYAxisHeight,
+          defaultMargin = _this$options7.defaultMargin; // 1. Create Timeline XAxis Group
+
+      var gTimelineXAxis = generateGroup(select('.timeline'), {
         className: 'timelineXAxis',
         xOffset: yAxisWidth,
         yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top
@@ -25218,10 +25202,21 @@ function (_Component) {
 
       gTimelineXAxis.call(xAxis);
       gTimelineXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5V0.5');
-      gTimelineXAxis.selectAll('.tick').remove(); // Creat Timeline Grid 
+      gTimelineXAxis.selectAll('.tick').remove();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createTimelineGrid", function (xAxisScale, timelineYAxisScale) {
+      var _this$options8 = _this.options,
+          yAxisWidth = _this$options8.yAxisWidth,
+          xAxisHeight = _this$options8.xAxisHeight,
+          lineYAxisHeight = _this$options8.lineYAxisHeight,
+          defaultMargin = _this$options8.defaultMargin,
+          height = _this$options8.height,
+          defaultPadding = _this$options8.defaultPadding,
+          overViewAxisHeight = _this$options8.overViewAxisHeight; // Creat Timeline Grid 
       // 1. Create Timeline Grid Group
 
-      var gTimelineGrid = generateGroup(gTimeline, {
+      var gTimelineGrid = generateGroup(select('.timeline'), {
         className: 'gTimelineGrid',
         xOffset: yAxisWidth,
         yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top
@@ -25234,17 +25229,24 @@ function (_Component) {
       gTimelineYAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
       gTimelineYAxisGrid.select('.domain').remove(); // 4.Creat Timeline XAxis GridLines
 
-      var timelineXAxisGridLines = axisRight(timelineYAxisScale).tickSize(xAxisWidth).tickFormat(''); // 5. Render Timeline XAxis Gridlines
+      var timelineXAxisGridLines = axisRight(timelineYAxisScale).tickSize(_this.xAxisWidth).tickFormat(''); // 5. Render Timeline XAxis Gridlines
 
       var gTimelineXAxisGrid = gTimelineGrid.append('g').attr('class', 'timelineXAxisGrid').attr('transform', "translate(0, ".concat(defaultPadding.top - 5, ")")).call(timelineXAxisGridLines);
       gTimelineXAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8');
-      gTimelineXAxisGrid.select('.domain').remove(); // Create Timeline Color Scale 
+      gTimelineXAxisGrid.select('.domain').remove();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderTimelineChart", function (timelineData, xAxisScale, timelineYAxisScale) {
+      var _this$options9 = _this.options,
+          yAxisWidth = _this$options9.yAxisWidth,
+          xAxisHeight = _this$options9.xAxisHeight,
+          lineYAxisHeight = _this$options9.lineYAxisHeight,
+          defaultMargin = _this$options9.defaultMargin; // Create Timeline Chart
 
       var circleColorScale = ordinal().domain(labelList(timelineData)).range(['#00745e', '#faafa5', '#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec']);
-      var rectColorScale = ordinal().domain(labelList(timelineData)).range(['#27b097', '#fa6b57', '#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec']); // Create Timeline Chart
-      // 1. Create Timeline Data Group
+      var rectColorScale = ordinal().domain(labelList(timelineData)).range(['#27b097', '#fa6b57', '#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec']); // 1. Create Timeline Data Group
 
-      var gTimelineData = generateGroup(gTimeline, {
+      var gTimelineData = generateGroup(select('.timeline'), {
         className: 'timelineData',
         xOffset: yAxisWidth,
         yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top * 2 - 2.5
@@ -25262,11 +25264,12 @@ function (_Component) {
               y = _d3$mouse2[1];
 
           var label = data.label[data.label.length - 1];
+          var tooltip = select(".".concat(styles$5.tooltip));
           var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$5.tooltipLabel, "><span class=").concat(styles$5.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$5.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.start_time)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.end_time)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + yAxisWidth, "px")).style('top', "".concat(y + xAxisHeight + lineYAxisHeight + 7.5, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function (d) {
-          return tooltip.transition().duration(200).style('opacity', 0);
+          return select(".".concat(styles$5.tooltip)).transition().duration(200).style('opacity', 0);
         });
       }); // Add Rect Group
 
@@ -25282,18 +25285,26 @@ function (_Component) {
               y = _d3$mouse4[1];
 
           var label = data.label[data.label.length - 1];
+          var tooltip = select(".".concat(styles$5.tooltip));
           var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$5.tooltipLabel, "><span class=").concat(styles$5.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$5.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.start_time)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.end_time)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + yAxisWidth, "px")).style('top', "".concat(y + xAxisHeight + lineYAxisHeight + 7.5, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function (d) {
-          return tooltip.transition().duration(200).style('opacity', 0);
+          return select(".".concat(styles$5.tooltip)).transition().duration(200).style('opacity', 0);
         });
-      }); // Create Clip (avoid displaying the chart outside the chart area)
+      });
+    });
 
-      var clip = gTimeline.append('defs').append('clipPath').attr('id', 'clip').append('rect').attr('x', 0).attr('y', -20).attr('width', xAxisWidth).attr('height', height - overViewAxisHeight - defaultPadding.bottom); // Create OverViewAxis 
+    _defineProperty(_assertThisInitialized(_this), "createTimelineOverView", function (xAxisScale) {
+      var _this$options10 = _this.options,
+          defaultPadding = _this$options10.defaultPadding,
+          yAxisWidth = _this$options10.yAxisWidth,
+          height = _this$options10.height,
+          overViewAxisHeight = _this$options10.overViewAxisHeight,
+          width = _this$options10.width; // Create OverViewAxis 
       // 1. Create OverViewAxis Group
 
-      var gOverViewAxis = generateGroup(gTimeline, {
+      var gOverViewAxis = generateGroup(select('.timeline'), {
         className: 'overViewAxis',
         xOffset: yAxisWidth,
         yOffset: height - overViewAxisHeight - defaultPadding.bottom + 10
@@ -25315,13 +25326,23 @@ function (_Component) {
       overViewXAxis.selectAll('.domain').attr('stroke', '#003964').attr('d', 'M0.5 0V0.5H962.5V0.5');
       overViewXAxis.selectAll('.tick line').remove(); // 4. Render OverView Cover Line
 
-      gTimeline.append('line').attr('x1', yAxisWidth).attr('x2', width - defaultPadding.right).attr('y1', height - overViewAxisHeight - defaultPadding.bottom + 10).attr('y2', height - overViewAxisHeight - defaultPadding.bottom + 10).attr('stroke', '#003964');
-      gTimeline.append('line').attr('x1', yAxisWidth).attr('x2', width - defaultPadding.right).attr('y1', height - defaultPadding.bottom + 10).attr('y2', height - defaultPadding.bottom + 10).attr('stroke', '#003964'); // Create Brush
+      select('.timeline').append('line').attr('x1', yAxisWidth).attr('x2', width - defaultPadding.right).attr('y1', height - overViewAxisHeight - defaultPadding.bottom + 10).attr('y2', height - overViewAxisHeight - defaultPadding.bottom + 10).attr('stroke', '#003964');
+      select('.timeline').append('line').attr('x1', yAxisWidth).attr('x2', width - defaultPadding.right).attr('y1', height - defaultPadding.bottom + 10).attr('y2', height - defaultPadding.bottom + 10).attr('stroke', '#003964');
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createBrush", function (xAxisScale, lineScale, xAxis, line, overViewXAxisScale) {
+      var _this$options11 = _this.options,
+          height = _this$options11.height,
+          xAxisHeight = _this$options11.xAxisHeight,
+          defaultPadding = _this$options11.defaultPadding,
+          defaultMargin = _this$options11.defaultMargin,
+          overViewAxisHeight = _this$options11.overViewAxisHeight,
+          lineYAxisHeight = _this$options11.lineYAxisHeight; // Create Brush
       // 1. Create Brush point
 
       var brushLeftTopPositionX = 0;
       var brushLeftTopPositionY = 0;
-      var brushRightTopPositionX = xAxisWidth;
+      var brushRightTopPositionX = _this.xAxisWidth;
       var brushRightTopPositionY = overViewAxisHeight; // 2. Create Brush Funtion
 
       var brushed = function brushed() {
@@ -25341,31 +25362,32 @@ function (_Component) {
         typeof brushEvent === "function" ? brushEvent(time) : null;
         xAxisScale.domain([Date.parse(start), Date.parse(end)]);
         lineScale.domain([Date.parse(start), Date.parse(end)]);
-        gXAxis.transition().duration(500).call(xAxis);
-        gXAxis.transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5V0.5');
-        gXAxis.transition().duration(500).selectAll('.tick line').remove(); // Line Chart Grid
+        select(".".concat(styles$5.xAxis)).transition().duration(500).call(xAxis);
+        select(".".concat(styles$5.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5V0.5');
+        select(".".concat(styles$5.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Line Chart Grid
 
-        gLineYAxisGrid.selectAll('tick').remove();
+        select('.lineYAxisGrid').selectAll('tick').remove();
         var lineYAxisGridLines = axisTop(xAxisScale).tickSize(-lineYAxisHeight).tickFormat('');
-        gLineYAxisGrid.transition().duration(500).call(lineYAxisGridLines);
-        gLineYAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
-        gLineYAxisGrid.select('.domain').remove(); // Timeline Chart Grid
+        select('.lineYAxisGrid').transition().duration(500).call(lineYAxisGridLines);
+        select('.lineYAxisGrid').selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+        select('.lineYAxisGrid').select('.domain').remove(); // Timeline Chart Grid
 
-        gTimelineYAxisGrid.selectAll('tick').remove();
+        select('.timelineYAxisGrid').selectAll('tick').remove();
+        var timelineYAxisGridHeight = height - (xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.bottom + overViewAxisHeight);
         var timelineYAxisGridLines = axisTop(xAxisScale).tickSize(-timelineYAxisGridHeight).tickFormat('');
-        gTimelineYAxisGrid.transition().duration(500).call(timelineYAxisGridLines);
-        gTimelineYAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
-        gTimelineYAxisGrid.select('.domain').remove(); // Line Chart Data Render
+        select('.timelineYAxisGrid').transition().duration(500).call(timelineYAxisGridLines);
+        select('.timelineYAxisGrid').selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+        select('.timelineYAxisGrid').select('.domain').remove(); // Line Chart Data Render
 
-        gLine.selectAll("path").transition().duration(500).attr('d', line$1).attr('clip-path', 'url(#clip)');
-        gLine.selectAll(".lineDot").transition().duration(500).attr('clip-path', 'url(#clip)').attr("cx", function (d) {
+        select('.gLine').selectAll("path").transition().duration(500).attr('d', line).attr('clip-path', 'url(#clip)');
+        select('.gLine').selectAll(".lineDot").transition().duration(500).attr('clip-path', 'url(#clip)').attr("cx", function (d) {
           return xAxisScale(Date.parse(d.x));
         }); // Timeline Data Render
 
-        gTimelineData.selectAll('circle').transition().duration(500).attr('cx', function (d, i) {
+        select('.timelineData').selectAll('circle').transition().duration(500).attr('cx', function (d, i) {
           return xAxisScale(Date.parse(d.start_time));
         }).attr('clip-path', 'url(#clip)');
-        gTimelineData.selectAll('rect').transition().duration(500).attr('x', function (d, i) {
+        select('.timelineData').selectAll('rect').transition().duration(500).attr('x', function (d, i) {
           return xAxisScale(Date.parse(d.start_time));
         }).attr('width', function (d) {
           return xAxisScale(Date.parse(d.end_time)) - xAxisScale(Date.parse(d.start_time));
@@ -25374,55 +25396,133 @@ function (_Component) {
 
 
       var brush = brushX().extent([[brushLeftTopPositionX, brushLeftTopPositionY], [brushRightTopPositionX, brushRightTopPositionY]]).on('end', brushed);
-      var overViewXAxisScale = time().domain([startTime, endTime]).range([0, xAxisWidth]);
-      var gBrush = generateGroup(gOverViewAxis, {
+      var gBrush = generateGroup(select('.overViewAxis'), {
         className: 'overViewXAxisBrush'
       });
-      gBrush.call(brush); // Add Reset Button
+      gBrush.call(brush);
+    });
 
-      select('#reset').on('click', function () {
+    _defineProperty(_assertThisInitialized(_this), "addChartReset", function (id, xAxisScale, lineScale, overViewXAxisScale, line, xAxis) {
+      var _this$options12 = _this.options,
+          lineYAxisHeight = _this$options12.lineYAxisHeight,
+          height = _this$options12.height,
+          xAxisHeight = _this$options12.xAxisHeight,
+          defaultMargin = _this$options12.defaultMargin,
+          defaultPadding = _this$options12.defaultPadding,
+          overViewAxisHeight = _this$options12.overViewAxisHeight;
+      var brushEvent = _this.props.brushEvent;
+      select("#".concat(id)).on('click', function () {
+        // Initialize XAxisScale, VerticalLineScale
         xAxisScale.domain(overViewXAxisScale.domain());
         lineScale.domain(overViewXAxisScale.domain());
-        gXAxis.transition().duration(500).call(xAxis);
-        gXAxis.transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5 V0.5');
-        gXAxis.transition().duration(500).selectAll('.tick line').remove(); // Initialize Line Chart Grid
+        select(".".concat(styles$5.xAxis)).transition().duration(500).call(xAxis);
+        select(".".concat(styles$5.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5 V0.5');
+        select(".".concat(styles$5.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Initialize Line Chart Grid
 
         var lineYAxisGridLines = axisTop(xAxisScale).tickSize(-lineYAxisHeight).tickFormat('');
-        gLineYAxisGrid.transition().duration(500).call(lineYAxisGridLines);
-        gLineYAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
-        gLineYAxisGrid.select('.domain').remove(); // Initialize Timeline Grid
+        select('.lineYAxisGrid').transition().duration(500).call(lineYAxisGridLines);
+        select('.lineYAxisGrid').selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+        select('.lineYAxisGrid').select('.domain').remove();
+        var timelineYAxisGridHeight = height - (xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.bottom + overViewAxisHeight); // Initialize Timeline Grid
 
         var timelineYAxisGridLines = axisTop(xAxisScale).tickSize(-timelineYAxisGridHeight).tickFormat('');
-        gTimelineYAxisGrid.transition().duration(500).call(timelineYAxisGridLines);
-        gTimelineYAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
-        gTimelineYAxisGrid.select('.domain').remove(); // Initialize Line Chart Data
+        select('.timelineYAxisGrid').transition().duration(500).call(timelineYAxisGridLines);
+        select('.timelineYAxisGrid').selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+        select('.timelineYAxisGrid').select('.domain').remove(); // Initialize Line Chart Data
 
-        gLine.selectAll("path").transition().duration(500).attr('d', line$1);
-        gLine.selectAll(".lineDot").transition().duration(500).attr("cx", function (d) {
+        select('.gLine').selectAll("path").transition().duration(500).attr('d', line);
+        select('.gLine').selectAll(".lineDot").transition().duration(500).attr("cx", function (d) {
           return xAxisScale(Date.parse(d.x));
         }); // Initialize Timeline 
 
-        gTimelineData.selectAll('circle').transition().duration(500).attr('cx', function (d, i) {
+        select('.timelineData').selectAll('circle').transition().duration(500).attr('cx', function (d, i) {
           return xAxisScale(Date.parse(d.start_time));
         });
-        gTimelineData.selectAll('rect').transition().duration(500).attr('x', function (d, i) {
+        select('.timelineData').selectAll('rect').transition().duration(500).attr('x', function (d, i) {
           return xAxisScale(Date.parse(d.start_time));
         }).attr('width', function (d) {
           return xAxisScale(Date.parse(d.end_time)) - xAxisScale(Date.parse(d.start_time));
         }); // Initialize Brush
 
-        gBrush.select('rect.selection').transition().duration(500).attr('width', 0);
+        select('.overViewXAxisBrush').select('rect.selection').transition().duration(500).attr('width', 0);
         typeof brushEvent === "function" ? brushEvent() : null;
       });
-      var focus = gTimeline.append('line').attr('class', 'focus').attr('fill', 'none').style('pointer-events', 'none');
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderLineMergeTimeline", function (timeData, lineData) {
+      var timelineData = timeData;
+      var lineChartData = lineDataFormatConvert(lineData);
+      var _this$options13 = _this.options,
+          width = _this$options13.width,
+          height = _this$options13.height,
+          overViewAxisHeight = _this$options13.overViewAxisHeight,
+          yAxisWidth = _this$options13.yAxisWidth,
+          startTime = _this$options13.startTime,
+          endTime = _this$options13.endTime,
+          lineYAxisHeight = _this$options13.lineYAxisHeight,
+          defaultPadding = _this$options13.defaultPadding,
+          labelStartYPosition = _this$options13.labelStartYPosition,
+          labelLastYPosition = _this$options13.labelLastYPosition; // Create tooltip
+
+      select(".".concat(styles$5.timelineChart)).append('div').attr('class', styles$5.tooltip).style('opacity', 0);
+      var svg = renderSVG(select(".".concat(styles$5.timelineChart)), _this.options.width, _this.options.height); // Create Entire groups
+      // 1. Entire timeline group
+
+      var gTimeline = generateGroup(svg, {
+        className: 'timeline'
+      }); // Create Clip (avoid displaying the chart outside the chart area)
+
+      var clip = gTimeline.append('defs').append('clipPath').attr('id', 'clip').append('rect').attr('x', 0).attr('y', -20).attr('width', _this.xAxisWidth).attr('height', height - overViewAxisHeight - defaultPadding.bottom); // Create XAxisScale
+
+      var xAxisScale = time().domain([startTime, endTime]).range([0, _this.xAxisWidth]); // Create YAxisScale for LineChart
+
+      var lineYAxisScale = linear$2().domain([0, 1]).range([lineYAxisHeight, defaultPadding.top]); // Create VerticalLine Scale
+
+      var lineScale = time().domain([startTime, endTime]).range([yAxisWidth, width - defaultPadding.right]); // Create TimelineYAxis Scale
+
+      var timelineYAxisScale = point$1().domain(labelList(timelineData)).range([labelStartYPosition, labelLastYPosition]); // Create OverViewXAxis Scale
+
+      var overViewXAxisScale = time().domain([startTime, endTime]).range([0, _this.xAxisWidth]); // Create XAxis
+
+      var xAxis = axisTop(xAxisScale).tickPadding(6); // Create LineChart Coordinate Generator
+
+      var line$1 = line().x(function (d) {
+        return xAxisScale(Date.parse(d.x));
+      }) // set the x values for the line generator
+      .y(function (d) {
+        return lineYAxisScale(d.y);
+      }); // set the y values for the line generator 
+
+      _this.createXAxis(xAxis);
+
+      _this.createLineYAxis(lineYAxisScale);
+
+      _this.createLineGrid(xAxisScale, lineYAxisScale);
+
+      _this.createVerticalLine(svg, xAxisScale, lineScale);
+
+      _this.renderLineChart(svg, lineChartData, xAxisScale, lineYAxisScale, line$1);
+
+      _this.createTimelineLabel(timelineYAxisScale, timelineData);
+
+      _this.createTimelineXAxis(xAxis);
+
+      _this.createTimelineGrid(xAxisScale, timelineYAxisScale);
+
+      _this.renderTimelineChart(timelineData, xAxisScale, timelineYAxisScale);
+
+      _this.createTimelineOverView(xAxisScale);
+
+      _this.createBrush(xAxisScale, lineScale, xAxis, line$1, overViewXAxisScale);
+
+      _this.addChartReset('reset', xAxisScale, lineScale, overViewXAxisScale, line$1, xAxis); // TODO: Code Refactoring Module
+
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
       var _this$props = _this.props,
           timeData = _this$props.timeData,
-          lineData = _this$props.lineData,
-          chartWidth = _this$props.chartWidth,
-          chartHeight = _this$props.chartHeight;
+          lineData = _this$props.lineData;
 
       if (isEmpty_1(timeData) || isEmpty_1(lineData)) {
         return _this.errorMessage('haveData');
@@ -25432,13 +25532,51 @@ function (_Component) {
         return _this.errorMessage('typeOfVariable');
       }
 
-      return _this.renderTimeline(timeData, lineData, chartWidth, chartHeight);
+      return _this.renderLineMergeTimeline(timeData, lineData);
     });
 
+    var _getStartAndEndTime = getStartAndEndTime(_this.props.timeData.map(function (d) {
+      return d.dataPoints;
+    }).flat()),
+        _getStartAndEndTime2 = _slicedToArray(_getStartAndEndTime, 2),
+        _startTime = _getStartAndEndTime2[0],
+        _endTime = _getStartAndEndTime2[1];
+
+    _this.options = {
+      width: _this.props.chartWidth || 1200,
+      // 차트가 그려지는 전체 영역 넓이
+      height: _this.props.chartHeight || 835,
+      // 차트가 그려지는 전체 영영 높이
+      xAxisHeight: 64,
+      // 화면상단에서 x축까지의 거리
+      yAxisWidth: 208,
+      // 화면좌측에서 y축까지의 거리
+      overViewAxisHeight: 50,
+      // 차트 브러쉬 높이
+      defaultPadding: {
+        top: 42,
+        // x축에서 처음 그리드 라인까지의 거리
+        right: 30,
+        // x축 오른쪽 끝과 차트 오른쪽 끝 사이의 거리
+        left: 23,
+        // 축에서 라벨까지의 거리
+        bottom: 64 // 차트 전체높이에서 브러쉬 밑부분까지의 거리        
+
+      },
+      defaultMargin: {
+        top: 40
+      },
+      startTime: _startTime,
+      endTime: _endTime,
+      lineYAxisHeight: 206,
+      labelStartYPosition: 0,
+      labelLastYPosition: 369
+    };
+    _this.xAxisWidth = _this.options.width - _this.options.yAxisWidth - _this.options.defaultPadding.right;
     return _this;
   }
 
-  _createClass(Timeline, [{
+  _createClass(LineMergeTimeline, [{
     key: "render",
     value: function render() {
       return React.createElement("div", {
@@ -25447,7 +25585,7 @@ function (_Component) {
     }
   }]);
 
-  return Timeline;
+  return LineMergeTimeline;
 }(Component);
 
-export { BarGauge, LineChart, RadiusGauge, SankeyChart, SelectedCard, SummaryCard, Table, Timeline };
+export { BarGauge, LineChart, LineMergeTimeline, RadiusGauge, SankeyChart, SelectedCard, SummaryCard, Table };
