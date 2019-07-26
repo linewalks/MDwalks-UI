@@ -238,10 +238,10 @@
 
    * ### Timeline Component
 
-  ![Timeline](./src/assets/img/Timeline.png)
+  ![LineMergeTimeline](./src/assets/img/LineMergeTimeline.png)
 
   ```javascript
-  import Timeline from '<Timeline Path>'
+  import LineMergeTimeline from '<LineMergeTimeline Path>'
   const timelineData = [
     {
       "dataPoints": [
@@ -421,13 +421,18 @@
   }
 
   const App = () => {
+    const eventHandler = (time) => {
+      console.log(time)
+    }
+
     return (
       <div>
-        <Timeline
+        <LineMergeTimeline
           timeData={timelineData} 
           lineData={lineData}
           chartWidth={1200}
           chartHeight={835}
+          brushEvent={eventHandler}
         />
       </div>
     )
@@ -440,5 +445,6 @@
   |:------|:-------|:------- |:--------------------|
   | timeData | Array |     | Timeline Data |
   | lineData | Object |     | Line Chart Data |
-  | chartWidth | Number |     | Entire Chart Width |
-  | chartHeight | Number |     | Entire Chart Height |
+  | chartWidth | Number | 1200 | Entire Chart Width |
+  | chartHeight | Number | 835 | Entire Chart Height |
+  | brushEvent | Function |    | Timeline Brush EventHandler |
