@@ -50,7 +50,7 @@ class LineMergeTimeline extends Component {
   }
 
   createXAxis = (xAxis) => {
-    const { yAxisWidth, xAxisHeight, startTime, endTime } = this.options
+    const { yAxisWidth, xAxisHeight } = this.options
 
     // Create xAxis
     // 1. Create xAxis group
@@ -67,7 +67,7 @@ class LineMergeTimeline extends Component {
   }
 
   createLineYAxis = (lineYAxisScale) => {
-    const { yAxisWidth, xAxisHeight, defaultPadding, lineYAxisHeight } = this.options
+    const { yAxisWidth, xAxisHeight } = this.options
       // 1. Create Line YAxis group
       const gLineYAxis = generateGroup(d3.select('.timeline'), {
       className: styles.gLineYAxis,
@@ -534,6 +534,7 @@ class LineMergeTimeline extends Component {
   
     // 2. Create Brush Funtion
     const brushed = () => {
+      const { brushEvent } = this.props
       const selection = d3.event.selection
       if (selection === null) return
 
