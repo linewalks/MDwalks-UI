@@ -6,6 +6,7 @@ import SummaryCard from './components/card/SummaryCard';
 import Table from './components/table/Table';
 import LineChart from './components/charts/LineChart';
 import LineMergeTimeline from './components/charts/LineMergeTimeline';
+import TreeMap from './components/charts/TreeMap'
 
 export { 
   BarGauge, 
@@ -15,5 +16,6 @@ export {
   SummaryCard, 
   Table, 
   LineChart, 
-  LineMergeTimeline
+  LineMergeTimeline,
+  TreeMap
 } 
