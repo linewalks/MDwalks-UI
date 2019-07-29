@@ -36,32 +36,35 @@ export const getStartAndEndTime = dataPoints => {
     throw new Error('datapoints should be a list')
   }
 
-  let startTime = dataPoints[0].start_time
+  let startTime = dataPoints[0].startTime
   let endTime = 0
 
   dataPoints.forEach(d => {
-    if (!Date.parse(d.start_time) || !Date.parse(d.end_time)) {
+    if (!Date.parse(d.startTime) || !Date.parse(d.endTime)) {
       throw new Error(
-        'data point should have both start_time and end_time' +
+        'data point should have both startTime and endTime' +
           JSON.stringify(d),
       )
     }
-    if (Date.parse(d.start_time) < Date.parse(startTime)) {
-      startTime = d.start_time
+    if (Date.parse(d.startTime) < Date.parse(startTime)) {
+      startTime = d.startTime
     }
-    if (Date.parse(d.end_time) > Date.parse(endTime)) {
-      endTime = d.end_time
+    if (Date.parse(d.endTime) > Date.parse(endTime)) {
+      endTime = d.endTime
     }
   })
-  return [Date.parse(startTime), Date.parse(endTime)]
+  return {
+    startTime: Date.parse(startTime),
+    endTime: Date.parse(endTime),
+  }
 }
 
 export const circleDataFilter = data => {
-  return data.filter(d => Date.parse(d.end_time) - Date.parse(d.start_time) === 0)
+  return data.filter(d => Date.parse(d.endTime) - Date.parse(d.startTime) === 0)
 }
 
 export const rectDataFilter = data => {
-  return data.filter(d => Date.parse(d.end_time) - Date.parse(d.start_time) > 0)
+  return data.filter(d => Date.parse(d.endTime) - Date.parse(d.startTime) > 0)
 }
 
 export const labelList = data => {

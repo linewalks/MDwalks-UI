@@ -17892,6 +17892,21 @@ function zoom() {
 
 var d3Core = /*#__PURE__*/Object.freeze({
   version: version,
+  cluster: cluster,
+  hierarchy: hierarchy,
+  pack: index$2,
+  packSiblings: siblings,
+  packEnclose: enclose,
+  partition: partition,
+  stratify: stratify,
+  tree: tree,
+  treemap: index$3,
+  treemapBinary: binary,
+  treemapDice: treemapDice,
+  treemapSlice: treemapSlice,
+  treemapSliceDice: sliceDice,
+  treemapSquarify: squarify,
+  treemapResquarify: resquarify,
   bisect: bisectRight,
   bisectRight: bisectRight,
   bisectLeft: bisectLeft,
@@ -17923,10 +17938,6 @@ var d3Core = /*#__PURE__*/Object.freeze({
   transpose: transpose,
   variance: variance,
   zip: zip,
-  axisTop: axisTop,
-  axisRight: axisRight,
-  axisBottom: axisBottom,
-  axisLeft: axisLeft,
   brush: brush,
   brushX: brushX,
   brushY: brushY,
@@ -18078,21 +18089,10 @@ var d3Core = /*#__PURE__*/Object.freeze({
   geoRotation: rotation,
   geoStream: geoStream,
   geoTransform: transform,
-  cluster: cluster,
-  hierarchy: hierarchy,
-  pack: index$2,
-  packSiblings: siblings,
-  packEnclose: enclose,
-  partition: partition,
-  stratify: stratify,
-  tree: tree,
-  treemap: index$3,
-  treemapBinary: binary,
-  treemapDice: treemapDice,
-  treemapSlice: treemapSlice,
-  treemapSliceDice: sliceDice,
-  treemapSquarify: squarify,
-  treemapResquarify: resquarify,
+  axisTop: axisTop,
+  axisRight: axisRight,
+  axisBottom: axisBottom,
+  axisLeft: axisLeft,
   interpolate: interpolateValue,
   interpolateArray: array$1,
   interpolateBasis: basis$1,
@@ -23610,31 +23610,34 @@ var getStartAndEndTime = function getStartAndEndTime(dataPoints) {
     throw new Error('datapoints should be a list');
   }
 
-  var startTime = dataPoints[0].start_time;
+  var startTime = dataPoints[0].startTime;
   var endTime = 0;
   dataPoints.forEach(function (d) {
-    if (!Date.parse(d.start_time) || !Date.parse(d.end_time)) {
-      throw new Error('data point should have both start_time and end_time' + JSON.stringify(d));
+    if (!Date.parse(d.startTime) || !Date.parse(d.endTime)) {
+      throw new Error('data point should have both startTime and endTime' + JSON.stringify(d));
     }
 
-    if (Date.parse(d.start_time) < Date.parse(startTime)) {
-      startTime = d.start_time;
+    if (Date.parse(d.startTime) < Date.parse(startTime)) {
+      startTime = d.startTime;
     }
 
-    if (Date.parse(d.end_time) > Date.parse(endTime)) {
-      endTime = d.end_time;
+    if (Date.parse(d.endTime) > Date.parse(endTime)) {
+      endTime = d.endTime;
     }
   });
-  return [Date.parse(startTime), Date.parse(endTime)];
+  return {
+    startTime: Date.parse(startTime),
+    endTime: Date.parse(endTime)
+  };
 };
 var circleDataFilter = function circleDataFilter(data) {
   return data.filter(function (d) {
-    return Date.parse(d.end_time) - Date.parse(d.start_time) === 0;
+    return Date.parse(d.endTime) - Date.parse(d.startTime) === 0;
   });
 };
 var rectDataFilter = function rectDataFilter(data) {
   return data.filter(function (d) {
-    return Date.parse(d.end_time) - Date.parse(d.start_time) > 0;
+    return Date.parse(d.endTime) - Date.parse(d.startTime) > 0;
   });
 };
 var labelList = function labelList(data) {
@@ -25263,7 +25266,7 @@ function (_Component) {
         gTimelineData.append('g').attr('class', function (d) {
           return "circles-".concat(idx);
         }).selectAll('circle').data(circleDataFilter(data.dataPoints)).enter().append('circle').attr('cx', function (d, i) {
-          return xAxisScale(Date.parse(d.start_time));
+          return xAxisScale(Date.parse(d.startTime));
         }).attr('cy', timelineYAxisScale(data.label[data.label.length - 1])).attr('r', 7.5).attr('fill', circleColorScale(data.label[data.label.length - 1])).attr('clip-path', 'url(#clip)').on('mouseover', function (d, i, nodes) {
           var _d3$mouse = mouse(nodes[i]),
               _d3$mouse2 = _slicedToArray(_d3$mouse, 2),
@@ -25272,7 +25275,7 @@ function (_Component) {
 
           var label = data.label[data.label.length - 1];
           var tooltip = select(".".concat(styles$5.tooltip));
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$5.tooltipLabel, "><span class=").concat(styles$5.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$5.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.start_time)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.end_time)), "</div>\n            </div>\n            ");
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$5.tooltipLabel, "><span class=").concat(styles$5.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$5.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + yAxisWidth, "px")).style('top', "".concat(y + xAxisHeight + lineYAxisHeight + 7.5, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function (d) {
@@ -25282,9 +25285,9 @@ function (_Component) {
 
       timelineData.forEach(function (data, idx) {
         gTimelineData.append('g').attr('class', "rects-".concat(idx)).selectAll('rect').data(rectDataFilter(data.dataPoints)).enter().append('rect').attr('x', function (d, i) {
-          return xAxisScale(Date.parse(d.start_time));
+          return xAxisScale(Date.parse(d.startTime));
         }).attr('y', timelineYAxisScale(data.label[data.label.length - 1]) - 7.5).attr('height', 15).attr('width', function (d) {
-          return xAxisScale(Date.parse(d.end_time)) - xAxisScale(Date.parse(d.start_time));
+          return xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime));
         }).attr('fill', rectColorScale(data.label[data.label.length - 1])).attr('clip-path', 'url(#clip)').on('mouseover', function (d, i, nodes) {
           var _d3$mouse3 = mouse(nodes[i]),
               _d3$mouse4 = _slicedToArray(_d3$mouse3, 2),
@@ -25293,7 +25296,7 @@ function (_Component) {
 
           var label = data.label[data.label.length - 1];
           var tooltip = select(".".concat(styles$5.tooltip));
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$5.tooltipLabel, "><span class=").concat(styles$5.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$5.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.start_time)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.end_time)), "</div>\n            </div>\n            ");
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$5.tooltipLabel, "><span class=").concat(styles$5.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$5.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + yAxisWidth, "px")).style('top', "".concat(y + xAxisHeight + lineYAxisHeight + 7.5, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function (d) {
@@ -25392,12 +25395,12 @@ function (_Component) {
         }); // Timeline Data Render
 
         select('.timelineData').selectAll('circle').transition().duration(500).attr('cx', function (d, i) {
-          return xAxisScale(Date.parse(d.start_time));
+          return xAxisScale(Date.parse(d.startTime));
         }).attr('clip-path', 'url(#clip)');
         select('.timelineData').selectAll('rect').transition().duration(500).attr('x', function (d, i) {
-          return xAxisScale(Date.parse(d.start_time));
+          return xAxisScale(Date.parse(d.startTime));
         }).attr('width', function (d) {
-          return xAxisScale(Date.parse(d.end_time)) - xAxisScale(Date.parse(d.start_time));
+          return xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime));
         }).attr('clip-path', 'url(#clip)');
       }; // Add Brush Event
 
@@ -25443,12 +25446,12 @@ function (_Component) {
         }); // Initialize Timeline 
 
         select('.timelineData').selectAll('circle').transition().duration(500).attr('cx', function (d, i) {
-          return xAxisScale(Date.parse(d.start_time));
+          return xAxisScale(Date.parse(d.startTime));
         });
         select('.timelineData').selectAll('rect').transition().duration(500).attr('x', function (d, i) {
-          return xAxisScale(Date.parse(d.start_time));
+          return xAxisScale(Date.parse(d.startTime));
         }).attr('width', function (d) {
-          return xAxisScale(Date.parse(d.end_time)) - xAxisScale(Date.parse(d.start_time));
+          return xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime));
         }); // Initialize Brush
 
         select('.overViewXAxisBrush').select('rect.selection').transition().duration(500).attr('width', 0);
@@ -25545,9 +25548,8 @@ function (_Component) {
     var _getStartAndEndTime = getStartAndEndTime(_this.props.timeData.map(function (d) {
       return d.dataPoints;
     }).flat()),
-        _getStartAndEndTime2 = _slicedToArray(_getStartAndEndTime, 2),
-        _startTime = _getStartAndEndTime2[0],
-        _endTime = _getStartAndEndTime2[1];
+        _startTime = _getStartAndEndTime.startTime,
+        _endTime = _getStartAndEndTime.endTime;
 
     _this.options = {
       width: _this.props.chartWidth || 1200,
