@@ -448,3 +448,176 @@
   | chartWidth | Number | 1200 | Entire Chart Width |
   | chartHeight | Number | 835 | Entire Chart Height |
   | brushEvent | Function |    | Timeline Brush EventHandler |
+
+
+
+
+
+
+* ### TreeMap Component
+
+  ![TreeMap](./src/assets/img/TreeMap.png)
+
+  ```javascript
+  import TreeMap from '<TreeMap Path>'
+
+  const data = [
+    {
+      id: "id_0_0", 
+      name: "Afghanistan", 
+      parent: "id_0"
+    },
+    {
+      id: "id_0_0_0", 
+      name: "Communicable diseases", 
+      parent: "id_0_0", 
+      value: 103
+    },
+    {
+      id: "id_0_0_1", 
+      name: "Injuries", 
+      parent: "id_0_0", 
+      value: 47
+    },
+    {
+      id: "id_0_0_2", 
+      name: "Non-communicable diseases", 
+      parent: "id_0_0", 
+      value: 110
+    },
+    {
+      id: "id_0_1", 
+      name: "Bahrain", 
+      parent: "id_0"
+    },
+    {
+      id: "id_0_1_0", 
+      name: "Communicable diseases", 
+      parent: "id_0_1", 
+      value: 0
+    },
+    {
+      id: "id_0_1_1", 
+      name: "Injuries", 
+      parent: "id_0_1",
+      value: 0
+    },
+    {
+      id: "id_0_1_2", 
+      name: "Non-communicable diseases", 
+      parent: "id_0_1", 
+      value: 3
+    },
+    {
+      id: "id_0_2", 
+      name: "Djibouti", 
+      parent: "id_0"
+    },
+    {
+      id: "id_0_2_0", 
+      name: "Communicable diseases", 
+      parent: "id_0_2", 
+      value: 3
+    },
+    {
+      id: "id_0_2_1", 
+      name: "Injuries", 
+      parent: "id_0_2", 
+      value: 1
+    },
+    {
+      id: "id_0_2_2", 
+      name: "Non-communicable diseases", 
+      parent: "id_0_2", 
+      value: 3
+    },
+    {
+      id: "id_0_3", 
+      name: "Egypt", 
+      parent: "id_0"
+    },
+    {
+      id: "id_0_3_0", 
+      name: "Communicable diseases", 
+      parent: "id_0_3", 
+      value: 64
+    },
+    {
+      id: "id_0_3_1", 
+      name: "Injuries", 
+      parent: "id_0_3", 
+      value: 32
+    },
+    {
+      id: "id_0_3_2", 
+      name: "Non-communicable diseases", 
+      parent: "id_0_3", 
+      value: 476
+    },
+    {
+      id: "id_0_4",
+      name: "Iran (Islamic Republic of)", 
+      parent: "id_0"
+    },
+    {
+      id: "id_0_4_0", 
+      name: "Communicable diseases", 
+      parent: "id_0_4", 
+      value: 31
+    },
+    {
+      id: "id_0_4_1", 
+      name: "Injuries", 
+      parent: "id_0_4", 
+      value: 40
+    },
+    {
+      id: "id_0_4_2", 
+      name: "Non-communicable diseases", 
+      parent: "id_0_4", 
+      value: 292
+    },
+    {
+      id: "id_0_5", 
+      name: "Iraq", 
+      parent: "id_0"
+    },
+    {
+      id: "id_0_5_0",
+      name: "Communicable diseases", 
+      parent: "id_0_5", 
+      value: 33
+    },
+    {
+      id: "id_0_5_1", 
+      name: "Injuries", 
+      parent: "id_0_5", 
+      value: 57
+    },
+    {
+      id: "id_0_5_2", 
+      name: "Non-communicable diseases", 
+      parent: "id_0_5", 
+      value:1 
+    }
+  ]
+
+  const App = () => {
+
+    return (
+      <div>
+        <TreeMap
+          title={'tree map'}
+          data={data}
+        />
+      </div>
+    )
+  }
+
+  ```
+
+  * ### Props
+  |  Name |  Type  | Default | Description        | 
+  |:------|:-------|:------- |:--------------------|
+  | title | String |     | TreeMap Title |
+  | data | Array |     | TreeMap Data |
