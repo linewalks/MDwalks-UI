@@ -7,7 +7,7 @@ import isEmpty from 'lodash/isEmpty'
 class LineMergeTimeline extends Component {
   constructor(props) {
     super(props);
-    const [startTime, endTime] = getStartAndEndTime(
+    const {startTime, endTime} = getStartAndEndTime(
       this.props.timeData.map(d => d.dataPoints).flat(),
     )
 
@@ -405,7 +405,7 @@ class LineMergeTimeline extends Component {
         .data(circleDataFilter(data.dataPoints))
         .enter()
         .append('circle')
-        .attr('cx', (d, i) => xAxisScale(Date.parse(d.start_time)))
+        .attr('cx', (d, i) => xAxisScale(Date.parse(d.startTime)))
         .attr('cy', timelineYAxisScale(data.label[data.label.length - 1]))
         .attr('r', 7.5)
         .attr('fill', circleColorScale(data.label[data.label.length - 1]))
@@ -417,7 +417,7 @@ class LineMergeTimeline extends Component {
           const tooltipDescription = `
             <div>
               <div class=${styles.tooltipLabel}><span class=${styles.dot}></span> ${label}</div>
-              <div class=${styles.tooltipDay}>${d3.timeFormat('%Y.%m.%d')(new Date(d.start_time))} ~ ${d3.timeFormat('%Y.%m.%d')(new Date(d.end_time))}</div>
+              <div class=${styles.tooltipDay}>${d3.timeFormat('%Y.%m.%d')(new Date(d.startTime))} ~ ${d3.timeFormat('%Y.%m.%d')(new Date(d.endTime))}</div>
             </div>
             `
           tooltip.transition().duration(200).style('opacity', 1)
@@ -441,10 +441,10 @@ class LineMergeTimeline extends Component {
         .data(rectDataFilter(data.dataPoints))
         .enter()
         .append('rect')
-        .attr('x', (d, i) => xAxisScale(Date.parse(d.start_time)))
+        .attr('x', (d, i) => xAxisScale(Date.parse(d.startTime)))
         .attr('y', timelineYAxisScale(data.label[data.label.length - 1]) - 7.5)
         .attr('height', 15)
-        .attr('width', d => xAxisScale(Date.parse(d.end_time)) - xAxisScale(Date.parse(d.start_time)))
+        .attr('width', d => xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime)))
         .attr('fill', rectColorScale(data.label[data.label.length - 1]))
         .attr('clip-path', 'url(#clip)')
         .on('mouseover', (d, i, nodes) => {
@@ -454,7 +454,7 @@ class LineMergeTimeline extends Component {
           const tooltipDescription = `
             <div>
               <div class=${styles.tooltipLabel}><span class=${styles.dot}></span> ${label}</div>
-              <div class=${styles.tooltipDay}>${d3.timeFormat('%Y.%m.%d')(new Date(d.start_time))} ~ ${d3.timeFormat('%Y.%m.%d')(new Date(d.end_time))}</div>
+              <div class=${styles.tooltipDay}>${d3.timeFormat('%Y.%m.%d')(new Date(d.startTime))} ~ ${d3.timeFormat('%Y.%m.%d')(new Date(d.endTime))}</div>
             </div>
             `
           tooltip.transition().duration(200).style('opacity', 1)
@@ -629,15 +629,15 @@ class LineMergeTimeline extends Component {
         .selectAll('circle')
         .transition()
         .duration(500)
-        .attr('cx', (d, i) => xAxisScale(Date.parse(d.start_time)))
+        .attr('cx', (d, i) => xAxisScale(Date.parse(d.startTime)))
         .attr('clip-path', 'url(#clip)')
 
       d3.select('.timelineData')
         .selectAll('rect')
         .transition()
         .duration(500)
-        .attr('x', (d, i) => xAxisScale(Date.parse(d.start_time)))
-        .attr('width', d => xAxisScale(Date.parse(d.end_time)) - xAxisScale(Date.parse(d.start_time)))
+        .attr('x', (d, i) => xAxisScale(Date.parse(d.startTime)))
+        .attr('width', d => xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime)))
         .attr('clip-path', 'url(#clip)')
     }
   
@@ -740,14 +740,14 @@ class LineMergeTimeline extends Component {
         .selectAll('circle')
         .transition()
         .duration(500)
-        .attr('cx', (d, i) => xAxisScale(Date.parse(d.start_time)))
+        .attr('cx', (d, i) => xAxisScale(Date.parse(d.startTime)))
 
       d3.select('.timelineData')
         .selectAll('rect')
         .transition()
         .duration(500)
-        .attr('x', (d, i) => xAxisScale(Date.parse(d.start_time)))
-        .attr('width', d => xAxisScale(Date.parse(d.end_time)) - xAxisScale(Date.parse(d.start_time)))
+        .attr('x', (d, i) => xAxisScale(Date.parse(d.startTime)))
+        .attr('width', d => xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime)))
 
      
       // Initialize Brush
