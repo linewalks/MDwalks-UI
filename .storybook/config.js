@@ -7,6 +7,7 @@ function loadStories() {
   require('../stories/SelectedCard.js')
   require('../stories/SummaryCard.js')
   require('../stories/Table.js')
+  require('../stories/Timeline.js')
 }
 
 configure(loadStories, module);

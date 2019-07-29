@@ -5,6 +5,7 @@ import SelectedCard from './components/card/SelectedCard';
 import SummaryCard from './components/card/SummaryCard';
 import Table from './components/table/Table';
 import LineChart from './components/charts/LineChart';
+import Timeline from './components/charts/Timeline'
 import LineMergeTimeline from './components/charts/LineMergeTimeline';
 
 export { 
@@ -14,6 +15,7 @@ export {
   SelectedCard, 
   SummaryCard, 
   Table, 
-  LineChart, 
+  LineChart,
+  Timeline, 
   LineMergeTimeline
 } 
