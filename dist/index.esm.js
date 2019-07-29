@@ -25340,9 +25340,7 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "createXAxis", function (xAxis) {
       var _this$options = _this.options,
           yAxisWidth = _this$options.yAxisWidth,
-          xAxisHeight = _this$options.xAxisHeight,
-          startTime = _this$options.startTime,
-          endTime = _this$options.endTime; // Create xAxis
+          xAxisHeight = _this$options.xAxisHeight; // Create xAxis
       // 1. Create xAxis group
 
       var gXAxis = generateGroup(select('.timeline'), {
@@ -25359,9 +25357,7 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "createLineYAxis", function (lineYAxisScale) {
       var _this$options2 = _this.options,
           yAxisWidth = _this$options2.yAxisWidth,
-          xAxisHeight = _this$options2.xAxisHeight,
-          defaultPadding = _this$options2.defaultPadding,
-          lineYAxisHeight = _this$options2.lineYAxisHeight; // 1. Create Line YAxis group
+          xAxisHeight = _this$options2.xAxisHeight; // 1. Create Line YAxis group
 
       var gLineYAxis = generateGroup(select('.timeline'), {
         className: styles$6.gLineYAxis,
@@ -25664,6 +25660,7 @@ function (_Component) {
       var brushRightTopPositionY = overViewAxisHeight; // 2. Create Brush Funtion
 
       var brushed = function brushed() {
+        var brushEvent = _this.props.brushEvent;
         var selection = event.selection;
         if (selection === null) return;
 
