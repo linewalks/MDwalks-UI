@@ -769,6 +769,7 @@ class LineMergeTimeline extends Component {
     const timelineData = timeData;
     const lineChartData = lineDataFormatConvert(lineData);
     const { width, height, overViewAxisHeight, yAxisWidth, startTime, endTime, lineYAxisHeight, defaultPadding, labelStartYPosition, labelLastYPosition } = this.options
+    const { resetBtnId } = this.props
     // Create tooltip
     d3
       .select(`.${styles.timelineChart}`)
@@ -841,7 +842,7 @@ class LineMergeTimeline extends Component {
     this.renderTimelineChart(timelineData, xAxisScale, timelineYAxisScale)  
     this.createTimelineOverView(xAxisScale)
     this.createBrush(xAxisScale, lineScale, xAxis, line, overViewXAxisScale)
-    this.addChartReset('reset', xAxisScale, lineScale, overViewXAxisScale, line, xAxis)
+    this.addChartReset(resetBtnId, xAxisScale, lineScale, overViewXAxisScale, line, xAxis)
 
     // TODO: Code Refactoring Module
   }
