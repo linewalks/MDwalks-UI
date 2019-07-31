@@ -10,7 +10,6 @@ describe('RadiusGauge', () => {
 
   it('Score Props has vaild number 1', () => {
     const wrapper = shallow(<RadiusGauge width={300} height={200} score={1} />)
-    console.log('@',wrapper.html())
     expect(wrapper.html().includes('<text>1</text>')).toEqual(true);
   })
 
