@@ -661,105 +661,109 @@ class LineMergeTimeline extends Component {
   addChartReset = (id, xAxisScale, lineScale, overViewXAxisScale, line, xAxis) => {
     const { lineYAxisHeight, height, xAxisHeight, defaultMargin, defaultPadding, overViewAxisHeight } = this.options
     const { brushEvent } = this.props;
-    d3.select(`#${id}`).on('click', () => {
+    if (id) {
+      d3.select(`#${id}`).on('click', () => {
 
-      // Initialize XAxisScale, VerticalLineScale
-      xAxisScale.domain(overViewXAxisScale.domain())
-      lineScale.domain(overViewXAxisScale.domain())
-      d3.select(`.${styles.xAxis}`) 
-        .transition()
-        .duration(500)
-        .call(xAxis)
-
-      d3.select(`.${styles.xAxis}`)         
-        .transition()
-        .duration(500)
-        .selectAll('.domain')
-        .attr('stroke', '#c4c4c4')
-        .attr('d', 'M0.5 0V0.5H962.5 V0.5')
-      
-      d3.select(`.${styles.xAxis}`)         
-        .transition()
-        .duration(500)
-        .selectAll('.tick line').remove()
+        // Initialize XAxisScale, VerticalLineScale
+        xAxisScale.domain(overViewXAxisScale.domain())
+        lineScale.domain(overViewXAxisScale.domain())
+        d3.select(`.${styles.xAxis}`) 
+          .transition()
+          .duration(500)
+          .call(xAxis)
   
-
-      // Initialize Line Chart Grid
-      const lineYAxisGridLines = d3
-      .axisTop(xAxisScale)
-      .tickSize(-lineYAxisHeight)
-      .tickFormat('')
+        d3.select(`.${styles.xAxis}`)         
+          .transition()
+          .duration(500)
+          .selectAll('.domain')
+          .attr('stroke', '#c4c4c4')
+          .attr('d', 'M0.5 0V0.5H962.5 V0.5')
+        
+        d3.select(`.${styles.xAxis}`)         
+          .transition()
+          .duration(500)
+          .selectAll('.tick line').remove()
+    
   
-      d3.select('.lineYAxisGrid')
-        .transition()
-        .duration(500)
-        .call(lineYAxisGridLines)
-      
-
-      d3.select('.lineYAxisGrid')
-        .selectAll('.tick line')
-        .attr('stroke', '#e8e8e8')
-        .attr('stroke-dasharray', '2')
-
-      d3.select('.lineYAxisGrid').select('.domain').remove()
-     
-      const timelineYAxisGridHeight = height - (xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.bottom + overViewAxisHeight)
-      // Initialize Timeline Grid
-      const timelineYAxisGridLines = d3
-      .axisTop(xAxisScale)
-      .tickSize(-timelineYAxisGridHeight)
-      .tickFormat('')
-
-      d3.select('.timelineYAxisGrid')
-        .transition()
-        .duration(500)
-        .call(timelineYAxisGridLines)
-
-      d3.select('.timelineYAxisGrid')
-        .selectAll('.tick line')
-        .attr('stroke', '#e8e8e8')
-        .attr('stroke-dasharray', '2')
-
-      d3.select('.timelineYAxisGrid').select('.domain').remove()
+        // Initialize Line Chart Grid
+        const lineYAxisGridLines = d3
+        .axisTop(xAxisScale)
+        .tickSize(-lineYAxisHeight)
+        .tickFormat('')
+    
+        d3.select('.lineYAxisGrid')
+          .transition()
+          .duration(500)
+          .call(lineYAxisGridLines)
+        
   
-
-      // Initialize Line Chart Data
-      d3.select('.gLine')
-        .selectAll("path")
-        .transition()
-        .duration(500)
-        .attr('d', line)
-
-      d3.select('.gLine')
-        .selectAll(".lineDot")
-        .transition()
-        .duration(500)
-        .attr("cx", d => xAxisScale(Date.parse(d.x)))
-      
-      // Initialize Timeline 
-      d3.select('.timelineData')
-        .selectAll('circle')
-        .transition()
-        .duration(500)
-        .attr('cx', (d, i) => xAxisScale(Date.parse(d.startTime)))
-
-      d3.select('.timelineData')
-        .selectAll('rect')
-        .transition()
-        .duration(500)
-        .attr('x', (d, i) => xAxisScale(Date.parse(d.startTime)))
-        .attr('width', d => xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime)))
-
-     
-      // Initialize Brush
-      d3.select('.overViewXAxisBrush')
-        .select('rect.selection')
-        .transition()
-        .duration(500)
-        .attr('width', 0)
-
-        typeof brushEvent === "function" ? brushEvent() : null
-    })  
+        d3.select('.lineYAxisGrid')
+          .selectAll('.tick line')
+          .attr('stroke', '#e8e8e8')
+          .attr('stroke-dasharray', '2')
+  
+        d3.select('.lineYAxisGrid').select('.domain').remove()
+       
+        const timelineYAxisGridHeight = height - (xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.bottom + overViewAxisHeight)
+        // Initialize Timeline Grid
+        const timelineYAxisGridLines = d3
+        .axisTop(xAxisScale)
+        .tickSize(-timelineYAxisGridHeight)
+        .tickFormat('')
+  
+        d3.select('.timelineYAxisGrid')
+          .transition()
+          .duration(500)
+          .call(timelineYAxisGridLines)
+  
+        d3.select('.timelineYAxisGrid')
+          .selectAll('.tick line')
+          .attr('stroke', '#e8e8e8')
+          .attr('stroke-dasharray', '2')
+  
+        d3.select('.timelineYAxisGrid').select('.domain').remove()
+    
+  
+        // Initialize Line Chart Data
+        d3.select('.gLine')
+          .selectAll("path")
+          .transition()
+          .duration(500)
+          .attr('d', line)
+  
+        d3.select('.gLine')
+          .selectAll(".lineDot")
+          .transition()
+          .duration(500)
+          .attr("cx", d => xAxisScale(Date.parse(d.x)))
+        
+        // Initialize Timeline 
+        d3.select('.timelineData')
+          .selectAll('circle')
+          .transition()
+          .duration(500)
+          .attr('cx', (d, i) => xAxisScale(Date.parse(d.startTime)))
+  
+        d3.select('.timelineData')
+          .selectAll('rect')
+          .transition()
+          .duration(500)
+          .attr('x', (d, i) => xAxisScale(Date.parse(d.startTime)))
+          .attr('width', d => xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime)))
+  
+       
+        // Initialize Brush
+        d3.select('.overViewXAxisBrush')
+          .select('rect.selection')
+          .transition()
+          .duration(500)
+          .attr('width', 0)
+  
+          typeof brushEvent === "function" ? brushEvent() : null
+      })
+    } else {
+      return
+    }
   }
 
 
