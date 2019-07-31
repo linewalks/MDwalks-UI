@@ -25726,47 +25726,42 @@ function (_Component) {
           defaultPadding = _this$options12.defaultPadding,
           overViewAxisHeight = _this$options12.overViewAxisHeight;
       var brushEvent = _this.props.brushEvent;
+      select("#".concat(id)).on('click', function () {
+        // Initialize XAxisScale, VerticalLineScale
+        xAxisScale.domain(overViewXAxisScale.domain());
+        lineScale.domain(overViewXAxisScale.domain());
+        select(".".concat(styles$6.xAxis)).transition().duration(500).call(xAxis);
+        select(".".concat(styles$6.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5 V0.5');
+        select(".".concat(styles$6.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Initialize Line Chart Grid
 
-      if (id) {
-        select("#".concat(id)).on('click', function () {
-          // Initialize XAxisScale, VerticalLineScale
-          xAxisScale.domain(overViewXAxisScale.domain());
-          lineScale.domain(overViewXAxisScale.domain());
-          select(".".concat(styles$6.xAxis)).transition().duration(500).call(xAxis);
-          select(".".concat(styles$6.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5 V0.5');
-          select(".".concat(styles$6.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Initialize Line Chart Grid
+        var lineYAxisGridLines = axisTop(xAxisScale).tickSize(-lineYAxisHeight).tickFormat('');
+        select('.lineYAxisGrid').transition().duration(500).call(lineYAxisGridLines);
+        select('.lineYAxisGrid').selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+        select('.lineYAxisGrid').select('.domain').remove();
+        var timelineYAxisGridHeight = height - (xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.bottom + overViewAxisHeight); // Initialize Timeline Grid
 
-          var lineYAxisGridLines = axisTop(xAxisScale).tickSize(-lineYAxisHeight).tickFormat('');
-          select('.lineYAxisGrid').transition().duration(500).call(lineYAxisGridLines);
-          select('.lineYAxisGrid').selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
-          select('.lineYAxisGrid').select('.domain').remove();
-          var timelineYAxisGridHeight = height - (xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.bottom + overViewAxisHeight); // Initialize Timeline Grid
+        var timelineYAxisGridLines = axisTop(xAxisScale).tickSize(-timelineYAxisGridHeight).tickFormat('');
+        select('.timelineYAxisGrid').transition().duration(500).call(timelineYAxisGridLines);
+        select('.timelineYAxisGrid').selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+        select('.timelineYAxisGrid').select('.domain').remove(); // Initialize Line Chart Data
 
-          var timelineYAxisGridLines = axisTop(xAxisScale).tickSize(-timelineYAxisGridHeight).tickFormat('');
-          select('.timelineYAxisGrid').transition().duration(500).call(timelineYAxisGridLines);
-          select('.timelineYAxisGrid').selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
-          select('.timelineYAxisGrid').select('.domain').remove(); // Initialize Line Chart Data
+        select('.gLine').selectAll("path").transition().duration(500).attr('d', line);
+        select('.gLine').selectAll(".lineDot").transition().duration(500).attr("cx", function (d) {
+          return xAxisScale(Date.parse(d.x));
+        }); // Initialize Timeline 
 
-          select('.gLine').selectAll("path").transition().duration(500).attr('d', line);
-          select('.gLine').selectAll(".lineDot").transition().duration(500).attr("cx", function (d) {
-            return xAxisScale(Date.parse(d.x));
-          }); // Initialize Timeline 
-
-          select('.timelineData').selectAll('circle').transition().duration(500).attr('cx', function (d, i) {
-            return xAxisScale(Date.parse(d.startTime));
-          });
-          select('.timelineData').selectAll('rect').transition().duration(500).attr('x', function (d, i) {
-            return xAxisScale(Date.parse(d.startTime));
-          }).attr('width', function (d) {
-            return xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime));
-          }); // Initialize Brush
-
-          select('.overViewXAxisBrush').select('rect.selection').transition().duration(500).attr('width', 0);
-          typeof brushEvent === "function" ? brushEvent() : null;
+        select('.timelineData').selectAll('circle').transition().duration(500).attr('cx', function (d, i) {
+          return xAxisScale(Date.parse(d.startTime));
         });
-      } else {
-        return;
-      }
+        select('.timelineData').selectAll('rect').transition().duration(500).attr('x', function (d, i) {
+          return xAxisScale(Date.parse(d.startTime));
+        }).attr('width', function (d) {
+          return xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime));
+        }); // Initialize Brush
+
+        select('.overViewXAxisBrush').select('rect.selection').transition().duration(500).attr('width', 0);
+        typeof brushEvent === "function" ? brushEvent() : null;
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderLineMergeTimeline", function (timeData, lineData) {
@@ -25836,8 +25831,7 @@ function (_Component) {
 
       _this.createBrush(xAxisScale, lineScale, xAxis, line$1, overViewXAxisScale);
 
-      _this.addChartReset(resetBtnId, xAxisScale, lineScale, overViewXAxisScale, line$1, xAxis); // TODO: Code Refactoring Module
-
+      resetBtnId ? _this.addChartReset(resetBtnId, xAxisScale, lineScale, overViewXAxisScale, line$1, xAxis) : null; // TODO: Code Refactoring Module
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {

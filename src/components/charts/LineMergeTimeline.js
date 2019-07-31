@@ -661,7 +661,6 @@ class LineMergeTimeline extends Component {
   addChartReset = (id, xAxisScale, lineScale, overViewXAxisScale, line, xAxis) => {
     const { lineYAxisHeight, height, xAxisHeight, defaultMargin, defaultPadding, overViewAxisHeight } = this.options
     const { brushEvent } = this.props;
-    if (id) {
       d3.select(`#${id}`).on('click', () => {
 
         // Initialize XAxisScale, VerticalLineScale
@@ -761,9 +760,6 @@ class LineMergeTimeline extends Component {
   
           typeof brushEvent === "function" ? brushEvent() : null
       })
-    } else {
-      return
-    }
   }
 
 
@@ -846,7 +842,7 @@ class LineMergeTimeline extends Component {
     this.renderTimelineChart(timelineData, xAxisScale, timelineYAxisScale)  
     this.createTimelineOverView(xAxisScale)
     this.createBrush(xAxisScale, lineScale, xAxis, line, overViewXAxisScale)
-    this.addChartReset(resetBtnId, xAxisScale, lineScale, overViewXAxisScale, line, xAxis)
+    resetBtnId ? this.addChartReset(resetBtnId, xAxisScale, lineScale, overViewXAxisScale, line, xAxis) : null
 
     // TODO: Code Refactoring Module
   }
