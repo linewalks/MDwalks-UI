@@ -702,7 +702,7 @@ class LineMergeTimeline extends Component {
         .attr('stroke-dasharray', '2')
 
       d3.select('.lineYAxisGrid').select('.domain').remove()
-      
+    
       const timelineYAxisGridHeight = height - (xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.bottom + overViewAxisHeight)
       // Initialize Timeline Grid
       const timelineYAxisGridLines = d3
@@ -750,7 +750,6 @@ class LineMergeTimeline extends Component {
         .attr('x', (d, i) => xAxisScale(Date.parse(d.startTime)))
         .attr('width', d => xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime)))
 
-      
       // Initialize Brush
       d3.select('.overViewXAxisBrush')
         .select('rect.selection')
@@ -759,7 +758,7 @@ class LineMergeTimeline extends Component {
         .attr('width', 0)
 
         typeof brushEvent === "function" ? brushEvent() : null
-      })
+    })
   }
 
 
