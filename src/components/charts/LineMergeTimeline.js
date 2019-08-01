@@ -702,7 +702,6 @@ class LineMergeTimeline extends Component {
         .attr('stroke-dasharray', '2')
 
       d3.select('.lineYAxisGrid').select('.domain').remove()
-    
       const timelineYAxisGridHeight = height - (xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.bottom + overViewAxisHeight)
       // Initialize Timeline Grid
       const timelineYAxisGridLines = d3
