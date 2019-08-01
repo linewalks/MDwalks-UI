@@ -25784,7 +25784,8 @@ function (_Component) {
           lineYAxisHeight = _this$options13.lineYAxisHeight,
           defaultPadding = _this$options13.defaultPadding,
           labelStartYPosition = _this$options13.labelStartYPosition,
-          labelLastYPosition = _this$options13.labelLastYPosition; // Create tooltip
+          labelLastYPosition = _this$options13.labelLastYPosition;
+      var resetBtnId = _this.props.resetBtnId; // Create tooltip
 
       select(".".concat(styles$6.timelineChart)).append('div').attr('class', styles$6.tooltip).style('opacity', 0);
       var svg = renderSVG(select(".".concat(styles$6.timelineChart)), _this.options.width, _this.options.height); // Create Entire groups
@@ -25837,8 +25838,7 @@ function (_Component) {
 
       _this.createBrush(xAxisScale, lineScale, xAxis, line$1, overViewXAxisScale);
 
-      _this.addChartReset('reset', xAxisScale, lineScale, overViewXAxisScale, line$1, xAxis); // TODO: Code Refactoring Module
-
+      resetBtnId ? _this.addChartReset(resetBtnId, xAxisScale, lineScale, overViewXAxisScale, line$1, xAxis) : null; // TODO: Code Refactoring Module
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {

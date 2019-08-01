@@ -589,12 +589,14 @@
 
     return (
       <div>
+        <button id='reset'>reset button</button>
         <LineMergeTimeline
           timeData={timelineData} 
           lineData={lineData}
           chartWidth={1200}
           chartHeight={835}
           brushEvent={eventHandler}
+          resetBtnId={'reset'}
         />
       </div>
     )
@@ -610,3 +612,4 @@
   | chartWidth | Number | 1200 | Entire Chart Width |
   | chartHeight | Number | 835 | Entire Chart Height |
   | brushEvent | Function |    | Timeline Brush EventHandler |
+  | resetBtnId | String |    | Timeline Reset Button Id |
