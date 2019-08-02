@@ -31,59 +31,41 @@ describe('LineChart Component', () => {
     expect(wrapper.html().includes('highcharts-root')).toBeTruthy()
   })
 
-  it('renders title when title props is given', () => {
+  it('renders props when props is given', () => {
     const wrapper = mount(<LineChart 
                             title={'test'}
                             xAxisCategory={xAxisCategory}
                             data={data} 
-                          />)
-    expect(wrapper.get(0).props.title).toBe('test')
-  })
-
-  it('renders title when xAxisTitle props is given', () => {
-    const wrapper = mount(<LineChart 
-                            title={'test'}
-                            xAxisCategory={xAxisCategory}
-                            data={data}
-                            xAxisTitle={'date'} 
-                          />)
-    expect(wrapper.get(0).props.xAxisTitle).toBe('date')
-  })
-
-  it('renders title when xAxisTitleAlign props is given', () => {
-    const wrapper = mount(<LineChart 
-                            title={'test'}
-                            xAxisCategory={xAxisCategory}
-                            data={data}
-                            xAxisTitle={'date'}
-                            xAxisTitleAlign={'low'} 
-                          />)
-    expect(wrapper.get(0).props.xAxisTitleAlign).toBe('low')
-  })
-
-  it('renders title when xAxisTitleAlign props is given', () => {
-    const wrapper = mount(<LineChart 
-                            title={'test'}
-                            xAxisCategory={xAxisCategory}
-                            data={data}
-                            xAxisTitle={'date'}
-                            xAxisTitleAlign={'low'}
-                            yAxisTitle={'value'} 
-                          />)
-    expect(wrapper.get(0).props.yAxisTitle).toBe('value')
-  })
-
-  it('renders title when yAxisTitleAlign props is given', () => {
-    const wrapper = mount(<LineChart 
-                            title={'test'}
-                            xAxisCategory={xAxisCategory}
-                            data={data}
                             xAxisTitle={'date'}
                             xAxisTitleAlign={'low'}
                             yAxisTitle={'value'}
                             yAxisTitleAlign={'high'} 
                           />)
-    expect(wrapper.get(0).props.yAxisTitleAlign).toBe('high')
+    const propsObj = {
+      title: 'test',
+      xAxisTitle: 'date',
+      xAxisTitleAlign: 'low',
+      yAxisTitle: 'value',
+      yAxisTitleAlign: 'high'
+    }
+
+    expect(wrapper.get(0).props).toMatchObject(propsObj)
+  })
+
+  it('renders default props when there is no props', () => {
+    const wrapper = mount(<LineChart 
+                            xAxisCategory={xAxisCategory}
+                            data={data} 
+                          />)
+    const defaultPropsObj = {
+      title: 'Line Chart',
+      xAxisTitle: 'xAxis',
+      xAxisTitleAlign: 'middle',
+      yAxisTitle: 'yAxis',
+      yAxisTitleAlign: 'middle'
+    }
+
+    expect(wrapper.get(0).props).toMatchObject(defaultPropsObj)
   })
 
 })
