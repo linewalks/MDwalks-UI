@@ -24134,23 +24134,6 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps, prevState) {
-      if (!isEqual_1(prevProps.selectedNodes, _this.props.selectedNodes)) {
-        // 별도의 svg가 생기는 것을 방지하기 위해 이미 생성된 svg를 제거합니다
-        var el = document.getElementById(_this.id);
-        if (el) el.remove();
-
-        _this.renderSankey();
-      }
-
-      if (!isEqual_1(prevProps.nodes, _this.props.nodes)) {
-        // 별도의 svg가 생기는 것을 방지하기 위해 이미 생성된 svg를 제거합니다
-        var _el = document.getElementById(_this.id);
-
-        if (_el) _el.remove();
-
-        _this.renderSankey();
-      }
-
       if (!isEqual_1(prevState.selectedNodes, _this.state.selectedNodes)) {
         var LinkId = _this.createLinkId(_this.state.selectedNodes);
 

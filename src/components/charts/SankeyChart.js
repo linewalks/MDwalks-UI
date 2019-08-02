@@ -308,20 +308,6 @@ class SankeyChart extends React.Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (!isEqual(prevProps.selectedNodes, this.props.selectedNodes)) {
-      // 별도의 svg가 생기는 것을 방지하기 위해 이미 생성된 svg를 제거합니다
-      const el = document.getElementById(this.id)
-      if (el) el.remove()
-      this.renderSankey()
-    }
-
-    if (!isEqual(prevProps.nodes, this.props.nodes)) {
-      // 별도의 svg가 생기는 것을 방지하기 위해 이미 생성된 svg를 제거합니다
-      const el = document.getElementById(this.id)
-      if (el) el.remove()
-      this.renderSankey()
-    }
-
     if (!isEqual(prevState.selectedNodes, this.state.selectedNodes)) {
       const LinkId = this.createLinkId(this.state.selectedNodes)
       this.highlightLink(LinkId)
