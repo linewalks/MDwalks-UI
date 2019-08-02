@@ -149,8 +149,8 @@ describe('Timeline Component', () => {
   it('renders placeholder when data is not provided', () => {
     const wrapper = mount(<Timeline />)
     const instance = wrapper.instance();
-    jest.spyOn(instance, 'renderTimeline');
+    jest.spyOn(instance, 'errorMessage');
     instance.componentDidMount();
-    expect(instance.renderTimeline).toHaveBeenCalledTimes(0);
+    expect(instance.errorMessage).toHaveBeenCalledTimes(1);
   })
 })
