@@ -21274,6 +21274,52 @@ function isEmpty(value) {
 var isEmpty_1 = isEmpty;
 
 /**
+ * Gets the last element of `array`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Array
+ * @param {Array} array The array to query.
+ * @returns {*} Returns the last element of `array`.
+ * @example
+ *
+ * _.last([1, 2, 3]);
+ * // => 3
+ */
+function last(array) {
+  var length = array == null ? 0 : array.length;
+  return length ? array[length - 1] : undefined;
+}
+
+var last_1 = last;
+
+/**
+ * The base implementation of `_.findIndex` and `_.findLastIndex` without
+ * support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {Function} predicate The function invoked per iteration.
+ * @param {number} fromIndex The index to search from.
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function baseFindIndex(array, predicate, fromIndex, fromRight) {
+  var length = array.length,
+      index = fromIndex + (fromRight ? 1 : -1);
+
+  while ((fromRight ? index-- : ++index < length)) {
+    if (predicate(array[index], index, array)) {
+      return index;
+    }
+  }
+  return -1;
+}
+
+var _baseFindIndex = baseFindIndex;
+
+/**
  * Removes all key-value entries from the list cache.
  *
  * @private
@@ -22631,65 +22677,6 @@ function baseIsEqual(value, other, bitmask, customizer, stack) {
 
 var _baseIsEqual = baseIsEqual;
 
-/**
- * Performs a deep comparison between two values to determine if they are
- * equivalent.
- *
- * **Note:** This method supports comparing arrays, array buffers, booleans,
- * date objects, error objects, maps, numbers, `Object` objects, regexes,
- * sets, strings, symbols, and typed arrays. `Object` objects are compared
- * by their own, not inherited, enumerable properties. Functions and DOM
- * nodes are compared by strict equality, i.e. `===`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- * @example
- *
- * var object = { 'a': 1 };
- * var other = { 'a': 1 };
- *
- * _.isEqual(object, other);
- * // => true
- *
- * object === other;
- * // => false
- */
-function isEqual(value, other) {
-  return _baseIsEqual(value, other);
-}
-
-var isEqual_1 = isEqual;
-
-/**
- * The base implementation of `_.findIndex` and `_.findLastIndex` without
- * support for iteratee shorthands.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {Function} predicate The function invoked per iteration.
- * @param {number} fromIndex The index to search from.
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {number} Returns the index of the matched value, else `-1`.
- */
-function baseFindIndex(array, predicate, fromIndex, fromRight) {
-  var length = array.length,
-      index = fromIndex + (fromRight ? 1 : -1);
-
-  while ((fromRight ? index-- : ++index < length)) {
-    if (predicate(array[index], index, array)) {
-      return index;
-    }
-  }
-  return -1;
-}
-
-var _baseFindIndex = baseFindIndex;
-
 /** Used to compose bitmasks for value comparisons. */
 var COMPARE_PARTIAL_FLAG$4 = 1,
     COMPARE_UNORDERED_FLAG$2 = 2;
@@ -23896,7 +23883,7 @@ function (_React$Component) {
       return node.name;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getSelectedNode", function (selectedNode) {
+    _defineProperty(_assertThisInitialized(_this), "setSelectedNode", function (selectedNode) {
       if (!_this.state.selectedNodes.includes(selectedNode)) {
         _this.setState({
           selectedNodes: _this.state.selectedNodes.concat(selectedNode)
@@ -24051,9 +24038,17 @@ function (_React$Component) {
 
       if (onClick) {
         nodes.on('click', function (data) {
-          _this.getSelectedNode(_this.getNodeName(data));
+          if (_this.state.selectedNodes.length === 0) {
+            _this.setSelectedNode(_this.getNodeName(data));
 
-          onClick(_this.state.selectedNodes);
+            onClick(_this.state.selectedNodes);
+          }
+
+          if (_this.linkConnectCheck(last_1(_this.state.selectedNodes), _this.getNodeName(data), _this.props.data.links)) {
+            _this.setSelectedNode(_this.getNodeName(data));
+
+            onClick(_this.state.selectedNodes);
+          }
         });
       }
 
@@ -24070,6 +24065,12 @@ function (_React$Component) {
       }
 
       return links;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "linkConnectCheck", function (source, target, data) {
+      return data.some(function (d) {
+        return d.source.name === source && d.target.name === target || d.source.name === target && d.target.name === source;
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderSankey", function () {
@@ -24126,7 +24127,7 @@ function (_React$Component) {
         });
       } else {
         nodes.on('click', function (data) {
-          _this.getSelectedNode(_this.getNodeName(data));
+          _this.setSelectedNode(_this.getNodeName(data));
         });
       }
 
@@ -24141,7 +24142,9 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps, prevState) {
-      if (!isEqual_1(prevState.selectedNodes, _this.state.selectedNodes)) {
+      var data = _this.props.data;
+
+      if (_this.linkConnectCheck(last_1(prevState.selectedNodes), last_1(_this.state.selectedNodes), data.links)) {
         var LinkId = _this.createLinkId(_this.state.selectedNodes);
 
         _this.highlightLink(LinkId);

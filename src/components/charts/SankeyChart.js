@@ -2,7 +2,7 @@ import React from 'react'
 import * as d3Core from 'd3'
 import * as sankeyCircular from 'd3-sankey-circular'
 import isEmpty from 'lodash/isEmpty'
-import isEqual from 'lodash/isEqual'
+import last from 'lodash/last'
 import findIndex from 'lodash/findIndex'
 import { strIdConvert } from '../../helper/chartUtility'
 import sankeyData from '../../data/dataForSankey';
@@ -21,7 +21,7 @@ class SankeyChart extends React.Component {
 
   getNodeName = node => node.name
 
-  getSelectedNode = selectedNode => {
+  setSelectedNode = selectedNode => {
     if (!this.state.selectedNodes.includes(selectedNode)) {
       this.setState({
         selectedNodes: this.state.selectedNodes.concat(selectedNode)
@@ -224,8 +224,15 @@ class SankeyChart extends React.Component {
     // Add additonal events
     if (onClick) {
       nodes.on('click', data => {
-        this.getSelectedNode(this.getNodeName(data))
-        onClick(this.state.selectedNodes)
+        if (this.state.selectedNodes.length === 0) {
+          this.setSelectedNode(this.getNodeName(data))
+          onClick(this.state.selectedNodes)
+        }
+
+        if (this.linkConnectCheck(last(this.state.selectedNodes), this.getNodeName(data), this.props.data.links)) {
+          this.setSelectedNode(this.getNodeName(data))
+          onClick(this.state.selectedNodes)
+        }
       })
     } 
 
@@ -240,6 +247,12 @@ class SankeyChart extends React.Component {
     }
 
     return links
+  }
+
+  linkConnectCheck = (source, target, data) => {
+    return data.some(d => {
+      return (d.source.name === source && d.target.name === target) || (d.source.name === target && d.target.name === source)
+    })
   }
 
   renderSankey = () => {
@@ -293,7 +306,7 @@ class SankeyChart extends React.Component {
       })
     } else {
       nodes.on('click', data => {
-        this.getSelectedNode(this.getNodeName(data))
+        this.setSelectedNode(this.getNodeName(data))
       })
     }
 
@@ -308,7 +321,8 @@ class SankeyChart extends React.Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (!isEqual(prevState.selectedNodes, this.state.selectedNodes)) {
+    const { data } = this.props
+    if (this.linkConnectCheck(last(prevState.selectedNodes), last(this.state.selectedNodes), data.links)) {
       const LinkId = this.createLinkId(this.state.selectedNodes)
       this.highlightLink(LinkId)
     }    
