@@ -38,13 +38,28 @@
 .tr {
   cursor: pointer;
 }
-
+/* https://stackoverflow.com/questions/17458582/nth-childeven-odd-selector-with-class */
 .tr:nth-child(even) .td {
   background: #ffffff;
 }
 
 .tr:nth-child(odd) .td {
   background: #fafafa;
+}
+/* after the first non-.parent, toggle colors */
+tr:not(.tr) ~ .tr:nth-child(odd) td {
+    background-color: #ffffff;
+}
+tr:not(.tr) ~ .tr:nth-child(even) td {
+    background-color: #fafafa;
+}
+
+/* after the second non-.parent, toggle again */
+tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(odd) td {
+    background-color: #fafafa;
+}
+tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(even) td {
+    background-color: #ffffff;
 }
 
 .td {

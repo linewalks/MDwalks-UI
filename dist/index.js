@@ -17892,6 +17892,21 @@ function zoom() {
 
 var d3Core = /*#__PURE__*/Object.freeze({
   version: version,
+  cluster: cluster,
+  hierarchy: hierarchy,
+  pack: index$2,
+  packSiblings: siblings,
+  packEnclose: enclose,
+  partition: partition,
+  stratify: stratify,
+  tree: tree,
+  treemap: index$3,
+  treemapBinary: binary,
+  treemapDice: treemapDice,
+  treemapSlice: treemapSlice,
+  treemapSliceDice: sliceDice,
+  treemapSquarify: squarify,
+  treemapResquarify: resquarify,
   bisect: bisectRight,
   bisectRight: bisectRight,
   bisectLeft: bisectLeft,
@@ -17923,10 +17938,6 @@ var d3Core = /*#__PURE__*/Object.freeze({
   transpose: transpose,
   variance: variance,
   zip: zip,
-  axisTop: axisTop,
-  axisRight: axisRight,
-  axisBottom: axisBottom,
-  axisLeft: axisLeft,
   brush: brush,
   brushX: brushX,
   brushY: brushY,
@@ -18078,21 +18089,10 @@ var d3Core = /*#__PURE__*/Object.freeze({
   geoRotation: rotation,
   geoStream: geoStream,
   geoTransform: transform,
-  cluster: cluster,
-  hierarchy: hierarchy,
-  pack: index$2,
-  packSiblings: siblings,
-  packEnclose: enclose,
-  partition: partition,
-  stratify: stratify,
-  tree: tree,
-  treemap: index$3,
-  treemapBinary: binary,
-  treemapDice: treemapDice,
-  treemapSlice: treemapSlice,
-  treemapSliceDice: sliceDice,
-  treemapSquarify: squarify,
-  treemapResquarify: resquarify,
+  axisTop: axisTop,
+  axisRight: axisRight,
+  axisBottom: axisBottom,
+  axisLeft: axisLeft,
   interpolate: interpolateValue,
   interpolateArray: array$1,
   interpolateBasis: basis$1,
@@ -24251,7 +24251,7 @@ var SummaryCard = function SummaryCard(_ref) {
   }));
 };
 
-var css$4 = ".Table_table__3W-tG {\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%;\n}\n\n.Table_body_b_16__2HKYm {\n  font-weight: bold;\n  letter-spacing: -0.5px; \n}\n\n.Table_body_r_18__2hfAb {\n  font-size: 18px;\n}\n\n.Table_body_r_20__kuuAb {\n  font-size: 20px;\n}\n\n.Table_th__2UhMg {\n  padding: 28px 24px;\n  text-align: center;\n  background: #f2f2f2;\n  border-bottom: 2px solid #d4d4d4;\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 16px;\n  font-family: \"Spoqa Han Sans\";\n}\n\n.Table_th__2UhMg:first-child {\n  border-radius: 10px 0 0 0; \n}\n\n.Table_th__2UhMg:last-child {\n  border-radius: 0 10px 0 0;\n}\n\n.Table_tr__3D6bR {\n  cursor: pointer;\n}\n\n.Table_tr__3D6bR:nth-child(even) .Table_td__1_pu2 {\n  background: #ffffff;\n}\n\n.Table_tr__3D6bR:nth-child(odd) .Table_td__1_pu2 {\n  background: #fafafa;\n}\n\n.Table_td__1_pu2 {\n  text-align: center;\n  font-size: 18px;\n  font-family: \"Spoqa Han Sans\";\n}\n\n.Table_td__1_pu2 > a > div, .Table_td__1_pu2 > div {\n  padding: 24px;\n}\n\n.Table_th__2UhMg:first-child, .Table_th__2UhMg:last-child, .Table_td__1_pu2:first-child, .Table_td__1_pu2:last-child {\n  white-space: nowrap;\n  width: 1%;\n}\n\n.Table_th__2UhMg:first-child, .Table_td__1_pu2:first-child {\n  padding-left: 50px;\n}\n\n.Table_th__2UhMg:last-child, .Table_td__1_pu2:last-child {\n  padding-right: 50px;\n}\n\n.Table_empty_table_grey_list__33788 {\n  padding: 80px;\n}\n\n.Table_empty_table_grey_list__33788 td {\n  margin: 0 auto;\n  text-align: center;\n  font-family: \"Spoqa Han Sans\";\n}\n\n.Table_empty_table_grey_list__33788 span {\n  margin: auto;\n  color: #161616;\n  display: block;\n  font-size: 20px;\n  opacity: 0.6;\n  font-family: \"Spoqa Han Sans\";\n}\n\n.Table_empty_table_grey_header__3mHSH {\n  font-size: 16px;\n  color: rgba(#000000, 0.36);\n  font-family: \"Spoqa Han Sans\";\n}";
+var css$4 = ".Table_table__3W-tG {\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%;\n}\n\n.Table_body_b_16__2HKYm {\n  font-weight: bold;\n  letter-spacing: -0.5px; \n}\n\n.Table_body_r_18__2hfAb {\n  font-size: 18px;\n}\n\n.Table_body_r_20__kuuAb {\n  font-size: 20px;\n}\n\n.Table_th__2UhMg {\n  padding: 28px 24px;\n  text-align: center;\n  background: #f2f2f2;\n  border-bottom: 2px solid #d4d4d4;\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 16px;\n  font-family: \"Spoqa Han Sans\";\n}\n\n.Table_th__2UhMg:first-child {\n  border-radius: 10px 0 0 0; \n}\n\n.Table_th__2UhMg:last-child {\n  border-radius: 0 10px 0 0;\n}\n\n.Table_tr__3D6bR {\n  cursor: pointer;\n}\n/* https://stackoverflow.com/questions/17458582/nth-childeven-odd-selector-with-class */\n.Table_tr__3D6bR:nth-child(even) .Table_td__1_pu2 {\n  background: #ffffff;\n}\n\n.Table_tr__3D6bR:nth-child(odd) .Table_td__1_pu2 {\n  background: #fafafa;\n}\n/* after the first non-.parent, toggle colors */\ntr:not(.Table_tr__3D6bR) ~ .Table_tr__3D6bR:nth-child(odd) td {\n    background-color: #ffffff;\n}\ntr:not(.Table_tr__3D6bR) ~ .Table_tr__3D6bR:nth-child(even) td {\n    background-color: #fafafa;\n}\n\n/* after the second non-.parent, toggle again */\ntr:not(.Table_tr__3D6bR) ~ tr:not(.Table_tr__3D6bR) ~ .Table_tr__3D6bR:nth-child(odd) td {\n    background-color: #fafafa;\n}\ntr:not(.Table_tr__3D6bR) ~ tr:not(.Table_tr__3D6bR) ~ .Table_tr__3D6bR:nth-child(even) td {\n    background-color: #ffffff;\n}\n\n.Table_td__1_pu2 {\n  text-align: center;\n  font-size: 18px;\n  font-family: \"Spoqa Han Sans\";\n}\n\n.Table_td__1_pu2 > a > div, .Table_td__1_pu2 > div {\n  padding: 24px;\n}\n\n.Table_th__2UhMg:first-child, .Table_th__2UhMg:last-child, .Table_td__1_pu2:first-child, .Table_td__1_pu2:last-child {\n  white-space: nowrap;\n  width: 1%;\n}\n\n.Table_th__2UhMg:first-child, .Table_td__1_pu2:first-child {\n  padding-left: 50px;\n}\n\n.Table_th__2UhMg:last-child, .Table_td__1_pu2:last-child {\n  padding-right: 50px;\n}\n\n.Table_empty_table_grey_list__33788 {\n  padding: 80px;\n}\n\n.Table_empty_table_grey_list__33788 td {\n  margin: 0 auto;\n  text-align: center;\n  font-family: \"Spoqa Han Sans\";\n}\n\n.Table_empty_table_grey_list__33788 span {\n  margin: auto;\n  color: #161616;\n  display: block;\n  font-size: 20px;\n  opacity: 0.6;\n  font-family: \"Spoqa Han Sans\";\n}\n\n.Table_empty_table_grey_header__3mHSH {\n  font-size: 16px;\n  color: rgba(#000000, 0.36);\n  font-family: \"Spoqa Han Sans\";\n}";
 var styles$4 = {"table":"Table_table__3W-tG","body_b_16":"Table_body_b_16__2HKYm","body_r_18":"Table_body_r_18__2hfAb","body_r_20":"Table_body_r_20__kuuAb","th":"Table_th__2UhMg","tr":"Table_tr__3D6bR","td":"Table_td__1_pu2","empty_table_grey_list":"Table_empty_table_grey_list__33788","empty_table_grey_header":"Table_empty_table_grey_header__3mHSH"};
 styleInject(css$4);
 
@@ -24310,7 +24310,8 @@ var visualAlert = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5
 var TBody = function TBody(_ref) {
   var headers = _ref.headers,
       rowData = _ref.rowData,
-      wrapTd = _ref.wrapTd;
+      wrapTd = _ref.wrapTd,
+      appendRow = _ref.appendRow;
 
   var renderPlaceholder = function renderPlaceholder() {
     return React__default.createElement("tr", null, React__default.createElement("td", {
@@ -24326,7 +24327,7 @@ var TBody = function TBody(_ref) {
 
   var createBody = function createBody(rowsData) {
     return rowsData.map(function (data, idx) {
-      return React__default.createElement("tr", {
+      return [React__default.createElement("tr", {
         key: idx,
         className: "".concat(styles$4.tr, " ").concat(styles$4.body_r_18)
       }, Object.values(data).map(function (row, idx) {
@@ -24338,7 +24339,7 @@ var TBody = function TBody(_ref) {
           label: headers[idx],
           text: row
         }) : React__default.createElement("div", null, row));
-      }));
+      })), appendRow ? appendRow(data, idx) : null];
     });
   };
 
@@ -24350,7 +24351,8 @@ var TBody = function TBody(_ref) {
 var Table = function Table(_ref) {
   var data = _ref.data,
       wrapTh = _ref.wrapTh,
-      wrapTd = _ref.wrapTd;
+      wrapTd = _ref.wrapTd,
+      appendRow = _ref.appendRow;
 
   if (isEmpty_1(data)) {
     return React__default.createElement("div", null, "There is no data", React__default.createElement("br", null), "Please search agains");
@@ -24360,7 +24362,8 @@ var Table = function Table(_ref) {
     }, React__default.createElement(THead, _extends({}, data, {
       wrapTh: wrapTh
     })), React__default.createElement(TBody, _extends({}, data, {
-      wrapTd: wrapTd
+      wrapTd: wrapTd,
+      appendRow: appendRow
     })));
   }
 };
