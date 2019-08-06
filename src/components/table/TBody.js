@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import visualAlert from '../../assets/svg/visual-alert.svg';
 import styles from './Table.css'
 
-const TBody = ({headers, rowData, wrapTd}) => {
+const TBody = ({headers, rowData, wrapTd, appendRow}) => {
   const renderPlaceholder = () => {
     return (
       <tr>
@@ -17,15 +17,16 @@ const TBody = ({headers, rowData, wrapTd}) => {
 
   const createBody = rowsData => {
     return rowsData.map((data, idx) => {
-      return (
+      return [
         <tr key={idx} className={`${styles.tr} ${styles.body_r_18}`}>
           {Object.values(data).map((row, idx) => {
             return <td className={styles.td} key={idx}>{
               wrapTd ? wrapTd({data, label: headers[idx], text: row}) : <div>{row}</div>
             }</td>
           })}
-        </tr>
-      )
+        </tr>,
+        appendRow ? appendRow(data, idx) : null
+      ]
     })
   }
   

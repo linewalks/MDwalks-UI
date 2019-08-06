@@ -4,7 +4,7 @@ import THead from './THead';
 import TBody from './TBody';
 import styles from './Table.css';
 
-const Table = ({ data, wrapTh, wrapTd }) => {
+const Table = ({ data, wrapTh, wrapTd, appendRow }) => {
   if(isEmpty(data)) {
     return (
       <div>
@@ -15,7 +15,7 @@ const Table = ({ data, wrapTh, wrapTd }) => {
     return (
       <table className={styles.table}>
         <THead {...data} wrapTh={wrapTh} />
-        <TBody {...data} wrapTd={wrapTd} />
+        <TBody {...data} wrapTd={wrapTd} appendRow={appendRow}/>
       </table>
     );
   }

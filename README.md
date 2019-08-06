@@ -1,5 +1,7 @@
 # MDwalks-UI
 
+**[Release Notes / History / Changes](CHANGELOG.md)**
+
 ## 1. How to
 * install
   ```bash
