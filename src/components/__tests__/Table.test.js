@@ -72,7 +72,10 @@ describe('Table Component', () => {
 
   it('render table when there is data include subHeaders', () => {
     const wrapper = mount(<Table data={data.includeSubHeaders} />)
-    expect(wrapper.find('thead td').at(2).text()).toEqual('f');
-    expect(wrapper.find('tbody .td').at(7).text()).toEqual('8');
+    const subHeaders = Object.values(data.includeSubHeaders.subHeaders).flat()
+    const firstRowData = Object.values(data.includeSubHeaders.rowData[0])
+
+    expect(wrapper.find('thead td').map(node => node.text())).toEqual(subHeaders)
+    expect(wrapper.find('tbody tr:first-child td').map(node => Number(node.text()))).toEqual(firstRowData);
   })
 })
