@@ -166,7 +166,7 @@ class SankeyChart extends React.Component {
     link
       .append('path')
       .attr('class', 'sankey-link')
-      .attr('id', d => `${strIdConvert(d.source.name)}X${strIdConvert(d.target.name)}`)
+      .attr('id', ({source: { name: startNode }, target: { name: endNode }}) => `${strIdConvert(startNode)}X${strIdConvert(endNode)}`)
       .attr('d', link => link.path)
       .style('stroke-width', d => Math.max(1, d.width))
       .style('opacity', 0.04)
@@ -206,7 +206,9 @@ class SankeyChart extends React.Component {
     if (onClick) {
       nodes.on('click', data => {
         const { selectedNodes } = this.state
-        if (isEmpty(selectedNodes) || this.linkConnectCheck(last(selectedNodes), this.getNodeName(data))) {
+        const prevSelectedNode = last(selectedNodes)
+        const currentSelectedNode = this.getNodeName(data)
+        if (isEmpty(selectedNodes) || this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
           this.setSelectedNode(this.getNodeName(data))
           onClick(selectedNodes)
         }
@@ -226,10 +228,10 @@ class SankeyChart extends React.Component {
     return links
   }
 
-  linkConnectCheck = (source, target) => {
+  linkConnectCheck = (prevSelectedNode, currentSelectedNode) => {
     const data = this.props.data.links
-    return data.some(d => {
-      return (d.source.name === source && d.target.name === target) || (d.source.name === target && d.target.name === source)
+    return data.some(({source: { name: startNode }, target: { name: endNode }}) => {
+      return (startNode === prevSelectedNode && endNode === currentSelectedNode) || (startNode === currentSelectedNode && endNode === prevSelectedNode)
     })
   }
 
@@ -299,8 +301,9 @@ class SankeyChart extends React.Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    const { data } = this.props
-    if (this.linkConnectCheck(last(prevState.selectedNodes), last(this.state.selectedNodes))) {
+    const prevSelectedNode = last(prevState.selectedNodes)
+    const currentSelectedNode = last(this.state.selectedNodes)
+    if (this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
       const LinkId = this.createLinkId(this.state.selectedNodes)
       this.highlightLink(LinkId)
     }    
