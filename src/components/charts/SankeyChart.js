@@ -3,7 +3,6 @@ import * as d3Core from 'd3'
 import * as sankeyCircular from 'd3-sankey-circular'
 import isEmpty from 'lodash/isEmpty'
 import last from 'lodash/last'
-import findIndex from 'lodash/findIndex'
 import { strIdConvert } from '../../helper/chartUtility'
 import sankeyData from '../../data/dataForSankey';
 
@@ -110,7 +109,6 @@ class SankeyChart extends React.Component {
   }
 
   renderNodes = (nodeG, sankeyNodesData, { width }) => {
-    const selectedNodes = this.props.selectedNodes || []
     const nodeColor = this.d3
       .scaleSequential(this.d3.interpolateCool)
       .domain([0, width])
@@ -160,8 +158,6 @@ class SankeyChart extends React.Component {
   }
 
   renderLinks = (linkG, sankeyLinksData) => {
-    const selectedNodes = this.props.selectedNodes || []
-
     const link = linkG
       .data(sankeyLinksData)
       .enter()
@@ -173,22 +169,7 @@ class SankeyChart extends React.Component {
       .attr('id', d => `${strIdConvert(d.source.name)}X${strIdConvert(d.target.name)}`)
       .attr('d', link => link.path)
       .style('stroke-width', d => Math.max(1, d.width))
-      .style('opacity', d => {
-        const srcIndex = findIndex(
-          selectedNodes,
-          name => name === d.source.name,
-        )
-        const targetIndex = findIndex(
-          selectedNodes,
-          name => name === d.target.name,
-        )
-
-        if (targetIndex - srcIndex === 1) {
-          return 1.0
-        } else {
-          return 0.04
-        }
-      })
+      .style('opacity', 0.04)
       .style('stroke', '#000000')
 
     /*
@@ -224,14 +205,10 @@ class SankeyChart extends React.Component {
     // Add additonal events
     if (onClick) {
       nodes.on('click', data => {
-        if (this.state.selectedNodes.length === 0) {
+        const { selectedNodes } = this.state
+        if (isEmpty(selectedNodes) || this.linkConnectCheck(last(selectedNodes), this.getNodeName(data))) {
           this.setSelectedNode(this.getNodeName(data))
-          onClick(this.state.selectedNodes)
-        }
-
-        if (this.linkConnectCheck(last(this.state.selectedNodes), this.getNodeName(data), this.props.data.links)) {
-          this.setSelectedNode(this.getNodeName(data))
-          onClick(this.state.selectedNodes)
+          onClick(selectedNodes)
         }
       })
     } 
@@ -249,7 +226,8 @@ class SankeyChart extends React.Component {
     return links
   }
 
-  linkConnectCheck = (source, target, data) => {
+  linkConnectCheck = (source, target) => {
+    const data = this.props.data.links
     return data.some(d => {
       return (d.source.name === source && d.target.name === target) || (d.source.name === target && d.target.name === source)
     })
@@ -322,7 +300,7 @@ class SankeyChart extends React.Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     const { data } = this.props
-    if (this.linkConnectCheck(last(prevState.selectedNodes), last(this.state.selectedNodes), data.links)) {
+    if (this.linkConnectCheck(last(prevState.selectedNodes), last(this.state.selectedNodes))) {
       const LinkId = this.createLinkId(this.state.selectedNodes)
       this.highlightLink(LinkId)
     }    

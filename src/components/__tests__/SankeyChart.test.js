@@ -1,39 +1,34 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import SankeyChart from '@Charts/SankeyChart';
 
 describe('set SelectNodes', () => {
+  let wrapper, selectedNodes, data, instance
+  beforeEach(() => {
+    selectedNodes = [1]
+    data = {
+      nodes: [{name: 'a'}, {name: 'b'}, {name: 'c'}],
+      links: [{source: 'a', target: 'c'}, {source: 'b', target: 'c'}]
+    }
+    wrapper = shallow(<SankeyChart selectedNodes={selectedNodes} data={data}/>);
+    instance = wrapper.instance()
+  })
+
   it('default', () => {
     const wrapper = shallow(<SankeyChart />)
     expect(wrapper.state('selectedNodes')).toEqual([]);
   })
 
   it('initialize', () => {
-    const selectedNodes = [1]
-    const wrapper = shallow(<SankeyChart selectedNodes={selectedNodes}/>);
     expect(wrapper.state('selectedNodes')).toEqual(selectedNodes);
   })
 
   it('link connect check false', () => {
-    const data = {
-      nodes: [{name: 'a'}, {name: 'b'}, {name: 'c'}],
-      links: [{source: 'a', target: 'c'}, {source: 'b', target: 'c'}]
-    }
-    const wrapper = shallow(<SankeyChart data={data} 
-    />)
-    const instance = wrapper.instance()
-    expect(instance.linkConnectCheck('a', 'b', data.links)).toBe(false);
+    expect(instance.linkConnectCheck('a', 'b')).toBe(false);
   })
 
-  it('link connect check false', () => {
-    const data = {
-      nodes: [{name: 'a'}, {name: 'b'}, {name: 'c'}],
-      links: [{source: 'a', target: 'c'}, {source: 'b', target: 'c'}]
-    }
-    const wrapper = shallow(<SankeyChart data={data} 
-    />)
-    const instance = wrapper.instance()
-    expect(instance.linkConnectCheck('b', 'c', data.links)).toBe(true);
+  it('link connect check true', () => {
+    expect(instance.linkConnectCheck('b', 'c')).toBe(true);
   })
 
 })
