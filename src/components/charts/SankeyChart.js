@@ -208,7 +208,7 @@ class SankeyChart extends React.Component {
         const { selectedNodes } = this.state
         const prevSelectedNode = last(selectedNodes)
         const currentSelectedNode = this.getNodeName(data)
-        if (isEmpty(selectedNodes) || this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
+        if (this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
           this.setSelectedNode(this.getNodeName(data))
           onClick(selectedNodes)
         }
@@ -229,8 +229,11 @@ class SankeyChart extends React.Component {
   }
 
   linkConnectCheck = (prevSelectedNode, currentSelectedNode) => {
-    const data = this.props.data.links
-    return data.some(({source: { name: startNode }, target: { name: endNode }}) => {
+    if (isEmpty(prevSelectedNode)) {
+      return true
+    }
+
+    return this.props.data.links.some(({source: { name: startNode }, target: { name: endNode }}) => {
       return (startNode === prevSelectedNode && endNode === currentSelectedNode) || (startNode === currentSelectedNode && endNode === prevSelectedNode)
     })
   }

@@ -21751,7 +21751,7 @@ function (_React$Component) {
 
           var currentSelectedNode = _this.getNodeName(data);
 
-          if (isEmpty_1(selectedNodes) || _this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
+          if (_this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
             _this.setSelectedNode(_this.getNodeName(data));
 
             onClick(selectedNodes);
@@ -21775,8 +21775,11 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "linkConnectCheck", function (prevSelectedNode, currentSelectedNode) {
-      var data = _this.props.data.links;
-      return data.some(function (_ref8) {
+      if (isEmpty_1(prevSelectedNode)) {
+        return true;
+      }
+
+      return _this.props.data.links.some(function (_ref8) {
         var startNode = _ref8.source.name,
             endNode = _ref8.target.name;
         return startNode === prevSelectedNode && endNode === currentSelectedNode || startNode === currentSelectedNode && endNode === prevSelectedNode;
