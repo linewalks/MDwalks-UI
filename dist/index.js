@@ -21727,8 +21727,10 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "renderLinks", function (linkG, sankeyLinksData) {
       var link = linkG.data(sankeyLinksData).enter().append('g');
-      link.append('path').attr('class', 'sankey-link').attr('id', function (d) {
-        return "".concat(strIdConvert(d.source.name), "X").concat(strIdConvert(d.target.name));
+      link.append('path').attr('class', 'sankey-link').attr('id', function (_ref5) {
+        var startNode = _ref5.source.name,
+            endNode = _ref5.target.name;
+        return "".concat(strIdConvert(startNode), "X").concat(strIdConvert(endNode));
       }).attr('d', function (link) {
         return link.path;
       }).style('stroke-width', function (d) {
@@ -21745,15 +21747,18 @@ function (_React$Component) {
       return link;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "attachEventHandlersToNode", function (d3, nodes, _ref5) {
-      var onClick = _ref5.onClick;
+    _defineProperty(_assertThisInitialized(_this), "attachEventHandlersToNode", function (d3, nodes, _ref6) {
+      var onClick = _ref6.onClick;
 
 
       if (onClick) {
         nodes.on('click', function (data) {
           var selectedNodes = _this.state.selectedNodes;
+          var prevSelectedNode = last_1(selectedNodes);
 
-          if (isEmpty_1(selectedNodes) || _this.linkConnectCheck(last_1(selectedNodes), _this.getNodeName(data))) {
+          var currentSelectedNode = _this.getNodeName(data);
+
+          if (isEmpty_1(selectedNodes) || _this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
             _this.setSelectedNode(_this.getNodeName(data));
 
             onClick(selectedNodes);
@@ -21764,8 +21769,8 @@ function (_React$Component) {
       return nodes;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "attachEventHandlersToLink", function (d3, links, _ref6) {
-      var onClick = _ref6.onClick;
+    _defineProperty(_assertThisInitialized(_this), "attachEventHandlersToLink", function (d3, links, _ref7) {
+      var onClick = _ref7.onClick;
 
       if (onClick) {
         links.on('click', function (data) {
@@ -21776,10 +21781,12 @@ function (_React$Component) {
       return links;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "linkConnectCheck", function (source, target) {
+    _defineProperty(_assertThisInitialized(_this), "linkConnectCheck", function (prevSelectedNode, currentSelectedNode) {
       var data = _this.props.data.links;
-      return data.some(function (d) {
-        return d.source.name === source && d.target.name === target || d.source.name === target && d.target.name === source;
+      return data.some(function (_ref8) {
+        var startNode = _ref8.source.name,
+            endNode = _ref8.target.name;
+        return startNode === prevSelectedNode && endNode === currentSelectedNode || startNode === currentSelectedNode && endNode === prevSelectedNode;
       });
     });
 
@@ -21852,9 +21859,10 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps, prevState) {
-      var data = _this.props.data;
+      var prevSelectedNode = last_1(prevState.selectedNodes);
+      var currentSelectedNode = last_1(_this.state.selectedNodes);
 
-      if (_this.linkConnectCheck(last_1(prevState.selectedNodes), last_1(_this.state.selectedNodes))) {
+      if (_this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
         var LinkId = _this.createLinkId(_this.state.selectedNodes);
 
         _this.highlightLink(LinkId);
