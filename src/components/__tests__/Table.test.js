@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Table from '@Table/Table';
-import renderer from 'react-test-renderer';
 
 const data = {
   exceptSubHeaders: {
@@ -64,12 +63,19 @@ describe('Table Component', () => {
   })
 
   it('render table when there is data excpet subHeaders', () => {
-    const wrapper = renderer.create(<Table data={data.exceptSubHeaders} />).toJSON();
-    expect(wrapper).toMatchSnapshot();
+    const wrapper = mount(<Table data={data.exceptSubHeaders} />)
+    expect(wrapper.find('thead tr')).toHaveLength(1);
+    expect(wrapper.find('thead th')).toHaveLength(3);
+    expect(wrapper.find('tbody tr')).toHaveLength(3);
+    expect(wrapper.find('tbody td')).toHaveLength(9);
   })
 
   it('render table when there is data include subHeaders', () => {
-    const wrapper = renderer.create(<Table data={data.includeSubHeaders} />).toJSON();
-    expect(wrapper).toMatchSnapshot();
+    const wrapper = mount(<Table data={data.includeSubHeaders} />)
+    expect(wrapper.find('thead tr')).toHaveLength(2);
+    expect(wrapper.find('thead tr td')).toHaveLength(4);
+    expect(wrapper.find('thead th')).toHaveLength(3);
+    expect(wrapper.find('tbody tr')).toHaveLength(3);
+    expect(wrapper.find('tbody td')).toHaveLength(15);
   })
 })
