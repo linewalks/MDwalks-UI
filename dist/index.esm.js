@@ -23560,12 +23560,6 @@ function (_Component) {
       return _this.renderLineMergeTimeline(timeData, lineData);
     });
 
-    var _getStartAndEndTime = getStartAndEndTime(_this.props.timeData.map(function (d) {
-      return d.dataPoints;
-    }).flat()),
-        _startTime = _getStartAndEndTime.startTime,
-        _endTime = _getStartAndEndTime.endTime;
-
     _this.options = {
       width: _this.props.chartWidth || 1200,
       // 차트가 그려지는 전체 영역 넓이
@@ -23590,8 +23584,8 @@ function (_Component) {
       defaultMargin: {
         top: 40
       },
-      startTime: _startTime,
-      endTime: _endTime,
+      startTime: Date.parse(_this.props.scale.start),
+      endTime: Date.parse(_this.props.scale.end),
       lineYAxisHeight: 206,
       labelStartYPosition: 0,
       labelLastYPosition: 369
@@ -23605,7 +23599,7 @@ function (_Component) {
     value: function render() {
       return React.createElement("div", {
         className: styles$6.timelineChart
-      });
+      }, console.log('@2', this.options));
     }
   }]);
 
