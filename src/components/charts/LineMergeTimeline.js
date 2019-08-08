@@ -857,7 +857,7 @@ class LineMergeTimeline extends Component {
   render() {    
     return (
       <div className={styles.timelineChart}>
-        {console.log('@2',this.options)}
+
       </div>
     );
   }

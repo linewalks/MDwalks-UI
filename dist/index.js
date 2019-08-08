@@ -23606,7 +23606,7 @@ function (_Component) {
     value: function render() {
       return React__default.createElement("div", {
         className: styles$6.timelineChart
-      }, console.log('@2', this.options));
+      });
     }
   }]);
 

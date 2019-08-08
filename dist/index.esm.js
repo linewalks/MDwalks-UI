@@ -23599,7 +23599,7 @@ function (_Component) {
     value: function render() {
       return React.createElement("div", {
         className: styles$6.timelineChart
-      }, console.log('@2', this.options));
+      });
     }
   }]);
 
