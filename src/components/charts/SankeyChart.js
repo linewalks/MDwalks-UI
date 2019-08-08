@@ -2,8 +2,7 @@ import React from 'react'
 import * as d3Core from 'd3'
 import * as sankeyCircular from 'd3-sankey-circular'
 import isEmpty from 'lodash/isEmpty'
-import isEqual from 'lodash/isEqual'
-import findIndex from 'lodash/findIndex'
+import last from 'lodash/last'
 import { strIdConvert } from '../../helper/chartUtility'
 import sankeyData from '../../data/dataForSankey';
 
@@ -21,7 +20,7 @@ class SankeyChart extends React.Component {
 
   getNodeName = node => node.name
 
-  getSelectedNode = selectedNode => {
+  setSelectedNode = selectedNode => {
     if (!this.state.selectedNodes.includes(selectedNode)) {
       this.setState({
         selectedNodes: this.state.selectedNodes.concat(selectedNode)
@@ -110,7 +109,6 @@ class SankeyChart extends React.Component {
   }
 
   renderNodes = (nodeG, sankeyNodesData, { width }) => {
-    const selectedNodes = this.props.selectedNodes || []
     const nodeColor = this.d3
       .scaleSequential(this.d3.interpolateCool)
       .domain([0, width])
@@ -160,8 +158,6 @@ class SankeyChart extends React.Component {
   }
 
   renderLinks = (linkG, sankeyLinksData) => {
-    const selectedNodes = this.props.selectedNodes || []
-
     const link = linkG
       .data(sankeyLinksData)
       .enter()
@@ -170,25 +166,10 @@ class SankeyChart extends React.Component {
     link
       .append('path')
       .attr('class', 'sankey-link')
-      .attr('id', d => `${strIdConvert(d.source.name)}X${strIdConvert(d.target.name)}`)
+      .attr('id', ({source: { name: startNode }, target: { name: endNode }}) => `${strIdConvert(startNode)}X${strIdConvert(endNode)}`)
       .attr('d', link => link.path)
       .style('stroke-width', d => Math.max(1, d.width))
-      .style('opacity', d => {
-        const srcIndex = findIndex(
-          selectedNodes,
-          name => name === d.source.name,
-        )
-        const targetIndex = findIndex(
-          selectedNodes,
-          name => name === d.target.name,
-        )
-
-        if (targetIndex - srcIndex === 1) {
-          return 1.0
-        } else {
-          return 0.04
-        }
-      })
+      .style('opacity', 0.04)
       .style('stroke', '#000000')
 
     /*
@@ -224,8 +205,13 @@ class SankeyChart extends React.Component {
     // Add additonal events
     if (onClick) {
       nodes.on('click', data => {
-        this.getSelectedNode(this.getNodeName(data))
-        onClick(this.state.selectedNodes)
+        const { selectedNodes } = this.state
+        const prevSelectedNode = last(selectedNodes)
+        const currentSelectedNode = this.getNodeName(data)
+        if (this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
+          this.setSelectedNode(this.getNodeName(data))
+          onClick(selectedNodes)
+        }
       })
     } 
 
@@ -240,6 +226,16 @@ class SankeyChart extends React.Component {
     }
 
     return links
+  }
+
+  linkConnectCheck = (prevSelectedNode, currentSelectedNode) => {
+    if (isEmpty(prevSelectedNode)) {
+      return true
+    }
+
+    return this.props.data.links.some(({source: { name: startNode }, target: { name: endNode }}) => {
+      return (startNode === prevSelectedNode && endNode === currentSelectedNode) || (startNode === currentSelectedNode && endNode === prevSelectedNode)
+    })
   }
 
   renderSankey = () => {
@@ -293,7 +289,7 @@ class SankeyChart extends React.Component {
       })
     } else {
       nodes.on('click', data => {
-        this.getSelectedNode(this.getNodeName(data))
+        this.setSelectedNode(this.getNodeName(data))
       })
     }
 
@@ -308,7 +304,9 @@ class SankeyChart extends React.Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (!isEqual(prevState.selectedNodes, this.state.selectedNodes)) {
+    const prevSelectedNode = last(prevState.selectedNodes)
+    const currentSelectedNode = last(this.state.selectedNodes)
+    if (this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
       const LinkId = this.createLinkId(this.state.selectedNodes)
       this.highlightLink(LinkId)
     }    
