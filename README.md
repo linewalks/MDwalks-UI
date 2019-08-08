@@ -613,12 +613,12 @@
   ```
 
   * ### Props
-  |  Name |  Type  | Default | Description        | 
-  |:------|:-------|:------- |:--------------------|
-  | timeData | Array |     | Timeline Data |
-  | lineData | Object |     | Line Chart Data |
-  | chartWidth | Number | 1200 | Entire Chart Width |
-  | chartHeight | Number | 835 | Entire Chart Height |
-  | brushEvent | Function |    | Timeline Brush EventHandler |
-  | resetBtnId | String |    | Timeline Reset Button Id |
-  | scale | Object |    | Data min and max time |
+  |  Name |  Type  | Default | Description        |  options |
+  |:------|:-------|:------- |:--------------------| -------- |
+  | timeData | Array |     | Timeline Data | |
+  | lineData | Object |     | Line Chart Data | |
+  | chartWidth | Number | 1200 | Entire Chart Width | |
+  | chartHeight | Number | 835 | Entire Chart Height | |
+  | brushEvent | Function |    | Timeline Brush EventHandler | yes |
+  | resetBtnId | String |    | Timeline Reset Button Id | yes |
+  | scale | Object |    | Data min and max time | yes |
