@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
-import { renderSVG, generateGroup, circleDataFilter, rectDataFilter, labelList, lineDataFormatConvert } from '../../helper/chartUtility'
+import { renderSVG, generateGroup, getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, lineDataFormatConvert } from '../../helper/chartUtility'
 import styles from './LineMergeTimeline.css'
 import isEmpty from 'lodash/isEmpty'
 
 class LineMergeTimeline extends Component {
   constructor(props) {
     super(props);
+    const {startTime, endTime} = getStartAndEndTime(
+      this.props.timeData.map(d => d.dataPoints).flat(),
+    )
     this.options = {
       width: this.props.chartWidth || 1200, // 차트가 그려지는 전체 영역 넓이
       height: this.props.chartHeight || 835, // 차트가 그려지는 전체 영영 높이
@@ -22,8 +25,8 @@ class LineMergeTimeline extends Component {
       defaultMargin: {
         top: 40
       },
-      startTime: Date.parse(this.props.scale.start),
-      endTime: Date.parse(this.props.scale.end),
+      startTime: isEmpty(this.props.scale) ? startTime : Date.parse(this.props.scale.start),
+      endTime: isEmpty(this.props.scale) ? endTime : Date.parse(this.props.scale.end),
       lineYAxisHeight: 206,
       labelStartYPosition: 0,
       labelLastYPosition: 369
