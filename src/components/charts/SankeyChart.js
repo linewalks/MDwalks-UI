@@ -210,7 +210,7 @@ class SankeyChart extends React.Component {
         const currentSelectedNode = this.getNodeName(data)
         if (this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
           this.setSelectedNode(this.getNodeName(data))
-          onClick(selectedNodes)
+          onClick(this.state.selectedNodes)
         }
       })
     } 
