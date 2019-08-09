@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="290" height="230" viewBox="0 0 290 230">
+    <defs>
+        <path id="a" d="M290 205.614C260.826 184.306 206.811 170 145 170c-61.811 0-115.826 14.306-145 35.614V0h290v205.614z"/>
+        <linearGradient id="c" x1="34.726%" x2="34.726%" y1="0%" y2="86.808%">
+            <stop offset="0%" stop-color="#189BFF"/>
+            <stop offset="100%" stop-color="#B2DEFF" stop-opacity="0"/>
+        </linearGradient>
+        <path id="d" d="M29 0h76.37a4 4 0 0 1 2.87 1.215l25.631 26.422A4 4 0 0 1 135 30.422V131a4 4 0 0 1-4 4H29a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4z"/>
+        <linearGradient id="f" x1="42.129%" x2="42.129%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#189BFF"/>
+            <stop offset="13.368%" stop-color="#189BFF"/>
+            <stop offset="100%" stop-color="#189BFF" stop-opacity="0"/>
+        </linearGradient>
+        <path id="e" d="M31 0h73.523a6 6 0 0 1 4.307 1.822l24.477 25.233A6 6 0 0 1 135 31.233V129a6 6 0 0 1-6 6H31a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6z"/>
+        <linearGradient id="g" x1="43.48%" x2="43.48%" y1="50%" y2="204.308%">
+            <stop offset="0%" stop-color="#EAF6FF"/>
+            <stop offset="100%" stop-color="#189BFF"/>
+        </linearGradient>
+        <path id="j" d="M157 136c-15.464 0-28-12.536-28-28s12.536-28 28-28 28 12.536 28 28-12.536 28-28 28zm0-2c14.36 0 26-11.64 26-26s-11.64-26-26-26-26 11.64-26 26 11.64 26 26 26zm0-27.414l8.485-8.485 1.414 1.414-8.485 8.485 8.485 8.485-1.414 1.414-8.485-8.485-8.485 8.485-1.414-1.414 8.485-8.485-8.485-8.485 1.414-1.414 8.485 8.485z"/>
+        <filter id="i" width="144.6%" height="144.6%" x="-22.3%" y="-20.5%" filterUnits="objectBoundingBox">
+            <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0.569620253 0 0 0 0 1 0 0 0 0.399011145 0"/>
+        </filter>
+        <ellipse id="l" cx="146" cy="243" rx="145" ry="72"/>
+        <filter id="k" width="115.9%" height="131.9%" x="-7.9%" y="-18.8%" filterUnits="objectBoundingBox">
+            <feOffset dy="-4" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="7"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0.471908771 0 0 0 0 0.832144475 0 0 0 0.701240166 0"/>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g transform="translate(0 24)">
+            <mask id="b" fill="#fff">
+                <use xlink:href="#a"/>
+            </mask>
+            <g mask="url(#b)" opacity=".6">
+                <g transform="translate(77 40)">
+                    <path fill="url(#c)" d="M6 25h73.523a6 6 0 0 1 4.307 1.822l24.477 25.233A6 6 0 0 1 110 56.233V154a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6V31a6 6 0 0 1 6-6z" opacity=".551"/>
+                    <use fill="#FFF" xlink:href="#d"/>
+                    <mask id="h" fill="#fff">
+                        <use xlink:href="#e"/>
+                    </mask>
+                    <use fill="url(#f)" opacity=".722" xlink:href="#e"/>
+                    <path fill="url(#g)" d="M106.728-1.164l28.686 30.479a1 1 0 0 1-.728 1.685H109a4 4 0 0 1-4-4V-.478a1 1 0 0 1 1.728-.686z" mask="url(#h)"/>
+                </g>
+            </g>
+            <g mask="url(#b)">
+                <use fill="#000" filter="url(#i)" xlink:href="#j"/>
+                <use fill="#FFF" xlink:href="#j"/>
+            </g>
+            <g mask="url(#b)" opacity=".2">
+                <use fill="#000" filter="url(#k)" xlink:href="#l"/>
+                <use fill="#189BFF" xlink:href="#l"/>
+            </g>
+        </g>
+        <circle cx="239" cy="153" r="18" fill="#189BFF" opacity=".107"/>
+        <circle cx="78.5" cy="54.5" r="10.5" fill="#189BFF" opacity=".3"/>
+        <circle cx="58" cy="29" r="29" fill="#189BFF" opacity=".107"/>
+        <circle cx="257" cy="126" r="7" fill="#189BFF" opacity=".299"/>
+    </g>
+</svg>
