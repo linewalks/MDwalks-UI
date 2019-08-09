@@ -6,7 +6,7 @@
 ## :lock: Security Fixes
 -->
 
-# v0.3.4 / waiting version up
+# v0.3.4 / 2019-08-09
 ## :tada: Enhancements
 - [#65](https://github.com/linewalks/MDwalks-UI/issues/59): linemergedtimeline data format scale 적용 ([**@jik0090**](https://github.com/jik0090))
 
