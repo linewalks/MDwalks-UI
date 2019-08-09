@@ -23597,8 +23597,8 @@ function (_Component) {
       defaultMargin: {
         top: 40
       },
-      startTime: _startTime,
-      endTime: _endTime,
+      startTime: isEmpty_1(_this.props.scale) ? _startTime : Date.parse(_this.props.scale.start),
+      endTime: isEmpty_1(_this.props.scale) ? _endTime : Date.parse(_this.props.scale.end),
       lineYAxisHeight: 206,
       labelStartYPosition: 0,
       labelLastYPosition: 369

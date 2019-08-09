@@ -540,6 +540,11 @@
     },
   ]
 
+  const scale = {
+    start: "2000-03-08T15:43:00",
+    end: "2015-06-26T00:00:00"
+  }
+
   const lineData = {
     "xaxis": [
       "2013-04-11T00:00:00",
@@ -599,6 +604,7 @@
           chartHeight={835}
           brushEvent={eventHandler}
           resetBtnId={'reset'}
+          scale={scale}
         />
       </div>
     )
@@ -607,11 +613,12 @@
   ```
 
   * ### Props
-  |  Name |  Type  | Default | Description        | 
-  |:------|:-------|:------- |:--------------------|
-  | timeData | Array |     | Timeline Data |
-  | lineData | Object |     | Line Chart Data |
-  | chartWidth | Number | 1200 | Entire Chart Width |
-  | chartHeight | Number | 835 | Entire Chart Height |
-  | brushEvent | Function |    | Timeline Brush EventHandler |
-  | resetBtnId | String |    | Timeline Reset Button Id |
+  |  Name |  Type  | Default | Description        |  options |
+  |:------|:-------|:------- |:--------------------| -------- |
+  | timeData | Array |     | Timeline Data | |
+  | lineData | Object |     | Line Chart Data | |
+  | chartWidth | Number | 1200 | Entire Chart Width | |
+  | chartHeight | Number | 835 | Entire Chart Height | |
+  | brushEvent | Function |    | Timeline Brush EventHandler | yes |
+  | resetBtnId | String |    | Timeline Reset Button Id | yes |
+  | scale | Object |    | Data min and max time | yes |
