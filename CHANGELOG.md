@@ -5,7 +5,7 @@
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
-# v0.3.5 / 2019-08-14
+# v0.3.5 / 
 ## :tada: Enhancements
 - [#75](https://github.com/linewalks/MDwalks-UI/issues/75): add sankey reset ([**@jik0090**](https://github.com/jik0090))
 
