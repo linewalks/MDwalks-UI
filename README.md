@@ -85,7 +85,7 @@
         <button id='reset'>Reset</button>
         <SankeyChart 
           data={data} 
-          onNodeClick={this.eventHandler}
+          onChange={this.eventHandler}
           defaultdNode={['emergency']} 
           resetBtnId={'reset'}}
         />
@@ -98,7 +98,7 @@
    |  Name |  Type  | Default |  Description        | options | 
    |:------|:-------|:--------|:--------------------|---------|
    | data | Object |         | SankeyChart Data | |
-   | onNodeClick | Function |         | SankeyChart Node Click Event Handler | |
+   | onChange | Function |         | SankeyChart Node Click Event Handler | |
    | onLinkClick | Function |         | SankeyChart Link Click Event Handler | |
    | defaultdNode | Array |        | Default Node | yes |
    | resetBtnId | String |         | SankeyChart Reset Button Id | yes |

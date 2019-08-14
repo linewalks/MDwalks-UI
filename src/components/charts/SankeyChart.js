@@ -2,6 +2,7 @@ import React from 'react'
 import * as d3Core from 'd3'
 import * as sankeyCircular from 'd3-sankey-circular'
 import isEmpty from 'lodash/isEmpty'
+import isEqual from 'lodash/isEqual'
 import last from 'lodash/last'
 import { strIdConvert } from '../../helper/chartUtility'
 import sankeyData from '../../data/dataForSankey';
@@ -241,7 +242,7 @@ class SankeyChart extends React.Component {
     const {
       data,
       options,
-      onNodeClick,
+      onChange,
       onNodeHover,
       onLinkClick,
       onLinkHover,
@@ -281,9 +282,9 @@ class SankeyChart extends React.Component {
     let nodes = this.renderNodes(nodeG, sankeyNodesData, { width })
     let links = this.renderLinks(linkG, sankeyLinksData)
 
-    if (onNodeClick) {
+    if (onChange) {
       nodes = this.attachEventHandlersToNode(d3, nodes, {
-        onClick: onNodeClick,
+        onClick: onChange,
       })
     } else {
       nodes.on('click', data => {
@@ -305,7 +306,8 @@ class SankeyChart extends React.Component {
   componentDidUpdate = (prevProps, prevState) => {
     const prevSelectedNode = last(prevState.selectedNodes)
     const currentSelectedNode = last(this.state.selectedNodes)
-    if (this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
+
+    if (!isEqual(prevState.selectedNodes, this.state.selectedNodes) && this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
       const LinkId = this.createLinkId(this.state.selectedNodes)
       this.highlightLink(LinkId)
     }    
@@ -316,11 +318,10 @@ class SankeyChart extends React.Component {
     d3.select(`#${id}`).on('click', () => {
       const el = document.querySelector('svg')
       if (el) el.remove()
-      
       this.setState({
         selectedNodes: defaultNode
       })
-
+      this.props.onChange(this.state.selectedNodes)
       this.renderSankey()
     })
   }
