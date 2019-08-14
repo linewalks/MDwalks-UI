@@ -21851,10 +21851,8 @@ function (_React$Component) {
       var _this$props2 = _this.props,
           data = _this$props2.data,
           resetBtnId = _this$props2.resetBtnId,
-          resetDefaultNode = _this$props2.resetDefaultNode;
-
-      _this.resetSankey(resetBtnId, resetDefaultNode);
-
+          defaultdNode = _this$props2.defaultdNode;
+      isEmpty_1(resetBtnId) ? null : _this.resetSankey(resetBtnId, defaultdNode);
       return isEmpty_1(data) ? null : _this.renderSankey();
     });
 
@@ -21869,21 +21867,16 @@ function (_React$Component) {
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "resetSankey", function (id, defaultNode) {
+    _defineProperty(_assertThisInitialized(_this), "resetSankey", function (id) {
+      var defaultNode = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
       var d3 = _this.d3;
       d3.select("#".concat(id)).on('click', function () {
         var el = document.querySelector('svg');
         if (el) el.remove();
 
-        if (isEmpty_1(defaultNode)) {
-          _this.setState({
-            selectedNodes: []
-          });
-        } else {
-          _this.setState({
-            selectedNodes: defaultNode
-          });
-        }
+        _this.setState({
+          selectedNodes: defaultNode
+        });
 
         _this.renderSankey();
       });
@@ -21892,7 +21885,7 @@ function (_React$Component) {
     _this.d3 = _objectSpread2({}, d3Core, {}, sankeyCircular$1);
     _this.id = props.id;
     _this.state = {
-      selectedNodes: props.selectedNodes || []
+      selectedNodes: props.defaultdNode || []
     };
     return _this;
   }

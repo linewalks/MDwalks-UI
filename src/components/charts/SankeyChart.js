@@ -12,7 +12,7 @@ class SankeyChart extends React.Component {
     this.d3 = { ...d3Core, ...sankeyCircular }
     this.id = props.id
     this.state = {
-      selectedNodes: props.selectedNodes || []
+      selectedNodes: props.defaultdNode || []
     }
   }
 
@@ -297,8 +297,8 @@ class SankeyChart extends React.Component {
   }
 
   componentDidMount = () => {
-    const { data, resetBtnId, resetDefaultNode } = this.props
-    this.resetSankey(resetBtnId, resetDefaultNode)
+    const { data, resetBtnId, defaultdNode } = this.props
+    isEmpty(resetBtnId) ? null : this.resetSankey(resetBtnId, defaultdNode)
     return isEmpty(data) ? null : this.renderSankey()
   }
 
@@ -311,21 +311,15 @@ class SankeyChart extends React.Component {
     }    
   }
 
-  resetSankey = (id, defaultNode) => {
+  resetSankey = (id, defaultNode = []) => {
     const d3 = this.d3
     d3.select(`#${id}`).on('click', () => {
       const el = document.querySelector('svg')
       if (el) el.remove()
       
-      if (isEmpty(defaultNode)) {
-        this.setState({
-          selectedNodes: []
-        })
-      } else {
-        this.setState({
-          selectedNodes: defaultNode
-        })
-      }
+      this.setState({
+        selectedNodes: defaultNode
+      })
 
       this.renderSankey()
     })
