@@ -21598,8 +21598,6 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SankeyChart).call(this, props));
 
-    _defineProperty(_assertThisInitialized(_this), "id", void 0);
-
     _defineProperty(_assertThisInitialized(_this), "getNodeName", function (node) {
       return node.name;
     });
@@ -21754,7 +21752,7 @@ function (_React$Component) {
           if (_this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
             _this.setSelectedNode(_this.getNodeName(data));
 
-            onClick(selectedNodes);
+            onClick(_this.state.selectedNodes);
           }
         });
       }
@@ -21850,7 +21848,13 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
-      var data = _this.props.data;
+      var _this$props2 = _this.props,
+          data = _this$props2.data,
+          resetBtnId = _this$props2.resetBtnId,
+          resetDefaultNode = _this$props2.resetDefaultNode;
+
+      _this.resetSankey(resetBtnId, resetDefaultNode);
+
       return isEmpty_1(data) ? null : _this.renderSankey();
     });
 
@@ -21865,6 +21869,26 @@ function (_React$Component) {
       }
     });
 
+    _defineProperty(_assertThisInitialized(_this), "resetSankey", function (id, defaultNode) {
+      var d3 = _this.d3;
+      d3.select("#".concat(id)).on('click', function () {
+        var el = document.querySelector('svg');
+        if (el) el.remove();
+
+        if (isEmpty_1(defaultNode)) {
+          _this.setState({
+            selectedNodes: []
+          });
+        } else {
+          _this.setState({
+            selectedNodes: defaultNode
+          });
+        }
+
+        _this.renderSankey();
+      });
+    });
+
     _this.d3 = _objectSpread2({}, d3Core, {}, sankeyCircular$1);
     _this.id = props.id;
     _this.state = {
@@ -21876,9 +21900,9 @@ function (_React$Component) {
   _createClass(SankeyChart, [{
     key: "render",
     value: function render() {
-      var _this$props2 = this.props,
-          data = _this$props2.data,
-          id = _this$props2.id;
+      var _this$props3 = this.props,
+          data = _this$props3.data,
+          id = _this$props3.id;
       return isEmpty_1(data) ? this.renderPlaceholder() : React.createElement("div", {
         id: "chart_".concat(this.id)
       });

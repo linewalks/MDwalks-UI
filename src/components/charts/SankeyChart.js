@@ -16,8 +16,6 @@ class SankeyChart extends React.Component {
     }
   }
 
-  id // chart id
-
   getNodeName = node => node.name
 
   setSelectedNode = selectedNode => {
@@ -299,7 +297,8 @@ class SankeyChart extends React.Component {
   }
 
   componentDidMount = () => {
-    const { data } = this.props
+    const { data, resetBtnId, resetDefaultNode } = this.props
+    this.resetSankey(resetBtnId, resetDefaultNode)
     return isEmpty(data) ? null : this.renderSankey()
   }
 
@@ -310,6 +309,26 @@ class SankeyChart extends React.Component {
       const LinkId = this.createLinkId(this.state.selectedNodes)
       this.highlightLink(LinkId)
     }    
+  }
+
+  resetSankey = (id, defaultNode) => {
+    const d3 = this.d3
+    d3.select(`#${id}`).on('click', () => {
+      const el = document.querySelector('svg')
+      if (el) el.remove()
+      
+      if (isEmpty(defaultNode)) {
+        this.setState({
+          selectedNodes: []
+        })
+      } else {
+        this.setState({
+          selectedNodes: defaultNode
+        })
+      }
+
+      this.renderSankey()
+    })
   }
 
   render() {
