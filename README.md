@@ -87,7 +87,7 @@
           data={data} 
           onChange={this.eventHandler}
           defaultdNode={['emergency']} 
-          resetBtnId={'reset'}}
+          resetBtnId={'reset'}
         />
       </div>
     )
