@@ -2,6 +2,7 @@ import React from 'react'
 import * as d3Core from 'd3'
 import * as sankeyCircular from 'd3-sankey-circular'
 import isEmpty from 'lodash/isEmpty'
+import isEqual from 'lodash/isEqual'
 import last from 'lodash/last'
 import { strIdConvert } from '../../helper/chartUtility'
 import sankeyData from '../../data/dataForSankey';
@@ -10,13 +11,11 @@ class SankeyChart extends React.Component {
   constructor(props) {
     super(props)
     this.d3 = { ...d3Core, ...sankeyCircular }
-    this.id = props.id
+    this.id = props.id || 'sankey'
     this.state = {
-      selectedNodes: props.selectedNodes || []
+      selectedNodes: props.defaultdNode || []
     }
   }
-
-  id // chart id
 
   getNodeName = node => node.name
 
@@ -243,7 +242,7 @@ class SankeyChart extends React.Component {
     const {
       data,
       options,
-      onNodeClick,
+      onChange,
       onNodeHover,
       onLinkClick,
       onLinkHover,
@@ -283,9 +282,9 @@ class SankeyChart extends React.Component {
     let nodes = this.renderNodes(nodeG, sankeyNodesData, { width })
     let links = this.renderLinks(linkG, sankeyLinksData)
 
-    if (onNodeClick) {
+    if (onChange) {
       nodes = this.attachEventHandlersToNode(d3, nodes, {
-        onClick: onNodeClick,
+        onClick: onChange,
       })
     } else {
       nodes.on('click', data => {
@@ -299,21 +298,36 @@ class SankeyChart extends React.Component {
   }
 
   componentDidMount = () => {
-    const { data } = this.props
+    const { data, resetBtnId, defaultdNode } = this.props
+    !isEmpty(resetBtnId) && this.resetSankey(resetBtnId, defaultdNode)
     return isEmpty(data) ? null : this.renderSankey()
   }
 
   componentDidUpdate = (prevProps, prevState) => {
     const prevSelectedNode = last(prevState.selectedNodes)
     const currentSelectedNode = last(this.state.selectedNodes)
-    if (this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
+
+    if (!isEqual(prevState.selectedNodes, this.state.selectedNodes) && this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
       const LinkId = this.createLinkId(this.state.selectedNodes)
       this.highlightLink(LinkId)
     }    
   }
 
+  resetSankey = (resetBtnId, defaultNode = []) => {
+    const d3 = this.d3
+    d3.select(`#${resetBtnId}`).on('click', () => {
+      const sankeyChart = d3.select(`#chart_${this.id} svg`)
+      if (sankeyChart) sankeyChart.remove()
+      this.setState({
+        selectedNodes: defaultNode
+      })
+      this.props.onChange(this.state.selectedNodes)
+      this.renderSankey()
+    })
+  }
+
   render() {
-    const { data, id } = this.props
+    const { data } = this.props
     return isEmpty(data) ? (
       this.renderPlaceholder()
     ) : (
