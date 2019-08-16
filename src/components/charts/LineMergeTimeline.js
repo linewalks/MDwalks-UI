@@ -249,7 +249,10 @@ class LineMergeTimeline extends Component {
       .datum(lineChartData)
       .attr("class", "line")  
       .attr("fill", "none")
-      .attr("stroke", "url(#svgGradient)")
+      .attr("stroke", lineChartData => {
+        const lineChartFirstYValue = lineChartData[0].y
+        return lineChartData.every(el => el.y === lineChartFirstYValue) ? colorScale(lineYAxisScale(lineChartFirstYValue)) : "url(#svgGradient)"
+      })
       .attr("stroke-width", 2)
       .attr("d", line); 
 
