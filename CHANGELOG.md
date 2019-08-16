@@ -5,9 +5,14 @@
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
-# v0.3.5 / 
+# v0.3.5 / 2019-08-16
 ## :tada: Enhancements
 - [#75](https://github.com/linewalks/MDwalks-UI/issues/75): add sankey reset ([**@jik0090**](https://github.com/jik0090))
+
+## :bug: Fixes
+- [#80](https://github.com/linewalks/MDwalks-UI/issues/80): add sankey reset ([**@jik0090**](https://github.com/jik0090))
+- [#75](https://github.com/linewalks/MDwalks-UI/issues/73): [하] mace risk score의 그래프에서 점사이에 연결선이 없음 ([**@jik0090**](https://github.com/jik0090))
+- [#72](https://github.com/linewalks/MDwalks-UI/issues/75): sankey 노드클릭과 선택노드의 불일치 ([**@jik0090**](https://github.com/jik0090))
 
 # v0.3.4 / 2019-08-09
 ## :tada: Enhancements
