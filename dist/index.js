@@ -21274,6 +21274,1398 @@ function isEmpty(value) {
 var isEmpty_1 = isEmpty;
 
 /**
+ * Removes all key-value entries from the list cache.
+ *
+ * @private
+ * @name clear
+ * @memberOf ListCache
+ */
+function listCacheClear() {
+  this.__data__ = [];
+  this.size = 0;
+}
+
+var _listCacheClear = listCacheClear;
+
+/**
+ * Performs a
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * comparison between two values to determine if they are equivalent.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.eq(object, object);
+ * // => true
+ *
+ * _.eq(object, other);
+ * // => false
+ *
+ * _.eq('a', 'a');
+ * // => true
+ *
+ * _.eq('a', Object('a'));
+ * // => false
+ *
+ * _.eq(NaN, NaN);
+ * // => true
+ */
+function eq(value, other) {
+  return value === other || (value !== value && other !== other);
+}
+
+var eq_1 = eq;
+
+/**
+ * Gets the index at which the `key` is found in `array` of key-value pairs.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} key The key to search for.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function assocIndexOf(array, key) {
+  var length = array.length;
+  while (length--) {
+    if (eq_1(array[length][0], key)) {
+      return length;
+    }
+  }
+  return -1;
+}
+
+var _assocIndexOf = assocIndexOf;
+
+/** Used for built-in method references. */
+var arrayProto = Array.prototype;
+
+/** Built-in value references. */
+var splice = arrayProto.splice;
+
+/**
+ * Removes `key` and its value from the list cache.
+ *
+ * @private
+ * @name delete
+ * @memberOf ListCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function listCacheDelete(key) {
+  var data = this.__data__,
+      index = _assocIndexOf(data, key);
+
+  if (index < 0) {
+    return false;
+  }
+  var lastIndex = data.length - 1;
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+  --this.size;
+  return true;
+}
+
+var _listCacheDelete = listCacheDelete;
+
+/**
+ * Gets the list cache value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf ListCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function listCacheGet(key) {
+  var data = this.__data__,
+      index = _assocIndexOf(data, key);
+
+  return index < 0 ? undefined : data[index][1];
+}
+
+var _listCacheGet = listCacheGet;
+
+/**
+ * Checks if a list cache value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf ListCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function listCacheHas(key) {
+  return _assocIndexOf(this.__data__, key) > -1;
+}
+
+var _listCacheHas = listCacheHas;
+
+/**
+ * Sets the list cache `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf ListCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the list cache instance.
+ */
+function listCacheSet(key, value) {
+  var data = this.__data__,
+      index = _assocIndexOf(data, key);
+
+  if (index < 0) {
+    ++this.size;
+    data.push([key, value]);
+  } else {
+    data[index][1] = value;
+  }
+  return this;
+}
+
+var _listCacheSet = listCacheSet;
+
+/**
+ * Creates an list cache object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function ListCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `ListCache`.
+ListCache.prototype.clear = _listCacheClear;
+ListCache.prototype['delete'] = _listCacheDelete;
+ListCache.prototype.get = _listCacheGet;
+ListCache.prototype.has = _listCacheHas;
+ListCache.prototype.set = _listCacheSet;
+
+var _ListCache = ListCache;
+
+/**
+ * Removes all key-value entries from the stack.
+ *
+ * @private
+ * @name clear
+ * @memberOf Stack
+ */
+function stackClear() {
+  this.__data__ = new _ListCache;
+  this.size = 0;
+}
+
+var _stackClear = stackClear;
+
+/**
+ * Removes `key` and its value from the stack.
+ *
+ * @private
+ * @name delete
+ * @memberOf Stack
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function stackDelete(key) {
+  var data = this.__data__,
+      result = data['delete'](key);
+
+  this.size = data.size;
+  return result;
+}
+
+var _stackDelete = stackDelete;
+
+/**
+ * Gets the stack value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Stack
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function stackGet(key) {
+  return this.__data__.get(key);
+}
+
+var _stackGet = stackGet;
+
+/**
+ * Checks if a stack value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Stack
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function stackHas(key) {
+  return this.__data__.has(key);
+}
+
+var _stackHas = stackHas;
+
+/* Built-in method references that are verified to be native. */
+var nativeCreate = _getNative(Object, 'create');
+
+var _nativeCreate = nativeCreate;
+
+/**
+ * Removes all key-value entries from the hash.
+ *
+ * @private
+ * @name clear
+ * @memberOf Hash
+ */
+function hashClear() {
+  this.__data__ = _nativeCreate ? _nativeCreate(null) : {};
+  this.size = 0;
+}
+
+var _hashClear = hashClear;
+
+/**
+ * Removes `key` and its value from the hash.
+ *
+ * @private
+ * @name delete
+ * @memberOf Hash
+ * @param {Object} hash The hash to modify.
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function hashDelete(key) {
+  var result = this.has(key) && delete this.__data__[key];
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+var _hashDelete = hashDelete;
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+/** Used for built-in method references. */
+var objectProto$7 = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty$5 = objectProto$7.hasOwnProperty;
+
+/**
+ * Gets the hash value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Hash
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function hashGet(key) {
+  var data = this.__data__;
+  if (_nativeCreate) {
+    var result = data[key];
+    return result === HASH_UNDEFINED ? undefined : result;
+  }
+  return hasOwnProperty$5.call(data, key) ? data[key] : undefined;
+}
+
+var _hashGet = hashGet;
+
+/** Used for built-in method references. */
+var objectProto$8 = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty$6 = objectProto$8.hasOwnProperty;
+
+/**
+ * Checks if a hash value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Hash
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function hashHas(key) {
+  var data = this.__data__;
+  return _nativeCreate ? (data[key] !== undefined) : hasOwnProperty$6.call(data, key);
+}
+
+var _hashHas = hashHas;
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED$1 = '__lodash_hash_undefined__';
+
+/**
+ * Sets the hash `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Hash
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the hash instance.
+ */
+function hashSet(key, value) {
+  var data = this.__data__;
+  this.size += this.has(key) ? 0 : 1;
+  data[key] = (_nativeCreate && value === undefined) ? HASH_UNDEFINED$1 : value;
+  return this;
+}
+
+var _hashSet = hashSet;
+
+/**
+ * Creates a hash object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Hash(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `Hash`.
+Hash.prototype.clear = _hashClear;
+Hash.prototype['delete'] = _hashDelete;
+Hash.prototype.get = _hashGet;
+Hash.prototype.has = _hashHas;
+Hash.prototype.set = _hashSet;
+
+var _Hash = Hash;
+
+/**
+ * Removes all key-value entries from the map.
+ *
+ * @private
+ * @name clear
+ * @memberOf MapCache
+ */
+function mapCacheClear() {
+  this.size = 0;
+  this.__data__ = {
+    'hash': new _Hash,
+    'map': new (_Map || _ListCache),
+    'string': new _Hash
+  };
+}
+
+var _mapCacheClear = mapCacheClear;
+
+/**
+ * Checks if `value` is suitable for use as unique object key.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+ */
+function isKeyable(value) {
+  var type = typeof value;
+  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
+    ? (value !== '__proto__')
+    : (value === null);
+}
+
+var _isKeyable = isKeyable;
+
+/**
+ * Gets the data for `map`.
+ *
+ * @private
+ * @param {Object} map The map to query.
+ * @param {string} key The reference key.
+ * @returns {*} Returns the map data.
+ */
+function getMapData(map, key) {
+  var data = map.__data__;
+  return _isKeyable(key)
+    ? data[typeof key == 'string' ? 'string' : 'hash']
+    : data.map;
+}
+
+var _getMapData = getMapData;
+
+/**
+ * Removes `key` and its value from the map.
+ *
+ * @private
+ * @name delete
+ * @memberOf MapCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function mapCacheDelete(key) {
+  var result = _getMapData(this, key)['delete'](key);
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+var _mapCacheDelete = mapCacheDelete;
+
+/**
+ * Gets the map value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf MapCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function mapCacheGet(key) {
+  return _getMapData(this, key).get(key);
+}
+
+var _mapCacheGet = mapCacheGet;
+
+/**
+ * Checks if a map value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf MapCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function mapCacheHas(key) {
+  return _getMapData(this, key).has(key);
+}
+
+var _mapCacheHas = mapCacheHas;
+
+/**
+ * Sets the map `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf MapCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the map cache instance.
+ */
+function mapCacheSet(key, value) {
+  var data = _getMapData(this, key),
+      size = data.size;
+
+  data.set(key, value);
+  this.size += data.size == size ? 0 : 1;
+  return this;
+}
+
+var _mapCacheSet = mapCacheSet;
+
+/**
+ * Creates a map cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function MapCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `MapCache`.
+MapCache.prototype.clear = _mapCacheClear;
+MapCache.prototype['delete'] = _mapCacheDelete;
+MapCache.prototype.get = _mapCacheGet;
+MapCache.prototype.has = _mapCacheHas;
+MapCache.prototype.set = _mapCacheSet;
+
+var _MapCache = MapCache;
+
+/** Used as the size to enable large array optimizations. */
+var LARGE_ARRAY_SIZE = 200;
+
+/**
+ * Sets the stack `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Stack
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the stack cache instance.
+ */
+function stackSet(key, value) {
+  var data = this.__data__;
+  if (data instanceof _ListCache) {
+    var pairs = data.__data__;
+    if (!_Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
+      pairs.push([key, value]);
+      this.size = ++data.size;
+      return this;
+    }
+    data = this.__data__ = new _MapCache(pairs);
+  }
+  data.set(key, value);
+  this.size = data.size;
+  return this;
+}
+
+var _stackSet = stackSet;
+
+/**
+ * Creates a stack cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Stack(entries) {
+  var data = this.__data__ = new _ListCache(entries);
+  this.size = data.size;
+}
+
+// Add methods to `Stack`.
+Stack.prototype.clear = _stackClear;
+Stack.prototype['delete'] = _stackDelete;
+Stack.prototype.get = _stackGet;
+Stack.prototype.has = _stackHas;
+Stack.prototype.set = _stackSet;
+
+var _Stack = Stack;
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED$2 = '__lodash_hash_undefined__';
+
+/**
+ * Adds `value` to the array cache.
+ *
+ * @private
+ * @name add
+ * @memberOf SetCache
+ * @alias push
+ * @param {*} value The value to cache.
+ * @returns {Object} Returns the cache instance.
+ */
+function setCacheAdd(value) {
+  this.__data__.set(value, HASH_UNDEFINED$2);
+  return this;
+}
+
+var _setCacheAdd = setCacheAdd;
+
+/**
+ * Checks if `value` is in the array cache.
+ *
+ * @private
+ * @name has
+ * @memberOf SetCache
+ * @param {*} value The value to search for.
+ * @returns {number} Returns `true` if `value` is found, else `false`.
+ */
+function setCacheHas(value) {
+  return this.__data__.has(value);
+}
+
+var _setCacheHas = setCacheHas;
+
+/**
+ *
+ * Creates an array cache object to store unique values.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [values] The values to cache.
+ */
+function SetCache(values) {
+  var index = -1,
+      length = values == null ? 0 : values.length;
+
+  this.__data__ = new _MapCache;
+  while (++index < length) {
+    this.add(values[index]);
+  }
+}
+
+// Add methods to `SetCache`.
+SetCache.prototype.add = SetCache.prototype.push = _setCacheAdd;
+SetCache.prototype.has = _setCacheHas;
+
+var _SetCache = SetCache;
+
+/**
+ * A specialized version of `_.some` for arrays without support for iteratee
+ * shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} predicate The function invoked per iteration.
+ * @returns {boolean} Returns `true` if any element passes the predicate check,
+ *  else `false`.
+ */
+function arraySome(array, predicate) {
+  var index = -1,
+      length = array == null ? 0 : array.length;
+
+  while (++index < length) {
+    if (predicate(array[index], index, array)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+var _arraySome = arraySome;
+
+/**
+ * Checks if a `cache` value for `key` exists.
+ *
+ * @private
+ * @param {Object} cache The cache to query.
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function cacheHas(cache, key) {
+  return cache.has(key);
+}
+
+var _cacheHas = cacheHas;
+
+/** Used to compose bitmasks for value comparisons. */
+var COMPARE_PARTIAL_FLAG = 1,
+    COMPARE_UNORDERED_FLAG = 2;
+
+/**
+ * A specialized version of `baseIsEqualDeep` for arrays with support for
+ * partial deep comparisons.
+ *
+ * @private
+ * @param {Array} array The array to compare.
+ * @param {Array} other The other array to compare.
+ * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Object} stack Tracks traversed `array` and `other` objects.
+ * @returns {boolean} Returns `true` if the arrays are equivalent, else `false`.
+ */
+function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
+  var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
+      arrLength = array.length,
+      othLength = other.length;
+
+  if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
+    return false;
+  }
+  // Assume cyclic values are equal.
+  var stacked = stack.get(array);
+  if (stacked && stack.get(other)) {
+    return stacked == other;
+  }
+  var index = -1,
+      result = true,
+      seen = (bitmask & COMPARE_UNORDERED_FLAG) ? new _SetCache : undefined;
+
+  stack.set(array, other);
+  stack.set(other, array);
+
+  // Ignore non-index properties.
+  while (++index < arrLength) {
+    var arrValue = array[index],
+        othValue = other[index];
+
+    if (customizer) {
+      var compared = isPartial
+        ? customizer(othValue, arrValue, index, other, array, stack)
+        : customizer(arrValue, othValue, index, array, other, stack);
+    }
+    if (compared !== undefined) {
+      if (compared) {
+        continue;
+      }
+      result = false;
+      break;
+    }
+    // Recursively compare arrays (susceptible to call stack limits).
+    if (seen) {
+      if (!_arraySome(other, function(othValue, othIndex) {
+            if (!_cacheHas(seen, othIndex) &&
+                (arrValue === othValue || equalFunc(arrValue, othValue, bitmask, customizer, stack))) {
+              return seen.push(othIndex);
+            }
+          })) {
+        result = false;
+        break;
+      }
+    } else if (!(
+          arrValue === othValue ||
+            equalFunc(arrValue, othValue, bitmask, customizer, stack)
+        )) {
+      result = false;
+      break;
+    }
+  }
+  stack['delete'](array);
+  stack['delete'](other);
+  return result;
+}
+
+var _equalArrays = equalArrays;
+
+/** Built-in value references. */
+var Uint8Array = _root.Uint8Array;
+
+var _Uint8Array = Uint8Array;
+
+/**
+ * Converts `map` to its key-value pairs.
+ *
+ * @private
+ * @param {Object} map The map to convert.
+ * @returns {Array} Returns the key-value pairs.
+ */
+function mapToArray(map) {
+  var index = -1,
+      result = Array(map.size);
+
+  map.forEach(function(value, key) {
+    result[++index] = [key, value];
+  });
+  return result;
+}
+
+var _mapToArray = mapToArray;
+
+/**
+ * Converts `set` to an array of its values.
+ *
+ * @private
+ * @param {Object} set The set to convert.
+ * @returns {Array} Returns the values.
+ */
+function setToArray(set) {
+  var index = -1,
+      result = Array(set.size);
+
+  set.forEach(function(value) {
+    result[++index] = value;
+  });
+  return result;
+}
+
+var _setToArray = setToArray;
+
+/** Used to compose bitmasks for value comparisons. */
+var COMPARE_PARTIAL_FLAG$1 = 1,
+    COMPARE_UNORDERED_FLAG$1 = 2;
+
+/** `Object#toString` result references. */
+var boolTag$1 = '[object Boolean]',
+    dateTag$1 = '[object Date]',
+    errorTag$1 = '[object Error]',
+    mapTag$3 = '[object Map]',
+    numberTag$1 = '[object Number]',
+    regexpTag$1 = '[object RegExp]',
+    setTag$3 = '[object Set]',
+    stringTag$1 = '[object String]',
+    symbolTag = '[object Symbol]';
+
+var arrayBufferTag$1 = '[object ArrayBuffer]',
+    dataViewTag$2 = '[object DataView]';
+
+/** Used to convert symbols to primitives and strings. */
+var symbolProto = _Symbol ? _Symbol.prototype : undefined,
+    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
+
+/**
+ * A specialized version of `baseIsEqualDeep` for comparing objects of
+ * the same `toStringTag`.
+ *
+ * **Note:** This function only supports comparing values with tags of
+ * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {string} tag The `toStringTag` of the objects to compare.
+ * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Object} stack Tracks traversed `object` and `other` objects.
+ * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+ */
+function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
+  switch (tag) {
+    case dataViewTag$2:
+      if ((object.byteLength != other.byteLength) ||
+          (object.byteOffset != other.byteOffset)) {
+        return false;
+      }
+      object = object.buffer;
+      other = other.buffer;
+
+    case arrayBufferTag$1:
+      if ((object.byteLength != other.byteLength) ||
+          !equalFunc(new _Uint8Array(object), new _Uint8Array(other))) {
+        return false;
+      }
+      return true;
+
+    case boolTag$1:
+    case dateTag$1:
+    case numberTag$1:
+      // Coerce booleans to `1` or `0` and dates to milliseconds.
+      // Invalid dates are coerced to `NaN`.
+      return eq_1(+object, +other);
+
+    case errorTag$1:
+      return object.name == other.name && object.message == other.message;
+
+    case regexpTag$1:
+    case stringTag$1:
+      // Coerce regexes to strings and treat strings, primitives and objects,
+      // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
+      // for more details.
+      return object == (other + '');
+
+    case mapTag$3:
+      var convert = _mapToArray;
+
+    case setTag$3:
+      var isPartial = bitmask & COMPARE_PARTIAL_FLAG$1;
+      convert || (convert = _setToArray);
+
+      if (object.size != other.size && !isPartial) {
+        return false;
+      }
+      // Assume cyclic values are equal.
+      var stacked = stack.get(object);
+      if (stacked) {
+        return stacked == other;
+      }
+      bitmask |= COMPARE_UNORDERED_FLAG$1;
+
+      // Recursively compare objects (susceptible to call stack limits).
+      stack.set(object, other);
+      var result = _equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack);
+      stack['delete'](object);
+      return result;
+
+    case symbolTag:
+      if (symbolValueOf) {
+        return symbolValueOf.call(object) == symbolValueOf.call(other);
+      }
+  }
+  return false;
+}
+
+var _equalByTag = equalByTag;
+
+/**
+ * Appends the elements of `values` to `array`.
+ *
+ * @private
+ * @param {Array} array The array to modify.
+ * @param {Array} values The values to append.
+ * @returns {Array} Returns `array`.
+ */
+function arrayPush(array, values) {
+  var index = -1,
+      length = values.length,
+      offset = array.length;
+
+  while (++index < length) {
+    array[offset + index] = values[index];
+  }
+  return array;
+}
+
+var _arrayPush = arrayPush;
+
+/**
+ * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
+ * `keysFunc` and `symbolsFunc` to get the enumerable property names and
+ * symbols of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Function} keysFunc The function to get the keys of `object`.
+ * @param {Function} symbolsFunc The function to get the symbols of `object`.
+ * @returns {Array} Returns the array of property names and symbols.
+ */
+function baseGetAllKeys(object, keysFunc, symbolsFunc) {
+  var result = keysFunc(object);
+  return isArray_1(object) ? result : _arrayPush(result, symbolsFunc(object));
+}
+
+var _baseGetAllKeys = baseGetAllKeys;
+
+/**
+ * A specialized version of `_.filter` for arrays without support for
+ * iteratee shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} predicate The function invoked per iteration.
+ * @returns {Array} Returns the new filtered array.
+ */
+function arrayFilter(array, predicate) {
+  var index = -1,
+      length = array == null ? 0 : array.length,
+      resIndex = 0,
+      result = [];
+
+  while (++index < length) {
+    var value = array[index];
+    if (predicate(value, index, array)) {
+      result[resIndex++] = value;
+    }
+  }
+  return result;
+}
+
+var _arrayFilter = arrayFilter;
+
+/**
+ * This method returns a new empty array.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.13.0
+ * @category Util
+ * @returns {Array} Returns the new empty array.
+ * @example
+ *
+ * var arrays = _.times(2, _.stubArray);
+ *
+ * console.log(arrays);
+ * // => [[], []]
+ *
+ * console.log(arrays[0] === arrays[1]);
+ * // => false
+ */
+function stubArray() {
+  return [];
+}
+
+var stubArray_1 = stubArray;
+
+/** Used for built-in method references. */
+var objectProto$9 = Object.prototype;
+
+/** Built-in value references. */
+var propertyIsEnumerable$1 = objectProto$9.propertyIsEnumerable;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeGetSymbols = Object.getOwnPropertySymbols;
+
+/**
+ * Creates an array of the own enumerable symbols of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of symbols.
+ */
+var getSymbols = !nativeGetSymbols ? stubArray_1 : function(object) {
+  if (object == null) {
+    return [];
+  }
+  object = Object(object);
+  return _arrayFilter(nativeGetSymbols(object), function(symbol) {
+    return propertyIsEnumerable$1.call(object, symbol);
+  });
+};
+
+var _getSymbols = getSymbols;
+
+/**
+ * The base implementation of `_.times` without support for iteratee shorthands
+ * or max array length checks.
+ *
+ * @private
+ * @param {number} n The number of times to invoke `iteratee`.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the array of results.
+ */
+function baseTimes(n, iteratee) {
+  var index = -1,
+      result = Array(n);
+
+  while (++index < n) {
+    result[index] = iteratee(index);
+  }
+  return result;
+}
+
+var _baseTimes = baseTimes;
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER$1 = 9007199254740991;
+
+/** Used to detect unsigned integer values. */
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+function isIndex(value, length) {
+  var type = typeof value;
+  length = length == null ? MAX_SAFE_INTEGER$1 : length;
+
+  return !!length &&
+    (type == 'number' ||
+      (type != 'symbol' && reIsUint.test(value))) &&
+        (value > -1 && value % 1 == 0 && value < length);
+}
+
+var _isIndex = isIndex;
+
+/** Used for built-in method references. */
+var objectProto$a = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty$7 = objectProto$a.hasOwnProperty;
+
+/**
+ * Creates an array of the enumerable property names of the array-like `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @param {boolean} inherited Specify returning inherited property names.
+ * @returns {Array} Returns the array of property names.
+ */
+function arrayLikeKeys(value, inherited) {
+  var isArr = isArray_1(value),
+      isArg = !isArr && isArguments_1(value),
+      isBuff = !isArr && !isArg && isBuffer_1(value),
+      isType = !isArr && !isArg && !isBuff && isTypedArray_1(value),
+      skipIndexes = isArr || isArg || isBuff || isType,
+      result = skipIndexes ? _baseTimes(value.length, String) : [],
+      length = result.length;
+
+  for (var key in value) {
+    if ((inherited || hasOwnProperty$7.call(value, key)) &&
+        !(skipIndexes && (
+           // Safari 9 has enumerable `arguments.length` in strict mode.
+           key == 'length' ||
+           // Node.js 0.10 has enumerable non-index properties on buffers.
+           (isBuff && (key == 'offset' || key == 'parent')) ||
+           // PhantomJS 2 has enumerable non-index properties on typed arrays.
+           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
+           // Skip index properties.
+           _isIndex(key, length)
+        ))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+var _arrayLikeKeys = arrayLikeKeys;
+
+/**
+ * Creates an array of the own enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects. See the
+ * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * for more details.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keys(new Foo);
+ * // => ['a', 'b'] (iteration order is not guaranteed)
+ *
+ * _.keys('hi');
+ * // => ['0', '1']
+ */
+function keys$1(object) {
+  return isArrayLike_1(object) ? _arrayLikeKeys(object) : _baseKeys(object);
+}
+
+var keys_1 = keys$1;
+
+/**
+ * Creates an array of own enumerable property names and symbols of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names and symbols.
+ */
+function getAllKeys(object) {
+  return _baseGetAllKeys(object, keys_1, _getSymbols);
+}
+
+var _getAllKeys = getAllKeys;
+
+/** Used to compose bitmasks for value comparisons. */
+var COMPARE_PARTIAL_FLAG$2 = 1;
+
+/** Used for built-in method references. */
+var objectProto$b = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty$8 = objectProto$b.hasOwnProperty;
+
+/**
+ * A specialized version of `baseIsEqualDeep` for objects with support for
+ * partial deep comparisons.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Object} stack Tracks traversed `object` and `other` objects.
+ * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+ */
+function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
+  var isPartial = bitmask & COMPARE_PARTIAL_FLAG$2,
+      objProps = _getAllKeys(object),
+      objLength = objProps.length,
+      othProps = _getAllKeys(other),
+      othLength = othProps.length;
+
+  if (objLength != othLength && !isPartial) {
+    return false;
+  }
+  var index = objLength;
+  while (index--) {
+    var key = objProps[index];
+    if (!(isPartial ? key in other : hasOwnProperty$8.call(other, key))) {
+      return false;
+    }
+  }
+  // Assume cyclic values are equal.
+  var stacked = stack.get(object);
+  if (stacked && stack.get(other)) {
+    return stacked == other;
+  }
+  var result = true;
+  stack.set(object, other);
+  stack.set(other, object);
+
+  var skipCtor = isPartial;
+  while (++index < objLength) {
+    key = objProps[index];
+    var objValue = object[key],
+        othValue = other[key];
+
+    if (customizer) {
+      var compared = isPartial
+        ? customizer(othValue, objValue, key, other, object, stack)
+        : customizer(objValue, othValue, key, object, other, stack);
+    }
+    // Recursively compare objects (susceptible to call stack limits).
+    if (!(compared === undefined
+          ? (objValue === othValue || equalFunc(objValue, othValue, bitmask, customizer, stack))
+          : compared
+        )) {
+      result = false;
+      break;
+    }
+    skipCtor || (skipCtor = key == 'constructor');
+  }
+  if (result && !skipCtor) {
+    var objCtor = object.constructor,
+        othCtor = other.constructor;
+
+    // Non `Object` object instances with different constructors are not equal.
+    if (objCtor != othCtor &&
+        ('constructor' in object && 'constructor' in other) &&
+        !(typeof objCtor == 'function' && objCtor instanceof objCtor &&
+          typeof othCtor == 'function' && othCtor instanceof othCtor)) {
+      result = false;
+    }
+  }
+  stack['delete'](object);
+  stack['delete'](other);
+  return result;
+}
+
+var _equalObjects = equalObjects;
+
+/** Used to compose bitmasks for value comparisons. */
+var COMPARE_PARTIAL_FLAG$3 = 1;
+
+/** `Object#toString` result references. */
+var argsTag$2 = '[object Arguments]',
+    arrayTag$1 = '[object Array]',
+    objectTag$2 = '[object Object]';
+
+/** Used for built-in method references. */
+var objectProto$c = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty$9 = objectProto$c.hasOwnProperty;
+
+/**
+ * A specialized version of `baseIsEqual` for arrays and objects which performs
+ * deep comparisons and tracks traversed objects enabling objects with circular
+ * references to be compared.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Object} [stack] Tracks traversed `object` and `other` objects.
+ * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+ */
+function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
+  var objIsArr = isArray_1(object),
+      othIsArr = isArray_1(other),
+      objTag = objIsArr ? arrayTag$1 : _getTag(object),
+      othTag = othIsArr ? arrayTag$1 : _getTag(other);
+
+  objTag = objTag == argsTag$2 ? objectTag$2 : objTag;
+  othTag = othTag == argsTag$2 ? objectTag$2 : othTag;
+
+  var objIsObj = objTag == objectTag$2,
+      othIsObj = othTag == objectTag$2,
+      isSameTag = objTag == othTag;
+
+  if (isSameTag && isBuffer_1(object)) {
+    if (!isBuffer_1(other)) {
+      return false;
+    }
+    objIsArr = true;
+    objIsObj = false;
+  }
+  if (isSameTag && !objIsObj) {
+    stack || (stack = new _Stack);
+    return (objIsArr || isTypedArray_1(object))
+      ? _equalArrays(object, other, bitmask, customizer, equalFunc, stack)
+      : _equalByTag(object, other, objTag, bitmask, customizer, equalFunc, stack);
+  }
+  if (!(bitmask & COMPARE_PARTIAL_FLAG$3)) {
+    var objIsWrapped = objIsObj && hasOwnProperty$9.call(object, '__wrapped__'),
+        othIsWrapped = othIsObj && hasOwnProperty$9.call(other, '__wrapped__');
+
+    if (objIsWrapped || othIsWrapped) {
+      var objUnwrapped = objIsWrapped ? object.value() : object,
+          othUnwrapped = othIsWrapped ? other.value() : other;
+
+      stack || (stack = new _Stack);
+      return equalFunc(objUnwrapped, othUnwrapped, bitmask, customizer, stack);
+    }
+  }
+  if (!isSameTag) {
+    return false;
+  }
+  stack || (stack = new _Stack);
+  return _equalObjects(object, other, bitmask, customizer, equalFunc, stack);
+}
+
+var _baseIsEqualDeep = baseIsEqualDeep;
+
+/**
+ * The base implementation of `_.isEqual` which supports partial comparisons
+ * and tracks traversed objects.
+ *
+ * @private
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @param {boolean} bitmask The bitmask flags.
+ *  1 - Unordered comparison
+ *  2 - Partial comparison
+ * @param {Function} [customizer] The function to customize comparisons.
+ * @param {Object} [stack] Tracks traversed `value` and `other` objects.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ */
+function baseIsEqual(value, other, bitmask, customizer, stack) {
+  if (value === other) {
+    return true;
+  }
+  if (value == null || other == null || (!isObjectLike_1(value) && !isObjectLike_1(other))) {
+    return value !== value && other !== other;
+  }
+  return _baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
+}
+
+var _baseIsEqual = baseIsEqual;
+
+/**
+ * Performs a deep comparison between two values to determine if they are
+ * equivalent.
+ *
+ * **Note:** This method supports comparing arrays, array buffers, booleans,
+ * date objects, error objects, maps, numbers, `Object` objects, regexes,
+ * sets, strings, symbols, and typed arrays. `Object` objects are compared
+ * by their own, not inherited, enumerable properties. Functions and DOM
+ * nodes are compared by strict equality, i.e. `===`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.isEqual(object, other);
+ * // => true
+ *
+ * object === other;
+ * // => false
+ */
+function isEqual(value, other) {
+  return _baseIsEqual(value, other);
+}
+
+var isEqual_1 = isEqual;
+
+/**
  * Gets the last element of `array`.
  *
  * @static
@@ -21605,8 +22997,6 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SankeyChart).call(this, props));
 
-    _defineProperty(_assertThisInitialized(_this), "id", void 0);
-
     _defineProperty(_assertThisInitialized(_this), "getNodeName", function (node) {
       return node.name;
     });
@@ -21761,7 +23151,7 @@ function (_React$Component) {
           if (_this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
             _this.setSelectedNode(_this.getNodeName(data));
 
-            onClick(selectedNodes);
+            onClick(_this.state.selectedNodes);
           }
         });
       }
@@ -21798,7 +23188,7 @@ function (_React$Component) {
       var _this$props = _this.props,
           data = _this$props.data,
           options = _this$props.options,
-          onNodeClick = _this$props.onNodeClick,
+          onChange = _this$props.onChange,
           onNodeHover = _this$props.onNodeHover,
           onLinkClick = _this$props.onLinkClick,
           onLinkHover = _this$props.onLinkHover;
@@ -21841,9 +23231,9 @@ function (_React$Component) {
 
       var links = _this.renderLinks(linkG, sankeyLinksData);
 
-      if (onNodeClick) {
+      if (onChange) {
         nodes = _this.attachEventHandlersToNode(d3, nodes, {
-          onClick: onNodeClick
+          onClick: onChange
         });
       } else {
         nodes.on('click', function (data) {
@@ -21857,25 +23247,76 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
-      var data = _this.props.data;
-      return isEmpty_1(data) ? null : _this.renderSankey();
+      var _this$props2 = _this.props,
+          data = _this$props2.data,
+          resetBtnId = _this$props2.resetBtnId,
+          defaultdNode = _this$props2.defaultdNode;
+      !isEmpty_1(resetBtnId) && _this.resetSankey(resetBtnId, defaultdNode);
+
+      if (!isEmpty_1(data)) {
+        _this.renderSankey();
+
+        if (_this.state.selectedNodes.length >= 2) {
+          var LinkId = _this.createLinkId(_this.state.selectedNodes);
+
+          _this.highlightLink(LinkId);
+        }
+      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps, prevState) {
       var prevSelectedNode = last_1(prevState.selectedNodes);
       var currentSelectedNode = last_1(_this.state.selectedNodes);
 
-      if (_this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
+      if (!isEqual_1(prevState.selectedNodes, _this.state.selectedNodes) && _this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
         var LinkId = _this.createLinkId(_this.state.selectedNodes);
 
         _this.highlightLink(LinkId);
       }
     });
 
+    _defineProperty(_assertThisInitialized(_this), "resetSankey", function (resetBtnId) {
+      var defaultNode = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+      var d3 = _this.d3;
+      d3.select("#".concat(resetBtnId)).on('click', function () {
+        var LinkId = _this.createLinkId(_this.state.selectedNodes);
+
+        _this.resetHighlightLink(LinkId);
+
+        _this.setState({
+          selectedNodes: defaultNode
+        });
+
+        _this.props.onChange(_this.state.selectedNodes);
+
+        if (_this.state.selectedNodes.length >= 2) {
+          var _LinkId = _this.createLinkId(_this.state.selectedNodes);
+
+          _this.highlightLink(_LinkId);
+        }
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "resetHighlightLink", function (id) {
+      var d3 = _this.d3;
+
+      for (var i = 0; i < id.length; i++) {
+        var _id$i$split3 = id[i].split('X'),
+            _id$i$split4 = _slicedToArray(_id$i$split3, 2),
+            source = _id$i$split4[0],
+            target = _id$i$split4[1];
+
+        var forwardPath = d3.select("#".concat(source, "X").concat(target));
+        var reversePath = d3.select("#".concat(target, "X").concat(source));
+        forwardPath.style('opacity', 0.04).style('stroke', '#000000');
+        reversePath.style('opacity', 0.04).style('stroke', '#000000');
+      }
+    });
+
     _this.d3 = _objectSpread2({}, d3Core, {}, sankeyCircular$1);
-    _this.id = props.id;
+    _this.id = props.id || 'sankey';
     _this.state = {
-      selectedNodes: props.selectedNodes || []
+      selectedNodes: props.defaultdNode || []
     };
     return _this;
   }
@@ -21883,9 +23324,7 @@ function (_React$Component) {
   _createClass(SankeyChart, [{
     key: "render",
     value: function render() {
-      var _this$props2 = this.props,
-          data = _this$props2.data,
-          id = _this$props2.id;
+      var data = this.props.data;
       return isEmpty_1(data) ? this.renderPlaceholder() : React__default.createElement("div", {
         id: "chart_".concat(this.id)
       });
@@ -23175,7 +24614,12 @@ function (_Component) {
         yOffset: xAxisHeight
       }); // 2. Render Line Chart
 
-      gLine.append('g').append("path").datum(lineChartData).attr("class", "line").attr("fill", "none").attr("stroke", "url(#svgGradient)").attr("stroke-width", 2).attr("d", line); // 3. Render Line Point
+      gLine.append('g').append("path").datum(lineChartData).attr("class", "line").attr("fill", "none").attr("stroke", function (lineChartData) {
+        var lineChartFirstYValue = lineChartData[0].y;
+        return lineChartData.every(function (el) {
+          return el.y === lineChartFirstYValue;
+        }) ? colorScale(lineYAxisScale(lineChartFirstYValue)) : "url(#svgGradient)";
+      }).attr("stroke-width", 2).attr("d", line); // 3. Render Line Point
 
       gLine.append('g').selectAll(".lineDot").data(lineChartData).enter().append("circle").attr("class", "lineDot").attr('fill', function (d) {
         return colorScale(lineYAxisScale(d.y));
