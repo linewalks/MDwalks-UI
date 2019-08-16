@@ -300,7 +300,13 @@ class SankeyChart extends React.Component {
   componentDidMount = () => {
     const { data, resetBtnId, defaultdNode } = this.props
     !isEmpty(resetBtnId) && this.resetSankey(resetBtnId, defaultdNode)
-    return isEmpty(data) ? null : this.renderSankey()
+    if (!isEmpty(data)) {
+      this.renderSankey()
+      if (this.state.selectedNodes.length >= 2) {
+        const LinkId = this.createLinkId(this.state.selectedNodes)
+        this.highlightLink(LinkId)
+      }
+    }
   }
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -316,14 +322,29 @@ class SankeyChart extends React.Component {
   resetSankey = (resetBtnId, defaultNode = []) => {
     const d3 = this.d3
     d3.select(`#${resetBtnId}`).on('click', () => {
-      const sankeyChart = d3.select(`#chart_${this.id} svg`)
-      if (sankeyChart) sankeyChart.remove()
+      const LinkId = this.createLinkId(this.state.selectedNodes)
+      this.resetHighlightLink(LinkId)
       this.setState({
         selectedNodes: defaultNode
       })
       this.props.onChange(this.state.selectedNodes)
-      this.renderSankey()
+      if (this.state.selectedNodes.length >= 2) {
+        const LinkId = this.createLinkId(this.state.selectedNodes)
+        this.highlightLink(LinkId)
+      }
     })
+  }
+
+  resetHighlightLink = (id) => {
+    const d3 = this.d3;
+    for(let i = 0; i < id.length; i++) {
+      const [ source, target ] = id[i].split('X');
+      const forwardPath = d3.select(`#${source}X${target}`);
+      const reversePath = d3.select(`#${target}X${source}`);
+      
+      forwardPath.style('opacity', 0.04).style('stroke', '#000000')
+      reversePath.style('opacity', 0.04).style('stroke', '#000000')
+    } 
   }
 
   render() {
