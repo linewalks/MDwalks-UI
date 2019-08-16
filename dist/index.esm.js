@@ -23245,7 +23245,16 @@ function (_React$Component) {
           resetBtnId = _this$props2.resetBtnId,
           defaultdNode = _this$props2.defaultdNode;
       !isEmpty_1(resetBtnId) && _this.resetSankey(resetBtnId, defaultdNode);
-      return isEmpty_1(data) ? null : _this.renderSankey();
+
+      if (!isEmpty_1(data)) {
+        _this.renderSankey();
+
+        if (_this.state.selectedNodes.length >= 2) {
+          var LinkId = _this.createLinkId(_this.state.selectedNodes);
+
+          _this.highlightLink(LinkId);
+        }
+      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps, prevState) {
@@ -23263,8 +23272,9 @@ function (_React$Component) {
       var defaultNode = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
       var d3 = _this.d3;
       d3.select("#".concat(resetBtnId)).on('click', function () {
-        var sankeyChart = d3.select("#chart_".concat(_this.id, " svg"));
-        if (sankeyChart) sankeyChart.remove();
+        var LinkId = _this.createLinkId(_this.state.selectedNodes);
+
+        _this.resetHighlightLink(LinkId);
 
         _this.setState({
           selectedNodes: defaultNode
@@ -23272,8 +23282,28 @@ function (_React$Component) {
 
         _this.props.onChange(_this.state.selectedNodes);
 
-        _this.renderSankey();
+        if (_this.state.selectedNodes.length >= 2) {
+          var _LinkId = _this.createLinkId(_this.state.selectedNodes);
+
+          _this.highlightLink(_LinkId);
+        }
       });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "resetHighlightLink", function (id) {
+      var d3 = _this.d3;
+
+      for (var i = 0; i < id.length; i++) {
+        var _id$i$split3 = id[i].split('X'),
+            _id$i$split4 = _slicedToArray(_id$i$split3, 2),
+            source = _id$i$split4[0],
+            target = _id$i$split4[1];
+
+        var forwardPath = d3.select("#".concat(source, "X").concat(target));
+        var reversePath = d3.select("#".concat(target, "X").concat(source));
+        forwardPath.style('opacity', 0.04).style('stroke', '#000000');
+        reversePath.style('opacity', 0.04).style('stroke', '#000000');
+      }
     });
 
     _this.d3 = _objectSpread2({}, d3Core, {}, sankeyCircular$1);
