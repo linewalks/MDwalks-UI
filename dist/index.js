@@ -23251,7 +23251,7 @@ function (_React$Component) {
           data = _this$props2.data,
           resetBtnId = _this$props2.resetBtnId,
           defaultdNode = _this$props2.defaultdNode;
-      isEmpty_1(resetBtnId) ? null : _this.resetSankey(resetBtnId, defaultdNode);
+      !isEmpty_1(resetBtnId) && _this.resetSankey(resetBtnId, defaultdNode);
       return isEmpty_1(data) ? null : _this.renderSankey();
     });
 
@@ -23266,12 +23266,12 @@ function (_React$Component) {
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "resetSankey", function (id) {
+    _defineProperty(_assertThisInitialized(_this), "resetSankey", function (resetBtnId) {
       var defaultNode = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
       var d3 = _this.d3;
-      d3.select("#".concat(id)).on('click', function () {
-        var el = document.querySelector('svg');
-        if (el) el.remove();
+      d3.select("#".concat(resetBtnId)).on('click', function () {
+        var sankeyChart = d3.select("#chart_".concat(_this.id, " svg"));
+        if (sankeyChart) sankeyChart.remove();
 
         _this.setState({
           selectedNodes: defaultNode
@@ -23284,7 +23284,7 @@ function (_React$Component) {
     });
 
     _this.d3 = _objectSpread2({}, d3Core, {}, sankeyCircular$1);
-    _this.id = props.id;
+    _this.id = props.id || 'sankey';
     _this.state = {
       selectedNodes: props.defaultdNode || []
     };
@@ -23294,9 +23294,7 @@ function (_React$Component) {
   _createClass(SankeyChart, [{
     key: "render",
     value: function render() {
-      var _this$props3 = this.props,
-          data = _this$props3.data,
-          id = _this$props3.id;
+      var data = this.props.data;
       return isEmpty_1(data) ? this.renderPlaceholder() : React__default.createElement("div", {
         id: "chart_".concat(this.id)
       });

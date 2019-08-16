@@ -11,7 +11,7 @@ class SankeyChart extends React.Component {
   constructor(props) {
     super(props)
     this.d3 = { ...d3Core, ...sankeyCircular }
-    this.id = props.id
+    this.id = props.id || 'sankey'
     this.state = {
       selectedNodes: props.defaultdNode || []
     }
@@ -299,7 +299,7 @@ class SankeyChart extends React.Component {
 
   componentDidMount = () => {
     const { data, resetBtnId, defaultdNode } = this.props
-    isEmpty(resetBtnId) ? null : this.resetSankey(resetBtnId, defaultdNode)
+    !isEmpty(resetBtnId) && this.resetSankey(resetBtnId, defaultdNode)
     return isEmpty(data) ? null : this.renderSankey()
   }
 
@@ -313,11 +313,11 @@ class SankeyChart extends React.Component {
     }    
   }
 
-  resetSankey = (id, defaultNode = []) => {
+  resetSankey = (resetBtnId, defaultNode = []) => {
     const d3 = this.d3
-    d3.select(`#${id}`).on('click', () => {
-      const el = document.querySelector('svg')
-      if (el) el.remove()
+    d3.select(`#${resetBtnId}`).on('click', () => {
+      const sankeyChart = d3.select(`#chart_${this.id} svg`)
+      if (sankeyChart) sankeyChart.remove()
       this.setState({
         selectedNodes: defaultNode
       })
@@ -327,7 +327,7 @@ class SankeyChart extends React.Component {
   }
 
   render() {
-    const { data, id } = this.props
+    const { data } = this.props
     return isEmpty(data) ? (
       this.renderPlaceholder()
     ) : (
