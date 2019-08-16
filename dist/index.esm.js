@@ -21754,7 +21754,7 @@ function (_React$Component) {
           if (_this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
             _this.setSelectedNode(_this.getNodeName(data));
 
-            onClick(selectedNodes);
+            onClick(_this.state.selectedNodes);
           }
         });
       }
@@ -23168,7 +23168,12 @@ function (_Component) {
         yOffset: xAxisHeight
       }); // 2. Render Line Chart
 
-      gLine.append('g').append("path").datum(lineChartData).attr("class", "line").attr("fill", "none").attr("stroke", "url(#svgGradient)").attr("stroke-width", 2).attr("d", line); // 3. Render Line Point
+      gLine.append('g').append("path").datum(lineChartData).attr("class", "line").attr("fill", "none").attr("stroke", function (lineChartData) {
+        var lineChartFirstYValue = lineChartData[0].y;
+        return lineChartData.every(function (el) {
+          return el.y === lineChartFirstYValue;
+        }) ? colorScale(lineYAxisScale(lineChartFirstYValue)) : "url(#svgGradient)";
+      }).attr("stroke-width", 2).attr("d", line); // 3. Render Line Point
 
       gLine.append('g').selectAll(".lineDot").data(lineChartData).enter().append("circle").attr("class", "lineDot").attr('fill', function (d) {
         return colorScale(lineYAxisScale(d.y));
