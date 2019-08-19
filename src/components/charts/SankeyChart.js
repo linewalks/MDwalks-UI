@@ -13,7 +13,7 @@ class SankeyChart extends React.Component {
     this.d3 = { ...d3Core, ...sankeyCircular }
     this.id = props.id || 'sankey'
     this.state = {
-      selectedNodes: props.defaultdNode || []
+      selectedNodes: props.selectedNodes || []
     }
   }
 
