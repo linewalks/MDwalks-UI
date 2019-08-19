@@ -23316,7 +23316,7 @@ function (_React$Component) {
     _this.d3 = _objectSpread2({}, d3Core, {}, sankeyCircular$1);
     _this.id = props.id || 'sankey';
     _this.state = {
-      selectedNodes: props.defaultdNode || []
+      selectedNodes: props.selectedNodes || []
     };
     return _this;
   }
