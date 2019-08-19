@@ -75,22 +75,30 @@
   ```javascript
   import SankeyChart from '<SankeyChart Path>'
   import data from '<SankeyChart Data Path>'
-  const App = () => {
+  import React, { Component } from 'react'
+
+  class App extends Component {
+    state = {
+      selectedNodes: ['emergency']
+    }
     eventHandler = () => {
       console.log('hello')
     }
 
-    return (
-      <div>
-        <button id='reset'>Reset</button>
-        <SankeyChart 
-          data={data} 
-          onChange={this.eventHandler}
-          defaultdNode={['emergency']} 
-          resetBtnId={'reset'}
-        />
-      </div>
-    )
+    render() {
+      return (
+        <div>
+          <button id='reset'>Reset</button>
+          <SankeyChart 
+            data={data} 
+            onChange={this.eventHandler}
+            selectedNodes={this.state.selectedNodes}
+            defaultdNode={['emergency']} 
+            resetBtnId={'reset'}
+          />
+        </div>
+      )
+    }
   }
   ```
   * ### Props
@@ -100,6 +108,7 @@
    | data | Object |         | SankeyChart Data | |
    | onChange | Function |         | SankeyChart Node Click Event Handler | |
    | onLinkClick | Function |         | SankeyChart Link Click Event Handler | |
+   | selectedNodes | Array |        | Selected Nodes | yes |
    | defaultdNode | Array |        | Default Node | yes |
    | resetBtnId | String |         | SankeyChart Reset Button Id | yes |
  

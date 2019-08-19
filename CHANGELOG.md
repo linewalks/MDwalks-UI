@@ -5,6 +5,11 @@
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
+
+# v0.3.6 / 2019-08-19
+## :bug: Fixes
+- [#83](https://github.com/linewalks/MDwalks-UI/issues/83): sankey 새로고침시 하이라이팅안되는문제 ([**@jik0090**](https://github.com/jik0090))
+
 # v0.3.5 / 2019-08-16
 ## :tada: Enhancements
 - [#75](https://github.com/linewalks/MDwalks-UI/issues/75): add sankey reset ([**@jik0090**](https://github.com/jik0090))
