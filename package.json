@@ -22,7 +22,7 @@
   },  
   "husky": {
     "hooks": {
-      "pre-push": "yarn test --watchAll --forceExit"
+      "pre-push": "yarn test"
     }
   },
   "repository": "https://github.com/linewalks/MDwalks-UI.git",
