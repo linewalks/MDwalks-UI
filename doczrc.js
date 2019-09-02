@@ -1,7 +1,8 @@
 export default {
   title: 'MDwalks-UI',
   native: true,
+  typescript: false,
   modifyBundlerConfig: (config) => {
-    console.log(config)
+    return config
   }
 }

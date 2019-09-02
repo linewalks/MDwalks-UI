@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 
-let styles = {
+const styles = {
   "gauge_container":{
     "background":"#f2f2f2",
     "position":"relative",
