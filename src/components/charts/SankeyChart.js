@@ -4,17 +4,22 @@ import * as sankeyCircular from 'd3-sankey-circular'
 import isEmpty from 'lodash/isEmpty'
 import isEqual from 'lodash/isEqual'
 import last from 'lodash/last'
+import _ from 'lodash'
 import { strIdConvert } from '../../helper/chartUtility'
-import sankeyData from '../../data/dataForSankey';
+import sankeyData from '../../data/dataForSankey'
 
 class SankeyChart extends React.Component {
+
+  rootElement = React.createRef()
+
   constructor(props) {
     super(props)
     this.d3 = { ...d3Core, ...sankeyCircular }
-    this.id = props.id || 'sankey'
+    // this.id = props.id || 'sankey'
     this.state = {
       selectedNodes: props.selectedNodes || []
     }
+
   }
 
   getNodeName = node => node.name
@@ -31,11 +36,11 @@ class SankeyChart extends React.Component {
     const d3 = this.d3;
     for(let i = 0; i < id.length; i++) {
       const [ source, target ] = id[i].split('X');
-      const forwardPath = d3.select(`#${source}X${target}`);
-      const reversePath = d3.select(`#${target}X${source}`);
-      
-      const sourceXPosition = document.getElementById(source).getBoundingClientRect().x;
-      const targetXPosition = document.getElementById(target).getBoundingClientRect().x;
+      const forwardPath = d3.select(this.rootElement.current).select(`#${source}X${target}`);
+      const reversePath = d3.select(this.rootElement.current).select(`#${target}X${source}`);
+
+      const sourceXPosition = d3.select(this.rootElement.current).select(`#${source}`)['_groups'][0][0].getBoundingClientRect().x
+      const targetXPosition = d3.select(this.rootElement.current).select(`#${target}`)['_groups'][0][0].getBoundingClientRect().x
 
       if (targetXPosition > sourceXPosition) {
         forwardPath.style('opacity', 1).style('stroke', 'rgba(24, 155, 255, 0.4)')
@@ -46,7 +51,7 @@ class SankeyChart extends React.Component {
   }
 
   createLinkId = (selectedNodes) => {
-    if (selectedNodes.length === 0) return null
+    if (selectedNodes.length === 0) return []
     const idCollection = [];
     for (let i = 0; i < selectedNodes.length; i++) {
       if (i === selectedNodes.length - 1) break;
@@ -76,9 +81,9 @@ class SankeyChart extends React.Component {
 
   initializeSVG = (d3, { width, height, margin }) => {
     return this.d3
-      .select(`div#chart_${this.id}`)
+      .select(this.rootElement.current)
       .append('svg')
-      .attr('id', this.id)
+      // .attr('id', this.id)
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
   }
@@ -322,6 +327,7 @@ class SankeyChart extends React.Component {
   resetSankey = (resetBtnId, defaultNode = []) => {
     const d3 = this.d3
     d3.select(`#${resetBtnId}`).on('click', () => {
+      // if (_.isElement(this.state.selectedNodes)) return
       const LinkId = this.createLinkId(this.state.selectedNodes)
       this.resetHighlightLink(LinkId)
       this.setState({
@@ -352,7 +358,7 @@ class SankeyChart extends React.Component {
     return isEmpty(data) ? (
       this.renderPlaceholder()
     ) : (
-      <div id={`chart_${this.id}`} />
+      <div ref={this.rootElement} />
     )
   }
 }

@@ -7,11 +7,12 @@ import isEmpty from 'lodash/isEmpty'
 class LineChart extends Component {
   constructor(props) {
     super(props)
+
     this.options = {
       chart: {
         type: 'line',
-        width: '1158',
-        height: '408',
+        width: this.props.width || '1158',
+        height: this.props.height || '408',
         backgroundColor: '#f7fafb',
       },
       title: {

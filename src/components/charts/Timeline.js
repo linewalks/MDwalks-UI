@@ -5,6 +5,9 @@ import styles from './Timeline.css'
 import isEmpty from 'lodash/isEmpty'
 
 class Timeline extends Component {
+
+  rootElement = React.createRef()
+
   errorMessage = (errorType) => {
     let message;
     if (errorType === 'typeOfVariable') {
@@ -15,7 +18,7 @@ class Timeline extends Component {
       message = 'No data is provided'
     }
 
-    d3.select(`.${styles.timelineChart}`).append('div').text(message)  
+    d3.select(this.rootElement.current).append('div').text(message)
   }
 
   renderTimeline = data => {
@@ -29,7 +32,7 @@ class Timeline extends Component {
     const defaultPadding = 20
     const xAxisWidth = width - yAxisWidth - defaultPadding
   
-    const svg = renderSVG(d3.select(`.${styles.timelineChart}`), width, height)
+    const svg = renderSVG(d3.select(this.rootElement.current), width, height)
   
     // Create xAxis
     // 1. Get min, max time
@@ -63,6 +66,12 @@ class Timeline extends Component {
     const labelStartYPosition = 0
     const labelLastYPosition = 348
   
+    const focus = gTimeline
+      .append('line')
+      .attr('class', 'focus')
+      .attr('fill', 'none')
+      .style('pointer-events', 'none')
+
     // Create y axis scale
     const yAxisScale = d3
       .scalePoint()
@@ -345,7 +354,7 @@ class Timeline extends Component {
       xAxisScale.domain([Date.parse(start), Date.parse(end)])
       lineScale.domain([Date.parse(start), Date.parse(end)])
 
-      typeof brushEvent === "function" ? brushEvent(time) : null
+      typeof brushEvent === "function" && brushEvent(time)
   
       gXAxis
         .transition()
@@ -462,15 +471,9 @@ class Timeline extends Component {
         .attr('x', (d, i) => xAxisScale(Date.parse(d.startTime)))
         .attr('width', d => xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime)))
 
-      typeof brushEvent === "function" ? brushEvent() : null
+      typeof brushEvent === "function" && brushEvent()
     })
   
-  
-    const focus = gTimeline
-      .append('line')
-      .attr('class', 'focus')
-      .attr('fill', 'none')
-      .style('pointer-events', 'none')
   }
 
   componentDidMount = () => {
@@ -488,7 +491,7 @@ class Timeline extends Component {
 
   render() {    
     return (
-      <div className={styles.timelineChart}>
+      <div ref={this.rootElement} className={styles.timelineChart}>
 
       </div>
     );

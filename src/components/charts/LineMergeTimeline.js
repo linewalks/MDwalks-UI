@@ -5,6 +5,9 @@ import styles from './LineMergeTimeline.css'
 import isEmpty from 'lodash/isEmpty'
 
 class LineMergeTimeline extends Component {
+
+  rootElement = React.createRef()
+
   constructor(props) {
     super(props);
     const {startTime, endTime} = getStartAndEndTime(
@@ -35,6 +38,10 @@ class LineMergeTimeline extends Component {
 
     this.xAxisWidth = this.options.width - this.options.yAxisWidth - this.options.defaultPadding.right
   }
+
+  getRootElement() {
+    return d3.select(this.rootElement.current)
+  }
   errorMessage = (errorType) => {
     let message;
     if (errorType === 'typeOfVariable') {
@@ -45,7 +52,7 @@ class LineMergeTimeline extends Component {
       message = 'No data is provided'
     }
 
-    d3.select(`.${styles.timelineChart}`).append('div').text(message)  
+    this.getRootElement().append('div').text(message)  
   }
 
   createXAxis = (xAxis) => {
@@ -53,7 +60,7 @@ class LineMergeTimeline extends Component {
 
     // Create xAxis
     // 1. Create xAxis group
-    const gXAxis = generateGroup(d3.select('.timeline'), {
+    const gXAxis = generateGroup(this.getRootElement().select('.timeline'), {
       className: styles.xAxis,
       xOffset: yAxisWidth,
       yOffset: xAxisHeight,
@@ -68,7 +75,7 @@ class LineMergeTimeline extends Component {
   createLineYAxis = (lineYAxisScale) => {
     const { yAxisWidth, xAxisHeight } = this.options
       // 1. Create Line YAxis group
-      const gLineYAxis = generateGroup(d3.select('.timeline'), {
+      const gLineYAxis = generateGroup(this.getRootElement().select('.timeline'), {
       className: styles.gLineYAxis,
       xOffset: yAxisWidth,
       yOffset: xAxisHeight,
@@ -81,7 +88,7 @@ class LineMergeTimeline extends Component {
                       .tickPadding(17)
 
     // 3. Add LineTitle
-    const lineTitle = d3.select('.timeline')
+    const lineTitle = this.getRootElement().select('.timeline')
       .append('text')
       .text('MACE Risk by Visit')
       .attr('text-anchor', 'end')
@@ -100,7 +107,7 @@ class LineMergeTimeline extends Component {
   createLineGrid = (xAxisScale, lineYAxisScale) => {
     const { xAxisHeight, yAxisWidth, defaultPadding, lineYAxisHeight } = this.options
     // 1. Creat  Entire LineGrid Group
-    const gLineGrid = generateGroup(d3.select('.timeline'), {
+    const gLineGrid = generateGroup(this.getRootElement().select('.timeline'), {
       className: 'gLineGrid',
       xOffset: yAxisWidth,
       yOffset: xAxisHeight
@@ -149,7 +156,7 @@ class LineMergeTimeline extends Component {
     const { xAxisHeight, yAxisWidth, defaultPadding, height, overViewAxisHeight } = this.options
   
     // Create Entire Vertical Line      
-    const focus = d3.select('.timeline')
+    const focus = this.getRootElement().select('.timeline')
       .append('line')
       .attr('class', 'focus')
       .attr('fill', 'none')
@@ -191,7 +198,7 @@ class LineMergeTimeline extends Component {
     }
 
     // 3. Create Vertical Area and Add Mouse Event
-    const verticalLine = d3.select('.timeline')
+    const verticalLine = this.getRootElement().select('.timeline')
       .append('rect')
       .style('fill', 'none')
       .style('pointer-events', 'all')
@@ -236,7 +243,7 @@ class LineMergeTimeline extends Component {
 
 
     // 1. Create Line Chart group
-    const gLine = generateGroup(d3.select('.timeline'), {
+    const gLine = generateGroup(this.getRootElement().select('.timeline'), {
       className: 'gLine',
       xOffset: yAxisWidth,
       yOffset: xAxisHeight,
@@ -272,7 +279,7 @@ class LineMergeTimeline extends Component {
         const x = xAxisScale(Date.parse(d.x)) + yAxisWidth + 2.5
         const y = lineYAxisScale(d.y)
         const label = d.y
-        const tooltip = d3.select(`.${styles.tooltip}`)
+        const tooltip = this.getRootElement().select(`.${styles.tooltip}`)
         const tooltipDescription = `
           <div>
             <div><span class=${styles.tooltipLabel}>${label}</span></div>
@@ -286,21 +293,21 @@ class LineMergeTimeline extends Component {
           .style('pointer-events', 'none')
           .html(tooltipDescription)
       })
-      .on('mouseout', d => d3.select(`.${styles.tooltip}`).transition().duration(200).style('opacity', 0))    
+      .on('mouseout', d => this.getRootElement().select(`.${styles.tooltip}`).transition().duration(200).style('opacity', 0))    
   }
 
   createTimelineLabel = (timelineYAxisScale, timelineData) => {
     const { defaultPadding, defaultMargin, xAxisHeight, lineYAxisHeight, yAxisWidth } = this.options
   
     // 1. Create Timeline Label Group
-    const gTimelineLabels = generateGroup(d3.select('.timeline'), {
+    const gTimelineLabels = generateGroup(this.getRootElement().select('.timeline'), {
       className: styles.timelineLabels,
       xOffset: -defaultPadding.left,
       yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.top,
     })
 
     // 2. Render Timeline Label
-    const timelineTitle = d3.select('.timeline')
+    const timelineTitle = this.getRootElement().select('.timeline')
       .append('text')
       .text('Clinical Timeline')
       .attr('text-anchor', 'end')
@@ -325,7 +332,7 @@ class LineMergeTimeline extends Component {
     const { yAxisWidth, xAxisHeight, lineYAxisHeight, defaultMargin } = this.options
 
     // 1. Create Timeline XAxis Group
-    const gTimelineXAxis = generateGroup(d3.select('.timeline'), {
+    const gTimelineXAxis = generateGroup(this.getRootElement().select('.timeline'), {
       className: 'timelineXAxis',
       xOffset: yAxisWidth,
       yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top,
@@ -341,7 +348,7 @@ class LineMergeTimeline extends Component {
     const { yAxisWidth, xAxisHeight, lineYAxisHeight, defaultMargin, height, defaultPadding, overViewAxisHeight } = this.options
     // Creat Timeline Grid 
     // 1. Create Timeline Grid Group
-    const gTimelineGrid = generateGroup(d3.select('.timeline'), {
+    const gTimelineGrid = generateGroup(this.getRootElement().select('.timeline'), {
       className: 'gTimelineGrid',
       xOffset: yAxisWidth,
       yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top,
@@ -392,7 +399,7 @@ class LineMergeTimeline extends Component {
     const rectColorScale = d3.scaleOrdinal().domain(labelList(timelineData)).range(['#27b097','#fa6b57','#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec'])
     
     // 1. Create Timeline Data Group
-    const gTimelineData = generateGroup(d3.select('.timeline'), {
+    const gTimelineData = generateGroup(this.getRootElement().select('.timeline'), {
       className: 'timelineData',
       xOffset: yAxisWidth ,
       yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top * 2 - 2.5,
@@ -415,7 +422,7 @@ class LineMergeTimeline extends Component {
         .on('mouseover', (d, i, nodes) => {
           const [x, y] = d3.mouse(nodes[i])
           const label = data.label[data.label.length - 1]
-          const tooltip = d3.select(`.${styles.tooltip}`)
+          const tooltip = this.getRootElement().select(`.${styles.tooltip}`)
           const tooltipDescription = `
             <div>
               <div class=${styles.tooltipLabel}><span class=${styles.dot}></span> ${label}</div>
@@ -430,7 +437,7 @@ class LineMergeTimeline extends Component {
             .style('pointer-events', 'none')
             .html(tooltipDescription)
         })
-        .on('mouseout', d => d3.select(`.${styles.tooltip}`).transition().duration(200).style('opacity', 0))
+        .on('mouseout', d => this.getRootElement().select(`.${styles.tooltip}`).transition().duration(200).style('opacity', 0))
 
     })
 
@@ -452,7 +459,7 @@ class LineMergeTimeline extends Component {
         .on('mouseover', (d, i, nodes) => {
           const [x, y] = d3.mouse(nodes[i])
           const label = data.label[data.label.length - 1]
-          const tooltip = d3.select(`.${styles.tooltip}`)
+          const tooltip = this.getRootElement().select(`.${styles.tooltip}`)
           const tooltipDescription = `
             <div>
               <div class=${styles.tooltipLabel}><span class=${styles.dot}></span> ${label}</div>
@@ -467,7 +474,7 @@ class LineMergeTimeline extends Component {
             .style('pointer-events', 'none')
             .html(tooltipDescription)
         })
-        .on('mouseout', d => d3.select(`.${styles.tooltip}`).transition().duration(200).style('opacity', 0))
+        .on('mouseout', d => this.getRootElement().select(`.${styles.tooltip}`).transition().duration(200).style('opacity', 0))
 
     })
   
@@ -477,7 +484,7 @@ class LineMergeTimeline extends Component {
     const { defaultPadding, yAxisWidth, height, overViewAxisHeight, width } = this.options
     // Create OverViewAxis 
     // 1. Create OverViewAxis Group
-    const gOverViewAxis = generateGroup(d3.select('.timeline'), {
+    const gOverViewAxis = generateGroup(this.getRootElement().select('.timeline'), {
       className: 'overViewAxis',
       xOffset: yAxisWidth,
       yOffset: height - overViewAxisHeight - defaultPadding.bottom + 10,
@@ -508,7 +515,7 @@ class LineMergeTimeline extends Component {
     overViewXAxis.selectAll('.tick line').remove()
 
     // 4. Render OverView Cover Line
-    d3.select('.timeline')
+    this.getRootElement().select('.timeline')
       .append('line')
       .attr('x1', yAxisWidth)
       .attr('x2', width - defaultPadding.right)
@@ -516,7 +523,7 @@ class LineMergeTimeline extends Component {
       .attr('y2', height - overViewAxisHeight - defaultPadding.bottom + 10)
       .attr('stroke', '#003964')
   
-    d3.select('.timeline')
+    this.getRootElement().select('.timeline')
       .append('line')
       .attr('x1', yAxisWidth)
       .attr('x2', width - defaultPadding.right)
@@ -546,25 +553,25 @@ class LineMergeTimeline extends Component {
       const time = { start, end }
       
 
-      typeof brushEvent === "function" ? brushEvent(time) : null
+      typeof brushEvent === "function" && brushEvent(time)
 
       xAxisScale.domain([Date.parse(start), Date.parse(end)])
   
       lineScale.domain([Date.parse(start), Date.parse(end)])
   
-      d3.select(`.${styles.xAxis}`)
+      this.getRootElement().select(`.${styles.xAxis}`)
         .transition()
         .duration(500)
         .call(xAxis)
   
-      d3.select(`.${styles.xAxis}`)        
+      this.getRootElement().select(`.${styles.xAxis}`)        
         .transition()
         .duration(500)
         .selectAll('.domain')
         .attr('stroke', '#c4c4c4')
         .attr('d', 'M0.5 0V0.5H962.5V0.5')
 
-      d3.select(`.${styles.xAxis}`)        
+      this.getRootElement().select(`.${styles.xAxis}`)        
         .transition()
         .duration(500)
         .selectAll('.tick line')
@@ -572,55 +579,55 @@ class LineMergeTimeline extends Component {
 
 
       // Line Chart Grid
-      d3.select('.lineYAxisGrid').selectAll('tick').remove()
+      this.getRootElement().select('.lineYAxisGrid').selectAll('tick').remove()
 
       const lineYAxisGridLines = d3
         .axisTop(xAxisScale)
         .tickSize(-lineYAxisHeight)
         .tickFormat('')
     
-      d3.select('.lineYAxisGrid')
+      this.getRootElement().select('.lineYAxisGrid')
         .transition()
         .duration(500)
         .call(lineYAxisGridLines)
       
   
-      d3.select('.lineYAxisGrid')
+      this.getRootElement().select('.lineYAxisGrid')
         .selectAll('.tick line')
         .attr('stroke', '#e8e8e8')
         .attr('stroke-dasharray', '2')
   
-      d3.select('.lineYAxisGrid').select('.domain').remove()
+      this.getRootElement().select('.lineYAxisGrid').select('.domain').remove()
 
       // Timeline Chart Grid
-      d3.select('.timelineYAxisGrid').selectAll('tick').remove()
+      this.getRootElement().select('.timelineYAxisGrid').selectAll('tick').remove()
       const timelineYAxisGridHeight = height - (xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.bottom + overViewAxisHeight)
       const timelineYAxisGridLines = d3
         .axisTop(xAxisScale)
         .tickSize(-timelineYAxisGridHeight)
         .tickFormat('')
 
-      d3.select('.timelineYAxisGrid')
+      this.getRootElement().select('.timelineYAxisGrid')
         .transition()
         .duration(500)
         .call(timelineYAxisGridLines)
 
-      d3.select('.timelineYAxisGrid')
+      this.getRootElement().select('.timelineYAxisGrid')
         .selectAll('.tick line')
         .attr('stroke', '#e8e8e8')
         .attr('stroke-dasharray', '2')
 
-      d3.select('.timelineYAxisGrid').select('.domain').remove()
+      this.getRootElement().select('.timelineYAxisGrid').select('.domain').remove()
 
       // Line Chart Data Render
-      d3.select('.gLine')
+      this.getRootElement().select('.gLine')
         .selectAll("path")
         .transition()
         .duration(500)
         .attr('d', line)
         .attr('clip-path', 'url(#clip)')
 
-      d3.select('.gLine')
+      this.getRootElement().select('.gLine')
         .selectAll(".lineDot")
         .transition()
         .duration(500)
@@ -628,14 +635,14 @@ class LineMergeTimeline extends Component {
         .attr("cx", d => xAxisScale(Date.parse(d.x)))
 
       // Timeline Data Render
-      d3.select('.timelineData')
+      this.getRootElement().select('.timelineData')
         .selectAll('circle')
         .transition()
         .duration(500)
         .attr('cx', (d, i) => xAxisScale(Date.parse(d.startTime)))
         .attr('clip-path', 'url(#clip)')
 
-      d3.select('.timelineData')
+      this.getRootElement().select('.timelineData')
         .selectAll('rect')
         .transition()
         .duration(500)
@@ -653,7 +660,7 @@ class LineMergeTimeline extends Component {
       ])
       .on('end', brushed)
   
-    const gBrush = generateGroup(d3.select('.overViewAxis'), {
+    const gBrush = generateGroup(this.getRootElement().select('.overViewAxis'), {
       className: 'overViewXAxisBrush'
     })
   
@@ -668,19 +675,19 @@ class LineMergeTimeline extends Component {
       // Initialize XAxisScale, VerticalLineScale
       xAxisScale.domain(overViewXAxisScale.domain())
       lineScale.domain(overViewXAxisScale.domain())
-      d3.select(`.${styles.xAxis}`) 
+      this.getRootElement().select(`.${styles.xAxis}`) 
         .transition()
         .duration(500)
         .call(xAxis)
 
-      d3.select(`.${styles.xAxis}`)         
+      this.getRootElement().select(`.${styles.xAxis}`)         
         .transition()
         .duration(500)
         .selectAll('.domain')
         .attr('stroke', '#c4c4c4')
         .attr('d', 'M0.5 0V0.5H962.5 V0.5')
       
-      d3.select(`.${styles.xAxis}`)         
+      this.getRootElement().select(`.${styles.xAxis}`)         
         .transition()
         .duration(500)
         .selectAll('.tick line').remove()
@@ -692,18 +699,18 @@ class LineMergeTimeline extends Component {
       .tickSize(-lineYAxisHeight)
       .tickFormat('')
   
-      d3.select('.lineYAxisGrid')
+      this.getRootElement().select('.lineYAxisGrid')
         .transition()
         .duration(500)
         .call(lineYAxisGridLines)
       
 
-      d3.select('.lineYAxisGrid')
+      this.getRootElement().select('.lineYAxisGrid')
         .selectAll('.tick line')
         .attr('stroke', '#e8e8e8')
         .attr('stroke-dasharray', '2')
 
-      d3.select('.lineYAxisGrid').select('.domain').remove()
+      this.getRootElement().select('.lineYAxisGrid').select('.domain').remove()
       const timelineYAxisGridHeight = height - (xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.bottom + overViewAxisHeight)
       // Initialize Timeline Grid
       const timelineYAxisGridLines = d3
@@ -711,40 +718,40 @@ class LineMergeTimeline extends Component {
       .tickSize(-timelineYAxisGridHeight)
       .tickFormat('')
 
-      d3.select('.timelineYAxisGrid')
+      this.getRootElement().select('.timelineYAxisGrid')
         .transition()
         .duration(500)
         .call(timelineYAxisGridLines)
 
-      d3.select('.timelineYAxisGrid')
+      this.getRootElement().select('.timelineYAxisGrid')
         .selectAll('.tick line')
         .attr('stroke', '#e8e8e8')
         .attr('stroke-dasharray', '2')
 
-      d3.select('.timelineYAxisGrid').select('.domain').remove()
+      this.getRootElement().select('.timelineYAxisGrid').select('.domain').remove()
   
 
       // Initialize Line Chart Data
-      d3.select('.gLine')
+      this.getRootElement().select('.gLine')
         .selectAll("path")
         .transition()
         .duration(500)
         .attr('d', line)
 
-      d3.select('.gLine')
+      this.getRootElement().select('.gLine')
         .selectAll(".lineDot")
         .transition()
         .duration(500)
         .attr("cx", d => xAxisScale(Date.parse(d.x)))
       
       // Initialize Timeline 
-      d3.select('.timelineData')
+      this.getRootElement().select('.timelineData')
         .selectAll('circle')
         .transition()
         .duration(500)
         .attr('cx', (d, i) => xAxisScale(Date.parse(d.startTime)))
 
-      d3.select('.timelineData')
+      this.getRootElement().select('.timelineData')
         .selectAll('rect')
         .transition()
         .duration(500)
@@ -752,13 +759,13 @@ class LineMergeTimeline extends Component {
         .attr('width', d => xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime)))
 
       // Initialize Brush
-      d3.select('.overViewXAxisBrush')
+      this.getRootElement().select('.overViewXAxisBrush')
         .select('rect.selection')
         .transition()
         .duration(500)
         .attr('width', 0)
 
-        typeof brushEvent === "function" ? brushEvent() : null
+        typeof brushEvent === "function" && brushEvent()
     })
   }
 
@@ -771,13 +778,12 @@ class LineMergeTimeline extends Component {
     const { width, height, overViewAxisHeight, yAxisWidth, startTime, endTime, lineYAxisHeight, defaultPadding, labelStartYPosition, labelLastYPosition } = this.options
     const { resetBtnId } = this.props
     // Create tooltip
-    d3
-      .select(`.${styles.timelineChart}`)
+    this.getRootElement()
       .append('div')
       .attr('class', styles.tooltip)
       .style('opacity', 0)
    
-    const svg = renderSVG(d3.select(`.${styles.timelineChart}`), this.options.width, this.options.height)
+    const svg = renderSVG(this.getRootElement(), this.options.width, this.options.height)
    
     // Create Entire groups
     // 1. Entire timeline group
@@ -842,7 +848,7 @@ class LineMergeTimeline extends Component {
     this.renderTimelineChart(timelineData, xAxisScale, timelineYAxisScale)  
     this.createTimelineOverView(xAxisScale)
     this.createBrush(xAxisScale, lineScale, xAxis, line, overViewXAxisScale)
-    resetBtnId ? this.addChartReset(resetBtnId, xAxisScale, lineScale, overViewXAxisScale, line, xAxis) : null
+    resetBtnId && this.addChartReset(resetBtnId, xAxisScale, lineScale, overViewXAxisScale, line, xAxis)
 
     // TODO: Code Refactoring Module
   }
@@ -862,7 +868,7 @@ class LineMergeTimeline extends Component {
 
   render() {    
     return (
-      <div className={styles.timelineChart}>
+      <div ref={this.rootElement} className={styles.timelineChart}>
 
       </div>
     );

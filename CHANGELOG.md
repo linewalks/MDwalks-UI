@@ -1,3 +1,7 @@
+---
+edit: false
+---
+
 <!--
 ## :tada: Enhancements
 ## :bug: Fixes
