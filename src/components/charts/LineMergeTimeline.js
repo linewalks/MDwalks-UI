@@ -1,8 +1,23 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
 import { renderSVG, generateGroup, getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, lineDataFormatConvert } from '../../helper/chartUtility'
-import styles from './LineMergeTimeline.css'
+import './LineMergeTimeline.css'
 import isEmpty from 'lodash/isEmpty'
+
+const styles = {
+  "timelineChart": "timelineChart",
+  "title": "title",
+  'xAxis': 'xAxis',
+  "overViewXAxis": "overViewXAxis",
+  "timelineLabels": "timelineLabels",
+  "gLineYAxis": "gLineYAxis",
+  "verticalLineText": "verticalLineText",
+  "overViewXAxisGrid": "overViewXAxisGrid",
+  "tooltip": "tooltip",
+  "tooltipDay": "tooltipDay",
+  "tooltipLabel": "tooltipLabel",
+  "dot": "dot",
+}
 
 class LineMergeTimeline extends Component {
 

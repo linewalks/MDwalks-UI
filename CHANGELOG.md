@@ -10,6 +10,10 @@ edit: false
 ## :lock: Security Fixes
 -->
 
+# v0.3.7 / ~
+## :book: Documentation
+- [#90](https://github.com/linewalks/MDwalks-UI/issues/90): docz 사용 ([**@toyjhlee**](https://github.com/toyjhlee))
+
 # v0.3.6 / 2019-08-19
 ## :bug: Fixes
 - [#83](https://github.com/linewalks/MDwalks-UI/issues/83): sankey 새로고침시 하이라이팅안되는문제 ([**@jik0090**](https://github.com/jik0090))

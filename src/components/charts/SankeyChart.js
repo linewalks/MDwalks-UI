@@ -327,7 +327,6 @@ class SankeyChart extends React.Component {
   resetSankey = (resetBtnId, defaultNode = []) => {
     const d3 = this.d3
     d3.select(`#${resetBtnId}`).on('click', () => {
-      // if (_.isElement(this.state.selectedNodes)) return
       const LinkId = this.createLinkId(this.state.selectedNodes)
       this.resetHighlightLink(LinkId)
       this.setState({

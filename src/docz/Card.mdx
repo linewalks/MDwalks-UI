@@ -13,22 +13,18 @@ import SummaryCard from '../components/card/SummaryCard'
 ## SelectedCard
 
 <Playground>
-  <div style={{overflow: 'hidden', overflowX: 'scroll'}}>
-    <SelectedCard selectedElement={['a', 'b', 'c']} />
-  </div>
+  <SelectedCard selectedElement={['a', 'b', 'c']} />
 </Playground>
 
 ## SummaryCard
 
 <Playground>
-  <div style={{overflow: 'hidden', overflowX: 'scroll'}}>
-    <SummaryCard 
-      data={{
-        "Follow-up Patients": 24764,
-        "High Risk Patients": 4833,
-        "A.I. Analysis Features": 780,
-        "Total Patients": 572811
-      }} 
-    />
-  </div>
+  <SummaryCard
+    data={{
+      "Follow-up Patients": 24764,
+      "High Risk Patients": 4833,
+      "A.I. Analysis Features": 780,
+      "Total Patients": 572811
+    }}
+  />
 </Playground>

@@ -1,6 +1,6 @@
 {
   "name": "MDwalks-UI",
-  "version": "0.1.0",
+  "version": "0.3.7",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
@@ -58,7 +58,8 @@
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-svg": "^2.0.0",
-    "scheduler": "0.14.0"
+    "scheduler": "0.14.0",
+    "styled-components": "^4.3.2"
   },
   "dependencies": {
     "react-test-renderer": "^16.8.6"
