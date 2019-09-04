@@ -1,7 +1,43 @@
 import React from 'react';
 import isEmpty from 'lodash/isEmpty';
 import { tableHeaderConvert } from '../../helper/chartUtility';
-import styles from './Table.css'
+import styled from 'styled-components'
+
+const Th = styled.th`
+  padding: 28px 24px;
+  text-align: center;
+  background: #f2f2f2;
+  border-bottom: 2px solid #d4d4d4;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+  font-family: "Spoqa Han Sans";
+
+  &:first-child {
+    border-radius: 10px 0 0 0; 
+  }
+
+  &:last-child {
+    border-radius: 0 10px 0 0;
+  }
+
+  &:first-child, &:last-child {
+    white-space: nowrap;
+    width: 1%;
+  }
+
+  &:first-child {
+    padding-left: 50px;
+  }
+
+  &:last-child {
+    padding-right: 50px;
+  }
+`
+
+const Body_b_16 = styled.span`
+  font-weight: bold;
+  letter-spacing: -0.5px;
+`
 
 const THead = ({ headers, subHeaders }) => {
   const createHeader = (headerData, subHeaderData) => {
@@ -17,7 +53,7 @@ const THead = ({ headers, subHeaders }) => {
           <tr>
             {headerData.map((header, idx) => {
               return (
-                <th key={header} className={styles.th}>{tableHeaderConvert(header)}</th>
+                <Th key={header}>{tableHeaderConvert(header)}</Th>
               )
             })}
           </tr>
@@ -29,23 +65,22 @@ const THead = ({ headers, subHeaders }) => {
          {headerData.map((header, idx) => {
             if (idx === 0) {
               return (
-                <th rowSpan={2} key={idx}  className={styles.th}>
+                <Th rowSpan={2} key={idx}>
                   {header}
-                </th>
+                </Th>
               )
             } else {
               const subHeaderColNum = subHeaders[header].length
               return (
-                <th colSpan={subHeaderColNum} key={idx}  className={styles.th}>
+                <Th colSpan={subHeaderColNum} key={idx}>
                   {header}
-                </th>
+                </Th>
               )
             }
           })}
        </tr> 
       )
     }
-
   }
 
   const createSubHeader = subHeaderData => {
@@ -62,10 +97,10 @@ const THead = ({ headers, subHeaders }) => {
   }
 
   return (
-    <thead className={styles.body_b_16}>
+    <Body_b_16 as="thead">
       {createHeader(headers, subHeaders)}
       {isEmpty(subHeaders) ? null : createSubHeader(subHeaders)}
-    </thead>
+    </Body_b_16>
   )
 };
 

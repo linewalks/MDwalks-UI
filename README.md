@@ -13,6 +13,14 @@
   yarn build
   ```
 
+* run docz
+  ```bash
+  yarn docz dev
+  ```
+  ```
+  port 변경 시 doczrc.js 의 portt property 변경
+  ```
+
 * run storybook
   ```bash
   yarn storybook
