@@ -56,6 +56,14 @@ const data = {
   }
 }
 
+typeof Array.prototype.flat === 'undefined' && Object.defineProperty(Array.prototype, 'flat', {
+  value: function(depth = 1) {
+    return this.reduce(function (flat, toFlatten) {
+      return flat.concat((Array.isArray(toFlatten) && (depth>1)) ? toFlatten.flat(depth-1) : toFlatten);
+    }, []);
+  }
+});
+
 describe('Table Component', () => {
   it('render error message when there is no data', () => {
     const wrapper = shallow(<Table />)

@@ -1,3 +1,6 @@
+// TimelineChart Component Util
+import * as d3 from 'd3'
+
 // Sankey Component Util
 export const strIdConvert = id => {
   return id.split(' ').join('_')
@@ -7,9 +10,6 @@ export const strIdConvert = id => {
 export const tableHeaderConvert = header => {
   return header.split('_').map(title => `${title[0].toUpperCase()}${title.slice(1)}`).join(' ')
 }
-
-// TimelineChart Component Util
-import * as d3 from 'd3'
 
 export function renderSVG(domObj, width, height) {
   if (!(domObj instanceof d3.selection)) {

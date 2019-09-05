@@ -1,0 +1,30 @@
+---
+name: Card
+edit: false
+---
+
+import { Playground, Props } from 'docz'
+
+import SelectedCard from '../components/card/SelectedCard'
+import SummaryCard from '../components/card/SummaryCard'
+
+# card
+
+## SelectedCard
+
+<Playground>
+  <SelectedCard selectedElement={['a', 'b', 'c']} />
+</Playground>
+
+## SummaryCard
+
+<Playground>
+  <SummaryCard
+    data={{
+      "Follow-up Patients": 24764,
+      "High Risk Patients": 4833,
+      "A.I. Analysis Features": 780,
+      "Total Patients": 572811
+    }}
+  />
+</Playground>

@@ -1,0 +1,147 @@
+@import "variables.sass"
+@import "font.sass"
+
+@mixin placeholder
+  &::-webkit-input-placeholder 
+    @content
+  &:-moz-placeholder           
+    @content
+  &::-moz-placeholder          
+    @content
+  &:-ms-input-placeholder      
+    @content
+
+$input-height: 64px
+
+// select.default-title
+//   color: rgba($black, 0.3)
+
+form
+  width: 100%
+
+  input:not([type=search]):not([type=url]):not([type=hidden]):not([type=button]):not([type=submit]),
+  select
+    border-radius: 10px
+    border: solid 1px $line_search_grey
+    background-color: $primary_white
+
+    height: $input-height
+
+    width: 100%
+    padding: 0 24px
+    letter-spacing: -0.5px
+
+    @extend .body_r_16
+    @extend .black_opacity_8
+
+    box-sizing: border-box
+
+    @include placeholder
+      // select.default-title
+      color: rgba($black, 0.3)
+
+    &:focus 
+      border-color: $azure
+
+    &:disabled
+      background-color: rgba(0, 0, 0, 0.04) !important
+      @extend .black_opacity_5
+
+// .field:not(:last-child)
+  // margin-bottom: 20px
+
+.field
+  label
+    @extend .body_r_18
+    @extend .black_opacity_8
+    margin-bottom: 10px
+
+  &:not(:last-child)
+    margin-bottom: 20px
+
+  p.error, div.error
+    margin-top: 10px
+    @extend .body_r_14
+    color: $legend_timeline_red_01
+
+  p.error:empty
+    display: none
+
+  input.error, select.error
+    border-color: $legend_timeline_red_01 !important
+
+.field
+  div.info
+    margin-top: 10px
+    display: flex
+    align-items: center
+    // align-self: stretch
+    @extend .body_r_14
+    @extend .black_opacity_3
+
+    img
+      margin-right: 6px
+
+  div.info.info-check
+    color: #005ea5
+  
+p.form-error, div.form-error
+  @extend .body_r_16
+  color: $legend_timeline_red_01
+
+  display: flex
+  align-items: stretch
+
+  img
+    margin-right: 10px
+
+.field-icon-right
+  position: relative
+
+  input
+    padding-right: 34px + 15px + 15px !important
+
+  img
+    position: absolute
+    right: 0
+    top: ($input-height - 34px)/2
+    right: 15px
+
+.field-inline
+  input:not(:first-child)
+    margin-left: 16px
+
+  img, button 
+    &:not(:first-child)
+      margin-left: 10px
+
+// padding ?
+input[type=submit]
+  border-radius: 10px
+  height: 60px
+  background-color: $azure
+  box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16)
+  display: block
+  width: 100%
+  color: $primary_white // ?
+  @extend .body_r_18
+  cursor: pointer
+
+a.link
+  color: $azure
+  @extend .body_r_16
+
+a.link-option
+  @extend .body_b_16
+  @extend .black_opacity_6
+
+  text-decoration: underline
+
+
+select
+  -webkit-appearance: none
+  -moz-appearance: none
+
+  background: url('/res/svg/input-close.svg') no-repeat
+  background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em
+  background-size: 24px 24px
