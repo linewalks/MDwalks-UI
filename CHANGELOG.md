@@ -10,7 +10,7 @@ edit: false
 ## :lock: Security Fixes
 -->
 
-# v0.3.7 / ~
+# v0.3.7 / 2019-9-04
 ## :tada: Enhancements
 - [#94](https://github.com/linewalks/MDwalks-UI/issues/94): EXI, CDM 의 공통 Style 파일을 MDwalks-UI 에서 지원 ([**@toyjhlee**](https://github.com/toyjhlee))
 
