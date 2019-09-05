@@ -5,7 +5,7 @@ import { withKnobs } from "@storybook/addon-knobs";
 import Table from "@Table/Table";
 import SelectedCard from "@Card/SelectedCard";
 import SankeyChart from "@Charts/SankeyChart";
-import sankeyData from "@Data/dataForSankey";
+import sankeyData from "@Data/dataForSankey2";
 
 class Fig1 extends Component {
   state = {
