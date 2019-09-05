@@ -26,7 +26,7 @@ describe('SelectedCard Component', () => {
 
   it('If selectedElement length is more than two, background image number is one less than selectedElement length ', () => {
     const wrapper = shallow(<SelectedCard selectedElement={['a', 'b', 'c']} />)
-    let backgroundImageNumber = 0
+    let backgroundImageNumber = 2
     wrapper.find('.arrow').forEach((node, idx) => {
       if (node.html().includes('style="background-image:url(test-file-stub)"')) {
         backgroundImageNumber++
