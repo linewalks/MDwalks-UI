@@ -1,3 +1,7 @@
+---
+edit: false
+---
+
 <!--
 ## :tada: Enhancements
 ## :bug: Fixes
@@ -5,6 +9,13 @@
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
+
+# v0.3.7 / 2019-9-04
+## :tada: Enhancements
+- [#94](https://github.com/linewalks/MDwalks-UI/issues/94): EXI, CDM 의 공통 Style 파일을 MDwalks-UI 에서 지원 ([**@toyjhlee**](https://github.com/toyjhlee))
+
+## :book: Documentation
+- [#90](https://github.com/linewalks/MDwalks-UI/issues/90): docz 사용 ([**@toyjhlee**](https://github.com/toyjhlee))
 
 # v0.3.6 / 2019-08-19
 ## :bug: Fixes

@@ -1,0 +1,39 @@
+@import "variables.sass"
+
+.summary_b_42, .search_b_32, .header_b_22, .body_b_20, .body_b_18, .body_b_16, .body_b_14
+    font-weight: bold
+    letter-spacing: -0.5px
+    color: $black
+
+.summary_b_42 
+    font-size: 42px
+
+.search_b_32
+    font-size: 32px
+
+.header_b_22
+    font-size: 22px
+
+.body_b_20, .body_r_20
+    font-size: 20px
+
+.body_b_18, .body_r_18
+    font-size: 18px
+
+.body_r_20, .body_r_18, .body_r_16, .body_r_14, .body_r_12
+    font-weight: normal
+    letter-spacing: -0.5px
+    color: $black
+
+.body_b_16, .body_r_16
+    font-size: 16px
+
+.body_b_14, .body_r_14
+    font-size: 14px
+
+.body_r_12
+    font-size: 12px
+
+@each $opacity in (3, 4, 5, 6, 7, 8)
+    .black_opacity_#{$opacity}
+        color: rgba($black, $opacity * 0.1)
