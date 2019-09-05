@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { withKnobs } from "@storybook/addon-knobs";
@@ -9,7 +9,7 @@ import sankeyData from "@Data/dataForSankey2";
 
 class Fig1 extends Component {
   state = {
-    selectedNodes: ["emergency", "VSURG", "CSRU", "ECHO", "died"],
+    selectedNodes: [], //["emergency", "VSURG", "CSRU", "ECHO", "died"],
     dataForTable: null
   };
 
@@ -41,12 +41,12 @@ class Fig1 extends Component {
         {/* /home/hcinyoung/dev/MDwalks-EXI-Cardio/frontend/src/pages/Home.js @205 */}
         <SankeyChart
           data={sankeyData}
-          selectedNodes={["emergency", "VSURG", "CSRU", "ECHO", "died"]}
+          selectedNodes={this.state.selectedNodes}
           onChange={this.onChange.bind(this)}
           onNodeClick={action("Node has been clicked")}
         />
         <SelectedCard
-          selectedElement={["emergency", "VSURG", "CSRU", "ECHO", "died"]}
+          selectedElement={this.state.selectedNodes}
         />
         <Table
           data={{
@@ -77,4 +77,4 @@ class Fig1 extends Component {
 
 storiesOf("JAMIA", module)
   .addDecorator(withKnobs)
-  .add("fig1", () => Fig1());
+  .add("fig1", () => <Fig1/>);
