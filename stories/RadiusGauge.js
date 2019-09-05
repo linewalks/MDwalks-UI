@@ -1,52 +1,32 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs } from '@storybook/addon-knobs';
+import { withKnobs, number } from '@storybook/addon-knobs';
 import RadiusGauge from '@Charts/RadiusGauge';
 
 storiesOf('Radius Gauge Component', module)
-.addDecorator(withKnobs)
-.add('score: 0', () => (
-  <RadiusGauge 
-    width={300}
-    height={200}
-    score={0}
-  />
-))
-.add('score: 0.2', () => (
-  <RadiusGauge 
-    width={300}
-    height={200}
-    score={0.2}
-  />
-))
-.add('score: 0.4', () => (
-  <RadiusGauge 
-    width={300}
-    height={200}
-    score={0.4}
-  />
-))
-.add('score: 0.6', () => (
-  <RadiusGauge 
-    width={300}
-    height={200}
-    score={0.6}
-  />
-))
-.add('score: 0.8', () => (
-  <RadiusGauge 
-    width={300}
-    height={200}
-    score={0.8}
-  />
-))
-.add('score: 1', () => (
-  <RadiusGauge 
-    width={300}
-    height={200}
-    score={1}
-  />
-))
+  .addDecorator(withKnobs)
+  .add('Controller', () => {
+    const defaultValue = 50;
+    const options = {
+      range: true,
+      min: -10,
+      max: 110,
+      step: 1,
+    };
+
+    const score = number('Score', defaultValue, options);
+
+    return (
+      <div>
+        <p>범위는 0~100 까지 입니다.</p>
+        <p>조작은 하단 Knobs Tab 에서 할 수 있습니다.</p>
+        <RadiusGauge
+          width={300}
+          height={200}
+          score={score/100} />
+      </div>
+    )
+  })
 .add('Invalid Score', () => (
   <RadiusGauge 
     width={300}

@@ -34,5 +34,6 @@ export default {
       base64: true
     })
   ],
-  external: ["react"],
+  globals: { 'styled-components': 'styled' },
+  external: ["react", "styled-components"],
 } 
