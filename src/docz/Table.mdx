@@ -7,9 +7,9 @@ import { Playground, Props } from 'docz'
 
 import Table from '../components/table/Table'
 
-# card
+# Table
 
-## SelectedCard
+## List Table
 
 <Playground>
   <Table
@@ -36,4 +36,11 @@ import Table from '../components/table/Table'
   />
 </Playground>
 
-## SummaryCard
+## Empty List Table
+<Playground>
+  <Table
+    data={{
+      headers: ['a', 'b', 'c'],
+    }}>
+  </Table>
+</Playground>
