@@ -34,7 +34,8 @@ const Card = styled.span`
 `
 
 const styles = {
-
+  'card': 'card',
+  'arrow': 'arrow',
 }
 
 const SelectedCard = ({ selectedElement }) => {

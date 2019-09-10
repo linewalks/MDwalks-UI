@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import visualAlert from '../../assets/svg/visual-alert.svg';
 import styled from 'styled-components'
 
-const Body_r_20 = styled.span`
+const BodyR20 = styled.span`
   font-size: 20px;
 `
 
@@ -84,7 +84,7 @@ const TBody = ({headers, rowData, wrapTd, appendRow}) => {
       <tr>
         <td colSpan={isEmpty(headers) ? 1 : headers.length}>
           <img src={visualAlert} width="290px" height="230px" />
-          <Body_r_20 as="span">There is no data<br />Please search again</Body_r_20>
+          <BodyR20 as="span">There is no data<br />Please search again</BodyR20>
         </td>
       </tr>
     )

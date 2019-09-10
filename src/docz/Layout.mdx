@@ -1,0 +1,41 @@
+---
+name: Layout
+edit: false
+---
+
+import { Playground, Props } from 'docz'
+
+import Navbar from '../components/layout/Navbar'
+import Footer from '../components/layout/Footer'
+import Image from '../components/layout/Image'
+import Heading from '../components/layout/Heading'
+
+# Layout
+
+## Heading
+
+default fontsize is 22,
+support property style, size
+
+<Playground>
+  <Heading>MDwalks-UI Heading</Heading>
+  <Heading size="15" style={{color: '#0B5FFF'}}>MDwalks-UI Heading</Heading>
+</Playground>
+
+
+## Navbar
+
+support property style
+<Playground>
+  <Navbar>
+  </Navbar>
+</Playground>
+
+
+## Footer
+support property style
+<Playground>
+  <div style={{height: 100, position: 'relative'}}>
+    <Footer />
+  </div>
+</Playground>
