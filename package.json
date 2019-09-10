@@ -9,6 +9,9 @@
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/.docz/"
+    ],
     "setupFilesAfterEnv": [
       "./setupTest.js"
     ],
@@ -18,6 +21,11 @@
       "^@Table(.*)$": "<rootDir>/src/components/table/$1",
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|less)$": "identity-obj-proxy"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn test"
     }
   },
   "repository": "https://github.com/linewalks/MDwalks-UI.git",
@@ -41,11 +49,12 @@
     "babel-loader": "^8.0.6",
     "d3": "^5.9.7",
     "d3-sankey-circular": "^0.34.0",
-    "docz": "^2.0.0-rc.28",
+    "docz": "^2.0.0-rc.35",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "highcharts": "^7.1.2",
     "highcharts-react-official": "^2.2.2",
+    "husky": "^3.0.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "24.7.1",
     "lodash": "^4.17.15",
@@ -62,6 +71,8 @@
     "styled-components": "^4.3.2"
   },
   "dependencies": {
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
     "react-test-renderer": "^16.8.6"
   }
 }
