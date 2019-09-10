@@ -7,6 +7,10 @@ import Table from './components/table/Table';
 import LineChart from './components/charts/LineChart';
 import Timeline from './components/charts/Timeline'
 import LineMergeTimeline from './components/charts/LineMergeTimeline';
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
+import Image from './components/layout/Image';
+import Heading from './components/layout/Heading';
 
 export { 
   BarGauge, 
@@ -17,5 +21,9 @@ export {
   Table, 
   LineChart,
   Timeline, 
-  LineMergeTimeline
+  LineMergeTimeline,
+  Navbar,
+  Footer,
+  Image,
+  Heading,
 } 

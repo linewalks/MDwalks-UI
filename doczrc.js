@@ -5,6 +5,7 @@ export default {
   port: '9004',
   files: '**/*.{mdx}',
   ignore: ['CHANGELOG.md'],
+  menu: ['Index'],
   htmlContext: {
     favicon: '/favicon.ico'
   },

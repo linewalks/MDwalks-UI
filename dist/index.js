@@ -40628,7 +40628,10 @@ var Wrap_1200 = styled.div(_templateObject());
 var Arrow = styled.article(_templateObject2());
 var Card_contatiner = styled.div(_templateObject3());
 var Card = styled.span(_templateObject4());
-var styles$2 = {};
+var styles$2 = {
+  'card': 'card',
+  'arrow': 'arrow'
+};
 
 var SelectedCard = function SelectedCard(_ref) {
   var selectedElement = _ref.selectedElement;
@@ -40739,7 +40742,7 @@ function _templateObject$2() {
   return data;
 }
 var Th = styled.th(_templateObject$2());
-var Body_b_16$1 = styled.span(_templateObject2$2());
+var BodyB16 = styled.span(_templateObject2$2());
 
 var THead = function THead(_ref) {
   var headers = _ref.headers,
@@ -40783,7 +40786,7 @@ var THead = function THead(_ref) {
     }));
   };
 
-  return React__default.createElement(Body_b_16$1, {
+  return React__default.createElement(BodyB16, {
     as: "thead"
   }, createHeader(headers, subHeaders), isEmpty_1(subHeaders) ? null : createSubHeader(subHeaders));
 };
@@ -40819,7 +40822,7 @@ function _templateObject$3() {
 
   return data;
 }
-var Body_r_20 = styled.span(_templateObject$3());
+var BodyR20 = styled.span(_templateObject$3());
 var ListTBody = styled.tbody(_templateObject2$3());
 var EmptyTbody = styled.tbody(_templateObject3$2());
 
@@ -40836,7 +40839,7 @@ var TBody = function TBody(_ref) {
       src: visualAlert,
       width: "290px",
       height: "230px"
-    }), React__default.createElement(Body_r_20, {
+    }), React__default.createElement(BodyR20, {
       as: "span"
     }, "There is no data", React__default.createElement("br", null), "Please search again")));
   };
@@ -42539,9 +42542,142 @@ function (_Component) {
   return LineMergeTimeline;
 }(React.Component);
 
+// Color Set START  
+var color$1 = {
+  $black: '#000000',
+  $primary_white: '#ffffff',
+  $primary_navy: '#002d4f',
+  $secondary_blue: '#eff8ff',
+  $secondary_bg_blue: '#f7fafb',
+  $menu_grey: '#565b5f',
+  $icn_grey: '#979797',
+  $line_btn_grey: '#c4c4c4',
+  $line_dashboard_edge_grey: '#d4d4d4',
+  $line_search_grey: '#e2e2e2',
+  $line_graph_xy_grey: '#e8e8e8',
+  $table_grey: '#f2f2f2',
+  $bg_grey: '#f8f8f8',
+  $table_cell_grey: '#fafafa',
+  $legend_timeline_green_01: '#a5e2d7',
+  $legend_timeline_green_02: '#27b097',
+  $legend_timeline_green_03: '#00745e',
+  $legend_timeline_red_01: '#fa6b57',
+  $legend_timeline_red_02: '#faafa5',
+  $pathway_link_blue: '#189bff',
+  $pathway_link_red: '#ff3a1f',
+  $alert_red: '#ff3c3c',
+  $azure: '#189bff'
+};
+var size = {
+  $footer_height: '60px',
+  $footer_margin_top: '80px'
+};
+
+function _templateObject$5() {
+  var data = _taggedTemplateLiteral(["\n  height: 70px\n  background-color: ", "\n  padding: 0 30px\n  display: flex\n  align-items: center\n  margin-bottom: 40px\n\n  a:active, a:hover {\n    text-decoration: none\n  }\n  \n  border-bottom: 1px solid ", "\n"]);
+
+  _templateObject$5 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Navbar = styled.nav(_templateObject$5(), color$1.$primary_white, color$1.$line_search_grey);
+var Navbar$1 = (function (_ref) {
+  var _ref$style = _ref.style,
+      style = _ref$style === void 0 ? {} : _ref$style,
+      children = _ref.children;
+  return React__default.createElement(Navbar, {
+    style: style
+  }, children);
+});
+
+var font = {
+  base: {
+    size: 14
+  }
+};
+var Text = function Text(props) {
+  return "\n  font-size: ".concat(props.size ? props.size + 'px' : font.base.size + 'px', ";\n\n  font-weight: ").concat(props.bold ? 'bold' : 'normal', ";\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, ").concat(props.opacity ? props.opacity * 0.1 : 1, ");\n");
+};
+
+function _templateObject2$4() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n  border-top: 1px solid ", "\n  height: ", "\n\n  display: flex\n  align-items: center\n\n  span {\n    padding-left: 30px\n  }\n"]);
+
+  _templateObject2$4 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$6() {
+  var data = _taggedTemplateLiteral(["\n  position: absolute\n  bottom: 0\n  height: ", "\n  padding: 0 30px\n  width: 100%\n  box-sizing: border-box\n"]);
+
+  _templateObject$6 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Footer = styled.footer(_templateObject$6(), size.$footer_height);
+var FooterBox = styled.div(_templateObject2$4(), Text, color$1.$line_search_grey, size.$footer_height);
+var Footer$1 = (function (_ref) {
+  var _ref$style = _ref.style,
+      style = _ref$style === void 0 ? {} : _ref$style;
+  return React__default.createElement(Footer, {
+    style: style
+  }, React__default.createElement(FooterBox, {
+    size: "12",
+    opacity: "6"
+  }, React__default.createElement("span", null, "\xA9 2019 linewalks. All rights reserved.")));
+});
+
+var Image$1 = (function (_ref) {
+  var logo = _ref.logo;
+
+  var _logo$src$split = logo.src.split('.'),
+      _logo$src$split2 = _slicedToArray(_logo$src$split, 2),
+      path = _logo$src$split2[0],
+      extension = _logo$src$split2[1];
+
+  return React__default.createElement("img", {
+    alt: logo.alt,
+    src: "".concat(path).concat(extension),
+    srcSet: "".concat(path, ".").concat(extension, " 1x, ").concat(path, "@2x.").concat(extension, " 2x")
+  });
+});
+
+function _templateObject$7() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject$7 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Text$1 = styled.header(_templateObject$7(), Text);
+var Heading = (function (_ref) {
+  var _ref$size = _ref.size,
+      size = _ref$size === void 0 ? 22 : _ref$size,
+      children = _ref.children,
+      _ref$style = _ref.style,
+      style = _ref$style === void 0 ? {} : _ref$style;
+  return React__default.createElement(Text$1, {
+    size: size,
+    bold: true,
+    style: style
+  }, children);
+});
+
 exports.BarGauge = BarGauge;
+exports.Footer = Footer$1;
+exports.Heading = Heading;
+exports.Image = Image$1;
 exports.LineChart = LineChart;
 exports.LineMergeTimeline = LineMergeTimeline;
+exports.Navbar = Navbar$1;
 exports.RadiusGauge = RadiusGauge;
 exports.SankeyChart = SankeyChart;
 exports.SelectedCard = SelectedCard;

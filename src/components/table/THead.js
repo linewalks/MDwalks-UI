@@ -34,7 +34,7 @@ const Th = styled.th`
   }
 `
 
-const Body_b_16 = styled.span`
+const BodyB16 = styled.span`
   font-weight: bold;
   letter-spacing: -0.5px;
 `
@@ -97,10 +97,10 @@ const THead = ({ headers, subHeaders }) => {
   }
 
   return (
-    <Body_b_16 as="thead">
+    <BodyB16 as="thead">
       {createHeader(headers, subHeaders)}
       {isEmpty(subHeaders) ? null : createSubHeader(subHeaders)}
-    </Body_b_16>
+    </BodyB16>
   )
 };
 
