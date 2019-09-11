@@ -11,6 +11,7 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Image from './components/layout/Image';
 import Heading from './components/layout/Heading';
+import Histogram from './components/charts/Histogram';
 
 export { 
   BarGauge, 
@@ -26,4 +27,5 @@ export {
   Footer,
   Image,
   Heading,
+  Histogram
 } 

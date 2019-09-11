@@ -35290,21 +35290,6 @@ function zoom() {
 
 var d3Core = /*#__PURE__*/Object.freeze({
   version: version,
-  cluster: cluster,
-  hierarchy: hierarchy,
-  pack: index$2,
-  packSiblings: siblings,
-  packEnclose: enclose,
-  partition: partition,
-  stratify: stratify,
-  tree: tree,
-  treemap: index$3,
-  treemapBinary: binary,
-  treemapDice: treemapDice,
-  treemapSlice: treemapSlice,
-  treemapSliceDice: sliceDice,
-  treemapSquarify: squarify,
-  treemapResquarify: resquarify,
   bisect: bisectRight,
   bisectRight: bisectRight,
   bisectLeft: bisectLeft,
@@ -35336,6 +35321,10 @@ var d3Core = /*#__PURE__*/Object.freeze({
   transpose: transpose,
   variance: variance,
   zip: zip,
+  axisTop: axisTop,
+  axisRight: axisRight,
+  axisBottom: axisBottom,
+  axisLeft: axisLeft,
   brush: brush,
   brushX: brushX,
   brushY: brushY,
@@ -35487,10 +35476,21 @@ var d3Core = /*#__PURE__*/Object.freeze({
   geoRotation: rotation,
   geoStream: geoStream,
   geoTransform: transform,
-  axisTop: axisTop,
-  axisRight: axisRight,
-  axisBottom: axisBottom,
-  axisLeft: axisLeft,
+  cluster: cluster,
+  hierarchy: hierarchy,
+  pack: index$2,
+  packSiblings: siblings,
+  packEnclose: enclose,
+  partition: partition,
+  stratify: stratify,
+  tree: tree,
+  treemap: index$3,
+  treemapBinary: binary,
+  treemapDice: treemapDice,
+  treemapSlice: treemapSlice,
+  treemapSliceDice: sliceDice,
+  treemapSquarify: squarify,
+  treemapResquarify: resquarify,
   interpolate: interpolateValue,
   interpolateArray: array$1,
   interpolateBasis: basis$1,
@@ -42671,9 +42671,163 @@ var Heading = (function (_ref) {
   }, children);
 });
 
+var Histogram =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Histogram, _Component);
+
+  function Histogram(props) {
+    var _this;
+
+    _classCallCheck(this, Histogram);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Histogram).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "createXAxis", function (xAxis) {
+      var _this$options = _this.options,
+          height = _this$options.height,
+          defaultPadding = _this$options.defaultPadding; // Create xAxis
+      // 1. Create xAxis group
+
+      var gXAxis = generateGroup(_this.getRootElement().select('.histogram'), {
+        className: 'xAxis',
+        xOffset: defaultPadding.left,
+        yOffset: height - defaultPadding.bottom
+      }); // 2. Render xAxis
+
+      gXAxis.call(xAxis);
+      gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4');
+      gXAxis.selectAll('.tick line').remove();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createYAxis", function (yAxis) {
+      var defaultPadding = _this.options.defaultPadding; // Create yAxis
+      // 1. Create yAxis group
+
+      var gYAxis = generateGroup(_this.getRootElement().select('.histogram'), {
+        className: 'yAxis',
+        xOffset: defaultPadding.left,
+        yOffset: defaultPadding.top
+      }); // 2. Render yAxis
+
+      gYAxis.call(yAxis);
+      gYAxis.selectAll('.domain').remove(); // gYAxis.selectAll('.tick line').remove()
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createBar", function (xAxisScale, yAxisScale, data) {
+      var _this$options2 = _this.options,
+          height = _this$options2.height,
+          defaultPadding = _this$options2.defaultPadding;
+      var gBar = generateGroup(_this.getRootElement().select('.histogram'), {
+        className: 'Bar',
+        xOffset: defaultPadding.left,
+        yOffset: defaultPadding.top
+      });
+      var histogram$1 = histogram().value(function (d) {
+        return d;
+      }).domain(xAxisScale.domain()).thresholds(xAxisScale.ticks(10));
+      var bins = histogram$1(data);
+      bins.pop(); // 삼항연산자 함수로 => 테스트코드
+
+      gBar.selectAll("rect").data(bins).enter().append("rect").attr("class", "bar").attr("x", 1).attr('transform', function (d) {
+        return "translate(".concat(xAxisScale(d.x0), ", ").concat(d.length && yAxisScale(d.length), ")");
+      }).attr('width', function (d) {
+        return d.length === 0 ? xAxisScale(d.x1) - xAxisScale(d.x0) : xAxisScale(d.x1) - xAxisScale(d.x0) - 1;
+      }).attr('height', function (d) {
+        return d.length === 0 ? 0 : _this.yAxisHeight - yAxisScale(d.length);
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createTitle", function () {
+      var defaultPadding = _this.options.defaultPadding;
+      var gTitle = generateGroup(_this.getRootElement().select('.histogram'), {
+        className: 'Title',
+        xOffset: defaultPadding.right,
+        yOffset: defaultPadding.right
+      });
+      gTitle.append('text').text("".concat(_this.props.title)).attr('text-anchor', 'start').attr('font-size', 18).attr('letter-spacing', -0.5).attr('font-weight', 'bold').attr('x', 0).attr('y', 0).style('opacity', 0.6);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderHistogram", function () {
+      var histogramData = sequence(100).map(bates(3));
+      var _this$options3 = _this.options,
+          width = _this$options3.width,
+          height = _this$options3.height;
+      var svg = renderSVG(_this.getRootElement(), width, height);
+      var gHistogram = generateGroup(svg, {
+        className: 'histogram'
+      });
+      var xAxisScale = linear$2().domain([0, 1]).range([0, _this.xAxisWidth]);
+      var xAxis = axisBottom(xAxisScale).tickPadding(6).ticks(10) // .tickValues([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1])
+      .tickSize(0);
+      var yAxisScale = log$1().domain([1e0, 2e4]).range([_this.yAxisHeight, 0]); // 10^n으로 바꾸는 포맷 함수
+
+      var superscript = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+
+      var formatPower = function formatPower(d) {
+        return superscript[d];
+      };
+
+      var yAxis = axisLeft(yAxisScale).tickPadding(6).ticks(5, function (d) {
+        return "10".concat(formatPower(Math.log10(d)));
+      });
+
+      _this.createTitle();
+
+      _this.createXAxis(xAxis);
+
+      _this.createYAxis(yAxis);
+
+      _this.createBar(xAxisScale, yAxisScale, histogramData);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
+      _this.renderHistogram();
+
+      var yAxisTextGroup = selectAll('.yAxis .tick text')._groups[0];
+
+      selectAll('text').data(yAxisTextGroup).enter().attr('id', function (d) {
+        return console.log(d);
+      });
+    });
+
+    _this.options = {
+      width: _this.props.chartWidth || 1200,
+      height: _this.props.chartHeight || 589,
+      defaultPadding: {
+        top: 145,
+        right: 30,
+        left: 73,
+        bottom: 64
+      }
+    };
+    _this.xAxisWidth = _this.options.width - _this.options.defaultPadding.left - _this.options.defaultPadding.right;
+    _this.yAxisHeight = _this.options.height - _this.options.defaultPadding.top - _this.options.defaultPadding.bottom;
+    _this.rootElement = React__default.createRef();
+    return _this;
+  }
+
+  _createClass(Histogram, [{
+    key: "getRootElement",
+    value: function getRootElement() {
+      return select(this.rootElement.current);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return React__default.createElement("div", {
+        ref: this.rootElement
+      });
+    }
+  }]);
+
+  return Histogram;
+}(React.Component);
+
 exports.BarGauge = BarGauge;
 exports.Footer = Footer$1;
 exports.Heading = Heading;
+exports.Histogram = Histogram;
 exports.Image = Image$1;
 exports.LineChart = LineChart;
 exports.LineMergeTimeline = LineMergeTimeline;
