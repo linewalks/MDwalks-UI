@@ -40886,6 +40886,122 @@ var Table$1 = (function (_ref) {
   }
 });
 
+// Color Set START  
+var color$1 = {
+  $black: '#000000',
+  $primary_white: '#ffffff',
+  $primary_navy: '#002d4f',
+  $secondary_blue: '#eff8ff',
+  $secondary_bg_blue: '#f7fafb',
+  $menu_grey: '#565b5f',
+  $icn_grey: '#979797',
+  $line_btn_grey: '#c4c4c4',
+  $line_dashboard_edge_grey: '#d4d4d4',
+  $line_search_grey: '#e2e2e2',
+  $line_graph_xy_grey: '#e8e8e8',
+  $table_grey: '#f2f2f2',
+  $bg_grey: '#f8f8f8',
+  $table_cell_grey: '#fafafa',
+  $legend_timeline_green_01: '#a5e2d7',
+  $legend_timeline_green_02: '#27b097',
+  $legend_timeline_green_03: '#00745e',
+  $legend_timeline_red_01: '#fa6b57',
+  $legend_timeline_red_02: '#faafa5',
+  $pathway_link_blue: '#189bff',
+  $pathway_link_red: '#ff3a1f',
+  $alert_red: '#ff3c3c',
+  $azure: '#189bff'
+};
+var size = {
+  $footer_height: '60px',
+  $footer_margin_top: '80px'
+};
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-right: 1px solid ", "\n  }\n\n  color: #161616;\n  font-size: 18px;\n  font-family: \"Spoqa Han Sans\";\n  background: #ffffff;\n  font-weight: normal;\n  text-align: right;\n  padding: 24px;\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4$2() {
+  var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-right: 1px solid ", "\n  }\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 16px;\n  font-family: \"Spoqa Han Sans\";\n  background: #f2f2f2;\n  font-weight: bold;\n  text-align: left;\n  padding: 24px;\n"]);
+
+  _templateObject4$2 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$3() {
+  var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-bottom: 1px solid ", "\n  }\n"]);
+
+  _templateObject3$3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$4() {
+  var data = _taggedTemplateLiteral(["\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%;\n"]);
+
+  _templateObject2$4 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$5() {
+  var data = _taggedTemplateLiteral(["\n  border: 1px solid ", "\n  border-radius: 10px\n  overflow: hidden\n"]);
+
+  _templateObject$5 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var TableWrap = styled.div(_templateObject$5(), color$1.$line_search_grey);
+var Table$2 = styled.table(_templateObject2$4());
+var Tr = styled.tr(_templateObject3$3(), color$1.$line_search_grey);
+var Th$1 = styled.th(_templateObject4$2(), color$1.$line_search_grey);
+var Td = styled.td(_templateObject5(), color$1.$line_search_grey);
+var Descriptions = (function (_ref) {
+  var data = _ref.data,
+      _ref$row = _ref.row,
+      row = _ref$row === void 0 ? 2 : _ref$row;
+
+  var createTable = function createTable() {
+    var table = [];
+
+    for (var i = 0; i < data.length; i += row) {
+      var children = [];
+
+      for (var j = i; j < i + row && j < data.length; j++) {
+        children.push(React.createElement(Th$1, {
+          key: "th".concat(j)
+        }, Object.keys(data[j])[0]));
+        children.push(React.createElement(Td, {
+          key: "td".concat(j)
+        }, Object.values(data[j])[0]));
+      }
+
+      table.push(React.createElement(Tr, {
+        key: i.toString()
+      }, children));
+    }
+
+    return table;
+  };
+
+  return React.createElement(TableWrap, null, React.createElement(Table$2, null, createTable()));
+});
+
 var highcharts = createCommonjsModule(function (module) {
 /*
  Highcharts JS v7.1.3 (2019-08-14)
@@ -42535,47 +42651,16 @@ function (_Component) {
   return LineMergeTimeline;
 }(Component);
 
-// Color Set START  
-var color$1 = {
-  $black: '#000000',
-  $primary_white: '#ffffff',
-  $primary_navy: '#002d4f',
-  $secondary_blue: '#eff8ff',
-  $secondary_bg_blue: '#f7fafb',
-  $menu_grey: '#565b5f',
-  $icn_grey: '#979797',
-  $line_btn_grey: '#c4c4c4',
-  $line_dashboard_edge_grey: '#d4d4d4',
-  $line_search_grey: '#e2e2e2',
-  $line_graph_xy_grey: '#e8e8e8',
-  $table_grey: '#f2f2f2',
-  $bg_grey: '#f8f8f8',
-  $table_cell_grey: '#fafafa',
-  $legend_timeline_green_01: '#a5e2d7',
-  $legend_timeline_green_02: '#27b097',
-  $legend_timeline_green_03: '#00745e',
-  $legend_timeline_red_01: '#fa6b57',
-  $legend_timeline_red_02: '#faafa5',
-  $pathway_link_blue: '#189bff',
-  $pathway_link_red: '#ff3a1f',
-  $alert_red: '#ff3c3c',
-  $azure: '#189bff'
-};
-var size = {
-  $footer_height: '60px',
-  $footer_margin_top: '80px'
-};
-
-function _templateObject$5() {
+function _templateObject$6() {
   var data = _taggedTemplateLiteral(["\n  height: 70px\n  background-color: ", "\n  padding: 0 30px\n  display: flex\n  align-items: center\n  margin-bottom: 40px\n\n  a:active, a:hover {\n    text-decoration: none\n  }\n  \n  border-bottom: 1px solid ", "\n"]);
 
-  _templateObject$5 = function _templateObject() {
+  _templateObject$6 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Navbar = styled.nav(_templateObject$5(), color$1.$primary_white, color$1.$line_search_grey);
+var Navbar = styled.nav(_templateObject$6(), color$1.$primary_white, color$1.$line_search_grey);
 var Navbar$1 = (function (_ref) {
   var _ref$style = _ref.style,
       style = _ref$style === void 0 ? {} : _ref$style,
@@ -42594,27 +42679,27 @@ var Text = function Text(props) {
   return "\n  font-size: ".concat(props.size ? props.size + 'px' : font.base.size + 'px', ";\n\n  font-weight: ").concat(props.bold ? 'bold' : 'normal', ";\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, ").concat(props.opacity ? props.opacity * 0.1 : 1, ");\n");
 };
 
-function _templateObject2$4() {
+function _templateObject2$5() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  border-top: 1px solid ", "\n  height: ", "\n\n  display: flex\n  align-items: center\n\n  span {\n    padding-left: 30px\n  }\n"]);
 
-  _templateObject2$4 = function _templateObject2() {
+  _templateObject2$5 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$6() {
+function _templateObject$7() {
   var data = _taggedTemplateLiteral(["\n  position: absolute\n  bottom: 0\n  height: ", "\n  padding: 0 30px\n  width: 100%\n  box-sizing: border-box\n"]);
 
-  _templateObject$6 = function _templateObject() {
+  _templateObject$7 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Footer = styled.footer(_templateObject$6(), size.$footer_height);
-var FooterBox = styled.div(_templateObject2$4(), Text, color$1.$line_search_grey, size.$footer_height);
+var Footer = styled.footer(_templateObject$7(), size.$footer_height);
+var FooterBox = styled.div(_templateObject2$5(), Text, color$1.$line_search_grey, size.$footer_height);
 var Footer$1 = (function (_ref) {
   var _ref$style = _ref.style,
       style = _ref$style === void 0 ? {} : _ref$style;
@@ -42641,16 +42726,16 @@ var Image$1 = (function (_ref) {
   });
 });
 
-function _templateObject$7() {
+function _templateObject$8() {
   var data = _taggedTemplateLiteral(["\n  ", "\n"]);
 
-  _templateObject$7 = function _templateObject() {
+  _templateObject$8 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Text$1 = styled.header(_templateObject$7(), Text);
+var Text$1 = styled.header(_templateObject$8(), Text);
 var Heading = (function (_ref) {
   var _ref$size = _ref.size,
       size = _ref$size === void 0 ? 22 : _ref$size,
@@ -42664,4 +42749,4 @@ var Heading = (function (_ref) {
   }, children);
 });
 
-export { BarGauge, Footer$1 as Footer, Heading, Image$1 as Image, LineChart, LineMergeTimeline, Navbar$1 as Navbar, RadiusGauge, SankeyChart, SelectedCard, SummaryCard, Table$1 as Table, Timeline };
+export { BarGauge, Descriptions, Footer$1 as Footer, Heading, Image$1 as Image, LineChart, LineMergeTimeline, Navbar$1 as Navbar, RadiusGauge, SankeyChart, SelectedCard, SummaryCard, Table$1 as Table, Timeline };
