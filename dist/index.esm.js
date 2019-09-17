@@ -40578,8 +40578,27 @@ SankeyChart.defaultProps = {
 
 var backgroundArrow = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDE0IDE0Ij4KICAgIDxwYXRoIGZpbGw9IiMwMDJENEYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTguNzA3IDEuNjM2bDQuNjU3IDQuNjU3YTEgMSAwIDAgMSAwIDEuNDE0bC00LjY1NyA0LjY1N0ExIDEgMCAwIDEgNyAxMS42NTdWMi4zNDNhMSAxIDAgMCAxIDEuNzA3LS43MDd6IiBvcGFjaXR5PSIuOCIvPgo8L3N2Zz4=';
 
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var font = {
+  base: {
+    size: 14
+  }
+};
+var Text = function Text(props) {
+  return "\n  font-size: ".concat(props.size ? props.size + 'px' : font.base.size + 'px', ";\n\n  font-weight: ").concat(props.bold ? 'bold' : 'normal', ";\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, ").concat(props.opacity ? (props.opacity * 0.1).toFixed(2) : 1, ");\n");
+};
+var TextTag = styled.span(_templateObject(), Text);
+
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  color: #ffffff;\n  line-height: 1;\n  font-size: 20px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n"]);
+  var data = _taggedTemplateLiteral([""]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -40599,74 +40618,9 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  background-repeat: no-repeat;\n  background-position-x: 100%;\n  background-position-y: 15px;\n  padding-right: 18px;\n  margin-right: 8px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  background-repeat: no-repeat;\n  background-position-x: 100%;\n  background-position-y: center;\n  padding-right: 18px;\n  margin-right: 8px;\n"]);
 
   _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  max-width: 1200px;\n  width: 1200px;\n  margin: 0 auto\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var Wrap_1200 = styled.div(_templateObject());
-var Arrow = styled.article(_templateObject2());
-var Card_contatiner = styled.div(_templateObject3());
-var Card = styled.span(_templateObject4());
-var styles$2 = {
-  'card': 'card',
-  'arrow': 'arrow'
-};
-
-var SelectedCard = function SelectedCard(_ref) {
-  var selectedElement = _ref.selectedElement;
-  return React.createElement(Wrap_1200, null, selectedElement.map(function (element, idx) {
-    return React.createElement(Arrow, {
-      key: idx,
-      style: idx !== selectedElement.length - 1 ? {
-        backgroundImage: "url(".concat(backgroundArrow, ")")
-      } : null
-    }, React.createElement(Card_contatiner, {
-      key: idx
-    }, React.createElement(Card, {
-      className: styles$2.card,
-      key: idx
-    }, element)));
-  }));
-};
-
-function _templateObject4$1() {
-  var data = _taggedTemplateLiteral(["\n  font-size: 42px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n  color: #002d4f;\n"]);
-
-  _templateObject4$1 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject3$1() {
-  var data = _taggedTemplateLiteral(["\n  font-size: 16px;\n  font-weight: bold;\n  letter-spacing: -0.5px;\n"]);
-
-  _templateObject3$1 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2$1() {
-  var data = _taggedTemplateLiteral(["\n  width: 282px;\n  height: 170px;\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);\n  background-color: #ffffff;\n  font-size: 0;\n  display: inline-block;\n  text-align: center;\n  margin-right: 24px;\n\n  &:last-child {\n    margin-right: 0;\n  }\n\n  > div {\n    position: relative;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    background-repeat: no-repeat;\n    background-position-x: 12px;\n    background-position-y: 52px;\n  }\n\n  dl {\n    width: 100%;\n    text-align: right;\n    padding-right: 44px;\n\n    margin: 0;\n  }\n\n  dt {\n    color: rgba(0, 0, 0, 0.4);\n  }\n\n  dd {\n    display: block;\n    margin-inline-start: 40px;\n    margin: 0;\n  }\n"]);
-
-  _templateObject2$1 = function _templateObject2() {
     return data;
   };
 
@@ -40682,34 +40636,150 @@ function _templateObject$1() {
 
   return data;
 }
-var Wrap_1200$1 = styled.div(_templateObject$1());
+var Wrap1200 = styled.div(_templateObject$1());
+var Arrow = styled.article(_templateObject2());
+var CardContatiner = styled.div(_templateObject3());
+var Card = styled(TextTag).attrs({
+  size: '20',
+  bold: true,
+  style: {
+    color: '#ffffff'
+  }
+})(_templateObject4());
+
+var SelectedCard = function SelectedCard(_ref) {
+  var selectedElement = _ref.selectedElement;
+  return React.createElement(Wrap1200, null, selectedElement.map(function (element, idx) {
+    var isLast = idx === selectedElement.length - 1;
+    return React.createElement(Arrow, {
+      key: "SelectedCard".concat(idx),
+      style: isLast ? null : {
+        backgroundImage: "url(".concat(backgroundArrow, ")")
+      }
+    }, React.createElement(CardContatiner, null, React.createElement(Card, null, element)));
+  }));
+};
+
+// Color Set START  
+var color$1 = {
+  $black: '#000000',
+  $primary_white: '#ffffff',
+  $primary_navy: '#002d4f',
+  $secondary_blue: '#eff8ff',
+  $secondary_bg_blue: '#f7fafb',
+  $menu_grey: '#565b5f',
+  $icn_grey: '#979797',
+  $line_btn_grey: '#c4c4c4',
+  $line_dashboard_edge_grey: '#d4d4d4',
+  $line_search_grey: '#e2e2e2',
+  $line_graph_xy_grey: '#e8e8e8',
+  $table_grey: '#f2f2f2',
+  $bg_grey: '#f8f8f8',
+  $table_cell_grey: '#fafafa',
+  $legend_timeline_green_01: '#a5e2d7',
+  $legend_timeline_green_02: '#27b097',
+  $legend_timeline_green_03: '#00745e',
+  $legend_timeline_red_01: '#fa6b57',
+  $legend_timeline_red_02: '#faafa5',
+  $pathway_link_blue: '#189bff',
+  $pathway_link_red: '#ff3a1f',
+  $alert_red: '#ff3c3c',
+  $azure: '#189bff'
+};
+var size = {
+  $footer_height: '60px',
+  $footer_margin_top: '80px'
+};
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral([""]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4$1() {
+  var data = _taggedTemplateLiteral([""]);
+
+  _templateObject4$1 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$1() {
+  var data = _taggedTemplateLiteral(["\n  position: relative;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  cursor: ", ";\n"]);
+
+  _templateObject3$1 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$1() {
+  var data = _taggedTemplateLiteral(["\n  width: 282px;\n  height: 170px;\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);\n  background-color: #ffffff;\n  font-size: 0;\n  display: inline-block;\n  text-align: center;\n  margin-right: 24px;\n\n  &:last-child {\n    margin-right: 0;\n  }\n\n  dl {\n    width: 100%;\n    text-align: right;\n    padding-right: 44px;\n\n    margin: 0;\n  }\n"]);
+
+  _templateObject2$1 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$2() {
+  var data = _taggedTemplateLiteral(["\n  max-width: 1200px;\n  width: 1200px;\n  margin: 0 auto\n"]);
+
+  _templateObject$2 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Wrap1200$1 = styled.div(_templateObject$2());
 var Article = styled.article(_templateObject2$1());
-var Body_b_16 = styled.div(_templateObject3$1());
-var Summary_b_42 = styled.div(_templateObject4$1());
+var EventElement = styled.div(_templateObject3$1(), function (props) {
+  return props.onClick ? 'pointer' : '';
+});
+var BodyB16 = styled(TextTag).attrs({
+  size: '16',
+  bold: true,
+  opacity: 4
+})(_templateObject4$1());
+var BodyB42 = styled(TextTag).attrs({
+  size: '42',
+  bold: true,
+  style: {
+    color: color$1.$primary_navy,
+    display: 'block',
+    marginInlineStart: '40px',
+    margin: 0
+  }
+})(_templateObject5());
 
 var SummaryCard = function SummaryCard(_ref) {
-  var data = _ref.data;
+  var data = _ref.data,
+      _ref$events = _ref.events,
+      events = _ref$events === void 0 ? {} : _ref$events;
   var summaryData = Object.entries(data);
-
-  if (summaryData.length === 0) {
-    summaryData = [{
-      "Event Occurrence": 0,
-      "Number of Patients": 0,
-      "Average Mortality Rate": 0.0,
-      "Average Length of Stay": 0
-    }];
-  }
-
-  return React.createElement(Wrap_1200$1, null, summaryData.map(function (_ref2, idx) {
+  return React.createElement(Wrap1200$1, null, summaryData.map(function (_ref2, idx) {
     var _ref3 = _slicedToArray(_ref2, 2),
         name = _ref3[0],
         value = _ref3[1];
 
     return React.createElement(Article, {
       key: idx
-    }, React.createElement("div", null, React.createElement("dl", null, React.createElement(Summary_b_42, {
+    }, React.createElement(EventElement, {
+      onClick: events[name] ? function () {
+        events[name]();
+      } : null
+    }, React.createElement("dl", null, React.createElement(BodyB42, {
       as: "dd"
-    }, value), React.createElement(Body_b_16, {
+    }, value), React.createElement(BodyB16, {
       as: "dt"
     }, name))));
   }));
@@ -40725,17 +40795,17 @@ function _templateObject2$2() {
   return data;
 }
 
-function _templateObject$2() {
+function _templateObject$3() {
   var data = _taggedTemplateLiteral(["\n  padding: 28px 24px;\n  text-align: center;\n  background: #f2f2f2;\n  border-bottom: 2px solid #d4d4d4;\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 16px;\n  font-family: \"Spoqa Han Sans\";\n\n  &:first-child {\n    border-radius: 10px 0 0 0; \n  }\n\n  &:last-child {\n    border-radius: 0 10px 0 0;\n  }\n\n  &:first-child, &:last-child {\n    white-space: nowrap;\n    width: 1%;\n  }\n\n  &:first-child {\n    padding-left: 50px;\n  }\n\n  &:last-child {\n    padding-right: 50px;\n  }\n"]);
 
-  _templateObject$2 = function _templateObject() {
+  _templateObject$3 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Th = styled.th(_templateObject$2());
-var BodyB16 = styled.span(_templateObject2$2());
+var Th = styled.th(_templateObject$3());
+var BodyB16$1 = styled.span(_templateObject2$2());
 
 var THead = function THead(_ref) {
   var headers = _ref.headers,
@@ -40779,7 +40849,7 @@ var THead = function THead(_ref) {
     }));
   };
 
-  return React.createElement(BodyB16, {
+  return React.createElement(BodyB16$1, {
     as: "thead"
   }, createHeader(headers, subHeaders), isEmpty_1(subHeaders) ? null : createSubHeader(subHeaders));
 };
@@ -40806,16 +40876,16 @@ function _templateObject2$3() {
   return data;
 }
 
-function _templateObject$3() {
+function _templateObject$4() {
   var data = _taggedTemplateLiteral(["\n  font-size: 20px;\n"]);
 
-  _templateObject$3 = function _templateObject() {
+  _templateObject$4 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var BodyR20 = styled.span(_templateObject$3());
+var BodyR20 = styled.span(_templateObject$4());
 var ListTBody = styled.tbody(_templateObject2$3());
 var EmptyTbody = styled.tbody(_templateObject3$2());
 
@@ -40858,16 +40928,16 @@ var TBody = function TBody(_ref) {
   return isEmpty_1(rowData) ? React.createElement(EmptyTbody, null, renderPlaceholder()) : React.createElement(ListTBody, null, createBody(rowData));
 };
 
-function _templateObject$4() {
+function _templateObject$5() {
   var data = _taggedTemplateLiteral(["\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%;\n"]);
 
-  _templateObject$4 = function _templateObject() {
+  _templateObject$5 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Table = styled.table(_templateObject$4());
+var Table = styled.table(_templateObject$5());
 var Table$1 = (function (_ref) {
   var data = _ref.data,
       wrapTh = _ref.wrapTh,
@@ -40886,41 +40956,10 @@ var Table$1 = (function (_ref) {
   }
 });
 
-// Color Set START  
-var color$1 = {
-  $black: '#000000',
-  $primary_white: '#ffffff',
-  $primary_navy: '#002d4f',
-  $secondary_blue: '#eff8ff',
-  $secondary_bg_blue: '#f7fafb',
-  $menu_grey: '#565b5f',
-  $icn_grey: '#979797',
-  $line_btn_grey: '#c4c4c4',
-  $line_dashboard_edge_grey: '#d4d4d4',
-  $line_search_grey: '#e2e2e2',
-  $line_graph_xy_grey: '#e8e8e8',
-  $table_grey: '#f2f2f2',
-  $bg_grey: '#f8f8f8',
-  $table_cell_grey: '#fafafa',
-  $legend_timeline_green_01: '#a5e2d7',
-  $legend_timeline_green_02: '#27b097',
-  $legend_timeline_green_03: '#00745e',
-  $legend_timeline_red_01: '#fa6b57',
-  $legend_timeline_red_02: '#faafa5',
-  $pathway_link_blue: '#189bff',
-  $pathway_link_red: '#ff3a1f',
-  $alert_red: '#ff3c3c',
-  $azure: '#189bff'
-};
-var size = {
-  $footer_height: '60px',
-  $footer_margin_top: '80px'
-};
-
-function _templateObject5() {
+function _templateObject5$1() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-right: 1px solid ", "\n  }\n\n  color: #161616;\n  font-size: 18px;\n  font-family: \"Spoqa Han Sans\";\n  background: #ffffff;\n  font-weight: normal;\n  text-align: right;\n  padding: 24px;\n"]);
 
-  _templateObject5 = function _templateObject5() {
+  _templateObject5$1 = function _templateObject5() {
     return data;
   };
 
@@ -40957,20 +40996,20 @@ function _templateObject2$4() {
   return data;
 }
 
-function _templateObject$5() {
+function _templateObject$6() {
   var data = _taggedTemplateLiteral(["\n  border: 1px solid ", "\n  border-radius: 10px\n  overflow: hidden\n"]);
 
-  _templateObject$5 = function _templateObject() {
+  _templateObject$6 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var TableWrap = styled.div(_templateObject$5(), color$1.$line_search_grey);
+var TableWrap = styled.div(_templateObject$6(), color$1.$line_search_grey);
 var Table$2 = styled.table(_templateObject2$4());
 var Tr = styled.tr(_templateObject3$3(), color$1.$line_search_grey);
 var Th$1 = styled.th(_templateObject4$2(), color$1.$line_search_grey);
-var Td = styled.td(_templateObject5(), color$1.$line_search_grey);
+var Td = styled.td(_templateObject5$1(), color$1.$line_search_grey);
 var Descriptions = (function (_ref) {
   var data = _ref.data,
       _ref$row = _ref.row,
@@ -41657,7 +41696,7 @@ function styleInject(css, ref) {
 var css = ".Timeline_timelineChart__3-Cf0 {\n  position: relative;\n}\n\n/* xAxis */\n.Timeline_xAxis__1hoKI, .Timeline_overViewXAxis__1DOvh {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline_labels__38Ge3 text {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline_labels__38Ge3 text:nth-child(n + 4) {\n  fill: rgba(0, 0, 0, 0.3);\n}\n.Timeline_verticalLineText__14s5V {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.Timeline_overViewXAxisGrid__29xyk path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.Timeline_tooltip__2qJdw {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.Timeline_tooltip__2qJdw .Timeline_tooltipDay__2iE2o {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.Timeline_tooltip__2qJdw .Timeline_tooltipLabel__2cWHt {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.Timeline_dot__QBZ1F {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
 styleInject(css);
 
-var styles$3 = {
+var styles$2 = {
   "timelineChart": "timelineChart",
   "xAxis": "xAxis",
   "overViewXAxis": "overViewXAxis",
@@ -41738,13 +41777,13 @@ function (_Component) {
       }); // 2. xAxis group
 
       var gXAxis = generateGroup(gTimeline, {
-        className: styles$3.xAxis,
+        className: styles$2.xAxis,
         xOffset: yAxisWidth + defaultPadding + 25,
         yOffset: xAxisHeight
       }); //  3. labels group
 
       var gLabels = generateGroup(gTimeline, {
-        className: styles$3.labels,
+        className: styles$2.labels,
         xOffset: 25,
         yOffset: 60
       });
@@ -41785,7 +41824,7 @@ function (_Component) {
       gXAxisGrid.select('.domain').remove(); // add vertical line
 
       var lineScale = time().domain([startTime, endTime]).range([yAxisWidth + defaultPadding + 25 - 1, width]);
-      var verticalLineText = svg.append('text').attr('class', styles$3.verticalLineText).attr('y', 42);
+      var verticalLineText = svg.append('text').attr('class', styles$2.verticalLineText).attr('y', 42);
 
       var mouseover = function mouseover() {
         focus.style('opacity', 1);
@@ -41810,7 +41849,7 @@ function (_Component) {
       var rectColorScale = ordinal().domain(labelList(timelineData)).range(['#27b097', '#fa6b57', '#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec']);
       var legendColorScale = ordinal(Paired); // Add tooltip
 
-      var tooltip = select(".".concat(styles$3.timelineChart)).append('div').attr('class', styles$3.tooltip).style('opacity', 0); //  Create Data Group
+      var tooltip = select(".".concat(styles$2.timelineChart)).append('div').attr('class', styles$2.tooltip).style('opacity', 0); //  Create Data Group
 
       var gData = generateGroup(gTimeline, {
         className: 'data',
@@ -41830,7 +41869,7 @@ function (_Component) {
               y = _d3$mouse2[1];
 
           var label = data.label[data.label.length - 1];
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$3.tooltipLabel, "><span class=").concat(styles$3.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$3.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + 200, "px")).style('top', "".concat(y - 20, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function (d) {
@@ -41850,7 +41889,7 @@ function (_Component) {
               y = _d3$mouse4[1];
 
           var label = data.label[data.label.length - 1];
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$3.tooltipLabel, "><span class=").concat(styles$3.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$3.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + 200, "px")).style('top', "".concat(y - 20, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function (d) {
@@ -41866,14 +41905,14 @@ function (_Component) {
         yOffset: height - overViewAxisHeight - xAxisHeight
       });
       var overViewGrid = generateGroup(gOverViewAxis, {
-        className: styles$3.overViewXAxisGrid,
+        className: styles$2.overViewXAxisGrid,
         xOffset: 0,
         yOffset: 0
       }).call(axisTop(xAxisScale).tickSize(-overViewAxisHeight).tickFormat(''));
       overViewGrid.selectAll('.domain').attr('stroke', '#003964');
       overViewGrid.selectAll('.tick line').attr('stroke', 'none');
       var overViewXAxis = generateGroup(gOverViewAxis, {
-        className: styles$3.overViewXAxis,
+        className: styles$2.overViewXAxis,
         xOffset: 0,
         yOffset: overViewAxisHeight + 10
       }).call(axisBottom(xAxisScale).tickPadding(0));
@@ -41976,7 +42015,7 @@ function (_Component) {
     value: function render() {
       return React.createElement("div", {
         ref: this.rootElement,
-        className: styles$3.timelineChart
+        className: styles$2.timelineChart
       });
     }
   }]);
@@ -41987,7 +42026,7 @@ function (_Component) {
 var css$1 = ".LineMergeTimeline_timelineChart__K_r5D {\n  position: relative;\n}\n\n.LineMergeTimeline_title__23LoL {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: #000000;\n  opacity: 0.6;      \n}\n\n/* xAxis */\n.LineMergeTimeline_xAxis__1XWOw, .LineMergeTimeline_overViewXAxis__2OOtr {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.LineMergeTimeline_timelineLabels__3hBbH text, .LineMergeTimeline_gLineYAxis__2XLPB {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.3);\n  color: rgba(0, 0, 0, 0.3);\n}\n\n.LineMergeTimeline_verticalLineText__26Jw4 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.LineMergeTimeline_overViewXAxisGrid__KqAml path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.LineMergeTimeline_tooltip__2eLDR {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.LineMergeTimeline_tooltip__2eLDR .LineMergeTimeline_tooltipDay__2qZte {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.LineMergeTimeline_tooltip__2eLDR .LineMergeTimeline_tooltipLabel__KjfSB {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.LineMergeTimeline_dot__3kjm_ {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
 styleInject(css$1);
 
-var styles$4 = {
+var styles$3 = {
   "timelineChart": "timelineChart",
   "title": "title",
   'xAxis': 'xAxis',
@@ -42037,7 +42076,7 @@ function (_Component) {
       // 1. Create xAxis group
 
       var gXAxis = generateGroup(_this.getRootElement().select('.timeline'), {
-        className: styles$4.xAxis,
+        className: styles$3.xAxis,
         xOffset: yAxisWidth,
         yOffset: xAxisHeight
       }); // 2. Render xAxis
@@ -42053,7 +42092,7 @@ function (_Component) {
           xAxisHeight = _this$options2.xAxisHeight; // 1. Create Line YAxis group
 
       var gLineYAxis = generateGroup(_this.getRootElement().select('.timeline'), {
-        className: styles$4.gLineYAxis,
+        className: styles$3.gLineYAxis,
         xOffset: yAxisWidth,
         yOffset: xAxisHeight
       }); // 2. Create Line YAxis
@@ -42062,7 +42101,7 @@ function (_Component) {
         return "".concat(d);
       }).tickPadding(17); // 3. Add LineTitle
 
-      var lineTitle = _this.getRootElement().select('.timeline').append('text').text('MACE Risk by Visit').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + 6).attr('class', styles$4.title); // 4. Render Line YAxis 
+      var lineTitle = _this.getRootElement().select('.timeline').append('text').text('MACE Risk by Visit').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + 6).attr('class', styles$3.title); // 4. Render Line YAxis 
 
 
       gLineYAxis.call(lineYAxis);
@@ -42109,7 +42148,7 @@ function (_Component) {
       var focus = _this.getRootElement().select('.timeline').append('line').attr('class', 'focus').attr('fill', 'none').style('pointer-events', 'none'); // 1. Create vertical line text
 
 
-      var verticalLineText = svg.append('text').attr('class', styles$4.verticalLineText).attr('y', xAxisHeight); // 2. Create vertical line mouse event 
+      var verticalLineText = svg.append('text').attr('class', styles$3.verticalLineText).attr('y', xAxisHeight); // 2. Create vertical line mouse event 
 
       var mouseover = function mouseover() {
         focus.style('opacity', 1);
@@ -42171,13 +42210,13 @@ function (_Component) {
         var y = lineYAxisScale(d.y);
         var label = d.y;
 
-        var tooltip = _this.getRootElement().select(".".concat(styles$4.tooltip));
+        var tooltip = _this.getRootElement().select(".".concat(styles$3.tooltip));
 
-        var tooltipDescription = "\n          <div>\n            <div><span class=".concat(styles$4.tooltipLabel, ">").concat(label, "</span></div>\n          </div>\n          ");
+        var tooltipDescription = "\n          <div>\n            <div><span class=".concat(styles$3.tooltipLabel, ">").concat(label, "</span></div>\n          </div>\n          ");
         tooltip.transition().duration(200).style('opacity', 1);
         tooltip.style('left', "".concat(x, "px")).style('top', "".concat(y, "px")).style('pointer-events', 'none').html(tooltipDescription);
       }).on('mouseout', function (d) {
-        return _this.getRootElement().select(".".concat(styles$4.tooltip)).transition().duration(200).style('opacity', 0);
+        return _this.getRootElement().select(".".concat(styles$3.tooltip)).transition().duration(200).style('opacity', 0);
       });
     });
 
@@ -42190,12 +42229,12 @@ function (_Component) {
           yAxisWidth = _this$options6.yAxisWidth; // 1. Create Timeline Label Group
 
       var gTimelineLabels = generateGroup(_this.getRootElement().select('.timeline'), {
-        className: styles$4.timelineLabels,
+        className: styles$3.timelineLabels,
         xOffset: -defaultPadding.left,
         yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.top
       }); // 2. Render Timeline Label
 
-      var timelineTitle = _this.getRootElement().select('.timeline').append('text').text('Clinical Timeline').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + lineYAxisHeight + defaultMargin.top + 6).attr('class', styles$4.title);
+      var timelineTitle = _this.getRootElement().select('.timeline').append('text').text('Clinical Timeline').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + lineYAxisHeight + defaultMargin.top + 6).attr('class', styles$3.title);
 
       gTimelineLabels.selectAll('.timelineLabel').data(timelineData).enter().append('text').text(function (d) {
         return d.label[d.label.length - 1];
@@ -42282,13 +42321,13 @@ function (_Component) {
 
           var label = data.label[data.label.length - 1];
 
-          var tooltip = _this.getRootElement().select(".".concat(styles$4.tooltip));
+          var tooltip = _this.getRootElement().select(".".concat(styles$3.tooltip));
 
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$4.tooltipLabel, "><span class=").concat(styles$4.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$4.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$3.tooltipLabel, "><span class=").concat(styles$3.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$3.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + yAxisWidth, "px")).style('top', "".concat(y + xAxisHeight + lineYAxisHeight + 7.5, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function (d) {
-          return _this.getRootElement().select(".".concat(styles$4.tooltip)).transition().duration(200).style('opacity', 0);
+          return _this.getRootElement().select(".".concat(styles$3.tooltip)).transition().duration(200).style('opacity', 0);
         });
       }); // Add Rect Group
 
@@ -42305,13 +42344,13 @@ function (_Component) {
 
           var label = data.label[data.label.length - 1];
 
-          var tooltip = _this.getRootElement().select(".".concat(styles$4.tooltip));
+          var tooltip = _this.getRootElement().select(".".concat(styles$3.tooltip));
 
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$4.tooltipLabel, "><span class=").concat(styles$4.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$4.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$3.tooltipLabel, "><span class=").concat(styles$3.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$3.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + yAxisWidth, "px")).style('top', "".concat(y + xAxisHeight + lineYAxisHeight + 7.5, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function (d) {
-          return _this.getRootElement().select(".".concat(styles$4.tooltip)).transition().duration(200).style('opacity', 0);
+          return _this.getRootElement().select(".".concat(styles$3.tooltip)).transition().duration(200).style('opacity', 0);
         });
       });
     });
@@ -42332,7 +42371,7 @@ function (_Component) {
       }); // 2. Render OverViewAxis Grid
 
       var overViewGrid = generateGroup(gOverViewAxis, {
-        className: styles$4.overViewXAxisGrid,
+        className: styles$3.overViewXAxisGrid,
         xOffset: 0,
         yOffset: 0
       }).call(axisTop(xAxisScale).tickSize(-overViewAxisHeight).tickFormat(''));
@@ -42340,7 +42379,7 @@ function (_Component) {
       overViewGrid.selectAll('.tick line').attr('stroke', 'none'); // 3. Render OverViewXAxis
 
       var overViewXAxis = generateGroup(gOverViewAxis, {
-        className: styles$4.overViewXAxis,
+        className: styles$3.overViewXAxis,
         xOffset: 0,
         yOffset: overViewAxisHeight
       }).call(axisBottom(xAxisScale).tickPadding(17));
@@ -42386,11 +42425,11 @@ function (_Component) {
         xAxisScale.domain([Date.parse(start), Date.parse(end)]);
         lineScale.domain([Date.parse(start), Date.parse(end)]);
 
-        _this.getRootElement().select(".".concat(styles$4.xAxis)).transition().duration(500).call(xAxis);
+        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).call(xAxis);
 
-        _this.getRootElement().select(".".concat(styles$4.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5V0.5');
+        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5V0.5');
 
-        _this.getRootElement().select(".".concat(styles$4.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Line Chart Grid
+        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Line Chart Grid
 
 
         _this.getRootElement().select('.lineYAxisGrid').selectAll('tick').remove();
@@ -42456,11 +42495,11 @@ function (_Component) {
         xAxisScale.domain(overViewXAxisScale.domain());
         lineScale.domain(overViewXAxisScale.domain());
 
-        _this.getRootElement().select(".".concat(styles$4.xAxis)).transition().duration(500).call(xAxis);
+        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).call(xAxis);
 
-        _this.getRootElement().select(".".concat(styles$4.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5 V0.5');
+        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5 V0.5');
 
-        _this.getRootElement().select(".".concat(styles$4.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Initialize Line Chart Grid
+        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Initialize Line Chart Grid
 
 
         var lineYAxisGridLines = axisTop(xAxisScale).tickSize(-lineYAxisHeight).tickFormat('');
@@ -42522,7 +42561,7 @@ function (_Component) {
           labelLastYPosition = _this$options13.labelLastYPosition;
       var resetBtnId = _this.props.resetBtnId; // Create tooltip
 
-      _this.getRootElement().append('div').attr('class', styles$4.tooltip).style('opacity', 0);
+      _this.getRootElement().append('div').attr('class', styles$3.tooltip).style('opacity', 0);
 
       var svg = renderSVG(_this.getRootElement(), _this.options.width, _this.options.height); // Create Entire groups
       // 1. Entire timeline group
@@ -42643,7 +42682,7 @@ function (_Component) {
     value: function render() {
       return React.createElement("div", {
         ref: this.rootElement,
-        className: styles$4.timelineChart
+        className: styles$3.timelineChart
       });
     }
   }]);
@@ -42651,16 +42690,16 @@ function (_Component) {
   return LineMergeTimeline;
 }(Component);
 
-function _templateObject$6() {
+function _templateObject$7() {
   var data = _taggedTemplateLiteral(["\n  height: 70px\n  background-color: ", "\n  padding: 0 30px\n  display: flex\n  align-items: center\n  margin-bottom: 40px\n\n  a:active, a:hover {\n    text-decoration: none\n  }\n  \n  border-bottom: 1px solid ", "\n"]);
 
-  _templateObject$6 = function _templateObject() {
+  _templateObject$7 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Navbar = styled.nav(_templateObject$6(), color$1.$primary_white, color$1.$line_search_grey);
+var Navbar = styled.nav(_templateObject$7(), color$1.$primary_white, color$1.$line_search_grey);
 var Navbar$1 = (function (_ref) {
   var _ref$style = _ref.style,
       style = _ref$style === void 0 ? {} : _ref$style,
@@ -42669,15 +42708,6 @@ var Navbar$1 = (function (_ref) {
     style: style
   }, children);
 });
-
-var font = {
-  base: {
-    size: 14
-  }
-};
-var Text = function Text(props) {
-  return "\n  font-size: ".concat(props.size ? props.size + 'px' : font.base.size + 'px', ";\n\n  font-weight: ").concat(props.bold ? 'bold' : 'normal', ";\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, ").concat(props.opacity ? props.opacity * 0.1 : 1, ");\n");
-};
 
 function _templateObject2$5() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  border-top: 1px solid ", "\n  height: ", "\n\n  display: flex\n  align-items: center\n\n  span {\n    padding-left: 30px\n  }\n"]);
@@ -42689,16 +42719,16 @@ function _templateObject2$5() {
   return data;
 }
 
-function _templateObject$7() {
+function _templateObject$8() {
   var data = _taggedTemplateLiteral(["\n  position: absolute\n  bottom: 0\n  height: ", "\n  padding: 0 30px\n  width: 100%\n  box-sizing: border-box\n"]);
 
-  _templateObject$7 = function _templateObject() {
+  _templateObject$8 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Footer = styled.footer(_templateObject$7(), size.$footer_height);
+var Footer = styled.footer(_templateObject$8(), size.$footer_height);
 var FooterBox = styled.div(_templateObject2$5(), Text, color$1.$line_search_grey, size.$footer_height);
 var Footer$1 = (function (_ref) {
   var _ref$style = _ref.style,
@@ -42726,16 +42756,16 @@ var Image$1 = (function (_ref) {
   });
 });
 
-function _templateObject$8() {
+function _templateObject$9() {
   var data = _taggedTemplateLiteral(["\n  ", "\n"]);
 
-  _templateObject$8 = function _templateObject() {
+  _templateObject$9 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Text$1 = styled.header(_templateObject$8(), Text);
+var Text$1 = styled.header(_templateObject$9(), Text);
 var Heading = (function (_ref) {
   var _ref$size = _ref.size,
       size = _ref$size === void 0 ? 22 : _ref$size,
