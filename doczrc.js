@@ -11,5 +11,6 @@ export default {
   },
   modifyBundlerConfig: (config) => {
     return config
-  }
+  },
+  dest: '/docs'
 }
