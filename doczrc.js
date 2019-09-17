@@ -12,5 +12,6 @@ export default {
   modifyBundlerConfig: (config) => {
     return config
   },
-  dest: '/docs'
+  dest: '/docs',
+  base: '/MDwalks-UI/' // gatsby-config.tpl.js 참고
 }
