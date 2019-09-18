@@ -42047,6 +42047,14 @@ var styles$3 = {
   "tooltipLabel": "tooltipLabel",
   "dot": "dot"
 };
+typeof Array.prototype.flat === 'undefined' && Object.defineProperty(Array.prototype, 'flat', {
+  value: function value() {
+    var depth = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+    return this.reduce(function (flat, toFlatten) {
+      return flat.concat(Array.isArray(toFlatten) && depth > 1 ? toFlatten.flat(depth - 1) : toFlatten);
+    }, []);
+  }
+});
 
 var LineMergeTimeline =
 /*#__PURE__*/
