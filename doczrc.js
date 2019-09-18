@@ -1,5 +1,6 @@
 export default {
   title: 'MDwalks-UI',
+  description: 'MDwalks-UI Component document', 
   native: true,
   typescript: false,
   port: '9004',
