@@ -3,10 +3,16 @@ import { shallow, mount } from 'enzyme';
 import Histogram from '@Charts/Histogram';
 import * as d3 from 'd3'
 
+const data = {
+  risks: d3.range(1000).map(d3.randomBates(10)),
+  patientRisk: 0.42,
+  avgRisk: 0.305
+}
+
 describe('Histogram Chart', () => {
   let wrapper, instance
   beforeEach(() => {
-    wrapper = mount(<Histogram title='Risk Score Histogram' />);
+    wrapper = mount(<Histogram title='Risk Score Histogram' data={data} />);
     instance = wrapper.instance()
   })
 
