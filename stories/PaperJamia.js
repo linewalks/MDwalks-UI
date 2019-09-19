@@ -5,7 +5,7 @@ import { withKnobs } from "@storybook/addon-knobs";
 import Table from "@Table/Table";
 import SelectedCard from "@Card/SelectedCard";
 import SankeyChart from "@Charts/SankeyChart";
-// import sankeyData from "@Data/dataForSankey2";
+import sankeyData from "@Data/dataForSankey2";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://192.168.0.103:5000";
@@ -40,114 +40,64 @@ class ApiClient {
 const apiClient = {
   pathway: new ApiClient({
     url: "/pathway"
-  })
-  // pathway: new ApiClient({
-  //   url: `/patient-list/`
-  // }),
+  }),
+  patients: new ApiClient({
+    url: `/patients`
+  }),
 };
 
 class Fig1 extends Component {
   constructor(props) {
     super(props);
-    // this.sankey = apiClient.pathway.get({ name: "Test123" }).then(response => {
-    //   return response.data;
-    // });
-    // axios.all([
-    //   apiClient.pathway
-    //     .get({name: 'Test123'})
-    // ]).then(axios.spread((sankey) => {
-    //   return sankey.data;
-    //   // this.setState({
-    //   //   summaryData: utils.convertPathwayEvents(events.data),
-    //   //   dataForTable: utils.appendfolderIcon(utils.convertRowData(patientList.data)),
-    //   // })
-    // }));
     this.state = {
       pathway: null,
-      selectedNodes: [], //["emergency", "VSURG", "CSRU", "ECHO", "died"],
+      selectedNodes: [],
       dataForTable: null
     };
   }
-  componentDidMount = () => {
-    apiClient.pathway.get({ name: "Test123" }).then(response => {
-      this.setState({
-        pathway: sankey.data
-      });
-    });
-  };
 
   onChange(selectedNodes) {
     this.setState({
       selectedNodes,
       selectPage: 1
     });
-
-    // axios.all([apiClient.pathway.get({ name: "Test123" })]).then(
-    //   axios.spread(sankey => {
-    //     this.setState({
-    //       pathway: sankey.data
-    //     });
-    //   })
-    // );
-
-    // session.setCookie('selectedNodes', selectedNodes)
-
-    // axios.all([
-    //   apiClient.pathway_events
-    //     .get({events: JSON.stringify(this.state.selectedNodes)}),
-    //   apiClient.pathway_patient_list
-    //     .get({events: JSON.stringify(this.state.selectedNodes), page: 1, length: 10}),
-    // ]).then(axios.spread((events, patientList) => {
-    //   this.setState({
-    //     summaryData: utils.convertPathwayEvents(events.data),
-    //     dataForTable: utils.appendfolderIcon(utils.convertRowData(patientList.data)),
-    //   })
-    // }));
   }
 
   componentDidMount = () => {
-    apiClient.pathway.get({ name: "Test123" }).then(response => {
+
+
+    axios.all([
+      apiClient.pathway
+        .get({}),
+      apiClient.patients
+        .get({ N: 20 }),
+    ]).then(axios.spread((sankey, plist) => {
       this.setState({
-        pathway: response.data
-      });
-    });
+        pathway: sankey.data,
+        dataForTable: plist.data,
+      })
+    }));
   };
 
   render() {
     if (this.state.pathway)
-      return (
-        <div>
-          <SankeyChart
-            data={this.state.pathway}
-            selectedNodes={this.state.selectedNodes}
-            onChange={this.onChange.bind(this)}
-            onNodeClick={action("Node has been clicked")}
-          />
-          <SelectedCard selectedElement={this.state.selectedNodes} />
-          <Table
-            data={{
-              headers: ["a", "b", "c"],
-              rowData: [
-                {
-                  a: 1,
-                  b: 2,
-                  c: 3
-                },
-                {
-                  a: 4,
-                  b: 5,
-                  c: 6
-                },
-                {
-                  a: 7,
-                  b: 8,
-                  c: 9
-                }
-              ]
-            }}
-          />
-        </div>
-      );
+      if (this.state.dataForTable)
+        return (
+          <div>
+            <SankeyChart
+              data={this.state.pathway}
+              selectedNodes={this.state.selectedNodes}
+              onChange={this.onChange.bind(this)}
+              onNodeClick={action("Node has been clicked")}
+            />
+            <SelectedCard selectedElement={this.state.selectedNodes} />
+            
+            <Table
+              data={this.state.dataForTable}
+            />
+          </div>
+        );
+      else return <div></div>;
     else return <div></div>;
   }
 }

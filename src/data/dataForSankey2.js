@@ -1,50 +1,24 @@
 export default {
   links: [
-    { source: "CSURG CABG", target: "discharge", value: 1992 },
-    { source: "CSURG CABG", target: "Aspirin", value: 2082 },
-    { source: "CSURG CABG", target: "Aspirin Statin", value: 2092 },
-    { source: "CSURG CABG", target: "Statin", value: 2289 },
-    { source: "CSURG CABG", target: "ECG", value: 1992 },
-    { source: "CSURG CABG", target: "CMED", value: 2013 },
-    { source: "CSURG CABG", target: "emergency", value: 2079 },
-    { source: "CSURG CABG", target: "emergency ischemic_hd", value: 2053 },
+    { source: "CABG", target: "Aspirin", value: 39 },
+    { source: "Chemistry Troponin T", target: "CABG", value: 43 },
+    { source: "Chemistry Troponin T", target: "ECG", value: 39 },
+    { source: "ECG", target: "CABG", value: 39 },
+    { source: "emergency", target: "Chemistry Troponin T", value: 42 },
     {
-      source: "CSURG CABG",
-      target: "emergency ischemic_hd HYPERTENSION",
-      value: 1849
+      source: "emergency,ischemic_hd",
+      target: "Chemistry Troponin T",
+      value: 41
     },
-    { source: "CSURG CABG", target: "emergency HYPERTENSION", value: 1872 },
-    { source: "CSURG CABG", target: "ischemic_hd", value: 2027 },
-    { source: "CSURG CABG", target: "ischemic_hd HYPERTENSION", value: 2058 },
-    { source: "CSURG CABG", target: "ischemic_hd HYPERLIPIDEMIA", value: 1984 },
-    { source: "CSURG CABG", target: "HYPERTENSION", value: 2082 },
-    { source: "CSURG CABG", target: "HYPERLIPIDEMIA", value: 2006 },
-    { source: "discharge", target: "Aspirin", value: 2082 },
-    { source: "discharge", target: "Aspirin Statin", value: 2092 },
-    { source: "discharge", target: "Statin", value: 2289 },
-    { source: "discharge", target: "ECG", value: 2027 },
-    { source: "ECG", target: "CMED", value: 1884 },
-    { source: "ECG", target: "emergency", value: 1847 },
-    { source: "ECG", target: "ischemic_hd", value: 1992 },
-    { source: "CMED", target: "emergency", value: 1880 },
-    { source: "CMED", target: "ischemic_hd", value: 2013 }
+    { source: "ischemic_hd", target: "Chemistry Troponin T", value: 42 }
   ],
   nodes: [
-    { name: "CSURG CABG" },
-    { name: "discharge" },
-    { name: "Aspirin" },
-    { name: "Aspirin Statin" },
-    { name: "Statin" },
+    { name: "CABG" },
+    { name: "Chemistry Troponin T" },
     { name: "ECG" },
-    { name: "CMED" },
-    { name: "emergency" },
-    { name: "emergency ischemic_hd" },
-    { name: "emergency ischemic_hd HYPERTENSION" },
-    { name: "emergency HYPERTENSION" },
     { name: "ischemic_hd" },
-    { name: "ischemic_hd HYPERTENSION" },
-    { name: "ischemic_hd HYPERLIPIDEMIA" },
-    { name: "HYPERTENSION" },
-    { name: "HYPERLIPIDEMIA" }
+    { name: "Aspirin" },
+    { name: "emergency,ischemic_hd" },
+    { name: "emergency" }
   ]
 };
