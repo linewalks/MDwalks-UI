@@ -16,4 +16,4 @@ before_script:
 script:
   - yarn
   - yarn test
-  - yarn build
+  # - yarn build
