@@ -9,9 +9,18 @@ edit: false
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
-
-# v0.4.1 / 2019-09-09
+# v0.4.2 / 2019-09-17
 ## :tada: Enhancements
+- [#110](https://github.com/linewalks/MDwalks-UI/issues/110): SelectedCard 스타일 교정 및 리팩토링 ([**@toyjhlee**](https://github.com/toyjhlee))
+- [#50](https://github.com/linewalks/MDwalks-UI/issues/50): add summarycard component test ([**@toyjhlee**](https://github.com/toyjhlee))
+
+## :book: Documentation
+- [#113](https://github.com/linewalks/MDwalks-UI/issues/113): linewalks.github.io/MDwalks-UI 에 연결 ([**@toyjhlee**](https://github.com/toyjhlee))
+
+# v0.4.1 / 2019-09-11
+## :tada: Enhancements
+- [#106](https://github.com/linewalks/MDwalks-UI/issues/106): Travis CI 도입 ([**@toyjhlee**](https://github.com/toyjhlee))
+- [#104](https://github.com/linewalks/MDwalks-UI/issues/104): Descriptions 생성 ([**@toyjhlee**](https://github.com/toyjhlee))
 - [#100](https://github.com/linewalks/MDwalks-UI/issues/100): Layout 의 Component 만들기 ([**@toyjhlee**](https://github.com/toyjhlee))
 
 # v0.3.7 / 2019-09-04

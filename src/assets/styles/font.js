@@ -1,3 +1,5 @@
+import styled from 'styled-components'
+
 const font = {
   base: {
     size: 14
@@ -9,6 +11,9 @@ export const Text = props => `
 
   font-weight: ${props.bold ? 'bold' : 'normal'};
   letter-spacing: -0.5px;
-  color: rgba(0, 0, 0, ${props.opacity ? props.opacity * 0.1 : 1});
+  color: rgba(0, 0, 0, ${props.opacity ? (props.opacity * 0.1).toFixed(2) : 1});
 `;
 
+export const TextTag = styled.span`
+  ${Text}
+`

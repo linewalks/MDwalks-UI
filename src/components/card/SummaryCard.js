@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from 'styled-components'
+import * as font from '../../assets/styles/font'
+import { color } from '../../assets/styles/variables'
 
-const Wrap_1200 = styled.div`
+const Wrap1200 = styled.div`
   max-width: 1200px;
   width: 1200px;
   margin: 0 auto
 `
 
-const Article = styled.article`
+export const Article = styled.article`
   width: 282px;
   height: 170px;
   border-radius: 10px;
@@ -22,16 +24,6 @@ const Article = styled.article`
     margin-right: 0;
   }
 
-  > div {
-    position: relative;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    background-repeat: no-repeat;
-    background-position-x: 12px;
-    background-position-y: 52px;
-  }
-
   dl {
     width: 100%;
     text-align: right;
@@ -39,60 +31,50 @@ const Article = styled.article`
 
     margin: 0;
   }
+`
 
-  dt {
-    color: rgba(0, 0, 0, 0.4);
+export const EventElement = styled.div`
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: ${props => props.onClick ? 'pointer' : ''};
+`
+
+const BodyB16 = styled(font.TextTag).attrs({
+  size: '16',
+  bold: true,
+  opacity: 4,
+})``
+
+const BodyB42 = styled(font.TextTag).attrs({
+  size: '42',
+  bold: true,
+  style: {
+    color: color.$primary_navy,
+    display: 'block',
+    marginInlineStart: '40px',
+    margin: 0,
   }
+})``
 
-  dd {
-    display: block;
-    margin-inline-start: 40px;
-    margin: 0;
-  }
-`
-
-const Body_b_16 = styled.div`
-  font-size: 16px;
-  font-weight: bold;
-  letter-spacing: -0.5px;
-`
-
-const Summary_b_42 = styled.div`
-  font-size: 42px;
-  font-weight: bold;
-  letter-spacing: -0.5px;
-  color: #002d4f;
-`
-
-const SummaryCard = ({data}) => {
+const SummaryCard = ({data, events = {}}) => {
   let summaryData = Object.entries(data);
-  
-  if (summaryData.length === 0) {
-    summaryData = [{
-      "Event Occurrence": 0,
-      "Number of Patients": 0,
-      "Average Mortality Rate": 0.0,
-      "Average Length of Stay": 0
-    }]
-  }
-
   return (
-    <Wrap_1200>
+    <Wrap1200>
       {summaryData.map(([name, value], idx) => {
         return (
           <Article key={idx}>
-            <div>
+            <EventElement onClick={events[name] ? () => { events[name]() } : null}>
               <dl>
-                <Summary_b_42 as="dd">
-                  {value}
-                </Summary_b_42>
-                <Body_b_16 as="dt">{name}</Body_b_16>
+                <BodyB42 as="dd">{value}</BodyB42>
+                <BodyB16 as="dt">{name}</BodyB16>
               </dl>
-            </div>
+            </EventElement>
           </Article>
         )
       })}
-    </Wrap_1200>
+    </Wrap1200>
   );
 };
 

@@ -1,23 +1,24 @@
 import React from 'react';
 import styled from 'styled-components'
 import backgroundArrow from '../../assets/svg/icn-12-px.svg';
+import * as font from '../../assets/styles/font'
 
-const Wrap_1200 = styled.div`
+const Wrap1200 = styled.div`
   max-width: 1200px;
   width: 1200px;
   margin: 0 auto
 `
 
-const Arrow = styled.article`
+export const Arrow = styled.article`
   display: inline-block;
   background-repeat: no-repeat;
   background-position-x: 100%;
-  background-position-y: 15px;
+  background-position-y: center;
   padding-right: 18px;
   margin-right: 8px;
 `
 
-const Card_contatiner = styled.div`
+const CardContatiner = styled.div`
   display: inline-block;
   border-radius: 25px;
   box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);
@@ -25,33 +26,30 @@ const Card_contatiner = styled.div`
   padding: 11px 24px 10px;
 `
 
-const Card = styled.span`
-  color: #ffffff;
-  line-height: 1;
-  font-size: 20px;
-  font-weight: bold;
-  letter-spacing: -0.5px;
-`
-
-const styles = {
-  'card': 'card',
-  'arrow': 'arrow',
-}
+export const Card = styled(font.TextTag).attrs({
+  size: '20',
+  bold: true,
+  style: {
+    color: '#ffffff'
+  }
+})``
 
 const SelectedCard = ({ selectedElement }) => {
   return (
-    <Wrap_1200>
+    <Wrap1200>
       {selectedElement.map((element, idx) => {
+        const isLast = idx === selectedElement.length - 1
         return (
-          <Arrow key={idx} style={idx !== selectedElement.length - 1 ? {backgroundImage:`url(${backgroundArrow})`} : null}>
-            <Card_contatiner key={idx}>
-              <Card className={styles.card} key={idx}>{element}</Card>
-            </Card_contatiner>
+          <Arrow key={`SelectedCard${idx}`} 
+           style={isLast ? null : {backgroundImage:`url(${backgroundArrow})`}}>
+            <CardContatiner>
+              <Card>{element}</Card>
+            </CardContatiner>
           </Arrow>
         )
       })}
-    </Wrap_1200>
-  );
-};
+    </Wrap1200>
+  )
+}
 
-export default SelectedCard;
+export default SelectedCard
