@@ -42671,6 +42671,10 @@ var Heading = (function (_ref) {
   }, children);
 });
 
+var css$2 = "/* tooltip  */\n.Histogram_tooltipTitle__1yAfG {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  opacity: 0.6;\n}\n\n.Histogram_tooltipValue__28lvI {\n  height: 20px;\n  font-weight: bold;\n  opacity: 0.9;\n}";
+var styles$5 = {"tooltipTitle":"Histogram_tooltipTitle__1yAfG","tooltipValue":"Histogram_tooltipValue__28lvI"};
+styleInject(css$2);
+
 var Histogram =
 /*#__PURE__*/
 function (_Component) {
@@ -42683,6 +42687,20 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Histogram).call(this, props));
 
+    _defineProperty(_assertThisInitialized(_this), "errorMessage", function (errorType) {
+      var message;
+
+      if (errorType === 'typeOfVariable') {
+        message = 'type is invalid';
+      }
+
+      if (errorType === 'haveData') {
+        message = 'No data is provided';
+      }
+
+      _this.getRootElement().append('div').text(message);
+    });
+
     _defineProperty(_assertThisInitialized(_this), "createXAxis", function (xAxis) {
       var _this$options = _this.options,
           height = _this$options.height,
@@ -42690,7 +42708,7 @@ function (_Component) {
       // 1. Create xAxis group
 
       var gXAxis = generateGroup(_this.getRootElement().select('.histogram'), {
-        className: 'xAxis',
+        className: 'gXAxis',
         xOffset: defaultPadding.left,
         yOffset: height - defaultPadding.bottom
       }); // 2. Render xAxis
@@ -42698,6 +42716,7 @@ function (_Component) {
       gXAxis.call(xAxis);
       gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4');
       gXAxis.selectAll('.tick line').remove();
+      gXAxis.selectAll('.tick text').attr('font-size', 14).attr('opacity', 0.6).attr('font-family', 'Spoqa Han Sans').style('fill', color$1.$black);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createYAxis", function (yAxis) {
@@ -42705,29 +42724,36 @@ function (_Component) {
       // 1. Create yAxis group
 
       var gYAxis = generateGroup(_this.getRootElement().select('.histogram'), {
-        className: 'yAxis',
+        className: 'gYAxis',
         xOffset: defaultPadding.left,
         yOffset: defaultPadding.top
       }); // 2. Render yAxis
 
       gYAxis.call(yAxis);
-      gYAxis.selectAll('.domain').remove(); // gYAxis.selectAll('.tick line').remove()
+      gYAxis.selectAll('.domain').remove();
+      gYAxis.selectAll('.tick line').attr('x2', -6).attr('stroke', color$1.$line_graph_xy_grey);
+      gYAxis.selectAll('.tick:last-child line').attr('stroke', color$1.$line_btn_grey);
+      gYAxis.selectAll('.tick text').attr('font-size', 14).attr('font-family', 'Spoqa Han Sans').style('fill', color$1.$black).attr('opacity', 0.4);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createBar", function (xAxisScale, yAxisScale, data) {
-      var _this$options2 = _this.options,
-          height = _this$options2.height,
-          defaultPadding = _this$options2.defaultPadding;
+      var binsNumber = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 10;
+      var histogramData = data.risks,
+          patientRisk = data.patientRisk;
+      var defaultPadding = _this.options.defaultPadding;
+      var $primary_navy = color$1.$primary_navy;
       var gBar = generateGroup(_this.getRootElement().select('.histogram'), {
-        className: 'Bar',
+        className: 'gBar',
         xOffset: defaultPadding.left,
         yOffset: defaultPadding.top
       });
       var histogram$1 = histogram().value(function (d) {
         return d;
-      }).domain(xAxisScale.domain()).thresholds(xAxisScale.ticks(10));
-      var bins = histogram$1(data);
-      bins.pop(); // 삼항연산자 함수로 => 테스트코드
+      }).domain(xAxisScale.domain()).thresholds(xAxisScale.ticks(binsNumber));
+      var bins = histogram$1(histogramData);
+      bins.pop();
+
+      var patientRiskIndex = _this.getPatientRiskScoreIndex(patientRisk, bins.length);
 
       gBar.selectAll("rect").data(bins).enter().append("rect").attr("class", "bar").attr("x", 1).attr('transform', function (d) {
         return "translate(".concat(xAxisScale(d.x0), ", ").concat(d.length && yAxisScale(d.length), ")");
@@ -42735,7 +42761,18 @@ function (_Component) {
         return d.length === 0 ? xAxisScale(d.x1) - xAxisScale(d.x0) : xAxisScale(d.x1) - xAxisScale(d.x0) - 1;
       }).attr('height', function (d) {
         return d.length === 0 ? 0 : _this.yAxisHeight - yAxisScale(d.length);
-      });
+      }).style('fill', function (d, i) {
+        if (i === patientRiskIndex) {
+          return $primary_navy;
+        } else {
+          return '#e1e1e1';
+        }
+      }).transition().duration(500);
+      gBar.exit().remove();
+      var tooltipDescription = "\n      <div style='display:flex;'>\n        <span class=".concat(styles$5.tooltipTitle, " style='width: 85px; height: 20px; margin-right:24px;'>I.I.T Risk Score</span>\n        <span class=").concat(styles$5.tooltipValue, " style='margin-left:auto;'>").concat(patientRisk, "</span>\n      </div>\n      <div style='display:flex;'>\n        <span class=").concat(styles$5.tooltipTitle, " style='width: 118px; height: 20px; margin-right: 24px;'>Number of Patients</span>\n        <span class=").concat(styles$5.tooltipValue, " style='margin-left:auto;'>").concat(bins[patientRiskIndex].length, "</span>\n      </div>\n    ");
+      var binsWidth = xAxisScale(bins[patientRiskIndex].x1) - xAxisScale(bins[patientRiskIndex].x0);
+
+      _this.getRootElement().append('div').attr('class', 'tooltip').style('position', 'absolute').style('border', "solid 1px ".concat(color$1.$menu_grey)).style('border-radius', '4px').style('padding', '12px 14px').style('box-sizing', 'border-box').style('background', "".concat(color$1.$primary_white)).style('top', "".concat(yAxisScale(bins[patientRiskIndex].length) + defaultPadding.top - 30, "px")).style('left', "".concat(xAxisScale(bins[patientRiskIndex].x0) + defaultPadding.left - binsWidth / 2, "px")).html(tooltipDescription);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createTitle", function () {
@@ -42745,21 +42782,97 @@ function (_Component) {
         xOffset: defaultPadding.right,
         yOffset: defaultPadding.right
       });
-      gTitle.append('text').text("".concat(_this.props.title)).attr('text-anchor', 'start').attr('font-size', 18).attr('letter-spacing', -0.5).attr('font-weight', 'bold').attr('x', 0).attr('y', 0).style('opacity', 0.6);
+      gTitle.append('text').text("".concat(_this.props.title)).attr('text-anchor', 'start').attr('font-size', 18).attr('letter-spacing', -0.5).attr('font-weight', 'bold').attr('x', 0).attr('y', 22).style('fill', color$1.$black).style('opacity', 0.6);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "renderHistogram", function () {
-      var histogramData = sequence(100).map(bates(3));
-      var _this$options3 = _this.options,
-          width = _this$options3.width,
-          height = _this$options3.height;
+    _defineProperty(_assertThisInitialized(_this), "createLegend", function () {
+      var $primary_navy = color$1.$primary_navy,
+          $legend_timeline_red_01 = color$1.$legend_timeline_red_01;
+      var legendColorSet = [$primary_navy, $legend_timeline_red_01];
+      var defaultPadding = _this.options.defaultPadding;
+      var gLegend = generateGroup(_this.getRootElement().select('.histogram'), {
+        className: 'gLegend',
+        xOffset: defaultPadding.right,
+        yOffset: 88
+      }); // add legend circle 
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      gLegend.selectAll('legendCircle').data(args).enter().append('circle').attr('cx', function (d, i) {
+        return 5 + 140 * i;
+      }).attr('cy', 10).attr('r', 5).style('fill', function (d, i) {
+        return legendColorSet[i];
+      }); // add legend text
+
+      gLegend.selectAll('legend').data(args).enter().append('text').attr('x', function (d, i) {
+        return 18 + 140 * i;
+      }).attr('y', 15).text(function (d) {
+        return d;
+      }).attr('text-anchor', 'start').attr('font-size', 14).attr('textLength', 108).attr('font-family', 'Spoqa Han Sans').style('fill', '#999999');
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createDropDown", function (xAxisScale, yAxisScale, data) {
+      var dropDownList = [10, 20, 50, 100];
+
+      var dropDownBox = _this.getRootElement().append('div').attr('class', 'gDropDown').style('position', 'absolute').style('top', '142px').style('left', '1090px').append('select').attr('id', 'binsDropDown').on('change', function () {
+        select('.gBar').remove();
+        select('.tooltip').remove();
+        select('.gRiskMeanLine').remove();
+        var binsN = select('#binsDropDown').property('value');
+
+        _this.createBar(xAxisScale, yAxisScale, data, binsN);
+
+        _this.createRiskMeanLine(data, xAxisScale);
+      });
+
+      dropDownBox.selectAll('option').data(dropDownList).enter().append('option').attr('value', function (d) {
+        return d;
+      }).text(function (d) {
+        return d;
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createXAxisGridLines", function (gridXAxis) {
+      var defaultPadding = _this.options.defaultPadding;
+      var gXAxisGridLine = generateGroup(_this.getRootElement().select('.histogram'), {
+        className: 'gXAxisGridLine',
+        xOffset: defaultPadding.left,
+        yOffset: defaultPadding.top
+      }); // 2. Render gridXAxis
+
+      gXAxisGridLine.call(gridXAxis);
+      gXAxisGridLine.selectAll('.domain').remove();
+      gXAxisGridLine.selectAll('.tick line').attr('stroke', color$1.$line_graph_xy_grey);
+      gXAxisGridLine.select('.tick:last-child line').attr('stroke', color$1.$line_btn_grey);
+      gXAxisGridLine.selectAll('.tick text').remove();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createRiskMeanLine", function (data, xAxisScale) {
+      var defaultPadding = _this.options.defaultPadding;
+      var gRiskMeanLine = generateGroup(_this.getRootElement().select('.histogram'), {
+        className: 'gRiskMeanLine',
+        xOffset: defaultPadding.left,
+        yOffset: defaultPadding.top
+      });
+      gRiskMeanLine.append('line').attr('x1', xAxisScale(data.avgRisk)).attr('x2', xAxisScale(data.avgRisk)).attr('y1', 0).attr('y2', _this.yAxisHeight).attr('stroke', color$1.$legend_timeline_red_01);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "getPatientRiskScoreIndex", function (score, binsNumber) {
+      return Math.floor(score * binsNumber);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderHistogram", function (data) {
+      var _this$options2 = _this.options,
+          width = _this$options2.width,
+          height = _this$options2.height;
       var svg = renderSVG(_this.getRootElement(), width, height);
       var gHistogram = generateGroup(svg, {
         className: 'histogram'
       });
       var xAxisScale = linear$2().domain([0, 1]).range([0, _this.xAxisWidth]);
-      var xAxis = axisBottom(xAxisScale).tickPadding(6).ticks(10) // .tickValues([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1])
-      .tickSize(0);
+      var xAxis = axisBottom(xAxisScale).tickPadding(14).ticks(10).tickSize(0);
       var yAxisScale = log$1().domain([1e0, 2e4]).range([_this.yAxisHeight, 0]); // 10^n으로 바꾸는 포맷 함수
 
       var superscript = '⁰¹²³⁴⁵⁶⁷⁸⁹';
@@ -42768,9 +42881,10 @@ function (_Component) {
         return superscript[d];
       };
 
-      var yAxis = axisLeft(yAxisScale).tickPadding(6).ticks(5, function (d) {
+      var yAxis = axisLeft(yAxisScale).tickPadding(21).tickSize(0).tickValues([1e0, 1e1, 1e2, 1e3, 1e4, 2e4]).ticks(5, function (d) {
         return "10".concat(formatPower(Math.log10(d)));
       });
+      var gridXAxis = axisRight(yAxisScale).tickSize(_this.xAxisWidth).tickValues([1e0, 1e1, 1e2, 1e3, 1e4, 2e4]);
 
       _this.createTitle();
 
@@ -42778,17 +42892,29 @@ function (_Component) {
 
       _this.createYAxis(yAxis);
 
-      _this.createBar(xAxisScale, yAxisScale, histogramData);
+      _this.createLegend('Patient Risk Score', 'Average Risk Score');
+
+      _this.createDropDown(xAxisScale, yAxisScale, data);
+
+      _this.createXAxisGridLines(gridXAxis);
+
+      _this.createBar(xAxisScale, yAxisScale, data);
+
+      _this.createRiskMeanLine(data, xAxisScale);
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
-      _this.renderHistogram();
+      var data = _this.props.data;
 
-      var yAxisTextGroup = selectAll('.yAxis .tick text')._groups[0];
+      if (isEmpty_1(data)) {
+        return _this.errorMessage('haveData');
+      }
 
-      selectAll('text').data(yAxisTextGroup).enter().attr('id', function (d) {
-        return console.log(d);
-      });
+      if (!(data !== null && _typeof(data) === 'object' && !Array.isArray(data))) {
+        return _this.errorMessage('typeOfVariable');
+      }
+
+      _this.renderHistogram(data);
     });
 
     _this.options = {
@@ -42800,6 +42926,11 @@ function (_Component) {
         left: 73,
         bottom: 64
       }
+    };
+    _this.fakeData = {
+      risks: sequence(1000).map(bates(10)),
+      patientRisk: 0.42,
+      avgRisk: 0.305
     };
     _this.xAxisWidth = _this.options.width - _this.options.defaultPadding.left - _this.options.defaultPadding.right;
     _this.yAxisHeight = _this.options.height - _this.options.defaultPadding.top - _this.options.defaultPadding.bottom;
@@ -42816,7 +42947,10 @@ function (_Component) {
     key: "render",
     value: function render() {
       return React__default.createElement("div", {
-        ref: this.rootElement
+        ref: this.rootElement,
+        style: {
+          display: 'relative'
+        }
       });
     }
   }]);
