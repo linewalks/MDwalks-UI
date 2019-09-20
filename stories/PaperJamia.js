@@ -8,7 +8,8 @@ import SankeyChart from "@Charts/SankeyChart";
 import heatmapData from "@Data/dataForHeatmap";
 import metadata from "@Data/dataForMetadata";
 import axios from "axios";
-import * as d3 from "d3";
+import * as core from "d3";
+import * as slider from "d3-simple-slider";
 
 axios.defaults.baseURL = "http://192.168.0.103:5000";
 axios.defaults.headers.post["Accept"] = "application/json";
@@ -54,16 +55,18 @@ class Heatmap extends Component {
     this.state = {
       data: heatmapData
     };
+    this.d3 = { ...core, ...slider };
   }
 
   componentDidMount() {
     this.renderHeatmap();
   }
   renderHeatmap() {
+    const d3 = this.d3;
     // set the dimensions and margins of the graph
     var margin = { top: 90, right: 25, bottom: 30, left: 400 },
       width = 900 - margin.left - margin.right,
-      height = 3500 - margin.top - margin.bottom;
+      height = 1200 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     var svg = d3
@@ -87,24 +90,13 @@ class Heatmap extends Component {
         return metadata[d.variable];
       })
       .keys();
-    var myLines = [
-      ["A", "v1", "B", "v1", 5],
-      ["B", "v1", "C", "v2", 1],
-      ["C", "v2", "D", "v2", 1],
-      ["D", "v2", "E", "v5", 7],
-      ["E", "v5", "F", "v4", 1],
-      ["F", "v4", "G", "v4", 1],
-      ["G", "v4", "H", "v5", 3],
-      ["H", "v5", "I", "v4", 3],
-      ["I", "v4", "J", "v4", 1]
-    ];
 
     // Build X scales and axis:
     var x = d3
       .scaleBand()
       .range([0, width])
       .domain(myGroups)
-      .padding(0.05);
+      .padding(0.15);
     svg
       .append("g")
       .style("font-size", 15)
@@ -112,7 +104,7 @@ class Heatmap extends Component {
       .call(d3.axisBottom(x).tickSize(0))
       .select(".domain")
       .remove();
-      svg
+    svg
       .append("g")
       .style("font-size", 15)
       .attr("transform", "translate(0," + 0 + ")")
@@ -125,7 +117,7 @@ class Heatmap extends Component {
       .scaleBand()
       .range([height, 0])
       .domain(myVars)
-      .padding(0.05);
+      .padding(0.15);
     svg
       .append("g")
       .style("font-size", 15)
@@ -144,6 +136,7 @@ class Heatmap extends Component {
       .select("#heatmap")
       .append("div")
       .style("opacity", 0)
+      .style("position", "absolute")
       .attr("class", "tooltip")
       .style("background-color", "white")
       .style("border", "solid")
@@ -153,17 +146,22 @@ class Heatmap extends Component {
 
     // Three function that change the tooltip when user hover / move / leave a cell
     var mouseover = function(d) {
-      tooltip.style("opacity", 1);
+      tooltip
+        .style("opacity", 1)
+        .text("Weight: " + d.value)
+        .style("left", x(d.group) + 450 + "px")
+        .style("top", y(metadata[d.variable]) + 80 + "px");
       d3.select(this)
         .style("stroke", "black")
         .style("opacity", 1);
     };
-    var mousemove = function(d) {
-      tooltip
-        .html("The exact value of<br>this cell is: " + d.value)
-        .style("left", d3.mouse(this)[0] + 70 + "px")
-        .style("top", d3.mouse(this)[1] + "px");
-    };
+    // var mousemove = function(d) {
+    //   // console.log(x(d.group), y(metadata[d.variable]))
+    //   // tooltip
+    //   //   .text("The exact value of this cell is: " + d.value)
+    //   //   .style("left", d3.mouse(this)[0] + 400 + "px")
+    //   //   .style("top", d3.mouse(this)[1] +"px");
+    // };
     var mouseleave = function(d) {
       tooltip.style("opacity", 0);
       d3.select(this)
@@ -187,10 +185,11 @@ class Heatmap extends Component {
       })
       .attr("rx", 4)
       .attr("ry", 4)
-      .attr("width", 60)
-      .attr("height", 40)
-      // .attr("width", x.bandwidth() )
-      // .attr("height", y.bandwidth() )
+      // .attr("width", 60)
+      // .attr("height", 40)
+
+      .attr("width", x.bandwidth())
+      .attr("height", y.bandwidth())
       .style("fill", function(d) {
         return myColor(d.value * 100);
       })
@@ -198,7 +197,7 @@ class Heatmap extends Component {
       .style("stroke", "none")
       .style("opacity", 0.8)
       .on("mouseover", mouseover)
-      .on("mousemove", mousemove)
+      // .on("mousemove", mousemove)
       .on("mouseleave", mouseleave);
 
     // Add title to graph
@@ -209,10 +208,54 @@ class Heatmap extends Component {
       .attr("text-anchor", "left")
       .style("font-size", "22px")
       .text("Attention heatmap");
+
+    var slider = d3
+      .sliderRight()
+      .min(0.0)
+      .max(1.0)
+      .step(0.1)
+      .height(400)
+      .tickFormat(d3.format(".2"))
+      .ticks(10)
+      .default(0.0)
+      .on("onchange", val => {
+        // d3.select("#value").text(d3.format(".2")(val));
+        d3.select("#heatmap")
+          .selectAll("rect")
+          .style("fill", function(d) {
+            if (d.value > val) return myColor(d.value * 100);
+            else return myColor(0);
+          });
+      });
+
+    // Build slider
+    d3.select("#slider")
+      .append("svg")
+      .attr("width", 100)
+      .attr("height", 500)
+      .append("g")
+      .attr("transform", "translate(60,30)")
+      .call(slider);
+    // d3.select("p#value").text(d3.format(".2")(slider.value()));
   }
 
   render() {
-    return <div id="heatmap"></div>;
+    return (
+      <div>
+        <div id="heatmap" style={{ position: "relative", float: "left" }}></div>
+        <div
+          style={{
+            float: "left",
+            width: "200px",
+            height: "100px",
+            margin : "1em"
+          }}
+        >
+          {/* <p id="value"></p> */}
+          <div id="slider"></div>
+        </div>
+      </div>
+    );
   }
 }
 
@@ -272,4 +315,5 @@ class Fig1 extends Component {
 storiesOf("JAMIA", module)
   .addDecorator(withKnobs)
   .add("fig1. sequence mining", () => <Fig1 />)
-  .add("fig2. attention heatmap", () => <Heatmap />);
+  .add("fig2. attention heatmap - all patients", () => <Heatmap />)
+  .add("fig3. attention heatmap - single patient", () => <Heatmap />);
