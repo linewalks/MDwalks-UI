@@ -9,6 +9,10 @@ edit: false
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
+# v0.4.4
+## :bug: Fixes
+- [#129](https://github.com/linewalks/MDwalks-UI/issues/129): Warning 수정 ([**@toyjhlee**](https://github.com/toyjhlee))
+
 # v0.4.3 / 2019-09-19
 ## :tada: Enhancements
 - [#125](https://github.com/linewalks/MDwalks-UI/issues/125): Update variables ([**@toyjhlee**](https://github.com/toyjhlee))
