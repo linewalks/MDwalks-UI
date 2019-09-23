@@ -74,6 +74,7 @@
     "scheduler": "0.14.0"
   },
   "dependencies": {
+    "d3-simple-slider": "^1.5.4",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-test-renderer": "^16.8.6",
