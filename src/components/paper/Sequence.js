@@ -88,7 +88,7 @@ class Sequence extends Component {
               onNodeClick={{}}
             />
             <SelectedCard selectedElement={this.state.selectedNodes} />
-            <div style={{ width: "1200px", padding: "20px 0 0 40px" }}>
+            <div style={{ width: "900px", padding: "20px 0 0 40px" }}>
               <Table data={this.state.dataForTable} />
             </div>
           </div>
