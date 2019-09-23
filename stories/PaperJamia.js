@@ -6,11 +6,13 @@ import Table from "@Table/Table";
 import SelectedCard from "@Card/SelectedCard";
 import SankeyChart from "@Charts/SankeyChart";
 import heatmapData from "@Data/dataForHeatmap";
+import sankeyData from "@Data/dataForSankey2";
 import metadata from "@Data/dataForMetadata";
+import patientListData from "@Data/dataForPatientList";
 import axios from "axios";
 import * as core from "d3";
-import * as slider from "d3-simple-slider";
 
+// to test interaction with server
 axios.defaults.baseURL = "http://192.168.0.103:5000";
 axios.defaults.headers.post["Accept"] = "application/json";
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -55,7 +57,7 @@ class Heatmap extends Component {
     this.state = {
       data: heatmapData
     };
-    this.d3 = { ...core, ...slider };
+    this.d3 = { ...core };
   }
 
   componentDidMount() {
@@ -77,7 +79,7 @@ class Heatmap extends Component {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    //Read the data
+    // Read the data
     var data = this.state.data;
     // Labels of row and columns -> unique identifier of the column called 'group' and 'variable'
     var myGroups = d3
@@ -155,13 +157,7 @@ class Heatmap extends Component {
         .style("stroke", "black")
         .style("opacity", 1);
     };
-    // var mousemove = function(d) {
-    //   // console.log(x(d.group), y(metadata[d.variable]))
-    //   // tooltip
-    //   //   .text("The exact value of this cell is: " + d.value)
-    //   //   .style("left", d3.mouse(this)[0] + 400 + "px")
-    //   //   .style("top", d3.mouse(this)[1] +"px");
-    // };
+
     var mouseleave = function(d) {
       tooltip.style("opacity", 0);
       d3.select(this)
@@ -208,52 +204,29 @@ class Heatmap extends Component {
       .attr("text-anchor", "left")
       .style("font-size", "22px")
       .text("Attention heatmap");
-
-    var slider = d3
-      .sliderRight()
-      .min(0.0)
-      .max(1.0)
-      .step(0.1)
-      .height(400)
-      .tickFormat(d3.format(".2"))
-      .ticks(10)
-      .default(0.0)
-      .on("onchange", val => {
-        // d3.select("#value").text(d3.format(".2")(val));
-        d3.select("#heatmap")
-          .selectAll("rect")
-          .style("fill", function(d) {
-            if (d.value > val) return myColor(d.value * 100);
-            else return myColor(0);
-          });
-      });
-
-    // Build slider
-    d3.select("#slider")
-      .append("svg")
-      .attr("width", 100)
-      .attr("height", 500)
-      .append("g")
-      .attr("transform", "translate(60,30)")
-      .call(slider);
-    // d3.select("p#value").text(d3.format(".2")(slider.value()));
   }
 
   render() {
     return (
       <div>
         <div id="heatmap" style={{ position: "relative", float: "left" }}></div>
+        <div id="slider">
+          <select className="select-board-size">
+            {_.range(0, 1 + 0.2, 0.2).map(value => (
+              <option key={value.toFixed(2)} value={value.toFixed(2)}>
+                {value.toFixed(2)}
+              </option>
+            ))}
+          </select>
+        </div>
         <div
           style={{
             float: "left",
             width: "200px",
             height: "100px",
-            margin : "1em"
+            margin: "1em"
           }}
-        >
-          {/* <p id="value"></p> */}
-          <div id="slider"></div>
-        </div>
+        ></div>
       </div>
     );
   }
@@ -263,14 +236,14 @@ class Fig1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pathway: null,
+      pathway: sankeyData,
       selectedNodes: [],
-      dataForTable: null
+      dataForTable: patientListData
     };
   }
 
   onChange(selectedNodes) {
-    console.log(this.state.selectedNodes);
+    // console.log(this.state.selectedNodes);
     this.setState({
       selectedNodes,
       selectPage: 1
@@ -278,16 +251,16 @@ class Fig1 extends Component {
   }
 
   componentDidMount = () => {
-    axios
-      .all([apiClient.pathway.get({}), apiClient.patients.get({ N: 20 })])
-      .then(
-        axios.spread((sankey, plist) => {
-          this.setState({
-            pathway: sankey.data,
-            dataForTable: plist.data
-          });
-        })
-      );
+    // axios
+    //   .all([apiClient.pathway.get({}), apiClient.patients.get({ N: 20 })])
+    //   .then(
+    //     axios.spread((sankey, plist) => {
+    //       this.setState({
+    //         pathway: sankey.data,
+    //         dataForTable: plist.data
+    //       });
+    //     })
+    //   );
   };
 
   render() {
