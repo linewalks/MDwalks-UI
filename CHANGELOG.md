@@ -9,6 +9,11 @@ edit: false
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
+# v0.4.3 / 2019-09-19
+## :tada: Enhancements
+- [#125](https://github.com/linewalks/MDwalks-UI/issues/125): Update variables ([**@toyjhlee**](https://github.com/toyjhlee))
+- [#121](https://github.com/linewalks/MDwalks-UI/issues/121): Descriptions 에 colspan 기능 추가 ([**@toyjhlee**](https://github.com/toyjhlee))
+
 # v0.4.2 / 2019-09-17
 ## :tada: Enhancements
 - [#110](https://github.com/linewalks/MDwalks-UI/issues/110): SelectedCard 스타일 교정 및 리팩토링 ([**@toyjhlee**](https://github.com/toyjhlee))
