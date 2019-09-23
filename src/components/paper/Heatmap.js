@@ -1,62 +1,17 @@
 import React, { Component } from "react";
-import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
-import { withKnobs } from "@storybook/addon-knobs";
-import Table from "@Table/Table";
-import SelectedCard from "@Card/SelectedCard";
-import SankeyChart from "@Charts/SankeyChart";
-import heatmapData from "@Data/dataForHeatmap";
-import sankeyData from "@Data/dataForSankey2";
-import metadata from "@Data/dataForMetadata";
-import patientListData from "@Data/dataForPatientList";
-import axios from "axios";
+import heatmapData from "../../data/dataForHeatmap";
+import metadata from "../../data/dataForMetadata";
 import * as core from "d3";
-
-// to test interaction with server
-axios.defaults.baseURL = "http://192.168.0.103:5000";
-axios.defaults.headers.post["Accept"] = "application/json";
-axios.defaults.headers.post["Content-Type"] = "application/json";
-axios.defaults.headers.delete["Accept"] = "application/json";
-axios.defaults.headers.delete["Content-Type"] = "application/json";
-
-class ApiClient {
-  constructor({ path, url, previousCancel = true }) {
-    this.endpoint = url || path;
-    this.previousCancel = previousCancel;
-  }
-
-  get = payload => {
-    return axios({
-      url: this.endpoint,
-      method: "get",
-      params: payload
-    });
-  };
-
-  post = payload => {
-    return axios({
-      url: this.endpoint,
-      method: "POST",
-      data: payload
-    });
-  };
-}
-
-const apiClient = {
-  pathway: new ApiClient({
-    url: "/pathway"
-  }),
-  patients: new ApiClient({
-    url: `/patients`
-  })
-};
+import _ from "lodash";
 
 class Heatmap extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      threshold: 0.0,
       data: heatmapData
     };
+    this.changeThreshold = this.changeThreshold.bind(this);
     this.d3 = { ...core };
   }
 
@@ -81,6 +36,7 @@ class Heatmap extends Component {
 
     // Read the data
     var data = this.state.data;
+    var threshold = this.state.threshold;
     // Labels of row and columns -> unique identifier of the column called 'group' and 'variable'
     var myGroups = d3
       .map(data, function(d) {
@@ -187,13 +143,12 @@ class Heatmap extends Component {
       .attr("width", x.bandwidth())
       .attr("height", y.bandwidth())
       .style("fill", function(d) {
-        return myColor(d.value * 100);
+        if (d.value >= threshold) return myColor(d.value * 100);
       })
       .style("stroke-width", 4)
       .style("stroke", "none")
       .style("opacity", 0.8)
       .on("mouseover", mouseover)
-      // .on("mousemove", mousemove)
       .on("mouseleave", mouseleave);
 
     // Add title to graph
@@ -206,87 +161,35 @@ class Heatmap extends Component {
       .text("Attention heatmap");
   }
 
+  changeThreshold(event) {
+    console.log(event.target.value);
+  }
+
   render() {
     return (
-      <div>
-        <div id="heatmap" style={{ position: "relative", float: "left" }}></div>
+      <div
+        style={{
+          width: "900px",
+          height: "1200px"
+        }}
+      >
         <div id="slider">
           <select className="select-board-size">
             {_.range(0, 1 + 0.2, 0.2).map(value => (
-              <option key={value.toFixed(2)} value={value.toFixed(2)}>
+              <option
+                key={value.toFixed(2)}
+                value={this.state.threshold}
+                onChange={this.changeThreshold}
+              >
                 {value.toFixed(2)}
               </option>
             ))}
           </select>
         </div>
-        <div
-          style={{
-            float: "left",
-            width: "200px",
-            height: "100px",
-            margin: "1em"
-          }}
-        ></div>
+        <div id="heatmap" style={{ position: "relative", float: "left" }}></div>
       </div>
     );
   }
 }
 
-class Fig1 extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pathway: sankeyData,
-      selectedNodes: [],
-      dataForTable: patientListData
-    };
-  }
-
-  onChange(selectedNodes) {
-    // console.log(this.state.selectedNodes);
-    this.setState({
-      selectedNodes,
-      selectPage: 1
-    });
-  }
-
-  componentDidMount = () => {
-    // axios
-    //   .all([apiClient.pathway.get({}), apiClient.patients.get({ N: 20 })])
-    //   .then(
-    //     axios.spread((sankey, plist) => {
-    //       this.setState({
-    //         pathway: sankey.data,
-    //         dataForTable: plist.data
-    //       });
-    //     })
-    //   );
-  };
-
-  render() {
-    if (this.state.pathway)
-      if (this.state.dataForTable)
-        return (
-          <div>
-            <SankeyChart
-              data={this.state.pathway}
-              selectedNodes={this.state.selectedNodes}
-              onChange={this.onChange.bind(this)}
-              onNodeClick={action("Node has been clicked")}
-            />
-            <SelectedCard selectedElement={this.state.selectedNodes} />
-            <div style={{ width: "1200px", padding: "20px 0 0 40px" }}>
-              <Table data={this.state.dataForTable} />
-            </div>
-          </div>
-        );
-      else return <div></div>;
-    else return <div></div>;
-  }
-}
-
-storiesOf("JAMIA", module)
-  .addDecorator(withKnobs)
-  .add("fig1. sequence mining", () => <Fig1 />)
-  .add("fig2. attention heatmap - all patients", () => <Heatmap />)
-  .add("fig3. attention heatmap - single patient", () => <Heatmap />);
+export default Heatmap;

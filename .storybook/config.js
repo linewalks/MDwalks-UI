@@ -9,7 +9,6 @@ function loadStories() {
   require('../stories/SummaryCard.js')
   require('../stories/Table.js')
   require('../stories/Timeline.js')
-  require('../stories/PaperJamia.js')
 }
 
 configure(loadStories, module);
