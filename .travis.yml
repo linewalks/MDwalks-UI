@@ -16,4 +16,4 @@ before_script:
 script:
   - yarn
   - yarn test
-  - yarn build && git add . && git commit -m 'build' && git push
+  # - yarn build

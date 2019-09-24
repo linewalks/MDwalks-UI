@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
-import { renderSVG, generateGroup, getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, lineDataFormatConvert } from '../../helper/chartUtility'
 import './LineMergeTimeline.css'
 import isEmpty from 'lodash/isEmpty'
+
+const { renderSVG, generateGroup, getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, lineDataFormatConvert } = require('../../helper/chartUtility.js')
 
 const styles = {
   "timelineChart": "timelineChart",
