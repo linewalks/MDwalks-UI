@@ -5,8 +5,9 @@ import isEmpty from 'lodash/isEmpty'
 import isEqual from 'lodash/isEqual'
 import last from 'lodash/last'
 import _ from 'lodash'
-import { strIdConvert } from '../../helper/chartUtility'
 import sankeyData from '../../data/dataForSankey'
+
+const { strIdConvert } = require('../../helper/chartUtility.js')
 
 class SankeyChart extends React.Component {
 
