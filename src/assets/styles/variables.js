@@ -1,5 +1,5 @@
 // Color Set START  
-export const color = {
+const color = {
   $black: '#000000',
   $primary_white: '#ffffff',
   $primary_navy: '#002d4f',
@@ -38,7 +38,12 @@ export const color = {
   $txt_solid_disable_02: '#b7ddf9',
 }
 
-export const size = {
+const size = {
   $footer_height: '60px',
   $footer_margin_top: '80px',
+}
+
+module.exports = {
+  color,
+  size,
 }
