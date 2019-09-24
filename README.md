@@ -26,7 +26,18 @@
   yarn storybook
   ```
 
-## 2. Usage
+## 2. build
+* code build
+  ```bash
+  yarn build
+  ```
+
+* docz build
+  ```bash
+  yarn build:docz
+  ```
+
+## 3. Usage
 
 * ### BarGauge Component
 

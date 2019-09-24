@@ -106,14 +106,16 @@ export default ({ data, cellCount = 2 }) => {
       }
       table.push(<Tr key={i.toString()}>{children}</Tr>)
     }
-    return table
+    return (
+      <Table>
+        {table}
+      </Table>
+    )
   }
 
   return (
     <TableWrap>
-      <Table>
-        {createTable()}
-      </Table>
+      {createTable()}
     </TableWrap>
   );
 };
