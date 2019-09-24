@@ -11,14 +11,14 @@ class Heatmap extends Component {
       threshold: 0.0,
       data: heatmapData
     };
-    this.changeThreshold = this.changeThreshold.bind(this);
     this.d3 = { ...core };
   }
 
   componentDidMount() {
-    this.renderHeatmap();
+    this.renderHeatmap(this.state.threshold);
   }
-  renderHeatmap() {
+
+  renderHeatmap(threshold) {
     const d3 = this.d3;
     // set the dimensions and margins of the graph
     var margin = { top: 90, right: 25, bottom: 30, left: 400 },
@@ -36,7 +36,6 @@ class Heatmap extends Component {
 
     // Read the data
     var data = this.state.data;
-    var threshold = this.state.threshold;
     // Labels of row and columns -> unique identifier of the column called 'group' and 'variable'
     var myGroups = d3
       .map(data, function(d) {
@@ -161,8 +160,17 @@ class Heatmap extends Component {
       .text("Attention heatmap");
   }
 
+  removeHeatmap() {
+    const d3 = this.d3;
+    d3
+      .select("#heatmap")
+      .select('svg')
+      .remove();
+  }
+
   changeThreshold(event) {
-    console.log(event.target.value);
+    this.removeHeatmap();
+    this.renderHeatmap(event.target.value);
   }
 
   render() {
@@ -174,19 +182,18 @@ class Heatmap extends Component {
         }}
       >
         <div id="slider">
-          <select className="select-board-size">
+          <select
+            className="select-board-size"
+            onChange={this.changeThreshold.bind(this)}
+          >
             {_.range(0, 1 + 0.2, 0.2).map(value => (
-              <option
-                key={value.toFixed(2)}
-                value={this.state.threshold}
-                onChange={this.changeThreshold}
-              >
+              <option key={value.toFixed(2)} value={value}>
                 {value.toFixed(2)}
               </option>
             ))}
           </select>
         </div>
-        <div id="heatmap" style={{ position: "relative", float: "left" }}></div>
+        <div id="heatmap"></div>
       </div>
     );
   }
