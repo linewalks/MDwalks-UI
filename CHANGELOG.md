@@ -9,8 +9,9 @@ edit: false
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
-# v0.4.4
+# v0.4.4 / 2019-09-24
 ## :bug: Fixes
+- [#131](https://github.com/linewalks/MDwalks-UI/issues/131): Cardio Test Import Error ([**@toyjhlee**](https://github.com/toyjhlee))
 - [#129](https://github.com/linewalks/MDwalks-UI/issues/129): Warning 수정 ([**@toyjhlee**](https://github.com/toyjhlee))
 
 # v0.4.3 / 2019-09-19

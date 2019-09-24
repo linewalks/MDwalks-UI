@@ -1,8 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
 import _ from 'lodash'
 import * as d3 from 'd3'
-import * as chartUtility from './chartUtility'
+const chartUtility = require('./chartUtility');
 
 it('strIdConvert', () => {
   expect(chartUtility.strIdConvert('a b')).toBe('a_b')
