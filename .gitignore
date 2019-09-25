@@ -1,8 +1,2 @@
 node_modules
 .docz
-
-
-# snapshots
-**/__tests__/__snapshots__
-**/**/__tests__/__snapshots__
-**/**/**/__tests__/__snapshots__

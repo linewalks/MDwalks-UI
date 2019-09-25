@@ -12,7 +12,8 @@
   },
   "jest": {
     "testPathIgnorePatterns": [
-      "<rootDir>/.docz/"
+      "<rootDir>/.docz/",
+      "<rootDir>/src/components/__tests__/__snapshots__/"
     ],
     "setupFilesAfterEnv": [
       "./setupTest.js"
