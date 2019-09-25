@@ -6,6 +6,7 @@ import isEqual from 'lodash/isEqual'
 import last from 'lodash/last'
 import _ from 'lodash'
 import sankeyData from '../../data/dataForSankey'
+import { color } from '../../assets/styles/variables'
 
 const { strIdConvert } = require('../../helper/chartUtility.js')
 
@@ -16,7 +17,6 @@ class SankeyChart extends React.Component {
   constructor(props) {
     super(props)
     this.d3 = { ...d3Core, ...sankeyCircular }
-    // this.id = props.id || 'sankey'
     this.state = {
       selectedNodes: props.selectedNodes || []
     }
@@ -40,13 +40,13 @@ class SankeyChart extends React.Component {
       const forwardPath = d3.select(this.rootElement.current).select(`#${source}X${target}`);
       const reversePath = d3.select(this.rootElement.current).select(`#${target}X${source}`);
 
-      const sourceXPosition = d3.select(this.rootElement.current).select(`#${source}`)['_groups'][0][0].getBoundingClientRect().x
-      const targetXPosition = d3.select(this.rootElement.current).select(`#${target}`)['_groups'][0][0].getBoundingClientRect().x
+      const sourceXPosition = d3.select(this.rootElement.current).select(`#${source}`).attr('x')
+      const targetXPosition = d3.select(this.rootElement.current).select(`#${target}`).attr('x')
 
       if (targetXPosition > sourceXPosition) {
-        forwardPath.style('opacity', 1).style('stroke', 'rgba(24, 155, 255, 0.4)')
+        forwardPath.style('opacity', 1).style('stroke', color.$pathway_link_blue)
       } else {
-        reversePath.style('opacity', 1).style('stroke', 'rgba(255, 58, 31, 0.4)')
+        reversePath.style('opacity', 1).style('stroke', color.$pathway_link_red)
       }
     }
   }
@@ -56,7 +56,7 @@ class SankeyChart extends React.Component {
     const idCollection = [];
     for (let i = 0; i < selectedNodes.length; i++) {
       if (i === selectedNodes.length - 1) break;
-      let id = `${strIdConvert(selectedNodes[i])}X${strIdConvert(selectedNodes[i+1])}`;
+      let id = `${strIdConvert([selectedNodes[i], selectedNodes[i+1]])}`;
       idCollection.push(id)
     }
     return idCollection
@@ -84,7 +84,6 @@ class SankeyChart extends React.Component {
     return this.d3
       .select(this.rootElement.current)
       .append('svg')
-      // .attr('id', this.id)
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
   }
@@ -171,12 +170,13 @@ class SankeyChart extends React.Component {
     link
       .append('path')
       .attr('class', 'sankey-link')
-      .attr('id', ({source: { name: startNode }, target: { name: endNode }}) => `${strIdConvert(startNode)}X${strIdConvert(endNode)}`)
+      .attr('id', ({source, target}) => `${strIdConvert([source.name, target.name])}`)
       .attr('d', link => link.path)
       .style('stroke-width', d => Math.max(1, d.width))
       .style('opacity', 0.04)
-      .style('stroke', '#000000')
+      .style('stroke', '#000000') // reset 과 동일
 
+    // link.selectAll(`.sankey-link`).style('opacity', 0.04).style('stroke', '#000000')
     /*
     pr url:https://github.com/linewalks/Cardio_Demo_View/pull/52/files
     TODO: link tooltip 사용성이 확정되면 다시 기능 추가할것.
@@ -188,25 +188,6 @@ class SankeyChart extends React.Component {
   }
 
   attachEventHandlersToNode = (d3, nodes, { onClick }) => {
-    const highlightNodes = (nodeToHighlight, name) => {
-      let opacity = 0.5
-
-      if (nodeToHighlight.name == name) {
-        opacity = 1
-      }
-      nodeToHighlight.sourceLinks.forEach(link => {
-        if (link.target.name === name) {
-          opacity = 1
-        }
-      })
-      nodeToHighlight.targetLinks.forEach(link => {
-        if (link.source.name === name) {
-          opacity = 1
-        }
-      })
-      return opacity
-    }
-
     // Add additonal events
     if (onClick) {
       nodes.on('click', data => {
@@ -341,16 +322,8 @@ class SankeyChart extends React.Component {
     })
   }
 
-  resetHighlightLink = (id) => {
-    const d3 = this.d3;
-    for(let i = 0; i < id.length; i++) {
-      const [ source, target ] = id[i].split('X');
-      const forwardPath = d3.select(`#${source}X${target}`);
-      const reversePath = d3.select(`#${target}X${source}`);
-      
-      forwardPath.style('opacity', 0.04).style('stroke', '#000000')
-      reversePath.style('opacity', 0.04).style('stroke', '#000000')
-    } 
+  resetHighlightLink = () => {
+    this.d3.selectAll(`.sankey-link`).style('opacity', 0.04).style('stroke', '#000000')
   }
 
   render() {
