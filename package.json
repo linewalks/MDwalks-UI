@@ -12,8 +12,7 @@
   },
   "jest": {
     "testPathIgnorePatterns": [
-      "<rootDir>/.docz/",
-      "<rootDir>/src/components/__tests__/__snapshots__/"
+      "<rootDir>/.docz/"
     ],
     "setupFilesAfterEnv": [
       "./setupTest.js"
@@ -55,7 +54,6 @@
     "docz": "^2.0.0-rc.41",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "enzyme-to-json": "^3.4.0",
     "gatsby-plugin-asset-path": "^1.0.2",
     "gatsby-source-filesystem": "^2.1.22",
     "highcharts": "^7.1.2",

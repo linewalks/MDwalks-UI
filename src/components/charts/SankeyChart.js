@@ -1,8 +1,11 @@
 import React from 'react'
 import * as d3Core from 'd3'
 import * as sankeyCircular from 'd3-sankey-circular'
+import isEmpty from 'lodash/isEmpty'
+import isEqual from 'lodash/isEqual'
+import last from 'lodash/last'
 import _ from 'lodash'
-import { color } from '../../assets/styles/variables'
+import sankeyData from '../../data/dataForSankey'
 
 const { strIdConvert } = require('../../helper/chartUtility.js')
 
@@ -13,55 +16,61 @@ class SankeyChart extends React.Component {
   constructor(props) {
     super(props)
     this.d3 = { ...d3Core, ...sankeyCircular }
-    this.mapLinks = new Map()
+    // this.id = props.id || 'sankey'
     this.state = {
       selectedNodes: props.selectedNodes || []
     }
-  }
 
-  getRootElement() {
-    return this.d3.select(this.rootElement.current)
   }
 
   getNodeName = node => node.name
 
   setSelectedNode = selectedNode => {
-    this.setState({
-      selectedNodes: _.uniq(this.state.selectedNodes.concat(selectedNode))
-    })
+    if (!this.state.selectedNodes.includes(selectedNode)) {
+      this.setState({
+        selectedNodes: this.state.selectedNodes.concat(selectedNode)
+      })
+    }
   }
 
-  highlightLink = () => {
-    this.d3.selectAll(`.sankey-link`).style('opacity', 0.04).style('stroke', '#000000')
+  highlightLink = (id) => {
+    const d3 = this.d3;
+    for(let i = 0; i < id.length; i++) {
+      const [ source, target ] = id[i].split('X');
+      const forwardPath = d3.select(this.rootElement.current).select(`#${source}X${target}`);
+      const reversePath = d3.select(this.rootElement.current).select(`#${target}X${source}`);
 
-    const ids = this.createLinkId(this.state.selectedNodes)
-
-    for(let i = 0; i < ids.length; i++) {
-      const [ source, target ] = ids[i].split('X');
-      const forwardPath = this.getRootElement().select(`#${source}X${target}`);
-      const reversePath = this.getRootElement().select(`#${target}X${source}`);
-
-      const sourceXPosition = this.getRootElement().select(`#${source}`).attr('x')
-      const targetXPosition = this.getRootElement().select(`#${target}`).attr('x')
+      const sourceXPosition = d3.select(this.rootElement.current).select(`#${source}`)['_groups'][0][0].getBoundingClientRect().x
+      const targetXPosition = d3.select(this.rootElement.current).select(`#${target}`)['_groups'][0][0].getBoundingClientRect().x
 
       if (targetXPosition > sourceXPosition) {
-        forwardPath.style('opacity', 1).style('stroke', color.$pathway_link_blue)
+        forwardPath.style('opacity', 1).style('stroke', 'rgba(24, 155, 255, 0.4)')
       } else {
-        reversePath.style('opacity', 1).style('stroke', color.$pathway_link_red)
+        reversePath.style('opacity', 1).style('stroke', 'rgba(255, 58, 31, 0.4)')
       }
     }
   }
 
   createLinkId = (selectedNodes) => {
-    return selectedNodes.map((node, i) => `${strIdConvert([node, selectedNodes[i+1] || ''])}`).slice(0, -1)
+    if (selectedNodes.length === 0) return []
+    const idCollection = [];
+    for (let i = 0; i < selectedNodes.length; i++) {
+      if (i === selectedNodes.length - 1) break;
+      let id = `${strIdConvert(selectedNodes[i])}X${strIdConvert(selectedNodes[i+1])}`;
+      idCollection.push(id)
+    }
+    return idCollection
   }
 
   renderPlaceholder = () => {
     return <div>No data is provided!</div>
   }
 
-  initializeSankey = ({ nodeWidth, width, height, iterations, circularLinkGap }) => {
-    return this.d3
+  initializeSankey = (
+    d3,
+    { nodeWidth, width, height, iterations, circularLinkGap },
+  ) => {
+    return d3
       .sankeyCircular()
       .nodeWidth(nodeWidth)
       .nodePaddingRatio(0.5)
@@ -71,10 +80,11 @@ class SankeyChart extends React.Component {
       .circularLinkGap(circularLinkGap)
   }
 
-  initializeSVG = ({ width, height, margin }) => {
+  initializeSVG = (d3, { width, height, margin }) => {
     return this.d3
       .select(this.rootElement.current)
       .append('svg')
+      // .attr('id', this.id)
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
   }
@@ -90,18 +100,21 @@ class SankeyChart extends React.Component {
       .attr('font-family', 'sans-serif')
       .attr('font-size', 10)
       .selectAll('g')
-
     const linkGroup = entireGroup
       .append('g')
       .attr('class', 'links')
       .attr('fill', 'none')
       .selectAll('path')
 
-    return [nodeGroup, linkGroup]
+    return [entireGroup, nodeGroup, linkGroup]
+  }
+
+  processDataForSankey = (sankey, data) => {
+    return sankey(data)
   }
 
   renderNodes = (nodeG, sankeyNodesData, { width }) => {
-    this.d3
+    const nodeColor = this.d3
       .scaleSequential(this.d3.interpolateCool)
       .domain([0, width])
     // Enter node g
@@ -155,23 +168,15 @@ class SankeyChart extends React.Component {
       .enter()
       .append('g')
 
-    const mapLinks = this.mapLinks
-
     link
       .append('path')
       .attr('class', 'sankey-link')
-      .attr('id', function({source, target}) {
-        const id =`${strIdConvert([source.name, target.name])}`
-        mapLinks.set(id, this)
-        return id
-      })
+      .attr('id', ({source: { name: startNode }, target: { name: endNode }}) => `${strIdConvert(startNode)}X${strIdConvert(endNode)}`)
       .attr('d', link => link.path)
       .style('stroke-width', d => Math.max(1, d.width))
       .style('opacity', 0.04)
-      .style('stroke', '#000000') // reset 과 동일
+      .style('stroke', '#000000')
 
-    this.mapLinks = mapLinks
-    // link.selectAll(`.sankey-link`).style('opacity', 0.04).style('stroke', '#000000')
     /*
     pr url:https://github.com/linewalks/Cardio_Demo_View/pull/52/files
     TODO: link tooltip 사용성이 확정되면 다시 기능 추가할것.
@@ -182,31 +187,84 @@ class SankeyChart extends React.Component {
     return link
   }
 
+  attachEventHandlersToNode = (d3, nodes, { onClick }) => {
+    const highlightNodes = (nodeToHighlight, name) => {
+      let opacity = 0.5
+
+      if (nodeToHighlight.name == name) {
+        opacity = 1
+      }
+      nodeToHighlight.sourceLinks.forEach(link => {
+        if (link.target.name === name) {
+          opacity = 1
+        }
+      })
+      nodeToHighlight.targetLinks.forEach(link => {
+        if (link.source.name === name) {
+          opacity = 1
+        }
+      })
+      return opacity
+    }
+
+    // Add additonal events
+    if (onClick) {
+      nodes.on('click', data => {
+        const { selectedNodes } = this.state
+        const prevSelectedNode = last(selectedNodes)
+        const currentSelectedNode = this.getNodeName(data)
+        if (this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
+          this.setSelectedNode(this.getNodeName(data))
+          onClick(this.state.selectedNodes)
+        }
+      })
+    } 
+
+    return nodes
+  }
+
+  attachEventHandlersToLink = (d3, links, { onClick }) => {
+    if (onClick) {
+      links.on('click', data => {
+        onClick(data)
+      })
+    }
+
+    return links
+  }
+
   linkConnectCheck = (prevSelectedNode, currentSelectedNode) => {
-    if (_.isEmpty(prevSelectedNode)) {
+    if (isEmpty(prevSelectedNode)) {
       return true
     }
 
-    const key1 = strIdConvert([prevSelectedNode, currentSelectedNode])
-    const key2 = strIdConvert([currentSelectedNode, prevSelectedNode])
-
-    return this.mapLinks.has(key1) || this.mapLinks.has(key2)
+    return this.props.data.links.some(({source: { name: startNode }, target: { name: endNode }}) => {
+      return (startNode === prevSelectedNode && endNode === currentSelectedNode) || (startNode === currentSelectedNode && endNode === prevSelectedNode)
+    })
   }
 
   renderSankey = () => {
     const d3 = this.d3
+    const {
+      data,
+      options,
+      onChange,
+      onNodeHover,
+      onLinkClick,
+      onLinkHover,
+    } = this.props
 
     const {
       height,
       width,
       margin,
       nodeWidth,
-      // nodePadding,
+      nodePadding,
       iterations,
       circularLinkGap,
-    } = this.props.options
+    } = options
 
-    this.sankey = this.initializeSankey({
+    this.sankey = this.initializeSankey(d3, {
       height,
       width,
       nodeWidth,
@@ -214,60 +272,90 @@ class SankeyChart extends React.Component {
       circularLinkGap,
     })
 
-    this.svg = this.initializeSVG({
+    this.svg = this.initializeSVG(d3, {
       width,
       height,
       margin,
     })
 
     // initialize entire group, link group, node group
-    const [nodeG, linkG] = this.initializeGroups(this.svg, { margin })
+    const [g, nodeG, linkG] = this.initializeGroups(this.svg, { margin })
 
-    const sankeyData = this.sankey(this.props.data)
+    const sankeyData = this.processDataForSankey(this.sankey, data)
+    const sankeyNodesData = sankeyData.nodes
+    const sankeyLinksData = sankeyData.links
 
-    let nodes = this.renderNodes(nodeG, sankeyData.nodes, { width })
-    this.renderLinks(linkG, sankeyData.links)
+    let nodes = this.renderNodes(nodeG, sankeyNodesData, { width })
+    let links = this.renderLinks(linkG, sankeyLinksData)
 
-    this.attachEventHandlersToNode(d3, nodes, {
-      onChange: this.props.onChange,
-    })
-  }
+    if (onChange) {
+      nodes = this.attachEventHandlersToNode(d3, nodes, {
+        onClick: onChange,
+      })
+    } else {
+      nodes.on('click', data => {
+        this.setSelectedNode(this.getNodeName(data))
+      })
+    }
 
-  attachEventHandlersToNode = (d3, nodes, { onChange }) => {
-    nodes.on('click', (node) => {
-      const prevSelectedNode = _.last(this.state.selectedNodes)
-      const currentSelectedNode = this.getNodeName(node)
-      if (this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
-        this.setSelectedNode(this.getNodeName(node))
-      }
+    links = this.attachEventHandlersToNode(d3, links, {
+      onClick: onLinkClick,
     })
   }
 
   componentDidMount = () => {
-    const { data, resetBtnId } = this.props
-    if (!_.isEmpty(resetBtnId)) {
-      this.d3.select(`#${resetBtnId}`).on('click', this.resetSankey)
-    }
-
-    if (!_.isEmpty(data)) {
+    const { data, resetBtnId, defaultdNode } = this.props
+    !isEmpty(resetBtnId) && this.resetSankey(resetBtnId, defaultdNode)
+    if (!isEmpty(data)) {
       this.renderSankey()
-      this.highlightLink()
+      if (this.state.selectedNodes.length >= 2) {
+        const LinkId = this.createLinkId(this.state.selectedNodes)
+        this.highlightLink(LinkId)
+      }
     }
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    // console.log(JSON.stringify(prevProps.selectedNodes) == JSON.stringify(prevState.selectedNodes))
-    this.props.onChange(this.state.selectedNodes)
-    this.highlightLink()
+    const prevSelectedNode = last(prevState.selectedNodes)
+    const currentSelectedNode = last(this.state.selectedNodes)
+
+    if (!isEqual(prevState.selectedNodes, this.state.selectedNodes) && this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
+      const LinkId = this.createLinkId(this.state.selectedNodes)
+      this.highlightLink(LinkId)
+    }    
   }
 
-  resetSankey = () => {
-    this.setState({selectedNodes: this.props.defaultNode})
+  resetSankey = (resetBtnId, defaultNode = []) => {
+    const d3 = this.d3
+    d3.select(`#${resetBtnId}`).on('click', () => {
+      const LinkId = this.createLinkId(this.state.selectedNodes)
+      this.resetHighlightLink(LinkId)
+      this.setState({
+        selectedNodes: defaultNode
+      })
+      this.props.onChange(this.state.selectedNodes)
+      if (this.state.selectedNodes.length >= 2) {
+        const LinkId = this.createLinkId(this.state.selectedNodes)
+        this.highlightLink(LinkId)
+      }
+    })
+  }
+
+  resetHighlightLink = (id) => {
+    const d3 = this.d3;
+    for(let i = 0; i < id.length; i++) {
+      const [ source, target ] = id[i].split('X');
+      const forwardPath = d3.select(`#${source}X${target}`);
+      const reversePath = d3.select(`#${target}X${source}`);
+      
+      forwardPath.style('opacity', 0.04).style('stroke', '#000000')
+      reversePath.style('opacity', 0.04).style('stroke', '#000000')
+    } 
   }
 
   render() {
     const { data } = this.props
-    return _.isEmpty(data) ? (
+    return isEmpty(data) ? (
       this.renderPlaceholder()
     ) : (
       <div ref={this.rootElement} />
@@ -276,8 +364,6 @@ class SankeyChart extends React.Component {
 }
 
 SankeyChart.defaultProps = {
-  defaultNode: [],
-  onChange: () => {},
   options: {
     height: 254,
     width: 1000,
@@ -292,6 +378,7 @@ SankeyChart.defaultProps = {
       left: 100,
     },
   },
+  data: sankeyData
 }
 
 export default SankeyChart
