@@ -360,8 +360,8 @@ import LineMergeTimeline from '../components/charts/LineMergeTimeline'
   <div style={{overflow: 'hidden', overflowX: 'scroll'}}>
     <SankeyChart
       resetBtnId={"resetSankeyChart"}
-      onChange={() => {}}
-      defaultdNode={['Index Invasive Treatment']}
+      onChange={(nodes) => {console.log(nodes)}}
+      selectedNodes={['ER Admission', 'Re-operation']}
       data={
         {
           "links": [

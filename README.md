@@ -126,7 +126,6 @@
    |:------|:-------|:--------|:--------------------|---------|
    | data | Object |         | SankeyChart Data | |
    | onChange | Function |         | SankeyChart Node Click Event Handler | |
-   | onLinkClick | Function |         | SankeyChart Link Click Event Handler | |
    | selectedNodes | Array |        | Selected Nodes | yes |
    | defaultdNode | Array |        | Default Node | yes |
    | resetBtnId | String |         | SankeyChart Reset Button Id | yes |
