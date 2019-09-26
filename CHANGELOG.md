@@ -9,6 +9,10 @@ edit: false
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
+# v0.4.5
+## :bug: Fixes
+- [#141](https://github.com/linewalks/MDwalks-UI/issues/141): Warning: validateDOMNesting on Description ([**@toyjhlee**](https://github.com/toyjhlee))
+
 # v0.4.4 / 2019-09-24
 ## :bug: Fixes
 - [#131](https://github.com/linewalks/MDwalks-UI/issues/131): Cardio Test Import Error ([**@toyjhlee**](https://github.com/toyjhlee))
