@@ -108,9 +108,7 @@ export default ({ data, cellCount = 2 }) => {
     }
     return (
       <Table>
-        <tbody>
-          {table}
-        </tbody>
+        {table}
       </Table>
     )
   }

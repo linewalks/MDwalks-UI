@@ -3,11 +3,7 @@ const d3 = require('d3')
 
 // Sankey Component Util
 const strIdConvert = id => {
-  if (!Array.isArray(id)) {
-    id = [id]
-  }
-
-  return id.map((name) => name.split(' ').join('_')).join('X')
+  return id.split(' ').join('_')
 }
 
 // Table Component Util
