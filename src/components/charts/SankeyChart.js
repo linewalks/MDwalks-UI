@@ -4,7 +4,7 @@ import * as sankeyCircular from 'd3-sankey-circular'
 import _ from 'lodash'
 import { color } from '../../assets/styles/variables'
 
-const { strIdConvert } = require('../../helper/chartUtility.js')
+import { strIdConvert } from '../../helper/chartUtility'
 
 class SankeyChart extends React.Component {
 

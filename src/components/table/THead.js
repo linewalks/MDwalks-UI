@@ -2,7 +2,7 @@ import React from 'react';
 import isEmpty from 'lodash/isEmpty';
 import styled from 'styled-components'
 
-const { tableHeaderConvert } = require('../../helper/chartUtility')
+import { tableHeaderConvert } from '../../helper/chartUtility'
 
 const Th = styled.th`
   padding: 28px 24px;

@@ -22586,10 +22586,10 @@ function ribbon() {
 
 var prefix = "$";
 
-function Map() {}
+function Map$1() {}
 
-Map.prototype = map$1.prototype = {
-  constructor: Map,
+Map$1.prototype = map$1.prototype = {
+  constructor: Map$1,
   has: function(key) {
     return (prefix + key) in this;
   },
@@ -22637,10 +22637,10 @@ Map.prototype = map$1.prototype = {
 };
 
 function map$1(object, f) {
-  var map = new Map;
+  var map = new Map$1;
 
   // Copy constructor.
-  if (object instanceof Map) object.each(function(value, key) { map.set(key, value); });
+  if (object instanceof Map$1) object.each(function(value, key) { map.set(key, value); });
 
   // Index array by numeric index or specified key function.
   else if (Array.isArray(object)) {
@@ -35311,6 +35311,21 @@ function zoom() {
 
 var d3Core = /*#__PURE__*/Object.freeze({
   version: version,
+  cluster: cluster,
+  hierarchy: hierarchy,
+  pack: index$2,
+  packSiblings: siblings,
+  packEnclose: enclose,
+  partition: partition,
+  stratify: stratify,
+  tree: tree,
+  treemap: index$3,
+  treemapBinary: binary,
+  treemapDice: treemapDice,
+  treemapSlice: treemapSlice,
+  treemapSliceDice: sliceDice,
+  treemapSquarify: squarify,
+  treemapResquarify: resquarify,
   bisect: bisectRight,
   bisectRight: bisectRight,
   bisectLeft: bisectLeft,
@@ -35342,10 +35357,6 @@ var d3Core = /*#__PURE__*/Object.freeze({
   transpose: transpose,
   variance: variance,
   zip: zip,
-  axisTop: axisTop,
-  axisRight: axisRight,
-  axisBottom: axisBottom,
-  axisLeft: axisLeft,
   brush: brush,
   brushX: brushX,
   brushY: brushY,
@@ -35498,21 +35509,10 @@ var d3Core = /*#__PURE__*/Object.freeze({
   geoRotation: rotation,
   geoStream: geoStream,
   geoTransform: transform,
-  cluster: cluster,
-  hierarchy: hierarchy,
-  pack: index$2,
-  packSiblings: siblings,
-  packEnclose: enclose,
-  partition: partition,
-  stratify: stratify,
-  tree: tree,
-  treemap: index$3,
-  treemapBinary: binary,
-  treemapDice: treemapDice,
-  treemapSlice: treemapSlice,
-  treemapSliceDice: sliceDice,
-  treemapSquarify: squarify,
-  treemapResquarify: resquarify,
+  axisTop: axisTop,
+  axisRight: axisRight,
+  axisBottom: axisBottom,
+  axisLeft: axisLeft,
   interpolate: interpolateValue,
   interpolateArray: array$1,
   interpolateBasis: basis$1,
@@ -37652,6 +37652,605 @@ var sankeyCircular$1 = /*#__PURE__*/Object.freeze({
   sankeyJustify: justify
 });
 
+// Color Set START  
+var color$1 = {
+  $black: '#000000',
+  $primary_white: '#ffffff',
+  $primary_navy: '#002d4f',
+  $secondary_blue: '#eff8ff',
+  $secondary_bg_blue: '#f7fafb',
+  $menu_grey: '#565b5f',
+  $icn_grey: '#979797',
+  $line_btn_grey: '#c4c4c4',
+  $line_dashboard_edge_grey: '#d4d4d4',
+  $line_search_grey: '#e2e2e2',
+  $line_graph_xy_grey: '#e8e8e8',
+  $table_grey: '#f2f2f2',
+  $bg_grey: '#f8f8f8',
+  $table_cell_grey: '#fafafa',
+  $legend_timeline_green_01: '#a5e2d7',
+  $legend_timeline_green_02: '#27b097',
+  $legend_timeline_green_03: '#00745e',
+  $legend_timeline_red_01: '#fa6b57',
+  $legend_timeline_red_02: '#faafa5',
+  // $pathway_link_blue: '#189bff',
+  // $pathway_link_red: '#ff3a1f',
+  $alert_red: '#ff3c3c',
+  $azure: '#189bff',
+  $pathway_link_blue: 'rgba(24, 155, 255, 0.4)',
+  // solid_default
+  $pathway_link_red: 'rgba(255, 58, 31, 0.4)',
+  // alert_red
+  $solid_default: '#189bff',
+  $solid_hover: '#0070c6',
+  $btn_solid_disable: '#d1e7f7',
+  $btn_lightshaded_disable: '#efefef',
+  $btn_lightshaded_hover: '#d1d1d1',
+  $btn_lightshaded_default: '#e5e5e5',
+  $txt_solid_disable: '#ebf6fe',
+  $txt_solid_disable_02: '#b7ddf9'
+};
+var size = {
+  $footer_height: '60px',
+  $footer_margin_top: '80px'
+};
+
+var strIdConvert = function strIdConvert(id) {
+  if (!Array.isArray(id)) {
+    id = [id];
+  }
+
+  return id.map(function (name) {
+    return name.split(' ').join('_');
+  }).join('X');
+}; // Table Component Util
+
+var tableHeaderConvert = function tableHeaderConvert(header) {
+  return header.split('_').map(function (title) {
+    return "".concat(title[0].toUpperCase()).concat(title.slice(1));
+  }).join(' ');
+};
+var renderSVG = function renderSVG(domObj, width, height) {
+  if (!(domObj instanceof selection)) {
+    throw new Error('domObj is not a d3.selection');
+  }
+
+  return domObj.append('svg').attr('width', width).attr('height', height);
+};
+var generateGroup = function generateGroup(anchorEl, _ref) {
+  var _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      _ref$xOffset = _ref.xOffset,
+      xOffset = _ref$xOffset === void 0 ? 0 : _ref$xOffset,
+      _ref$yOffset = _ref.yOffset,
+      yOffset = _ref$yOffset === void 0 ? 0 : _ref$yOffset;
+  return anchorEl.append('g').attr('class', className).attr('transform', "translate(".concat(xOffset, ", ").concat(yOffset, ")"));
+};
+var getStartAndEndTime = function getStartAndEndTime(dataPoints) {
+  if (!(dataPoints instanceof Array)) {
+    throw new Error('datapoints should be a list');
+  }
+
+  var startTime = dataPoints[0].startTime;
+  var endTime = 0;
+  dataPoints.forEach(function (d) {
+    if (!Date.parse(d.startTime) || !Date.parse(d.endTime)) {
+      throw new Error('data point should have both startTime and endTime' + JSON.stringify(d));
+    }
+
+    if (Date.parse(d.startTime) < Date.parse(startTime)) {
+      startTime = d.startTime;
+    }
+
+    if (Date.parse(d.endTime) > Date.parse(endTime)) {
+      endTime = d.endTime;
+    }
+  });
+  return {
+    startTime: Date.parse(startTime),
+    endTime: Date.parse(endTime)
+  };
+};
+var circleDataFilter = function circleDataFilter(data) {
+  return data.filter(function (d) {
+    return Date.parse(d.endTime) - Date.parse(d.startTime) === 0;
+  });
+};
+var rectDataFilter = function rectDataFilter(data) {
+  return data.filter(function (d) {
+    return Date.parse(d.endTime) - Date.parse(d.startTime) > 0;
+  });
+};
+var labelList = function labelList(data) {
+  var result = [];
+  data.forEach(function (d) {
+    var labelIdx = d.label.length - 1;
+    result.push(d.label[labelIdx]);
+  });
+  return result;
+};
+var lineDataFormatConvert = function lineDataFormatConvert(data) {
+  var x = data.xaxis,
+      _data$data = _slicedToArray(data.data, 1),
+      y = _data$data[0].data;
+
+  return x.map(function (d, idx) {
+    return {
+      x: d,
+      y: y[idx]
+    };
+  });
+};
+
+var SankeyChart =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(SankeyChart, _React$Component);
+
+  function SankeyChart(props) {
+    var _this;
+
+    _classCallCheck(this, SankeyChart);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SankeyChart).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "rootElement", React__default.createRef());
+
+    _defineProperty(_assertThisInitialized(_this), "getNodeName", function (node) {
+      return node.name;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "setSelectedNode", function (selectedNode) {
+      _this.setState({
+        selectedNodes: lodash.uniq(_this.state.selectedNodes.concat(selectedNode))
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "highlightLink", function () {
+      _this.d3.selectAll(".sankey-link").style('opacity', 0.04).style('stroke', '#000000');
+
+      var ids = _this.createLinkId(_this.state.selectedNodes);
+
+      for (var i = 0; i < ids.length; i++) {
+        var _ids$i$split = ids[i].split('X'),
+            _ids$i$split2 = _slicedToArray(_ids$i$split, 2),
+            source = _ids$i$split2[0],
+            target = _ids$i$split2[1];
+
+        var forwardPath = _this.getRootElement().select("#".concat(source, "X").concat(target));
+
+        var reversePath = _this.getRootElement().select("#".concat(target, "X").concat(source));
+
+        var sourceXPosition = _this.getRootElement().select("#".concat(source)).attr('x');
+
+        var targetXPosition = _this.getRootElement().select("#".concat(target)).attr('x');
+
+        if (targetXPosition > sourceXPosition) {
+          forwardPath.style('opacity', 1).style('stroke', color$1.$pathway_link_blue);
+        } else {
+          reversePath.style('opacity', 1).style('stroke', color$1.$pathway_link_red);
+        }
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createLinkId", function (selectedNodes) {
+      return selectedNodes.map(function (node, i) {
+        return "".concat(strIdConvert([node, selectedNodes[i + 1] || '']));
+      }).slice(0, -1);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderPlaceholder", function () {
+      return React__default.createElement("div", null, "No data is provided!");
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "initializeSankey", function (_ref) {
+      var nodeWidth = _ref.nodeWidth,
+          width = _ref.width,
+          height = _ref.height,
+          iterations = _ref.iterations,
+          circularLinkGap = _ref.circularLinkGap;
+      return _this.d3.sankeyCircular().nodeWidth(nodeWidth).nodePaddingRatio(0.5).size([width, height]).nodeId(function (d) {
+        return d.name;
+      }).iterations(iterations).circularLinkGap(circularLinkGap);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "initializeSVG", function (_ref2) {
+      var width = _ref2.width,
+          height = _ref2.height,
+          margin = _ref2.margin;
+      return _this.d3.select(_this.rootElement.current).append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "initializeGroups", function (svg, _ref3) {
+      var margin = _ref3.margin;
+      var entireGroup = svg.append('g').attr('transform', "translate(".concat(margin.left, ", ").concat(margin.top, ")"));
+      var nodeGroup = entireGroup.append('g').attr('class', 'nodes').attr('font-family', 'sans-serif').attr('font-size', 10).selectAll('g');
+      var linkGroup = entireGroup.append('g').attr('class', 'links').attr('fill', 'none').selectAll('path');
+      return [nodeGroup, linkGroup];
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderNodes", function (nodeG, sankeyNodesData, _ref4) {
+      var width = _ref4.width;
+
+      _this.d3.scaleSequential(_this.d3.interpolateCool).domain([0, width]); // Enter node g
+
+
+      var node = nodeG.data(sankeyNodesData).enter().append('g'); // Render rect
+
+      node.append('rect').attr('x', function (d) {
+        return d.x0;
+      }).attr('y', function (d) {
+        return d.y0;
+      }).attr('height', function (d) {
+        return d.y1 - d.y0;
+      }).attr('width', function (d) {
+        return d.x1 - d.x0;
+      }).attr('rx', 4).attr('ry', 4).attr('id', function (d) {
+        return strIdConvert(d.name);
+      }).style('fill', "#002d4f").style('cursor', "pointer"); // Render node name
+
+      node.append('text').attr('x', function (d) {
+        return (d.x0 + d.x1) / 2;
+      }).attr('y', function (d) {
+        return d.y0 - 12;
+      }).attr('dy', '0.35em').attr('fill', 'rgba(0, 0, 0, 0.4)').attr('font-famliy', 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif').attr('text-anchor', 'middle').attr('font-size', '14').attr('font-weight', 'normal').attr('font-style', 'normal').attr('font-stretch', 'normal').attr('line-height', 'normal').attr('letter-spacing', '0.5px').text(function (d) {
+        return d.name;
+      });
+      /*
+      pr url:https://github.com/linewalks/Cardio_Demo_View/pull/52/files
+      TODO: node tooltip 사용성이 확정되면 다시 기능 추가할것.
+      Render node title
+      node.append('title').text(d => `${d.name}\n${d.value}`)
+      */
+
+      return node;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderLinks", function (linkG, sankeyLinksData) {
+      var link = linkG.data(sankeyLinksData).enter().append('g');
+      var mapLinks = _this.mapLinks;
+      link.append('path').attr('class', 'sankey-link').attr('id', function (_ref5) {
+        var source = _ref5.source,
+            target = _ref5.target;
+        var id = "".concat(strIdConvert([source.name, target.name]));
+        mapLinks.set(id, this);
+        return id;
+      }).attr('d', function (link) {
+        return link.path;
+      }).style('stroke-width', function (d) {
+        return Math.max(1, d.width);
+      }).style('opacity', 0.04).style('stroke', '#000000'); // reset 과 동일
+
+      _this.mapLinks = mapLinks; // link.selectAll(`.sankey-link`).style('opacity', 0.04).style('stroke', '#000000')
+
+      /*
+      pr url:https://github.com/linewalks/Cardio_Demo_View/pull/52/files
+      TODO: link tooltip 사용성이 확정되면 다시 기능 추가할것.
+      link.append('title').text(d => {
+        return `${d.source.name} → ${d.target.name}\n Count: ${d.value}`
+      })
+      */
+
+      return link;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "linkConnectCheck", function (prevSelectedNode, currentSelectedNode) {
+      if (lodash.isEmpty(prevSelectedNode)) {
+        return true;
+      }
+
+      var key1 = strIdConvert([prevSelectedNode, currentSelectedNode]);
+      var key2 = strIdConvert([currentSelectedNode, prevSelectedNode]);
+      return _this.mapLinks.has(key1) || _this.mapLinks.has(key2);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderSankey", function () {
+      var d3 = _this.d3;
+      var _this$props$options = _this.props.options,
+          height = _this$props$options.height,
+          width = _this$props$options.width,
+          margin = _this$props$options.margin,
+          nodeWidth = _this$props$options.nodeWidth,
+          iterations = _this$props$options.iterations,
+          circularLinkGap = _this$props$options.circularLinkGap;
+      _this.sankey = _this.initializeSankey({
+        height: height,
+        width: width,
+        nodeWidth: nodeWidth,
+        iterations: iterations,
+        circularLinkGap: circularLinkGap
+      });
+      _this.svg = _this.initializeSVG({
+        width: width,
+        height: height,
+        margin: margin
+      }); // initialize entire group, link group, node group
+
+      var _this$initializeGroup = _this.initializeGroups(_this.svg, {
+        margin: margin
+      }),
+          _this$initializeGroup2 = _slicedToArray(_this$initializeGroup, 2),
+          nodeG = _this$initializeGroup2[0],
+          linkG = _this$initializeGroup2[1];
+
+      var sankeyData = _this.sankey(_this.props.data);
+
+      var nodes = _this.renderNodes(nodeG, sankeyData.nodes, {
+        width: width
+      });
+
+      _this.renderLinks(linkG, sankeyData.links);
+
+      _this.attachEventHandlersToNode(d3, nodes, {
+        onChange: _this.props.onChange
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "attachEventHandlersToNode", function (d3, nodes, _ref6) {
+      var onChange = _ref6.onChange;
+      nodes.on('click', function (node) {
+        var prevSelectedNode = lodash.last(_this.state.selectedNodes);
+
+        var currentSelectedNode = _this.getNodeName(node);
+
+        if (_this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
+          _this.setSelectedNode(_this.getNodeName(node));
+        }
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
+      var _this$props = _this.props,
+          data = _this$props.data,
+          resetBtnId = _this$props.resetBtnId;
+
+      if (!lodash.isEmpty(resetBtnId)) {
+        _this.d3.select("#".concat(resetBtnId)).on('click', _this.resetSankey);
+      }
+
+      if (!lodash.isEmpty(data)) {
+        _this.renderSankey();
+
+        _this.highlightLink();
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps, prevState) {
+      // console.log(JSON.stringify(prevProps.selectedNodes) == JSON.stringify(prevState.selectedNodes))
+      _this.props.onChange(_this.state.selectedNodes);
+
+      _this.highlightLink();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "resetSankey", function () {
+      _this.setState({
+        selectedNodes: _this.props.defaultNode
+      });
+    });
+
+    _this.d3 = _objectSpread2({}, d3Core, {}, sankeyCircular$1);
+    _this.mapLinks = new Map();
+    _this.state = {
+      selectedNodes: props.selectedNodes || []
+    };
+    return _this;
+  }
+
+  _createClass(SankeyChart, [{
+    key: "getRootElement",
+    value: function getRootElement() {
+      return this.d3.select(this.rootElement.current);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var data = this.props.data;
+      return lodash.isEmpty(data) ? this.renderPlaceholder() : React__default.createElement("div", {
+        ref: this.rootElement
+      });
+    }
+  }]);
+
+  return SankeyChart;
+}(React__default.Component);
+
+SankeyChart.defaultProps = {
+  defaultNode: [],
+  onChange: function onChange() {},
+  options: {
+    height: 254,
+    width: 1000,
+    nodeWidth: 25,
+    nodePadding: 20,
+    iterations: 15,
+    circularLinkGap: 1,
+    margin: {
+      top: 100,
+      right: 100,
+      bottom: 100,
+      left: 100
+    }
+  }
+};
+
+var backgroundArrow = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDE0IDE0Ij4KICAgIDxwYXRoIGZpbGw9IiMwMDJENEYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTguNzA3IDEuNjM2bDQuNjU3IDQuNjU3YTEgMSAwIDAgMSAwIDEuNDE0bC00LjY1NyA0LjY1N0ExIDEgMCAwIDEgNyAxMS42NTdWMi4zNDNhMSAxIDAgMCAxIDEuNzA3LS43MDd6IiBvcGFjaXR5PSIuOCIvPgo8L3N2Zz4=';
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var font = {
+  base: {
+    size: 14
+  }
+};
+var Text = function Text(props) {
+  return "\n  font-size: ".concat(props.size ? props.size + 'px' : font.base.size + 'px', ";\n\n  font-weight: ").concat(props.bold ? 'bold' : 'normal', ";\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, ").concat(props.opacity ? (props.opacity * 0.1).toFixed(2) : 1, ");\n");
+};
+var TextTag = styled.span(_templateObject(), Text);
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral([""]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  border-radius: 25px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);\n  background-color: #002b4f;\n  padding: 11px 24px 10px;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  background-repeat: no-repeat;\n  background-position-x: 100%;\n  background-position-y: center;\n  padding-right: 18px;\n  margin-right: 8px;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$1() {
+  var data = _taggedTemplateLiteral(["\n  max-width: 1200px;\n  width: 1200px;\n  margin: 0 auto\n"]);
+
+  _templateObject$1 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Wrap1200 = styled.div(_templateObject$1());
+var Arrow = styled.article(_templateObject2());
+var CardContatiner = styled.div(_templateObject3());
+var Card = styled(TextTag).attrs({
+  size: '20',
+  bold: true,
+  style: {
+    color: '#ffffff'
+  }
+})(_templateObject4());
+
+var SelectedCard = function SelectedCard(_ref) {
+  var selectedElement = _ref.selectedElement;
+  return React__default.createElement(Wrap1200, null, selectedElement.map(function (element, idx) {
+    var isLast = idx === selectedElement.length - 1;
+    return React__default.createElement(Arrow, {
+      key: "SelectedCard".concat(idx),
+      style: isLast ? null : {
+        backgroundImage: "url(".concat(backgroundArrow, ")")
+      }
+    }, React__default.createElement(CardContatiner, null, React__default.createElement(Card, null, element)));
+  }));
+};
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral([""]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4$1() {
+  var data = _taggedTemplateLiteral([""]);
+
+  _templateObject4$1 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$1() {
+  var data = _taggedTemplateLiteral(["\n  position: relative;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  cursor: ", ";\n"]);
+
+  _templateObject3$1 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$1() {
+  var data = _taggedTemplateLiteral(["\n  width: 282px;\n  height: 170px;\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);\n  background-color: #ffffff;\n  font-size: 0;\n  display: inline-block;\n  text-align: center;\n  margin-right: 24px;\n\n  &:last-child {\n    margin-right: 0;\n  }\n\n  dl {\n    width: 100%;\n    text-align: right;\n    padding-right: 44px;\n\n    margin: 0;\n  }\n"]);
+
+  _templateObject2$1 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$2() {
+  var data = _taggedTemplateLiteral(["\n  max-width: 1200px;\n  width: 1200px;\n  margin: 0 auto\n"]);
+
+  _templateObject$2 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Wrap1200$1 = styled.div(_templateObject$2());
+var Article = styled.article(_templateObject2$1());
+var EventElement = styled.div(_templateObject3$1(), function (props) {
+  return props.onClick ? 'pointer' : '';
+});
+var BodyB16 = styled(TextTag).attrs({
+  size: '16',
+  bold: true,
+  opacity: 4
+})(_templateObject4$1());
+var BodyB42 = styled(TextTag).attrs({
+  size: '42',
+  bold: true,
+  style: {
+    color: color$1.$primary_navy,
+    display: 'block',
+    marginInlineStart: '40px',
+    margin: 0
+  }
+})(_templateObject5());
+
+var SummaryCard = function SummaryCard(_ref) {
+  var data = _ref.data,
+      _ref$events = _ref.events,
+      events = _ref$events === void 0 ? {} : _ref$events;
+  var summaryData = Object.entries(data);
+  return React__default.createElement(Wrap1200$1, null, summaryData.map(function (_ref2, idx) {
+    var _ref3 = _slicedToArray(_ref2, 2),
+        name = _ref3[0],
+        value = _ref3[1];
+
+    return React__default.createElement(Article, {
+      key: idx
+    }, React__default.createElement(EventElement, {
+      onClick: events[name] ? function () {
+        events[name]();
+      } : null
+    }, React__default.createElement("dl", null, React__default.createElement(BodyB42, {
+      as: "dd"
+    }, value), React__default.createElement(BodyB16, {
+      as: "dt"
+    }, name))));
+  }));
+};
+
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
 
@@ -38027,9 +38626,9 @@ var DataView = _getNative(_root, 'DataView');
 var _DataView = DataView;
 
 /* Built-in method references that are verified to be native. */
-var Map$1 = _getNative(_root, 'Map');
+var Map$2 = _getNative(_root, 'Map');
 
-var _Map = Map$1;
+var _Map = Map$2;
 
 /* Built-in method references that are verified to be native. */
 var Promise$1 = _getNative(_root, 'Promise');
@@ -38524,2308 +39123,6 @@ function isEmpty(value) {
 
 var isEmpty_1 = isEmpty;
 
-/**
- * Removes all key-value entries from the list cache.
- *
- * @private
- * @name clear
- * @memberOf ListCache
- */
-function listCacheClear() {
-  this.__data__ = [];
-  this.size = 0;
-}
-
-var _listCacheClear = listCacheClear;
-
-/**
- * Performs a
- * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
- * comparison between two values to determine if they are equivalent.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- * @example
- *
- * var object = { 'a': 1 };
- * var other = { 'a': 1 };
- *
- * _.eq(object, object);
- * // => true
- *
- * _.eq(object, other);
- * // => false
- *
- * _.eq('a', 'a');
- * // => true
- *
- * _.eq('a', Object('a'));
- * // => false
- *
- * _.eq(NaN, NaN);
- * // => true
- */
-function eq(value, other) {
-  return value === other || (value !== value && other !== other);
-}
-
-var eq_1 = eq;
-
-/**
- * Gets the index at which the `key` is found in `array` of key-value pairs.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {*} key The key to search for.
- * @returns {number} Returns the index of the matched value, else `-1`.
- */
-function assocIndexOf(array, key) {
-  var length = array.length;
-  while (length--) {
-    if (eq_1(array[length][0], key)) {
-      return length;
-    }
-  }
-  return -1;
-}
-
-var _assocIndexOf = assocIndexOf;
-
-/** Used for built-in method references. */
-var arrayProto = Array.prototype;
-
-/** Built-in value references. */
-var splice = arrayProto.splice;
-
-/**
- * Removes `key` and its value from the list cache.
- *
- * @private
- * @name delete
- * @memberOf ListCache
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function listCacheDelete(key) {
-  var data = this.__data__,
-      index = _assocIndexOf(data, key);
-
-  if (index < 0) {
-    return false;
-  }
-  var lastIndex = data.length - 1;
-  if (index == lastIndex) {
-    data.pop();
-  } else {
-    splice.call(data, index, 1);
-  }
-  --this.size;
-  return true;
-}
-
-var _listCacheDelete = listCacheDelete;
-
-/**
- * Gets the list cache value for `key`.
- *
- * @private
- * @name get
- * @memberOf ListCache
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function listCacheGet(key) {
-  var data = this.__data__,
-      index = _assocIndexOf(data, key);
-
-  return index < 0 ? undefined : data[index][1];
-}
-
-var _listCacheGet = listCacheGet;
-
-/**
- * Checks if a list cache value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf ListCache
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function listCacheHas(key) {
-  return _assocIndexOf(this.__data__, key) > -1;
-}
-
-var _listCacheHas = listCacheHas;
-
-/**
- * Sets the list cache `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf ListCache
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the list cache instance.
- */
-function listCacheSet(key, value) {
-  var data = this.__data__,
-      index = _assocIndexOf(data, key);
-
-  if (index < 0) {
-    ++this.size;
-    data.push([key, value]);
-  } else {
-    data[index][1] = value;
-  }
-  return this;
-}
-
-var _listCacheSet = listCacheSet;
-
-/**
- * Creates an list cache object.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function ListCache(entries) {
-  var index = -1,
-      length = entries == null ? 0 : entries.length;
-
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
-}
-
-// Add methods to `ListCache`.
-ListCache.prototype.clear = _listCacheClear;
-ListCache.prototype['delete'] = _listCacheDelete;
-ListCache.prototype.get = _listCacheGet;
-ListCache.prototype.has = _listCacheHas;
-ListCache.prototype.set = _listCacheSet;
-
-var _ListCache = ListCache;
-
-/**
- * Removes all key-value entries from the stack.
- *
- * @private
- * @name clear
- * @memberOf Stack
- */
-function stackClear() {
-  this.__data__ = new _ListCache;
-  this.size = 0;
-}
-
-var _stackClear = stackClear;
-
-/**
- * Removes `key` and its value from the stack.
- *
- * @private
- * @name delete
- * @memberOf Stack
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function stackDelete(key) {
-  var data = this.__data__,
-      result = data['delete'](key);
-
-  this.size = data.size;
-  return result;
-}
-
-var _stackDelete = stackDelete;
-
-/**
- * Gets the stack value for `key`.
- *
- * @private
- * @name get
- * @memberOf Stack
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function stackGet(key) {
-  return this.__data__.get(key);
-}
-
-var _stackGet = stackGet;
-
-/**
- * Checks if a stack value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf Stack
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function stackHas(key) {
-  return this.__data__.has(key);
-}
-
-var _stackHas = stackHas;
-
-/* Built-in method references that are verified to be native. */
-var nativeCreate = _getNative(Object, 'create');
-
-var _nativeCreate = nativeCreate;
-
-/**
- * Removes all key-value entries from the hash.
- *
- * @private
- * @name clear
- * @memberOf Hash
- */
-function hashClear() {
-  this.__data__ = _nativeCreate ? _nativeCreate(null) : {};
-  this.size = 0;
-}
-
-var _hashClear = hashClear;
-
-/**
- * Removes `key` and its value from the hash.
- *
- * @private
- * @name delete
- * @memberOf Hash
- * @param {Object} hash The hash to modify.
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function hashDelete(key) {
-  var result = this.has(key) && delete this.__data__[key];
-  this.size -= result ? 1 : 0;
-  return result;
-}
-
-var _hashDelete = hashDelete;
-
-/** Used to stand-in for `undefined` hash values. */
-var HASH_UNDEFINED = '__lodash_hash_undefined__';
-
-/** Used for built-in method references. */
-var objectProto$7 = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$5 = objectProto$7.hasOwnProperty;
-
-/**
- * Gets the hash value for `key`.
- *
- * @private
- * @name get
- * @memberOf Hash
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function hashGet(key) {
-  var data = this.__data__;
-  if (_nativeCreate) {
-    var result = data[key];
-    return result === HASH_UNDEFINED ? undefined : result;
-  }
-  return hasOwnProperty$5.call(data, key) ? data[key] : undefined;
-}
-
-var _hashGet = hashGet;
-
-/** Used for built-in method references. */
-var objectProto$8 = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$6 = objectProto$8.hasOwnProperty;
-
-/**
- * Checks if a hash value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf Hash
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function hashHas(key) {
-  var data = this.__data__;
-  return _nativeCreate ? (data[key] !== undefined) : hasOwnProperty$6.call(data, key);
-}
-
-var _hashHas = hashHas;
-
-/** Used to stand-in for `undefined` hash values. */
-var HASH_UNDEFINED$1 = '__lodash_hash_undefined__';
-
-/**
- * Sets the hash `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf Hash
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the hash instance.
- */
-function hashSet(key, value) {
-  var data = this.__data__;
-  this.size += this.has(key) ? 0 : 1;
-  data[key] = (_nativeCreate && value === undefined) ? HASH_UNDEFINED$1 : value;
-  return this;
-}
-
-var _hashSet = hashSet;
-
-/**
- * Creates a hash object.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function Hash(entries) {
-  var index = -1,
-      length = entries == null ? 0 : entries.length;
-
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
-}
-
-// Add methods to `Hash`.
-Hash.prototype.clear = _hashClear;
-Hash.prototype['delete'] = _hashDelete;
-Hash.prototype.get = _hashGet;
-Hash.prototype.has = _hashHas;
-Hash.prototype.set = _hashSet;
-
-var _Hash = Hash;
-
-/**
- * Removes all key-value entries from the map.
- *
- * @private
- * @name clear
- * @memberOf MapCache
- */
-function mapCacheClear() {
-  this.size = 0;
-  this.__data__ = {
-    'hash': new _Hash,
-    'map': new (_Map || _ListCache),
-    'string': new _Hash
-  };
-}
-
-var _mapCacheClear = mapCacheClear;
-
-/**
- * Checks if `value` is suitable for use as unique object key.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
- */
-function isKeyable(value) {
-  var type = typeof value;
-  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
-    ? (value !== '__proto__')
-    : (value === null);
-}
-
-var _isKeyable = isKeyable;
-
-/**
- * Gets the data for `map`.
- *
- * @private
- * @param {Object} map The map to query.
- * @param {string} key The reference key.
- * @returns {*} Returns the map data.
- */
-function getMapData(map, key) {
-  var data = map.__data__;
-  return _isKeyable(key)
-    ? data[typeof key == 'string' ? 'string' : 'hash']
-    : data.map;
-}
-
-var _getMapData = getMapData;
-
-/**
- * Removes `key` and its value from the map.
- *
- * @private
- * @name delete
- * @memberOf MapCache
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function mapCacheDelete(key) {
-  var result = _getMapData(this, key)['delete'](key);
-  this.size -= result ? 1 : 0;
-  return result;
-}
-
-var _mapCacheDelete = mapCacheDelete;
-
-/**
- * Gets the map value for `key`.
- *
- * @private
- * @name get
- * @memberOf MapCache
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function mapCacheGet(key) {
-  return _getMapData(this, key).get(key);
-}
-
-var _mapCacheGet = mapCacheGet;
-
-/**
- * Checks if a map value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf MapCache
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function mapCacheHas(key) {
-  return _getMapData(this, key).has(key);
-}
-
-var _mapCacheHas = mapCacheHas;
-
-/**
- * Sets the map `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf MapCache
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the map cache instance.
- */
-function mapCacheSet(key, value) {
-  var data = _getMapData(this, key),
-      size = data.size;
-
-  data.set(key, value);
-  this.size += data.size == size ? 0 : 1;
-  return this;
-}
-
-var _mapCacheSet = mapCacheSet;
-
-/**
- * Creates a map cache object to store key-value pairs.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function MapCache(entries) {
-  var index = -1,
-      length = entries == null ? 0 : entries.length;
-
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
-}
-
-// Add methods to `MapCache`.
-MapCache.prototype.clear = _mapCacheClear;
-MapCache.prototype['delete'] = _mapCacheDelete;
-MapCache.prototype.get = _mapCacheGet;
-MapCache.prototype.has = _mapCacheHas;
-MapCache.prototype.set = _mapCacheSet;
-
-var _MapCache = MapCache;
-
-/** Used as the size to enable large array optimizations. */
-var LARGE_ARRAY_SIZE = 200;
-
-/**
- * Sets the stack `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf Stack
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the stack cache instance.
- */
-function stackSet(key, value) {
-  var data = this.__data__;
-  if (data instanceof _ListCache) {
-    var pairs = data.__data__;
-    if (!_Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
-      pairs.push([key, value]);
-      this.size = ++data.size;
-      return this;
-    }
-    data = this.__data__ = new _MapCache(pairs);
-  }
-  data.set(key, value);
-  this.size = data.size;
-  return this;
-}
-
-var _stackSet = stackSet;
-
-/**
- * Creates a stack cache object to store key-value pairs.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function Stack(entries) {
-  var data = this.__data__ = new _ListCache(entries);
-  this.size = data.size;
-}
-
-// Add methods to `Stack`.
-Stack.prototype.clear = _stackClear;
-Stack.prototype['delete'] = _stackDelete;
-Stack.prototype.get = _stackGet;
-Stack.prototype.has = _stackHas;
-Stack.prototype.set = _stackSet;
-
-var _Stack = Stack;
-
-/** Used to stand-in for `undefined` hash values. */
-var HASH_UNDEFINED$2 = '__lodash_hash_undefined__';
-
-/**
- * Adds `value` to the array cache.
- *
- * @private
- * @name add
- * @memberOf SetCache
- * @alias push
- * @param {*} value The value to cache.
- * @returns {Object} Returns the cache instance.
- */
-function setCacheAdd(value) {
-  this.__data__.set(value, HASH_UNDEFINED$2);
-  return this;
-}
-
-var _setCacheAdd = setCacheAdd;
-
-/**
- * Checks if `value` is in the array cache.
- *
- * @private
- * @name has
- * @memberOf SetCache
- * @param {*} value The value to search for.
- * @returns {number} Returns `true` if `value` is found, else `false`.
- */
-function setCacheHas(value) {
-  return this.__data__.has(value);
-}
-
-var _setCacheHas = setCacheHas;
-
-/**
- *
- * Creates an array cache object to store unique values.
- *
- * @private
- * @constructor
- * @param {Array} [values] The values to cache.
- */
-function SetCache(values) {
-  var index = -1,
-      length = values == null ? 0 : values.length;
-
-  this.__data__ = new _MapCache;
-  while (++index < length) {
-    this.add(values[index]);
-  }
-}
-
-// Add methods to `SetCache`.
-SetCache.prototype.add = SetCache.prototype.push = _setCacheAdd;
-SetCache.prototype.has = _setCacheHas;
-
-var _SetCache = SetCache;
-
-/**
- * A specialized version of `_.some` for arrays without support for iteratee
- * shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} predicate The function invoked per iteration.
- * @returns {boolean} Returns `true` if any element passes the predicate check,
- *  else `false`.
- */
-function arraySome(array, predicate) {
-  var index = -1,
-      length = array == null ? 0 : array.length;
-
-  while (++index < length) {
-    if (predicate(array[index], index, array)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-var _arraySome = arraySome;
-
-/**
- * Checks if a `cache` value for `key` exists.
- *
- * @private
- * @param {Object} cache The cache to query.
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function cacheHas(cache, key) {
-  return cache.has(key);
-}
-
-var _cacheHas = cacheHas;
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG = 1,
-    COMPARE_UNORDERED_FLAG = 2;
-
-/**
- * A specialized version of `baseIsEqualDeep` for arrays with support for
- * partial deep comparisons.
- *
- * @private
- * @param {Array} array The array to compare.
- * @param {Array} other The other array to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} stack Tracks traversed `array` and `other` objects.
- * @returns {boolean} Returns `true` if the arrays are equivalent, else `false`.
- */
-function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
-  var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
-      arrLength = array.length,
-      othLength = other.length;
-
-  if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
-    return false;
-  }
-  // Assume cyclic values are equal.
-  var stacked = stack.get(array);
-  if (stacked && stack.get(other)) {
-    return stacked == other;
-  }
-  var index = -1,
-      result = true,
-      seen = (bitmask & COMPARE_UNORDERED_FLAG) ? new _SetCache : undefined;
-
-  stack.set(array, other);
-  stack.set(other, array);
-
-  // Ignore non-index properties.
-  while (++index < arrLength) {
-    var arrValue = array[index],
-        othValue = other[index];
-
-    if (customizer) {
-      var compared = isPartial
-        ? customizer(othValue, arrValue, index, other, array, stack)
-        : customizer(arrValue, othValue, index, array, other, stack);
-    }
-    if (compared !== undefined) {
-      if (compared) {
-        continue;
-      }
-      result = false;
-      break;
-    }
-    // Recursively compare arrays (susceptible to call stack limits).
-    if (seen) {
-      if (!_arraySome(other, function(othValue, othIndex) {
-            if (!_cacheHas(seen, othIndex) &&
-                (arrValue === othValue || equalFunc(arrValue, othValue, bitmask, customizer, stack))) {
-              return seen.push(othIndex);
-            }
-          })) {
-        result = false;
-        break;
-      }
-    } else if (!(
-          arrValue === othValue ||
-            equalFunc(arrValue, othValue, bitmask, customizer, stack)
-        )) {
-      result = false;
-      break;
-    }
-  }
-  stack['delete'](array);
-  stack['delete'](other);
-  return result;
-}
-
-var _equalArrays = equalArrays;
-
-/** Built-in value references. */
-var Uint8Array = _root.Uint8Array;
-
-var _Uint8Array = Uint8Array;
-
-/**
- * Converts `map` to its key-value pairs.
- *
- * @private
- * @param {Object} map The map to convert.
- * @returns {Array} Returns the key-value pairs.
- */
-function mapToArray(map) {
-  var index = -1,
-      result = Array(map.size);
-
-  map.forEach(function(value, key) {
-    result[++index] = [key, value];
-  });
-  return result;
-}
-
-var _mapToArray = mapToArray;
-
-/**
- * Converts `set` to an array of its values.
- *
- * @private
- * @param {Object} set The set to convert.
- * @returns {Array} Returns the values.
- */
-function setToArray(set) {
-  var index = -1,
-      result = Array(set.size);
-
-  set.forEach(function(value) {
-    result[++index] = value;
-  });
-  return result;
-}
-
-var _setToArray = setToArray;
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG$1 = 1,
-    COMPARE_UNORDERED_FLAG$1 = 2;
-
-/** `Object#toString` result references. */
-var boolTag$1 = '[object Boolean]',
-    dateTag$1 = '[object Date]',
-    errorTag$1 = '[object Error]',
-    mapTag$3 = '[object Map]',
-    numberTag$1 = '[object Number]',
-    regexpTag$1 = '[object RegExp]',
-    setTag$3 = '[object Set]',
-    stringTag$1 = '[object String]',
-    symbolTag = '[object Symbol]';
-
-var arrayBufferTag$1 = '[object ArrayBuffer]',
-    dataViewTag$2 = '[object DataView]';
-
-/** Used to convert symbols to primitives and strings. */
-var symbolProto = _Symbol ? _Symbol.prototype : undefined,
-    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
-
-/**
- * A specialized version of `baseIsEqualDeep` for comparing objects of
- * the same `toStringTag`.
- *
- * **Note:** This function only supports comparing values with tags of
- * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
- *
- * @private
- * @param {Object} object The object to compare.
- * @param {Object} other The other object to compare.
- * @param {string} tag The `toStringTag` of the objects to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} stack Tracks traversed `object` and `other` objects.
- * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
- */
-function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
-  switch (tag) {
-    case dataViewTag$2:
-      if ((object.byteLength != other.byteLength) ||
-          (object.byteOffset != other.byteOffset)) {
-        return false;
-      }
-      object = object.buffer;
-      other = other.buffer;
-
-    case arrayBufferTag$1:
-      if ((object.byteLength != other.byteLength) ||
-          !equalFunc(new _Uint8Array(object), new _Uint8Array(other))) {
-        return false;
-      }
-      return true;
-
-    case boolTag$1:
-    case dateTag$1:
-    case numberTag$1:
-      // Coerce booleans to `1` or `0` and dates to milliseconds.
-      // Invalid dates are coerced to `NaN`.
-      return eq_1(+object, +other);
-
-    case errorTag$1:
-      return object.name == other.name && object.message == other.message;
-
-    case regexpTag$1:
-    case stringTag$1:
-      // Coerce regexes to strings and treat strings, primitives and objects,
-      // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
-      // for more details.
-      return object == (other + '');
-
-    case mapTag$3:
-      var convert = _mapToArray;
-
-    case setTag$3:
-      var isPartial = bitmask & COMPARE_PARTIAL_FLAG$1;
-      convert || (convert = _setToArray);
-
-      if (object.size != other.size && !isPartial) {
-        return false;
-      }
-      // Assume cyclic values are equal.
-      var stacked = stack.get(object);
-      if (stacked) {
-        return stacked == other;
-      }
-      bitmask |= COMPARE_UNORDERED_FLAG$1;
-
-      // Recursively compare objects (susceptible to call stack limits).
-      stack.set(object, other);
-      var result = _equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack);
-      stack['delete'](object);
-      return result;
-
-    case symbolTag:
-      if (symbolValueOf) {
-        return symbolValueOf.call(object) == symbolValueOf.call(other);
-      }
-  }
-  return false;
-}
-
-var _equalByTag = equalByTag;
-
-/**
- * Appends the elements of `values` to `array`.
- *
- * @private
- * @param {Array} array The array to modify.
- * @param {Array} values The values to append.
- * @returns {Array} Returns `array`.
- */
-function arrayPush(array, values) {
-  var index = -1,
-      length = values.length,
-      offset = array.length;
-
-  while (++index < length) {
-    array[offset + index] = values[index];
-  }
-  return array;
-}
-
-var _arrayPush = arrayPush;
-
-/**
- * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
- * `keysFunc` and `symbolsFunc` to get the enumerable property names and
- * symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Function} keysFunc The function to get the keys of `object`.
- * @param {Function} symbolsFunc The function to get the symbols of `object`.
- * @returns {Array} Returns the array of property names and symbols.
- */
-function baseGetAllKeys(object, keysFunc, symbolsFunc) {
-  var result = keysFunc(object);
-  return isArray_1(object) ? result : _arrayPush(result, symbolsFunc(object));
-}
-
-var _baseGetAllKeys = baseGetAllKeys;
-
-/**
- * A specialized version of `_.filter` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} predicate The function invoked per iteration.
- * @returns {Array} Returns the new filtered array.
- */
-function arrayFilter(array, predicate) {
-  var index = -1,
-      length = array == null ? 0 : array.length,
-      resIndex = 0,
-      result = [];
-
-  while (++index < length) {
-    var value = array[index];
-    if (predicate(value, index, array)) {
-      result[resIndex++] = value;
-    }
-  }
-  return result;
-}
-
-var _arrayFilter = arrayFilter;
-
-/**
- * This method returns a new empty array.
- *
- * @static
- * @memberOf _
- * @since 4.13.0
- * @category Util
- * @returns {Array} Returns the new empty array.
- * @example
- *
- * var arrays = _.times(2, _.stubArray);
- *
- * console.log(arrays);
- * // => [[], []]
- *
- * console.log(arrays[0] === arrays[1]);
- * // => false
- */
-function stubArray() {
-  return [];
-}
-
-var stubArray_1 = stubArray;
-
-/** Used for built-in method references. */
-var objectProto$9 = Object.prototype;
-
-/** Built-in value references. */
-var propertyIsEnumerable$1 = objectProto$9.propertyIsEnumerable;
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeGetSymbols = Object.getOwnPropertySymbols;
-
-/**
- * Creates an array of the own enumerable symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of symbols.
- */
-var getSymbols = !nativeGetSymbols ? stubArray_1 : function(object) {
-  if (object == null) {
-    return [];
-  }
-  object = Object(object);
-  return _arrayFilter(nativeGetSymbols(object), function(symbol) {
-    return propertyIsEnumerable$1.call(object, symbol);
-  });
-};
-
-var _getSymbols = getSymbols;
-
-/**
- * The base implementation of `_.times` without support for iteratee shorthands
- * or max array length checks.
- *
- * @private
- * @param {number} n The number of times to invoke `iteratee`.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the array of results.
- */
-function baseTimes(n, iteratee) {
-  var index = -1,
-      result = Array(n);
-
-  while (++index < n) {
-    result[index] = iteratee(index);
-  }
-  return result;
-}
-
-var _baseTimes = baseTimes;
-
-/** Used as references for various `Number` constants. */
-var MAX_SAFE_INTEGER$1 = 9007199254740991;
-
-/** Used to detect unsigned integer values. */
-var reIsUint = /^(?:0|[1-9]\d*)$/;
-
-/**
- * Checks if `value` is a valid array-like index.
- *
- * @private
- * @param {*} value The value to check.
- * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
- * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
- */
-function isIndex(value, length) {
-  var type = typeof value;
-  length = length == null ? MAX_SAFE_INTEGER$1 : length;
-
-  return !!length &&
-    (type == 'number' ||
-      (type != 'symbol' && reIsUint.test(value))) &&
-        (value > -1 && value % 1 == 0 && value < length);
-}
-
-var _isIndex = isIndex;
-
-/** Used for built-in method references. */
-var objectProto$a = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$7 = objectProto$a.hasOwnProperty;
-
-/**
- * Creates an array of the enumerable property names of the array-like `value`.
- *
- * @private
- * @param {*} value The value to query.
- * @param {boolean} inherited Specify returning inherited property names.
- * @returns {Array} Returns the array of property names.
- */
-function arrayLikeKeys(value, inherited) {
-  var isArr = isArray_1(value),
-      isArg = !isArr && isArguments_1(value),
-      isBuff = !isArr && !isArg && isBuffer_1(value),
-      isType = !isArr && !isArg && !isBuff && isTypedArray_1(value),
-      skipIndexes = isArr || isArg || isBuff || isType,
-      result = skipIndexes ? _baseTimes(value.length, String) : [],
-      length = result.length;
-
-  for (var key in value) {
-    if ((inherited || hasOwnProperty$7.call(value, key)) &&
-        !(skipIndexes && (
-           // Safari 9 has enumerable `arguments.length` in strict mode.
-           key == 'length' ||
-           // Node.js 0.10 has enumerable non-index properties on buffers.
-           (isBuff && (key == 'offset' || key == 'parent')) ||
-           // PhantomJS 2 has enumerable non-index properties on typed arrays.
-           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
-           // Skip index properties.
-           _isIndex(key, length)
-        ))) {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-var _arrayLikeKeys = arrayLikeKeys;
-
-/**
- * Creates an array of the own enumerable property names of `object`.
- *
- * **Note:** Non-object values are coerced to objects. See the
- * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
- * for more details.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.keys(new Foo);
- * // => ['a', 'b'] (iteration order is not guaranteed)
- *
- * _.keys('hi');
- * // => ['0', '1']
- */
-function keys$1(object) {
-  return isArrayLike_1(object) ? _arrayLikeKeys(object) : _baseKeys(object);
-}
-
-var keys_1 = keys$1;
-
-/**
- * Creates an array of own enumerable property names and symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names and symbols.
- */
-function getAllKeys(object) {
-  return _baseGetAllKeys(object, keys_1, _getSymbols);
-}
-
-var _getAllKeys = getAllKeys;
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG$2 = 1;
-
-/** Used for built-in method references. */
-var objectProto$b = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$8 = objectProto$b.hasOwnProperty;
-
-/**
- * A specialized version of `baseIsEqualDeep` for objects with support for
- * partial deep comparisons.
- *
- * @private
- * @param {Object} object The object to compare.
- * @param {Object} other The other object to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} stack Tracks traversed `object` and `other` objects.
- * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
- */
-function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
-  var isPartial = bitmask & COMPARE_PARTIAL_FLAG$2,
-      objProps = _getAllKeys(object),
-      objLength = objProps.length,
-      othProps = _getAllKeys(other),
-      othLength = othProps.length;
-
-  if (objLength != othLength && !isPartial) {
-    return false;
-  }
-  var index = objLength;
-  while (index--) {
-    var key = objProps[index];
-    if (!(isPartial ? key in other : hasOwnProperty$8.call(other, key))) {
-      return false;
-    }
-  }
-  // Assume cyclic values are equal.
-  var stacked = stack.get(object);
-  if (stacked && stack.get(other)) {
-    return stacked == other;
-  }
-  var result = true;
-  stack.set(object, other);
-  stack.set(other, object);
-
-  var skipCtor = isPartial;
-  while (++index < objLength) {
-    key = objProps[index];
-    var objValue = object[key],
-        othValue = other[key];
-
-    if (customizer) {
-      var compared = isPartial
-        ? customizer(othValue, objValue, key, other, object, stack)
-        : customizer(objValue, othValue, key, object, other, stack);
-    }
-    // Recursively compare objects (susceptible to call stack limits).
-    if (!(compared === undefined
-          ? (objValue === othValue || equalFunc(objValue, othValue, bitmask, customizer, stack))
-          : compared
-        )) {
-      result = false;
-      break;
-    }
-    skipCtor || (skipCtor = key == 'constructor');
-  }
-  if (result && !skipCtor) {
-    var objCtor = object.constructor,
-        othCtor = other.constructor;
-
-    // Non `Object` object instances with different constructors are not equal.
-    if (objCtor != othCtor &&
-        ('constructor' in object && 'constructor' in other) &&
-        !(typeof objCtor == 'function' && objCtor instanceof objCtor &&
-          typeof othCtor == 'function' && othCtor instanceof othCtor)) {
-      result = false;
-    }
-  }
-  stack['delete'](object);
-  stack['delete'](other);
-  return result;
-}
-
-var _equalObjects = equalObjects;
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG$3 = 1;
-
-/** `Object#toString` result references. */
-var argsTag$2 = '[object Arguments]',
-    arrayTag$1 = '[object Array]',
-    objectTag$2 = '[object Object]';
-
-/** Used for built-in method references. */
-var objectProto$c = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$9 = objectProto$c.hasOwnProperty;
-
-/**
- * A specialized version of `baseIsEqual` for arrays and objects which performs
- * deep comparisons and tracks traversed objects enabling objects with circular
- * references to be compared.
- *
- * @private
- * @param {Object} object The object to compare.
- * @param {Object} other The other object to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} [stack] Tracks traversed `object` and `other` objects.
- * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
- */
-function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
-  var objIsArr = isArray_1(object),
-      othIsArr = isArray_1(other),
-      objTag = objIsArr ? arrayTag$1 : _getTag(object),
-      othTag = othIsArr ? arrayTag$1 : _getTag(other);
-
-  objTag = objTag == argsTag$2 ? objectTag$2 : objTag;
-  othTag = othTag == argsTag$2 ? objectTag$2 : othTag;
-
-  var objIsObj = objTag == objectTag$2,
-      othIsObj = othTag == objectTag$2,
-      isSameTag = objTag == othTag;
-
-  if (isSameTag && isBuffer_1(object)) {
-    if (!isBuffer_1(other)) {
-      return false;
-    }
-    objIsArr = true;
-    objIsObj = false;
-  }
-  if (isSameTag && !objIsObj) {
-    stack || (stack = new _Stack);
-    return (objIsArr || isTypedArray_1(object))
-      ? _equalArrays(object, other, bitmask, customizer, equalFunc, stack)
-      : _equalByTag(object, other, objTag, bitmask, customizer, equalFunc, stack);
-  }
-  if (!(bitmask & COMPARE_PARTIAL_FLAG$3)) {
-    var objIsWrapped = objIsObj && hasOwnProperty$9.call(object, '__wrapped__'),
-        othIsWrapped = othIsObj && hasOwnProperty$9.call(other, '__wrapped__');
-
-    if (objIsWrapped || othIsWrapped) {
-      var objUnwrapped = objIsWrapped ? object.value() : object,
-          othUnwrapped = othIsWrapped ? other.value() : other;
-
-      stack || (stack = new _Stack);
-      return equalFunc(objUnwrapped, othUnwrapped, bitmask, customizer, stack);
-    }
-  }
-  if (!isSameTag) {
-    return false;
-  }
-  stack || (stack = new _Stack);
-  return _equalObjects(object, other, bitmask, customizer, equalFunc, stack);
-}
-
-var _baseIsEqualDeep = baseIsEqualDeep;
-
-/**
- * The base implementation of `_.isEqual` which supports partial comparisons
- * and tracks traversed objects.
- *
- * @private
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @param {boolean} bitmask The bitmask flags.
- *  1 - Unordered comparison
- *  2 - Partial comparison
- * @param {Function} [customizer] The function to customize comparisons.
- * @param {Object} [stack] Tracks traversed `value` and `other` objects.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- */
-function baseIsEqual(value, other, bitmask, customizer, stack) {
-  if (value === other) {
-    return true;
-  }
-  if (value == null || other == null || (!isObjectLike_1(value) && !isObjectLike_1(other))) {
-    return value !== value && other !== other;
-  }
-  return _baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
-}
-
-var _baseIsEqual = baseIsEqual;
-
-/**
- * Performs a deep comparison between two values to determine if they are
- * equivalent.
- *
- * **Note:** This method supports comparing arrays, array buffers, booleans,
- * date objects, error objects, maps, numbers, `Object` objects, regexes,
- * sets, strings, symbols, and typed arrays. `Object` objects are compared
- * by their own, not inherited, enumerable properties. Functions and DOM
- * nodes are compared by strict equality, i.e. `===`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- * @example
- *
- * var object = { 'a': 1 };
- * var other = { 'a': 1 };
- *
- * _.isEqual(object, other);
- * // => true
- *
- * object === other;
- * // => false
- */
-function isEqual(value, other) {
-  return _baseIsEqual(value, other);
-}
-
-var isEqual_1 = isEqual;
-
-/**
- * Gets the last element of `array`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Array
- * @param {Array} array The array to query.
- * @returns {*} Returns the last element of `array`.
- * @example
- *
- * _.last([1, 2, 3]);
- * // => 3
- */
-function last(array) {
-  var length = array == null ? 0 : array.length;
-  return length ? array[length - 1] : undefined;
-}
-
-var last_1 = last;
-
-var strIdConvert = function strIdConvert(id) {
-  return id.split(' ').join('_');
-}; // Table Component Util
-
-var tableHeaderConvert = function tableHeaderConvert(header) {
-  return header.split('_').map(function (title) {
-    return "".concat(title[0].toUpperCase()).concat(title.slice(1));
-  }).join(' ');
-};
-function renderSVG(domObj, width, height) {
-  if (!(domObj instanceof selection)) {
-    throw new Error('domObj is not a d3.selection');
-  }
-
-  return domObj.append('svg').attr('width', width).attr('height', height);
-}
-function generateGroup(anchorEl, _ref) {
-  var _ref$className = _ref.className,
-      className = _ref$className === void 0 ? '' : _ref$className,
-      _ref$xOffset = _ref.xOffset,
-      xOffset = _ref$xOffset === void 0 ? 0 : _ref$xOffset,
-      _ref$yOffset = _ref.yOffset,
-      yOffset = _ref$yOffset === void 0 ? 0 : _ref$yOffset;
-  return anchorEl.append('g').attr('class', className).attr('transform', "translate(".concat(xOffset, ", ").concat(yOffset, ")"));
-}
-var getStartAndEndTime = function getStartAndEndTime(dataPoints) {
-  if (!(dataPoints instanceof Array)) {
-    throw new Error('datapoints should be a list');
-  }
-
-  var startTime = dataPoints[0].startTime;
-  var endTime = 0;
-  dataPoints.forEach(function (d) {
-    if (!Date.parse(d.startTime) || !Date.parse(d.endTime)) {
-      throw new Error('data point should have both startTime and endTime' + JSON.stringify(d));
-    }
-
-    if (Date.parse(d.startTime) < Date.parse(startTime)) {
-      startTime = d.startTime;
-    }
-
-    if (Date.parse(d.endTime) > Date.parse(endTime)) {
-      endTime = d.endTime;
-    }
-  });
-  return {
-    startTime: Date.parse(startTime),
-    endTime: Date.parse(endTime)
-  };
-};
-var circleDataFilter = function circleDataFilter(data) {
-  return data.filter(function (d) {
-    return Date.parse(d.endTime) - Date.parse(d.startTime) === 0;
-  });
-};
-var rectDataFilter = function rectDataFilter(data) {
-  return data.filter(function (d) {
-    return Date.parse(d.endTime) - Date.parse(d.startTime) > 0;
-  });
-};
-var labelList = function labelList(data) {
-  var result = [];
-  data.forEach(function (d) {
-    var labelIdx = d.label.length - 1;
-    result.push(d.label[labelIdx]);
-  });
-  return result;
-};
-var lineDataFormatConvert = function lineDataFormatConvert(data) {
-  var x = data.xaxis,
-      _data$data = _slicedToArray(data.data, 1),
-      y = _data$data[0].data;
-
-  return x.map(function (d, idx) {
-    return {
-      x: d,
-      y: y[idx]
-    };
-  });
-};
-
-var sankeyData = {
-  nodes: [{
-    name: 'ECG'
-  }, {
-    name: 'elective'
-  }, {
-    name: 'MICU'
-  }, {
-    name: 'ECHO'
-  }, {
-    name: 'CMED'
-  }, {
-    name: 'VSURG'
-  }, {
-    name: 'urgent'
-  }, {
-    name: 'CSRU'
-  }, {
-    name: 'SURG'
-  }, {
-    name: 'MED'
-  }, {
-    name: 'CABG'
-  }, {
-    name: 'PCI'
-  }, {
-    name: 'died'
-  }, {
-    name: 'CSURG'
-  }, {
-    name: 'emergency'
-  }, {
-    name: 'CCU'
-  }],
-  links: [{
-    source: 'emergency',
-    target: 'CMED',
-    value: 4463
-  }, {
-    source: 'emergency',
-    target: 'MICU',
-    value: 2958
-  }, {
-    source: 'emergency',
-    target: 'CCU',
-    value: 1607
-  }, {
-    source: 'emergency',
-    target: 'SURG',
-    value: 860
-  }, {
-    source: 'emergency',
-    target: 'CSURG',
-    value: 531
-  }, {
-    source: 'emergency',
-    target: 'CABG',
-    value: 469
-  }, {
-    source: 'emergency',
-    target: 'VSURG',
-    value: 357
-  }, {
-    source: 'elective',
-    target: 'CSURG',
-    value: 233
-  }, {
-    source: 'elective',
-    target: 'ECG',
-    value: 95
-  }, {
-    source: 'emergency',
-    target: 'CSRU',
-    value: 338
-  }, {
-    source: 'emergency',
-    target: 'ECG',
-    value: 63
-  }, {
-    source: 'VSURG',
-    target: 'ECG',
-    value: 340
-  }, {
-    source: 'VSURG',
-    target: 'CSRU',
-    value: 114
-  }, {
-    source: 'VSURG',
-    target: 'ECHO',
-    value: 67
-  }, {
-    source: 'ECG',
-    target: 'ECHO',
-    value: 8892
-  }, {
-    source: 'CCU',
-    target: 'ECG',
-    value: 2996
-  }, {
-    source: 'CCU',
-    target: 'CMED',
-    value: 1736
-  }, {
-    source: 'CCU',
-    target: 'ECHO',
-    value: 924
-  }, {
-    source: 'CCU',
-    target: 'MED',
-    value: 386
-  }, {
-    source: 'CSRU',
-    target: 'ECG',
-    value: 1626
-  }, {
-    source: 'CSRU',
-    target: 'CABG',
-    value: 1281
-  }, {
-    source: 'CSRU',
-    target: 'CSURG',
-    value: 1093
-  }, {
-    source: 'CSRU',
-    target: 'ECHO',
-    value: 459
-  }, {
-    source: 'ECG',
-    target: 'died',
-    value: 1175
-  }, {
-    source: 'ECHO',
-    target: 'died',
-    value: 413
-  }, {
-    source: 'MICU',
-    target: 'died',
-    value: 373
-  }, {
-    source: 'MED',
-    target: 'died',
-    value: 185
-  }, {
-    source: 'CCU',
-    target: 'died',
-    value: 134
-  }, {
-    source: 'ECG',
-    target: 'PCI',
-    value: 2
-  }, {
-    source: 'CMED',
-    target: 'PCI',
-    value: 1
-  }, {
-    source: 'PCI',
-    target: 'CCU',
-    value: 1
-  }, {
-    source: 'PCI',
-    target: 'died',
-    value: 1
-  }, {
-    source: 'PCI',
-    target: 'ECHO',
-    value: 1
-  }, {
-    source: 'urgent',
-    target: 'CMED',
-    value: 323
-  }, {
-    source: 'urgent',
-    target: 'MED',
-    value: 119
-  }, {
-    source: 'urgent',
-    target: 'CCU',
-    value: 66
-  }, {
-    source: 'urgent',
-    target: 'MICU',
-    value: 53
-  }, {
-    source: 'urgent',
-    target: 'CSURG',
-    value: 46
-  }, {
-    source: 'SURG',
-    target: 'ECG',
-    value: 561
-  }, {
-    source: 'SURG',
-    target: 'ECHO',
-    value: 144
-  }, {
-    source: 'SURG',
-    target: 'MICU',
-    value: 83
-  }, {
-    source: 'CSRU',
-    target: 'ECG',
-    value: 1626
-  }, {
-    source: 'CSRU',
-    target: 'CABG',
-    value: 1281
-  }, {
-    source: 'CSRU',
-    target: 'CSURG',
-    value: 1093
-  }, {
-    source: 'CSRU',
-    target: 'ECHO',
-    value: 459
-  }]
-};
-
-var SankeyChart =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(SankeyChart, _React$Component);
-
-  function SankeyChart(props) {
-    var _this;
-
-    _classCallCheck(this, SankeyChart);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(SankeyChart).call(this, props));
-
-    _defineProperty(_assertThisInitialized(_this), "rootElement", React__default.createRef());
-
-    _defineProperty(_assertThisInitialized(_this), "getNodeName", function (node) {
-      return node.name;
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "setSelectedNode", function (selectedNode) {
-      if (!_this.state.selectedNodes.includes(selectedNode)) {
-        _this.setState({
-          selectedNodes: _this.state.selectedNodes.concat(selectedNode)
-        });
-      }
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "highlightLink", function (id) {
-      var d3 = _this.d3;
-
-      for (var i = 0; i < id.length; i++) {
-        var _id$i$split = id[i].split('X'),
-            _id$i$split2 = _slicedToArray(_id$i$split, 2),
-            source = _id$i$split2[0],
-            target = _id$i$split2[1];
-
-        var forwardPath = d3.select(_this.rootElement.current).select("#".concat(source, "X").concat(target));
-        var reversePath = d3.select(_this.rootElement.current).select("#".concat(target, "X").concat(source));
-        var sourceXPosition = d3.select(_this.rootElement.current).select("#".concat(source))['_groups'][0][0].getBoundingClientRect().x;
-        var targetXPosition = d3.select(_this.rootElement.current).select("#".concat(target))['_groups'][0][0].getBoundingClientRect().x;
-
-        if (targetXPosition > sourceXPosition) {
-          forwardPath.style('opacity', 1).style('stroke', 'rgba(24, 155, 255, 0.4)');
-        } else {
-          reversePath.style('opacity', 1).style('stroke', 'rgba(255, 58, 31, 0.4)');
-        }
-      }
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "createLinkId", function (selectedNodes) {
-      if (selectedNodes.length === 0) return [];
-      var idCollection = [];
-
-      for (var i = 0; i < selectedNodes.length; i++) {
-        if (i === selectedNodes.length - 1) break;
-        var id = "".concat(strIdConvert(selectedNodes[i]), "X").concat(strIdConvert(selectedNodes[i + 1]));
-        idCollection.push(id);
-      }
-
-      return idCollection;
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "renderPlaceholder", function () {
-      return React__default.createElement("div", null, "No data is provided!");
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "initializeSankey", function (d3, _ref) {
-      var nodeWidth = _ref.nodeWidth,
-          width = _ref.width,
-          height = _ref.height,
-          iterations = _ref.iterations,
-          circularLinkGap = _ref.circularLinkGap;
-      return d3.sankeyCircular().nodeWidth(nodeWidth).nodePaddingRatio(0.5).size([width, height]).nodeId(function (d) {
-        return d.name;
-      }).iterations(iterations).circularLinkGap(circularLinkGap);
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "initializeSVG", function (d3, _ref2) {
-      var width = _ref2.width,
-          height = _ref2.height,
-          margin = _ref2.margin;
-      return _this.d3.select(_this.rootElement.current).append('svg') // .attr('id', this.id)
-      .attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom);
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "initializeGroups", function (svg, _ref3) {
-      var margin = _ref3.margin;
-      var entireGroup = svg.append('g').attr('transform', "translate(".concat(margin.left, ", ").concat(margin.top, ")"));
-      var nodeGroup = entireGroup.append('g').attr('class', 'nodes').attr('font-family', 'sans-serif').attr('font-size', 10).selectAll('g');
-      var linkGroup = entireGroup.append('g').attr('class', 'links').attr('fill', 'none').selectAll('path');
-      return [entireGroup, nodeGroup, linkGroup];
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "processDataForSankey", function (sankey, data) {
-      return sankey(data);
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "renderNodes", function (nodeG, sankeyNodesData, _ref4) {
-      var width = _ref4.width;
-
-      var nodeColor = _this.d3.scaleSequential(_this.d3.interpolateCool).domain([0, width]); // Enter node g
-
-
-      var node = nodeG.data(sankeyNodesData).enter().append('g'); // Render rect
-
-      node.append('rect').attr('x', function (d) {
-        return d.x0;
-      }).attr('y', function (d) {
-        return d.y0;
-      }).attr('height', function (d) {
-        return d.y1 - d.y0;
-      }).attr('width', function (d) {
-        return d.x1 - d.x0;
-      }).attr('rx', 4).attr('ry', 4).attr('id', function (d) {
-        return strIdConvert(d.name);
-      }).style('fill', "#002d4f").style('cursor', "pointer"); // Render node name
-
-      node.append('text').attr('x', function (d) {
-        return (d.x0 + d.x1) / 2;
-      }).attr('y', function (d) {
-        return d.y0 - 12;
-      }).attr('dy', '0.35em').attr('fill', 'rgba(0, 0, 0, 0.4)').attr('font-famliy', 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif').attr('text-anchor', 'middle').attr('font-size', '14').attr('font-weight', 'normal').attr('font-style', 'normal').attr('font-stretch', 'normal').attr('line-height', 'normal').attr('letter-spacing', '0.5px').text(function (d) {
-        return d.name;
-      });
-      /*
-      pr url:https://github.com/linewalks/Cardio_Demo_View/pull/52/files
-      TODO: node tooltip 사용성이 확정되면 다시 기능 추가할것.
-      Render node title
-      node.append('title').text(d => `${d.name}\n${d.value}`)
-      */
-
-      return node;
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "renderLinks", function (linkG, sankeyLinksData) {
-      var link = linkG.data(sankeyLinksData).enter().append('g');
-      link.append('path').attr('class', 'sankey-link').attr('id', function (_ref5) {
-        var startNode = _ref5.source.name,
-            endNode = _ref5.target.name;
-        return "".concat(strIdConvert(startNode), "X").concat(strIdConvert(endNode));
-      }).attr('d', function (link) {
-        return link.path;
-      }).style('stroke-width', function (d) {
-        return Math.max(1, d.width);
-      }).style('opacity', 0.04).style('stroke', '#000000');
-      /*
-      pr url:https://github.com/linewalks/Cardio_Demo_View/pull/52/files
-      TODO: link tooltip 사용성이 확정되면 다시 기능 추가할것.
-      link.append('title').text(d => {
-        return `${d.source.name} → ${d.target.name}\n Count: ${d.value}`
-      })
-      */
-
-      return link;
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "attachEventHandlersToNode", function (d3, nodes, _ref6) {
-      var onClick = _ref6.onClick;
-
-
-      if (onClick) {
-        nodes.on('click', function (data) {
-          var selectedNodes = _this.state.selectedNodes;
-          var prevSelectedNode = last_1(selectedNodes);
-
-          var currentSelectedNode = _this.getNodeName(data);
-
-          if (_this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
-            _this.setSelectedNode(_this.getNodeName(data));
-
-            onClick(_this.state.selectedNodes);
-          }
-        });
-      }
-
-      return nodes;
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "attachEventHandlersToLink", function (d3, links, _ref7) {
-      var onClick = _ref7.onClick;
-
-      if (onClick) {
-        links.on('click', function (data) {
-          onClick(data);
-        });
-      }
-
-      return links;
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "linkConnectCheck", function (prevSelectedNode, currentSelectedNode) {
-      if (isEmpty_1(prevSelectedNode)) {
-        return true;
-      }
-
-      return _this.props.data.links.some(function (_ref8) {
-        var startNode = _ref8.source.name,
-            endNode = _ref8.target.name;
-        return startNode === prevSelectedNode && endNode === currentSelectedNode || startNode === currentSelectedNode && endNode === prevSelectedNode;
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "renderSankey", function () {
-      var d3 = _this.d3;
-      var _this$props = _this.props,
-          data = _this$props.data,
-          options = _this$props.options,
-          onChange = _this$props.onChange,
-          onNodeHover = _this$props.onNodeHover,
-          onLinkClick = _this$props.onLinkClick,
-          onLinkHover = _this$props.onLinkHover;
-      var height = options.height,
-          width = options.width,
-          margin = options.margin,
-          nodeWidth = options.nodeWidth,
-          nodePadding = options.nodePadding,
-          iterations = options.iterations,
-          circularLinkGap = options.circularLinkGap;
-      _this.sankey = _this.initializeSankey(d3, {
-        height: height,
-        width: width,
-        nodeWidth: nodeWidth,
-        iterations: iterations,
-        circularLinkGap: circularLinkGap
-      });
-      _this.svg = _this.initializeSVG(d3, {
-        width: width,
-        height: height,
-        margin: margin
-      }); // initialize entire group, link group, node group
-
-      var _this$initializeGroup = _this.initializeGroups(_this.svg, {
-        margin: margin
-      }),
-          _this$initializeGroup2 = _slicedToArray(_this$initializeGroup, 3),
-          g = _this$initializeGroup2[0],
-          nodeG = _this$initializeGroup2[1],
-          linkG = _this$initializeGroup2[2];
-
-      var sankeyData = _this.processDataForSankey(_this.sankey, data);
-
-      var sankeyNodesData = sankeyData.nodes;
-      var sankeyLinksData = sankeyData.links;
-
-      var nodes = _this.renderNodes(nodeG, sankeyNodesData, {
-        width: width
-      });
-
-      var links = _this.renderLinks(linkG, sankeyLinksData);
-
-      if (onChange) {
-        nodes = _this.attachEventHandlersToNode(d3, nodes, {
-          onClick: onChange
-        });
-      } else {
-        nodes.on('click', function (data) {
-          _this.setSelectedNode(_this.getNodeName(data));
-        });
-      }
-
-      links = _this.attachEventHandlersToNode(d3, links, {
-        onClick: onLinkClick
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
-      var _this$props2 = _this.props,
-          data = _this$props2.data,
-          resetBtnId = _this$props2.resetBtnId,
-          defaultdNode = _this$props2.defaultdNode;
-      !isEmpty_1(resetBtnId) && _this.resetSankey(resetBtnId, defaultdNode);
-
-      if (!isEmpty_1(data)) {
-        _this.renderSankey();
-
-        if (_this.state.selectedNodes.length >= 2) {
-          var LinkId = _this.createLinkId(_this.state.selectedNodes);
-
-          _this.highlightLink(LinkId);
-        }
-      }
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps, prevState) {
-      var prevSelectedNode = last_1(prevState.selectedNodes);
-      var currentSelectedNode = last_1(_this.state.selectedNodes);
-
-      if (!isEqual_1(prevState.selectedNodes, _this.state.selectedNodes) && _this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
-        var LinkId = _this.createLinkId(_this.state.selectedNodes);
-
-        _this.highlightLink(LinkId);
-      }
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "resetSankey", function (resetBtnId) {
-      var defaultNode = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-      var d3 = _this.d3;
-      d3.select("#".concat(resetBtnId)).on('click', function () {
-        var LinkId = _this.createLinkId(_this.state.selectedNodes);
-
-        _this.resetHighlightLink(LinkId);
-
-        _this.setState({
-          selectedNodes: defaultNode
-        });
-
-        _this.props.onChange(_this.state.selectedNodes);
-
-        if (_this.state.selectedNodes.length >= 2) {
-          var _LinkId = _this.createLinkId(_this.state.selectedNodes);
-
-          _this.highlightLink(_LinkId);
-        }
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "resetHighlightLink", function (id) {
-      var d3 = _this.d3;
-
-      for (var i = 0; i < id.length; i++) {
-        var _id$i$split3 = id[i].split('X'),
-            _id$i$split4 = _slicedToArray(_id$i$split3, 2),
-            source = _id$i$split4[0],
-            target = _id$i$split4[1];
-
-        var forwardPath = d3.select("#".concat(source, "X").concat(target));
-        var reversePath = d3.select("#".concat(target, "X").concat(source));
-        forwardPath.style('opacity', 0.04).style('stroke', '#000000');
-        reversePath.style('opacity', 0.04).style('stroke', '#000000');
-      }
-    });
-
-    _this.d3 = _objectSpread2({}, d3Core, {}, sankeyCircular$1); // this.id = props.id || 'sankey'
-
-    _this.state = {
-      selectedNodes: props.selectedNodes || []
-    };
-    return _this;
-  }
-
-  _createClass(SankeyChart, [{
-    key: "render",
-    value: function render() {
-      var data = this.props.data;
-      return isEmpty_1(data) ? this.renderPlaceholder() : React__default.createElement("div", {
-        ref: this.rootElement
-      });
-    }
-  }]);
-
-  return SankeyChart;
-}(React__default.Component);
-
-SankeyChart.defaultProps = {
-  options: {
-    height: 254,
-    width: 1000,
-    nodeWidth: 25,
-    nodePadding: 20,
-    iterations: 15,
-    circularLinkGap: 1,
-    margin: {
-      top: 100,
-      right: 100,
-      bottom: 100,
-      left: 100
-    }
-  },
-  data: sankeyData
-};
-
-var backgroundArrow = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDE0IDE0Ij4KICAgIDxwYXRoIGZpbGw9IiMwMDJENEYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTguNzA3IDEuNjM2bDQuNjU3IDQuNjU3YTEgMSAwIDAgMSAwIDEuNDE0bC00LjY1NyA0LjY1N0ExIDEgMCAwIDEgNyAxMS42NTdWMi4zNDNhMSAxIDAgMCAxIDEuNzA3LS43MDd6IiBvcGFjaXR5PSIuOCIvPgo8L3N2Zz4=';
-
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var font = {
-  base: {
-    size: 14
-  }
-};
-var Text = function Text(props) {
-  return "\n  font-size: ".concat(props.size ? props.size + 'px' : font.base.size + 'px', ";\n\n  font-weight: ").concat(props.bold ? 'bold' : 'normal', ";\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, ").concat(props.opacity ? (props.opacity * 0.1).toFixed(2) : 1, ");\n");
-};
-var TextTag = styled.span(_templateObject(), Text);
-
-function _templateObject4() {
-  var data = _taggedTemplateLiteral([""]);
-
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  border-radius: 25px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);\n  background-color: #002b4f;\n  padding: 11px 24px 10px;\n"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  background-repeat: no-repeat;\n  background-position-x: 100%;\n  background-position-y: center;\n  padding-right: 18px;\n  margin-right: 8px;\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject$1() {
-  var data = _taggedTemplateLiteral(["\n  max-width: 1200px;\n  width: 1200px;\n  margin: 0 auto\n"]);
-
-  _templateObject$1 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var Wrap1200 = styled.div(_templateObject$1());
-var Arrow = styled.article(_templateObject2());
-var CardContatiner = styled.div(_templateObject3());
-var Card = styled(TextTag).attrs({
-  size: '20',
-  bold: true,
-  style: {
-    color: '#ffffff'
-  }
-})(_templateObject4());
-
-var SelectedCard = function SelectedCard(_ref) {
-  var selectedElement = _ref.selectedElement;
-  return React__default.createElement(Wrap1200, null, selectedElement.map(function (element, idx) {
-    var isLast = idx === selectedElement.length - 1;
-    return React__default.createElement(Arrow, {
-      key: "SelectedCard".concat(idx),
-      style: isLast ? null : {
-        backgroundImage: "url(".concat(backgroundArrow, ")")
-      }
-    }, React__default.createElement(CardContatiner, null, React__default.createElement(Card, null, element)));
-  }));
-};
-
-// Color Set START  
-var color$1 = {
-  $black: '#000000',
-  $primary_white: '#ffffff',
-  $primary_navy: '#002d4f',
-  $secondary_blue: '#eff8ff',
-  $secondary_bg_blue: '#f7fafb',
-  $menu_grey: '#565b5f',
-  $icn_grey: '#979797',
-  $line_btn_grey: '#c4c4c4',
-  $line_dashboard_edge_grey: '#d4d4d4',
-  $line_search_grey: '#e2e2e2',
-  $line_graph_xy_grey: '#e8e8e8',
-  $table_grey: '#f2f2f2',
-  $bg_grey: '#f8f8f8',
-  $table_cell_grey: '#fafafa',
-  $legend_timeline_green_01: '#a5e2d7',
-  $legend_timeline_green_02: '#27b097',
-  $legend_timeline_green_03: '#00745e',
-  $legend_timeline_red_01: '#fa6b57',
-  $legend_timeline_red_02: '#faafa5',
-  // $pathway_link_blue: '#189bff',
-  // $pathway_link_red: '#ff3a1f',
-  $alert_red: '#ff3c3c',
-  $azure: '#189bff',
-  $pathway_link_blue: 'rgba(24, 155, 255, 0.4)',
-  // solid_default
-  $pathway_link_red: 'rgba(255, 58, 31, 0.4)',
-  // alert_red
-  $solid_default: '#189bff',
-  $solid_hover: '#0070c6',
-  $btn_solid_disable: '#d1e7f7',
-  $btn_lightshaded_disable: '#efefef',
-  $btn_lightshaded_hover: '#d1d1d1',
-  $btn_lightshaded_default: '#e5e5e5',
-  $txt_solid_disable: '#ebf6fe',
-  $txt_solid_disable_02: '#b7ddf9'
-};
-var size = {
-  $footer_height: '60px',
-  $footer_margin_top: '80px'
-};
-
-function _templateObject5() {
-  var data = _taggedTemplateLiteral([""]);
-
-  _templateObject5 = function _templateObject5() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject4$1() {
-  var data = _taggedTemplateLiteral([""]);
-
-  _templateObject4$1 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject3$1() {
-  var data = _taggedTemplateLiteral(["\n  position: relative;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  cursor: ", ";\n"]);
-
-  _templateObject3$1 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2$1() {
-  var data = _taggedTemplateLiteral(["\n  width: 282px;\n  height: 170px;\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);\n  background-color: #ffffff;\n  font-size: 0;\n  display: inline-block;\n  text-align: center;\n  margin-right: 24px;\n\n  &:last-child {\n    margin-right: 0;\n  }\n\n  dl {\n    width: 100%;\n    text-align: right;\n    padding-right: 44px;\n\n    margin: 0;\n  }\n"]);
-
-  _templateObject2$1 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject$2() {
-  var data = _taggedTemplateLiteral(["\n  max-width: 1200px;\n  width: 1200px;\n  margin: 0 auto\n"]);
-
-  _templateObject$2 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var Wrap1200$1 = styled.div(_templateObject$2());
-var Article = styled.article(_templateObject2$1());
-var EventElement = styled.div(_templateObject3$1(), function (props) {
-  return props.onClick ? 'pointer' : '';
-});
-var BodyB16 = styled(TextTag).attrs({
-  size: '16',
-  bold: true,
-  opacity: 4
-})(_templateObject4$1());
-var BodyB42 = styled(TextTag).attrs({
-  size: '42',
-  bold: true,
-  style: {
-    color: color$1.$primary_navy,
-    display: 'block',
-    marginInlineStart: '40px',
-    margin: 0
-  }
-})(_templateObject5());
-
-var SummaryCard = function SummaryCard(_ref) {
-  var data = _ref.data,
-      _ref$events = _ref.events,
-      events = _ref$events === void 0 ? {} : _ref$events;
-  var summaryData = Object.entries(data);
-  return React__default.createElement(Wrap1200$1, null, summaryData.map(function (_ref2, idx) {
-    var _ref3 = _slicedToArray(_ref2, 2),
-        name = _ref3[0],
-        value = _ref3[1];
-
-    return React__default.createElement(Article, {
-      key: idx
-    }, React__default.createElement(EventElement, {
-      onClick: events[name] ? function () {
-        events[name]();
-      } : null
-    }, React__default.createElement("dl", null, React__default.createElement(BodyB42, {
-      as: "dd"
-    }, value), React__default.createElement(BodyB16, {
-      as: "dt"
-    }, name))));
-  }));
-};
-
 function _templateObject2$2() {
   var data = _taggedTemplateLiteral(["\n  font-weight: bold;\n  letter-spacing: -0.5px;\n"]);
 
@@ -41114,10 +39411,10 @@ var Descriptions = (function (_ref5) {
       }, children));
     }
 
-    return table;
+    return React__default.createElement(Table$2, null, React__default.createElement("tbody", null, table));
   };
 
-  return React__default.createElement(TableWrap, null, React__default.createElement(Table$2, null, createTable()));
+  return React__default.createElement(TableWrap, null, createTable());
 });
 
 var highcharts = createCommonjsModule(function (module) {
