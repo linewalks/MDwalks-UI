@@ -9,7 +9,7 @@ edit: false
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
-# v0.4.5 // 
+# v0.4.5 / 2019-09-26
 ## :bug: Fixes
 - [#146](https://github.com/linewalks/MDwalks-UI/issues/146'): build 파일에서 helper/chartUtility 를 찾지 못 함 ([**@toyjhlee**](https://github.com/toyjhlee))
 - [#141](https://github.com/linewalks/MDwalks-UI/issues/141): Warning: validateDOMNesting on Description ([**@toyjhlee**](https://github.com/toyjhlee))
