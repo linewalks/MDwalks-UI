@@ -237,9 +237,9 @@ class SankeyChart extends React.Component {
     nodes.on('click', (node) => {
       const prevSelectedNode = _.last(this.state.selectedNodes)
       const currentSelectedNode = this.getNodeName(node)
-      if (this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
+      // if (this.linkConnectCheck(prevSelectedNode, currentSelectedNode)) {
         this.setSelectedNode(this.getNodeName(node))
-      }
+      // }
     })
   }
 
@@ -256,9 +256,10 @@ class SankeyChart extends React.Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    // console.log(JSON.stringify(prevProps.selectedNodes) == JSON.stringify(prevState.selectedNodes))
-    this.props.onChange(this.state.selectedNodes)
-    this.highlightLink()
+    if (JSON.stringify(prevState.selectedNodes) !== JSON.stringify(this.state.selectedNodes)) {
+      this.props.onChange(this.state.selectedNodes)
+      this.highlightLink()
+    }
   }
 
   resetSankey = () => {
