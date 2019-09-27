@@ -3,7 +3,7 @@ import * as d3 from 'd3'
 import './LineMergeTimeline.css'
 import isEmpty from 'lodash/isEmpty'
 
-const { renderSVG, generateGroup, getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, lineDataFormatConvert } = require('../../helper/chartUtility.js')
+import { renderSVG, generateGroup, getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, lineDataFormatConvert } from '../../helper/chartUtility'
 
 const styles = {
   "timelineChart": "timelineChart",
