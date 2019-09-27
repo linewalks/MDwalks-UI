@@ -32,8 +32,12 @@ describe('Util', () => {
   })
 
   it('getColspan', () => {
-    expect(getColspan({cellTotal: 3, cellCount: 3, cellCurrent: 3})).toBe(0)
-    expect(getColspan({cellTotal: 5, cellCount: 3, cellCurrent: 4})).toBe(2)
+    expect(getColspan({cellTotal: 3, cellCount: 3, cellCurrent: 2})).toBe(0)
+    expect(getColspan({cellTotal: 5, cellCount: 3})).toBe(3)
+    expect(getColspan({cellTotal: 5, cellCount: 4})).toBe(7)
+    expect(getColspan({cellTotal: 5, cellCount: 4})).toBe(7)
+    expect(getColspan({cellTotal: 6, cellCount: 4})).toBe(5)
+    expect(getColspan({cellTotal: 6, cellCount: 5})).toBe(9)
   })
 })
 
@@ -64,5 +68,30 @@ describe('Descriptions Component', () => {
     expect(render.find('tr').eq(0).find('td')).toHaveLength(3)
     expect(render.find('tr').eq(1).find('td')).toHaveLength(2)
     expect(render.find('tr').eq(1).find('td').eq(1).prop('colspan')).toBe("3")
+  })
+
+  it('cellCount set 4', () => {
+    wrapper.setProps({cellCount: 4})
+    const render = wrapper.render()
+    expect(render.find('tr').eq(0).find('td')).toHaveLength(4)
+    expect(render.find('tr').eq(1).find('td')).toHaveLength(1)
+    expect(render.find('tr').eq(1).find('td').eq(0).prop('colspan')).toBe("7")
+  })
+})
+
+describe('width', () => {
+  const wrapper = shallow(<Descriptions data={data} />)
+
+  it('default', () => {
+    const render = wrapper.render()
+    expect(render.find('tr').eq(0).find('th').eq(0).prop('width')).toBe('auto')
+    expect(render.find('tr').eq(0).find('td').eq(0).prop('width')).toBe('auto')
+  })
+
+  it('set 250, 150, 250, 150', () => {
+    wrapper.setProps({colWidths: [250, 150, 250, 150]})
+    const render = wrapper.render()
+    expect(render.find('tr').eq(0).find('th').eq(0).prop('width')).toBe('250px')
+    expect(render.find('tr').eq(0).find('td').eq(0).prop('width')).toBe('150px')
   })
 })
