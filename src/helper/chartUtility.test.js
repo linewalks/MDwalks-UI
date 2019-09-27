@@ -5,6 +5,8 @@ const chartUtility = require('./chartUtility');
 it('strIdConvert', () => {
   expect(chartUtility.strIdConvert('a b')).toBe('a_b')
   expect(chartUtility.strIdConvert('a')).toBe('a')
+  expect(chartUtility.strIdConvert(['a', 'b'])).not.toBe('a_b')
+  expect(chartUtility.strIdConvert(['a', 'b'])).toBe('aXb')
 })
 
 it('tableHeaderConvert', () => {
