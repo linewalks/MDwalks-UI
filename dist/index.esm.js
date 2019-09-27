@@ -38009,15 +38009,16 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps, prevState) {
-      // console.log(JSON.stringify(prevProps.selectedNodes) == JSON.stringify(prevState.selectedNodes))
-      _this.props.onChange(_this.state.selectedNodes);
+      if (JSON.stringify(_this.state.selectedNodes) != JSON.stringify(prevState.selectedNodes)) {
+        _this.props.onChange(_this.state.selectedNodes);
+      }
 
       _this.highlightLink();
     });
 
     _defineProperty(_assertThisInitialized(_this), "resetSankey", function () {
       _this.setState({
-        selectedNodes: _this.props.defaultNode
+        selectedNodes: _this.props.defaultdNode
       });
     });
 
@@ -38048,7 +38049,7 @@ function (_React$Component) {
 }(React.Component);
 
 SankeyChart.defaultProps = {
-  defaultNode: [],
+  defaultdNode: [],
   onChange: function onChange() {},
   options: {
     height: 254,
