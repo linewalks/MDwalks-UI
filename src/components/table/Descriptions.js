@@ -82,26 +82,33 @@ export const hasRow = ({cellTotal, cellCount, cellCurrent}) => {
   return cellTotal === cellCurrent + 1
 }
 
-export const getColspan = ({cellTotal, cellCount, cellCurrent}) => {
-  if (!hasRow({cellTotal, cellCount, cellCurrent})) return 0
-  return cellTotal - cellCurrent + 1
+export const getColspan = ({cellTotal, cellCount}) => {
+  if (cellTotal % cellCount === 0) return 0
+  return (cellCount - (cellTotal % cellCount)) * 2 + 1
 }
 
-export default ({ data, cellCount = 2 }) => {
+export default ({ data, cellCount = 2, colWidths = [] }) => {
   const createTable = () => {
     let table = []
     let props = {}
+    let thWidth, tdWidth
 
     for (let i = 0 ; i < data.length ; i += cellCount) {
       let children = []
       for (let j = i ; j < i + cellCount && j < data.length ; j++) {
         props = {cellTotal: data.length, cellCount, cellCurrent: j}
-        children.push(<Th key={`th${j}`}>{Object.keys(data[j])[0]}</Th>)
+        thWidth = colWidths[(j - i) * 2]
+        tdWidth = colWidths[(j - i) * 2 + 1]
+
+        thWidth = thWidth ? `${thWidth}px` : 'auto'
+        tdWidth = tdWidth ? `${tdWidth}px` : 'auto'
+
+        children.push(<Th key={`th${j}`} width={thWidth}>{Object.keys(data[j])[0]}</Th>)
 
         if (hasRow(props)) {
-          children.push(<Td key={`td${j}`} colSpan={getColspan(props) * 2 - 1}>{Object.values(data[j])[0]}</Td>)
+          children.push(<Td key={`td${j}`} width={tdWidth} colSpan={getColspan(props)}>{Object.values(data[j])[0]}</Td>)
         } else {
-          children.push(<Td key={`td${j}`}>{Object.values(data[j])[0]}</Td>)
+          children.push(<Td key={`td${j}`} width={tdWidth}>{Object.values(data[j])[0]}</Td>)
         }
       }
       table.push(<Tr key={i.toString()}>{children}</Tr>)
