@@ -1,8 +1,8 @@
 // TimelineChart Component Util
-const d3 = require('d3')
+import * as d3 from 'd3'
 
 // Sankey Component Util
-const strIdConvert = id => {
+export const strIdConvert = id => {
   if (!Array.isArray(id)) {
     id = [id]
   }
@@ -11,11 +11,11 @@ const strIdConvert = id => {
 }
 
 // Table Component Util
-const tableHeaderConvert = header => {
+export const tableHeaderConvert = header => {
   return header.split('_').map(title => `${title[0].toUpperCase()}${title.slice(1)}`).join(' ')
 }
 
-const renderSVG = (domObj, width, height) => {
+export const renderSVG = (domObj, width, height) => {
   if (!(domObj instanceof d3.selection)) {
     throw new Error('domObj is not a d3.selection')
   }
@@ -25,14 +25,14 @@ const renderSVG = (domObj, width, height) => {
     .attr('height', height)
 }
 
-const generateGroup = (anchorEl, { className = '', xOffset = 0, yOffset = 0 }) => {
+export const generateGroup = (anchorEl, { className = '', xOffset = 0, yOffset = 0 }) => {
   return anchorEl
     .append('g')
     .attr('class', className)
     .attr('transform', `translate(${xOffset}, ${yOffset})`)
 }
 
-const getStartAndEndTime = dataPoints => {
+export const getStartAndEndTime = dataPoints => {
   if (!(dataPoints instanceof Array)) {
     throw new Error('datapoints should be a list')
   }
@@ -60,15 +60,15 @@ const getStartAndEndTime = dataPoints => {
   }
 }
 
-const circleDataFilter = data => {
+export const circleDataFilter = data => {
   return data.filter(d => Date.parse(d.endTime) - Date.parse(d.startTime) === 0)
 }
 
-const rectDataFilter = data => {
+export const rectDataFilter = data => {
   return data.filter(d => Date.parse(d.endTime) - Date.parse(d.startTime) > 0)
 }
 
-const labelList = data => {
+export const labelList = data => {
   let result = []
   data.forEach(d => {
     const labelIdx = d.label.length - 1
@@ -77,21 +77,9 @@ const labelList = data => {
   return result
 }
 
-const lineDataFormatConvert = data => {
+export const lineDataFormatConvert = data => {
   const { xaxis: x, data: [{data: y}] } = data;
   return x.map((d, idx) => {
     return { x: d, y: y[idx] }
   })
-}
-
-module.exports = {
-  strIdConvert,
-  tableHeaderConvert,
-  renderSVG,
-  generateGroup,
-  getStartAndEndTime,
-  circleDataFilter,
-  rectDataFilter,
-  labelList,
-  lineDataFormatConvert,
 }
