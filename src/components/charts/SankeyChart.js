@@ -256,13 +256,14 @@ class SankeyChart extends React.Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    // console.log(JSON.stringify(prevProps.selectedNodes) == JSON.stringify(prevState.selectedNodes))
-    this.props.onChange(this.state.selectedNodes)
+    if (JSON.stringify(this.state.selectedNodes) != JSON.stringify(prevState.selectedNodes)) {
+      this.props.onChange(this.state.selectedNodes)
+    }
     this.highlightLink()
   }
 
   resetSankey = () => {
-    this.setState({selectedNodes: this.props.defaultNode})
+    this.setState({selectedNodes: this.props.defaultdNode})
   }
 
   render() {
@@ -276,7 +277,7 @@ class SankeyChart extends React.Component {
 }
 
 SankeyChart.defaultProps = {
-  defaultNode: [],
+  defaultdNode: [],
   onChange: () => {},
   options: {
     height: 254,
