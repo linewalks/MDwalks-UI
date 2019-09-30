@@ -38009,15 +38009,16 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps, prevState) {
-      // console.log(JSON.stringify(prevProps.selectedNodes) == JSON.stringify(prevState.selectedNodes))
-      _this.props.onChange(_this.state.selectedNodes);
+      if (JSON.stringify(_this.state.selectedNodes) != JSON.stringify(prevState.selectedNodes)) {
+        _this.props.onChange(_this.state.selectedNodes);
+      }
 
       _this.highlightLink();
     });
 
     _defineProperty(_assertThisInitialized(_this), "resetSankey", function () {
       _this.setState({
-        selectedNodes: _this.props.defaultNode
+        selectedNodes: _this.props.defaultdNode
       });
     });
 
@@ -38048,7 +38049,7 @@ function (_React$Component) {
 }(React.Component);
 
 SankeyChart.defaultProps = {
-  defaultNode: [],
+  defaultdNode: [],
   onChange: function onChange() {},
   options: {
     height: 254,
@@ -39356,23 +39357,21 @@ var hasRow = function hasRow(_ref3) {
 };
 var getColspan = function getColspan(_ref4) {
   var cellTotal = _ref4.cellTotal,
-      cellCount = _ref4.cellCount,
-      cellCurrent = _ref4.cellCurrent;
-  if (!hasRow({
-    cellTotal: cellTotal,
-    cellCount: cellCount,
-    cellCurrent: cellCurrent
-  })) return 0;
-  return cellTotal - cellCurrent + 1;
+      cellCount = _ref4.cellCount;
+  if (cellTotal % cellCount === 0) return 0;
+  return (cellCount - cellTotal % cellCount) * 2 + 1;
 };
 var Descriptions = (function (_ref5) {
   var data = _ref5.data,
       _ref5$cellCount = _ref5.cellCount,
-      cellCount = _ref5$cellCount === void 0 ? 2 : _ref5$cellCount;
+      cellCount = _ref5$cellCount === void 0 ? 2 : _ref5$cellCount,
+      _ref5$colWidths = _ref5.colWidths,
+      colWidths = _ref5$colWidths === void 0 ? [] : _ref5$colWidths;
 
   var createTable = function createTable() {
     var table = [];
     var props = {};
+    var thWidth, tdWidth;
 
     for (var i = 0; i < data.length; i += cellCount) {
       var children = [];
@@ -39383,18 +39382,25 @@ var Descriptions = (function (_ref5) {
           cellCount: cellCount,
           cellCurrent: j
         };
+        thWidth = colWidths[(j - i) * 2];
+        tdWidth = colWidths[(j - i) * 2 + 1];
+        thWidth = thWidth ? "".concat(thWidth, "px") : 'auto';
+        tdWidth = tdWidth ? "".concat(tdWidth, "px") : 'auto';
         children.push(React.createElement(Th$1, {
-          key: "th".concat(j)
+          key: "th".concat(j),
+          width: thWidth
         }, Object.keys(data[j])[0]));
 
         if (hasRow(props)) {
           children.push(React.createElement(Td, {
             key: "td".concat(j),
-            colSpan: getColspan(props) * 2 - 1
+            width: tdWidth,
+            colSpan: getColspan(props)
           }, Object.values(data[j])[0]));
         } else {
           children.push(React.createElement(Td, {
-            key: "td".concat(j)
+            key: "td".concat(j),
+            width: tdWidth
           }, Object.values(data[j])[0]));
         }
       }
