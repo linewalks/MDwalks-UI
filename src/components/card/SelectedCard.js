@@ -26,6 +26,15 @@ const CardContatiner = styled.div`
   padding: 11px 24px 10px;
 `
 
+
+const CardContatinerHighlighted = styled.div`
+  display: inline-block;
+  border-radius: 25px;
+  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);
+  background-color: #ff4757;
+  padding: 11px 24px 10px;
+`
+
 export const Card = styled(font.TextTag).attrs({
   size: '20',
   bold: true,
@@ -42,9 +51,14 @@ const SelectedCard = ({ selectedElement }) => {
         return (
           <Arrow key={`SelectedCard${idx}`} 
            style={isLast ? null : {backgroundImage:`url(${backgroundArrow})`}}>
-            <CardContatiner>
-              <Card>{element}</Card>
-            </CardContatiner>
+            {isLast ? 
+              <CardContatinerHighlighted>
+                <Card>{element}</Card>
+              </CardContatinerHighlighted> : 
+              <CardContatiner>
+                <Card>{element}</Card>
+              </CardContatiner>}
+            
           </Arrow>
         )
       })}
