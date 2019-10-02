@@ -1,17 +1,19 @@
 {
   "name": "MDwalks-UI",
-  "version": "0.4.3",
+  "version": "0.4.7",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "build": "rollup -c",
+    "build:docz": "rm -rf docs && yarn docz build",
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "jest": {
     "testPathIgnorePatterns": [
-      "<rootDir>/.docz/"
+      "<rootDir>/.docz/",
+      "<rootDir>/src/components/__tests__/__snapshots__/"
     ],
     "setupFilesAfterEnv": [
       "./setupTest.js"
@@ -53,6 +55,7 @@
     "docz": "^2.0.0-rc.41",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.4.0",
     "gatsby-plugin-asset-path": "^1.0.2",
     "gatsby-source-filesystem": "^2.1.22",
     "highcharts": "^7.1.2",

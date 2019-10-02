@@ -26,7 +26,18 @@
   yarn storybook
   ```
 
-## 2. Usage
+## 2. build
+* code build
+  ```bash
+  yarn build
+  ```
+
+* docz build
+  ```bash
+  yarn build:docz
+  ```
+
+## 3. Usage
 
 * ### BarGauge Component
 
@@ -115,7 +126,6 @@
    |:------|:-------|:--------|:--------------------|---------|
    | data | Object |         | SankeyChart Data | |
    | onChange | Function |         | SankeyChart Node Click Event Handler | |
-   | onLinkClick | Function |         | SankeyChart Link Click Event Handler | |
    | selectedNodes | Array |        | Selected Nodes | yes |
    | defaultdNode | Array |        | Default Node | yes |
    | resetBtnId | String |         | SankeyChart Reset Button Id | yes |

@@ -3,7 +3,11 @@ import * as d3 from 'd3'
 
 // Sankey Component Util
 export const strIdConvert = id => {
-  return id.split(' ').join('_')
+  if (!Array.isArray(id)) {
+    id = [id]
+  }
+
+  return id.map((name) => name.split(' ').join('_')).join('X')
 }
 
 // Table Component Util
@@ -11,7 +15,7 @@ export const tableHeaderConvert = header => {
   return header.split('_').map(title => `${title[0].toUpperCase()}${title.slice(1)}`).join(' ')
 }
 
-export function renderSVG(domObj, width, height) {
+export const renderSVG = (domObj, width, height) => {
   if (!(domObj instanceof d3.selection)) {
     throw new Error('domObj is not a d3.selection')
   }
@@ -21,10 +25,7 @@ export function renderSVG(domObj, width, height) {
     .attr('height', height)
 }
 
-export function generateGroup(
-  anchorEl,
-  { className = '', xOffset = 0, yOffset = 0 },
-) {
+export const generateGroup = (anchorEl, { className = '', xOffset = 0, yOffset = 0 }) => {
   return anchorEl
     .append('g')
     .attr('class', className)
