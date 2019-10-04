@@ -1,18 +1,29 @@
 import React from 'react';
 import isEmpty from 'lodash/isEmpty';
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { color } from '../../assets/styles/variables'
 
 import { tableHeaderConvert } from '../../helper/chartUtility'
 
-const Th = styled.th`
+const Cell = css`
   padding: 28px 24px;
   text-align: center;
-  background: #f2f2f2;
-  border-bottom: 2px solid #d4d4d4;
+  background: ${color.$table_grey}
   color: rgba(0, 0, 0, 0.7);
   font-size: 16px;
   font-family: "Spoqa Han Sans";
+  border-bottom: 2px solid ${color.$line_dashboard_edge_grey};
+`
 
+const Td = styled.td`
+  ${Cell}
+  &:last-child {
+    padding-right: 50px;
+  }
+`
+
+const Th = styled.th`
+  ${Cell}
   &:first-child {
     border-radius: 10px 0 0 0; 
   }
@@ -85,13 +96,11 @@ const THead = ({ headers, subHeaders }) => {
   }
 
   const createSubHeader = subHeaderData => {
-    const subTitleGroup = Object.values(subHeaderData)
-    .join()
-    .split(',')
+    const subTitleGroup = Object.values(subHeaderData).join().split(',')
     return (
       <tr>
         {subTitleGroup.map((subTitle, idx) => {
-          return <td key={idx}>{subTitle}</td>
+          return <Td key={idx}>{subTitle}</Td>
         })}
       </tr>
     )
