@@ -2,10 +2,7 @@ import React from 'react';
 import isEmpty from 'lodash/isEmpty';
 import visualAlert from '../../assets/svg/visual-alert.svg';
 import styled from 'styled-components'
-
-const BodyR20 = styled.span`
-  font-size: 20px;
-`
+import { color } from '../../assets/styles/variables'
 
 const ListTBody = styled.tbody`
   .tr {
@@ -13,27 +10,27 @@ const ListTBody = styled.tbody`
   }
 
   .tr:nth-child(even) .td {
-    background: #ffffff;
+    background: ${color.$primary_white};
   }
 
   .tr:nth-child(odd) .td {
-    background: #fafafa;
+    background: ${color.$table_cell_grey};;
   }
 
   /* after the first non-.parent, toggle colors */
   tr:not(.tr) ~ .tr:nth-child(odd) td {
-      background-color: #ffffff;
+      background-color: ${color.$primary_white};
   }
   tr:not(.tr) ~ .tr:nth-child(even) td {
-      background-color: #fafafa;
+      background-color: ${color.$table_cell_grey};;
   }
 
   /* after the second non-.parent, toggle again */
   tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(odd) td {
-      background-color: #fafafa;
+      background-color: ${color.$table_cell_grey};;
   }
   tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(even) td {
-      background-color: #ffffff;
+      background-color: ${color.$primary_white};
   }
 
   .td {
@@ -42,13 +39,23 @@ const ListTBody = styled.tbody`
     font-family: "Spoqa Han Sans";
   }
 
+  .td:first-child, .td:last-child {
+    white-space: nowrap;
+    width: 1%;
+  }
+
   .td > a > div, .td > div {
     padding: 24px;
   }
 
-  .td:first-child, .td:last-child {
-    white-space: nowrap;
-    width: 1%;
+  .td:first-child > a > div,
+  .td:first-child > div {
+    padding-left: 0
+  }
+
+  .td:last-child > a > div,
+  .td:last-child > div {
+    padding-right: 0
   }
 
   .td:first-child {
@@ -67,15 +74,15 @@ const EmptyTbody = styled.tbody`
     text-align: center;
     font-family: "Spoqa Han Sans";
   }
-
-  span {
-    margin: auto;
-    color: #161616;
-    display: block;
-    font-size: 20px;
-    opacity: 0.6;
-    font-family: "Spoqa Han Sans";
-  }
+`
+const BodyR20 = styled.span`
+  font-size: 20px;
+  margin: auto;
+  color: #161616;
+  display: block;
+  font-size: 20px;
+  opacity: 0.6;
+  font-family: "Spoqa Han Sans";
 `
 
 const TBody = ({headers, rowData, wrapTd, appendRow}) => {

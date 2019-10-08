@@ -1,0 +1,49 @@
+---
+name: Button
+edit: false
+---
+
+import { Playground, Props } from 'docz'
+
+import Button, {ButtonLink, ButtonTextLink} from '../components/button/Button'
+
+### default
+<Playground>
+  <Button variant="primary">primary</Button>
+  <Button variant="secondary">secondary</Button>
+  <Button variant="light">light</Button>
+</Playground>
+
+### as
+<Playground>
+  <Button variant="primary" as="a">primary</Button>
+  <Button variant="secondary" as="a">secondary</Button>
+  <Button variant="light" as="a">light</Button>
+</Playground>
+
+### disabled
+<Playground>
+  <Button variant="primary" disabled>primary</Button>
+  <Button variant="secondary" disabled>secondary</Button>
+  <Button variant="light" disabled>light</Button>
+</Playground>
+
+### large
+<Playground>
+  <Button variant="primary" size="lg">primary</Button>
+  <Button variant="primary" size="lg">primary</Button>
+  <Button variant="secondary" size="lg">secondary</Button>
+  <Button variant="light" size="lg">light</Button>  
+</Playground>
+
+
+### Link
+<Playground>
+  <ButtonLink>ButtonLink</ButtonLink>
+  <ButtonLink bold>ButtonLink</ButtonLink>
+</Playground>
+
+### Link
+<Playground>
+  <ButtonTextLink href="/">ButtonLink</ButtonTextLink>
+</Playground>
