@@ -41391,14 +41391,14 @@ var ButtonTextLink = function ButtonTextLink(props) {
     as: props.as || "a"
   }, props), props.children);
 };
-var ButtonNew = (function (props) {
+var Button = (function (props) {
   return React__default.createElement(ButtonTag, _extends({
     as: props.as || "button"
   }, props), props.children);
 });
 
 exports.BarGauge = BarGauge;
-exports.Button = ButtonNew;
+exports.Button = Button;
 exports.ButtonLink = ButtonLink;
 exports.ButtonTextLink = ButtonTextLink;
 exports.Descriptions = Descriptions;

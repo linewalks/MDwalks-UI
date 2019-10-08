@@ -41383,10 +41383,10 @@ var ButtonTextLink = function ButtonTextLink(props) {
     as: props.as || "a"
   }, props), props.children);
 };
-var ButtonNew = (function (props) {
+var Button = (function (props) {
   return React.createElement(ButtonTag, _extends({
     as: props.as || "button"
   }, props), props.children);
 });
 
-export { BarGauge, ButtonNew as Button, ButtonLink, ButtonTextLink, Descriptions, Footer$1 as Footer, Heading, Image$1 as Image, LineChart, LineMergeTimeline, Navbar$1 as Navbar, RadiusGauge, SankeyChart, SelectedCard, SummaryCard, Table$1 as Table, Timeline, font$1 as font, variables };
+export { BarGauge, Button, ButtonLink, ButtonTextLink, Descriptions, Footer$1 as Footer, Heading, Image$1 as Image, LineChart, LineMergeTimeline, Navbar$1 as Navbar, RadiusGauge, SankeyChart, SelectedCard, SummaryCard, Table$1 as Table, Timeline, font$1 as font, variables };

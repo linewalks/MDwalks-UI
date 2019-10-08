@@ -13,7 +13,7 @@ import Footer from './components/layout/Footer';
 import Image from './components/layout/Image';
 import Heading from './components/layout/Heading';
 
-import Button, {ButtonLink, ButtonTextLink} from './components/button/ButtonNew'
+import Button, {ButtonLink, ButtonTextLink} from './components/button/Button'
 import * as font from './assets/styles/font.js';
 import * as variables from './assets/styles/variables.js';
 
