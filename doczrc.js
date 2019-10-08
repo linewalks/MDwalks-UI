@@ -6,7 +6,11 @@ export default {
   port: '9004',
   files: '**/*.{mdx}',
   ignore: ['CHANGELOG.md'],
-  menu: ['Index'],
+  menu: [
+    'Index',
+    'Card', 'Charts', 'Layout', 'Table',
+    {name: 'Beta', menu: ['Paper']}
+  ],
   htmlContext: {
     favicon: '/favicon.ico'
   },
