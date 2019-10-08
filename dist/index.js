@@ -6,7 +6,8 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var React = require('react');
 var React__default = _interopDefault(React);
-var styled = _interopDefault(require('styled-components'));
+var styled = require('styled-components');
+var styled__default = _interopDefault(styled);
 
 function _typeof(obj) {
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -37695,6 +37696,11 @@ var size = {
   $footer_margin_top: '80px'
 };
 
+var variables = /*#__PURE__*/Object.freeze({
+  color: color$1,
+  size: size
+});
+
 var strIdConvert = function strIdConvert(id) {
   if (!Array.isArray(id)) {
     id = [id];
@@ -38093,7 +38099,12 @@ var font = {
 var Text = function Text(props) {
   return "\n  font-size: ".concat(props.size ? props.size + 'px' : font.base.size + 'px', ";\n\n  font-weight: ").concat(props.bold ? 'bold' : 'normal', ";\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, ").concat(props.opacity ? (props.opacity * 0.1).toFixed(2) : 1, ");\n");
 };
-var TextTag = styled.span(_templateObject(), Text);
+var TextTag = styled__default.span(_templateObject(), Text);
+
+var font$1 = /*#__PURE__*/Object.freeze({
+  Text: Text,
+  TextTag: TextTag
+});
 
 function _templateObject4() {
   var data = _taggedTemplateLiteral([""]);
@@ -38134,10 +38145,10 @@ function _templateObject$1() {
 
   return data;
 }
-var Wrap1200 = styled.div(_templateObject$1());
-var Arrow = styled.article(_templateObject2());
-var CardContatiner = styled.div(_templateObject3());
-var Card = styled(TextTag).attrs({
+var Wrap1200 = styled__default.div(_templateObject$1());
+var Arrow = styled__default.article(_templateObject2());
+var CardContatiner = styled__default.div(_templateObject3());
+var Card = styled__default(TextTag).attrs({
   size: '20',
   bold: true,
   style: {
@@ -38207,17 +38218,17 @@ function _templateObject$2() {
 
   return data;
 }
-var Wrap1200$1 = styled.div(_templateObject$2());
-var Article = styled.article(_templateObject2$1());
-var EventElement = styled.div(_templateObject3$1(), function (props) {
+var Wrap1200$1 = styled__default.div(_templateObject$2());
+var Article = styled__default.article(_templateObject2$1());
+var EventElement = styled__default.div(_templateObject3$1(), function (props) {
   return props.onClick ? 'pointer' : '';
 });
-var BodyB16 = styled(TextTag).attrs({
+var BodyB16 = styled__default(TextTag).attrs({
   size: '16',
   bold: true,
   opacity: 4
 })(_templateObject4$1());
-var BodyB42 = styled(TextTag).attrs({
+var BodyB42 = styled__default(TextTag).attrs({
   size: '42',
   bold: true,
   style: {
@@ -39124,8 +39135,28 @@ function isEmpty(value) {
 
 var isEmpty_1 = isEmpty;
 
-function _templateObject2$2() {
+function _templateObject4$2() {
   var data = _taggedTemplateLiteral(["\n  font-weight: bold;\n  letter-spacing: -0.5px;\n"]);
+
+  _templateObject4$2 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$2() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n  &:first-child {\n    border-radius: 10px 0 0 0; \n  }\n\n  &:last-child {\n    border-radius: 0 10px 0 0;\n  }\n\n  &:first-child, &:last-child {\n    white-space: nowrap;\n    width: 1%;\n  }\n\n  &:first-child {\n    padding-left: 50px;\n  }\n\n  &:last-child {\n    padding-right: 50px;\n  }\n"]);
+
+  _templateObject3$2 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$2() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n  &:last-child {\n    padding-right: 50px;\n  }\n"]);
 
   _templateObject2$2 = function _templateObject2() {
     return data;
@@ -39135,7 +39166,7 @@ function _templateObject2$2() {
 }
 
 function _templateObject$3() {
-  var data = _taggedTemplateLiteral(["\n  padding: 28px 24px;\n  text-align: center;\n  background: #f2f2f2;\n  border-bottom: 2px solid #d4d4d4;\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 16px;\n  font-family: \"Spoqa Han Sans\";\n\n  &:first-child {\n    border-radius: 10px 0 0 0; \n  }\n\n  &:last-child {\n    border-radius: 0 10px 0 0;\n  }\n\n  &:first-child, &:last-child {\n    white-space: nowrap;\n    width: 1%;\n  }\n\n  &:first-child {\n    padding-left: 50px;\n  }\n\n  &:last-child {\n    padding-right: 50px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  padding: 28px 24px;\n  text-align: center;\n  background: ", "\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 16px;\n  font-family: \"Spoqa Han Sans\";\n  border-bottom: 2px solid ", ";\n"]);
 
   _templateObject$3 = function _templateObject() {
     return data;
@@ -39143,8 +39174,10 @@ function _templateObject$3() {
 
   return data;
 }
-var Th = styled.th(_templateObject$3());
-var BodyB16$1 = styled.span(_templateObject2$2());
+var Cell = styled.css(_templateObject$3(), color$1.$table_grey, color$1.$line_dashboard_edge_grey);
+var Td = styled__default.td(_templateObject2$2(), Cell);
+var Th = styled__default.th(_templateObject3$2(), Cell);
+var BodyB16$1 = styled__default.span(_templateObject4$2());
 
 var THead = function THead(_ref) {
   var headers = _ref.headers,
@@ -39182,7 +39215,7 @@ var THead = function THead(_ref) {
   var createSubHeader = function createSubHeader(subHeaderData) {
     var subTitleGroup = Object.values(subHeaderData).join().split(',');
     return React__default.createElement("tr", null, subTitleGroup.map(function (subTitle, idx) {
-      return React__default.createElement("td", {
+      return React__default.createElement(Td, {
         key: idx
       }, subTitle);
     }));
@@ -39195,10 +39228,10 @@ var THead = function THead(_ref) {
 
 var visualAlert = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjkwIiBoZWlnaHQ9IjIzMCIgdmlld0JveD0iMCAwIDI5MCAyMzAiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9ImEiIGQ9Ik0yOTAgMjA1LjYxNEMyNjAuODI2IDE4NC4zMDYgMjA2LjgxMSAxNzAgMTQ1IDE3MGMtNjEuODExIDAtMTE1LjgyNiAxNC4zMDYtMTQ1IDM1LjYxNFYwaDI5MHYyMDUuNjE0eiIvPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYyIgeDE9IjM0LjcyNiUiIHgyPSIzNC43MjYlIiB5MT0iMCUiIHkyPSI4Ni44MDglIj4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzE4OUJGRiIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNCMkRFRkYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPHBhdGggaWQ9ImQiIGQ9Ik0yOSAwaDc2LjM3YTQgNCAwIDAgMSAyLjg3IDEuMjE1bDI1LjYzMSAyNi40MjJBNCA0IDAgMCAxIDEzNSAzMC40MjJWMTMxYTQgNCAwIDAgMS00IDRIMjlhNCA0IDAgMCAxLTQtNFY0YTQgNCAwIDAgMSA0LTR6Ii8+CiAgICAgICAgPGxpbmVhckdyYWRpZW50IGlkPSJmIiB4MT0iNDIuMTI5JSIgeDI9IjQyLjEyOSUiIHkxPSIwJSIgeTI9IjEwMCUiPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMTg5QkZGIi8+CiAgICAgICAgICAgIDxzdG9wIG9mZnNldD0iMTMuMzY4JSIgc3RvcC1jb2xvcj0iIzE4OUJGRiIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxODlCRkYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPHBhdGggaWQ9ImUiIGQ9Ik0zMSAwaDczLjUyM2E2IDYgMCAwIDEgNC4zMDcgMS44MjJsMjQuNDc3IDI1LjIzM0E2IDYgMCAwIDEgMTM1IDMxLjIzM1YxMjlhNiA2IDAgMCAxLTYgNkgzMWE2IDYgMCAwIDEtNi02VjZhNiA2IDAgMCAxIDYtNnoiLz4KICAgICAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSI0My40OCUiIHgyPSI0My40OCUiIHkxPSI1MCUiIHkyPSIyMDQuMzA4JSI+CiAgICAgICAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNFQUY2RkYiLz4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTg5QkZGIi8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgICA8cGF0aCBpZD0iaiIgZD0iTTE1NyAxMzZjLTE1LjQ2NCAwLTI4LTEyLjUzNi0yOC0yOHMxMi41MzYtMjggMjgtMjggMjggMTIuNTM2IDI4IDI4LTEyLjUzNiAyOC0yOCAyOHptMC0yYzE0LjM2IDAgMjYtMTEuNjQgMjYtMjZzLTExLjY0LTI2LTI2LTI2LTI2IDExLjY0LTI2IDI2IDExLjY0IDI2IDI2IDI2em0wLTI3LjQxNGw4LjQ4NS04LjQ4NSAxLjQxNCAxLjQxNC04LjQ4NSA4LjQ4NSA4LjQ4NSA4LjQ4NS0xLjQxNCAxLjQxNC04LjQ4NS04LjQ4NS04LjQ4NSA4LjQ4NS0xLjQxNC0xLjQxNCA4LjQ4NS04LjQ4NS04LjQ4NS04LjQ4NSAxLjQxNC0xLjQxNCA4LjQ4NSA4LjQ4NXoiLz4KICAgICAgICA8ZmlsdGVyIGlkPSJpIiB3aWR0aD0iMTQ0LjYlIiBoZWlnaHQ9IjE0NC42JSIgeD0iLTIyLjMlIiB5PSItMjAuNSUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+CiAgICAgICAgICAgIDxmZU9mZnNldCBkeT0iMSIgaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9InNoYWRvd09mZnNldE91dGVyMSIvPgogICAgICAgICAgICA8ZmVHYXVzc2lhbkJsdXIgaW49InNoYWRvd09mZnNldE91dGVyMSIgcmVzdWx0PSJzaGFkb3dCbHVyT3V0ZXIxIiBzdGREZXZpYXRpb249IjQiLz4KICAgICAgICAgICAgPGZlQ29sb3JNYXRyaXggaW49InNoYWRvd0JsdXJPdXRlcjEiIHZhbHVlcz0iMCAwIDAgMCAwIDAgMCAwIDAgMC41Njk2MjAyNTMgMCAwIDAgMCAxIDAgMCAwIDAuMzk5MDExMTQ1IDAiLz4KICAgICAgICA8L2ZpbHRlcj4KICAgICAgICA8ZWxsaXBzZSBpZD0ibCIgY3g9IjE0NiIgY3k9IjI0MyIgcng9IjE0NSIgcnk9IjcyIi8+CiAgICAgICAgPGZpbHRlciBpZD0iayIgd2lkdGg9IjExNS45JSIgaGVpZ2h0PSIxMzEuOSUiIHg9Ii03LjklIiB5PSItMTguOCUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+CiAgICAgICAgICAgIDxmZU9mZnNldCBkeT0iLTQiIGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJzaGFkb3dPZmZzZXRPdXRlcjEiLz4KICAgICAgICAgICAgPGZlR2F1c3NpYW5CbHVyIGluPSJzaGFkb3dPZmZzZXRPdXRlcjEiIHJlc3VsdD0ic2hhZG93Qmx1ck91dGVyMSIgc3RkRGV2aWF0aW9uPSI3Ii8+CiAgICAgICAgICAgIDxmZUNvbG9yTWF0cml4IGluPSJzaGFkb3dCbHVyT3V0ZXIxIiB2YWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAuNDcxOTA4NzcxIDAgMCAwIDAgMC44MzIxNDQ0NzUgMCAwIDAgMC43MDEyNDAxNjYgMCIvPgogICAgICAgIDwvZmlsdGVyPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDI0KSI+CiAgICAgICAgICAgIDxtYXNrIGlkPSJiIiBmaWxsPSIjZmZmIj4KICAgICAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICA8ZyBtYXNrPSJ1cmwoI2IpIiBvcGFjaXR5PSIuNiI+CiAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3NyA0MCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9InVybCgjYykiIGQ9Ik02IDI1aDczLjUyM2E2IDYgMCAwIDEgNC4zMDcgMS44MjJsMjQuNDc3IDI1LjIzM0E2IDYgMCAwIDEgMTEwIDU2LjIzM1YxNTRhNiA2IDAgMCAxLTYgNkg2YTYgNiAwIDAgMS02LTZWMzFhNiA2IDAgMCAxIDYtNnoiIG9wYWNpdHk9Ii41NTEiLz4KICAgICAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNkIi8+CiAgICAgICAgICAgICAgICAgICAgPG1hc2sgaWQ9ImgiIGZpbGw9IiNmZmYiPgogICAgICAgICAgICAgICAgICAgICAgICA8dXNlIHhsaW5rOmhyZWY9IiNlIi8+CiAgICAgICAgICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICAgICAgICAgIDx1c2UgZmlsbD0idXJsKCNmKSIgb3BhY2l0eT0iLjcyMiIgeGxpbms6aHJlZj0iI2UiLz4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSJ1cmwoI2cpIiBkPSJNMTA2LjcyOC0xLjE2NGwyOC42ODYgMzAuNDc5YTEgMSAwIDAgMS0uNzI4IDEuNjg1SDEwOWE0IDQgMCAwIDEtNC00Vi0uNDc4YTEgMSAwIDAgMSAxLjcyOC0uNjg2eiIgbWFzaz0idXJsKCNoKSIvPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDxnIG1hc2s9InVybCgjYikiPgogICAgICAgICAgICAgICAgPHVzZSBmaWxsPSIjMDAwIiBmaWx0ZXI9InVybCgjaSkiIHhsaW5rOmhyZWY9IiNqIi8+CiAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNqIi8+CiAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPGcgbWFzaz0idXJsKCNiKSIgb3BhY2l0eT0iLjIiPgogICAgICAgICAgICAgICAgPHVzZSBmaWxsPSIjMDAwIiBmaWx0ZXI9InVybCgjaykiIHhsaW5rOmhyZWY9IiNsIi8+CiAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiMxODlCRkYiIHhsaW5rOmhyZWY9IiNsIi8+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPGNpcmNsZSBjeD0iMjM5IiBjeT0iMTUzIiByPSIxOCIgZmlsbD0iIzE4OUJGRiIgb3BhY2l0eT0iLjEwNyIvPgogICAgICAgIDxjaXJjbGUgY3g9Ijc4LjUiIGN5PSI1NC41IiByPSIxMC41IiBmaWxsPSIjMTg5QkZGIiBvcGFjaXR5PSIuMyIvPgogICAgICAgIDxjaXJjbGUgY3g9IjU4IiBjeT0iMjkiIHI9IjI5IiBmaWxsPSIjMTg5QkZGIiBvcGFjaXR5PSIuMTA3Ii8+CiAgICAgICAgPGNpcmNsZSBjeD0iMjU3IiBjeT0iMTI2IiByPSI3IiBmaWxsPSIjMTg5QkZGIiBvcGFjaXR5PSIuMjk5Ii8+CiAgICA8L2c+Cjwvc3ZnPg==';
 
-function _templateObject3$2() {
-  var data = _taggedTemplateLiteral(["\n  td {\n    padding: 80px;\n    margin: 0 auto;\n    text-align: center;\n    font-family: \"Spoqa Han Sans\";\n  }\n\n  span {\n    margin: auto;\n    color: #161616;\n    display: block;\n    font-size: 20px;\n    opacity: 0.6;\n    font-family: \"Spoqa Han Sans\";\n  }\n"]);
+function _templateObject3$3() {
+  var data = _taggedTemplateLiteral(["\n  font-size: 20px;\n  margin: auto;\n  color: #161616;\n  display: block;\n  font-size: 20px;\n  opacity: 0.6;\n  font-family: \"Spoqa Han Sans\";\n"]);
 
-  _templateObject3$2 = function _templateObject3() {
+  _templateObject3$3 = function _templateObject3() {
     return data;
   };
 
@@ -39206,7 +39239,7 @@ function _templateObject3$2() {
 }
 
 function _templateObject2$3() {
-  var data = _taggedTemplateLiteral(["\n  .tr {\n    cursor: pointer;\n  }\n\n  .tr:nth-child(even) .td {\n    background: #ffffff;\n  }\n\n  .tr:nth-child(odd) .td {\n    background: #fafafa;\n  }\n\n  /* after the first non-.parent, toggle colors */\n  tr:not(.tr) ~ .tr:nth-child(odd) td {\n      background-color: #ffffff;\n  }\n  tr:not(.tr) ~ .tr:nth-child(even) td {\n      background-color: #fafafa;\n  }\n\n  /* after the second non-.parent, toggle again */\n  tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(odd) td {\n      background-color: #fafafa;\n  }\n  tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(even) td {\n      background-color: #ffffff;\n  }\n\n  .td {\n    text-align: center;\n    font-size: 18px;\n    font-family: \"Spoqa Han Sans\";\n  }\n\n  .td > a > div, .td > div {\n    padding: 24px;\n  }\n\n  .td:first-child, .td:last-child {\n    white-space: nowrap;\n    width: 1%;\n  }\n\n  .td:first-child {\n    padding-left: 50px;\n  }\n\n  .td:last-child {\n    padding-right: 50px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  td {\n    padding: 80px;\n    margin: 0 auto;\n    text-align: center;\n    font-family: \"Spoqa Han Sans\";\n  }\n"]);
 
   _templateObject2$3 = function _templateObject2() {
     return data;
@@ -39216,7 +39249,7 @@ function _templateObject2$3() {
 }
 
 function _templateObject$4() {
-  var data = _taggedTemplateLiteral(["\n  font-size: 20px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  .tr {\n    cursor: pointer;\n  }\n\n  .tr:nth-child(even) .td {\n    background: ", ";\n  }\n\n  .tr:nth-child(odd) .td {\n    background: ", ";;\n  }\n\n  /* after the first non-.parent, toggle colors */\n  tr:not(.tr) ~ .tr:nth-child(odd) td {\n      background-color: ", ";\n  }\n  tr:not(.tr) ~ .tr:nth-child(even) td {\n      background-color: ", ";;\n  }\n\n  /* after the second non-.parent, toggle again */\n  tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(odd) td {\n      background-color: ", ";;\n  }\n  tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(even) td {\n      background-color: ", ";\n  }\n\n  .td {\n    text-align: center;\n    font-size: 18px;\n    font-family: \"Spoqa Han Sans\";\n  }\n\n  .td:first-child, .td:last-child {\n    white-space: nowrap;\n    width: 1%;\n  }\n\n  .td > a > div, .td > div {\n    padding: 24px;\n  }\n\n  .td:first-child > a > div,\n  .td:first-child > div {\n    padding-left: 0\n  }\n\n  .td:last-child > a > div,\n  .td:last-child > div {\n    padding-right: 0\n  }\n\n  .td:first-child {\n    padding-left: 50px;\n  }\n\n  .td:last-child {\n    padding-right: 50px;\n  }\n"]);
 
   _templateObject$4 = function _templateObject() {
     return data;
@@ -39224,9 +39257,9 @@ function _templateObject$4() {
 
   return data;
 }
-var BodyR20 = styled.span(_templateObject$4());
-var ListTBody = styled.tbody(_templateObject2$3());
-var EmptyTbody = styled.tbody(_templateObject3$2());
+var ListTBody = styled__default.tbody(_templateObject$4(), color$1.$primary_white, color$1.$table_cell_grey, color$1.$primary_white, color$1.$table_cell_grey, color$1.$table_cell_grey, color$1.$primary_white);
+var EmptyTbody = styled__default.tbody(_templateObject2$3());
+var BodyR20 = styled__default.span(_templateObject3$3());
 
 var TBody = function TBody(_ref) {
   var headers = _ref.headers,
@@ -39276,7 +39309,7 @@ function _templateObject$5() {
 
   return data;
 }
-var Table = styled.table(_templateObject$5());
+var Table = styled__default.table(_templateObject$5());
 var Table$1 = (function (_ref) {
   var data = _ref.data,
       wrapTh = _ref.wrapTh,
@@ -39305,20 +39338,20 @@ function _templateObject5$1() {
   return data;
 }
 
-function _templateObject4$2() {
+function _templateObject4$3() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-right: 1px solid ", "\n  }\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 16px;\n  font-family: \"Spoqa Han Sans\";\n  background: #f2f2f2;\n  font-weight: bold;\n  text-align: left;\n  padding: 24px;\n"]);
 
-  _templateObject4$2 = function _templateObject4() {
+  _templateObject4$3 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$3() {
+function _templateObject3$4() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-bottom: 1px solid ", "\n  }\n"]);
 
-  _templateObject3$3 = function _templateObject3() {
+  _templateObject3$4 = function _templateObject3() {
     return data;
   };
 
@@ -39344,11 +39377,11 @@ function _templateObject$6() {
 
   return data;
 }
-var TableWrap = styled.div(_templateObject$6(), color$1.$line_search_grey);
-var Table$2 = styled.table(_templateObject2$4());
-var Tr = styled.tr(_templateObject3$3(), color$1.$line_search_grey);
-var Th$1 = styled.th(_templateObject4$2(), color$1.$line_search_grey);
-var Td = styled.td(_templateObject5$1(), color$1.$line_search_grey);
+var TableWrap = styled__default.div(_templateObject$6(), color$1.$line_search_grey);
+var Table$2 = styled__default.table(_templateObject2$4());
+var Tr = styled__default.tr(_templateObject3$4(), color$1.$line_search_grey);
+var Th$1 = styled__default.th(_templateObject4$3(), color$1.$line_search_grey);
+var Td$1 = styled__default.td(_templateObject5$1(), color$1.$line_search_grey);
 var isLastCell = function isLastCell(_ref2) {
   var cellTotal = _ref2.cellTotal,
       cellCurrent = _ref2.cellCurrent;
@@ -39399,13 +39432,13 @@ var Descriptions = (function (_ref5) {
         }, Object.keys(data[j])[0]));
 
         if (hasRow(props)) {
-          children.push(React__default.createElement(Td, {
+          children.push(React__default.createElement(Td$1, {
             key: "td".concat(j),
             width: tdWidth,
             colSpan: getColspan(props)
           }, Object.values(data[j])[0]));
         } else {
-          children.push(React__default.createElement(Td, {
+          children.push(React__default.createElement(Td$1, {
             key: "td".concat(j),
             width: tdWidth
           }, Object.values(data[j])[0]));
@@ -41091,7 +41124,7 @@ function _templateObject$7() {
 
   return data;
 }
-var Navbar = styled.nav(_templateObject$7(), color$1.$primary_white, color$1.$line_search_grey);
+var Navbar = styled__default.nav(_templateObject$7(), color$1.$primary_white, color$1.$line_search_grey);
 var Navbar$1 = (function (_ref) {
   var _ref$style = _ref.style,
       style = _ref$style === void 0 ? {} : _ref$style,
@@ -41120,8 +41153,8 @@ function _templateObject$8() {
 
   return data;
 }
-var Footer = styled.footer(_templateObject$8(), size.$footer_height);
-var FooterBox = styled.div(_templateObject2$5(), Text, color$1.$line_search_grey, size.$footer_height);
+var Footer = styled__default.footer(_templateObject$8(), size.$footer_height);
+var FooterBox = styled__default.div(_templateObject2$5(), Text, color$1.$line_search_grey, size.$footer_height);
 var Footer$1 = (function (_ref) {
   var _ref$style = _ref.style,
       style = _ref$style === void 0 ? {} : _ref$style;
@@ -41157,7 +41190,7 @@ function _templateObject$9() {
 
   return data;
 }
-var Text$1 = styled.header(_templateObject$9(), Text);
+var Text$1 = styled__default.header(_templateObject$9(), Text);
 var Heading = (function (_ref) {
   var _ref$size = _ref.size,
       size = _ref$size === void 0 ? 22 : _ref$size,
@@ -41171,7 +41204,203 @@ var Heading = (function (_ref) {
   }, children);
 });
 
+/* Suma el porcentaje indicado a un color (RR, GG o BB) hexadecimal para aclararlo */
+/* Resta el porcentaje indicado a un color (RR, GG o BB) hexadecimal para oscurecerlo */
+
+var subtractLight = function subtractLight(color, amount) {
+  var cc = parseInt(color, 16) - amount;
+  var c = cc < 0 ? 0 : cc;
+  c = c.toString(16).length > 1 ? c.toString(16) : "0".concat(c.toString(16));
+  return c;
+};
+/* Oscurece un color hexadecimal de 6 caracteres #RRGGBB segun el porcentaje indicado */
+
+var darken = function darken(color, amount) {
+  color = color.indexOf("#") >= 0 ? color.substring(1, color.length) : color;
+  amount = parseInt(255 * amount / 100);
+  return color = "#".concat(subtractLight(color.substring(0, 2), amount)).concat(subtractLight(color.substring(2, 4), amount)).concat(subtractLight(color.substring(4, 6), amount));
+};
+var hexToRGB = function hexToRGB(hex, alpha) {
+  var r = parseInt(hex.slice(1, 3), 16),
+      g = parseInt(hex.slice(3, 5), 16),
+      b = parseInt(hex.slice(5, 7), 16);
+  var rgb = [r, g, b];
+
+  if (alpha) {
+    return "rgba(".concat(rgb.join(','), ", ").concat(alpha, ")");
+  } else {
+    return "rgb(".concat(rgb.join(','), ")");
+  }
+};
+
+function _templateObject4$4() {
+  var data = _taggedTemplateLiteral(["\n  color: hexToRGB(color.$black, 0.6);\n  text-decoration: underline;\n"]);
+
+  _templateObject4$4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$5() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  padding: 8px;\n  line-height: 1;\n  display: inline-block;\n  box-sizing: border-box;\n\n  color: ", ";\n  &:hover {\n    color: ", ";\n  }\n\n  &:first-child {\n    padding-left: 0;\n  }\n"]);
+
+  _templateObject3$5 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$6() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  ", "\n"]);
+
+  _templateObject2$6 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$a() {
+  var data = _taggedTemplateLiteral(["\n  border:0 none;\n  background-color:transparent;\n  cursor:pointer\n  transition: background-color 0.3s, color 0.3s ease;\n  \n  img {\n    vertical-align: middle\n  }\n\n  &:hover {\n    text-decoration: none\n  }\n\n  &:disabled {\n    cursor: not-allowed\n  }\n"]);
+
+  _templateObject$a = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var BtnDefaultCss = styled.css(_templateObject$a());
+var BtnSize = {
+  large: {
+    minWidth: '100px',
+    height: '42px',
+    borderRadius: '21px',
+    padding: '10px 20px',
+    img: {
+      margin: '8px'
+    },
+    marginRight: '8px'
+  },
+  middle: {
+    minWidth: '90px',
+    height: '34px',
+    borderRadius: '17px',
+    padding: '7px 18px',
+    img: {
+      margin: '6px'
+    },
+    marginRight: '8px'
+  }
+};
+
+var setBtnSize = function setBtnSize(props) {
+  return "\n  height: ".concat(props.BtnSizeObject.height, ";\n  border-radius: ").concat(props.BtnSizeObject.borderRadius, ";\n  padding: ").concat(props.BtnSizeObject.padding, ";\n  min-width: ").concat(props.BtnSizeObject.minWidth, ";\n\n  &:not(:last-child) {\n    margin-right: ").concat(props.BtnSizeObject.marginRight, ";\n  }\n\n  img:first-child {\n    margin-right: ").concat(props.BtnSizeObject.img.margin, ";\n  }\n\n  img:last-child {\n    margin-left: ").concat(props.BtnSizeObject.img.margin, ";\n  }\n");
+};
+
+var BtnColor = {
+  primary: {
+    boxShasdow: "0 4px 10px 0 rgba(0, 0, 0, 0.08)",
+    backgroundColor: color$1.$solid_default,
+    color: color$1.$primary_white,
+    hover: {
+      boxShasdow: "0 4px 10px 0 rgba(0, 0, 0, 0.08)",
+      backgroundColor: darken(color$1.$solid_default, 24),
+      color: color$1.$primary_white
+    },
+    disabled: {
+      boxShasdow: 'none',
+      backgroundColor: hexToRGB(color$1.$solid_default, 0.2),
+      color: hexToRGB(color$1.$primary_white, 0.8)
+    }
+  },
+  secondary: {
+    boxShasdow: 'none',
+    backgroundColor: hexToRGB(color$1.$black, 0.1),
+    color: hexToRGB(color$1.$black, 0.6),
+    hover: {
+      boxShasdow: 'none',
+      backgroundColor: hexToRGB(color$1.$black, 0.18),
+      color: hexToRGB(color$1.$black, 0.6)
+    },
+    disabled: {
+      boxShasdow: 'none',
+      backgroundColor: hexToRGB(color$1.$black, 0.1),
+      color: hexToRGB(color$1.$black, 0.2)
+    }
+  },
+  light: {
+    boxShasdow: 'none',
+    backgroundColor: color$1.$primary_white,
+    color: hexToRGB(color$1.$black, 0.6),
+    border: "1px solid ".concat(color$1.$line_btn_grey),
+    hover: {
+      boxShasdow: 'none',
+      backgroundColor: "#f0f0f0",
+      color: "#c3c3c3"
+    },
+    disabled: {
+      boxShasdow: 'none',
+      backgroundColor: color$1.$primary_white,
+      color: "#c3c3c3"
+    }
+  }
+};
+
+var setBtnColor = function setBtnColor(props) {
+  return "\n  box-shadow: ".concat(props.BtnColorObject.boxShasdow, ";\n  background-color: ").concat(props.BtnColorObject.backgroundColor, ";\n  color: ").concat(props.BtnColorObject.color, ";\n\n  border: ").concat(props.BtnColorObject.border ? props.BtnColorObject.border : 'none', ";\n\n  &:hover:not(:disabled) {\n    box-shadow: ").concat(props.BtnColorObject.hover.boxShasdow, ";\n    background-color: ").concat(props.BtnColorObject.hover.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.hover.color, ";\n  }\n\n  &:disabled {\n    box-shadow: ").concat(props.BtnColorObject.disabled.boxShasdow, ";\n    background-color: ").concat(props.BtnColorObject.disabled.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.disabled.color, ";\n  }\n");
+};
+
+var ButtonTag = styled__default(TextTag).attrs(function () {
+  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  props.size = props.size || 'md';
+  var BtnSizeObject = props.size === 'md' ? BtnSize.middle : BtnSize.large;
+  var BtnColorObject = props.variant === 'primary' ? BtnColor.primary : props.variant === 'secondary' ? BtnColor.secondary : BtnColor.light;
+  return {
+    size: props.size === 'md' ? 14 : 18,
+    // bold: props.size === 'md' ? false : true,
+    bold: false,
+    BtnSizeObject: BtnSizeObject,
+    BtnColorObject: BtnColorObject
+  };
+})(_templateObject2$6(), BtnDefaultCss, setBtnSize, setBtnColor);
+var ButtonLinkTag = styled__default(TextTag).attrs(function () {
+  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var BtnSizeObject = BtnSize.middle;
+  return {
+    size: 16,
+    bold: props.bold || false,
+    BtnSizeObject: BtnSizeObject
+  };
+})(_templateObject3$5(), BtnDefaultCss, setBtnSize, color$1.$solid_default, color$1.$solid_hover);
+var ButtonTextLinkTag = styled__default(TextTag).attrs(function () {
+  return {
+    size: 16,
+    bold: true
+  };
+})(_templateObject4$4());
+var ButtonLink = function ButtonLink(props) {
+  return React__default.createElement(ButtonLinkTag, _extends({
+    as: "a"
+  }, props), props.children);
+};
+var ButtonTextLink = function ButtonTextLink(props) {
+  return React__default.createElement(ButtonTextLinkTag, _extends({
+    as: props.as || "a"
+  }, props), props.children);
+};
+var ButtonNew = (function (props) {
+  return React__default.createElement(ButtonTag, _extends({
+    as: props.as || "button"
+  }, props), props.children);
+});
+
 exports.BarGauge = BarGauge;
+exports.Button = ButtonNew;
+exports.ButtonLink = ButtonLink;
+exports.ButtonTextLink = ButtonTextLink;
 exports.Descriptions = Descriptions;
 exports.Footer = Footer$1;
 exports.Heading = Heading;
@@ -41185,3 +41414,5 @@ exports.SelectedCard = SelectedCard;
 exports.SummaryCard = SummaryCard;
 exports.Table = Table$1;
 exports.Timeline = Timeline;
+exports.font = font$1;
+exports.variables = variables;
