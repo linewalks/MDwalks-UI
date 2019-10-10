@@ -12,11 +12,14 @@ edit: false
 # v0.5.2 / 2019-10-10
 ## :tada: Enhancements
 - [#168](https://github.com/linewalks/MDwalks-UI/issues/168'): Rename button components ([**@toyjhlee**](https://github.com/toyjhlee))
+- [#175](https://github.com/linewalks/MDwalks-UI/issues/175'): SelectedCard 에 옵션 추가 ([**@toyjhlee**](https://github.com/toyjhlee))
+
 ## :bug: Fixes
 - [#172](https://github.com/linewalks/MDwalks-UI/issues/172'): Insert chartUtility in src/index.js #173 ([**@toyjhlee**](https://github.com/toyjhlee))
 
 # v0.5.1 / 2019-10-08
 ## :tada: Enhancements
+- [#175](https://github.com/linewalks/MDwalks-UI/issues/175'): SelectedCard 에 옵션 추가 ([**@toyjhlee**](https://github.com/toyjhlee))
 - [#161](https://github.com/linewalks/MDwalks-UI/issues/161'): Button Components 만들기 ([**@toyjhlee**](https://github.com/toyjhlee))
 - [#164](https://github.com/linewalks/MDwalks-UI/issues/164'): Create Beta menu in docz ([**@toyjhlee**](https://github.com/toyjhlee))
 - [#159](https://github.com/linewalks/MDwalks-UI/issues/159'): Table 에 subHeaders 가 있는 경우 docz 에 추가 ([**@toyjhlee**](https://github.com/toyjhlee))

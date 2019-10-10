@@ -38110,18 +38110,37 @@ var font$1 = /*#__PURE__*/Object.freeze({
   TextTag: TextTag
 });
 
-function _templateObject5() {
-  var data = _taggedTemplateLiteral([""]);
+/* Suma el porcentaje indicado a un color (RR, GG o BB) hexadecimal para aclararlo */
+/* Resta el porcentaje indicado a un color (RR, GG o BB) hexadecimal para oscurecerlo */
 
-  _templateObject5 = function _templateObject5() {
-    return data;
-  };
+var subtractLight = function subtractLight(color, amount) {
+  var cc = parseInt(color, 16) - amount;
+  var c = cc < 0 ? 0 : cc;
+  c = c.toString(16).length > 1 ? c.toString(16) : "0".concat(c.toString(16));
+  return c;
+};
+/* Oscurece un color hexadecimal de 6 caracteres #RRGGBB segun el porcentaje indicado */
 
-  return data;
-}
+var darken = function darken(color, amount) {
+  color = color.indexOf("#") >= 0 ? color.substring(1, color.length) : color;
+  amount = parseInt(255 * amount / 100);
+  return color = "#".concat(subtractLight(color.substring(0, 2), amount)).concat(subtractLight(color.substring(2, 4), amount)).concat(subtractLight(color.substring(4, 6), amount));
+};
+var hexToRGB = function hexToRGB(hex, alpha) {
+  var r = parseInt(hex.slice(1, 3), 16),
+      g = parseInt(hex.slice(3, 5), 16),
+      b = parseInt(hex.slice(5, 7), 16);
+  var rgb = [r, g, b];
+
+  if (alpha) {
+    return "rgba(".concat(rgb.join(','), ", ").concat(alpha, ")");
+  } else {
+    return "rgb(".concat(rgb.join(','), ")");
+  }
+};
 
 function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  border-radius: 25px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);\n  background-color: #ff4757;\n  padding: 11px 24px 10px;\n"]);
+  var data = _taggedTemplateLiteral([""]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -38131,7 +38150,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  border-radius: 25px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);\n  background-color: #002b4f;\n  padding: 11px 24px 10px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  border-radius: 25px;\n  box-shadow: 0 4px 10px 0 ", ";\n  background-color: #002b4f;\n  padding: 11px 24px 10px;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -38141,7 +38160,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  background-repeat: no-repeat;\n  background-position-x: 100%;\n  background-position-y: center;\n  padding-right: 18px;\n  margin-right: 8px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  background-repeat: no-repeat;\n  background-position-x: 100%;\n  background-position-y: center;\n  padding-right: 18px;\n  margin-right: 8px;\n\n  &:last-child div {\n    background-color: ", ";\n  }\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -38160,34 +38179,38 @@ function _templateObject$1() {
   return data;
 }
 var Wrap1200 = styled.div(_templateObject$1());
-var Arrow = styled.article(_templateObject2());
-var CardContatiner = styled.div(_templateObject3());
-var CardContatinerHighlighted = styled.div(_templateObject4());
+var Arrow = styled.article(_templateObject2(), function (props) {
+  return props.isLastHighlighted ? '#ff4757' : '#002b4f';
+});
+var CardContatiner = styled.div(_templateObject3(), hexToRGB(color$1.$primary_navy, 0.16));
 var Card = styled(TextTag).attrs({
   size: '20',
   bold: true,
   style: {
     color: '#ffffff'
   }
-})(_templateObject5());
+})(_templateObject4());
 
 var SelectedCard = function SelectedCard(_ref) {
-  var selectedElement = _ref.selectedElement;
+  var selectedElement = _ref.selectedElement,
+      _ref$isLastHighlighte = _ref.isLastHighlighted,
+      isLastHighlighted = _ref$isLastHighlighte === void 0 ? false : _ref$isLastHighlighte;
   return React.createElement(Wrap1200, null, selectedElement.map(function (element, idx) {
     var isLast = idx === selectedElement.length - 1;
     return React.createElement(Arrow, {
       key: "SelectedCard".concat(idx),
+      isLastHighlighted: isLastHighlighted,
       style: isLast ? null : {
         backgroundImage: "url(".concat(backgroundArrow, ")")
       }
-    }, isLast ? React.createElement(CardContatinerHighlighted, null, React.createElement(Card, null, element)) : React.createElement(CardContatiner, null, React.createElement(Card, null, element)));
+    }, React.createElement(CardContatiner, null, React.createElement(Card, null, element)));
   }));
 };
 
-function _templateObject5$1() {
+function _templateObject5() {
   var data = _taggedTemplateLiteral([""]);
 
-  _templateObject5$1 = function _templateObject5() {
+  _templateObject5 = function _templateObject5() {
     return data;
   };
 
@@ -38252,7 +38275,7 @@ var BodyB42 = styled(TextTag).attrs({
     marginInlineStart: '40px',
     margin: 0
   }
-})(_templateObject5$1());
+})(_templateObject5());
 
 var SummaryCard = function SummaryCard(_ref) {
   var data = _ref.data,
@@ -39343,10 +39366,10 @@ var Table$1 = (function (_ref) {
   }
 });
 
-function _templateObject5$2() {
+function _templateObject5$1() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-right: 1px solid ", "\n  }\n\n  color: #161616;\n  font-size: 18px;\n  font-family: \"Spoqa Han Sans\";\n  background: #ffffff;\n  font-weight: normal;\n  text-align: left;\n  padding: 24px;\n"]);
 
-  _templateObject5$2 = function _templateObject5() {
+  _templateObject5$1 = function _templateObject5() {
     return data;
   };
 
@@ -39396,7 +39419,7 @@ var TableWrap = styled.div(_templateObject$6(), color$1.$line_search_grey);
 var Table$2 = styled.table(_templateObject2$4());
 var Tr = styled.tr(_templateObject3$4(), color$1.$line_search_grey);
 var Th$1 = styled.th(_templateObject4$3(), color$1.$line_search_grey);
-var Td$1 = styled.td(_templateObject5$2(), color$1.$line_search_grey);
+var Td$1 = styled.td(_templateObject5$1(), color$1.$line_search_grey);
 var isLastCell = function isLastCell(_ref2) {
   var cellTotal = _ref2.cellTotal,
       cellCurrent = _ref2.cellCurrent;
@@ -41219,35 +41242,6 @@ var Heading = (function (_ref) {
   }, children);
 });
 
-/* Suma el porcentaje indicado a un color (RR, GG o BB) hexadecimal para aclararlo */
-/* Resta el porcentaje indicado a un color (RR, GG o BB) hexadecimal para oscurecerlo */
-
-var subtractLight = function subtractLight(color, amount) {
-  var cc = parseInt(color, 16) - amount;
-  var c = cc < 0 ? 0 : cc;
-  c = c.toString(16).length > 1 ? c.toString(16) : "0".concat(c.toString(16));
-  return c;
-};
-/* Oscurece un color hexadecimal de 6 caracteres #RRGGBB segun el porcentaje indicado */
-
-var darken = function darken(color, amount) {
-  color = color.indexOf("#") >= 0 ? color.substring(1, color.length) : color;
-  amount = parseInt(255 * amount / 100);
-  return color = "#".concat(subtractLight(color.substring(0, 2), amount)).concat(subtractLight(color.substring(2, 4), amount)).concat(subtractLight(color.substring(4, 6), amount));
-};
-var hexToRGB = function hexToRGB(hex, alpha) {
-  var r = parseInt(hex.slice(1, 3), 16),
-      g = parseInt(hex.slice(3, 5), 16),
-      b = parseInt(hex.slice(5, 7), 16);
-  var rgb = [r, g, b];
-
-  if (alpha) {
-    return "rgba(".concat(rgb.join(','), ", ").concat(alpha, ")");
-  } else {
-    return "rgb(".concat(rgb.join(','), ")");
-  }
-};
-
 function _templateObject8() {
   var data = _taggedTemplateLiteral(["\n  color: hexToRGB(color.$black, 0.6);\n  text-decoration: underline;\n"]);
 
@@ -41278,10 +41272,10 @@ function _templateObject6() {
   return data;
 }
 
-function _templateObject5$3() {
+function _templateObject5$2() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.3s\n"]);
 
-  _templateObject5$3 = function _templateObject5() {
+  _templateObject5$2 = function _templateObject5() {
     return data;
   };
 
@@ -41431,7 +41425,7 @@ var setBtnColor = function setBtnColor(props) {
 var LoadingBase = css$2(_templateObject2$6());
 var LoadingOne = styled.span(_templateObject3$5(), LoadingBase);
 var LoadingTwo = styled.span(_templateObject4$4(), LoadingBase);
-var LoadingThree = styled.span(_templateObject5$3(), LoadingBase);
+var LoadingThree = styled.span(_templateObject5$2(), LoadingBase);
 var ButtonTag = styled(TextTag).attrs(function () {
   var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   props.size = props.size || 'md';
