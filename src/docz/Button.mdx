@@ -4,43 +4,53 @@ edit: false
 ---
 
 import { Playground, Props } from 'docz'
-
 import Button, {ButtonLink, ButtonTextLink} from '../components/button/Button'
 
-### default
+## default
 <Playground>
   <Button variant="primary">primary</Button>
-  <Button variant="secondary">secondary</Button>
-  <Button variant="light">light</Button>
+  <Button variant="primary_line">primary_line</Button>
+  <Button variant="basic">basic</Button>
+  <Button variant="basic_line">basic_line</Button>
 </Playground>
 
-### as
-<Playground>
-  <Button variant="primary" as="a">primary</Button>
-  <Button variant="secondary" as="a">secondary</Button>
-  <Button variant="light" as="a">light</Button>
-</Playground>
-
-### disabled
+## disabled
 <Playground>
   <Button variant="primary" disabled>primary</Button>
-  <Button variant="secondary" disabled>secondary</Button>
-  <Button variant="light" disabled>light</Button>
+  <Button variant="primary_line" disabled>primary_line</Button>
+  <Button variant="basic" disabled>basic</Button>
+  <Button variant="basic_line" disabled>basic_line</Button>
 </Playground>
 
-### large
+## loading
+isLoading:String true | false 
+<Playground>
+  <Button variant="primary" isLoading="true">primary</Button>
+  <Button variant="primary_line" isLoading="true">primary_line</Button>
+  <Button variant="basic" isLoading="true">basic</Button>
+  <Button variant="basic_line" isLoading="true">basic_line</Button>
+</Playground>
+
+## as
+<Playground>
+  <Button variant="primary" as="a">primary</Button>
+  <Button variant="primary_line" as="a">primary_line</Button>
+  <Button variant="basic" as="a">basic</Button>
+  <Button variant="basic_line" as="a">basic_line</Button>
+</Playground>
+
+## large
 <Playground>
   <Button variant="primary" size="lg">primary</Button>
-  <Button variant="primary" size="lg">primary</Button>
-  <Button variant="secondary" size="lg">secondary</Button>
-  <Button variant="light" size="lg">light</Button>  
+  <Button variant="primary_line" size="lg">primary_line</Button>
+  <Button variant="basic" size="lg">basic</Button>
+  <Button variant="basic_line" size="lg">basic_line</Button>
 </Playground>
-
 
 ### Link
 <Playground>
   <ButtonLink>ButtonLink</ButtonLink>
-  <ButtonLink bold>ButtonLink</ButtonLink>
+  <ButtonLink size="lg">ButtonLink</ButtonLink>
 </Playground>
 
 ### Link
