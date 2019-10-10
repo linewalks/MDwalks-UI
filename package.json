@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "test:watch": "jest --watch",
     "build": "rollup -c",
     "build:docz": "rm -rf docs && yarn docz build",

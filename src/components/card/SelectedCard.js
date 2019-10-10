@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components'
 import backgroundArrow from '../../assets/svg/icn-12-px.svg';
 import * as font from '../../assets/styles/font'
+import { color } from '../../assets/styles/variables'
+import { darken, hexToRGB } from '../button/utility'
 
 const Wrap1200 = styled.div`
   max-width: 1200px;
@@ -16,12 +18,16 @@ export const Arrow = styled.article`
   background-position-y: center;
   padding-right: 18px;
   margin-right: 8px;
+
+  &:last-child div {
+    background-color: ${props => props.isLastHighlighted ? '#ff4757' : '#002b4f'};
+  }
 `
 
 const CardContatiner = styled.div`
   display: inline-block;
   border-radius: 25px;
-  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);
+  box-shadow: 0 4px 10px 0 ${hexToRGB(color.$primary_navy, 0.16)};
   background-color: #002b4f;
   padding: 11px 24px 10px;
 `
@@ -34,13 +40,13 @@ export const Card = styled(font.TextTag).attrs({
   }
 })``
 
-const SelectedCard = ({ selectedElement }) => {
+const SelectedCard = ({ selectedElement, isLastHighlighted = false }) => {
   return (
     <Wrap1200>
       {selectedElement.map((element, idx) => {
         const isLast = idx === selectedElement.length - 1
         return (
-          <Arrow key={`SelectedCard${idx}`} 
+          <Arrow key={`SelectedCard${idx}`} isLastHighlighted={isLastHighlighted}
            style={isLast ? null : {backgroundImage:`url(${backgroundArrow})`}}>
             <CardContatiner>
               <Card>{element}</Card>

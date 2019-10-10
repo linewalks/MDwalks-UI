@@ -16,6 +16,7 @@ import Heading from './components/layout/Heading';
 import Button, {ButtonLink, ButtonTextLink} from './components/button/Button'
 import * as font from './assets/styles/font.js';
 import * as variables from './assets/styles/variables.js';
+import * as chartUtility from './helper/chartUtility.js';
 
 export { 
   BarGauge, 
@@ -34,6 +35,7 @@ export {
   Heading,
   font,
   variables,
+  chartUtility,
   Button,
   ButtonLink,
   ButtonTextLink,

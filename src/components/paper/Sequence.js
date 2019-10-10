@@ -87,7 +87,7 @@ class Sequence extends Component {
               onChange={this.onChange.bind(this)}
               onNodeClick={{}}
             />
-            <SelectedCard selectedElement={this.state.selectedNodes} />
+            <SelectedCard selectedElement={this.state.selectedNodes} isLastHighlighted={true} />
             <div style={{ width: "900px", padding: "20px 0 0 40px" }}>
               <Table data={this.state.dataForTable} />
             </div>

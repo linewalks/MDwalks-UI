@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import heatmapData from "../../data/dataForHeatmap";
+import singleHeatmapData from "../../data/dataForHeatmapSinglePatient";
+import diffHeatmapData from "../../data/dataForHeatmapDayCls";
 import metadata from "../../data/dataForMetadata";
 import * as core from "d3";
 import _ from "lodash";
@@ -9,7 +11,7 @@ class Heatmap extends Component {
     super(props);
     this.state = {
       threshold: 0.0,
-      data: heatmapData
+      data: diffHeatmapData
     };
     this.d3 = { ...core };
   }
