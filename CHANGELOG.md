@@ -9,6 +9,12 @@ edit: false
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
+# v0.5.2 / 2019-10-10
+## :tada: Enhancements
+- [#168](https://github.com/linewalks/MDwalks-UI/issues/168'): Rename button components ([**@toyjhlee**](https://github.com/toyjhlee))
+## :bug: Fixes
+- [#172](https://github.com/linewalks/MDwalks-UI/issues/172'): Insert chartUtility in src/index.js #173 ([**@toyjhlee**](https://github.com/toyjhlee))
+
 # v0.5.1 / 2019-10-08
 ## :tada: Enhancements
 - [#161](https://github.com/linewalks/MDwalks-UI/issues/161'): Button Components 만들기 ([**@toyjhlee**](https://github.com/toyjhlee))
