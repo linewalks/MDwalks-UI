@@ -12,6 +12,8 @@ edit: false
 # v0.5.2 / 2019-10-10
 ## :tada: Enhancements
 - [#168](https://github.com/linewalks/MDwalks-UI/issues/168'): Rename button components ([**@toyjhlee**](https://github.com/toyjhlee))
+- [#175](https://github.com/linewalks/MDwalks-UI/issues/175'): SelectedCard 에 옵션 추가 ([**@toyjhlee**](https://github.com/toyjhlee))
+
 ## :bug: Fixes
 - [#172](https://github.com/linewalks/MDwalks-UI/issues/172'): Insert chartUtility in src/index.js #173 ([**@toyjhlee**](https://github.com/toyjhlee))
 
