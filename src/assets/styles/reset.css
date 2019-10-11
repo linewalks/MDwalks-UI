@@ -11,3 +11,7 @@ body,th,td,input,select,textarea,button {font-size:12px;line-height:1.5;font-fam
 a {color:#333;text-decoration:none}
 a:active, a:hover {text-decoration:underline}
 address,caption,cite,code,dfn,em,var {font-style:normal;font-weight:normal}
+
+* {
+  box-sizing: border-box
+}
