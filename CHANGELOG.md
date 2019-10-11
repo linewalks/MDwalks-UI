@@ -9,6 +9,10 @@ edit: false
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
+# v0.6.1 / 2019-10-11
+## :tada: Enhancements
+- [#178](https://github.com/linewalks/MDwalks-UI/issues/178'): Modal component 생성 ([**@toyjhlee**](https://github.com/toyjhlee))
+
 # v0.5.2 / 2019-10-10
 ## :tada: Enhancements
 - [#168](https://github.com/linewalks/MDwalks-UI/issues/168'): Rename button components ([**@toyjhlee**](https://github.com/toyjhlee))

@@ -42,3 +42,8 @@ export const size = {
   $footer_height: '60px',
   $footer_margin_top: '80px',
 }
+
+export const zIndex = {
+  $modalOverlay: 1000,
+  $modal: 1001,
+}
