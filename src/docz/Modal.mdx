@@ -1,0 +1,31 @@
+---
+name: Modal
+edit: false
+---
+
+import { Playground, Props } from 'docz'
+import { useState } from 'react'
+
+import '../assets/styles/reset.css'
+
+import Modal from '../components/modal/Modal'
+import Button from '../components/button/Button'
+
+# card
+
+## SelectedCard
+
+isOpen 을 값을 제어해서 modal 를 open, close 할 수 있다
+footer 값은 생략 가능하다
+<Playground>
+  <Modal
+    title="modal title"
+    isOpen={false}
+    closeModal={() => alert('close')}
+    footer={
+      <div>
+        <Button variant="basic_line" size="lg">Cancel</Button>
+        <Button variant="primary" size="lg">Submit</Button>
+      </div>
+    }>Contents</Modal>
+</Playground>

@@ -37687,10 +37687,15 @@ var size = {
   $footer_height: '60px',
   $footer_margin_top: '80px'
 };
+var zIndex = {
+  $modalOverlay: 1000,
+  $modal: 1001
+};
 
 var variables = /*#__PURE__*/Object.freeze({
   color: color$1,
-  size: size
+  size: size,
+  zIndex: zIndex
 });
 
 var strIdConvert = function strIdConvert(id) {
@@ -41242,6 +41247,92 @@ var Heading = (function (_ref) {
   }, children);
 });
 
+var icn_popup_close_md = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzQiIGhlaWdodD0iMzQiIHZpZXdCb3g9IjAgMCAzNCAzNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgzNHYzNEgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzU2NUI1RiIgZD0iTTE3LjE0MiA0LjE0MmExIDEgMCAwIDEgMSAxdjExaDExYTEgMSAwIDEgMSAwIDJoLTExdjExYTEgMSAwIDEgMS0yIDB2LTExaC0xMWExIDEgMCAxIDEgMC0yaDExdi0xMWExIDEgMCAwIDEgMS0xeiIgbWFzaz0idXJsKCNiKSIgdHJhbnNmb3JtPSJyb3RhdGUoLTQ1IDE3LjE0MiAxNy4xNDIpIi8+CiAgICA8L2c+Cjwvc3ZnPg==';
+
+function _templateObject5$2() {
+  var data = _taggedTemplateLiteral(["\n  margin-top: ", ";\n  text-align: right;\n"]);
+
+  _templateObject5$2 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4$4() {
+  var data = _taggedTemplateLiteral([""]);
+
+  _templateObject4$4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$5() {
+  var data = _taggedTemplateLiteral(["\n  display: flex\n  alignItems: baseline;\n  margin-bottom: 30px\n  button {\n    line-height: 1\n  }\n"]);
+
+  _templateObject3$5 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$6() {
+  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  min-width: ", ";\n  border-radius: ", ";\n  background-color: ", ";\n  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);\n  z-index: ", "\n\n  padding: ", "\n"]);
+
+  _templateObject2$6 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$a() {
+  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background-color: ", ";\n  z-index: ", ";\n"]);
+
+  _templateObject$a = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var size$1 = {
+  modalPadding: '30px',
+  borderRadius: '10px',
+  maxWidth: '1200px',
+  maxHeight: '800px',
+  footerMarginTop: '40px',
+  minWidth: '480px'
+};
+var Overlay = styled.div(_templateObject$a(), hexToRGB(color$1.$black, 0.6), zIndex.$modalOverlay);
+var Modal = styled.div(_templateObject2$6(), size$1.minWidth, size$1.borderRadius, color$1.$primary_white, zIndex.$modal, size$1.modalPadding);
+var Header = styled.header(_templateObject3$5());
+var Contents = styled(TextTag).attrs({
+  size: '18',
+  bold: false
+})(_templateObject4$4());
+var Footer$2 = styled.footer(_templateObject5$2(), size$1.footerMarginTop);
+var Modal$1 = (function () {
+  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return React.createElement(React.Fragment, null, props.isOpen && React.createElement(Overlay, null), props.isOpen && React.createElement(Modal, null, props.title && React.createElement(Header, null, React.createElement(Heading, null, props.title), React.createElement("div", {
+    style: {
+      marginLeft: 'auto',
+      marginTop: '-10px',
+      marginRight: '-10px'
+    }
+  }, React.createElement("button", {
+    onClick: props.closeModal
+  }, React.createElement("img", {
+    src: icn_popup_close_md,
+    width: "34x",
+    height: "34px"
+  })))), React.createElement(Contents, {
+    as: "article"
+  }, props.children), props.footer && React.createElement(Footer$2, null, props.footer)));
+});
+
 function _templateObject8() {
   var data = _taggedTemplateLiteral(["\n  color: hexToRGB(color.$black, 0.6);\n  text-decoration: underline;\n"]);
 
@@ -41272,56 +41363,56 @@ function _templateObject6() {
   return data;
 }
 
-function _templateObject5$2() {
+function _templateObject5$3() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.3s\n"]);
 
-  _templateObject5$2 = function _templateObject5() {
+  _templateObject5$3 = function _templateObject5() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject4$4() {
+function _templateObject4$5() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.2s\n"]);
 
-  _templateObject4$4 = function _templateObject4() {
+  _templateObject4$5 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$5() {
+function _templateObject3$6() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.0s\n"]);
 
-  _templateObject3$5 = function _templateObject3() {
+  _templateObject3$6 = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$6() {
+function _templateObject2$7() {
   var data = _taggedTemplateLiteral(["\n  @keyframes dot {\n        0% { opacity: 0; }\n      50% { opacity: 0; }\n      100% { opacity: 1; }\n  }\n\n  opacity: 0;\n  animation: dot 1.3s infinite;\n"]);
 
-  _templateObject2$6 = function _templateObject2() {
+  _templateObject2$7 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$a() {
+function _templateObject$b() {
   var data = _taggedTemplateLiteral(["\n  border:0 none;\n  background-color:transparent;\n  cursor:pointer\n  transition: background-color 0.3s, color 0.3s ease, border-color 0.3s ease;\n  line-height: 1.34em;\n  \n  img {\n    vertical-align: middle\n  }\n\n  &:hover {\n    text-decoration: none\n  }\n\n  &:disabled {\n    cursor: not-allowed\n  }\n"]);
 
-  _templateObject$a = function _templateObject() {
+  _templateObject$b = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var BtnDefaultCss = css$2(_templateObject$a());
+var BtnDefaultCss = css$2(_templateObject$b());
 var BtnSize = {
   large: {
     minWidth: '100px',
@@ -41422,10 +41513,10 @@ var setBtnColor = function setBtnColor(props) {
   return "\n  box-shadow: ".concat(props.BtnColorObject.boxShasdow, ";\n  background-color: ").concat(props.BtnColorObject.backgroundColor, ";\n  color: ").concat(props.BtnColorObject.color, ";\n\n  border: ").concat(props.BtnColorObject.border ? props.BtnColorObject.border : 'none', ";\n\n  &:hover:not(:disabled) {\n    box-shadow: ").concat(props.BtnColorObject.hover.boxShasdow, ";\n    background-color: ").concat(props.BtnColorObject.hover.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.hover.color, ";\n    border: ").concat(props.BtnColorObject.hover.border ? props.BtnColorObject.hover.border : 'none', ";\n  }\n\n  &:disabled {\n    box-shadow: ").concat(props.BtnColorObject.disabled.boxShasdow, ";\n    background-color: ").concat(props.BtnColorObject.disabled.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.disabled.color, ";\n    border: ").concat(props.BtnColorObject.disabled.border ? props.BtnColorObject.disabled.border : 'none', ";\n  }\n");
 };
 
-var LoadingBase = css$2(_templateObject2$6());
-var LoadingOne = styled.span(_templateObject3$5(), LoadingBase);
-var LoadingTwo = styled.span(_templateObject4$4(), LoadingBase);
-var LoadingThree = styled.span(_templateObject5$2(), LoadingBase);
+var LoadingBase = css$2(_templateObject2$7());
+var LoadingOne = styled.span(_templateObject3$6(), LoadingBase);
+var LoadingTwo = styled.span(_templateObject4$5(), LoadingBase);
+var LoadingThree = styled.span(_templateObject5$3(), LoadingBase);
 var ButtonTag = styled(TextTag).attrs(function () {
   var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   props.size = props.size || 'md';
@@ -41486,4 +41577,4 @@ var Button = (function (props) {
   }), isLoading ? "loading" : props.children, isLoading && React.createElement("span", null, React.createElement(LoadingOne, null, "."), React.createElement(LoadingTwo, null, "."), React.createElement(LoadingThree, null, ".")));
 });
 
-export { BarGauge, Button, ButtonLink, ButtonTextLink, Descriptions, Footer$1 as Footer, Heading, Image$1 as Image, LineChart, LineMergeTimeline, Navbar$1 as Navbar, RadiusGauge, SankeyChart, SelectedCard, SummaryCard, Table$1 as Table, Timeline, chartUtility, font$1 as font, variables };
+export { BarGauge, Button, ButtonLink, ButtonTextLink, Descriptions, Footer$1 as Footer, Heading, Image$1 as Image, LineChart, LineMergeTimeline, Modal$1 as Modal, Navbar$1 as Navbar, RadiusGauge, SankeyChart, SelectedCard, SummaryCard, Table$1 as Table, Timeline, chartUtility, font$1 as font, variables };
