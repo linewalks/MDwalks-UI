@@ -7,9 +7,9 @@ const Text = styled.header`
   ${font.Text}
 `
 
-export default ({size=22, children, style={}}) => {
+export default ({size=22, opacity, children, style={}}) => {
   return (
-    <Text size={size} bold style={style}>
+    <Text size={size} opacity={opacity} bold style={style}>
       { children }
     </Text>
   )
