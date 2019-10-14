@@ -12,7 +12,8 @@ const size = {
   borderRadius: '10px',
   maxWidth: '1200px',
   maxHeight: '800px',
-  footerMarginTop: '40px',
+  footerMarginTop: '24px',
+  footerPaddingTop: '24px',
   minWidth: '480px',
 }
 
@@ -37,7 +38,7 @@ const Modal = styled.div`
   box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
   z-index: ${zIndex.$modal}
 
-  padding: ${size.modalPadding}
+  padding: ${size.modalPadding} 0
 `
 
 const Header = styled.header`
@@ -47,16 +48,26 @@ const Header = styled.header`
   button {
     line-height: 1
   }
+
+  padding: 0 ${size.modalPadding};
 `
 
 const Contents = styled(font.TextTag).attrs({
   size: '18',
   bold: false,
-})``
+})`
+  padding: 0 ${size.modalPadding};
+`
 
 const Footer = styled.footer`
   margin-top: ${size.footerMarginTop};
+  padding-top: ${size.footerPaddingTop};
+  border-top: 1px solid ${color.$line_graph_xy_grey};
   text-align: right;
+
+  > div {
+    padding: 0 ${size.modalPadding};
+  }
 `
 
 export default (props = {}) => {
@@ -70,9 +81,8 @@ export default (props = {}) => {
         props.isOpen &&
         <Modal>
           {
-            props.title &&
             <Header>
-              <Heading>{props.title}</Heading>
+              <Heading size="22" opacity="8">{props.title}</Heading>
               <div style={{marginLeft: 'auto', marginTop: '-10px', marginRight: '-10px'}}>
                 <button onClick={props.closeModal}>
                   <img src={icn_popup_close_md} width="34x" height="34px" />
@@ -88,7 +98,9 @@ export default (props = {}) => {
           {
             props.footer &&
             <Footer>
-              {props.footer}
+              <div>
+                {props.footer}
+              </div>
             </Footer>
           }
         </Modal>

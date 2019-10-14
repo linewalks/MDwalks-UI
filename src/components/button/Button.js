@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import * as font from '../../assets/styles/font'
 import { color } from '../../assets/styles/variables'
 
-import { darken, hexToRGB } from './utility'
+import { hexToRGB } from './utility'
 
 const BtnDefaultCss = css`
   border:0 none;
@@ -74,7 +74,7 @@ const BtnColor = {
     color: color.$primary_white,
     hover: {
       boxShasdow: `0 4px 10px 0 rgba(0, 0, 0, 0.08)`,
-      backgroundColor: darken(color.$solid_default, 24),
+      backgroundColor: color.$solid_hover,
       color: color.$primary_white,
     },
     disabled: {
@@ -91,8 +91,8 @@ const BtnColor = {
     hover: {
       boxShasdow: `0 4px 10px 0 rgba(0, 0, 0, 0.08)`,
       backgroundColor: color.$primary_white,
-      color: darken(color.$solid_default, 24),
-      border: `1px solid ${darken(color.$solid_default, 24)}`,
+      color: color.$solid_hover,
+      border: `1px solid ${color.$solid_default}`,
     },
     disabled: {
       boxShasdow: 'none',

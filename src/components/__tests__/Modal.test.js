@@ -29,7 +29,7 @@ describe('Close', () => {
 describe('Title', () => {
   it('default', () => {
     const wrapper = mount(<Modal isOpen={true} />)
-    expect(wrapper.find(Heading)).toHaveLength(0)
+    expect(wrapper.find(Heading)).toHaveLength(1)
   })
 
   it('set isOpen', () => {
