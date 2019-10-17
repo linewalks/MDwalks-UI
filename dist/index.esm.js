@@ -38116,21 +38116,6 @@ var font$1 = /*#__PURE__*/Object.freeze({
 });
 
 /* Suma el porcentaje indicado a un color (RR, GG o BB) hexadecimal para aclararlo */
-/* Resta el porcentaje indicado a un color (RR, GG o BB) hexadecimal para oscurecerlo */
-
-var subtractLight = function subtractLight(color, amount) {
-  var cc = parseInt(color, 16) - amount;
-  var c = cc < 0 ? 0 : cc;
-  c = c.toString(16).length > 1 ? c.toString(16) : "0".concat(c.toString(16));
-  return c;
-};
-/* Oscurece un color hexadecimal de 6 caracteres #RRGGBB segun el porcentaje indicado */
-
-var darken = function darken(color, amount) {
-  color = color.indexOf("#") >= 0 ? color.substring(1, color.length) : color;
-  amount = parseInt(255 * amount / 100);
-  return color = "#".concat(subtractLight(color.substring(0, 2), amount)).concat(subtractLight(color.substring(2, 4), amount)).concat(subtractLight(color.substring(4, 6), amount));
-};
 var hexToRGB = function hexToRGB(hex, alpha) {
   var r = parseInt(hex.slice(1, 3), 16),
       g = parseInt(hex.slice(3, 5), 16),
@@ -41237,11 +41222,13 @@ var Text$1 = styled.header(_templateObject$9(), Text);
 var Heading = (function (_ref) {
   var _ref$size = _ref.size,
       size = _ref$size === void 0 ? 22 : _ref$size,
+      opacity = _ref.opacity,
       children = _ref.children,
       _ref$style = _ref.style,
       style = _ref$style === void 0 ? {} : _ref$style;
   return React.createElement(Text$1, {
     size: size,
+    opacity: opacity,
     bold: true,
     style: style
   }, children);
@@ -41250,7 +41237,7 @@ var Heading = (function (_ref) {
 var icn_popup_close_md = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzQiIGhlaWdodD0iMzQiIHZpZXdCb3g9IjAgMCAzNCAzNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgzNHYzNEgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzU2NUI1RiIgZD0iTTE3LjE0MiA0LjE0MmExIDEgMCAwIDEgMSAxdjExaDExYTEgMSAwIDEgMSAwIDJoLTExdjExYTEgMSAwIDEgMS0yIDB2LTExaC0xMWExIDEgMCAxIDEgMC0yaDExdi0xMWExIDEgMCAwIDEgMS0xeiIgbWFzaz0idXJsKCNiKSIgdHJhbnNmb3JtPSJyb3RhdGUoLTQ1IDE3LjE0MiAxNy4xNDIpIi8+CiAgICA8L2c+Cjwvc3ZnPg==';
 
 function _templateObject5$2() {
-  var data = _taggedTemplateLiteral(["\n  margin-top: ", ";\n  text-align: right;\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-top: ", ";\n  padding-top: ", ";\n  border-top: 1px solid ", ";\n  text-align: right;\n\n  margin-left: -", ";\n  margin-right: -", ";\n  padding-left: ", ";\n  padding-right: ", ";\n"]);
 
   _templateObject5$2 = function _templateObject5() {
     return data;
@@ -41260,7 +41247,7 @@ function _templateObject5$2() {
 }
 
 function _templateObject4$4() {
-  var data = _taggedTemplateLiteral([""]);
+  var data = _taggedTemplateLiteral(["\n"]);
 
   _templateObject4$4 = function _templateObject4() {
     return data;
@@ -41270,7 +41257,7 @@ function _templateObject4$4() {
 }
 
 function _templateObject3$5() {
-  var data = _taggedTemplateLiteral(["\n  display: flex\n  alignItems: baseline;\n  margin-bottom: 30px\n  button {\n    line-height: 1\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  > div {\n    display: flex\n    alignItems: baseline;\n  }\n\n  margin-bottom: 30px\n  button {\n    line-height: 1\n  }\n"]);
 
   _templateObject3$5 = function _templateObject3() {
     return data;
@@ -41280,7 +41267,7 @@ function _templateObject3$5() {
 }
 
 function _templateObject2$6() {
-  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  min-width: ", ";\n  border-radius: ", ";\n  background-color: ", ";\n  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);\n  z-index: ", "\n\n  padding: ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  min-width: ", ";\n  border-radius: ", ";\n  background-color: ", ";\n  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);\n  z-index: ", ";\n\n  padding: ", ";\n"]);
 
   _templateObject2$6 = function _templateObject2() {
     return data;
@@ -41303,7 +41290,8 @@ var size$1 = {
   borderRadius: '10px',
   maxWidth: '1200px',
   maxHeight: '800px',
-  footerMarginTop: '40px',
+  footerMarginTop: '24px',
+  footerPaddingTop: '24px',
   minWidth: '480px'
 };
 var Overlay = styled.div(_templateObject$a(), hexToRGB(color$1.$black, 0.6), zIndex.$modalOverlay);
@@ -41313,10 +41301,13 @@ var Contents = styled(TextTag).attrs({
   size: '18',
   bold: false
 })(_templateObject4$4());
-var Footer$2 = styled.footer(_templateObject5$2(), size$1.footerMarginTop);
+var Footer$2 = styled.footer(_templateObject5$2(), size$1.footerMarginTop, size$1.footerPaddingTop, color$1.$line_graph_xy_grey, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding);
 var Modal$1 = (function () {
   var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return React.createElement(React.Fragment, null, props.isOpen && React.createElement(Overlay, null), props.isOpen && React.createElement(Modal, null, props.title && React.createElement(Header, null, React.createElement(Heading, null, props.title), React.createElement("div", {
+  return React.createElement(React.Fragment, null, props.isOpen && React.createElement(Overlay, null), props.isOpen && React.createElement(Modal, null, React.createElement(Header, null, React.createElement("div", null, React.createElement(Heading, {
+    size: "22",
+    opacity: "8"
+  }, props.title), React.createElement("div", {
     style: {
       marginLeft: 'auto',
       marginTop: '-10px',
@@ -41328,9 +41319,16 @@ var Modal$1 = (function () {
     src: icn_popup_close_md,
     width: "34x",
     height: "34px"
-  })))), React.createElement(Contents, {
+  })))), props.description && React.createElement(TextTag, {
+    as: "p",
+    size: 14,
+    opacity: 6,
+    style: {
+      marginTop: '6px'
+    }
+  }, props.description)), React.createElement(Contents, {
     as: "article"
-  }, props.children), props.footer && React.createElement(Footer$2, null, props.footer)));
+  }, props.children), props.footer && React.createElement(Footer$2, null, React.createElement("div", null, props.footer))));
 });
 
 function _templateObject8() {
@@ -41447,7 +41445,7 @@ var BtnColor = {
     color: color$1.$primary_white,
     hover: {
       boxShasdow: "0 4px 10px 0 rgba(0, 0, 0, 0.08)",
-      backgroundColor: darken(color$1.$solid_default, 24),
+      backgroundColor: color$1.$solid_hover,
       color: color$1.$primary_white
     },
     disabled: {
@@ -41464,8 +41462,8 @@ var BtnColor = {
     hover: {
       boxShasdow: "0 4px 10px 0 rgba(0, 0, 0, 0.08)",
       backgroundColor: color$1.$primary_white,
-      color: darken(color$1.$solid_default, 24),
-      border: "1px solid ".concat(darken(color$1.$solid_default, 24))
+      color: color$1.$solid_hover,
+      border: "1px solid ".concat(color$1.$solid_default)
     },
     disabled: {
       boxShasdow: 'none',
