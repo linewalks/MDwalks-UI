@@ -10,8 +10,9 @@ edit: false
 ## :lock: Security Fixes
 -->
 
-# v0.6.2 /
+# v0.6.2 / 2019-10-17
 ## :tada: Enhancements
+- [#186](https://github.com/linewalks/MDwalks-UI/issues/186'): Modal 에 description option 추가 ([**@toyjhlee**](https://github.com/toyjhlee))
 - [#181](https://github.com/linewalks/MDwalks-UI/issues/181'): Button, Modal 스타일 조정 ([**@toyjhlee**](https://github.com/toyjhlee))
 
 # v0.6.1 / 2019-10-11
