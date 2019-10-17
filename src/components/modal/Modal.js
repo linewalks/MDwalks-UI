@@ -12,7 +12,8 @@ const size = {
   borderRadius: '10px',
   maxWidth: '1200px',
   maxHeight: '800px',
-  footerMarginTop: '40px',
+  footerMarginTop: '24px',
+  footerPaddingTop: '24px',
   minWidth: '480px',
 }
 
@@ -35,14 +36,17 @@ const Modal = styled.div`
   border-radius: ${size.borderRadius};
   background-color: ${color.$primary_white};
   box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
-  z-index: ${zIndex.$modal}
+  z-index: ${zIndex.$modal};
 
-  padding: ${size.modalPadding}
+  padding: ${size.modalPadding};
 `
 
 const Header = styled.header`
-  display: flex
-  alignItems: baseline;
+  > div {
+    display: flex
+    alignItems: baseline;
+  }
+
   margin-bottom: 30px
   button {
     line-height: 1
@@ -52,11 +56,19 @@ const Header = styled.header`
 const Contents = styled(font.TextTag).attrs({
   size: '18',
   bold: false,
-})``
+})`
+`
 
 const Footer = styled.footer`
   margin-top: ${size.footerMarginTop};
+  padding-top: ${size.footerPaddingTop};
+  border-top: 1px solid ${color.$line_graph_xy_grey};
   text-align: right;
+
+  margin-left: -${size.modalPadding};
+  margin-right: -${size.modalPadding};
+  padding-left: ${size.modalPadding};
+  padding-right: ${size.modalPadding};
 `
 
 export default (props = {}) => {
@@ -70,14 +82,19 @@ export default (props = {}) => {
         props.isOpen &&
         <Modal>
           {
-            props.title &&
             <Header>
-              <Heading>{props.title}</Heading>
-              <div style={{marginLeft: 'auto', marginTop: '-10px', marginRight: '-10px'}}>
-                <button onClick={props.closeModal}>
-                  <img src={icn_popup_close_md} width="34x" height="34px" />
-                </button>
+              <div>
+                <Heading size="22" opacity="8">{props.title}</Heading>
+                <div style={{marginLeft: 'auto', marginTop: '-10px', marginRight: '-10px'}}>
+                  <button onClick={props.closeModal}>
+                    <img src={icn_popup_close_md} width="34x" height="34px" />
+                  </button>
+                </div>
               </div>
+              {
+                props.description &&
+                <font.TextTag as="p" size={14} opacity={6} style={{marginTop: '6px'}}>{props.description}</font.TextTag>
+              }
             </Header>
           }
 
@@ -88,7 +105,9 @@ export default (props = {}) => {
           {
             props.footer &&
             <Footer>
-              {props.footer}
+              <div>
+                {props.footer}
+              </div>
             </Footer>
           }
         </Modal>

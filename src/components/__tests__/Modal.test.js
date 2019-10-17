@@ -29,12 +29,24 @@ describe('Close', () => {
 describe('Title', () => {
   it('default', () => {
     const wrapper = mount(<Modal isOpen={true} />)
-    expect(wrapper.find(Heading)).toHaveLength(0)
+    expect(wrapper.find(Heading)).toHaveLength(1)
   })
 
   it('set isOpen', () => {
     const wrapper = mount(<Modal isOpen={true} title="1" />)
     expect(wrapper.find(Heading)).toHaveLength(1)
+  })
+})
+
+describe('description', () => {
+  it('default', () => {
+    const wrapper = mount(<Modal isOpen={true} />)
+    expect(wrapper.find('p')).toHaveLength(0)
+  })
+
+  it('set isOpen', () => {
+    const wrapper = mount(<Modal isOpen={true} title="1" description="22" />)
+    expect(wrapper.find('p')).toHaveLength(1)
   })
 })
 
