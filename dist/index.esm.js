@@ -41236,7 +41236,7 @@ var Heading = (function (_ref) {
 var icn_popup_close_md = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzQiIGhlaWdodD0iMzQiIHZpZXdCb3g9IjAgMCAzNCAzNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgzNHYzNEgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzU2NUI1RiIgZD0iTTE3LjE0MiA0LjE0MmExIDEgMCAwIDEgMSAxdjExaDExYTEgMSAwIDEgMSAwIDJoLTExdjExYTEgMSAwIDEgMS0yIDB2LTExaC0xMWExIDEgMCAxIDEgMC0yaDExdi0xMWExIDEgMCAwIDEgMS0xeiIgbWFzaz0idXJsKCNiKSIgdHJhbnNmb3JtPSJyb3RhdGUoLTQ1IDE3LjE0MiAxNy4xNDIpIi8+CiAgICA8L2c+Cjwvc3ZnPg==';
 
 function _templateObject5$2() {
-  var data = _taggedTemplateLiteral(["\n  margin-top: ", ";\n  padding-top: ", ";\n  border-top: 1px solid ", ";\n  text-align: right;\n\n  > div {\n    padding: 0 ", ";\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-top: ", ";\n  padding-top: ", ";\n  border-top: 1px solid ", ";\n  text-align: right;\n\n  margin-left: -", ";\n  margin-right: -", ";\n  padding-left: ", ";\n  padding-right: ", ";\n"]);
 
   _templateObject5$2 = function _templateObject5() {
     return data;
@@ -41246,7 +41246,7 @@ function _templateObject5$2() {
 }
 
 function _templateObject4$4() {
-  var data = _taggedTemplateLiteral(["\n  padding: 0 ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n"]);
 
   _templateObject4$4 = function _templateObject4() {
     return data;
@@ -41256,7 +41256,7 @@ function _templateObject4$4() {
 }
 
 function _templateObject3$5() {
-  var data = _taggedTemplateLiteral(["\n  display: flex\n  alignItems: baseline;\n  margin-bottom: 30px\n  button {\n    line-height: 1\n  }\n\n  padding: 0 ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  > div {\n    display: flex\n    alignItems: baseline;\n  }\n\n  margin-bottom: 30px\n  button {\n    line-height: 1\n  }\n"]);
 
   _templateObject3$5 = function _templateObject3() {
     return data;
@@ -41266,7 +41266,7 @@ function _templateObject3$5() {
 }
 
 function _templateObject2$6() {
-  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  min-width: ", ";\n  border-radius: ", ";\n  background-color: ", ";\n  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);\n  z-index: ", "\n\n  padding: ", " 0\n"]);
+  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  min-width: ", ";\n  border-radius: ", ";\n  background-color: ", ";\n  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);\n  z-index: ", ";\n\n  padding: ", ";\n"]);
 
   _templateObject2$6 = function _templateObject2() {
     return data;
@@ -41295,15 +41295,15 @@ var size$1 = {
 };
 var Overlay = styled.div(_templateObject$a(), hexToRGB(color$1.$black, 0.6), zIndex.$modalOverlay);
 var Modal = styled.div(_templateObject2$6(), size$1.minWidth, size$1.borderRadius, color$1.$primary_white, zIndex.$modal, size$1.modalPadding);
-var Header = styled.header(_templateObject3$5(), size$1.modalPadding);
+var Header = styled.header(_templateObject3$5());
 var Contents = styled(TextTag).attrs({
   size: '18',
   bold: false
-})(_templateObject4$4(), size$1.modalPadding);
-var Footer$2 = styled.footer(_templateObject5$2(), size$1.footerMarginTop, size$1.footerPaddingTop, color$1.$line_graph_xy_grey, size$1.modalPadding);
+})(_templateObject4$4());
+var Footer$2 = styled.footer(_templateObject5$2(), size$1.footerMarginTop, size$1.footerPaddingTop, color$1.$line_graph_xy_grey, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding);
 var Modal$1 = (function () {
   var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return React.createElement(React.Fragment, null, props.isOpen && React.createElement(Overlay, null), props.isOpen && React.createElement(Modal, null, React.createElement(Header, null, React.createElement(Heading, {
+  return React.createElement(React.Fragment, null, props.isOpen && React.createElement(Overlay, null), props.isOpen && React.createElement(Modal, null, React.createElement(Header, null, React.createElement("div", null, React.createElement(Heading, {
     size: "22",
     opacity: "8"
   }, props.title), React.createElement("div", {
@@ -41318,7 +41318,14 @@ var Modal$1 = (function () {
     src: icn_popup_close_md,
     width: "34x",
     height: "34px"
-  })))), React.createElement(Contents, {
+  })))), props.description && React.createElement(TextTag, {
+    as: "p",
+    size: 14,
+    opacity: 6,
+    style: {
+      marginTop: '6px'
+    }
+  }, props.description)), React.createElement(Contents, {
     as: "article"
   }, props.children), props.footer && React.createElement(Footer$2, null, React.createElement("div", null, props.footer))));
 });
