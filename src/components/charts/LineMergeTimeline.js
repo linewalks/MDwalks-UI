@@ -237,6 +237,7 @@ class LineMergeTimeline extends Component {
 
   renderLineChart = (svg, lineChartData, xAxisScale, lineYAxisScale, line) => {
     const { yAxisWidth, xAxisHeight, defaultPadding, lineYAxisHeight } = this.options  
+    const { scoreClickEvent } = this.props
     // Create Line Chart
     //  Create Line Color Gradient
     const defs = svg.append("defs");
@@ -317,7 +318,8 @@ class LineMergeTimeline extends Component {
           .style('pointer-events', 'none')
           .html(tooltipDescription)
       })
-      .on('mouseout', d => this.getRootElement().select(`.${styles.tooltip}`).transition().duration(200).style('opacity', 0))    
+      .on('mouseout', d => this.getRootElement().select(`.${styles.tooltip}`).transition().duration(200).style('opacity', 0))  
+      .on('click', typeof scoreClickEvent === "function" && scoreClickEvent)  
   }
 
   createTimelineLabel = (timelineYAxisScale, timelineData) => {
