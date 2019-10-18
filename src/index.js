@@ -12,7 +12,7 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Image from './components/layout/Image';
 import Heading from './components/layout/Heading';
-
+import Histogram from './components/charts/Histogram';
 import Modal from './components/modal/Modal';
 
 import Button, {ButtonLink, ButtonTextLink} from './components/button/Button'
@@ -42,4 +42,5 @@ export {
   Button,
   ButtonLink,
   ButtonTextLink,
+  Histogram
 } 

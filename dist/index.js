@@ -35312,21 +35312,6 @@ function zoom() {
 
 var d3Core = /*#__PURE__*/Object.freeze({
   version: version,
-  cluster: cluster,
-  hierarchy: hierarchy,
-  pack: index$2,
-  packSiblings: siblings,
-  packEnclose: enclose,
-  partition: partition,
-  stratify: stratify,
-  tree: tree,
-  treemap: index$3,
-  treemapBinary: binary,
-  treemapDice: treemapDice,
-  treemapSlice: treemapSlice,
-  treemapSliceDice: sliceDice,
-  treemapSquarify: squarify,
-  treemapResquarify: resquarify,
   bisect: bisectRight,
   bisectRight: bisectRight,
   bisectLeft: bisectLeft,
@@ -35358,6 +35343,10 @@ var d3Core = /*#__PURE__*/Object.freeze({
   transpose: transpose,
   variance: variance,
   zip: zip,
+  axisTop: axisTop,
+  axisRight: axisRight,
+  axisBottom: axisBottom,
+  axisLeft: axisLeft,
   brush: brush,
   brushX: brushX,
   brushY: brushY,
@@ -35510,10 +35499,21 @@ var d3Core = /*#__PURE__*/Object.freeze({
   geoRotation: rotation,
   geoStream: geoStream,
   geoTransform: transform,
-  axisTop: axisTop,
-  axisRight: axisRight,
-  axisBottom: axisBottom,
-  axisLeft: axisLeft,
+  cluster: cluster,
+  hierarchy: hierarchy,
+  pack: index$2,
+  packSiblings: siblings,
+  packEnclose: enclose,
+  partition: partition,
+  stratify: stratify,
+  tree: tree,
+  treemap: index$3,
+  treemapBinary: binary,
+  treemapDice: treemapDice,
+  treemapSlice: treemapSlice,
+  treemapSliceDice: sliceDice,
+  treemapSquarify: squarify,
+  treemapResquarify: resquarify,
   interpolate: interpolateValue,
   interpolateArray: array$1,
   interpolateBasis: basis$1,
@@ -41242,6 +41242,313 @@ var Heading = (function (_ref) {
   }, children);
 });
 
+var css$2 = "/* tooltip  */\n.Histogram_tooltipTitle__1yAfG {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  opacity: 0.6;\n}\n\n.Histogram_tooltipValue__28lvI {\n  height: 20px;\n  line-height: 1.5;\n  font-size: 12px;\n  font-weight: bold;\n  opacity: 0.9;\n}";
+styleInject(css$2);
+
+var styles$4 = {
+  "tooltipTitle": "tooltipTitle",
+  "tooltipValue": "tooltipValue"
+};
+
+var Histogram =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Histogram, _Component);
+
+  function Histogram(props) {
+    var _this;
+
+    _classCallCheck(this, Histogram);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Histogram).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "errorMessage", function (errorType) {
+      var message;
+
+      if (errorType === 'typeOfVariable') {
+        message = 'type is invalid';
+      }
+
+      if (errorType === 'haveData') {
+        message = 'No data is provided';
+      }
+
+      _this.getRootElement().append('div').text(message);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createXAxis", function (xAxis) {
+      var _this$options = _this.options,
+          height = _this$options.height,
+          defaultPadding = _this$options.defaultPadding; // Create xAxis
+      // 1. Create xAxis group
+
+      var gXAxis = generateGroup(_this.getRootElement().select('.histogram'), {
+        className: 'gXAxis',
+        xOffset: defaultPadding.left,
+        yOffset: height - defaultPadding.bottom
+      }); // 2. Render xAxis
+
+      gXAxis.call(xAxis);
+      gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4');
+      gXAxis.selectAll('.tick line').remove();
+      gXAxis.selectAll('.tick text').attr('font-size', 14).attr('opacity', 0.6).attr('font-family', 'Spoqa Han Sans').style('fill', color$1.$black);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createYAxis", function (yAxis) {
+      var defaultPadding = _this.options.defaultPadding; // Create yAxis
+      // 1. Create yAxis group
+
+      var gYAxis = generateGroup(_this.getRootElement().select('.histogram'), {
+        className: 'gYAxis',
+        xOffset: defaultPadding.left,
+        yOffset: defaultPadding.top
+      }); // 2. Render yAxis
+
+      gYAxis.call(yAxis);
+      gYAxis.selectAll('.domain').remove();
+      gYAxis.selectAll('.tick line').attr('x2', -6).attr('stroke', color$1.$line_graph_xy_grey);
+      gYAxis.selectAll('.tick:last-child line').attr('stroke', color$1.$line_btn_grey);
+      gYAxis.selectAll('.tick text').attr('font-size', 14).attr('font-family', 'Spoqa Han Sans').style('fill', color$1.$black).attr('opacity', 0.4);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createBar", function (data) {
+      var binsNumber = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
+      var histogramData = data.risks,
+          patientRisk = data.patientRisk;
+      var defaultPadding = _this.options.defaultPadding;
+      var $primary_navy = color$1.$primary_navy;
+      var gBar = generateGroup(_this.getRootElement().select('.histogram'), {
+        className: 'gBar',
+        xOffset: defaultPadding.left,
+        yOffset: defaultPadding.top
+      });
+      var histogram$1 = histogram().value(function (d) {
+        return d;
+      }).domain(_this.xAxisScale.domain()).thresholds(_this.xAxisScale.ticks(binsNumber));
+      var bins = histogram$1(histogramData);
+      bins.pop();
+
+      var patientRiskIndex = _this.getPatientRiskScoreIndex(patientRisk, bins.length);
+
+      gBar.selectAll("rect").data(bins).enter().append("rect").attr("class", "bar").attr("x", 1).attr('transform', function (d) {
+        return "translate(".concat(_this.xAxisScale(d.x0), ", ").concat(d.length && _this.yAxisScale(d.length), ")");
+      }).attr('width', function (d) {
+        return d.length === 0 ? _this.xAxisScale(d.x1) - _this.xAxisScale(d.x0) : _this.xAxisScale(d.x1) - _this.xAxisScale(d.x0) - 1;
+      }).attr('height', function (d) {
+        return d.length === 0 ? 0 : _this.yAxisHeight - _this.yAxisScale(d.length);
+      }).style('fill', function (d, i) {
+        if (i === patientRiskIndex) {
+          return $primary_navy;
+        } else {
+          return '#e1e1e1';
+        }
+      }).transition().duration(500);
+      gBar.exit().remove();
+      var tooltipDescription = "\n      <div style='display:flex;'>\n        <span class=".concat(styles$4.tooltipTitle, " style='width: 85px; height: 20px; margin-right:24px;'>I.I.T Risk Score</span>\n        <span class=").concat(styles$4.tooltipValue, " style='margin-left:auto;'>").concat(patientRisk, "</span>\n      </div>\n      <div style='display:flex;'>\n        <span class=").concat(styles$4.tooltipTitle, " style='width: 118px; height: 20px; margin-right: 24px;'>Number of Patients</span>\n        <span class=").concat(styles$4.tooltipValue, " style='margin-left:auto;'>").concat(bins[patientRiskIndex].length, "</span>\n      </div>\n    ");
+
+      _this.getRootElement().append('div').attr('class', 'histogramTooltip').style('position', 'absolute').style('border', "solid 1px ".concat(color$1.$menu_grey)).style('border-radius', '4px').style('padding', '12px 14px').style('box-sizing', 'border-box').style('background', "".concat(color$1.$primary_white)).style('top', "".concat(_this.yAxisScale(bins[patientRiskIndex].length) + defaultPadding.top - 90, "px")).style('left', "".concat(_this.xAxisScale(bins[patientRiskIndex].x0) + defaultPadding.left, "px")).html(tooltipDescription);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createTitle", function () {
+      var defaultPadding = _this.options.defaultPadding;
+      var gTitle = generateGroup(_this.getRootElement().select('.histogram'), {
+        className: 'Title',
+        xOffset: 0,
+        yOffset: 0
+      });
+      gTitle.append('text').text("".concat(_this.props.title)).attr('text-anchor', 'start').attr('font-size', 18).attr('letter-spacing', -0.5).attr('font-weight', 'bold').attr('x', 0).attr('y', 22).style('fill', color$1.$black).style('opacity', 0.6);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createLegend", function () {
+      var $primary_navy = color$1.$primary_navy,
+          $legend_timeline_red_01 = color$1.$legend_timeline_red_01;
+      var legendColorSet = [$primary_navy, $legend_timeline_red_01];
+      var defaultPadding = _this.options.defaultPadding;
+      var gLegend = generateGroup(_this.getRootElement().select('.histogram'), {
+        className: 'gLegend',
+        xOffset: 0,
+        yOffset: 58
+      }); // add legend circle 
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      gLegend.selectAll('legendCircle').data(args).enter().append('circle').attr('cx', function (d, i) {
+        return 5 + 140 * i;
+      }).attr('cy', 10).attr('r', 5).style('fill', function (d, i) {
+        return legendColorSet[i];
+      }); // add legend text
+
+      gLegend.selectAll('legend').data(args).enter().append('text').attr('x', function (d, i) {
+        return 18 + 140 * i;
+      }).attr('y', 15).text(function (d) {
+        return d;
+      }).attr('text-anchor', 'start').attr('font-size', 14).attr('textLength', 108).attr('font-family', 'Spoqa Han Sans').style('fill', '#999999');
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createDropDown", function (data) {
+      var dropDownList = [10, 20, 50, 100];
+
+      var dropDownBox = _this.getRootElement().append('div').attr('class', 'gDropDown').style('position', 'absolute').style('top', '55px').style('left', '1100px').append('select').attr('id', 'binsDropDown').on('change', function () {
+        _this.getRootElement().select('.gBar').remove();
+
+        _this.getRootElement().select('.tooltip').remove();
+
+        _this.getRootElement().select('.gRiskMeanLine').remove();
+
+        var binsN = _this.getRootElement().select('#binsDropDown').property('value');
+
+        _this.createBar(data, binsN);
+
+        _this.createRiskMeanLine(data);
+      });
+
+      dropDownBox.selectAll('option').data(dropDownList).enter().append('option').attr('value', function (d) {
+        return d;
+      }).text(function (d) {
+        return d;
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createXAxisGridLines", function (gridXAxis) {
+      var defaultPadding = _this.options.defaultPadding;
+      var gXAxisGridLine = generateGroup(_this.getRootElement().select('.histogram'), {
+        className: 'gXAxisGridLine',
+        xOffset: defaultPadding.left,
+        yOffset: defaultPadding.top
+      }); // 2. Render gridXAxis
+
+      gXAxisGridLine.call(gridXAxis);
+      gXAxisGridLine.selectAll('.domain').remove();
+      gXAxisGridLine.selectAll('.tick line').attr('stroke', color$1.$line_graph_xy_grey);
+      gXAxisGridLine.select('.tick:last-child line').attr('stroke', color$1.$line_btn_grey);
+      gXAxisGridLine.selectAll('.tick text').remove();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createRiskMeanLine", function (data) {
+      var defaultPadding = _this.options.defaultPadding;
+      var gRiskMeanLine = generateGroup(_this.getRootElement().select('.histogram'), {
+        className: 'gRiskMeanLine',
+        xOffset: defaultPadding.left,
+        yOffset: defaultPadding.top
+      });
+      gRiskMeanLine.append('line').attr('x1', _this.xAxisScale(data.avgRisk)).attr('x2', _this.xAxisScale(data.avgRisk)).attr('y1', 0).attr('y2', _this.yAxisHeight).attr('stroke', color$1.$legend_timeline_red_01);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "getPatientRiskScoreIndex", function (score, binsNumber) {
+      return Math.floor(score * binsNumber);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderHistogram", function (data) {
+      var _this$options2 = _this.options,
+          width = _this$options2.width,
+          height = _this$options2.height;
+      var svg = renderSVG(_this.getRootElement(), width, height);
+      var gHistogram = generateGroup(svg, {
+        className: 'histogram'
+      });
+      var xAxis = axisBottom(_this.xAxisScale).tickPadding(14).ticks(10).tickSize(0); // 10^n으로 바꾸는 포맷 함수
+
+      var superscript = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+
+      var formatPower = function formatPower(d) {
+        return superscript[d];
+      };
+
+      var yAxis = axisLeft(_this.yAxisScale).tickPadding(21).tickSize(0).tickValues([1e0, 1e1, 1e2, 1e3, 1e4, 2e4 + 5e3]).ticks(5, function (d) {
+        return "10".concat(formatPower(Math.log10(d)));
+      });
+      var gridXAxis = axisRight(_this.yAxisScale).tickSize(_this.xAxisWidth).tickValues([1e0, 1e1, 1e2, 1e3, 1e4, 2e4 + 5e3]);
+
+      _this.createTitle();
+
+      _this.createXAxis(xAxis);
+
+      _this.createYAxis(yAxis);
+
+      _this.createLegend('Patient Risk Score', 'Average Risk Score');
+
+      _this.createDropDown(data);
+
+      _this.createXAxisGridLines(gridXAxis);
+
+      _this.createBar(data);
+
+      _this.createRiskMeanLine(data);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
+      var data = _this.props.data;
+
+      if (lodash.isEmpty(data)) {
+        return _this.errorMessage('haveData');
+      }
+
+      if (!(data !== null && _typeof(data) === 'object' && !Array.isArray(data))) {
+        return _this.errorMessage('typeOfVariable');
+      }
+
+      _this.renderHistogram(data);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps, prevState) {
+      if (!lodash.isEqual(prevProps.data, _this.props.data)) {
+        var data = _this.props.data;
+
+        _this.getRootElement().select('svg').remove();
+
+        _this.getRootElement().select('.tooltip').remove();
+
+        _this.getRootElement().select('.gDropDown').remove();
+
+        _this.renderHistogram(data);
+      }
+    });
+
+    _this.options = {
+      width: _this.props.chartWidth || 1140,
+      height: _this.props.chartHeight || 529,
+      defaultPadding: {
+        top: 115,
+        right: 0,
+        left: 43,
+        bottom: 34
+      }
+    };
+    _this.fakeData = {
+      risks: sequence(1000).map(bates(10)),
+      patientRisk: 0.42,
+      avgRisk: 0.305
+    };
+    _this.xAxisWidth = _this.options.width - _this.options.defaultPadding.left - _this.options.defaultPadding.right;
+    _this.yAxisHeight = _this.options.height - _this.options.defaultPadding.top - _this.options.defaultPadding.bottom;
+    _this.xAxisScale = linear$2().domain([0, 1]).range([0, _this.xAxisWidth]);
+    _this.yAxisScale = log$1().domain([1e0, 2e4 + 5e3]).range([_this.yAxisHeight, 0]);
+    _this.rootElement = React__default.createRef();
+    return _this;
+  }
+
+  _createClass(Histogram, [{
+    key: "getRootElement",
+    value: function getRootElement() {
+      return select(this.rootElement.current);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return React__default.createElement("div", {
+        ref: this.rootElement,
+        style: {
+          position: 'relative'
+        }
+      });
+    }
+  }]);
+
+  return Histogram;
+}(React.Component);
+
 var icn_popup_close_md = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzQiIGhlaWdodD0iMzQiIHZpZXdCb3g9IjAgMCAzNCAzNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgzNHYzNEgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzU2NUI1RiIgZD0iTTE3LjE0MiA0LjE0MmExIDEgMCAwIDEgMSAxdjExaDExYTEgMSAwIDEgMSAwIDJoLTExdjExYTEgMSAwIDEgMS0yIDB2LTExaC0xMWExIDEgMCAxIDEgMC0yaDExdi0xMWExIDEgMCAwIDEgMS0xeiIgbWFzaz0idXJsKCNiKSIgdHJhbnNmb3JtPSJyb3RhdGUoLTQ1IDE3LjE0MiAxNy4xNDIpIi8+CiAgICA8L2c+Cjwvc3ZnPg==';
 
 function _templateObject5$2() {
@@ -41590,6 +41897,7 @@ exports.ButtonTextLink = ButtonTextLink;
 exports.Descriptions = Descriptions;
 exports.Footer = Footer$1;
 exports.Heading = Heading;
+exports.Histogram = Histogram;
 exports.Image = Image$1;
 exports.LineChart = LineChart;
 exports.LineMergeTimeline = LineMergeTimeline;

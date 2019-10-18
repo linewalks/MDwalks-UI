@@ -1,0 +1,20 @@
+/* tooltip  */
+.tooltipTitle {
+  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP';
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: -0.5px;
+  color: #000000;
+  opacity: 0.6;
+}
+
+.tooltipValue {
+  height: 20px;
+  line-height: 1.5;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0.9;
+}
