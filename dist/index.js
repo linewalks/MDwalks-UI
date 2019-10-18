@@ -35312,21 +35312,6 @@ function zoom() {
 
 var d3Core = /*#__PURE__*/Object.freeze({
   version: version,
-  cluster: cluster,
-  hierarchy: hierarchy,
-  pack: index$2,
-  packSiblings: siblings,
-  packEnclose: enclose,
-  partition: partition,
-  stratify: stratify,
-  tree: tree,
-  treemap: index$3,
-  treemapBinary: binary,
-  treemapDice: treemapDice,
-  treemapSlice: treemapSlice,
-  treemapSliceDice: sliceDice,
-  treemapSquarify: squarify,
-  treemapResquarify: resquarify,
   bisect: bisectRight,
   bisectRight: bisectRight,
   bisectLeft: bisectLeft,
@@ -35358,6 +35343,10 @@ var d3Core = /*#__PURE__*/Object.freeze({
   transpose: transpose,
   variance: variance,
   zip: zip,
+  axisTop: axisTop,
+  axisRight: axisRight,
+  axisBottom: axisBottom,
+  axisLeft: axisLeft,
   brush: brush,
   brushX: brushX,
   brushY: brushY,
@@ -35510,10 +35499,21 @@ var d3Core = /*#__PURE__*/Object.freeze({
   geoRotation: rotation,
   geoStream: geoStream,
   geoTransform: transform,
-  axisTop: axisTop,
-  axisRight: axisRight,
-  axisBottom: axisBottom,
-  axisLeft: axisLeft,
+  cluster: cluster,
+  hierarchy: hierarchy,
+  pack: index$2,
+  packSiblings: siblings,
+  packEnclose: enclose,
+  partition: partition,
+  stratify: stratify,
+  tree: tree,
+  treemap: index$3,
+  treemapBinary: binary,
+  treemapDice: treemapDice,
+  treemapSlice: treemapSlice,
+  treemapSliceDice: sliceDice,
+  treemapSquarify: squarify,
+  treemapResquarify: resquarify,
   interpolate: interpolateValue,
   interpolateArray: array$1,
   interpolateBasis: basis$1,
@@ -40637,7 +40637,8 @@ function (_Component) {
           yAxisWidth = _this$options5.yAxisWidth,
           xAxisHeight = _this$options5.xAxisHeight,
           defaultPadding = _this$options5.defaultPadding,
-          lineYAxisHeight = _this$options5.lineYAxisHeight; // Create Line Chart
+          lineYAxisHeight = _this$options5.lineYAxisHeight;
+      var scoreClickEvent = _this.props.scoreClickEvent; // Create Line Chart
       //  Create Line Color Gradient
 
       var defs = svg.append("defs");
@@ -40678,7 +40679,7 @@ function (_Component) {
         tooltip.style('left', "".concat(x, "px")).style('top', "".concat(y, "px")).style('pointer-events', 'none').html(tooltipDescription);
       }).on('mouseout', function (d) {
         return _this.getRootElement().select(".".concat(styles$3.tooltip)).transition().duration(200).style('opacity', 0);
-      });
+      }).on('click', typeof scoreClickEvent === "function" && scoreClickEvent);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createTimelineLabel", function (timelineYAxisScale, timelineData) {
