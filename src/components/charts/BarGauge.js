@@ -24,11 +24,6 @@ class BarGauge extends React.Component {
     this.state = {
       styles
     }
-
-    this.state.styles.bar_gauge_fill = Object.assign(_.clone(styles.bar_gauge_fill), {
-      width: `${this.props.score}%`
-    })
-
   }
 
   render() {
@@ -37,7 +32,7 @@ class BarGauge extends React.Component {
     if (_.inRange(score, 0, 101)) {
       return (
         <div style={this.state.styles.gauge_container}>
-          <div style={this.state.styles.bar_gauge_fill}></div>
+          <div style={{...this.state.styles.bar_gauge_fill, width: `${score}%`}}></div>
         </div>
       );
     } else {

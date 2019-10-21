@@ -17347,9 +17347,6 @@ function (_React$Component) {
     _this.state = {
       styles: styles
     };
-    _this.state.styles.bar_gauge_fill = Object.assign(lodash.clone(styles.bar_gauge_fill), {
-      width: "".concat(_this.props.score, "%")
-    });
     return _this;
   }
 
@@ -17362,7 +17359,9 @@ function (_React$Component) {
         return React__default.createElement("div", {
           style: this.state.styles.gauge_container
         }, React__default.createElement("div", {
-          style: this.state.styles.bar_gauge_fill
+          style: _objectSpread2({}, this.state.styles.bar_gauge_fill, {
+            width: "".concat(score, "%")
+          })
         }));
       } else {
         return React__default.createElement("div", null, "Invalid Score");
