@@ -40671,7 +40671,9 @@ function (_Component) {
         tooltip.style('left', "".concat(x, "px")).style('top', "".concat(y, "px")).style('pointer-events', 'none').html(tooltipDescription);
       }).on('mouseout', function (d) {
         return _this.getRootElement().select(".".concat(styles$3.tooltip)).transition().duration(200).style('opacity', 0);
-      }).on('click', typeof scoreClickEvent === "function" && scoreClickEvent);
+      }).on('click', function (d, i) {
+        typeof scoreClickEvent === "function" && scoreClickEvent(d, i);
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "createTimelineLabel", function (timelineYAxisScale, timelineData) {

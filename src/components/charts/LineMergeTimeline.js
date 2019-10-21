@@ -319,7 +319,9 @@ class LineMergeTimeline extends Component {
           .html(tooltipDescription)
       })
       .on('mouseout', d => this.getRootElement().select(`.${styles.tooltip}`).transition().duration(200).style('opacity', 0))  
-      .on('click', typeof scoreClickEvent === "function" && scoreClickEvent)  
+      .on('click', (d, i) => {
+        typeof scoreClickEvent === "function" && scoreClickEvent(d, i)
+      })  
   }
 
   createTimelineLabel = (timelineYAxisScale, timelineData) => {
