@@ -331,10 +331,14 @@ class Histogram extends Component {
         return  `10${formatPower(Math.log10(d))}`
       })
 
+    this.yAxis = yAxis
+
     const gridXAxis =  d3
       .axisRight(this.yAxisScale)
       .tickSize(this.xAxisWidth)
       .tickValues([1e0, 1e1, 1e2, 1e3, 1e4, 2e4 + 5e3])
+
+    this.gridXAxis = gridXAxis
    
     this.createTitle()
     this.createXAxis(xAxis)

@@ -37,6 +37,10 @@ describe('Histogram Component', () => {
   it('histogram renders when data is no provided', () => {
     const component = mount( <Histogram title='Risk Score Histogram' />)
     expect(component.html()).toContain('No data is provided')
+
+    expect(instance.yAxisScale.domain()).toEqual([ 1, 25000 ])
+    expect(instance.yAxis.tickValues()).toEqual([ 1, 10, 100, 1000, 10000, 25000 ])
+    expect(instance.gridXAxis.tickValues()).toEqual([ 1, 10, 100, 1000, 10000, 25000 ])
   })
 
   it('histogram renders when data is provided', () => {
