@@ -11,10 +11,6 @@ const Item = styled(font.TextTag).attrs((props = {}) => {
     opacity: 8,
   }
 })`
-  &:hover {
-    background-color: ${variables.color.$secondary_blue};
-  }
-
   label {
     cursor: pointer;
     display: block;
@@ -23,6 +19,13 @@ const Item = styled(font.TextTag).attrs((props = {}) => {
     align-items: center;
     img {
       margin-left: auto;
+      visibility: hidden;
+    }
+  }
+  &:hover {
+    background-color: ${variables.color.$secondary_blue};
+    label img {
+      visibility: visible;
     }
   }
   input {
@@ -94,7 +97,7 @@ class CheckList extends React.Component {
                 <label>
                   {name}
                   <input type="checkbox" disabled={disabled} checked={checkState[id]} onChange={() => this.onChangeTrigger(id)} />
-                  <img src={IcnAddSm} width="24px" height="25px" />
+                  <img src={IcnAddSm} width="24px" height="24px" />
                 </label>
               </Item>
             )
