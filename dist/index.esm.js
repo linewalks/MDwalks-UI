@@ -40010,7 +40010,7 @@ function (_Component) {
         type: 'line',
         width: _this.props.width || '1158',
         height: _this.props.height || '408',
-        backgroundColor: '#f7fafb'
+        backgroundColor: _this.props.bgColor || color$1.$primary_white
       },
       title: {
         text: _this.props.title
@@ -40026,7 +40026,7 @@ function (_Component) {
         tickInterval: _this.props.xAxisTickInterval
       },
       yAxis: {
-        max: 1,
+        max: _this.props.yMaxValue,
         title: {
           text: _this.props.yAxisTitle,
           align: _this.props.yAxisTitleAlign
@@ -40035,7 +40035,25 @@ function (_Component) {
         tickInterval: _this.props.yAxisTickInterval
       },
       legend: {
-        enabled: false
+        enabled: _this.props.legendOpen || true,
+        align: 'left',
+        verticalAlign: 'top',
+        layout: 'vertical',
+        floating: true,
+        symbolHeight: 10,
+        symbolWidth: 10,
+        symbolRadius: 5,
+        x: 15,
+        itemStyle: {
+          color: color$1.$black,
+          fontSize: '14px',
+          fontWeight: 'normal',
+          fontStyle: 'normal',
+          fontStretch: 'normal',
+          lineHeight: 'normal',
+          letterSpacing: -0.5,
+          opacity: 0.4
+        }
       },
       tooltip: {
         backgroundColor: '#ffffff',
@@ -40065,15 +40083,7 @@ function (_Component) {
             width: 10,
             height: 10
           },
-          color: {
-            linearGradient: {
-              x1: 0,
-              x2: 0,
-              y1: 0,
-              y2: 1
-            },
-            stops: [[0, '#002d4f'], [1, '#189bff']]
-          }
+          color: color$1.$solid_default
         }
       }
     };
@@ -40101,12 +40111,12 @@ function (_Component) {
 }(Component);
 
 LineChart.defaultProps = {
-  title: 'Line Chart',
+  title: null,
   data: [],
   xAxisCategory: [],
-  xAxisTitle: 'xAxis',
+  xAxisTitle: null,
   xAxisTitleAlign: 'middle',
-  yAxisTitle: 'yAxis',
+  yAxisTitle: null,
   yAxisTitleAlign: 'middle'
 };
 
@@ -41450,7 +41460,9 @@ function (_Component) {
       var yAxis = axisLeft(_this.yAxisScale).tickPadding(21).tickSize(0).tickValues([1e0, 1e1, 1e2, 1e3, 1e4, 2e4 + 5e3]).ticks(5, function (d) {
         return "10".concat(formatPower(Math.log10(d)));
       });
+      _this.yAxis = yAxis;
       var gridXAxis = axisRight(_this.yAxisScale).tickSize(_this.xAxisWidth).tickValues([1e0, 1e1, 1e2, 1e3, 1e4, 2e4 + 5e3]);
+      _this.gridXAxis = gridXAxis;
 
       _this.createTitle();
 

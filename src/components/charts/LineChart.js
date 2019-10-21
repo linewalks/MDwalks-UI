@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import isEmpty from 'lodash/isEmpty'
-
+import { color } from '../../assets/styles/variables'
 
 class LineChart extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class LineChart extends Component {
         type: 'line',
         width: this.props.width || '1158',
         height: this.props.height || '408',
-        backgroundColor: '#f7fafb',
+        backgroundColor: this.props.bgColor || color.$primary_white,
       },
       title: {
         text: this.props.title,
@@ -30,7 +30,7 @@ class LineChart extends Component {
       },
 
       yAxis: {
-        max: 1,
+        max: this.props.yMaxValue,
         title: {
           text: this.props.yAxisTitle,
           align: this.props.yAxisTitleAlign,
@@ -40,7 +40,25 @@ class LineChart extends Component {
       },
 
       legend: {
-        enabled: false,
+        enabled: this.props.legendOpen || true,
+        align: 'left',
+        verticalAlign: 'top',
+        layout: 'vertical',
+        floating: true,
+        symbolHeight: 10,
+        symbolWidth: 10,
+        symbolRadius: 5,
+        x: 15,
+        itemStyle: {
+          color: color.$black,
+          fontSize: '14px',
+          fontWeight: 'normal',
+          fontStyle: 'normal',
+          fontStretch: 'normal',
+          lineHeight: 'normal',
+          letterSpacing: -0.5,
+          opacity: 0.4
+        }
       },
 
       tooltip: {
@@ -72,13 +90,7 @@ class LineChart extends Component {
             width: 10,
             height: 10
           },
-          color: {
-            linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
-                stops: [
-                    [0, '#002d4f'],
-                    [1, '#189bff'] 
-                ]
-            }
+          color: color.$solid_default
         }
     },
     }
@@ -120,12 +132,12 @@ class LineChart extends Component {
 }
 
 LineChart.defaultProps = {
-  title: 'Line Chart',
+  title: null,
   data: [],
   xAxisCategory: [],
-  xAxisTitle: 'xAxis',
+  xAxisTitle: null,
   xAxisTitleAlign: 'middle',
-  yAxisTitle: 'yAxis',
+  yAxisTitle: null,
   yAxisTitleAlign: 'middle',
 }
 
