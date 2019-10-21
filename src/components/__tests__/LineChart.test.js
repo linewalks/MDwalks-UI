@@ -58,10 +58,10 @@ describe('LineChart Component', () => {
                             data={data} 
                           />)
     const defaultPropsObj = {
-      title: 'Line Chart',
-      xAxisTitle: 'xAxis',
+      title: null,
+      xAxisTitle: null,
       xAxisTitleAlign: 'middle',
-      yAxisTitle: 'yAxis',
+      yAxisTitle: null,
       yAxisTitleAlign: 'middle'
     }
 
