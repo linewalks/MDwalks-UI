@@ -40071,8 +40071,7 @@ function (_Component) {
         borderColor: '#505050',
         padding: 12,
         formatter: function formatter() {
-          // `<span style="opacity:0.6">${this.series.name} </span><span style="opacity:0.9"> <b> ${this.y}</b></span>`
-          return this.series.name + '  ' + '<b>' + this.y + '</b>';
+          return "<span style=\"opacity:0.6\">".concat(this.series.name, " </span><span style=\"opacity:0.9\"> <b> ").concat(this.y, "</b></span>");
         },
         style: {
           fontFamily: 'Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif',
