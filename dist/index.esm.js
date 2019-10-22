@@ -40010,7 +40010,8 @@ function (_Component) {
         type: 'line',
         width: _this.props.width || '1158',
         height: _this.props.height || '408',
-        backgroundColor: _this.props.bgColor || color$1.$primary_white
+        backgroundColor: _this.props.bgColor || color$1.$primary_white,
+        marginTop: 60
       },
       title: {
         text: _this.props.title
@@ -40023,9 +40024,15 @@ function (_Component) {
           align: _this.props.xAxisTitleAlign
         },
         tickAmount: _this.props.xAxisTickAmount,
-        tickInterval: _this.props.xAxisTickInterval
+        tickInterval: _this.props.xAxisTickInterval,
+        crosshair: {
+          width: 2,
+          color: color$1.$line_btn_grey,
+          dashStyle: 'shortdot'
+        }
       },
       yAxis: {
+        min: 0,
         max: _this.props.yMaxValue,
         title: {
           text: _this.props.yAxisTitle,
@@ -40036,6 +40043,8 @@ function (_Component) {
       },
       legend: {
         enabled: _this.props.legendOpen || true,
+        margin: 5,
+        padding: 0,
         align: 'left',
         verticalAlign: 'top',
         layout: 'vertical',
@@ -40043,7 +40052,6 @@ function (_Component) {
         symbolHeight: 10,
         symbolWidth: 10,
         symbolRadius: 5,
-        x: 15,
         itemStyle: {
           color: color$1.$black,
           fontSize: '14px',
@@ -40061,19 +40069,20 @@ function (_Component) {
         borderRadius: 2,
         borderWidth: 1,
         borderColor: '#505050',
-        padding: 8,
+        padding: 12,
         formatter: function formatter() {
-          return this.y;
+          // `<span style="opacity:0.6">${this.series.name} </span><span style="opacity:0.9"> <b> ${this.y}</b></span>`
+          return this.series.name + '  ' + '<b>' + this.y + '</b>';
         },
         style: {
           fontFamily: 'Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif',
-          fontSize: 16,
-          fontWeight: 'bold',
+          fontSize: 14,
+          fontWeight: 'normal',
           fontStyle: 'normal',
           fontStretch: 'normal',
           lineHeight: 'normal',
           letterSpacing: -0.5,
-          color: '#202020'
+          color: color$1.$black
         }
       },
       plotOptions: {
