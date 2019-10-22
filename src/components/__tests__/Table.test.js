@@ -87,3 +87,18 @@ describe('Table Component', () => {
     expect(wrapper.find('tbody tr:first-child td').map(node => Number(node.text()))).toEqual(firstRowData);
   })
 })
+
+describe('wrapTh', () => {
+  it('default', () => {
+    const wrapper = mount(<Table data={data.exceptSubHeaders} />)
+    expect(wrapper.find('th').map(node => node.text()).join('')).toEqual(`ABC`)
+  })
+
+  it('set wrapTh', () => {
+    const wrapTh = ({text}) => {
+      return `<span>${text.toLowerCase()}</span>`
+    }
+    const wrapper = mount(<Table data={data.exceptSubHeaders} wrapTh={wrapTh} />)
+    expect(wrapper.find('th').map(node => node.text()).join('')).toEqual(`<span>${data.exceptSubHeaders.headers.join('</span><span>')}</span>`)
+  })
+})

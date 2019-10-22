@@ -12,8 +12,9 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Image from './components/layout/Image';
 import Heading from './components/layout/Heading';
-
+import Histogram from './components/charts/Histogram';
 import Modal from './components/modal/Modal';
+import CheckList from './components/list/CheckList';
 
 import Button, {ButtonLink, ButtonTextLink} from './components/button/Button'
 import * as font from './assets/styles/font.js';
@@ -36,10 +37,12 @@ export {
   Image,
   Heading,
   Modal,
+  CheckList,
   font,
   variables,
   chartUtility,
   Button,
   ButtonLink,
   ButtonTextLink,
+  Histogram
 } 
