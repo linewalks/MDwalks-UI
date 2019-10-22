@@ -40628,7 +40628,8 @@ function (_Component) {
           yAxisWidth = _this$options5.yAxisWidth,
           xAxisHeight = _this$options5.xAxisHeight,
           defaultPadding = _this$options5.defaultPadding,
-          lineYAxisHeight = _this$options5.lineYAxisHeight; // Create Line Chart
+          lineYAxisHeight = _this$options5.lineYAxisHeight;
+      var scoreClickEvent = _this.props.scoreClickEvent; // Create Line Chart
       //  Create Line Color Gradient
 
       var defs = svg.append("defs");
@@ -40669,6 +40670,8 @@ function (_Component) {
         tooltip.style('left', "".concat(x, "px")).style('top', "".concat(y, "px")).style('pointer-events', 'none').html(tooltipDescription);
       }).on('mouseout', function (d) {
         return _this.getRootElement().select(".".concat(styles$3.tooltip)).transition().duration(200).style('opacity', 0);
+      }).on('click', function (d, i) {
+        typeof scoreClickEvent === "function" && scoreClickEvent(d, i);
       });
     });
 
