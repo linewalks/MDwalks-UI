@@ -51,7 +51,7 @@ const BodyB16 = styled.span`
   letter-spacing: -0.5px;
 `
 
-const THead = ({ headers, subHeaders }) => {
+const THead = ({ headers, wrapTh, subHeaders }) => {
   const createHeader = (headerData, subHeaderData) => {
     if (isEmpty(subHeaderData)) {
       if (isEmpty(headerData)) {
@@ -65,7 +65,9 @@ const THead = ({ headers, subHeaders }) => {
           <tr>
             {headerData.map((header, idx) => {
               return (
-                <Th key={header}>{tableHeaderConvert(header)}</Th>
+                <Th key={header}>
+                  {wrapTh ? wrapTh({text: tableHeaderConvert(header)}) : <div>{tableHeaderConvert(header)}</div>}
+                </Th>
               )
             })}
           </tr>
@@ -78,14 +80,14 @@ const THead = ({ headers, subHeaders }) => {
             if (idx === 0) {
               return (
                 <Th rowSpan={2} key={idx}>
-                  {header}
+                  {wrapTh ? wrapTh({text: header}) : <div>{header}</div>}
                 </Th>
               )
             } else {
               const subHeaderColNum = subHeaders[header].length
               return (
                 <Th colSpan={subHeaderColNum} key={idx}>
-                  {header}
+                  {wrapTh ? wrapTh({text: header}) : <div>{header}</div>}
                 </Th>
               )
             }
