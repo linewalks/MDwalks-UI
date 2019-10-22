@@ -10,6 +10,14 @@ edit: false
 ## :lock: Security Fixes
 -->
 
+# v0.7.1 / 2019-10-22
+## :tada: Enhancements
+- [#204](https://github.com/linewalks/MDwalks-UI/issues/204'): Table Component 가 Th 커스텀 지원 ([**@toyjhlee**](https://github.com/toyjhlee))
+- [#201](https://github.com/linewalks/MDwalks-UI/issues/201'): button/utility Test 작성 ([**@toyjhlee**](https://github.com/toyjhlee))
+- [#198](https://github.com/linewalks/MDwalks-UI/issues/198'): Check List Component 생성 ([**@toyjhlee**](https://github.com/toyjhlee))
+- [#193](https://github.com/linewalks/MDwalks-UI/issues/193'): Histogram 높이 test 변경 ([**@toyjhlee**](https://github.com/toyjhlee))
+- [#184](https://github.com/linewalks/MDwalks-UI/issues/184'): TimelineMergedLinechart 이벤트 추가 ([**@jik0090**](https://github.com/jik0090))
+
 # v0.6.2 / 2019-10-17
 ## :tada: Enhancements
 - [#186](https://github.com/linewalks/MDwalks-UI/issues/186'): Modal 에 description option 추가 ([**@toyjhlee**](https://github.com/toyjhlee))

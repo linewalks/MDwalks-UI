@@ -35303,6 +35303,21 @@ function zoom() {
 
 var d3Core = /*#__PURE__*/Object.freeze({
   version: version,
+  cluster: cluster,
+  hierarchy: hierarchy,
+  pack: index$2,
+  packSiblings: siblings,
+  packEnclose: enclose,
+  partition: partition,
+  stratify: stratify,
+  tree: tree,
+  treemap: index$3,
+  treemapBinary: binary,
+  treemapDice: treemapDice,
+  treemapSlice: treemapSlice,
+  treemapSliceDice: sliceDice,
+  treemapSquarify: squarify,
+  treemapResquarify: resquarify,
   bisect: bisectRight,
   bisectRight: bisectRight,
   bisectLeft: bisectLeft,
@@ -35334,10 +35349,6 @@ var d3Core = /*#__PURE__*/Object.freeze({
   transpose: transpose,
   variance: variance,
   zip: zip,
-  axisTop: axisTop,
-  axisRight: axisRight,
-  axisBottom: axisBottom,
-  axisLeft: axisLeft,
   brush: brush,
   brushX: brushX,
   brushY: brushY,
@@ -35490,21 +35501,10 @@ var d3Core = /*#__PURE__*/Object.freeze({
   geoRotation: rotation,
   geoStream: geoStream,
   geoTransform: transform,
-  cluster: cluster,
-  hierarchy: hierarchy,
-  pack: index$2,
-  packSiblings: siblings,
-  packEnclose: enclose,
-  partition: partition,
-  stratify: stratify,
-  tree: tree,
-  treemap: index$3,
-  treemapBinary: binary,
-  treemapDice: treemapDice,
-  treemapSlice: treemapSlice,
-  treemapSliceDice: sliceDice,
-  treemapSquarify: squarify,
-  treemapResquarify: resquarify,
+  axisTop: axisTop,
+  axisRight: axisRight,
+  axisBottom: axisBottom,
+  axisLeft: axisLeft,
   interpolate: interpolateValue,
   interpolateArray: array$1,
   interpolateBasis: basis$1,
@@ -39208,6 +39208,7 @@ var BodyB16$1 = styled.span(_templateObject4$2());
 
 var THead = function THead(_ref) {
   var headers = _ref.headers,
+      wrapTh = _ref.wrapTh,
       subHeaders = _ref.subHeaders;
 
   var createHeader = function createHeader(headerData, subHeaderData) {
@@ -39218,7 +39219,9 @@ var THead = function THead(_ref) {
         return React.createElement("tr", null, headerData.map(function (header, idx) {
           return React.createElement(Th, {
             key: header
-          }, tableHeaderConvert(header));
+          }, wrapTh ? wrapTh({
+            text: tableHeaderConvert(header)
+          }) : React.createElement("div", null, tableHeaderConvert(header)));
         }));
       }
     } else {
@@ -39227,13 +39230,17 @@ var THead = function THead(_ref) {
           return React.createElement(Th, {
             rowSpan: 2,
             key: idx
-          }, header);
+          }, wrapTh ? wrapTh({
+            text: header
+          }) : React.createElement("div", null, header));
         } else {
           var subHeaderColNum = subHeaders[header].length;
           return React.createElement(Th, {
             colSpan: subHeaderColNum,
             key: idx
-          }, header);
+          }, wrapTh ? wrapTh({
+            text: header
+          }) : React.createElement("div", null, header));
         }
       }));
     }
@@ -41453,7 +41460,9 @@ function (_Component) {
       var yAxis = axisLeft(_this.yAxisScale).tickPadding(21).tickSize(0).tickValues([1e0, 1e1, 1e2, 1e3, 1e4, 2e4 + 5e3]).ticks(5, function (d) {
         return "10".concat(formatPower(Math.log10(d)));
       });
+      _this.yAxis = yAxis;
       var gridXAxis = axisRight(_this.yAxisScale).tickSize(_this.xAxisWidth).tickValues([1e0, 1e1, 1e2, 1e3, 1e4, 2e4 + 5e3]);
+      _this.gridXAxis = gridXAxis;
 
       _this.createTitle();
 
@@ -41640,6 +41649,133 @@ var Modal$1 = (function () {
   }, props.children), props.footer && React.createElement(Footer$2, null, React.createElement("div", null, props.footer))));
 });
 
+var IcnAddSm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTIiIGZpbGw9IiMxODlCRkYiLz4KICAgICAgICA8cGF0aCBmaWxsPSIjRkZGIiBkPSJNMTIgNmExIDEgMCAwIDEgMSAxdjRoNGExIDEgMCAwIDEgMCAyaC00djRhMSAxIDAgMCAxLTIgMHYtNC4wMDFMNyAxM2ExIDEgMCAxIDEgMC0ybDQtLjAwMVY3YTEgMSAwIDAgMSAxLTF6Ii8+CiAgICA8L2c+Cjwvc3ZnPg==';
+
+function _templateObject$b() {
+  var data = _taggedTemplateLiteral(["\n  label {\n    cursor: pointer;\n    display: block;\n    padding: 12px 24px;\n    display: flex;\n    align-items: center;\n    img {\n      margin-left: auto;\n      visibility: hidden;\n    }\n  }\n  &:hover {\n    background-color: ", ";\n    label img {\n      visibility: visible;\n    }\n  }\n  input {\n    display: none;\n  }\n"]);
+
+  _templateObject$b = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Item = styled(TextTag).attrs(function () {
+  return {
+    size: 16,
+    opacity: 8
+  };
+})(_templateObject$b(), color$1.$secondary_blue);
+
+var CheckList =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(CheckList, _React$Component);
+
+  function CheckList(props) {
+    var _this;
+
+    _classCallCheck(this, CheckList);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CheckList).call(this, props));
+    var checkState = {};
+
+    _this.props.data.forEach(function (value) {
+      checkState[value.id] = !!value.checked;
+    });
+
+    _this.state = {
+      checkState: checkState
+    };
+    return _this;
+  }
+
+  _createClass(CheckList, [{
+    key: "getCheckCount",
+    value: function getCheckCount() {
+      return lodash.filter(this.state.checkState).length;
+    }
+  }, {
+    key: "onErrorTrigger",
+    value: function onErrorTrigger() {
+      lodash.isFunction(this.props.onError) && this.props.onError({
+        limit: this.props.limit
+      });
+    }
+  }, {
+    key: "onChangeTrigger",
+    value: function onChangeTrigger(id) {
+      if (this.props.disabled) return;
+      var checkState = this.state.checkState;
+
+      if (checkState[id] === false && this.getCheckCount() >= this.props.limit) {
+        return this.onErrorTrigger();
+      }
+
+      checkState[id] = !checkState[id];
+      this.setState({
+        checkState: checkState
+      });
+      lodash.isFunction(this.props.onChange) && this.props.onChange(checkState);
+    }
+  }, {
+    key: "unCheckedById",
+    value: function unCheckedById(id) {
+      var checkState = this.state.checkState;
+
+      if (true == checkState[id]) {
+        checkState[id] = false;
+        this.setState({
+          checkState: checkState
+        });
+        lodash.isFunction(this.props.onChange) && this.props.onChange(checkState);
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _this$props = this.props,
+          data = _this$props.data,
+          disabled = _this$props.disabled,
+          checkVisible = _this$props.checkVisible;
+      var checkState = this.state.checkState;
+      return React.createElement(React.Fragment, null, data.map(function (_ref) {
+        var id = _ref.id,
+            name = _ref.name,
+            checked = _ref.checked;
+        if (!checkVisible && true == checkState[id]) return null;
+        return React.createElement(Item, {
+          size: "16",
+          opacity: "6",
+          as: "div",
+          key: "checkItem".concat(id)
+        }, React.createElement("label", null, name, React.createElement("input", {
+          type: "checkbox",
+          disabled: disabled,
+          checked: checkState[id],
+          onChange: function onChange() {
+            return _this2.onChangeTrigger(id);
+          }
+        }), React.createElement("img", {
+          src: IcnAddSm,
+          width: "24px",
+          height: "24px"
+        })));
+      }));
+    }
+  }]);
+
+  return CheckList;
+}(React.Component);
+
+CheckList.defaultProps = {
+  limit: 5,
+  disabled: false,
+  checkVisible: true
+};
+
 function _templateObject8() {
   var data = _taggedTemplateLiteral(["\n  color: hexToRGB(color.$black, 0.6);\n  text-decoration: underline;\n"]);
 
@@ -41710,16 +41846,16 @@ function _templateObject2$7() {
   return data;
 }
 
-function _templateObject$b() {
+function _templateObject$c() {
   var data = _taggedTemplateLiteral(["\n  border:0 none;\n  background-color:transparent;\n  cursor:pointer\n  transition: background-color 0.3s, color 0.3s ease, border-color 0.3s ease;\n  line-height: 1.34em;\n  \n  img {\n    vertical-align: middle\n  }\n\n  &:hover {\n    text-decoration: none\n  }\n\n  &:disabled {\n    cursor: not-allowed\n  }\n"]);
 
-  _templateObject$b = function _templateObject() {
+  _templateObject$c = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var BtnDefaultCss = css$3(_templateObject$b());
+var BtnDefaultCss = css$3(_templateObject$c());
 var BtnSize = {
   large: {
     minWidth: '100px',
@@ -41884,4 +42020,4 @@ var Button = (function (props) {
   }), isLoading ? "loading" : props.children, isLoading && React.createElement("span", null, React.createElement(LoadingOne, null, "."), React.createElement(LoadingTwo, null, "."), React.createElement(LoadingThree, null, ".")));
 });
 
-export { BarGauge, Button, ButtonLink, ButtonTextLink, Descriptions, Footer$1 as Footer, Heading, Histogram, Image$1 as Image, LineChart, LineMergeTimeline, Modal$1 as Modal, Navbar$1 as Navbar, RadiusGauge, SankeyChart, SelectedCard, SummaryCard, Table$1 as Table, Timeline, chartUtility, font$1 as font, variables };
+export { BarGauge, Button, ButtonLink, ButtonTextLink, CheckList, Descriptions, Footer$1 as Footer, Heading, Histogram, Image$1 as Image, LineChart, LineMergeTimeline, Modal$1 as Modal, Navbar$1 as Navbar, RadiusGauge, SankeyChart, SelectedCard, SummaryCard, Table$1 as Table, Timeline, chartUtility, font$1 as font, variables };
