@@ -40017,7 +40017,8 @@ function (_Component) {
         type: 'line',
         width: _this.props.width || '1158',
         height: _this.props.height || '408',
-        backgroundColor: '#f7fafb'
+        backgroundColor: _this.props.bgColor || color$1.$primary_white,
+        marginTop: 60
       },
       title: {
         text: _this.props.title
@@ -40030,10 +40031,16 @@ function (_Component) {
           align: _this.props.xAxisTitleAlign
         },
         tickAmount: _this.props.xAxisTickAmount,
-        tickInterval: _this.props.xAxisTickInterval
+        tickInterval: _this.props.xAxisTickInterval,
+        crosshair: {
+          width: 2,
+          color: color$1.$line_btn_grey,
+          dashStyle: 'shortdot'
+        }
       },
       yAxis: {
-        max: 1,
+        min: 0,
+        max: _this.props.yMaxValue,
         title: {
           text: _this.props.yAxisTitle,
           align: _this.props.yAxisTitleAlign
@@ -40042,7 +40049,26 @@ function (_Component) {
         tickInterval: _this.props.yAxisTickInterval
       },
       legend: {
-        enabled: false
+        enabled: _this.props.legendOpen || true,
+        margin: 5,
+        padding: 0,
+        align: 'left',
+        verticalAlign: 'top',
+        layout: 'vertical',
+        floating: true,
+        symbolHeight: 10,
+        symbolWidth: 10,
+        symbolRadius: 5,
+        itemStyle: {
+          color: color$1.$black,
+          fontSize: '14px',
+          fontWeight: 'normal',
+          fontStyle: 'normal',
+          fontStretch: 'normal',
+          lineHeight: 'normal',
+          letterSpacing: -0.5,
+          opacity: 0.4
+        }
       },
       tooltip: {
         backgroundColor: '#ffffff',
@@ -40050,19 +40076,19 @@ function (_Component) {
         borderRadius: 2,
         borderWidth: 1,
         borderColor: '#505050',
-        padding: 8,
+        padding: 12,
         formatter: function formatter() {
-          return this.y;
+          return "<span style=\"opacity:0.6\">".concat(this.series.name, " </span><span style=\"opacity:0.9\"> <b> ").concat(this.y, "</b></span>");
         },
         style: {
           fontFamily: 'Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif',
-          fontSize: 16,
-          fontWeight: 'bold',
+          fontSize: 14,
+          fontWeight: 'normal',
           fontStyle: 'normal',
           fontStretch: 'normal',
           lineHeight: 'normal',
           letterSpacing: -0.5,
-          color: '#202020'
+          color: color$1.$black
         }
       },
       plotOptions: {
@@ -40072,15 +40098,7 @@ function (_Component) {
             width: 10,
             height: 10
           },
-          color: {
-            linearGradient: {
-              x1: 0,
-              x2: 0,
-              y1: 0,
-              y2: 1
-            },
-            stops: [[0, '#002d4f'], [1, '#189bff']]
-          }
+          color: color$1.$solid_default
         }
       }
     };
@@ -40108,12 +40126,12 @@ function (_Component) {
 }(Component);
 
 LineChart.defaultProps = {
-  title: 'Line Chart',
+  title: null,
   data: [],
   xAxisCategory: [],
-  xAxisTitle: 'xAxis',
+  xAxisTitle: null,
   xAxisTitleAlign: 'middle',
-  yAxisTitle: 'yAxis',
+  yAxisTitle: null,
   yAxisTitleAlign: 'middle'
 };
 

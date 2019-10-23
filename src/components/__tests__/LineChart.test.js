@@ -39,16 +39,21 @@ describe('LineChart Component', () => {
                             xAxisTitle={'date'}
                             xAxisTitleAlign={'low'}
                             yAxisTitle={'value'}
-                            yAxisTitleAlign={'high'} 
+                            yAxisTitleAlign={'high'}
+                            yMaxValue={2000}
+                            yAxisTickAmount={21}
+                            yAxisTickInterval={100} 
                           />)
     const propsObj = {
       title: 'test',
       xAxisTitle: 'date',
       xAxisTitleAlign: 'low',
       yAxisTitle: 'value',
-      yAxisTitleAlign: 'high'
+      yAxisTitleAlign: 'high',
+      yMaxValue: 2000,
+      yAxisTickAmount: 21,
+      yAxisTickInterval: 100
     }
-
     expect(wrapper.get(0).props).toMatchObject(propsObj)
   })
 
@@ -58,14 +63,13 @@ describe('LineChart Component', () => {
                             data={data} 
                           />)
     const defaultPropsObj = {
-      title: 'Line Chart',
-      xAxisTitle: 'xAxis',
+      title: null,
+      xAxisTitle: null,
       xAxisTitleAlign: 'middle',
-      yAxisTitle: 'yAxis',
+      yAxisTitle: null,
       yAxisTitleAlign: 'middle'
     }
 
     expect(wrapper.get(0).props).toMatchObject(defaultPropsObj)
   })
-
 })
