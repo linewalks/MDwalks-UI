@@ -10,6 +10,10 @@ edit: false
 ## :lock: Security Fixes
 -->
 
+# v0.7.2 / 2019-10-24
+## :tada: Enhancements
+- [#208](https://github.com/linewalks/MDwalks-UI/issues/208'): Table 의 기본 스타일 조정 ([**@toyjhlee**](https://github.com/toyjhlee))
+
 # v0.7.1 / 2019-10-22
 ## :tada: Enhancements
 - [#204](https://github.com/linewalks/MDwalks-UI/issues/204'): Table Component 가 Th 커스텀 지원 ([**@toyjhlee**](https://github.com/toyjhlee))

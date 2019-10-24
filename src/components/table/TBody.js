@@ -2,96 +2,74 @@ import React from 'react';
 import isEmpty from 'lodash/isEmpty';
 import visualAlert from '../../assets/svg/visual-alert.svg';
 import styled from 'styled-components'
+import * as font from '../../assets/styles/font'
 import { color } from '../../assets/styles/variables'
 
-const ListTBody = styled.tbody`
-  .tr {
-    cursor: pointer;
+// .td 가 존재하는 이유는 appendRow 에 스타일을 적용하지 않기 위해서 이다
+const ListTBody = styled.tbody.attrs((props = {}) => {
+  return {
+    size: 18,
+    opacity: 8,
   }
-
+})`
   .tr:nth-child(even) .td {
-    background: ${color.$primary_white};
+    background: ${color.$table_cell_grey};
   }
 
   .tr:nth-child(odd) .td {
-    background: ${color.$table_cell_grey};;
+    background: ${color.$primary_white};
   }
 
   /* after the first non-.parent, toggle colors */
   tr:not(.tr) ~ .tr:nth-child(odd) td {
-      background-color: ${color.$primary_white};
+      background-color: ${color.$table_cell_grey};
   }
   tr:not(.tr) ~ .tr:nth-child(even) td {
-      background-color: ${color.$table_cell_grey};;
+      background-color: ${color.$primary_white};
   }
 
   /* after the second non-.parent, toggle again */
   tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(odd) td {
-      background-color: ${color.$table_cell_grey};;
+      background-color: ${color.$primary_white};
   }
   tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(even) td {
-      background-color: ${color.$primary_white};
+      background-color: ${color.$table_cell_grey};
   }
 
   .td {
+    ${font.Text}
     text-align: center;
-    font-size: 18px;
-    font-family: "Spoqa Han Sans";
-  }
-
-  .td:first-child, .td:last-child {
-    white-space: nowrap;
-    width: 1%;
   }
 
   .td > a > div, .td > div {
     padding: 24px;
   }
-
-  .td:first-child > a > div,
-  .td:first-child > div {
-    padding-left: 0
-  }
-
-  .td:last-child > a > div,
-  .td:last-child > div {
-    padding-right: 0
-  }
-
-  .td:first-child {
-    padding-left: 50px;
-  }
-
-  .td:last-child {
-    padding-right: 50px;
-  }
 `
 
 const EmptyTbody = styled.tbody`
   td {
-    padding: 80px;
-    margin: 0 auto;
+    padding: 68px;
     text-align: center;
-    font-family: "Spoqa Han Sans";
   }
 `
-const BodyR20 = styled.span`
-  font-size: 20px;
+const EmptyText = styled.span.attrs((props = {}) => {
+  return {
+    size: 16,
+    opacity: 6,
+  }
+})`
+  ${font.Text}
   margin: auto;
-  color: #161616;
   display: block;
-  font-size: 20px;
-  opacity: 0.6;
-  font-family: "Spoqa Han Sans";
 `
 
 const TBody = ({headers, rowData, wrapTd, appendRow}) => {
-  const renderPlaceholder = () => {
+  const renderEmpty = () => {
     return (
       <tr>
         <td colSpan={isEmpty(headers) ? 1 : headers.length}>
           <img src={visualAlert} width="290px" height="230px" />
-          <BodyR20 as="span">There is no data<br />Please search again</BodyR20>
+          <EmptyText as="span">There is no data<br />Please search again</EmptyText>
         </td>
       </tr>
     )
@@ -114,7 +92,7 @@ const TBody = ({headers, rowData, wrapTd, appendRow}) => {
   
   return (
     isEmpty(rowData)
-    ? <EmptyTbody>{ renderPlaceholder() }</EmptyTbody>
+    ? <EmptyTbody>{ renderEmpty() }</EmptyTbody>
     : <ListTBody>{ createBody(rowData) }</ListTBody>
   )
 };

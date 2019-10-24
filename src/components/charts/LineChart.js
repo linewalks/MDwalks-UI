@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import isEmpty from 'lodash/isEmpty'
-
+import { color } from '../../assets/styles/variables'
 
 class LineChart extends Component {
   constructor(props) {
@@ -13,7 +13,8 @@ class LineChart extends Component {
         type: 'line',
         width: this.props.width || '1158',
         height: this.props.height || '408',
-        backgroundColor: '#f7fafb',
+        backgroundColor: this.props.bgColor || color.$primary_white,
+        marginTop: 60
       },
       title: {
         text: this.props.title,
@@ -27,10 +28,16 @@ class LineChart extends Component {
         },
         tickAmount: this.props.xAxisTickAmount,
         tickInterval: this.props.xAxisTickInterval,
+        crosshair: {
+          width: 2,
+          color: color.$line_btn_grey,
+          dashStyle: 'shortdot'
+        }
       },
 
       yAxis: {
-        max: 1,
+        min: 0,
+        max: this.props.yMaxValue,
         title: {
           text: this.props.yAxisTitle,
           align: this.props.yAxisTitleAlign,
@@ -40,7 +47,26 @@ class LineChart extends Component {
       },
 
       legend: {
-        enabled: false,
+        enabled: this.props.legendOpen || true,
+        margin: 5,
+        padding: 0,
+        align: 'left',
+        verticalAlign: 'top',
+        layout: 'vertical',
+        floating: true,
+        symbolHeight: 10,
+        symbolWidth: 10,
+        symbolRadius: 5,
+        itemStyle: {
+          color: color.$black,
+          fontSize: '14px',
+          fontWeight: 'normal',
+          fontStyle: 'normal',
+          fontStretch: 'normal',
+          lineHeight: 'normal',
+          letterSpacing: -0.5,
+          opacity: 0.4
+        }
       },
 
       tooltip: {
@@ -49,19 +75,19 @@ class LineChart extends Component {
         borderRadius: 2,
         borderWidth: 1,
         borderColor: '#505050',
-        padding: 8,
+        padding: 12,
         formatter: function() {
-          return this.y
+          return `<span style="opacity:0.6">${this.series.name} </span><span style="opacity:0.9"> <b> ${this.y}</b></span>`
         },
         style: {
           fontFamily: 'Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif',
-          fontSize: 16,
-          fontWeight: 'bold',
+          fontSize: 14,
+          fontWeight: 'normal',
           fontStyle: 'normal',
           fontStretch: 'normal',
           lineHeight: 'normal',
           letterSpacing: -0.5,
-          color: '#202020',
+          color: color.$black,
         } 
       },
 
@@ -72,13 +98,7 @@ class LineChart extends Component {
             width: 10,
             height: 10
           },
-          color: {
-            linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
-                stops: [
-                    [0, '#002d4f'],
-                    [1, '#189bff'] 
-                ]
-            }
+          color: color.$solid_default
         }
     },
     }
@@ -120,12 +140,12 @@ class LineChart extends Component {
 }
 
 LineChart.defaultProps = {
-  title: 'Line Chart',
+  title: null,
   data: [],
   xAxisCategory: [],
-  xAxisTitle: 'xAxis',
+  xAxisTitle: null,
   xAxisTitleAlign: 'middle',
-  yAxisTitle: 'yAxis',
+  yAxisTitle: null,
   yAxisTitleAlign: 'middle',
 }
 

@@ -50,33 +50,6 @@ import Descriptions from '../components/table/Descriptions'
           'd1': '12.6%',
           'd2': '33.2%',
         },
-        {
-          'a1': 'AB',
-          'b1': '936',
-          'b2': '18.6%',
-          'c1': '838',
-          'c2': '17.7%',
-          'd1': '21.6%',
-          'd2': '34.2%',
-        },
-        {
-          'a1': 'AC',
-          'b1': '',
-          'b2': '0.0%',
-          'c1': '48',
-          'c2': '1.0%',
-          'd1': '11.6%',
-          'd2': '22.2%',
-        },
-        {
-          'a1': 'B',
-          'b1': '12.4%',
-          'b2': '0.0%',
-          'c1': '48',
-          'c2': '31.0%',
-          'd1': '41.6%',
-          'd2': '23.2%',
-        },
       ]
     }}
   />
@@ -86,6 +59,7 @@ import Descriptions from '../components/table/Descriptions'
 
 <Playground>
   <Table
+    className={'sideFit'}
     data={{
       headers: ['a', 'b', 'c'],
       rowData: [
@@ -104,6 +78,26 @@ import Descriptions from '../components/table/Descriptions'
           'b': 8,
           'c': 9
         },
+      ]
+    }} 
+  />
+</Playground>
+
+
+## Data Array List
+
+<Playground>
+  <Table
+    data={{
+      headers: ['a', 'b', 'c'],
+      rowData: [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+      ],
+      footData: [
+        ['t1', 't2', 't3'],
+        ['t4', 't5', 't6']
       ]
     }} 
   />
