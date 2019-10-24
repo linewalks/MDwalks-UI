@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { css as css$3 } from 'styled-components';
+import styled, { css as css$5 } from 'styled-components';
 
 function _typeof(obj) {
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -17308,38 +17308,46 @@ var lodash = createCommonjsModule(function (module, exports) {
 }.call(commonjsGlobal));
 });
 
-var styles = {
-  "gauge_container": {
-    "background": "#f2f2f2",
-    "position": "relative",
-    "height": "6px",
-    "width": "100px",
-    "borderRadius": "2px",
-    "overflow": "hidden"
-  },
-  "bar_gauge_fill": {
-    "position": "absolute",
-    "backgroundImage": "linear-gradient(to right, #189bff , #002d4f 100px)",
-    "height": "100%",
-    "width": 'auto'
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
   }
-};
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = ".BarGauge-module_gauge_container__36KKv {\n  background: #f2f2f2;\n  position: relative;\n  height: 6px;\n  width: 100px;\n  border-radius: 2px;\n  overflow: hidden;\n}\n.BarGauge-module_bar_gauge_fill__mZzyq {\n  position: absolute;\n  background-image: linear-gradient(to right, #189bff , #002d4f 100px);\n  height: 100%;\n  width: auto;\n}";
+var styles = {"gauge_container":"BarGauge-module_gauge_container__36KKv","bar_gauge_fill":"BarGauge-module_bar_gauge_fill__mZzyq"};
+styleInject(css);
 
 var BarGauge =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(BarGauge, _React$Component);
 
-  function BarGauge(props) {
-    var _this;
-
+  function BarGauge() {
     _classCallCheck(this, BarGauge);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(BarGauge).call(this, props));
-    _this.state = {
-      styles: styles
-    };
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(BarGauge).apply(this, arguments));
   }
 
   _createClass(BarGauge, [{
@@ -17349,11 +17357,12 @@ function (_React$Component) {
 
       if (lodash.inRange(score, 0, 101)) {
         return React.createElement("div", {
-          style: this.state.styles.gauge_container
+          className: styles.gauge_container
         }, React.createElement("div", {
-          style: _objectSpread2({}, this.state.styles.bar_gauge_fill, {
+          className: styles.bar_gauge_fill,
+          style: {
             width: "".concat(score, "%")
-          })
+          }
         }));
       } else {
         return React.createElement("div", null, "Invalid Score");
@@ -19372,7 +19381,8 @@ var brighter = 1 / darker;
 var reI = "\\s*([+-]?\\d+)\\s*",
     reN = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)\\s*",
     reP = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)%\\s*",
-    reHex = /^#([0-9a-f]{3,8})$/,
+    reHex3 = /^#([0-9a-f]{3})$/,
+    reHex6 = /^#([0-9a-f]{6})$/,
     reRgbInteger = new RegExp("^rgb\\(" + [reI, reI, reI] + "\\)$"),
     reRgbPercent = new RegExp("^rgb\\(" + [reP, reP, reP] + "\\)$"),
     reRgbaInteger = new RegExp("^rgba\\(" + [reI, reI, reI, reN] + "\\)$"),
@@ -19558,13 +19568,10 @@ function color_formatRgb() {
 }
 
 function color(format) {
-  var m, l;
+  var m;
   format = (format + "").trim().toLowerCase();
-  return (m = reHex.exec(format)) ? (l = m[1].length, m = parseInt(m[1], 16), l === 6 ? rgbn(m) // #ff0000
-      : l === 3 ? new Rgb((m >> 8 & 0xf) | (m >> 4 & 0xf0), (m >> 4 & 0xf) | (m & 0xf0), ((m & 0xf) << 4) | (m & 0xf), 1) // #f00
-      : l === 8 ? new Rgb(m >> 24 & 0xff, m >> 16 & 0xff, m >> 8 & 0xff, (m & 0xff) / 0xff) // #ff000000
-      : l === 4 ? new Rgb((m >> 12 & 0xf) | (m >> 8 & 0xf0), (m >> 8 & 0xf) | (m >> 4 & 0xf0), (m >> 4 & 0xf) | (m & 0xf0), (((m & 0xf) << 4) | (m & 0xf)) / 0xff) // #f000
-      : null) // invalid hex
+  return (m = reHex3.exec(format)) ? (m = parseInt(m[1], 16), new Rgb((m >> 8 & 0xf) | (m >> 4 & 0x0f0), (m >> 4 & 0xf) | (m & 0xf0), ((m & 0xf) << 4) | (m & 0xf), 1)) // #f00
+      : (m = reHex6.exec(format)) ? rgbn(parseInt(m[1], 16)) // #ff0000
       : (m = reRgbInteger.exec(format)) ? new Rgb(m[1], m[2], m[3], 1) // rgb(255, 0, 0)
       : (m = reRgbPercent.exec(format)) ? new Rgb(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, 1) // rgb(100%, 0%, 0%)
       : (m = reRgbaInteger.exec(format)) ? rgba(m[1], m[2], m[3], m[4]) // rgba(255, 0, 0, 1)
@@ -30211,12 +30218,10 @@ var t0$1 = new Date,
 function newInterval(floori, offseti, count, field) {
 
   function interval(date) {
-    return floori(date = arguments.length === 0 ? new Date : new Date(+date)), date;
+    return floori(date = new Date(+date)), date;
   }
 
-  interval.floor = function(date) {
-    return floori(date = new Date(+date)), date;
-  };
+  interval.floor = interval;
 
   interval.ceil = function(date) {
     return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
@@ -35306,23 +35311,7 @@ function zoom() {
 
 
 var d3Core = /*#__PURE__*/Object.freeze({
-  __proto__: null,
   version: version,
-  cluster: cluster,
-  hierarchy: hierarchy,
-  pack: index$2,
-  packSiblings: siblings,
-  packEnclose: enclose,
-  partition: partition,
-  stratify: stratify,
-  tree: tree,
-  treemap: index$3,
-  treemapBinary: binary,
-  treemapDice: treemapDice,
-  treemapSlice: treemapSlice,
-  treemapSliceDice: sliceDice,
-  treemapSquarify: squarify,
-  treemapResquarify: resquarify,
   bisect: bisectRight,
   bisectRight: bisectRight,
   bisectLeft: bisectLeft,
@@ -35354,6 +35343,10 @@ var d3Core = /*#__PURE__*/Object.freeze({
   transpose: transpose,
   variance: variance,
   zip: zip,
+  axisTop: axisTop,
+  axisRight: axisRight,
+  axisBottom: axisBottom,
+  axisLeft: axisLeft,
   brush: brush,
   brushX: brushX,
   brushY: brushY,
@@ -35506,10 +35499,21 @@ var d3Core = /*#__PURE__*/Object.freeze({
   geoRotation: rotation,
   geoStream: geoStream,
   geoTransform: transform,
-  axisTop: axisTop,
-  axisRight: axisRight,
-  axisBottom: axisBottom,
-  axisLeft: axisLeft,
+  cluster: cluster,
+  hierarchy: hierarchy,
+  pack: index$2,
+  packSiblings: siblings,
+  packEnclose: enclose,
+  partition: partition,
+  stratify: stratify,
+  tree: tree,
+  treemap: index$3,
+  treemapBinary: binary,
+  treemapDice: treemapDice,
+  treemapSlice: treemapSlice,
+  treemapSliceDice: sliceDice,
+  treemapSquarify: squarify,
+  treemapResquarify: resquarify,
   interpolate: interpolateValue,
   interpolateArray: array$1,
   interpolateBasis: basis$1,
@@ -35804,30 +35808,9 @@ var d3Core = /*#__PURE__*/Object.freeze({
   zoomIdentity: identity$9
 });
 
-var styles$1 = {
-  gauge_point: {
-    "textAnchor": "middle",
-    // like text-align but not support tag g 
-    "opacity": "0.4",
-    "fontFamily": "'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif'",
-    "fontSize": "11px",
-    "fontWeight": "normal",
-    "fontStyle": "normal",
-    "fontStretch": "normal",
-    "letterSpacing": "-0.5px",
-    "fill": "'#000000'"
-  },
-  gauge_score: {
-    "textAnchor": "middle",
-    "fontFamily": "'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif'",
-    "fontSize": "32px",
-    "fontWeight": "bold",
-    "fontStyle": "normal",
-    "fontStretch": "normal",
-    "letterSpacing": "-0.5px",
-    "fill": "'#000000'"
-  }
-};
+var css$1 = ".RadiusGauge-module_gauge_point__3WjGw {\n  text-anchor: middle;\n  opacity: 0.4;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 11px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  letter-spacing: -0.5px;\n  fill: '#000000';\n}\n\n.RadiusGauge-module_gauge_score__1yjco {\n  text-anchor: middle;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 32px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  letter-spacing: -0.5px;\n  fill: '#000000';\n}";
+var styles$1 = {"gauge_point":"RadiusGauge-module_gauge_point__3WjGw","gauge_score":"RadiusGauge-module_gauge_score__1yjco"};
+styleInject(css$1);
 
 var RadiusGauge = function RadiusGauge(_ref) {
   var width = _ref.width,
@@ -35872,7 +35855,7 @@ var RadiusGauge = function RadiusGauge(_ref) {
       d: "M1.605 4.5l64.83 2.434A3.437 3.437 0 0 0 70 3.5 3.437 3.437 0 0 0 66.434.066L1.605 2.5a1 1 0 0 0 0 1.998z"
     }), React.createElement("g", {
       transform: 'translate(0, 55)',
-      style: styles$1.gauge_point
+      className: styles$1.gauge_point
     }, React.createElement("text", {
       x: cx - Math.round(120 * Math.cos(0)),
       y: cy - Math.round(120 * Math.sin(0))
@@ -35890,7 +35873,7 @@ var RadiusGauge = function RadiusGauge(_ref) {
       y: cy - Math.round(120 * Math.sin(0))
     }, "1.0")), React.createElement("g", {
       transform: 'translate(150, 200)',
-      style: styles$1.gauge_score
+      className: styles$1.gauge_score
     }, React.createElement("text", null, "".concat(score).slice(0, 4))));
   } else {
     return React.createElement("div", null, "Invalid Score");
@@ -37642,7 +37625,6 @@ function fillHeight(graph, y0, y1) {
 }
 
 var sankeyCircular$1 = /*#__PURE__*/Object.freeze({
-  __proto__: null,
   sankeyCircular: sankeyCircular,
   sankeyCenter: center$2,
   sankeyLeft: left$1,
@@ -37698,7 +37680,6 @@ var zIndex = {
 };
 
 var variables = /*#__PURE__*/Object.freeze({
-  __proto__: null,
   color: color$1,
   size: size,
   zIndex: zIndex
@@ -37792,7 +37773,6 @@ var lineDataFormatConvert = function lineDataFormatConvert(data) {
 };
 
 var chartUtility = /*#__PURE__*/Object.freeze({
-  __proto__: null,
   strIdConvert: strIdConvert,
   tableHeaderConvert: tableHeaderConvert,
   renderSVG: renderSVG,
@@ -38118,7 +38098,6 @@ var Text = function Text(props) {
 var TextTag = styled.span(_templateObject(), Text);
 
 var font$1 = /*#__PURE__*/Object.freeze({
-  __proto__: null,
   Text: Text,
   TextTag: TextTag
 });
@@ -39401,7 +39380,7 @@ function _templateObject$6() {
 
   return data;
 }
-var sideFit = css$3(_templateObject$6());
+var sideFit = css$5(_templateObject$6());
 var Table = styled.table(_templateObject2$4(), color$1.$line_search_grey, function (props) {
   return props.className.split(' ').includes('sideFit') ? sideFit : null;
 });
@@ -40200,48 +40179,9 @@ LineChart.defaultProps = {
   yAxisTitleAlign: 'middle'
 };
 
-function styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
-  var insertAt = ref.insertAt;
-
-  if (!css || typeof document === 'undefined') { return; }
-
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var style = document.createElement('style');
-  style.type = 'text/css';
-
-  if (insertAt === 'top') {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-    }
-  } else {
-    head.appendChild(style);
-  }
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
-var css = ".Timeline_timelineChart__3-Cf0 {\n  position: relative;\n}\n\n/* xAxis */\n.Timeline_xAxis__1hoKI, .Timeline_overViewXAxis__1DOvh {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline_labels__38Ge3 text {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline_labels__38Ge3 text:nth-child(n + 4) {\n  fill: rgba(0, 0, 0, 0.3);\n}\n.Timeline_verticalLineText__14s5V {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.Timeline_overViewXAxisGrid__29xyk path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.Timeline_tooltip__2qJdw {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.Timeline_tooltip__2qJdw .Timeline_tooltipDay__2iE2o {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.Timeline_tooltip__2qJdw .Timeline_tooltipLabel__2cWHt {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.Timeline_dot__QBZ1F {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
-styleInject(css);
-
-var styles$2 = {
-  "timelineChart": "timelineChart",
-  "xAxis": "xAxis",
-  "overViewXAxis": "overViewXAxis",
-  "labels": "labels",
-  "verticalLineText": "verticalLineText",
-  "overViewXAxisGrid": "overViewXAxisGrid",
-  "tooltip": "tooltip",
-  "tooltipDay": "tooltipDay",
-  "tooltipLabel": "tooltipLabel",
-  "dot": "dot"
-};
+var css$2 = ".Timeline-module_timelineChart__6imxY {\n  position: relative;\n}\n\n/* xAxis */\n.Timeline-module_xAxis__2yeDE, .Timeline-module_overViewXAxis__3PeKr {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text:nth-child(n + 4) {\n  fill: rgba(0, 0, 0, 0.3);\n}\n.Timeline-module_verticalLineText__2adr2 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.Timeline-module_overViewXAxisGrid__1I727 path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.Timeline-module_tooltip__2A0o2 {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipDay__1lg2e {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipLabel__1aVan {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.Timeline-module_dot__3N3de {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
+var styles$2 = {"timelineChart":"Timeline-module_timelineChart__6imxY","xAxis":"Timeline-module_xAxis__2yeDE","overViewXAxis":"Timeline-module_overViewXAxis__3PeKr","labels":"Timeline-module_labels__8btAK","verticalLineText":"Timeline-module_verticalLineText__2adr2","overViewXAxisGrid":"Timeline-module_overViewXAxisGrid__1I727","tooltip":"Timeline-module_tooltip__2A0o2","tooltipDay":"Timeline-module_tooltipDay__1lg2e","tooltipLabel":"Timeline-module_tooltipLabel__1aVan","dot":"Timeline-module_dot__3N3de"};
+styleInject(css$2);
 
 var Timeline =
 /*#__PURE__*/
@@ -40557,23 +40497,10 @@ function (_Component) {
   return Timeline;
 }(Component);
 
-var css$1 = ".LineMergeTimeline_timelineChart__K_r5D {\n  position: relative;\n}\n\n.LineMergeTimeline_title__23LoL {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: #000000;\n  opacity: 0.6;      \n}\n\n/* xAxis */\n.LineMergeTimeline_xAxis__1XWOw, .LineMergeTimeline_overViewXAxis__2OOtr {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.LineMergeTimeline_timelineLabels__3hBbH text, .LineMergeTimeline_gLineYAxis__2XLPB {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.3);\n  color: rgba(0, 0, 0, 0.3);\n}\n\n.LineMergeTimeline_verticalLineText__26Jw4 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.LineMergeTimeline_overViewXAxisGrid__KqAml path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.LineMergeTimeline_tooltip__2eLDR {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.LineMergeTimeline_tooltip__2eLDR .LineMergeTimeline_tooltipDay__2qZte {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.LineMergeTimeline_tooltip__2eLDR .LineMergeTimeline_tooltipLabel__KjfSB {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.LineMergeTimeline_dot__3kjm_ {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
-styleInject(css$1);
+var css$3 = ".LineMergeTimeline-module_timelineChart__fPLk5 {\n  position: relative;\n}\n\n.LineMergeTimeline-module_title__3WWUl {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: #000000;\n  opacity: 0.6;      \n}\n\n/* xAxis */\n.LineMergeTimeline-module_xAxis__k99X0, .LineMergeTimeline-module_overViewXAxis__wNJ-S {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.LineMergeTimeline-module_timelineLabels__134WI text, .LineMergeTimeline-module_gLineYAxis__21s70 {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.3);\n  color: rgba(0, 0, 0, 0.3);\n}\n\n.LineMergeTimeline-module_verticalLineText__jLQi7 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.LineMergeTimeline-module_overViewXAxisGrid__3TiBI path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.LineMergeTimeline-module_tooltip__2Pb8F {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.LineMergeTimeline-module_tooltip__2Pb8F .LineMergeTimeline-module_tooltipDay__1z4eb {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.LineMergeTimeline-module_tooltip__2Pb8F .LineMergeTimeline-module_tooltipLabel__3tt0o {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.LineMergeTimeline-module_dot__3RKc6 {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
+var styles$3 = {"timelineChart":"LineMergeTimeline-module_timelineChart__fPLk5","title":"LineMergeTimeline-module_title__3WWUl","xAxis":"LineMergeTimeline-module_xAxis__k99X0","overViewXAxis":"LineMergeTimeline-module_overViewXAxis__wNJ-S","timelineLabels":"LineMergeTimeline-module_timelineLabels__134WI","gLineYAxis":"LineMergeTimeline-module_gLineYAxis__21s70","verticalLineText":"LineMergeTimeline-module_verticalLineText__jLQi7","overViewXAxisGrid":"LineMergeTimeline-module_overViewXAxisGrid__3TiBI","tooltip":"LineMergeTimeline-module_tooltip__2Pb8F","tooltipDay":"LineMergeTimeline-module_tooltipDay__1z4eb","tooltipLabel":"LineMergeTimeline-module_tooltipLabel__3tt0o","dot":"LineMergeTimeline-module_dot__3RKc6"};
+styleInject(css$3);
 
-var styles$3 = {
-  "timelineChart": "timelineChart",
-  "title": "title",
-  'xAxis': 'xAxis',
-  "overViewXAxis": "overViewXAxis",
-  "timelineLabels": "timelineLabels",
-  "gLineYAxis": "gLineYAxis",
-  "verticalLineText": "verticalLineText",
-  "overViewXAxisGrid": "overViewXAxisGrid",
-  "tooltip": "tooltip",
-  "tooltipDay": "tooltipDay",
-  "tooltipLabel": "tooltipLabel",
-  "dot": "dot"
-};
 typeof Array.prototype.flat === 'undefined' && Object.defineProperty(Array.prototype, 'flat', {
   value: function value() {
     var depth = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
@@ -41326,13 +41253,9 @@ var Heading = (function (_ref) {
   }, children);
 });
 
-var css$2 = "/* tooltip  */\n.Histogram_tooltipTitle__1yAfG {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  opacity: 0.6;\n}\n\n.Histogram_tooltipValue__28lvI {\n  height: 20px;\n  line-height: 1.5;\n  font-size: 12px;\n  font-weight: bold;\n  opacity: 0.9;\n}";
-styleInject(css$2);
-
-var styles$4 = {
-  "tooltipTitle": "tooltipTitle",
-  "tooltipValue": "tooltipValue"
-};
+var css$4 = "/* tooltip  */\n.Histogram-module_tooltipTitle__2olSH {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  opacity: 0.6;\n}\n\n.Histogram-module_tooltipValue__gir_k {\n  height: 20px;\n  line-height: 1.5;\n  font-size: 12px;\n  font-weight: bold;\n  opacity: 0.9;\n}";
+var styles$4 = {"tooltipTitle":"Histogram-module_tooltipTitle__2olSH","tooltipValue":"Histogram-module_tooltipValue__gir_k"};
+styleInject(css$4);
 
 var Histogram =
 /*#__PURE__*/
@@ -41477,7 +41400,7 @@ function (_Component) {
       var dropDownBox = _this.getRootElement().append('div').attr('class', 'gDropDown').style('position', 'absolute').style('top', '55px').style('left', '1100px').append('select').attr('id', 'binsDropDown').on('change', function () {
         _this.getRootElement().select('.gBar').remove();
 
-        _this.getRootElement().select('.tooltip').remove();
+        _this.getRootElement().select('.histogramTooltip').remove();
 
         _this.getRootElement().select('.gRiskMeanLine').remove();
 
@@ -41584,7 +41507,7 @@ function (_Component) {
 
         _this.getRootElement().select('svg').remove();
 
-        _this.getRootElement().select('.tooltip').remove();
+        _this.getRootElement().select('.histogramTooltip').remove();
 
         _this.getRootElement().select('.gDropDown').remove();
 
@@ -41938,7 +41861,7 @@ function _templateObject$d() {
 
   return data;
 }
-var BtnDefaultCss = css$3(_templateObject$d());
+var BtnDefaultCss = css$5(_templateObject$d());
 var BtnSize = {
   large: {
     minWidth: '100px',
@@ -42039,7 +41962,7 @@ var setBtnColor = function setBtnColor(props) {
   return "\n  box-shadow: ".concat(props.BtnColorObject.boxShasdow, ";\n  background-color: ").concat(props.BtnColorObject.backgroundColor, ";\n  color: ").concat(props.BtnColorObject.color, ";\n\n  border: ").concat(props.BtnColorObject.border ? props.BtnColorObject.border : 'none', ";\n\n  &:hover:not(:disabled) {\n    box-shadow: ").concat(props.BtnColorObject.hover.boxShasdow, ";\n    background-color: ").concat(props.BtnColorObject.hover.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.hover.color, ";\n    border: ").concat(props.BtnColorObject.hover.border ? props.BtnColorObject.hover.border : 'none', ";\n  }\n\n  &:disabled {\n    box-shadow: ").concat(props.BtnColorObject.disabled.boxShasdow, ";\n    background-color: ").concat(props.BtnColorObject.disabled.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.disabled.color, ";\n    border: ").concat(props.BtnColorObject.disabled.border ? props.BtnColorObject.disabled.border : 'none', ";\n  }\n");
 };
 
-var LoadingBase = css$3(_templateObject2$8());
+var LoadingBase = css$5(_templateObject2$8());
 var LoadingOne = styled.span(_templateObject3$6(), LoadingBase);
 var LoadingTwo = styled.span(_templateObject4$4(), LoadingBase);
 var LoadingThree = styled.span(_templateObject5$3(), LoadingBase);

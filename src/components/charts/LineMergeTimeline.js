@@ -1,24 +1,8 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
-import './LineMergeTimeline.css'
 import isEmpty from 'lodash/isEmpty'
-
+import styles from './LineMergeTimeline.module.css'
 import { renderSVG, generateGroup, getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, lineDataFormatConvert } from '../../helper/chartUtility'
-
-const styles = {
-  "timelineChart": "timelineChart",
-  "title": "title",
-  'xAxis': 'xAxis',
-  "overViewXAxis": "overViewXAxis",
-  "timelineLabels": "timelineLabels",
-  "gLineYAxis": "gLineYAxis",
-  "verticalLineText": "verticalLineText",
-  "overViewXAxisGrid": "overViewXAxisGrid",
-  "tooltip": "tooltip",
-  "tooltipDay": "tooltipDay",
-  "tooltipLabel": "tooltipLabel",
-  "dot": "dot",
-}
 
 typeof Array.prototype.flat === 'undefined' && Object.defineProperty(Array.prototype, 'flat', {
   value: function(depth = 1) {

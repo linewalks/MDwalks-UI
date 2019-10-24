@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
-import './Histogram.css';
+import styles from './Histogram.module.css';
 import _ from 'lodash'
 import { renderSVG, generateGroup } from '../../helper/chartUtility'
 import { color } from '../../assets/styles/variables'
-
-const styles = {
-  "tooltipTitle": "tooltipTitle",
-  "tooltipValue": "tooltipValue",
-}
 
 class Histogram extends Component {
   constructor(props) {
@@ -248,7 +243,7 @@ class Histogram extends Component {
         this.getRootElement().select('.gBar')
           .remove()
 
-        this.getRootElement().select('.tooltip')
+        this.getRootElement().select('.histogramTooltip')
           .remove()
 
         this.getRootElement().select('.gRiskMeanLine')
@@ -371,7 +366,7 @@ class Histogram extends Component {
       this.getRootElement().select('svg')
         .remove()
         
-      this.getRootElement().select('.tooltip')
+      this.getRootElement().select('.histogramTooltip')
         .remove()
 
       this.getRootElement().select('.gDropDown')
