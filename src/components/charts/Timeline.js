@@ -1,22 +1,8 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
-import './Timeline.css'
 import isEmpty from 'lodash/isEmpty'
-
+import styles from './Timeline.module.css'
 import { renderSVG, generateGroup,  getStartAndEndTime, circleDataFilter, rectDataFilter, labelList } from '../../helper/chartUtility'
-
-const styles = {
-  "timelineChart": "timelineChart",
-  "xAxis": "xAxis",
-  "overViewXAxis": "overViewXAxis",
-  "labels": "labels",
-  "verticalLineText": "verticalLineText",
-  "overViewXAxisGrid": "overViewXAxisGrid",
-  "tooltip": "tooltip",
-  "tooltipDay": "tooltipDay",
-  "tooltipLabel": "tooltipLabel",
-  "dot": "dot",
-}
 
 class Timeline extends Component {
 
