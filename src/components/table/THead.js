@@ -30,6 +30,14 @@ const Th = styled.th.attrs((props = {}) => {
   padding: 28px 24px;
   text-align: center;
   background: ${color.$table_grey};
+
+  &:first-child {
+    border-radius: 10px 0 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 10px 0 0;
+  }
 `
 
 const Thead = styled.thead`
