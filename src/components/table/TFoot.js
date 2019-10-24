@@ -20,8 +20,8 @@ const TFootTag = styled.tfoot`
 
 const TFoot = ({ headers, footData }) => {
   const createFooter = () => {
-    return footData.map((data) => 
-      <tr>{data.map((d) => <td>{d}</td>)}</tr>
+    return footData.map((data, idx) =>
+      <tr key={`tr${idx}`}>{data.map((d, i) => <td key={`td${i}`}>{d}</td>)}</tr>
     )
   }
 

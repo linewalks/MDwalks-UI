@@ -38,14 +38,6 @@ const sideFit = css`
     }
   }
   thead th {
-    &:first-child {
-      border-radius: 10px 0 0 0;
-    }
-
-    &:last-child {
-      border-radius: 0 10px 0 0;
-    }
-
     &:first-child, &:last-child {
       white-space: nowrap;
       width: 1%;
