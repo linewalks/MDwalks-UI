@@ -38086,6 +38086,16 @@ SankeyChart.defaultProps = {
 
 var backgroundArrow = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDE0IDE0Ij4KICAgIDxwYXRoIGZpbGw9IiMwMDJENEYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTguNzA3IDEuNjM2bDQuNjU3IDQuNjU3YTEgMSAwIDAgMSAwIDEuNDE0bC00LjY1NyA0LjY1N0ExIDEgMCAwIDEgNyAxMS42NTdWMi4zNDNhMSAxIDAgMCAxIDEuNzA3LS43MDd6IiBvcGFjaXR5PSIuOCIvPgo8L3N2Zz4=';
 
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  display: block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  width: ", ";\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
   var data = _taggedTemplateLiteral(["\n  ", "\n"]);
 
@@ -38104,11 +38114,15 @@ var Text = function Text(props) {
   return "\n  font-size: ".concat(props.size ? props.size + 'px' : font.base.size + 'px', ";\n\n  font-weight: ").concat(props.bold ? 'bold' : 'normal', ";\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, ").concat(props.opacity ? (props.opacity * 0.1).toFixed(2) : 1, ");\n");
 };
 var TextTag = styled.span(_templateObject(), Text);
+var TextOverflow = styled.p(_templateObject2(), function (props) {
+  return props.width ? props.width : '100%';
+});
 
 var font$1 = /*#__PURE__*/Object.freeze({
   __proto__: null,
   Text: Text,
-  TextTag: TextTag
+  TextTag: TextTag,
+  TextOverflow: TextOverflow
 });
 
 /* Suma el porcentaje indicado a un color (RR, GG o BB) hexadecimal para aclararlo */
@@ -38145,10 +38159,10 @@ function _templateObject3() {
   return data;
 }
 
-function _templateObject2() {
+function _templateObject2$1() {
   var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  background-repeat: no-repeat;\n  background-position-x: 100%;\n  background-position-y: center;\n  padding-right: 18px;\n  margin-right: 8px;\n\n  &:last-child div {\n    background-color: ", ";\n  }\n"]);
 
-  _templateObject2 = function _templateObject2() {
+  _templateObject2$1 = function _templateObject2() {
     return data;
   };
 
@@ -38165,7 +38179,7 @@ function _templateObject$1() {
   return data;
 }
 var Wrap1200 = styled.div(_templateObject$1());
-var Arrow = styled.article(_templateObject2(), function (props) {
+var Arrow = styled.article(_templateObject2$1(), function (props) {
   return props.isLastHighlighted ? '#ff4757' : '#002b4f';
 });
 var CardContatiner = styled.div(_templateObject3(), hexToRGB(color$1.$primary_navy, 0.16));
@@ -38223,10 +38237,10 @@ function _templateObject3$1() {
   return data;
 }
 
-function _templateObject2$1() {
+function _templateObject2$2() {
   var data = _taggedTemplateLiteral(["\n  width: 282px;\n  height: 170px;\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);\n  background-color: #ffffff;\n  font-size: 0;\n  display: inline-block;\n  text-align: center;\n  margin-right: 24px;\n\n  &:last-child {\n    margin-right: 0;\n  }\n\n  dl {\n    width: 100%;\n    text-align: right;\n    padding-right: 44px;\n\n    margin: 0;\n  }\n"]);
 
-  _templateObject2$1 = function _templateObject2() {
+  _templateObject2$2 = function _templateObject2() {
     return data;
   };
 
@@ -38243,7 +38257,7 @@ function _templateObject$2() {
   return data;
 }
 var Wrap1200$1 = styled.div(_templateObject$2());
-var Article = styled.article(_templateObject2$1());
+var Article = styled.article(_templateObject2$2());
 var EventElement = styled.div(_templateObject3$1(), function (props) {
   return props.onClick ? 'pointer' : '';
 });
@@ -39169,10 +39183,10 @@ function _templateObject3$2() {
   return data;
 }
 
-function _templateObject2$2() {
+function _templateObject2$3() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 28px 24px;\n  text-align: center;\n  background: ", ";\n\n  &:first-child {\n    border-radius: 10px 0 0 0;\n  }\n\n  &:last-child {\n    border-radius: 0 10px 0 0;\n  }\n"]);
 
-  _templateObject2$2 = function _templateObject2() {
+  _templateObject2$3 = function _templateObject2() {
     return data;
   };
 
@@ -39203,7 +39217,7 @@ var Th = styled.th.attrs(function () {
     bold: true,
     opacity: 6
   };
-})(_templateObject2$2(), Text, color$1.$table_grey);
+})(_templateObject2$3(), Text, color$1.$table_grey);
 var Thead = styled.thead(_templateObject3$2(), color$1.$line_dashboard_edge_grey);
 
 var THead = function THead(_ref) {
@@ -39271,10 +39285,10 @@ function _templateObject3$3() {
   return data;
 }
 
-function _templateObject2$3() {
+function _templateObject2$4() {
   var data = _taggedTemplateLiteral(["\n  td {\n    padding: 68px;\n    text-align: center;\n  }\n"]);
 
-  _templateObject2$3 = function _templateObject2() {
+  _templateObject2$4 = function _templateObject2() {
     return data;
   };
 
@@ -39297,7 +39311,7 @@ var ListTBody = styled.tbody.attrs(function () {
     opacity: 8
   };
 })(_templateObject$4(), color$1.$table_cell_grey, color$1.$primary_white, color$1.$table_cell_grey, color$1.$primary_white, color$1.$primary_white, color$1.$table_cell_grey, Text);
-var EmptyTbody = styled.tbody(_templateObject2$3());
+var EmptyTbody = styled.tbody(_templateObject2$4());
 var EmptyText = styled.span.attrs(function () {
   return {
     size: 16,
@@ -39374,10 +39388,10 @@ var TFoot = function TFoot(_ref) {
   return React.createElement(React.Fragment, null, isEmpty_1(footData) ? null : React.createElement(TFootTag, null, createFooter()));
 };
 
-function _templateObject2$4() {
+function _templateObject2$5() {
   var data = _taggedTemplateLiteral(["\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%;\n\n  border-bottom: 1px solid ", ";\n\n  ", "\n"]);
 
-  _templateObject2$4 = function _templateObject2() {
+  _templateObject2$5 = function _templateObject2() {
     return data;
   };
 
@@ -39394,7 +39408,7 @@ function _templateObject$6() {
   return data;
 }
 var sideFit = css$5(_templateObject$6());
-var Table = styled.table(_templateObject2$4(), color$1.$line_search_grey, function (props) {
+var Table = styled.table(_templateObject2$5(), color$1.$line_search_grey, function (props) {
   return props.className.split(' ').includes('sideFit') ? sideFit : null;
 });
 var Table$1 = (function (_ref) {
@@ -39449,10 +39463,10 @@ function _templateObject3$4() {
   return data;
 }
 
-function _templateObject2$5() {
+function _templateObject2$6() {
   var data = _taggedTemplateLiteral(["\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%;\n"]);
 
-  _templateObject2$5 = function _templateObject2() {
+  _templateObject2$6 = function _templateObject2() {
     return data;
   };
 
@@ -39469,7 +39483,7 @@ function _templateObject$7() {
   return data;
 }
 var TableWrap = styled.div(_templateObject$7(), color$1.$line_search_grey);
-var Table$2 = styled.table(_templateObject2$5());
+var Table$2 = styled.table(_templateObject2$6());
 var Tr = styled.tr(_templateObject3$4(), color$1.$line_search_grey);
 var Th$1 = styled.th(_templateObject4$2(), color$1.$line_search_grey);
 var Td$1 = styled.td(_templateObject5$1(), color$1.$line_search_grey);
@@ -41194,10 +41208,10 @@ var Navbar$1 = (function (_ref) {
   }, children);
 });
 
-function _templateObject2$6() {
+function _templateObject2$7() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  border-top: 1px solid ", "\n  height: ", "\n\n  display: flex\n  align-items: center\n\n  span {\n    padding-left: 30px\n  }\n"]);
 
-  _templateObject2$6 = function _templateObject2() {
+  _templateObject2$7 = function _templateObject2() {
     return data;
   };
 
@@ -41214,7 +41228,7 @@ function _templateObject$9() {
   return data;
 }
 var Footer = styled.footer(_templateObject$9(), size.$footer_height);
-var FooterBox = styled.div(_templateObject2$6(), Text, color$1.$line_search_grey, size.$footer_height);
+var FooterBox = styled.div(_templateObject2$7(), Text, color$1.$line_search_grey, size.$footer_height);
 var Footer$1 = (function (_ref) {
   var _ref$style = _ref.style,
       style = _ref$style === void 0 ? {} : _ref$style;
@@ -41603,10 +41617,10 @@ function _templateObject3$5() {
   return data;
 }
 
-function _templateObject2$7() {
+function _templateObject2$8() {
   var data = _taggedTemplateLiteral(["\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  min-width: ", ";\n  border-radius: ", ";\n  background-color: ", ";\n  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);\n  z-index: ", ";\n\n  padding: ", ";\n"]);
 
-  _templateObject2$7 = function _templateObject2() {
+  _templateObject2$8 = function _templateObject2() {
     return data;
   };
 
@@ -41632,7 +41646,7 @@ var size$1 = {
   minWidth: '480px'
 };
 var Overlay = styled.div(_templateObject$b(), hexToRGB(color$1.$black, 0.6), zIndex.$modalOverlay);
-var Modal = styled.div(_templateObject2$7(), size$1.minWidth, size$1.borderRadius, color$1.$primary_white, zIndex.$modal, size$1.modalPadding);
+var Modal = styled.div(_templateObject2$8(), size$1.minWidth, size$1.borderRadius, color$1.$primary_white, zIndex.$modal, size$1.modalPadding);
 var Header = styled.header(_templateObject3$5());
 var Contents = styled(TextTag).attrs({
   size: '18',
@@ -41697,14 +41711,17 @@ function (_React$Component) {
     _classCallCheck(this, CheckList);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CheckList).call(this, props));
-    var checkState = {};
 
-    _this.props.data.forEach(function (value) {
-      checkState[value.id] = !!value.checked;
-    });
+    var selectedList = lodash.chain(_this.props.data).filter(function (_ref) {
+      var checked = _ref.checked;
+      return checked;
+    }).map(function (_ref2) {
+      var id = _ref2.id;
+      return "".concat(id);
+    }).value();
 
     _this.state = {
-      checkState: checkState
+      selectedList: selectedList
     };
     return _this;
   }
@@ -41712,7 +41729,7 @@ function (_React$Component) {
   _createClass(CheckList, [{
     key: "getCheckCount",
     value: function getCheckCount() {
-      return lodash.filter(this.state.checkState).length;
+      return lodash.filter(this.state.selectedList).length;
     }
   }, {
     key: "onErrorTrigger",
@@ -41725,29 +41742,38 @@ function (_React$Component) {
     key: "onChangeTrigger",
     value: function onChangeTrigger(id) {
       if (this.props.disabled) return;
-      var checkState = this.state.checkState;
+      var selectedList = this.state.selectedList;
 
-      if (checkState[id] === false && this.getCheckCount() >= this.props.limit) {
+      if (selectedList.includes("".concat(id)) === false && this.getCheckCount() >= this.props.limit) {
         return this.onErrorTrigger();
       }
 
-      checkState[id] = !checkState[id];
+      if (selectedList.includes("".concat(id))) {
+        selectedList = lodash.without(selectedList, "".concat(id));
+      } else {
+        selectedList.push("".concat(id));
+      }
+
       this.setState({
-        checkState: checkState
+        selectedList: selectedList
       });
-      lodash.isFunction(this.props.onChange) && this.props.onChange(checkState);
+      lodash.isFunction(this.props.onChange) && this.props.onChange({
+        selectedList: selectedList
+      });
     }
   }, {
     key: "unCheckedById",
     value: function unCheckedById(id) {
-      var checkState = this.state.checkState;
+      var selectedList = this.state.selectedList;
 
-      if (true == checkState[id]) {
-        checkState[id] = false;
+      if (selectedList.includes("".concat(id))) {
+        selectedList = lodash.without(selectedList, "".concat(id));
         this.setState({
-          checkState: checkState
+          selectedList: selectedList
         });
-        lodash.isFunction(this.props.onChange) && this.props.onChange(checkState);
+        lodash.isFunction(this.props.onChange) && this.props.onChange({
+          selectedList: selectedList
+        });
       }
     }
   }, {
@@ -41759,21 +41785,21 @@ function (_React$Component) {
           data = _this$props.data,
           disabled = _this$props.disabled,
           checkVisible = _this$props.checkVisible;
-      var checkState = this.state.checkState;
-      return React.createElement(React.Fragment, null, data.map(function (_ref) {
-        var id = _ref.id,
-            name = _ref.name,
-            checked = _ref.checked;
-        if (!checkVisible && true == checkState[id]) return null;
+      var selectedList = this.state.selectedList;
+      return React.createElement(React.Fragment, null, data.map(function (_ref3) {
+        var id = _ref3.id,
+            name = _ref3.name;
+        var checked = selectedList.includes("".concat(id));
+        if (!checkVisible && checked) return null;
         return React.createElement(Item, {
           size: "16",
           opacity: "6",
           as: "div",
           key: "checkItem".concat(id)
-        }, React.createElement("label", null, name, React.createElement("input", {
+        }, React.createElement("label", null, React.createElement(TextOverflow, null, name), React.createElement("input", {
           type: "checkbox",
           disabled: disabled,
-          checked: checkState[id],
+          checked: checked,
           onChange: function onChange() {
             return _this2.onChangeTrigger(id);
           }
@@ -41855,10 +41881,10 @@ function _templateObject3$6() {
   return data;
 }
 
-function _templateObject2$8() {
+function _templateObject2$9() {
   var data = _taggedTemplateLiteral(["\n  @keyframes dot {\n        0% { opacity: 0; }\n      50% { opacity: 0; }\n      100% { opacity: 1; }\n  }\n\n  opacity: 0;\n  animation: dot 1.3s infinite;\n"]);
 
-  _templateObject2$8 = function _templateObject2() {
+  _templateObject2$9 = function _templateObject2() {
     return data;
   };
 
@@ -41975,7 +42001,7 @@ var setBtnColor = function setBtnColor(props) {
   return "\n  box-shadow: ".concat(props.BtnColorObject.boxShasdow, ";\n  background-color: ").concat(props.BtnColorObject.backgroundColor, ";\n  color: ").concat(props.BtnColorObject.color, ";\n\n  border: ").concat(props.BtnColorObject.border ? props.BtnColorObject.border : 'none', ";\n\n  &:hover:not(:disabled) {\n    box-shadow: ").concat(props.BtnColorObject.hover.boxShasdow, ";\n    background-color: ").concat(props.BtnColorObject.hover.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.hover.color, ";\n    border: ").concat(props.BtnColorObject.hover.border ? props.BtnColorObject.hover.border : 'none', ";\n  }\n\n  &:disabled {\n    box-shadow: ").concat(props.BtnColorObject.disabled.boxShasdow, ";\n    background-color: ").concat(props.BtnColorObject.disabled.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.disabled.color, ";\n    border: ").concat(props.BtnColorObject.disabled.border ? props.BtnColorObject.disabled.border : 'none', ";\n  }\n");
 };
 
-var LoadingBase = css$5(_templateObject2$8());
+var LoadingBase = css$5(_templateObject2$9());
 var LoadingOne = styled.span(_templateObject3$6(), LoadingBase);
 var LoadingTwo = styled.span(_templateObject4$4(), LoadingBase);
 var LoadingThree = styled.span(_templateObject5$3(), LoadingBase);
