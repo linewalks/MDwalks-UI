@@ -17,3 +17,11 @@ export const Text = props => `
 export const TextTag = styled.span`
   ${Text}
 `
+
+export const TextOverflow = styled.p`
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: ${props => props.width ? props.width : '100%'};
+`
