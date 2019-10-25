@@ -110,3 +110,7 @@
   border-radius: 5px;
   display: inline-block;
 }
+
+.lineDot {
+  cursor: pointer;
+}

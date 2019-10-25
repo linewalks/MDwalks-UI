@@ -1,29 +1,6 @@
 import React from 'react';
 import * as d3 from 'd3'
-
-const styles = {
-  gauge_point: {
-    "textAnchor":"middle", // like text-align but not support tag g 
-    "opacity":"0.4",
-    "fontFamily":"'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif'",
-    "fontSize":"11px",
-    "fontWeight":"normal",
-    "fontStyle":"normal",
-    "fontStretch":"normal",
-    "letterSpacing":"-0.5px",
-    "fill":"'#000000'"
-  },
-  gauge_score: {
-    "textAnchor":"middle",
-    "fontFamily":"'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif'",
-    "fontSize":"32px",
-    "fontWeight":"bold",
-    "fontStyle":"normal",
-    "fontStretch":"normal",
-    "letterSpacing":"-0.5px",
-    "fill":"'#000000'"
-  }
-}
+import styles from './RadiusGauge.module.css'
 
 const RadiusGauge = ({width, height, score }) => {
   const cx = 150;
@@ -63,14 +40,14 @@ const RadiusGauge = ({width, height, score }) => {
           />
         </g>
         <path transform={`translate(75, 150) rotate(${angleScale(score)}, 75, 3.1)`} fill="#189BFF" fillRule="evenodd" d="M1.605 4.5l64.83 2.434A3.437 3.437 0 0 0 70 3.5 3.437 3.437 0 0 0 66.434.066L1.605 2.5a1 1 0 0 0 0 1.998z" />
-        <g transform={'translate(0, 55)'} style={styles.gauge_point}>
+        <g transform={'translate(0, 55)'} className={styles.gauge_point}>
           <text x={cx - Math.round(120 * Math.cos(0))} y={cy - Math.round(120 * Math.sin(0))}>0</text>
           <text x={cx - Math.round(120 * Math.cos(Math.PI / 4))} y={cy - Math.round(120 * Math.sin(Math.PI / 4))}>0.25</text>
           <text x={cx + Math.round(120 * Math.cos(Math.PI / 2))} y={cy - Math.round(120 * Math.sin(Math.PI / 2))}>0.5</text>
           <text x={cx + Math.round(120 * Math.cos(Math.PI / 4))} y={cy - Math.round(120 * Math.sin(Math.PI / 4))}>0.75</text>
           <text x={cx + Math.round(120 * Math.cos(0))} y={cy - Math.round(120 * Math.sin(0))}>1.0</text>
         </g>
-        <g transform={'translate(150, 200)'} style={styles.gauge_score}>
+        <g transform={'translate(150, 200)'} className={styles.gauge_score}>
           <text>{`${score}`.slice(0, 4)}</text>
         </g>  
       </svg>

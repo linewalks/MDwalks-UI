@@ -37,18 +37,18 @@ class CheckList extends React.Component {
   constructor(props) {
     super(props)
 
-    let checkState = {}
-    this.props.data.forEach((value) => {
-      checkState[value.id] = !!value.checked
-    })
+    let selectedList = _.chain(this.props.data)
+      .filter(({ checked }) => checked)
+      .map(({ id }) => `${id}`)
+      .value()
 
     this.state = {
-      checkState
+      selectedList
     }
   }
 
   getCheckCount() {
-    return _.filter(this.state.checkState).length
+    return _.filter(this.state.selectedList).length
   }
 
   onErrorTrigger() {
@@ -57,46 +57,53 @@ class CheckList extends React.Component {
 
   onChangeTrigger(id) {
     if (this.props.disabled) return
-    let checkState = this.state.checkState
+    let { selectedList } = this.state
 
-    if (checkState[id] === false && this.getCheckCount() >= this.props.limit) {
+    if (selectedList.includes(`${id}`) === false && this.getCheckCount() >= this.props.limit) {
       return this.onErrorTrigger()
     }
 
-    checkState[id] = !checkState[id]
+    if (selectedList.includes(`${id}`)) {
+      selectedList = _.without(selectedList, `${id}`)
+    } else {
+      selectedList.push(`${id}`)
+    }
 
     this.setState({
-      checkState      
+      selectedList
     })
 
-    _.isFunction(this.props.onChange) && this.props.onChange(checkState)
+    _.isFunction(this.props.onChange) && this.props.onChange({selectedList})
   }
 
   unCheckedById(id) {
-    let checkState = this.state.checkState
-    if (true == checkState[id]) {
-      checkState[id] = false
+    let { selectedList } = this.state
+    if (selectedList.includes(`${id}`)) {
+      selectedList = _.without(selectedList, `${id}`)
       this.setState({
-        checkState
+        selectedList
       })
 
-      _.isFunction(this.props.onChange) && this.props.onChange(checkState)
+      _.isFunction(this.props.onChange) && this.props.onChange({selectedList})
     }
   }
 
   render() {
     const { data, disabled, checkVisible } = this.props
-    const { checkState } = this.state
+    const { selectedList } = this.state
     return (
       <React.Fragment>
         {
-          data.map(({id, name, checked}) => {
-            if (!checkVisible && true == checkState[id]) return null;
+          data.map(({id, name}) => {
+
+            const checked = selectedList.includes(`${id}`)
+
+            if (!checkVisible && checked) return null;
             return (
               <Item size="16" opacity="6" as="div" key={`checkItem${id}`}>
                 <label>
-                  {name}
-                  <input type="checkbox" disabled={disabled} checked={checkState[id]} onChange={() => this.onChangeTrigger(id)} />
+                  <font.TextOverflow>{name}</font.TextOverflow>
+                  <input type="checkbox" disabled={disabled} checked={checked} onChange={() => this.onChangeTrigger(id)} />
                   <img src={IcnAddSm} width="24px" height="24px" />
                 </label>
               </Item>

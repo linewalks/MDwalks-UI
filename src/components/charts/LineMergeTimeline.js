@@ -1,24 +1,8 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
-import './LineMergeTimeline.css'
 import isEmpty from 'lodash/isEmpty'
-
+import styles from './LineMergeTimeline.module.css'
 import { renderSVG, generateGroup, getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, lineDataFormatConvert } from '../../helper/chartUtility'
-
-const styles = {
-  "timelineChart": "timelineChart",
-  "title": "title",
-  'xAxis': 'xAxis',
-  "overViewXAxis": "overViewXAxis",
-  "timelineLabels": "timelineLabels",
-  "gLineYAxis": "gLineYAxis",
-  "verticalLineText": "verticalLineText",
-  "overViewXAxisGrid": "overViewXAxisGrid",
-  "tooltip": "tooltip",
-  "tooltipDay": "tooltipDay",
-  "tooltipLabel": "tooltipLabel",
-  "dot": "dot",
-}
 
 typeof Array.prototype.flat === 'undefined' && Object.defineProperty(Array.prototype, 'flat', {
   value: function(depth = 1) {
@@ -291,11 +275,11 @@ class LineMergeTimeline extends Component {
     // 3. Render Line Point
     gLine
       .append('g')
-      .selectAll(".lineDot")
+      .selectAll(`${styles.lineDot}`)
       .data(lineChartData)
       .enter()
       .append("circle") 
-      .attr("class", "lineDot") 
+      .attr("class", `${styles.lineDot}`) 
       .attr('fill', d => colorScale(lineYAxisScale(d.y)))
       .attr("cx", d => xAxisScale(Date.parse(d.x)))
       .attr("cy", d => lineYAxisScale(d.y))
@@ -321,7 +305,7 @@ class LineMergeTimeline extends Component {
       .on('mouseout', d => this.getRootElement().select(`.${styles.tooltip}`).transition().duration(200).style('opacity', 0))  
       .on('click', (d, i) => {
         typeof scoreClickEvent === "function" && scoreClickEvent(d, i)
-      })  
+      })
   }
 
   createTimelineLabel = (timelineYAxisScale, timelineData) => {
@@ -656,7 +640,7 @@ class LineMergeTimeline extends Component {
         .attr('clip-path', 'url(#clip)')
 
       this.getRootElement().select('.gLine')
-        .selectAll(".lineDot")
+        .selectAll(`${styles.lineDot}`)
         .transition()
         .duration(500)
         .attr('clip-path', 'url(#clip)')
@@ -767,7 +751,7 @@ class LineMergeTimeline extends Component {
         .attr('d', line)
 
       this.getRootElement().select('.gLine')
-        .selectAll(".lineDot")
+        .selectAll(`${styles.lineDot}`)
         .transition()
         .duration(500)
         .attr("cx", d => xAxisScale(Date.parse(d.x)))

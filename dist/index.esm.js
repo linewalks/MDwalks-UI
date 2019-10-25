@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { css as css$3 } from 'styled-components';
+import styled, { css as css$5 } from 'styled-components';
 
 function _typeof(obj) {
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -17308,38 +17308,46 @@ var lodash = createCommonjsModule(function (module, exports) {
 }.call(commonjsGlobal));
 });
 
-var styles = {
-  "gauge_container": {
-    "background": "#f2f2f2",
-    "position": "relative",
-    "height": "6px",
-    "width": "100px",
-    "borderRadius": "2px",
-    "overflow": "hidden"
-  },
-  "bar_gauge_fill": {
-    "position": "absolute",
-    "backgroundImage": "linear-gradient(to right, #189bff , #002d4f 100px)",
-    "height": "100%",
-    "width": 'auto'
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
   }
-};
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = ".BarGauge-module_gauge_container__36KKv {\n  background: #f2f2f2;\n  position: relative;\n  height: 6px;\n  width: 100px;\n  border-radius: 2px;\n  overflow: hidden;\n}\n.BarGauge-module_bar_gauge_fill__mZzyq {\n  position: absolute;\n  background-image: linear-gradient(to right, #189bff , #002d4f 100px);\n  height: 100%;\n  width: auto;\n}";
+var styles = {"gauge_container":"BarGauge-module_gauge_container__36KKv","bar_gauge_fill":"BarGauge-module_bar_gauge_fill__mZzyq"};
+styleInject(css);
 
 var BarGauge =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(BarGauge, _React$Component);
 
-  function BarGauge(props) {
-    var _this;
-
+  function BarGauge() {
     _classCallCheck(this, BarGauge);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(BarGauge).call(this, props));
-    _this.state = {
-      styles: styles
-    };
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(BarGauge).apply(this, arguments));
   }
 
   _createClass(BarGauge, [{
@@ -17349,11 +17357,12 @@ function (_React$Component) {
 
       if (lodash.inRange(score, 0, 101)) {
         return React.createElement("div", {
-          style: this.state.styles.gauge_container
+          className: styles.gauge_container
         }, React.createElement("div", {
-          style: _objectSpread2({}, this.state.styles.bar_gauge_fill, {
+          className: styles.bar_gauge_fill,
+          style: {
             width: "".concat(score, "%")
-          })
+          }
         }));
       } else {
         return React.createElement("div", null, "Invalid Score");
@@ -35804,30 +35813,9 @@ var d3Core = /*#__PURE__*/Object.freeze({
   zoomIdentity: identity$9
 });
 
-var styles$1 = {
-  gauge_point: {
-    "textAnchor": "middle",
-    // like text-align but not support tag g 
-    "opacity": "0.4",
-    "fontFamily": "'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif'",
-    "fontSize": "11px",
-    "fontWeight": "normal",
-    "fontStyle": "normal",
-    "fontStretch": "normal",
-    "letterSpacing": "-0.5px",
-    "fill": "'#000000'"
-  },
-  gauge_score: {
-    "textAnchor": "middle",
-    "fontFamily": "'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif'",
-    "fontSize": "32px",
-    "fontWeight": "bold",
-    "fontStyle": "normal",
-    "fontStretch": "normal",
-    "letterSpacing": "-0.5px",
-    "fill": "'#000000'"
-  }
-};
+var css$1 = ".RadiusGauge-module_gauge_point__3WjGw {\n  text-anchor: middle;\n  opacity: 0.4;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 11px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  letter-spacing: -0.5px;\n  fill: '#000000';\n}\n\n.RadiusGauge-module_gauge_score__1yjco {\n  text-anchor: middle;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 32px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  letter-spacing: -0.5px;\n  fill: '#000000';\n}";
+var styles$1 = {"gauge_point":"RadiusGauge-module_gauge_point__3WjGw","gauge_score":"RadiusGauge-module_gauge_score__1yjco"};
+styleInject(css$1);
 
 var RadiusGauge = function RadiusGauge(_ref) {
   var width = _ref.width,
@@ -35872,7 +35860,7 @@ var RadiusGauge = function RadiusGauge(_ref) {
       d: "M1.605 4.5l64.83 2.434A3.437 3.437 0 0 0 70 3.5 3.437 3.437 0 0 0 66.434.066L1.605 2.5a1 1 0 0 0 0 1.998z"
     }), React.createElement("g", {
       transform: 'translate(0, 55)',
-      style: styles$1.gauge_point
+      className: styles$1.gauge_point
     }, React.createElement("text", {
       x: cx - Math.round(120 * Math.cos(0)),
       y: cy - Math.round(120 * Math.sin(0))
@@ -35890,7 +35878,7 @@ var RadiusGauge = function RadiusGauge(_ref) {
       y: cy - Math.round(120 * Math.sin(0))
     }, "1.0")), React.createElement("g", {
       transform: 'translate(150, 200)',
-      style: styles$1.gauge_score
+      className: styles$1.gauge_score
     }, React.createElement("text", null, "".concat(score).slice(0, 4))));
   } else {
     return React.createElement("div", null, "Invalid Score");
@@ -39182,7 +39170,7 @@ function _templateObject3$2() {
 }
 
 function _templateObject2$2() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 28px 24px;\n  text-align: center;\n  background: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 28px 24px;\n  text-align: center;\n  background: ", ";\n\n  &:first-child {\n    border-radius: 10px 0 0 0;\n  }\n\n  &:last-child {\n    border-radius: 0 10px 0 0;\n  }\n"]);
 
   _templateObject2$2 = function _templateObject2() {
     return data;
@@ -39372,9 +39360,13 @@ var TFoot = function TFoot(_ref) {
       footData = _ref.footData;
 
   var createFooter = function createFooter() {
-    return footData.map(function (data) {
-      return React.createElement("tr", null, data.map(function (d) {
-        return React.createElement("td", null, d);
+    return footData.map(function (data, idx) {
+      return React.createElement("tr", {
+        key: "tr".concat(idx)
+      }, data.map(function (d, i) {
+        return React.createElement("td", {
+          key: "td".concat(i)
+        }, d);
       }));
     });
   };
@@ -39393,7 +39385,7 @@ function _templateObject2$4() {
 }
 
 function _templateObject$6() {
-  var data = _taggedTemplateLiteral(["\n  tbody {\n    .td:first-child, .td:last-child {\n      white-space: nowrap;\n      width: 1%;\n    }\n\n    .td:first-child > a > div,\n    .td:first-child > div {\n      padding-left: 0\n    }\n\n    .td:last-child > a > div,\n    .td:last-child > div {\n      padding-right: 0\n    }\n\n    .td:first-child {\n      padding-left: 50px;\n    }\n\n    .td:last-child {\n      padding-right: 50px;\n    }\n  }\n\n  thead td {\n    &:last-child {\n      padding-right: 50px;\n    }\n  }\n  thead th {\n    &:first-child {\n      border-radius: 10px 0 0 0;\n    }\n\n    &:last-child {\n      border-radius: 0 10px 0 0;\n    }\n\n    &:first-child, &:last-child {\n      white-space: nowrap;\n      width: 1%;\n    }\n\n    &:first-child {\n      padding-left: 50px;\n    }\n\n    &:last-child {\n      padding-right: 50px;\n    }\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  tbody {\n    .td:first-child, .td:last-child {\n      white-space: nowrap;\n      width: 1%;\n    }\n\n    .td:first-child > a > div,\n    .td:first-child > div {\n      padding-left: 0\n    }\n\n    .td:last-child > a > div,\n    .td:last-child > div {\n      padding-right: 0\n    }\n\n    .td:first-child {\n      padding-left: 50px;\n    }\n\n    .td:last-child {\n      padding-right: 50px;\n    }\n  }\n\n  thead td {\n    &:last-child {\n      padding-right: 50px;\n    }\n  }\n  thead th {\n    &:first-child, &:last-child {\n      white-space: nowrap;\n      width: 1%;\n    }\n\n    &:first-child {\n      padding-left: 50px;\n    }\n\n    &:last-child {\n      padding-right: 50px;\n    }\n  }\n"]);
 
   _templateObject$6 = function _templateObject() {
     return data;
@@ -39401,7 +39393,7 @@ function _templateObject$6() {
 
   return data;
 }
-var sideFit = css$3(_templateObject$6());
+var sideFit = css$5(_templateObject$6());
 var Table = styled.table(_templateObject2$4(), color$1.$line_search_grey, function (props) {
   return props.className.split(' ').includes('sideFit') ? sideFit : null;
 });
@@ -40200,48 +40192,9 @@ LineChart.defaultProps = {
   yAxisTitleAlign: 'middle'
 };
 
-function styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
-  var insertAt = ref.insertAt;
-
-  if (!css || typeof document === 'undefined') { return; }
-
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var style = document.createElement('style');
-  style.type = 'text/css';
-
-  if (insertAt === 'top') {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-    }
-  } else {
-    head.appendChild(style);
-  }
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
-var css = ".Timeline_timelineChart__3-Cf0 {\n  position: relative;\n}\n\n/* xAxis */\n.Timeline_xAxis__1hoKI, .Timeline_overViewXAxis__1DOvh {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline_labels__38Ge3 text {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline_labels__38Ge3 text:nth-child(n + 4) {\n  fill: rgba(0, 0, 0, 0.3);\n}\n.Timeline_verticalLineText__14s5V {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.Timeline_overViewXAxisGrid__29xyk path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.Timeline_tooltip__2qJdw {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.Timeline_tooltip__2qJdw .Timeline_tooltipDay__2iE2o {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.Timeline_tooltip__2qJdw .Timeline_tooltipLabel__2cWHt {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.Timeline_dot__QBZ1F {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
-styleInject(css);
-
-var styles$2 = {
-  "timelineChart": "timelineChart",
-  "xAxis": "xAxis",
-  "overViewXAxis": "overViewXAxis",
-  "labels": "labels",
-  "verticalLineText": "verticalLineText",
-  "overViewXAxisGrid": "overViewXAxisGrid",
-  "tooltip": "tooltip",
-  "tooltipDay": "tooltipDay",
-  "tooltipLabel": "tooltipLabel",
-  "dot": "dot"
-};
+var css$2 = ".Timeline-module_timelineChart__6imxY {\n  position: relative;\n}\n\n/* xAxis */\n.Timeline-module_xAxis__2yeDE, .Timeline-module_overViewXAxis__3PeKr {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text:nth-child(n + 4) {\n  fill: rgba(0, 0, 0, 0.3);\n}\n.Timeline-module_verticalLineText__2adr2 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.Timeline-module_overViewXAxisGrid__1I727 path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.Timeline-module_tooltip__2A0o2 {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipDay__1lg2e {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipLabel__1aVan {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.Timeline-module_dot__3N3de {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
+var styles$2 = {"timelineChart":"Timeline-module_timelineChart__6imxY","xAxis":"Timeline-module_xAxis__2yeDE","overViewXAxis":"Timeline-module_overViewXAxis__3PeKr","labels":"Timeline-module_labels__8btAK","verticalLineText":"Timeline-module_verticalLineText__2adr2","overViewXAxisGrid":"Timeline-module_overViewXAxisGrid__1I727","tooltip":"Timeline-module_tooltip__2A0o2","tooltipDay":"Timeline-module_tooltipDay__1lg2e","tooltipLabel":"Timeline-module_tooltipLabel__1aVan","dot":"Timeline-module_dot__3N3de"};
+styleInject(css$2);
 
 var Timeline =
 /*#__PURE__*/
@@ -40557,23 +40510,10 @@ function (_Component) {
   return Timeline;
 }(Component);
 
-var css$1 = ".LineMergeTimeline_timelineChart__K_r5D {\n  position: relative;\n}\n\n.LineMergeTimeline_title__23LoL {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: #000000;\n  opacity: 0.6;      \n}\n\n/* xAxis */\n.LineMergeTimeline_xAxis__1XWOw, .LineMergeTimeline_overViewXAxis__2OOtr {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.LineMergeTimeline_timelineLabels__3hBbH text, .LineMergeTimeline_gLineYAxis__2XLPB {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.3);\n  color: rgba(0, 0, 0, 0.3);\n}\n\n.LineMergeTimeline_verticalLineText__26Jw4 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.LineMergeTimeline_overViewXAxisGrid__KqAml path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.LineMergeTimeline_tooltip__2eLDR {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.LineMergeTimeline_tooltip__2eLDR .LineMergeTimeline_tooltipDay__2qZte {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.LineMergeTimeline_tooltip__2eLDR .LineMergeTimeline_tooltipLabel__KjfSB {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.LineMergeTimeline_dot__3kjm_ {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
-styleInject(css$1);
+var css$3 = ".LineMergeTimeline-module_timelineChart__fPLk5 {\n  position: relative;\n}\n\n.LineMergeTimeline-module_title__3WWUl {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: #000000;\n  opacity: 0.6;      \n}\n\n/* xAxis */\n.LineMergeTimeline-module_xAxis__k99X0, .LineMergeTimeline-module_overViewXAxis__wNJ-S {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.LineMergeTimeline-module_timelineLabels__134WI text, .LineMergeTimeline-module_gLineYAxis__21s70 {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.3);\n  color: rgba(0, 0, 0, 0.3);\n}\n\n.LineMergeTimeline-module_verticalLineText__jLQi7 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.LineMergeTimeline-module_overViewXAxisGrid__3TiBI path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.LineMergeTimeline-module_tooltip__2Pb8F {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.LineMergeTimeline-module_tooltip__2Pb8F .LineMergeTimeline-module_tooltipDay__1z4eb {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.LineMergeTimeline-module_tooltip__2Pb8F .LineMergeTimeline-module_tooltipLabel__3tt0o {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.LineMergeTimeline-module_dot__3RKc6 {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}\n\n.LineMergeTimeline-module_lineDot__3JOC_ {\n  cursor: pointer;\n}";
+var styles$3 = {"timelineChart":"LineMergeTimeline-module_timelineChart__fPLk5","title":"LineMergeTimeline-module_title__3WWUl","xAxis":"LineMergeTimeline-module_xAxis__k99X0","overViewXAxis":"LineMergeTimeline-module_overViewXAxis__wNJ-S","timelineLabels":"LineMergeTimeline-module_timelineLabels__134WI","gLineYAxis":"LineMergeTimeline-module_gLineYAxis__21s70","verticalLineText":"LineMergeTimeline-module_verticalLineText__jLQi7","overViewXAxisGrid":"LineMergeTimeline-module_overViewXAxisGrid__3TiBI","tooltip":"LineMergeTimeline-module_tooltip__2Pb8F","tooltipDay":"LineMergeTimeline-module_tooltipDay__1z4eb","tooltipLabel":"LineMergeTimeline-module_tooltipLabel__3tt0o","dot":"LineMergeTimeline-module_dot__3RKc6","lineDot":"LineMergeTimeline-module_lineDot__3JOC_"};
+styleInject(css$3);
 
-var styles$3 = {
-  "timelineChart": "timelineChart",
-  "title": "title",
-  'xAxis': 'xAxis',
-  "overViewXAxis": "overViewXAxis",
-  "timelineLabels": "timelineLabels",
-  "gLineYAxis": "gLineYAxis",
-  "verticalLineText": "verticalLineText",
-  "overViewXAxisGrid": "overViewXAxisGrid",
-  "tooltip": "tooltip",
-  "tooltipDay": "tooltipDay",
-  "tooltipLabel": "tooltipLabel",
-  "dot": "dot"
-};
 typeof Array.prototype.flat === 'undefined' && Object.defineProperty(Array.prototype, 'flat', {
   value: function value() {
     var depth = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
@@ -40742,7 +40682,7 @@ function (_Component) {
         }) ? colorScale(lineYAxisScale(lineChartFirstYValue)) : "url(#svgGradient)";
       }).attr("stroke-width", 2).attr("d", line); // 3. Render Line Point
 
-      gLine.append('g').selectAll(".lineDot").data(lineChartData).enter().append("circle").attr("class", "lineDot").attr('fill', function (d) {
+      gLine.append('g').selectAll("".concat(styles$3.lineDot)).data(lineChartData).enter().append("circle").attr("class", "".concat(styles$3.lineDot)).attr('fill', function (d) {
         return colorScale(lineYAxisScale(d.y));
       }).attr("cx", function (d) {
         return xAxisScale(Date.parse(d.x));
@@ -41002,7 +40942,7 @@ function (_Component) {
 
         _this.getRootElement().select('.gLine').selectAll("path").transition().duration(500).attr('d', line).attr('clip-path', 'url(#clip)');
 
-        _this.getRootElement().select('.gLine').selectAll(".lineDot").transition().duration(500).attr('clip-path', 'url(#clip)').attr("cx", function (d) {
+        _this.getRootElement().select('.gLine').selectAll("".concat(styles$3.lineDot)).transition().duration(500).attr('clip-path', 'url(#clip)').attr("cx", function (d) {
           return xAxisScale(Date.parse(d.x));
         }); // Timeline Data Render
 
@@ -41068,7 +41008,7 @@ function (_Component) {
 
         _this.getRootElement().select('.gLine').selectAll("path").transition().duration(500).attr('d', line);
 
-        _this.getRootElement().select('.gLine').selectAll(".lineDot").transition().duration(500).attr("cx", function (d) {
+        _this.getRootElement().select('.gLine').selectAll("".concat(styles$3.lineDot)).transition().duration(500).attr("cx", function (d) {
           return xAxisScale(Date.parse(d.x));
         }); // Initialize Timeline 
 
@@ -41326,13 +41266,9 @@ var Heading = (function (_ref) {
   }, children);
 });
 
-var css$2 = "/* tooltip  */\n.Histogram_tooltipTitle__1yAfG {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  opacity: 0.6;\n}\n\n.Histogram_tooltipValue__28lvI {\n  height: 20px;\n  line-height: 1.5;\n  font-size: 12px;\n  font-weight: bold;\n  opacity: 0.9;\n}";
-styleInject(css$2);
-
-var styles$4 = {
-  "tooltipTitle": "tooltipTitle",
-  "tooltipValue": "tooltipValue"
-};
+var css$4 = "/* tooltip  */\n.Histogram-module_tooltipTitle__2olSH {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  opacity: 0.6;\n}\n\n.Histogram-module_tooltipValue__gir_k {\n  height: 20px;\n  line-height: 1.5;\n  font-size: 12px;\n  font-weight: bold;\n  opacity: 0.9;\n}";
+var styles$4 = {"tooltipTitle":"Histogram-module_tooltipTitle__2olSH","tooltipValue":"Histogram-module_tooltipValue__gir_k"};
+styleInject(css$4);
 
 var Histogram =
 /*#__PURE__*/
@@ -41477,7 +41413,7 @@ function (_Component) {
       var dropDownBox = _this.getRootElement().append('div').attr('class', 'gDropDown').style('position', 'absolute').style('top', '55px').style('left', '1100px').append('select').attr('id', 'binsDropDown').on('change', function () {
         _this.getRootElement().select('.gBar').remove();
 
-        _this.getRootElement().select('.tooltip').remove();
+        _this.getRootElement().select('.histogramTooltip').remove();
 
         _this.getRootElement().select('.gRiskMeanLine').remove();
 
@@ -41584,7 +41520,7 @@ function (_Component) {
 
         _this.getRootElement().select('svg').remove();
 
-        _this.getRootElement().select('.tooltip').remove();
+        _this.getRootElement().select('.histogramTooltip').remove();
 
         _this.getRootElement().select('.gDropDown').remove();
 
@@ -41938,7 +41874,7 @@ function _templateObject$d() {
 
   return data;
 }
-var BtnDefaultCss = css$3(_templateObject$d());
+var BtnDefaultCss = css$5(_templateObject$d());
 var BtnSize = {
   large: {
     minWidth: '100px',
@@ -42039,7 +41975,7 @@ var setBtnColor = function setBtnColor(props) {
   return "\n  box-shadow: ".concat(props.BtnColorObject.boxShasdow, ";\n  background-color: ").concat(props.BtnColorObject.backgroundColor, ";\n  color: ").concat(props.BtnColorObject.color, ";\n\n  border: ").concat(props.BtnColorObject.border ? props.BtnColorObject.border : 'none', ";\n\n  &:hover:not(:disabled) {\n    box-shadow: ").concat(props.BtnColorObject.hover.boxShasdow, ";\n    background-color: ").concat(props.BtnColorObject.hover.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.hover.color, ";\n    border: ").concat(props.BtnColorObject.hover.border ? props.BtnColorObject.hover.border : 'none', ";\n  }\n\n  &:disabled {\n    box-shadow: ").concat(props.BtnColorObject.disabled.boxShasdow, ";\n    background-color: ").concat(props.BtnColorObject.disabled.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.disabled.color, ";\n    border: ").concat(props.BtnColorObject.disabled.border ? props.BtnColorObject.disabled.border : 'none', ";\n  }\n");
 };
 
-var LoadingBase = css$3(_templateObject2$8());
+var LoadingBase = css$5(_templateObject2$8());
 var LoadingOne = styled.span(_templateObject3$6(), LoadingBase);
 var LoadingTwo = styled.span(_templateObject4$4(), LoadingBase);
 var LoadingThree = styled.span(_templateObject5$3(), LoadingBase);

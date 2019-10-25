@@ -9,6 +9,11 @@ edit: false
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
+# v0.7.3 / 2019-10-25
+## :tada: Enhancements
+- [#194](https://github.com/linewalks/MDwalks-UI/issues/194'): UI 컴포넌트 CSS import 문제 #194 ([**@toyjhlee**](https://github.com/toyjhlee))
+- [#213](https://github.com/linewalks/MDwalks-UI/issues/213'): 방문시점별 위험도와 가중치 이벤트 커서추가 ([**@toyjhlee**](https://github.com/toyjhlee))
+- [#216](https://github.com/linewalks/MDwalks-UI/issues/216'): CheckList 를 선택한 순서를 보장 ([**@toyjhlee**](https://github.com/toyjhlee))
 
 # v0.7.2 / 2019-10-24
 ## :tada: Enhancements

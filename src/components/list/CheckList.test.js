@@ -31,23 +31,21 @@ const data = [
   },
 ]
 
-const CheckState = { '1': true, '2': false, '3': false, '4': false, '5': false, '6': false }
-
 /**
  * 선택이 변경 시 onChange 발생, param 으로는 선택된 id 를 넘긴다
  * isDisabeld 시 선택이 되지 않는다
  * 6개 이상 선택 되지 않는다
  * 6개 이상 호출 시 onError 발생 limit 계수를 넘긴다
  * limit 의 default 는 5 
- * unCheckedById 호출 시 해당 id 가 checked 가 true 이면 false 로 만든다
+ * unCheckedById 호출 시 해당 id 를 selectedList 에서 삭제 한다
  * option: limit
  * props.checkVisible 가 false 인 경우 선택 된 것은 보이지 않는다
  */
 const limit = 5
-let wrapper, instance, onChange, onError, CheckStateList
+let wrapper, instance, onChange, onError, selectedList
 
 beforeEach(() => {
-  CheckStateList = JSON.parse(JSON.stringify(CheckState))
+  selectedList = ['1']
   onChange = jest.fn()
   onError = jest.fn()
   wrapper = mount(<CheckList data={data} limit={limit} onChange={onChange} onError={onError} />)
@@ -56,7 +54,7 @@ beforeEach(() => {
 
 it('default', () => {
   const expected = data.map(({name}) => name).join('')
-  expect(wrapper.state('checkState')).toEqual(CheckStateList)
+  expect(wrapper.state('selectedList')).toEqual(selectedList)
   expect(wrapper.text()).toBe(expected)
   expect(wrapper.prop('limit')).toBe(limit)
   expect(wrapper.prop('checkVisible')).toBe(true)
@@ -71,20 +69,21 @@ it('check', () => {
 })
 
 it('onChange', () => {
-  CheckStateList[_.last(data).id] = true
+  selectedList.push('6')
   wrapper.find('input[type="checkbox"]').last().simulate('change')
-  expect(onChange).toHaveBeenCalledWith(CheckStateList)
+  expect(onChange).toHaveBeenCalledWith({selectedList})
   expect(instance.getCheckCount()).toBe(2)
 
-  CheckStateList[_.last(data).id] = false
+  selectedList = _.without(selectedList, '6')
   wrapper.find('input[type="checkbox"]').last().simulate('change')
-  expect(onChange).toHaveBeenCalledWith(CheckStateList)
+  expect(onChange).toHaveBeenCalledWith({selectedList})
   expect(instance.getCheckCount()).toBe(1)
 })
 
 describe('OnError', () => {
   it('false 인 항목을 click 시 onError 호출, onChange 는 호출 되지 않는다, onError 호출 시 limit 를 넘긴다', () => {
     wrapper.setState({'checkState': { '1': true, '2': true, '3': true, '4': true, '5': true, '6': false }});
+    wrapper.setState({'selectedList': ['1', '2', '3', '4', '5']});
 
     wrapper.find('input[type="checkbox"]').last().simulate('change')
     expect(onError).toHaveBeenCalled()
@@ -94,6 +93,7 @@ describe('OnError', () => {
 
   it('true 인 항목을 click 시 onError 호출 되지 않고, onChange 는 호출 된다', () => {
     wrapper.setState({'checkState': { '1': true, '2': true, '3': true, '4': true, '5': true, '6': false }});
+    wrapper.setState({'selectedList': ['1', '2', '3', '4', '5']});
 
     wrapper.find('input[type="checkbox"]').first().simulate('change')
     expect(onError).not.toHaveBeenCalled()
@@ -128,14 +128,14 @@ describe('unCheckedById', () => {
   it('해당 ID 가 true 인 경우 onChange 호출', () => {
     instance.unCheckedById(1)
 
-    CheckStateList[1] = false
-    expect(onChange).toHaveBeenCalledWith(CheckStateList)
+    selectedList = _.without(selectedList, '1')
+    expect(onChange).toHaveBeenCalledWith({selectedList})
   })
 
   it('해당 ID 가 false 인 경우 onChange 호출 되지 않는다', () => {
     instance.unCheckedById(2)
 
-    CheckStateList[2] = false
+    selectedList = _.without(selectedList, '2')
     expect(onChange).not.toHaveBeenCalled()
   })
 })

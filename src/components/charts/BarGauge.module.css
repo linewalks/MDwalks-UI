@@ -10,4 +10,5 @@
   position: absolute;
   background-image: linear-gradient(to right, #189bff , #002d4f 100px);
   height: 100%;
+  width: auto;
 }
