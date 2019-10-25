@@ -19389,8 +19389,7 @@ var brighter = 1 / darker;
 var reI = "\\s*([+-]?\\d+)\\s*",
     reN = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)\\s*",
     reP = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)%\\s*",
-    reHex3 = /^#([0-9a-f]{3})$/,
-    reHex6 = /^#([0-9a-f]{6})$/,
+    reHex = /^#([0-9a-f]{3,8})$/,
     reRgbInteger = new RegExp("^rgb\\(" + [reI, reI, reI] + "\\)$"),
     reRgbPercent = new RegExp("^rgb\\(" + [reP, reP, reP] + "\\)$"),
     reRgbaInteger = new RegExp("^rgba\\(" + [reI, reI, reI, reN] + "\\)$"),
@@ -19576,10 +19575,13 @@ function color_formatRgb() {
 }
 
 function color(format) {
-  var m;
+  var m, l;
   format = (format + "").trim().toLowerCase();
-  return (m = reHex3.exec(format)) ? (m = parseInt(m[1], 16), new Rgb((m >> 8 & 0xf) | (m >> 4 & 0x0f0), (m >> 4 & 0xf) | (m & 0xf0), ((m & 0xf) << 4) | (m & 0xf), 1)) // #f00
-      : (m = reHex6.exec(format)) ? rgbn(parseInt(m[1], 16)) // #ff0000
+  return (m = reHex.exec(format)) ? (l = m[1].length, m = parseInt(m[1], 16), l === 6 ? rgbn(m) // #ff0000
+      : l === 3 ? new Rgb((m >> 8 & 0xf) | (m >> 4 & 0xf0), (m >> 4 & 0xf) | (m & 0xf0), ((m & 0xf) << 4) | (m & 0xf), 1) // #f00
+      : l === 8 ? new Rgb(m >> 24 & 0xff, m >> 16 & 0xff, m >> 8 & 0xff, (m & 0xff) / 0xff) // #ff000000
+      : l === 4 ? new Rgb((m >> 12 & 0xf) | (m >> 8 & 0xf0), (m >> 8 & 0xf) | (m >> 4 & 0xf0), (m >> 4 & 0xf) | (m & 0xf0), (((m & 0xf) << 4) | (m & 0xf)) / 0xff) // #f000
+      : null) // invalid hex
       : (m = reRgbInteger.exec(format)) ? new Rgb(m[1], m[2], m[3], 1) // rgb(255, 0, 0)
       : (m = reRgbPercent.exec(format)) ? new Rgb(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, 1) // rgb(100%, 0%, 0%)
       : (m = reRgbaInteger.exec(format)) ? rgba(m[1], m[2], m[3], m[4]) // rgba(255, 0, 0, 1)
@@ -30226,10 +30228,12 @@ var t0$1 = new Date,
 function newInterval(floori, offseti, count, field) {
 
   function interval(date) {
-    return floori(date = new Date(+date)), date;
+    return floori(date = arguments.length === 0 ? new Date : new Date(+date)), date;
   }
 
-  interval.floor = interval;
+  interval.floor = function(date) {
+    return floori(date = new Date(+date)), date;
+  };
 
   interval.ceil = function(date) {
     return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
@@ -35319,7 +35323,23 @@ function zoom() {
 
 
 var d3Core = /*#__PURE__*/Object.freeze({
+  __proto__: null,
   version: version,
+  cluster: cluster,
+  hierarchy: hierarchy,
+  pack: index$2,
+  packSiblings: siblings,
+  packEnclose: enclose,
+  partition: partition,
+  stratify: stratify,
+  tree: tree,
+  treemap: index$3,
+  treemapBinary: binary,
+  treemapDice: treemapDice,
+  treemapSlice: treemapSlice,
+  treemapSliceDice: sliceDice,
+  treemapSquarify: squarify,
+  treemapResquarify: resquarify,
   bisect: bisectRight,
   bisectRight: bisectRight,
   bisectLeft: bisectLeft,
@@ -35351,10 +35371,6 @@ var d3Core = /*#__PURE__*/Object.freeze({
   transpose: transpose,
   variance: variance,
   zip: zip,
-  axisTop: axisTop,
-  axisRight: axisRight,
-  axisBottom: axisBottom,
-  axisLeft: axisLeft,
   brush: brush,
   brushX: brushX,
   brushY: brushY,
@@ -35507,21 +35523,10 @@ var d3Core = /*#__PURE__*/Object.freeze({
   geoRotation: rotation,
   geoStream: geoStream,
   geoTransform: transform,
-  cluster: cluster,
-  hierarchy: hierarchy,
-  pack: index$2,
-  packSiblings: siblings,
-  packEnclose: enclose,
-  partition: partition,
-  stratify: stratify,
-  tree: tree,
-  treemap: index$3,
-  treemapBinary: binary,
-  treemapDice: treemapDice,
-  treemapSlice: treemapSlice,
-  treemapSliceDice: sliceDice,
-  treemapSquarify: squarify,
-  treemapResquarify: resquarify,
+  axisTop: axisTop,
+  axisRight: axisRight,
+  axisBottom: axisBottom,
+  axisLeft: axisLeft,
   interpolate: interpolateValue,
   interpolateArray: array$1,
   interpolateBasis: basis$1,
@@ -37633,6 +37638,7 @@ function fillHeight(graph, y0, y1) {
 }
 
 var sankeyCircular$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
   sankeyCircular: sankeyCircular,
   sankeyCenter: center$2,
   sankeyLeft: left$1,
@@ -37688,6 +37694,7 @@ var zIndex = {
 };
 
 var variables = /*#__PURE__*/Object.freeze({
+  __proto__: null,
   color: color$1,
   size: size,
   zIndex: zIndex
@@ -37781,6 +37788,7 @@ var lineDataFormatConvert = function lineDataFormatConvert(data) {
 };
 
 var chartUtility = /*#__PURE__*/Object.freeze({
+  __proto__: null,
   strIdConvert: strIdConvert,
   tableHeaderConvert: tableHeaderConvert,
   renderSVG: renderSVG,
@@ -38106,6 +38114,7 @@ var Text = function Text(props) {
 var TextTag = styled__default.span(_templateObject(), Text);
 
 var font$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
   Text: Text,
   TextTag: TextTag
 });
@@ -39169,7 +39178,7 @@ function _templateObject3$2() {
 }
 
 function _templateObject2$2() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 28px 24px;\n  text-align: center;\n  background: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 28px 24px;\n  text-align: center;\n  background: ", ";\n\n  &:first-child {\n    border-radius: 10px 0 0 0;\n  }\n\n  &:last-child {\n    border-radius: 0 10px 0 0;\n  }\n"]);
 
   _templateObject2$2 = function _templateObject2() {
     return data;
@@ -39359,9 +39368,13 @@ var TFoot = function TFoot(_ref) {
       footData = _ref.footData;
 
   var createFooter = function createFooter() {
-    return footData.map(function (data) {
-      return React__default.createElement("tr", null, data.map(function (d) {
-        return React__default.createElement("td", null, d);
+    return footData.map(function (data, idx) {
+      return React__default.createElement("tr", {
+        key: "tr".concat(idx)
+      }, data.map(function (d, i) {
+        return React__default.createElement("td", {
+          key: "td".concat(i)
+        }, d);
       }));
     });
   };
@@ -39380,7 +39393,7 @@ function _templateObject2$4() {
 }
 
 function _templateObject$6() {
-  var data = _taggedTemplateLiteral(["\n  tbody {\n    .td:first-child, .td:last-child {\n      white-space: nowrap;\n      width: 1%;\n    }\n\n    .td:first-child > a > div,\n    .td:first-child > div {\n      padding-left: 0\n    }\n\n    .td:last-child > a > div,\n    .td:last-child > div {\n      padding-right: 0\n    }\n\n    .td:first-child {\n      padding-left: 50px;\n    }\n\n    .td:last-child {\n      padding-right: 50px;\n    }\n  }\n\n  thead td {\n    &:last-child {\n      padding-right: 50px;\n    }\n  }\n  thead th {\n    &:first-child {\n      border-radius: 10px 0 0 0;\n    }\n\n    &:last-child {\n      border-radius: 0 10px 0 0;\n    }\n\n    &:first-child, &:last-child {\n      white-space: nowrap;\n      width: 1%;\n    }\n\n    &:first-child {\n      padding-left: 50px;\n    }\n\n    &:last-child {\n      padding-right: 50px;\n    }\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  tbody {\n    .td:first-child, .td:last-child {\n      white-space: nowrap;\n      width: 1%;\n    }\n\n    .td:first-child > a > div,\n    .td:first-child > div {\n      padding-left: 0\n    }\n\n    .td:last-child > a > div,\n    .td:last-child > div {\n      padding-right: 0\n    }\n\n    .td:first-child {\n      padding-left: 50px;\n    }\n\n    .td:last-child {\n      padding-right: 50px;\n    }\n  }\n\n  thead td {\n    &:last-child {\n      padding-right: 50px;\n    }\n  }\n  thead th {\n    &:first-child, &:last-child {\n      white-space: nowrap;\n      width: 1%;\n    }\n\n    &:first-child {\n      padding-left: 50px;\n    }\n\n    &:last-child {\n      padding-right: 50px;\n    }\n  }\n"]);
 
   _templateObject$6 = function _templateObject() {
     return data;
