@@ -12,6 +12,7 @@ import SankeyChart from '../components/charts/SankeyChart'
 import Timeline from '../components/charts/Timeline'
 import LineMergeTimeline from '../components/charts/LineMergeTimeline'
 import Histogram from '../components/charts/Histogram'
+import RadarChart from '../components/charts/RadarChart'
 
 # Charts
 ## LineMergeTimeline
@@ -478,6 +479,52 @@ import Histogram from '../components/charts/Histogram'
         ]
       }
       }
+    />
+  </div>
+</Playground>
+
+## RadarChart
+<Playground>
+  <div style={{overflow: 'hidden', overflowX: 'scroll'}}>
+    <RadarChart 
+      width={700} 
+      height={650}
+      radarCategory={[
+        "visit_info",
+        "visit_history",
+        "lab",
+        "echo",
+        "drug",
+        "spect",
+        "demo",
+        "comorbidity",
+        "cabgpci",
+        "vitalsign"
+      ]}
+      groupData={[
+        0.1767,
+        0.21289999999999998,
+        0.2940999999999999,
+        0.15789999999999998,
+        0.12090000000000001,
+        0.0344,
+        0.0012,
+        0.0016,
+        0,
+        0 
+      ]}
+      patientData={[
+        0.8091,
+        0.12,
+        0.0367,
+        0.0342,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]} 
     />
   </div>
 </Playground>
