@@ -46,5 +46,5 @@ export {
   ButtonLink,
   ButtonTextLink,
   Histogram,
-  RadarChart
+  RadarChart,
 } 
