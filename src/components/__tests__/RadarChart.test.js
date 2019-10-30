@@ -5,54 +5,34 @@ import RadarChart from '@Charts/RadarChart';
 const data = {
   groupVariableWeights: {
     variables: [
-      "visit_info",
-      "visit_history",
-      "lab",
-      "echo",
-      "drug",
-      "spect",
-      "demo",
-      "comorbidity",
-      "cabgpci",
-      "vitalsign"
+      "a",
+      "b",
+      "c",
+      "d",
+      "e"
     ],
     weights: [
-      0.1767,
-      0.21289999999999998,
-      0.2940999999999999,
-      0.15789999999999998,
-      0.12090000000000001,
-      0.0344,
-      0.0012,
-      0.0016,
-      0,
-      0 
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5
     ]
   },
   patientVariableWeights: {
     variables: [
-      "visit_info",
-      "visit_history",
-      "lab",
-      "echo",
-      "drug",
-      "spect",
-      "demo",
-      "comorbidity",
-      "cabgpci",
-      "vitalsign"
+      "a",
+      "b",
+      "c",
+      "d",
+      "e"
     ],
     weights: [
-      0.8091,
-      0.12,
-      0.0367,
-      0.0342,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1
     ]
   }
 }
@@ -66,7 +46,7 @@ describe('RadarChart Component', () => {
         height={650}
         radarCategory={data.groupVariableWeights.variables}
         groupData={data.groupVariableWeights.weights}
-        patientData={data.patientVariableWeights.weights} 
+        patientData={data.groupVariableWeights.weights} 
       />)
     instance = component.instance()
   })
@@ -84,6 +64,19 @@ describe('RadarChart Component', () => {
     const expectedPropsObj = {
       width: 700,
       height: 650,
+      radarCategory: data.groupVariableWeights.variables,
+      groupData: data.groupVariableWeights.weights,
+      patientData: data.groupVariableWeights.weights
+    }
+    expect(component.get(0).props).toMatchObject(expectedPropsObj)
+  })
+
+  it('renders default props when there is no data props', () => {
+    const wrapper = mount(<RadarChart />)
+    const expecteddefaultPropsObj = {
+      title: null,
+      width: 1200,
+      height: 1200,
       radarCategory: [
         "visit_info",
         "visit_history",
@@ -96,31 +89,8 @@ describe('RadarChart Component', () => {
         "cabgpci",
         "vitalsign"
       ],
-      groupData: [
-        0.1767,
-        0.21289999999999998,
-        0.2940999999999999,
-        0.15789999999999998,
-        0.12090000000000001,
-        0.0344,
-        0.0012,
-        0.0016,
-        0,
-        0 
-      ],
-      patientData: [
-        0.8091,
-        0.12,
-        0.0367,
-        0.0342,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ] 
+      legendOpen: true
     }
-    expect(component.get(0).props).toMatchObject(expectedPropsObj)
+    expect(wrapper.get(0).props).toMatchObject(expecteddefaultPropsObj)
   })
 })

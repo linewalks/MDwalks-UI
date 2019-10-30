@@ -56,34 +56,12 @@ class RadarChart extends Component {
       {
         name: 'Group',
         color: color.$legend_timeline_red_01,
-        data: this.props.groupData || [
-          0.1767,
-          0.21289999999999998,
-          0.2940999999999999,
-          0.15789999999999998,
-          0.12090000000000001,
-          0.0344,
-          0.0012,
-          0.0016,
-          0,
-          0
-        ],
+        data: this.props.groupData,
         pointPlacement: 'on'
       },{
         name: 'Patient',
         color: color.$primary_navy,
-        data: this.props.patientData || [
-          0.8091,
-          0.12,
-          0.0367,
-          0.0342,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
+        data: this.props.patientData,
         pointPlacement: 'on'
       },],
       legend: {
