@@ -15,6 +15,7 @@ import Heading from './components/layout/Heading';
 import Histogram from './components/charts/Histogram';
 import Modal from './components/modal/Modal';
 import CheckList from './components/list/CheckList';
+import RadarChart from './components/charts/RadarChart';
 
 import Button, {ButtonLink, ButtonTextLink} from './components/button/Button'
 import * as font from './assets/styles/font.js';
@@ -44,5 +45,6 @@ export {
   Button,
   ButtonLink,
   ButtonTextLink,
-  Histogram
+  Histogram,
+  RadarChart,
 } 
