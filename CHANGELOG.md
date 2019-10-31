@@ -9,6 +9,14 @@ edit: false
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
+# v0.8.1 / 2019-10-31
+## :tada: Enhancements
+- [#224](https://github.com/linewalks/MDwalks-UI/issues/224'): 레이더 차트 및 테스트 추가 ([**@jik0090**](https://github.com/jik0090))
+- [#228](https://github.com/linewalks/MDwalks-UI/issues/228'): 요약카드 차트 폰트 크기, 가로선 간격 수정 ([**@jik0090**](https://github.com/jik0090))
+
+## :bug: Fixes
+- [#226](https://github.com/linewalks/MDwalks-UI/issues/226'): MACE 위험도 차트의 선과 점 불일치 ([**@jik0090**](https://github.com/jik0090))
+
 # v0.7.3 / 2019-10-25
 ## :tada: Enhancements
 - [#194](https://github.com/linewalks/MDwalks-UI/issues/194'): UI 컴포넌트 CSS import 문제 #194 ([**@toyjhlee**](https://github.com/toyjhlee))

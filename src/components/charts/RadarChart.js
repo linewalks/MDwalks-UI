@@ -5,6 +5,10 @@ import HighchartsReact from 'highcharts-react-official';
 import isEmpty from 'lodash/isEmpty'
 import { color } from '../../assets/styles/variables'
 
+if (typeof Highcharts === 'object') {
+  HC_more(Highcharts)
+}
+
 class RadarChart extends Component {
   constructor(props) {
     super(props)
@@ -120,7 +124,7 @@ class RadarChart extends Component {
 
   renderRadarChart = options => {
     return (
-      <HighchartsReact highcharts={HC_more(Highcharts)} options={options} />
+      <HighchartsReact highcharts={Highcharts} options={options} />
     )
   }
 
