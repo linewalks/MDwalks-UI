@@ -16,7 +16,7 @@ import Histogram from './components/charts/Histogram';
 import Modal from './components/modal/Modal';
 import CheckList from './components/list/CheckList';
 import RadarChart from './components/charts/RadarChart';
-
+import TreeMap from './components/charts/TreeMap'
 import Button, {ButtonLink, ButtonTextLink} from './components/button/Button'
 import * as font from './assets/styles/font.js';
 import * as variables from './assets/styles/variables.js';
@@ -47,4 +47,5 @@ export {
   ButtonTextLink,
   Histogram,
   RadarChart,
+  TreeMap,
 } 
