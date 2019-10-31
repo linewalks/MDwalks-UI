@@ -640,7 +640,7 @@ class LineMergeTimeline extends Component {
         .attr('clip-path', 'url(#clip)')
 
       this.getRootElement().select('.gLine')
-        .selectAll(`${styles.lineDot}`)
+        .selectAll(`.${styles.lineDot}`)
         .transition()
         .duration(500)
         .attr('clip-path', 'url(#clip)')
@@ -751,7 +751,7 @@ class LineMergeTimeline extends Component {
         .attr('d', line)
 
       this.getRootElement().select('.gLine')
-        .selectAll(`${styles.lineDot}`)
+        .selectAll(`.${styles.lineDot}`)
         .transition()
         .duration(500)
         .attr("cx", d => xAxisScale(Date.parse(d.x)))

@@ -46,4 +46,5 @@ export const size = {
 export const zIndex = {
   $modalOverlay: 1000,
   $modal: 1001,
+  $modalOverlayLoading: 1002,
 }

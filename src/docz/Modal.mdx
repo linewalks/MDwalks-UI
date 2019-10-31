@@ -17,11 +17,13 @@ import Button from '../components/button/Button'
 
 isOpen 을 값을 제어해서 modal 를 open, close 할 수 있다
 footer 값은 생략 가능하다
+isLoading 으로 overlay 의 z-index 를 모달보다 높게 하고 loading animation 을 보여준다
 <Playground>
   <Modal
     title="modal title"
     description="11"
     isOpen={true}
+    isLoading={true}
     closeModal={() => alert('close')}
     footer={
       <div>

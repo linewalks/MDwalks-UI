@@ -32,6 +32,19 @@ class LineChart extends Component {
           width: 2,
           color: color.$line_btn_grey,
           dashStyle: 'shortdot'
+        },
+        labels: {
+          style: {
+            fontFamily: 'Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif',
+            color: color.$black,
+            fontSize: '14px',
+            fontWeight: 'normal',
+            fontStyle: 'normal',
+            fontStretch: 'normal',
+            lineHeight: 'normal',
+            letterSpacing: -0.5,
+            opacity: 0.4
+          }
         }
       },
 
@@ -44,6 +57,19 @@ class LineChart extends Component {
         },
         tickAmount: this.props.yAxisTickAmount,
         tickInterval: this.props.yAxisTickInterval,
+        labels: {
+          style: {
+            fontFamily: 'Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif',
+            color: color.$black,
+            fontSize: '14px',
+            fontWeight: 'normal',
+            fontStyle: 'normal',
+            fontStretch: 'normal',
+            lineHeight: 'normal',
+            letterSpacing: -0.5,
+            opacity: 0.4
+          }
+        }
       },
 
       legend: {
@@ -58,6 +84,7 @@ class LineChart extends Component {
         symbolWidth: 10,
         symbolRadius: 5,
         itemStyle: {
+          fontFamily: 'Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif',
           color: color.$black,
           fontSize: '14px',
           fontWeight: 'normal',
