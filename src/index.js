@@ -18,6 +18,8 @@ import CheckList from './components/list/CheckList';
 import RadarChart from './components/charts/RadarChart';
 
 import Button, {ButtonLink, ButtonTextLink} from './components/button/Button'
+
+import SelectBox from './components/form/SelectBox';
 import * as font from './assets/styles/font.js';
 import * as variables from './assets/styles/variables.js';
 import * as chartUtility from './helper/chartUtility.js';
@@ -47,4 +49,5 @@ export {
   ButtonTextLink,
   Histogram,
   RadarChart,
+  SelectBox,
 } 
