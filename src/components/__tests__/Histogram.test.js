@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import Histogram from '../charts/Histogram';
+import Histogram from '@Charts/Histogram';
 import * as d3 from 'd3'
 
 const data = {

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import heatmapData from "../../data/dataForHeatmap";
-import singleHeatmapData from "../../data/dataForHeatmapSinglePatient";
-import diffHeatmapData from "../../data/dataForHeatmapDayCls";
-import metadata from "../../data/dataForMetadata";
+import heatmapData from "@src/data/dataForHeatmap";
+import singleHeatmapData from "@src/data/dataForHeatmapSinglePatient";
+import diffHeatmapData from "@src/data/dataForHeatmapDayCls";
+import metadata from "@src/data/dataForMetadata";
 import * as core from "d3";
 import _ from "lodash";
 

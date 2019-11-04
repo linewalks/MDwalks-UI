@@ -1,9 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components'
-import * as font from '../../assets/styles/font'
-import { color } from '../../assets/styles/variables'
+import * as font from '@src/assets/styles/font'
+import { color } from '@src/assets/styles/variables'
 
-import { hexToRGB } from './utility'
+import { hexToRGB } from '@Components/button/utility'
 
 const BtnDefaultCss = css`
   border:0 none;

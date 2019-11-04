@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components'
 
-import { color, size } from '../../assets/styles/variables'
-import * as font from '../../assets/styles/font'
+import { color, size } from '@src/assets/styles/variables'
+import * as font from '@src/assets/styles/font'
 
 const Footer = styled.footer`
   position: absolute

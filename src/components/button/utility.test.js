@@ -1,5 +1,5 @@
 import _ from 'lodash'
-const utility = require('./utility');
+const utility = require('@Components/button/utility');
 
 it('addLight', () => {
   expect(utility.addLight(0, 0)).toBe('00')

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Table from "../table/Table";
-import SelectedCard from "../card/SelectedCard";
-import SankeyChart from "../charts/SankeyChart";
-import sankeyData from "../../data/dataForSankey2";
-import patientListData from "../../data/dataForPatientList";
+import Table from "@Components/table/Table";
+import SelectedCard from "@Cards/SelectedCard";
+import SankeyChart from "@Charts/SankeyChart";
+import sankeyData from "@src/data/dataForSankey2";
+import patientListData from "@src/data/dataForPatientList";
 import axios from "axios";
 
 // to test interaction with server

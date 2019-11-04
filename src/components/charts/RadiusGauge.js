@@ -1,6 +1,6 @@
 import React from 'react';
 import * as d3 from 'd3'
-import styles from './RadiusGauge.module.css'
+import styles from '@Charts/RadiusGauge.module.css'
 
 const RadiusGauge = ({width, height, score }) => {
   const cx = 150;

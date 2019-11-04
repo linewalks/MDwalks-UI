@@ -1,6 +1,6 @@
 import React from 'react'
 import _ from 'lodash'
-import styles from './BarGauge.module.css'
+import styles from '@Charts/BarGauge.module.css'
 
 class BarGauge extends React.Component {
   render() {

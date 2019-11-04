@@ -3,7 +3,7 @@ import Highcharts from 'highcharts';
 import HC_more from 'highcharts/highcharts-more'
 import HighchartsReact from 'highcharts-react-official';
 import isEmpty from 'lodash/isEmpty'
-import { color } from '../../assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 if (typeof Highcharts === 'object') {
   HC_more(Highcharts)

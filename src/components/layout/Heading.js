@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import * as font from '../../assets/styles/font'
+import * as font from '@src/assets/styles/font'
 
 const Text = styled.header`
   ${font.Text}

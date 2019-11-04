@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components'
 import _ from 'lodash'
-import { font, variables } from '../../index'
+import { font, variables } from '@src/index'
 
-import IcnAddSm from './icn-add-sm.svg'
+import IcnAddSm from '@Components/list/icn-add-sm.svg'
 
 const Item = styled(font.TextTag).attrs((props = {}) => {
   return {

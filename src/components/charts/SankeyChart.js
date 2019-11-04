@@ -2,9 +2,9 @@ import React from 'react'
 import * as d3Core from 'd3'
 import * as sankeyCircular from 'd3-sankey-circular'
 import _ from 'lodash'
-import { color } from '../../assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
-import { strIdConvert } from '../../helper/chartUtility'
+import { strIdConvert } from '@src/helper/chartUtility'
 
 class SankeyChart extends React.Component {
 
