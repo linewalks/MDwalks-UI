@@ -1,6 +1,5 @@
 import React from 'react';
 import styled  from 'styled-components'
-import _ from 'lodash'
 import * as font from '../../assets/styles/font'
 import { color } from '../../assets/styles/variables'
 

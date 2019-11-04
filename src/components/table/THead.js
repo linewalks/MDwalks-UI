@@ -1,6 +1,6 @@
 import React from 'react';
 import isEmpty from 'lodash/isEmpty';
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import * as font from '../../assets/styles/font'
 import { color } from '../../assets/styles/variables'
 

@@ -68,7 +68,7 @@ const TBody = ({headers, rowData, wrapTd, appendRow}) => {
     return (
       <tr>
         <td colSpan={isEmpty(headers) ? 1 : headers.length}>
-          <img src={visualAlert} width="290px" height="230px" />
+          <img src={visualAlert} width="290px" height="230px" alt="" />
           <EmptyText as="span">There is no data<br />Please search again</EmptyText>
         </td>
       </tr>

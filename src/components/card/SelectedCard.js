@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import backgroundArrow from '../../assets/svg/icn-12-px.svg';
 import * as font from '../../assets/styles/font'
 import { color } from '../../assets/styles/variables'
-import { darken, hexToRGB } from '../button/utility'
+import { hexToRGB } from '../button/utility'
 
 const Wrap1200 = styled.div`
   max-width: 1200px;

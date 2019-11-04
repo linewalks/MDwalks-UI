@@ -1,9 +1,7 @@
 import React from 'react';
 import isEmpty from 'lodash/isEmpty';
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import * as variables from '../../assets/styles/variables'
-
-import { tableHeaderConvert } from '../../helper/chartUtility'
 
 const TFootTag = styled.tfoot`
   td {

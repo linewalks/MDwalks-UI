@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React from 'react';
 import styled from 'styled-components'
 
 import Heading from '../layout/Heading'
@@ -111,7 +111,7 @@ export default (props = {}) => {
                 <Heading size="22" opacity="8">{props.title}</Heading>
                 <div style={{marginLeft: 'auto', marginTop: '-10px', marginRight: '-10px'}}>
                   <button onClick={props.closeModal}>
-                    <img src={icn_popup_close_md} width="34x" height="34px" />
+                    <img src={icn_popup_close_md} width="34x" height="34px" alt="" />
                   </button>
                 </div>
               </div>
