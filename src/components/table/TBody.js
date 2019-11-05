@@ -1,9 +1,9 @@
 import React from 'react';
 import isEmpty from 'lodash/isEmpty';
-import visualAlert from '../../assets/svg/visual-alert.svg';
+import visualAlert from '@src/assets/svg/visual-alert.svg';
 import styled from 'styled-components'
-import * as font from '../../assets/styles/font'
-import { color } from '../../assets/styles/variables'
+import * as font from '@src/assets/styles/font'
+import { color } from '@src/assets/styles/variables'
 
 // .td 가 존재하는 이유는 appendRow 에 스타일을 적용하지 않기 위해서 이다
 const ListTBody = styled.tbody.attrs((props = {}) => {
@@ -68,7 +68,7 @@ const TBody = ({headers, rowData, wrapTd, appendRow}) => {
     return (
       <tr>
         <td colSpan={isEmpty(headers) ? 1 : headers.length}>
-          <img src={visualAlert} width="290px" height="230px" />
+          <img src={visualAlert} width="290px" height="230px" alt="" />
           <EmptyText as="span">There is no data<br />Please search again</EmptyText>
         </td>
       </tr>

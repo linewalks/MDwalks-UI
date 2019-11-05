@@ -1,9 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components'
-import * as font from '../../assets/styles/font'
-import { color } from '../../assets/styles/variables'
+import * as font from '@src/assets/styles/font'
+import { color } from '@src/assets/styles/variables'
 
-import { hexToRGB } from './utility'
+import { hexToRGB } from '@Components/button/utility'
 
 const BtnDefaultCss = css`
   border:0 none;
@@ -191,12 +191,12 @@ const ButtonTag = styled(font.TextTag).attrs((props = {}) => {
   let { variant } = props
 
   // CDM 에 적용 후 삭제
-  if (variant == 'secondary') { // v0.5.1
+  if (variant === 'secondary') { // v0.5.1
     variant = 'basic'
   }
 
   // CDM 에 적용 후 삭제
-  if (variant == 'light') { // v0.5.1
+  if (variant === 'light') { // v0.5.1
     variant = 'basic_line'
   }
 
@@ -264,7 +264,7 @@ export const ButtonTextLink = (props) => {
 }
 
 export default (props) => {
-  const isLoading = props.isLoading == "true"
+  const isLoading = props.isLoading === "true"
 
   return (
     <ButtonTag as={props.as || "button"} {...props} disabled={props.disabled || isLoading}>

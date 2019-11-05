@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import isEmpty from 'lodash/isEmpty'
-import { color } from '../../assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 class LineChart extends Component {
   constructor(props) {

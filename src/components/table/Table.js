@@ -1,10 +1,10 @@
 import React from 'react';
 import isEmpty from 'lodash/isEmpty';
-import THead from './THead';
-import TBody from './TBody';
-import TFoot from './TFoot';
+import THead from '@Components/table/THead';
+import TBody from '@Components/table/TBody';
+import TFoot from '@Components/table/TFoot';
 import styled, { css } from 'styled-components'
-import * as variables from '../../assets/styles/variables'
+import * as variables from '@src/assets/styles/variables'
 
 const sideFit = css`
   tbody {

@@ -1,28 +1,28 @@
-import BarGauge from './components/charts/BarGauge';
-import RadiusGauge from './components/charts/RadiusGauge';
-import SankeyChart from './components/charts/SankeyChart';
-import SelectedCard from './components/card/SelectedCard';
-import SummaryCard from './components/card/SummaryCard';
-import Table from './components/table/Table';
-import Descriptions from './components/table/Descriptions';
-import LineChart from './components/charts/LineChart';
-import Timeline from './components/charts/Timeline'
-import LineMergeTimeline from './components/charts/LineMergeTimeline';
-import Navbar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
-import Image from './components/layout/Image';
-import Heading from './components/layout/Heading';
-import Histogram from './components/charts/Histogram';
-import Modal from './components/modal/Modal';
-import CheckList from './components/list/CheckList';
-import RadarChart from './components/charts/RadarChart';
-import TreeMap from './components/charts/TreeMap'
-import Button, {ButtonLink, ButtonTextLink} from './components/button/Button'
+import BarGauge from '@Components/charts/BarGauge';
+import RadiusGauge from '@Components/charts/RadiusGauge';
+import SankeyChart from '@Components/charts/SankeyChart';
+import SelectedCard from '@Components/card/SelectedCard';
+import SummaryCard from '@Components/card/SummaryCard';
+import Table from '@Components/table/Table';
+import Descriptions from '@Components/table/Descriptions';
+import LineChart from '@Components/charts/LineChart';
+import Timeline from '@Components/charts/Timeline'
+import LineMergeTimeline from '@Components/charts/LineMergeTimeline';
+import Navbar from '@Components/layout/Navbar';
+import Footer from '@Components/layout/Footer';
+import Image from '@Components/layout/Image';
+import Heading from '@Components/layout/Heading';
+import Histogram from '@Components/charts/Histogram';
+import Modal from '@Components/modal/Modal';
+import CheckList from '@Components/list/CheckList';
+import RadarChart from '@Components/charts/RadarChart';
+import TreeMap from '@Components/charts/TreeMap'
+import Button, {ButtonLink, ButtonTextLink} from '@Components/button/Button'
 
-import SelectBox from './components/form/SelectBox';
-import * as font from './assets/styles/font.js';
-import * as variables from './assets/styles/variables.js';
-import * as chartUtility from './helper/chartUtility.js';
+import SelectBox from '@Components/form/SelectBox';
+import * as font from '@src/assets/styles/font.js';
+import * as variables from '@src/assets/styles/variables.js';
+import * as chartUtility from '@src/helper/chartUtility.js';
 
 export { 
   BarGauge, 

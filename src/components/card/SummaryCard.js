@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
-import * as font from '../../assets/styles/font'
-import { color } from '../../assets/styles/variables'
+import * as font from '@src/assets/styles/font'
+import { color } from '@src/assets/styles/variables'
 
 const Wrap1200 = styled.div`
   max-width: 1200px;

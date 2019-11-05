@@ -1,9 +1,9 @@
-import React, { useState, Component } from 'react';
+import React from 'react';
 import styled from 'styled-components'
 import _ from 'lodash'
-import { Heading, font, variables, Button, ButtonLink, Modal } from '../../index'
+import { font, variables } from '@src/index'
 
-import IcnAddSm from './icn-add-sm.svg'
+import IcnAddSm from '@Components/list/icn-add-sm.svg'
 
 const Item = styled(font.TextTag).attrs((props = {}) => {
   return {
@@ -104,7 +104,7 @@ class CheckList extends React.Component {
                 <label>
                   <font.TextOverflow>{name}</font.TextOverflow>
                   <input type="checkbox" disabled={disabled} checked={checked} onChange={() => this.onChangeTrigger(id)} />
-                  <img src={IcnAddSm} width="24px" height="24px" />
+                  <img src={IcnAddSm} width="24px" height="24px" alt="" />
                 </label>
               </Item>
             )

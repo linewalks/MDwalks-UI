@@ -1,11 +1,10 @@
 import React from 'react';
 import styled  from 'styled-components'
-import _ from 'lodash'
-import * as font from '../../assets/styles/font'
-import { color } from '../../assets/styles/variables'
+import * as font from '@src/assets/styles/font'
+import { color } from '@src/assets/styles/variables'
 
-import icn_select_open_sm from '../../assets/svg/icn_select_open_sm.svg';
-import icn_select_open_xs from '../../assets/svg/icn_select_open_xs.svg';
+import icn_select_open_sm from '@src/assets/svg/icn_select_open_sm.svg';
+import icn_select_open_xs from '@src/assets/svg/icn_select_open_xs.svg';
 
 const SelectSize = {
   xLarge: {

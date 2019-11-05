@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
-import styles from './Histogram.module.css';
+import styles from '@Charts/Histogram.module.css';
 import _ from 'lodash'
-import { renderSVG, generateGroup } from '../../helper/chartUtility'
-import { color } from '../../assets/styles/variables'
+import { renderSVG, generateGroup } from '@src/helper/chartUtility'
+import { color } from '@src/assets/styles/variables'
 
 class Histogram extends Component {
   constructor(props) {

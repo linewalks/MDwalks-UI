@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
 import isEmpty from 'lodash/isEmpty'
-import styles from './Timeline.module.css'
-import { renderSVG, generateGroup,  getStartAndEndTime, circleDataFilter, rectDataFilter, labelList } from '../../helper/chartUtility'
+import styles from '@Charts/Timeline.module.css'
+import { renderSVG, generateGroup,  getStartAndEndTime, circleDataFilter, rectDataFilter, labelList } from '@src/helper/chartUtility'
 
 class Timeline extends Component {
 

@@ -1,11 +1,11 @@
-import React, { useState, Component } from 'react';
+import React from 'react';
 import styled from 'styled-components'
 
-import Heading from '../layout/Heading'
-import { color, zIndex } from '../../assets/styles/variables'
-import * as font from '../../assets/styles/font'
-import { hexToRGB } from '../button/utility'
-import icn_popup_close_md from '../../assets/svg/icn_popup_close_md.svg';
+import Heading from '@Components/layout/Heading'
+import { color, zIndex } from '@src/assets/styles/variables'
+import * as font from '@src/assets/styles/font'
+import { hexToRGB } from '@Components/button/utility'
+import icn_popup_close_md from '@src/assets/svg/icn_popup_close_md.svg';
 
 const size = {
   modalPadding: '30px',
@@ -111,7 +111,7 @@ export default (props = {}) => {
                 <Heading size="22" opacity="8">{props.title}</Heading>
                 <div style={{marginLeft: 'auto', marginTop: '-10px', marginRight: '-10px'}}>
                   <button onClick={props.closeModal}>
-                    <img src={icn_popup_close_md} width="34x" height="34px" />
+                    <img src={icn_popup_close_md} width="34x" height="34px" alt="" />
                   </button>
                 </div>
               </div>

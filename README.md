@@ -21,11 +21,6 @@
   port 변경 시 doczrc.js 의 portt property 변경
   ```
 
-* run storybook
-  ```bash
-  yarn storybook
-  ```
-
 ## 2. build
 * code build
   ```bash

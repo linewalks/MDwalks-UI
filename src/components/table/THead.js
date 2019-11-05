@@ -1,10 +1,10 @@
 import React from 'react';
 import isEmpty from 'lodash/isEmpty';
-import styled, { css } from 'styled-components'
-import * as font from '../../assets/styles/font'
-import { color } from '../../assets/styles/variables'
+import styled from 'styled-components'
+import * as font from '@src/assets/styles/font'
+import { color } from '@src/assets/styles/variables'
 
-import { tableHeaderConvert } from '../../helper/chartUtility'
+import { tableHeaderConvert } from '@src/helper/chartUtility'
 
 const Td = styled.td.attrs((props = {}) => {
   return {

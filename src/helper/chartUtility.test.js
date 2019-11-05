@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import * as d3 from 'd3'
-const chartUtility = require('./chartUtility');
+const chartUtility = require('@src/helper/chartUtility');
 
 it('strIdConvert', () => {
   expect(chartUtility.strIdConvert('a b')).toBe('a_b')
