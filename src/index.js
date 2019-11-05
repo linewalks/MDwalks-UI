@@ -12,6 +12,7 @@ import Navbar from '@Components/layout/Navbar';
 import Footer from '@Components/layout/Footer';
 import Image from '@Components/layout/Image';
 import Heading from '@Components/layout/Heading';
+import Tabs from '@Components/layout/Tabs';
 import Histogram from '@Components/charts/Histogram';
 import Modal from '@Components/modal/Modal';
 import CheckList from '@Components/list/CheckList';
@@ -39,6 +40,7 @@ export {
   Footer,
   Image,
   Heading,
+  Tabs,
   Modal,
   CheckList,
   font,
