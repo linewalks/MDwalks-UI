@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as d3 from 'd3'
 import isEmpty from 'lodash/isEmpty'
 import styles from '@Charts/LineMergeTimeline.module.css'
-import { renderSVG, generateGroup, getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, lineDataFormatConvert } from '@src/helper/chartUtility'
+import { renderSVG, generateGroup, getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, lineDataFormatConvert, errorMessage } from '@src/helper/chartUtility'
 
 typeof Array.prototype.flat === 'undefined' && Object.defineProperty(Array.prototype, 'flat', {
   value: function(depth = 1) {
@@ -49,18 +49,6 @@ class LineMergeTimeline extends Component {
 
   getRootElement() {
     return d3.select(this.rootElement.current)
-  }
-  errorMessage = (errorType) => {
-    let message;
-    if (errorType === 'typeOfVariable') {
-      message = 'type is invalid'
-    }
-  
-    if (errorType === 'haveData') {
-      message = 'No data is provided'
-    }
-
-    this.getRootElement().append('div').text(message)  
   }
 
   createXAxis = (xAxis) => {
@@ -868,11 +856,11 @@ class LineMergeTimeline extends Component {
   componentDidMount = () => {
     const { timeData, lineData } = this.props
     if (isEmpty(timeData) || isEmpty(lineData)) {
-      return this.errorMessage('haveData')
+      return this.getRootElement().append('div').text(errorMessage('haveData'))  
     }
 
     if (!Array.isArray(timeData) || !(lineData !== null && typeof lineData === 'object')) {
-      return this.errorMessage('typeOfVariable')
+      return this.getRootElement().append('div').text(errorMessage('typeOfVariable'))
     }
 
     return this.renderLineMergeTimeline(timeData, lineData)

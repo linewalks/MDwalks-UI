@@ -53,7 +53,7 @@ describe('RadarChart Component', () => {
 
   it('renders placeholder when there is no data', () => {
     const wrapper = shallow(<RadarChart width={700} height={650} />)
-    expect(wrapper.html()).toEqual("<div><h1>No data is provided</h1></div>");
+    expect(wrapper.html()).toEqual("<div>No data is provided</div>");
   })
 
   it('renders properly when there is data', () => {

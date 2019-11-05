@@ -3,6 +3,7 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import isEmpty from 'lodash/isEmpty'
 import { color } from '@src/assets/styles/variables'
+import { errorMessage } from '@src/helper/chartUtility'
 
 class LineChart extends Component {
   constructor(props) {
@@ -131,22 +132,6 @@ class LineChart extends Component {
     }
   }
 
-  errorMessage = (errorType) => {
-    let message;
-    if (errorType === 'typeOfVariable') {
-      message = <h1>type is invalid</h1>
-    }
-  
-    if (errorType === 'haveData') {
-      message = <h1>No data is provided</h1>
-    }
-  
-    if (errorType === 'haveValidKey') {
-      message = <h1>Object Key is invalid</h1>
-    }
-    return <div>{message}</div>  
-  }
-
   renderLineChart = options => {
     return (
       <HighchartsReact highcharts={Highcharts} options={options} />
@@ -156,11 +141,11 @@ class LineChart extends Component {
   render() {
     const { data } = this.props
     if (isEmpty(data)) {
-      return this.errorMessage('haveData')
+      return <div>{errorMessage('haveData')}</div>
     }
 
     if (!Array.isArray(data)) {
-      return this.errorMessage('typeOfVariable')
+      return <div>{errorMessage('typeOfVariable')}</div>
     }
     return <div>{this.renderLineChart(this.options)}</div>
   }

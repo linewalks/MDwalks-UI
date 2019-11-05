@@ -140,3 +140,8 @@ it('labelList', () => {
   const expected = data.map(obj => _.last(obj.label))
   expect(chartUtility.labelList(data)).toEqual(expected)
 })
+
+it('errorMessage', () => {
+  expect(chartUtility.errorMessage('typeOfVariable')).toBe('type is invalid')
+  expect(chartUtility.errorMessage('haveData')).toBe('No data is provided')
+})

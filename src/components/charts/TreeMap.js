@@ -2,18 +2,31 @@
 import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import highchartsTreeMap from "highcharts/modules/treemap";
+import highchartsHeatMap from 'highcharts/modules/heatmap'
 import HighchartsReact from 'highcharts-react-official';
 import isEmpty from 'lodash/isEmpty'
+import { errorMessage } from '@src/helper/chartUtility'
 
 if (typeof Highcharts === 'object') {
   highchartsTreeMap(Highcharts)
+  highchartsHeatMap(Highcharts)
 }
 
 
 class TreeMap extends Component {
   constructor(props) {
     super(props)
-    this.options = {
+    const [minColor ,maxColor] = Highcharts.getOptions().colors
+    this.options = {      
+      colorAxis: {
+        min: 0,
+        max: 1,
+        minColor,
+        maxColor
+      },
+      legend: {
+        enabled: false
+      },
       series: [{
         type: "treemap",
         layoutAlgorithm: 'squarified',
@@ -31,10 +44,10 @@ class TreeMap extends Component {
             borderWidth: 3
         }],
         data: this.props.data,
-    }],
-    title: {
-        text: this.props.title
-    }
+      }],
+      title: {
+          text: this.props.title
+      }
     }
   }
   renderTreeMap = options => {
@@ -43,30 +56,14 @@ class TreeMap extends Component {
     )
   }
 
-  errorMessage = (errorType) => {
-    let message;
-    if (errorType === 'typeOfVariable') {
-      message = <h1>type is invalid</h1>
-    }
-  
-    if (errorType === 'haveData') {
-      message = <h1>No data is provided</h1>
-    }
-  
-    if (errorType === 'haveValidKey') {
-      message = <h1>Object Key is invalid</h1>
-    }
-    return <div>{message}</div>  
-  }
-
   render() {
     const { data } = this.props
     if (isEmpty(data)) {
-      return this.errorMessage('haveData')
+      return <div>{errorMessage('haveData')}</div>
     }
 
     if (!Array.isArray(data)) {
-      return this.errorMessage('typeOfVariable')
+      return <div>{errorMessage('typeOfVariable')}</div>
     }
     return (
       <div>

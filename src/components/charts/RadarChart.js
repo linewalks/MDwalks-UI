@@ -4,6 +4,7 @@ import HC_more from 'highcharts/highcharts-more'
 import HighchartsReact from 'highcharts-react-official';
 import isEmpty from 'lodash/isEmpty'
 import { color } from '@src/assets/styles/variables'
+import { errorMessage } from '@src/helper/chartUtility'
 
 if (typeof Highcharts === 'object') {
   HC_more(Highcharts)
@@ -106,22 +107,6 @@ class RadarChart extends Component {
     }
   }
 
-  errorMessage = (errorType) => {
-    let message;
-    if (errorType === 'typeOfVariable') {
-      message = <h1>type is invalid</h1>
-    }
-
-    if (errorType === 'haveData') {
-      message = <h1>No data is provided</h1>
-    }
-
-    if (errorType === 'haveValidKey') {
-      message = <h1>Object Key is invalid</h1>
-    }
-    return <div>{message}</div>  
-  }
-
   renderRadarChart = options => {
     return (
       <HighchartsReact highcharts={Highcharts} options={options} />
@@ -131,11 +116,11 @@ class RadarChart extends Component {
   render() {
     const { groupData, patientData } = this.props
     if (isEmpty(groupData) || isEmpty(patientData)) {
-      return this.errorMessage('haveData')
+      return <div>{errorMessage('haveData')}</div>
     }
 
     if (!Array.isArray(groupData) || !Array.isArray(patientData)) {
-      return this.errorMessage('typeOfVariable')
+      return <div>{errorMessage('typeOfVariable')}</div>
     }
     return <div>{this.renderRadarChart(this.options)}</div>
   }
