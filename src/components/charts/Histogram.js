@@ -335,7 +335,7 @@ class Histogram extends Component {
 
   componentDidMount = () => {
     const { data } = this.props
-    !_.isEmpty(data) && !Array.isArray(data) && this.renderHistogram(data)
+    !this.checkDataValidation() && this.renderHistogram(data)
   }
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -354,14 +354,15 @@ class Histogram extends Component {
     }
   }
 
-  render() {
-    const { data } = this.props
-    if (_.isEmpty(data)) {
-      return <div>{errorMessage('haveData')}</div>
-    }
+  checkDataValidation = () => {
+    const { data } = this.props    
+    if (_.isEmpty(data)) return 'haveData'
+    if (Array.isArray(data)) return 'typeOfVariable' 
+  }
 
-    if (Array.isArray(data)) {
-      return <div>{errorMessage('typeOfVariable')}</div>
+  render() {
+    if (this.checkDataValidation()) {
+      return <div>{errorMessage(this.checkDataValidation())}</div>
     }
 
     return <div ref={this.rootElement} style={{position: 'relative'}} />

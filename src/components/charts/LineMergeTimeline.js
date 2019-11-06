@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
-import isEmpty from 'lodash/isEmpty'
+import _ from 'lodash'
 import styles from '@Charts/LineMergeTimeline.module.css'
 import { renderSVG, generateGroup, getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, lineDataFormatConvert, errorMessage } from '@src/helper/chartUtility'
 
@@ -18,7 +18,7 @@ class LineMergeTimeline extends Component {
 
   constructor(props) {
     super(props);
-    const {startTime, endTime} = Array.isArray(this.props.timeData) && getStartAndEndTime(
+    const {startTime, endTime} = !this.checkDataValidation(this.props.timeData) && getStartAndEndTime(
       this.props.timeData.map(d => d.dataPoints).flat(),
     )
     this.options = {
@@ -36,8 +36,8 @@ class LineMergeTimeline extends Component {
       defaultMargin: {
         top: 40
       },
-      startTime: isEmpty(this.props.scale) ? startTime : Date.parse(this.props.scale.start),
-      endTime: isEmpty(this.props.scale) ? endTime : Date.parse(this.props.scale.end),
+      startTime: _.isEmpty(this.props.scale) ? startTime : Date.parse(this.props.scale.start),
+      endTime: _.isEmpty(this.props.scale) ? endTime : Date.parse(this.props.scale.end),
       lineYAxisHeight: 206,
       labelStartYPosition: 0,
       labelLastYPosition: 369
@@ -855,17 +855,18 @@ class LineMergeTimeline extends Component {
 
   componentDidMount = () => {
     const { timeData, lineData } = this.props
-    return (!isEmpty(timeData) && !isEmpty(lineData)) && (Array.isArray(timeData) && !Array.isArray(lineData)) && this.renderLineMergeTimeline(timeData, lineData)
+    return !this.checkDataValidation() && this.renderLineMergeTimeline(timeData, lineData)
   }
 
-  render() {    
+  checkDataValidation = () => {
     const { timeData, lineData } = this.props
-    if (isEmpty(timeData) || isEmpty(lineData)) {
-      return <div>{errorMessage('haveData')}</div>
-    }
-
-    if (!Array.isArray(timeData) || Array.isArray(lineData)) {
-      return <div>{errorMessage('typeOfVariable')}</div>
+    if (_.isEmpty(timeData) || _.isEmpty(lineData)) return 'haveData'
+    if (!Array.isArray(timeData) || Array.isArray(lineData)) return 'typeOfVariable' 
+  }
+  
+  render() {    
+    if (this.checkDataValidation()) {
+      return <div>{errorMessage(this.checkDataValidation())}</div>
     }
 
     return (

@@ -4,7 +4,7 @@ import Highcharts from 'highcharts';
 import highchartsTreeMap from "highcharts/modules/treemap";
 import highchartsHeatMap from 'highcharts/modules/heatmap'
 import HighchartsReact from 'highcharts-react-official';
-import isEmpty from 'lodash/isEmpty'
+import _ from 'lodash'
 import { errorMessage } from '@src/helper/chartUtility'
 
 if (typeof Highcharts === 'object') {
@@ -56,15 +56,18 @@ class TreeMap extends Component {
     )
   }
 
-  render() {
+  checkDataValidation = () => {
     const { data } = this.props
-    if (isEmpty(data)) {
-      return <div>{errorMessage('haveData')}</div>
+    if (_.isEmpty(data)) return 'haveData'
+    if (!Array.isArray(data)) return 'typeOfVariable' 
+  }
+
+
+  render() {
+    if (this.checkDataValidation()) {
+      return <div>{errorMessage(this.checkDataValidation())}</div>
     }
 
-    if (!Array.isArray(data)) {
-      return <div>{errorMessage('typeOfVariable')}</div>
-    }
     return (
       <div>
         {this.renderTreeMap(this.options)}

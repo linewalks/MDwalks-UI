@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import HC_more from 'highcharts/highcharts-more'
 import HighchartsReact from 'highcharts-react-official';
-import isEmpty from 'lodash/isEmpty'
+import _ from 'lodash'
 import { color } from '@src/assets/styles/variables'
 import { errorMessage } from '@src/helper/chartUtility'
 
@@ -113,15 +113,18 @@ class RadarChart extends Component {
     )
   }
 
-  render() {
+  checkDataValidation = () => {
     const { groupData, patientData } = this.props
-    if (isEmpty(groupData) || isEmpty(patientData)) {
-      return <div>{errorMessage('haveData')}</div>
+    if (_.isEmpty(groupData) || _.isEmpty(patientData)) return 'haveData'
+    if (!Array.isArray(groupData) || !Array.isArray(patientData)) return 'typeOfVariable' 
+  }
+
+
+  render() {
+    if (this.checkDataValidation()) {
+      return <div>{errorMessage(this.checkDataValidation())}</div>
     }
 
-    if (!Array.isArray(groupData) || !Array.isArray(patientData)) {
-      return <div>{errorMessage('typeOfVariable')}</div>
-    }
     return <div>{this.renderRadarChart(this.options)}</div>
   }
 }

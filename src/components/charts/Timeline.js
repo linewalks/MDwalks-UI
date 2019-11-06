@@ -469,17 +469,19 @@ class Timeline extends Component {
 
   componentDidMount = () => {
     const { data } = this.props
-    return !isEmpty(data) && Array.isArray(data) && this.renderTimeline(data)
+    return !this.checkDataValidation() && this.renderTimeline(data)
   }
 
-  render() {    
-    const { data } = this.props
-    if (isEmpty(data)) {
-      return <div>{errorMessage('haveData')}</div>
-    }
+  checkDataValidation = () => {
+    const { data } = this.props    
+    if (isEmpty(data)) return 'haveData'
+    if (!Array.isArray(data)) return 'typeOfVariable' 
+  }
 
-    if (!Array.isArray(data)) {
-      return <div>{errorMessage('typeOfVariable')}</div>
+
+  render() {    
+    if (this.checkDataValidation()) {
+      return <div>{errorMessage(this.checkDataValidation())}</div>
     }
 
     return (
