@@ -26,6 +26,16 @@ const BtnDefaultCss = css`
 `
 
 const BtnSize = {
+  xLarge: {
+    minWidth: '100%',
+    height: '60px',
+    borderRadius: '10px',
+    padding: '16px 20px',
+    img: {
+      margin: '8px',
+    },
+    marginRight: '0',
+  },
   large: {
     minWidth: '100px',
     height: '42px',
@@ -187,7 +197,7 @@ const LoadingThree = styled.span`
 
 const ButtonTag = styled(font.TextTag).attrs((props = {}) => {
   props.size = props.size || 'md'
-  const BtnSizeObject = props.size === 'md' ? BtnSize.middle : BtnSize.large
+  const BtnSizeObject = props.size === 'xlg' ? BtnSize.xLarge : props.size === 'md' ? BtnSize.middle : BtnSize.large
   let { variant } = props
 
   // CDM 에 적용 후 삭제
@@ -206,7 +216,7 @@ const ButtonTag = styled(font.TextTag).attrs((props = {}) => {
     variant === 'basic'  ? BtnColor.basic : BtnColor.basic_line
 
   return {
-    size: props.size === 'md' ? 14 : 16,
+    size: props.size === 'xlg' ? 18 : props.size === 'md' ? 14 : 16,
     bold: props.bold || true,
     BtnSizeObject,
     BtnColorObject,
