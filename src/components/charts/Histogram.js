@@ -335,16 +335,7 @@ class Histogram extends Component {
 
   componentDidMount = () => {
     const { data } = this.props
-
-    if (_.isEmpty(data)) {
-      return this.getRootElement().append('div').text(errorMessage('haveData'))
-    }
-
-    if (!(data !== null && typeof data === 'object' && !Array.isArray(data))) {
-      return this.getRootElement().append('div').text(errorMessage('typeOfVariable'))
-    }
-
-    this.renderHistogram(data)
+    !_.isEmpty(data) && !Array.isArray(data) && this.renderHistogram(data)
   }
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -364,11 +355,16 @@ class Histogram extends Component {
   }
 
   render() {
-    return (
-      <div ref={this.rootElement} style={{position: 'relative'}}>
-        
-      </div>
-    );
+    const { data } = this.props
+    if (_.isEmpty(data)) {
+      return <div>{errorMessage('haveData')}</div>
+    }
+
+    if (Array.isArray(data)) {
+      return <div>{errorMessage('typeOfVariable')}</div>
+    }
+
+    return <div ref={this.rootElement} style={{position: 'relative'}} />
   }
 }
 

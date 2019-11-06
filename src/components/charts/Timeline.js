@@ -469,22 +469,21 @@ class Timeline extends Component {
 
   componentDidMount = () => {
     const { data } = this.props
-    if (isEmpty(data)) {
-      return this.getRootElement().append('div').text(errorMessage('haveData')) 
-    }
-
-    if (!Array.isArray(data)) {
-      return this.getRootElement().append('div').text(errorMessage('typeOfVariable'))
-    }
-
-    return this.renderTimeline(data)
+    return !isEmpty(data) && Array.isArray(data) && this.renderTimeline(data)
   }
 
   render() {    
-    return (
-      <div ref={this.rootElement} className={styles.timelineChart}>
+    const { data } = this.props
+    if (isEmpty(data)) {
+      return <div>{errorMessage('haveData')}</div>
+    }
 
-      </div>
+    if (!Array.isArray(data)) {
+      return <div>{errorMessage('typeOfVariable')}</div>
+    }
+
+    return (
+      <div ref={this.rootElement} className={styles.timelineChart} />
     );
   }
 }

@@ -18,7 +18,7 @@ class LineMergeTimeline extends Component {
 
   constructor(props) {
     super(props);
-    const {startTime, endTime} = getStartAndEndTime(
+    const {startTime, endTime} = Array.isArray(this.props.timeData) && getStartAndEndTime(
       this.props.timeData.map(d => d.dataPoints).flat(),
     )
     this.options = {
@@ -855,22 +855,21 @@ class LineMergeTimeline extends Component {
 
   componentDidMount = () => {
     const { timeData, lineData } = this.props
-    if (isEmpty(timeData) || isEmpty(lineData)) {
-      return this.getRootElement().append('div').text(errorMessage('haveData'))  
-    }
-
-    if (!Array.isArray(timeData) || !(lineData !== null && typeof lineData === 'object')) {
-      return this.getRootElement().append('div').text(errorMessage('typeOfVariable'))
-    }
-
-    return this.renderLineMergeTimeline(timeData, lineData)
+    return (!isEmpty(timeData) && !isEmpty(lineData)) && (Array.isArray(timeData) && !Array.isArray(lineData)) && this.renderLineMergeTimeline(timeData, lineData)
   }
 
   render() {    
-    return (
-      <div ref={this.rootElement} className={styles.timelineChart}>
+    const { timeData, lineData } = this.props
+    if (isEmpty(timeData) || isEmpty(lineData)) {
+      return <div>{errorMessage('haveData')}</div>
+    }
 
-      </div>
+    if (!Array.isArray(timeData) || Array.isArray(lineData)) {
+      return <div>{errorMessage('typeOfVariable')}</div>
+    }
+
+    return (
+      <div ref={this.rootElement} className={styles.timelineChart} />
     );
   }
 }
