@@ -42,7 +42,7 @@ export const hexToRGB = (hex, alpha) => {
   const rgb = [r,g,b]
 
   if (alpha) {
-    return `rgba(${rgb.join(',')}, ${alpha})`;
+    return `rgba(${rgb.join(',')},${alpha})`;
   } else {
     return `rgb(${rgb.join(',')})`;
   }
