@@ -21,7 +21,7 @@ const data = {
 
 let component, instance, histogram, bins, binsNumberArr
 beforeEach(() => {
-  component = mount(<Histogram title='Risk Score Histogram' data={data} />)
+  component = mount(<Histogram title='Risk Score Histogram' tooltipTitle='I.I.T Risk Score' data={data} />)
   instance = component.instance()
   histogram = d3
     .histogram()
@@ -51,5 +51,10 @@ describe('Histogram Component', () => {
     const histogramHeight = instance.yAxisHeight;
     const dataMaxNumHeight = instance.yAxisScale(Math.max(...binsNumberArr))
     expect(histogramHeight).toBeGreaterThan(dataMaxNumHeight)
+  })
+
+  it('툴팁 제목을 정확하게 리턴해야 한다.', () => {
+    const expectTooltipTitle = 'I.I.T Risk Score'
+    expect(component.prop('tooltipTitle')).toEqual(expectTooltipTitle)
   })
 })

@@ -134,7 +134,7 @@ class Histogram extends Component {
     
     const tooltipDescription = `
       <div style='display:flex;'>
-        <span class=${styles.tooltipTitle} style='width: 85px; height: 20px; margin-right:24px;'>I.I.T Risk Score</span>
+        <span class=${styles.tooltipTitle} style='width: 85px; height: 20px; margin-right:24px;'>${this.props.tooltipTitle}</span>
         <span class=${styles.tooltipValue} style='margin-left:auto;'>${patientRisk}</span>
       </div>
       <div style='display:flex;'>
