@@ -18,6 +18,7 @@ import Modal from '@Components/modal/Modal';
 import CheckList from '@Components/list/CheckList';
 import RadarChart from '@Components/charts/RadarChart';
 import TreeMap from '@Components/charts/TreeMap'
+import TimeToEvent from '@Components/charts/TimeToEvent'
 import Button, {ButtonLink, ButtonTextLink} from '@Components/button/Button'
 
 import SelectBox from '@Components/form/SelectBox';
@@ -53,4 +54,5 @@ export {
   RadarChart,
   SelectBox,
   TreeMap,
+  TimeToEvent
 } 
