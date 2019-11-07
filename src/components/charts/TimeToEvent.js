@@ -5,6 +5,14 @@ import styles from './TimeToEvent.module.css'
 import { renderSVG, generateGroup,  getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, errorMessage } from '@src/helper/chartUtility'
 import { color } from '@src/assets/styles/variables'
 
+typeof Array.prototype.flat === 'undefined' && Object.defineProperty(Array.prototype, 'flat', {
+  value: function(depth = 1) {
+    return this.reduce(function (flat, toFlatten) {
+      return flat.concat((Array.isArray(toFlatten) && (depth>1)) ? toFlatten.flat(depth-1) : toFlatten);
+    }, []);
+  }
+});
+
 class TimeToEvent extends Component {
   constructor(props) {
     super(props);
