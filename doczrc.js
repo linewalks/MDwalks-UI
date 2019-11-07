@@ -8,7 +8,7 @@ export default {
   ignore: ['CHANGELOG.md'],
   menu: [
     'Index',
-    'Button', 'Card', 'Charts', 'Form', 'Layout', 'List', 'Modal', 'Table',
+    'Button', 'Card', 'Charts', 'Form', 'Layout', 'List', 'Modal', 'Table', 'Toast',
     {name: 'Beta', menu: ['Paper']}
   ],
   htmlContext: {
