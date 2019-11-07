@@ -8,7 +8,7 @@ import { color } from '@src/assets/styles/variables'
 class TimeToEvent extends Component {
   constructor(props) {
     super(props);
-    const { startTime, endTime } = !this.checkDataValidation(this.props.data) && getStartAndEndTime(
+    const { startTime, endTime } = !this.checkDataValidation() && getStartAndEndTime(
       this.props.data.map(d => d.dataPoints).flat(),
     )
 

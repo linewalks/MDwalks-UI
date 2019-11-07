@@ -54,5 +54,5 @@ export {
   RadarChart,
   SelectBox,
   TreeMap,
-  TimeToEvent
+  TimeToEvent,
 } 
