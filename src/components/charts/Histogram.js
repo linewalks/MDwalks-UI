@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as d3 from 'd3'
 import styles from '@Charts/Histogram.module.css';
 import _ from 'lodash'
-import { renderSVG, generateGroup } from '@src/helper/chartUtility'
+import { renderSVG, generateGroup, errorMessage } from '@src/helper/chartUtility'
 import { color } from '@src/assets/styles/variables'
 
 class Histogram extends Component {
@@ -41,19 +41,6 @@ class Histogram extends Component {
 
   getRootElement() {
     return d3.select(this.rootElement.current)
-  }
-
-  errorMessage = (errorType) => {
-    let message;
-    if (errorType === 'typeOfVariable') {
-      message = 'type is invalid'
-    }
-  
-    if (errorType === 'haveData') {
-      message = 'No data is provided'
-    }
-
-    this.getRootElement().append('div').text(message)  
   }
 
   createXAxis = (xAxis) => {
@@ -348,16 +335,7 @@ class Histogram extends Component {
 
   componentDidMount = () => {
     const { data } = this.props
-
-    if (_.isEmpty(data)) {
-      return this.errorMessage('haveData')
-    }
-
-    if (!(data !== null && typeof data === 'object' && !Array.isArray(data))) {
-      return this.errorMessage('typeOfVariable')
-    }
-
-    this.renderHistogram(data)
+    !this.checkDataValidation() && this.renderHistogram(data)
   }
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -376,12 +354,18 @@ class Histogram extends Component {
     }
   }
 
+  checkDataValidation = () => {
+    const { data } = this.props    
+    if (_.isEmpty(data)) return 'haveData'
+    if (Array.isArray(data)) return 'typeOfVariable' 
+  }
+
   render() {
-    return (
-      <div ref={this.rootElement} style={{position: 'relative'}}>
-        
-      </div>
-    );
+    if (this.checkDataValidation()) {
+      return <div>{errorMessage(this.checkDataValidation())}</div>
+    }
+
+    return <div ref={this.rootElement} style={{position: 'relative'}} />
   }
 }
 

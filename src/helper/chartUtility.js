@@ -83,3 +83,16 @@ export const lineDataFormatConvert = data => {
     return { x: d, y: y[idx] }
   })
 }
+
+export const errorMessage = errorType => {
+  let message;
+  if (errorType === 'typeOfVariable') {
+    message = 'type is invalid'
+  }
+
+  if (errorType === 'haveData') {
+    message = 'No data is provided'
+  }
+
+  return message
+}

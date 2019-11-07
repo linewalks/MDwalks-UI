@@ -94,7 +94,7 @@ describe('TreeMap Component', () => {
 
   it('데이터가 없으면, 에러메세지를 출력해야한다.', () => {
     const wrapper = shallow(<TreeMap />)
-    expect(wrapper.html()).toEqual("<div><h1>No data is provided</h1></div>");
+    expect(wrapper.html()).toEqual("<div>No data is provided</div>");
   })
 
   it('데이터가 있으면, 하이차트를 렌더한다.', () => {

@@ -18,7 +18,7 @@ describe('LineChart Component', () => {
                             title={'test'}
                             xAxisCategory={xAxisCategory} 
                           />)
-    expect(wrapper.contains(<div><h1>No data is provided</h1></div>)).toBeTruthy()
+    expect(wrapper.contains(<div>No data is provided</div>)).toBeTruthy()
   })
 
   it('renders properly when there is data', () => {
