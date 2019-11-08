@@ -1,7 +1,3 @@
----
-edit: false
----
-
 <!--
 ## :tada: Enhancements
 ## :bug: Fixes
@@ -9,6 +5,31 @@ edit: false
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
+# v0.9.1 / 2019-11-08
+## :tada: Enhancements
+[#244](https://github.com/linewalks/MDwalks-UI/issues/244) Button 에 xlg
+([**@toyjhlee**](https://github.com/toyjhlee))
+[#242](https://github.com/linewalks/MDwalks-UI/issues/242) alias 적용
+([**@toyjhlee**](https://github.com/toyjhlee))
+[#240](https://github.com/linewalks/MDwalks-UI/issues/240) Tab Component 생성
+([**@toyjhlee**](https://github.com/toyjhlee))
+[#238](https://github.com/linewalks/MDwalks-UI/issues/238) SelectBox component 생성
+([**@toyjhlee**](https://github.com/toyjhlee))
+[#234](https://github.com/linewalks/MDwalks-UI/issues/234) 차트 에러메세지 util 함수로 만들고, 모든차트에서 적용.
+ ([**@jik0090**](https://github.com/jik0090))
+[#233](https://github.com/linewalks/MDwalks-UI/issues/233) 트리맵 차트 및 테스트 추가
+ ([**@jik0090**](https://github.com/jik0090))
+
+ ## :bug: Fixes
+[#248](https://github.com/linewalks/MDwalks-UI/issues/248) Image Component 에 width, height property 적용 Component bug
+([**@toyjhlee**](https://github.com/toyjhlee))
+[#228](https://github.com/linewalks/MDwalks-UI/issues/228) 요약카드 차트 폰트 크기, 가로선 간격 수정
+ ([**@jik0090**](https://github.com/jik0090))
+[#226](https://github.com/linewalks/MDwalks-UI/issues/226) MACE 위험도 차트의 선과 점 불일치
+ ([**@jik0090**](https://github.com/jik0090))
+
+
+
 # v0.8.1 / 2019-10-31
 ## :tada: Enhancements
 - [#224](https://github.com/linewalks/MDwalks-UI/issues/224'): 레이더 차트 및 테스트 추가 ([**@jik0090**](https://github.com/jik0090))
