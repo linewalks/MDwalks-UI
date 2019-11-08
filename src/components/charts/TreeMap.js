@@ -7,46 +7,44 @@ import HighchartsReact from 'highcharts-react-official';
 import _ from 'lodash'
 import { errorMessage } from '@src/helper/chartUtility'
 
-if (typeof Highcharts === 'object') {
-  highchartsTreeMap(Highcharts)
-  highchartsHeatMap(Highcharts)
-}
-
-
 class TreeMap extends Component {
   constructor(props) {
     super(props)
-    const [minColor ,maxColor] = Highcharts.getOptions().colors
-    this.options = {      
-      colorAxis: {
-        min: 0,
-        max: 1,
-        minColor,
-        maxColor
-      },
-      legend: {
-        enabled: false
-      },
-      series: [{
-        type: "treemap",
-        layoutAlgorithm: 'squarified',
-        allowDrillToNode: true,
-        animationLimit: 1000,
-        dataLabels: {
+    if (typeof Highcharts === 'object') {
+      highchartsTreeMap(Highcharts)
+      highchartsHeatMap(Highcharts)
+      const [minColor ,maxColor] = Highcharts.getOptions().colors
+      this.options = {      
+        colorAxis: {
+          min: 0,
+          max: 1,
+          minColor,
+          maxColor
+        },
+        legend: {
           enabled: false
         },
-        levelIsConstant: false,
-        levels: [{
-            level: 1,
-            dataLabels: {
-                enabled: true
-            },
-            borderWidth: 3
+        series: [{
+          type: "treemap",
+          layoutAlgorithm: 'squarified',
+          allowDrillToNode: true,
+          animationLimit: 1000,
+          dataLabels: {
+            enabled: false
+          },
+          levelIsConstant: false,
+          levels: [{
+              level: 1,
+              dataLabels: {
+                  enabled: true
+              },
+              borderWidth: 3
+          }],
+          data: this.props.data,
         }],
-        data: this.props.data,
-      }],
-      title: {
-          text: this.props.title
+        title: {
+            text: this.props.title
+        }
       }
     }
   }
