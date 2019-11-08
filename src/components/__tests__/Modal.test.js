@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Modal from '../modal/Modal';
-import Heading from '../layout/Heading'
+import Modal from '@Components/modal/Modal';
+import Heading from '@Components/layout/Heading'
 
 describe('Open', () => {
   it('default', () => {

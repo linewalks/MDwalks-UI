@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import * as d3 from 'd3'
-const chartUtility = require('./chartUtility');
+const chartUtility = require('@src/helper/chartUtility');
 
 it('strIdConvert', () => {
   expect(chartUtility.strIdConvert('a b')).toBe('a_b')
@@ -139,4 +139,9 @@ it('labelList', () => {
 
   const expected = data.map(obj => _.last(obj.label))
   expect(chartUtility.labelList(data)).toEqual(expected)
+})
+
+it('errorMessage', () => {
+  expect(chartUtility.errorMessage('typeOfVariable')).toBe('type is invalid')
+  expect(chartUtility.errorMessage('haveData')).toBe('No data is provided')
 })

@@ -7,8 +7,7 @@
     "test": "jest --coverage",
     "test:watch": "jest --watch --coverage",
     "build": "rollup -c",
-    "build:docz": "rm -rf docs && yarn docz build",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "build:docz": "rm -rf docs && yarn docz build"
   },
   "jest": {
     "testPathIgnorePatterns": [
@@ -19,6 +18,8 @@
       "./setupTest.js"
     ],
     "moduleNameMapper": {
+      "^@src(.*)$": "<rootDir>/src/$1",
+      "^@Components(.*)$": "<rootDir>/src/components/$1",
       "^@Charts(.*)$": "<rootDir>/src/components/charts/$1",
       "^@Cards(.*)$": "<rootDir>/src/components/card/$1",
       "^@Table(.*)$": "<rootDir>/src/components/table/$1",
@@ -45,14 +46,10 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.5.4",
     "@babel/preset-react": "^7.0.0",
-    "@storybook/addon-actions": "^5.1.9",
-    "@storybook/addon-knobs": "^5.1.9",
-    "@storybook/addons": "^5.1.9",
-    "@storybook/react": "^5.1.9",
     "babel-loader": "^8.0.6",
     "d3": "^5.9.7",
     "d3-sankey-circular": "^0.34.0",
-    "docz": "^2.0.0-rc.54",
+    "docz": "^2.0.0-rc.67",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "enzyme-to-json": "^3.4.0",
@@ -77,6 +74,7 @@
     "scheduler": "0.14.0"
   },
   "dependencies": {
+    "babel-plugin-module-resolver": "^3.2.0",
     "d3-simple-slider": "^1.5.4",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",

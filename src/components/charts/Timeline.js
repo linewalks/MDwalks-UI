@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
 import isEmpty from 'lodash/isEmpty'
-import styles from './Timeline.module.css'
-import { renderSVG, generateGroup,  getStartAndEndTime, circleDataFilter, rectDataFilter, labelList } from '../../helper/chartUtility'
+import styles from '@Charts/Timeline.module.css'
+import { renderSVG, generateGroup,  getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, errorMessage } from '@src/helper/chartUtility'
 
 class Timeline extends Component {
 
   rootElement = React.createRef()
 
-  errorMessage = (errorType) => {
-    let message;
-    if (errorType === 'typeOfVariable') {
-      message = 'type is invalid'
-    }
-  
-    if (errorType === 'haveData') {
-      message = 'No data is provided'
-    }
-
-    d3.select(this.rootElement.current).append('div').text(message)
+  getRootElement() {
+    return d3.select(this.rootElement.current)
   }
 
   renderTimeline = data => {
@@ -478,22 +469,23 @@ class Timeline extends Component {
 
   componentDidMount = () => {
     const { data } = this.props
-    if (isEmpty(data)) {
-      return this.errorMessage('haveData')
-    }
-
-    if (!Array.isArray(data)) {
-      return this.errorMessage('typeOfVariable')
-    }
-
-    return this.renderTimeline(data)
+    return !this.checkDataValidation() && this.renderTimeline(data)
   }
 
-  render() {    
-    return (
-      <div ref={this.rootElement} className={styles.timelineChart}>
+  checkDataValidation = () => {
+    const { data } = this.props    
+    if (isEmpty(data)) return 'haveData'
+    if (!Array.isArray(data)) return 'typeOfVariable' 
+  }
 
-      </div>
+
+  render() {    
+    if (this.checkDataValidation()) {
+      return <div>{errorMessage(this.checkDataValidation())}</div>
+    }
+
+    return (
+      <div ref={this.rootElement} className={styles.timelineChart} />
     );
   }
 }

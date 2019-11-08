@@ -4,7 +4,7 @@ edit: false
 ---
 
 import { Playground, Props } from 'docz'
-import Button, {ButtonLink, ButtonTextLink} from '../components/button/Button'
+import Button, {ButtonLink, ButtonTextLink} from '@Components/button/Button'
 
 ## default
 <Playground>
@@ -37,6 +37,14 @@ isLoading:String true | false
   <Button variant="primary_line" as="a">primary_line</Button>
   <Button variant="basic" as="a">basic</Button>
   <Button variant="basic_line" as="a">basic_line</Button>
+</Playground>
+
+## xlarge
+<Playground>
+  <Button variant="primary" size="xlg" style={{marginBottom: '10px'}}>primary</Button>
+  <Button variant="primary_line" size="xlg">primary_line</Button>
+  <Button variant="basic" size="xlg">basic</Button>
+  <Button variant="basic_line" size="xlg">basic_line</Button>
 </Playground>
 
 ## large

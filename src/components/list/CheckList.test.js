@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import CheckList from './CheckList'
+import CheckList from '@Components/list/CheckList'
 import _ from 'lodash'
 
 const data = [

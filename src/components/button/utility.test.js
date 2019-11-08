@@ -1,5 +1,5 @@
 import _ from 'lodash'
-const utility = require('./utility');
+const utility = require('@Components/button/utility');
 
 it('addLight', () => {
   expect(utility.addLight(0, 0)).toBe('00')
@@ -33,5 +33,5 @@ it('darken', () => {
 
 it('darken', () => {
   expect(utility.hexToRGB('#ffffff', 0)).toBe('rgb(255,255,255)')
-  expect(utility.hexToRGB('#cccccc', 10)).toBe('rgba(204,204,204, 10)')
+  expect(utility.hexToRGB('#cccccc', 0.1)).toBe('rgba(204,204,204,0.1)')
 })

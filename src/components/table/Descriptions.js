@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 
-import { color, size } from '../../assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 const TableWrap = styled.div`
   border: 1px solid ${color.$line_search_grey}

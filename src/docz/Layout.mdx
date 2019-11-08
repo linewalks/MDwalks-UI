@@ -5,12 +5,28 @@ edit: false
 
 import { Playground, Props } from 'docz'
 
-import Navbar from '../components/layout/Navbar'
-import Footer from '../components/layout/Footer'
-import Image from '../components/layout/Image'
-import Heading from '../components/layout/Heading'
+import Navbar from '@Components/layout/Navbar'
+import Footer from '@Components/layout/Footer'
+import Image from '@Components/layout/Image'
+import Heading from '@Components/layout/Heading'
+import Tabs, { TabPane } from '@Components/layout/Tabs'
 
 # Layout
+
+## tabs
+<Playground>
+  <Tabs>
+    <TabPane tab="1 pane">1 contents</TabPane>
+    <TabPane tab="2 pane">2 contents</TabPane>
+  </Tabs>
+</Playground>
+
+<Playground>
+  <Tabs defaultactivekey="2" onChange={(key) => alert(key)}>
+    <TabPane tab="1 pane" key="1">1 contents</TabPane>
+    <TabPane tab="2 pane" key="2">2 contents</TabPane>
+  </Tabs>
+</Playground>
 
 ## Heading
 

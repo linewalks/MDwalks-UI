@@ -5,14 +5,15 @@ edit: false
 
 import { Playground, Props } from 'docz'
 
-import RadiusGauge from '../components/charts/RadiusGauge'
-import BarGauge from '../components/charts/BarGauge'
-import LineChart from '../components/charts/LineChart'
-import SankeyChart from '../components/charts/SankeyChart'
-import Timeline from '../components/charts/Timeline'
-import LineMergeTimeline from '../components/charts/LineMergeTimeline'
-import Histogram from '../components/charts/Histogram'
-import RadarChart from '../components/charts/RadarChart'
+import RadiusGauge from '@Charts/RadiusGauge'
+import BarGauge from '@Charts/BarGauge'
+import LineChart from '@Charts/LineChart'
+import SankeyChart from '@Charts/SankeyChart'
+import Timeline from '@Charts/Timeline'
+import LineMergeTimeline from '@Charts/LineMergeTimeline'
+import Histogram from '@Charts/Histogram'
+import RadarChart from '@Charts/RadarChart'
+import TreeMap from '@Charts/TreeMap'
 
 # Charts
 ## LineMergeTimeline
@@ -463,6 +464,7 @@ import RadarChart from '../components/charts/RadarChart'
   <div style={{overflow: 'hidden', overflowX: 'scroll'}}>
     <Histogram 
       title='histogram title'
+      tooltipTitle='I.I.T Risk Score'
       data={{
         avgRisk: 0.34,
         patientRisk: 0.45,
@@ -525,6 +527,88 @@ import RadarChart from '../components/charts/RadarChart'
         0,
         0
       ]} 
+    />
+  </div>
+</Playground>
+
+## TreeMap
+<Playground>
+  <div style={{overflow: 'hidden', overflowX: 'scroll'}}>
+    <TreeMap 
+      data={[
+        {
+          colorValue: 0,
+          id: 'A',
+          name: 'A',
+          value: 3
+        },
+        {
+          colorValue: 0,
+          id: 'B',
+          name: 'B',
+          value: 9
+        },
+        {
+          colorValue: 0,
+          id: 'C',
+          name: 'C',
+          value: 17
+        },
+        {
+          colorValue: 0,
+          name: 'CA1',
+          parent: 'A',
+          value: 4
+        },
+        {
+          colorValue: 0,
+          name: 'CA2',
+          parent: 'A',
+          value: 34
+        },
+        {
+          colorValue: 0,
+          name: 'CA3',
+          parent: 'A',
+          value: 14
+        },
+        {
+          colorValue: 0,
+          name: 'BBA1',
+          parent: 'B',
+          value: 48
+        },
+        {
+          colorValue: 0,
+          name: 'BBA2',
+          parent: 'B',
+          value: 81
+        },
+        {
+          colorValue: 0,
+          name: 'BBA3',
+          parent: 'B',
+          value: 65
+        },
+        {
+          colorValue: 0,
+          name: 'CBE1',
+          parent: 'C',
+          value: 29
+        },
+        {
+          colorValue: 0,
+          name: 'CBE2',
+          parent: 'C',
+          value: 99
+        },
+        {
+          colorValue: 0,
+          name: 'CBE3',
+          parent: 'C',
+          value: 75
+        },
+      ]}
     />
   </div>
 </Playground>

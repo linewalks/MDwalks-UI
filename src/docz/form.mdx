@@ -1,0 +1,56 @@
+---
+name: Form
+edit: false
+---
+
+import { Playground, Props } from 'docz'
+
+import SelectBox from '@Components/form/SelectBox'
+
+# Form
+
+## SelectBox
+```
+react-hook-form 의 ref 를 지원하는 방법을 찾지 못 했다
+그래서 select tag 를 감싸는 Component 로 만들었다
+```
+<Playground>
+  <SelectBox size="xlg">
+    <select required>
+      <option disabled selected value="" hidden>Placeholder</option>
+      <option value="1">1</option>
+      <option value='2'>2</option>
+    </select>
+  </SelectBox>
+  <SelectBox size="lg">
+    <select>
+      <option value="1">1</option>
+      <option value="2" selected>2</option>
+    </select>
+  </SelectBox>
+  <SelectBox size="md">
+    <select>
+      <option value="1">1</option>
+    </select>
+  </SelectBox>
+</Playground>
+
+<Playground>
+  <SelectBox size="xlg">
+    <select disabled>
+      <option>All</option>
+      <option>1</option>
+      <option>2</option>
+    </select>
+  </SelectBox>
+  <SelectBox size="lg">
+    <select disabled>
+      <option>1</option>
+    </select>
+  </SelectBox>
+  <SelectBox size="md">
+    <select disabled>
+      <option>1</option>
+    </select>
+  </SelectBox>
+</Playground>

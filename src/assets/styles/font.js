@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { hexToRGB } from '@Components/button/utility'
+import { color } from '@src/assets/styles/variables'
 
 const font = {
   base: {
@@ -11,7 +13,7 @@ export const Text = props => `
 
   font-weight: ${props.bold ? 'bold' : 'normal'};
   letter-spacing: -0.5px;
-  color: rgba(0, 0, 0, ${props.opacity ? (props.opacity * 0.1).toFixed(2) : 1});
+  color: ${hexToRGB(props.color ? props.color : color.$black, props.opacity ? (props.opacity * 0.1).toFixed(2) : 1)};
 `;
 
 export const TextTag = styled.span`

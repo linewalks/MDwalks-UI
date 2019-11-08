@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
-import isEmpty from 'lodash/isEmpty'
-import styles from './LineMergeTimeline.module.css'
-import { renderSVG, generateGroup, getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, lineDataFormatConvert } from '../../helper/chartUtility'
+import _ from 'lodash'
+import styles from '@Charts/LineMergeTimeline.module.css'
+import { renderSVG, generateGroup, getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, lineDataFormatConvert, errorMessage } from '@src/helper/chartUtility'
 
 typeof Array.prototype.flat === 'undefined' && Object.defineProperty(Array.prototype, 'flat', {
   value: function(depth = 1) {
@@ -18,7 +18,7 @@ class LineMergeTimeline extends Component {
 
   constructor(props) {
     super(props);
-    const {startTime, endTime} = getStartAndEndTime(
+    const {startTime, endTime} = !this.checkDataValidation(this.props.timeData) && getStartAndEndTime(
       this.props.timeData.map(d => d.dataPoints).flat(),
     )
     this.options = {
@@ -36,8 +36,8 @@ class LineMergeTimeline extends Component {
       defaultMargin: {
         top: 40
       },
-      startTime: isEmpty(this.props.scale) ? startTime : Date.parse(this.props.scale.start),
-      endTime: isEmpty(this.props.scale) ? endTime : Date.parse(this.props.scale.end),
+      startTime: _.isEmpty(this.props.scale) ? startTime : Date.parse(this.props.scale.start),
+      endTime: _.isEmpty(this.props.scale) ? endTime : Date.parse(this.props.scale.end),
       lineYAxisHeight: 206,
       labelStartYPosition: 0,
       labelLastYPosition: 369
@@ -49,18 +49,6 @@ class LineMergeTimeline extends Component {
 
   getRootElement() {
     return d3.select(this.rootElement.current)
-  }
-  errorMessage = (errorType) => {
-    let message;
-    if (errorType === 'typeOfVariable') {
-      message = 'type is invalid'
-    }
-  
-    if (errorType === 'haveData') {
-      message = 'No data is provided'
-    }
-
-    this.getRootElement().append('div').text(message)  
   }
 
   createXAxis = (xAxis) => {
@@ -867,22 +855,22 @@ class LineMergeTimeline extends Component {
 
   componentDidMount = () => {
     const { timeData, lineData } = this.props
-    if (isEmpty(timeData) || isEmpty(lineData)) {
-      return this.errorMessage('haveData')
-    }
-
-    if (!Array.isArray(timeData) || !(lineData !== null && typeof lineData === 'object')) {
-      return this.errorMessage('typeOfVariable')
-    }
-
-    return this.renderLineMergeTimeline(timeData, lineData)
+    return !this.checkDataValidation() && this.renderLineMergeTimeline(timeData, lineData)
   }
 
+  checkDataValidation = () => {
+    const { timeData, lineData } = this.props
+    if (_.isEmpty(timeData) || _.isEmpty(lineData)) return 'haveData'
+    if (!Array.isArray(timeData) || Array.isArray(lineData)) return 'typeOfVariable' 
+  }
+  
   render() {    
-    return (
-      <div ref={this.rootElement} className={styles.timelineChart}>
+    if (this.checkDataValidation()) {
+      return <div>{errorMessage(this.checkDataValidation())}</div>
+    }
 
-      </div>
+    return (
+      <div ref={this.rootElement} className={styles.timelineChart} />
     );
   }
 }
