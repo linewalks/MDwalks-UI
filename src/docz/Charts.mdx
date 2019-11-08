@@ -5,6 +5,8 @@ edit: false
 
 import { Playground, Props } from 'docz'
 
+import Button from '@Components/button/Button'
+
 import RadiusGauge from '@Charts/RadiusGauge'
 import BarGauge from '@Charts/BarGauge'
 import LineChart from '@Charts/LineChart'
@@ -18,7 +20,7 @@ import TreeMap from '@Charts/TreeMap'
 # Charts
 ## LineMergeTimeline
 
-<button id="resetLineMergeTimeline">reset</button>
+<Button id="resetLineMergeTimeline" variant='basic_line' style={{marginBottom: '20px'}}>reset</Button>
 
 <Playground>
   <div style={{overflow: 'hidden', overflowX: 'scroll'}}>

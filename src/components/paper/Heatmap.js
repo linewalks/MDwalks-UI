@@ -5,7 +5,7 @@ import diffHeatmapData from "@src/data/dataForHeatmapDayCls";
 import metadata from "@src/data/dataForMetadata";
 import * as core from "d3";
 import _ from "lodash";
-
+import SelectBox from '@Components/form/SelectBox'
 class Heatmap extends Component {
   constructor(props) {
     super(props);
@@ -184,16 +184,19 @@ class Heatmap extends Component {
         }}
       >
         <div id="slider">
-          <select
-            className="select-board-size"
-            onChange={this.changeThreshold.bind(this)}
-          >
-            {_.range(0, 1 + 0.2, 0.2).map(value => (
-              <option key={value.toFixed(2)} value={value}>
-                {value.toFixed(2)}
-              </option>
-            ))}
-          </select>
+          <SelectBox>
+            <select
+              className="select-board-size"
+              onChange={this.changeThreshold.bind(this)}
+            >
+              {_.range(0, 1 + 0.2, 0.2).map(value => (
+                <option key={value.toFixed(2)} value={value}>
+                  {value.toFixed(2)}
+                </option>
+              ))}
+            </select>            
+          </SelectBox>
+
         </div>
         <div id="heatmap"></div>
       </div>
