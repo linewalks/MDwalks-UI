@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Table from '@Table/Table';
+import TBody from '@Table/TBody';
 
 const data = {
   exceptSubHeaders: {
@@ -101,4 +102,21 @@ describe('wrapTh', () => {
     const wrapper = mount(<Table data={data.exceptSubHeaders} wrapTh={wrapTh} />)
     expect(wrapper.find('th').map(node => node.text()).join('')).toEqual(`<span>${data.exceptSubHeaders.headers.join('</span><span>')}</span>`)
   })
+})
+
+describe('td rowSpan', () => {
+  it('default', () => {
+    const rowSpan = 3
+    const data = {
+      headers: ['a', 'b', 'c'],
+      rowData: [
+        [{rowSpan, text: 'a'}, 'b1', 'c1'],
+        ['b2', 'c2']
+      ]
+    }
+    const wrapper = mount(<Table data={data} />)
+    expect(wrapper.find('td').first().prop('rowSpan')).toBe(rowSpan)
+    expect(wrapper.find('td')).toHaveLength(5)
+  })
+
 })

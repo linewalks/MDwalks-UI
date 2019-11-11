@@ -3,7 +3,7 @@ name: Table
 edit: false
 ---
 
-import { Playground, Props } from 'docz'
+import { Playground, Props, Code } from 'docz'
 
 import Table from '@Components/table/Table'
 import Descriptions from '@Components/table/Descriptions'
@@ -102,6 +102,28 @@ import Descriptions from '@Components/table/Descriptions'
     }} 
   />
 </Playground>
+
+
+## rowSpan List Table
+```
+rowSpan, className 지원
+```
+
+<Playground>
+  <Table
+    data={{
+      headers: ['a', 'b', 'c'],
+      rowData: [
+        [{rowSpan: 3, text: 'a1'}, 'b1', 'c1'],
+        ['b2', 'c2'],
+        ['b3', 'c3'],
+        [{rowSpan: 2, text: 'a2', className: 'odd'}, 'b4', 'c4'],
+        ['b5', 'c5'],
+      ]
+    }}>
+  </Table>
+</Playground>
+
 
 ## Empty List Table
 <Playground>
