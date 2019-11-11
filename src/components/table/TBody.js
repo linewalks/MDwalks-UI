@@ -1,5 +1,5 @@
 import React from 'react';
-import isEmpty from 'lodash/isEmpty';
+import _ from 'lodash'
 import visualAlert from '@src/assets/svg/visual-alert.svg';
 import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
@@ -12,11 +12,11 @@ const ListTBody = styled.tbody.attrs((props = {}) => {
     opacity: 8,
   }
 })`
-  .tr:nth-child(even) .td {
+  .tr:nth-child(even) .td, .even {
     background: ${color.$table_cell_grey};
   }
 
-  .tr:nth-child(odd) .td {
+  .tr:nth-child(odd) .td, .odd {
     background: ${color.$primary_white};
   }
 
@@ -67,7 +67,7 @@ const TBody = ({headers, rowData, wrapTd, appendRow}) => {
   const renderEmpty = () => {
     return (
       <tr>
-        <td colSpan={isEmpty(headers) ? 1 : headers.length}>
+        <td colSpan={_.isEmpty(headers) ? 1 : headers.length}>
           <img src={visualAlert} width="290px" height="230px" alt="" />
           <EmptyText as="span">There is no data<br />Please search again</EmptyText>
         </td>
@@ -80,7 +80,14 @@ const TBody = ({headers, rowData, wrapTd, appendRow}) => {
       return [
         <tr key={idx} className={"tr"}>
           {Object.values(data).map((row, idx) => {
-            return <td className={"td"} key={idx}>{
+            let { rowSpan, className } = row
+            const props = {
+              key: idx,
+              rowSpan,
+              className: `td ${className}`
+            }
+            row = _.isObject(row) ? row.text : row
+            return <td {...props}>{
               wrapTd ? wrapTd({data, label: headers[idx], text: row}) : <div>{row}</div>
             }</td>
           })}
@@ -91,7 +98,7 @@ const TBody = ({headers, rowData, wrapTd, appendRow}) => {
   }
   
   return (
-    isEmpty(rowData)
+    _.isEmpty(rowData)
     ? <EmptyTbody>{ renderEmpty() }</EmptyTbody>
     : <ListTBody>{ createBody(rowData) }</ListTBody>
   )
