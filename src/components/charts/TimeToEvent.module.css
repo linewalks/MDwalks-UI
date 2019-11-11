@@ -1,0 +1,27 @@
+.gLegend text, .xAxis text, .timeToEventLabel {
+  font-size: 14px;
+  font-family: 'Spoqa Han Sans';
+  font-weight: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: -0.5px;
+}
+
+.gLegend text {
+  text-anchor: start;
+  opacity: 0.4;
+}
+
+.xAxis text {
+  text-anchor: middle;  
+  fill: rgba(0, 0, 0, 0.6)
+}
+
+#xAxisTitle {
+  opacity: 0.4;
+}
+
+.timeToEventLabel {
+  font-weight: bold;
+  opacity: 0.6;
+}
