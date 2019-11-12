@@ -62,7 +62,7 @@ const Table = styled.table`
   ${props => props.className.split(' ').includes('sideFit') ? sideFit : null}
 `
 
-export default ({ data, wrapTh, wrapTd, appendRow, className = '' }) => {
+export default ({ data, rowSpanCount, wrapTh, wrapTd, appendRow, className = '' }) => {
   if(isEmpty(data)) {
     return (
       <div>
@@ -73,7 +73,7 @@ export default ({ data, wrapTh, wrapTd, appendRow, className = '' }) => {
     return (
       <Table className={className}>
         <THead {...data} wrapTh={wrapTh} />
-        <TBody {...data} wrapTd={wrapTd} appendRow={appendRow}/>
+        <TBody {...data} wrapTd={wrapTd} appendRow={appendRow} rowSpanCount={rowSpanCount} />
         <TFoot {...data} />
       </Table>
     );
