@@ -61,6 +61,7 @@
 기존과 무엇이 달라졌고 왜 수정했는지에 대한 내용이 들어가야 한다.
 
 **타입의 종류**
+
 |Type            |SemVer| Description |
 |---|---|---|
 |fix             |PATCH|Bug Fix, API 변경 사항 없이 내부 수정|
