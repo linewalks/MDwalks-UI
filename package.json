@@ -31,11 +31,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "**comment_pre-commit**": "lint-staged",
       "pre-push": "yarn test"
     }
   },
-  "lint-staged": {
+  "**comment_lint-staged**": {
     "./src/**/*.js": [
       "eslint --fix",
       "git add"
