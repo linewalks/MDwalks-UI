@@ -1,0 +1,17 @@
+---
+name: Pagination
+edit: false
+---
+
+import { Playground, Props } from 'docz'
+import Pagination from '@Components/pagination/Pagination'
+
+## Pagination
+<Playground>
+  <Pagination 
+    selectPage={2}
+    totalPage={5}
+    drawPageCnt={5}
+    onChange={page => alert(page) }
+  />
+</Playground>
