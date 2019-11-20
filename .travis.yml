@@ -1,15 +1,15 @@
-language: node_js
-node_js:
-- 10
-branches:
-  only: 
-before_install: 
-install:
-- yarn install
-before_script: 
-script:
-- yarn
-- yarn test
+# language: node_js
+# node_js:
+# - 10
+# branches:
+#   only: 
+# before_install: 
+# install:
+# - yarn install
+# before_script: 
+# script:
+# - yarn
+# - yarn test
 before_deploy: "yarn build"
 deploy:
   provider: releases
