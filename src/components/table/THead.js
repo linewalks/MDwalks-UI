@@ -70,7 +70,7 @@ const THead = ({ headers, wrapTh, subHeaders }) => {
       return (
        <tr>
          {headerData.map((header, idx) => {
-            if (idx === 0) {
+            if (!subHeaders[header]) {
               return (
                 <Th rowSpan={2} key={idx}>
                   {wrapTh ? wrapTh({text: header}) : <div>{header}</div>}
