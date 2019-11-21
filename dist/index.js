@@ -25790,6 +25790,30 @@ function polygonContains(polygon, point) {
   return (angle < -epsilon$2 || angle < epsilon$2 && sum$1 < -epsilon$2) ^ (winding & 1);
 }
 
+function range$1(start, stop, step) {
+  start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
+
+  var i = -1,
+      n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
+      range = new Array(n);
+
+  while (++i < n) {
+    range[i] = start + i * step;
+  }
+
+  return range;
+}
+
+function* flatten(arrays) {
+  for (const array of arrays) {
+    yield* array;
+  }
+}
+
+function merge$1(arrays) {
+  return Array.from(flatten(arrays));
+}
+
 function clip(pointVisible, clipLine, interpolate, start) {
   return function(sink) {
     var line = clipLine(sink),
@@ -25815,7 +25839,7 @@ function clip(pointVisible, clipLine, interpolate, start) {
         clip.point = point;
         clip.lineStart = lineStart;
         clip.lineEnd = lineEnd;
-        segments = merge(segments);
+        segments = merge$1(segments);
         var startInside = polygonContains(polygon, start);
         if (segments.length) {
           if (!polygonStarted) sink.polygonStart(), polygonStarted = true;
@@ -26332,7 +26356,7 @@ function clipRectangle(x0, y0, x1, y1) {
     function polygonEnd() {
       var startInside = polygonInside(),
           cleanInside = clean && startInside,
-          visible = (segments = merge(segments)).length;
+          visible = (segments = merge$1(segments)).length;
       if (cleanInside || visible) {
         stream.polygonStart();
         if (cleanInside) {
@@ -26578,12 +26602,12 @@ function contains$1(object, point) {
 }
 
 function graticuleX(y0, y1, dy) {
-  var y = sequence(y0, y1 - epsilon$2, dy).concat(y1);
+  var y = range$1(y0, y1 - epsilon$2, dy).concat(y1);
   return function(x) { return y.map(function(y) { return [x, y]; }); };
 }
 
 function graticuleY(x0, x1, dx) {
-  var x = sequence(x0, x1 - epsilon$2, dx).concat(x1);
+  var x = range$1(x0, x1 - epsilon$2, dx).concat(x1);
   return function(y) { return x.map(function(x) { return [x, y]; }); };
 }
 
@@ -26599,10 +26623,10 @@ function graticule() {
   }
 
   function lines() {
-    return sequence(ceil(X0 / DX) * DX, X1, DX).map(X)
-        .concat(sequence(ceil(Y0 / DY) * DY, Y1, DY).map(Y))
-        .concat(sequence(ceil(x0 / dx) * dx, x1, dx).filter(function(x) { return abs(x % DX) > epsilon$2; }).map(x))
-        .concat(sequence(ceil(y0 / dy) * dy, y1, dy).filter(function(y) { return abs(y % DY) > epsilon$2; }).map(y));
+    return range$1(ceil(X0 / DX) * DX, X1, DX).map(X)
+        .concat(range$1(ceil(Y0 / DY) * DY, Y1, DY).map(Y))
+        .concat(range$1(ceil(x0 / dx) * dx, x1, dx).filter(function(x) { return abs(x % DX) > epsilon$2; }).map(x))
+        .concat(range$1(ceil(y0 / dy) * dy, y1, dy).filter(function(y) { return abs(y % DY) > epsilon$2; }).map(y));
   }
 
   graticule.lines = function() {
@@ -39286,7 +39310,7 @@ var THead = function THead(_ref) {
       }
     } else {
       return React__default.createElement("tr", null, headerData.map(function (header, idx) {
-        if (idx === 0) {
+        if (!subHeaders[header]) {
           return React__default.createElement(Th, {
             rowSpan: 2,
             key: idx
@@ -39342,7 +39366,7 @@ function _templateObject2$4() {
 }
 
 function _templateObject$4() {
-  var data = _taggedTemplateLiteral(["\n  .tr:nth-child(even) .td {\n    background: ", ";\n  }\n\n  .tr:nth-child(odd) .td {\n    background: ", ";\n  }\n\n  /* after the first non-.parent, toggle colors */\n  tr:not(.tr) ~ .tr:nth-child(odd) td {\n      background-color: ", ";\n  }\n  tr:not(.tr) ~ .tr:nth-child(even) td {\n      background-color: ", ";\n  }\n\n  /* after the second non-.parent, toggle again */\n  tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(odd) td {\n      background-color: ", ";\n  }\n  tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(even) td {\n      background-color: ", ";\n  }\n\n  .td {\n    ", "\n    text-align: center;\n  }\n\n  .td > a > div, .td > div {\n    padding: 24px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  .tr:nth-child(even) .td {\n    background: ", ";\n  }\n\n  .tr:nth-child(odd) .td {\n    background: ", ";\n  }\n\n  .tr .td.even {\n    background: ", ";\n  }\n\n  .tr .td.odd {\n    background: ", ";\n  }\n\n  /* after the first non-.parent, toggle colors */\n  tr:not(.tr) ~ .tr:nth-child(odd) td {\n      background-color: ", ";\n  }\n  tr:not(.tr) ~ .tr:nth-child(even) td {\n      background-color: ", ";\n  }\n\n  /* after the second non-.parent, toggle again */\n  tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(odd) td {\n      background-color: ", ";\n  }\n  tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(even) td {\n      background-color: ", ";\n  }\n\n  .td {\n    ", "\n    text-align: center;\n  }\n\n  .td > a > div, .td > div {\n    padding: 24px;\n  }\n"]);
 
   _templateObject$4 = function _templateObject() {
     return data;
@@ -39356,7 +39380,7 @@ var ListTBody = styled__default.tbody.attrs(function () {
     size: 18,
     opacity: 8
   };
-})(_templateObject$4(), color$1.$table_cell_grey, color$1.$primary_white, color$1.$table_cell_grey, color$1.$primary_white, color$1.$primary_white, color$1.$table_cell_grey, Text);
+})(_templateObject$4(), color$1.$table_cell_grey, color$1.$primary_white, color$1.$table_cell_grey, color$1.$primary_white, color$1.$table_cell_grey, color$1.$primary_white, color$1.$primary_white, color$1.$table_cell_grey, Text);
 var EmptyTbody = styled__default.tbody(_templateObject2$4());
 var EmptyText = styled__default.span.attrs(function () {
   return {
@@ -39367,13 +39391,16 @@ var EmptyText = styled__default.span.attrs(function () {
 
 var TBody = function TBody(_ref) {
   var headers = _ref.headers,
+      _ref$subHeaders = _ref.subHeaders,
+      subHeaders = _ref$subHeaders === void 0 ? {} : _ref$subHeaders,
       rowData = _ref.rowData,
       wrapTd = _ref.wrapTd,
-      appendRow = _ref.appendRow;
+      appendRow = _ref.appendRow,
+      _ref$rowSpanCount = _ref.rowSpanCount;
 
   var renderEmpty = function renderEmpty() {
     return React__default.createElement("tr", null, React__default.createElement("td", {
-      colSpan: isEmpty_1(headers) ? 1 : headers.length
+      colSpan: lodash.isEmpty(headers) ? 1 : headers.length
     }, React__default.createElement("img", {
       src: visualAlert,
       width: "290px",
@@ -39384,25 +39411,48 @@ var TBody = function TBody(_ref) {
     }, "There is no data", React__default.createElement("br", null), "Please search again")));
   };
 
+  var singlevelHeader = headers;
+
+  if (subHeaders && wrapTd) {
+    singlevelHeader = lodash.map(singlevelHeader, function (header) {
+      if (subHeaders[header]) {
+        return lodash.map(subHeaders[header], function (text) {
+          return "".concat(header, "-").concat(text);
+        });
+      }
+
+      return header;
+    });
+    singlevelHeader = lodash.flatten(singlevelHeader);
+  }
+
   var createBody = function createBody(rowsData) {
     return rowsData.map(function (data, idx) {
       return [React__default.createElement("tr", {
         key: idx,
         className: "tr"
-      }, Object.values(data).map(function (row, idx) {
-        return React__default.createElement("td", {
-          className: "td",
-          key: idx
-        }, wrapTd ? wrapTd({
+      }, lodash.chain(Object.values(data)).reverse().map(function (row, idx) {
+        var rowSpan = row.rowSpan,
+            _row$className = row.className,
+            className = _row$className === void 0 ? '' : _row$className;
+        idx = singlevelHeader.length - idx - 1;
+        var text = !lodash.isUndefined(rowSpan) ? row.text : row;
+        var props = {
+          key: idx,
+          rowSpan: rowSpan,
+          className: "td ".concat(className)
+        };
+        return React__default.createElement("td", props, wrapTd ? wrapTd({
           data: data,
-          label: headers[idx],
-          text: row
-        }) : React__default.createElement("div", null, row));
-      })), appendRow ? appendRow(data, idx) : null];
+          label: singlevelHeader[idx],
+          text: text,
+          idx: idx
+        }) : React__default.createElement("div", null, text));
+      }).reverse().value()), appendRow ? appendRow(data, idx) : null];
     });
   };
 
-  return isEmpty_1(rowData) ? React__default.createElement(EmptyTbody, null, renderEmpty()) : React__default.createElement(ListTBody, null, createBody(rowData));
+  return lodash.isEmpty(rowData) ? React__default.createElement(EmptyTbody, null, renderEmpty()) : React__default.createElement(ListTBody, null, createBody(rowData));
 };
 
 function _templateObject$5() {
@@ -39460,6 +39510,7 @@ var Table = styled__default.table(_templateObject2$5(), color$1.$line_search_gre
 });
 var Table$1 = (function (_ref) {
   var data = _ref.data,
+      rowSpanCount = _ref.rowSpanCount,
       wrapTh = _ref.wrapTh,
       wrapTd = _ref.wrapTd,
       appendRow = _ref.appendRow,
@@ -39475,7 +39526,8 @@ var Table$1 = (function (_ref) {
       wrapTh: wrapTh
     })), React__default.createElement(TBody, _extends({}, data, {
       wrapTd: wrapTd,
-      appendRow: appendRow
+      appendRow: appendRow,
+      rowSpanCount: rowSpanCount
     })), React__default.createElement(TFoot, data));
   }
 });
@@ -42388,11 +42440,6 @@ this.dataMax;k.prototype.getExtremes.call(this);}}),f({haloPath:function(a){if(!
 
 });
 
-if (_typeof(highcharts) === 'object') {
-  treemap(highcharts);
-  heatmap(highcharts);
-}
-
 var TreeMap =
 /*#__PURE__*/
 function (_Component) {
@@ -42418,42 +42465,48 @@ function (_Component) {
       if (!Array.isArray(data)) return 'typeOfVariable';
     });
 
-    var _Highcharts$getOption = _slicedToArray(highcharts.getOptions().colors, 2),
-        minColor = _Highcharts$getOption[0],
-        maxColor = _Highcharts$getOption[1];
+    if (_typeof(highcharts) === 'object') {
+      treemap(highcharts);
+      heatmap(highcharts);
 
-    _this.options = {
-      colorAxis: {
-        min: 0,
-        max: 1,
-        minColor: minColor,
-        maxColor: maxColor
-      },
-      legend: {
-        enabled: false
-      },
-      series: [{
-        type: "treemap",
-        layoutAlgorithm: 'squarified',
-        allowDrillToNode: true,
-        animationLimit: 1000,
-        dataLabels: {
+      var _Highcharts$getOption = _slicedToArray(highcharts.getOptions().colors, 2),
+          minColor = _Highcharts$getOption[0],
+          maxColor = _Highcharts$getOption[1];
+
+      _this.options = {
+        colorAxis: {
+          min: 0,
+          max: 1,
+          minColor: minColor,
+          maxColor: maxColor
+        },
+        legend: {
           enabled: false
         },
-        levelIsConstant: false,
-        levels: [{
-          level: 1,
+        series: [{
+          type: "treemap",
+          layoutAlgorithm: 'squarified',
+          allowDrillToNode: true,
+          animationLimit: 1000,
           dataLabels: {
-            enabled: true
+            enabled: false
           },
-          borderWidth: 3
+          levelIsConstant: false,
+          levels: [{
+            level: 1,
+            dataLabels: {
+              enabled: true
+            },
+            borderWidth: 3
+          }],
+          data: _this.props.data
         }],
-        data: _this.props.data
-      }],
-      title: {
-        text: _this.props.title
-      }
-    };
+        title: {
+          text: _this.props.title
+        }
+      };
+    }
+
     return _this;
   }
 
@@ -42469,6 +42522,235 @@ function (_Component) {
   }]);
 
   return TreeMap;
+}(React.Component);
+
+var css$5 = ".TimeToEvent-module_gLegend__3k55w text, .TimeToEvent-module_xAxis__hL73d text, .TimeToEvent-module_timeToEventLabel__1-iB2 {\n  font-size: 14px;\n  font-family: 'Spoqa Han Sans';\n  font-weight: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n}\n\n.TimeToEvent-module_gLegend__3k55w text {\n  text-anchor: start;\n  opacity: 0.4;\n}\n\n.TimeToEvent-module_xAxis__hL73d text {\n  text-anchor: middle;  \n  fill: rgba(0, 0, 0, 0.6)\n}\n\n#TimeToEvent-module_xAxisTitle__2Suka {\n  opacity: 0.4;\n}\n\n.TimeToEvent-module_timeToEventLabel__1-iB2 {\n  font-weight: bold;\n  opacity: 0.6;\n}\n";
+var styles$5 = {"gLegend":"TimeToEvent-module_gLegend__3k55w","xAxis":"TimeToEvent-module_xAxis__hL73d","timeToEventLabel":"TimeToEvent-module_timeToEventLabel__1-iB2","xAxisTitle":"TimeToEvent-module_xAxisTitle__2Suka"};
+styleInject(css$5);
+
+typeof Array.prototype.flat === 'undefined' && Object.defineProperty(Array.prototype, 'flat', {
+  value: function value() {
+    var depth = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+    return this.reduce(function (flat, toFlatten) {
+      return flat.concat(Array.isArray(toFlatten) && depth > 1 ? toFlatten.flat(depth - 1) : toFlatten);
+    }, []);
+  }
+});
+
+var TimeToEvent =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(TimeToEvent, _Component);
+
+  function TimeToEvent(props) {
+    var _this;
+
+    _classCallCheck(this, TimeToEvent);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(TimeToEvent).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "createXAxis", function (xAxis) {
+      var _this$options = _this.options,
+          defaultMargin = _this$options.defaultMargin,
+          defaultPadding = _this$options.defaultPadding,
+          height = _this$options.height;
+      var gXAxis = generateGroup(_this.getRootElement().select('.timeToEvent'), {
+        className: styles$5.xAxis,
+        xOffset: defaultMargin.left,
+        yOffset: height - defaultMargin.bottom
+      });
+      gXAxis.call(xAxis);
+      gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4');
+      gXAxis.selectAll('.tick line').remove();
+      gXAxis.append('line').attr('x1', 0).attr('x2', _this.xAxisWidth).attr('y1', -_this.yAxisHeight).attr('y2', -_this.yAxisHeight).attr('stroke', '#c4c4c4');
+      gXAxis.append('text').text('Years').attr('x', 328).attr('y', defaultPadding.bottom).attr('id', "".concat(styles$5.xAxisTitle)).style('fill', color$1.$black);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createTimeToEventLabel", function (data) {
+      var _this$options2 = _this.options,
+          defaultMargin = _this$options2.defaultMargin,
+          defaultPadding = _this$options2.defaultPadding;
+      var gTimeToEventLabels = generateGroup(_this.getRootElement().select('.timeToEvent'), {
+        className: styles$5.timeToEventLabels,
+        xOffset: defaultMargin.left,
+        yOffset: defaultMargin.top + defaultPadding.top
+      });
+      gTimeToEventLabels.selectAll('.timeToEventLabel').data(data).enter().append('text').text(function (d) {
+        return d.label[d.label.length - 1];
+      }).attr('x', -16).attr('y', function (d) {
+        return _this.yAxisScale(d.label[d.label.length - 1]) + 4;
+      }).attr('text-anchor', 'end').attr('class', "".concat(styles$5.timeToEventLabel));
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createTimeToEventGrid", function () {
+      var _this$options3 = _this.options,
+          height = _this$options3.height,
+          defaultMargin = _this$options3.defaultMargin,
+          defaultPadding = _this$options3.defaultPadding;
+      var gTimelToEventGrid = generateGroup(_this.getRootElement().select('.timeToEvent'), {
+        className: 'gTimeToEventGrid',
+        xOffset: defaultMargin.left,
+        yOffset: defaultMargin.top
+      });
+      var timeToEventYAxisGridHeight = height - defaultMargin.top - defaultMargin.bottom;
+      var timeToEventYAxisGridLines = axisTop(_this.xAxisScale).tickSize(-timeToEventYAxisGridHeight).tickFormat('');
+      var gTimeToEventYAxisGrid = gTimelToEventGrid.append('g').attr('class', 'timeToEventYAxisGrid').call(timeToEventYAxisGridLines);
+      gTimeToEventYAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+      gTimeToEventYAxisGrid.select('.domain').remove();
+      var timeToEventXAxisGridLines = axisRight(_this.yAxisScale).tickSize(_this.xAxisWidth).tickFormat('');
+      var gTimeToEventXAxisGrid = gTimelToEventGrid.append('g').attr('class', 'timeToEventXAxisGrid').attr('transform', "translate(0, ".concat(defaultPadding.top, ")")).call(timeToEventXAxisGridLines);
+      gTimeToEventXAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8');
+      gTimeToEventXAxisGrid.select('.domain').remove();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderTimeToEventData", function () {
+      var _this$options4 = _this.options,
+          defaultMargin = _this$options4.defaultMargin,
+          defaultPadding = _this$options4.defaultPadding,
+          radius = _this$options4.radius;
+      var data = _this.props.data;
+      var circleColorScale = [color$1.$primary_navy, color$1.$legend_timeline_red_01];
+      var gTimeToEventData = generateGroup(_this.getRootElement().select('.timeToEvent'), {
+        className: 'timelineData',
+        xOffset: defaultMargin.left,
+        yOffset: defaultMargin.top + defaultPadding.top
+      });
+      data.forEach(function (el, idx) {
+        gTimeToEventData.append('g').attr('class', "rects-".concat(idx)).selectAll('rect').data(rectDataFilter(el.dataPoints)).enter().append('rect').attr('x', function (d, i) {
+          return _this.xAxisScale(Date.parse(d.startTime));
+        }).attr('y', _this.yAxisScale(el.label[el.label.length - 1]) - 1).attr('height', 3).attr('width', function (d) {
+          return _this.xAxisScale(Date.parse(d.endTime)) - _this.xAxisScale(Date.parse(d.startTime));
+        }).attr('fill', color$1.$primary_navy);
+      });
+      data.forEach(function (el, idx) {
+        gTimeToEventData.append('g').attr('class', function (d) {
+          return "circles-".concat(idx);
+        }).selectAll('circle').data(circleDataFilter(el.dataPoints)).enter().append('circle').attr('cx', function (d, i) {
+          return _this.xAxisScale(Date.parse(d.startTime));
+        }).attr('cy', _this.yAxisScale(el.label[el.label.length - 1])).attr('r', radius).attr('fill', function (d, i) {
+          return circleColorScale[i];
+        });
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createLegend", function () {
+      var $primary_navy = color$1.$primary_navy,
+          $legend_timeline_red_01 = color$1.$legend_timeline_red_01;
+      var legendColorSet = [$primary_navy, $legend_timeline_red_01];
+      var gLegend = generateGroup(_this.getRootElement().select('.timeToEvent'), {
+        className: "".concat(styles$5.gLegend)
+      });
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      gLegend.selectAll('legendCircle').data(args).enter().append('circle').attr('cx', function (d, i) {
+        return 5 + i * 189;
+      }).attr('cy', 5).attr('r', 5).style('fill', function (d, i) {
+        return legendColorSet[i];
+      });
+      gLegend.selectAll('legend').data(args).enter().append('text').text(function (d) {
+        return d;
+      }).attr('x', function (d, i) {
+        return 18 + 189 * i;
+      }).attr('y', 10.5).text(function (d) {
+        return d;
+      }).style('fill', color$1.$black);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderTimeToEvent", function (data) {
+      var _this$options5 = _this.options,
+          width = _this$options5.width,
+          height = _this$options5.height,
+          startTime = _this$options5.startTime;
+      var svg = renderSVG(select(_this.rootElement.current), width, height);
+      var gTimeToEvent = generateGroup(svg, {
+        className: 'timeToEvent'
+      });
+      var xAxis = axisBottom(_this.xAxisScale).tickPadding(14).tickSize(0).tickArguments([year.every(1)]).tickFormat(function (d) {
+        return timeFormat('%Y')(d) - timeFormat('%Y')(new Date(startTime));
+      });
+
+      _this.createLegend('Index Invasive Treatment', 'MACE');
+
+      _this.createXAxis(xAxis);
+
+      _this.createTimeToEventLabel(data);
+
+      _this.createTimeToEventGrid();
+
+      _this.renderTimeToEventData();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
+      var data = _this.props.data;
+      !_this.checkDataValidation() && _this.renderTimeToEvent(data);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "checkDataValidation", function () {
+      var data = _this.props.data;
+      if (lodash.isEmpty(data)) return 'haveData';
+      if (!Array.isArray(data)) return 'typeOfVariable';
+    });
+
+    var _ref = !_this.checkDataValidation() && getStartAndEndTime(_this.props.data.map(function (d) {
+      return d.dataPoints;
+    }).flat()),
+        _startTime = _ref.startTime,
+        endTime = _ref.endTime;
+
+    _this.options = {
+      width: _this.props.chartWidth || 776,
+      // 차트가 그려지는 전체 영역 넓이
+      height: _this.props.chartHeight || 290,
+      // 차트가 그려지는 전체 영영 높이
+      defaultMargin: {
+        top: 58,
+        right: 24,
+        left: 63,
+        bottom: 78
+      },
+      defaultPadding: {
+        top: 39,
+        right: 24,
+        left: 63,
+        bottom: 50
+      },
+      radius: 7.5,
+      labelStartYPosition: 0,
+      labelLastYPosition: 70,
+      startTime: _startTime,
+      endTime: endTime
+    };
+    _this.xAxisWidth = _this.options.width - _this.options.defaultMargin.left - _this.options.defaultMargin.right;
+    _this.yAxisHeight = _this.options.height - _this.options.defaultMargin.top - _this.options.defaultMargin.bottom;
+    _this.rootElement = React__default.createRef();
+    _this.xAxisScale = time().domain([_startTime, endTime]).range([0, _this.xAxisWidth]).nice();
+    _this.yAxisScale = point$1().domain(!_this.checkDataValidation() && labelList(_this.props.data)).range([_this.options.labelStartYPosition, _this.options.labelLastYPosition]);
+    return _this;
+  }
+
+  _createClass(TimeToEvent, [{
+    key: "getRootElement",
+    value: function getRootElement() {
+      return select(this.rootElement.current);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.checkDataValidation()) {
+        return React__default.createElement("div", null, errorMessage(this.checkDataValidation()));
+      }
+
+      return React__default.createElement("div", {
+        ref: this.rootElement,
+        className: styles$5.timeToEvent
+      });
+    }
+  }]);
+
+  return TimeToEvent;
 }(React.Component);
 
 function _templateObject8() {
@@ -42945,6 +43227,200 @@ ToastCtr.add = function (data) {
   });
 };
 
+var btn_next = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgdmlld0JveD0iMCAwIDQyIDQyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJtYXRyaXgoLTEgMCAwIDEgNDIgMCkiPgogICAgICAgIDxyZWN0IHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjA2IiByeD0iNCIvPgogICAgICAgIDxwYXRoIGZpbGw9IiM4ODgiIGQ9Ik0xMy45OSAyMi4wNmwzLjg4OSAzLjg5YTEgMSAwIDEgMCAxLjQxNC0xLjQxNEwxNi43NTcgMjJIMjdhMSAxIDAgMSAwIDAtMkgxNi43NTdsMi41MzYtMi41MzZhMSAxIDAgMCAwLTEuNDE0LTEuNDE0bC0zLjUzNiAzLjUzNkwxMi45MyAyMWwxLjA2IDEuMDZ6Ii8+CiAgICA8L2c+Cjwvc3ZnPg==';
+
+var btn_pre = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgdmlld0JveD0iMCAwIDQyIDQyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjQyIiBoZWlnaHQ9IjQyIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMDYiIHJ4PSI0Ii8+CiAgICAgICAgPHBhdGggZmlsbD0iIzg4OCIgZD0iTTEzLjk5IDIyLjA2bDMuODg5IDMuODlhMSAxIDAgMSAwIDEuNDE0LTEuNDE0TDE2Ljc1NyAyMkgyN2ExIDEgMCAxIDAgMC0ySDE2Ljc1N2wyLjUzNi0yLjUzNmExIDEgMCAwIDAtMS40MTQtMS40MTRsLTMuNTM2IDMuNTM2TDEyLjkzIDIxbDEuMDYgMS4wNnoiLz4KICAgIDwvZz4KPC9zdmc+';
+
+var Pagination =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Pagination, _Component);
+
+  function Pagination(props) {
+    var _this;
+
+    _classCallCheck(this, Pagination);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Pagination).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      totalPage: 1,
+      list: [],
+      selectPage: null,
+      drawPageCnt: 2
+    });
+
+    var _props$selectPage = props.selectPage,
+        selectPage = _props$selectPage === void 0 ? 1 : _props$selectPage,
+        _props$totalPage = props.totalPage,
+        totalPage = _props$totalPage === void 0 ? 1 : _props$totalPage,
+        _props$drawPageCnt = props.drawPageCnt,
+        drawPageCnt = _props$drawPageCnt === void 0 ? 2 : _props$drawPageCnt;
+    _this.state.selectPage = selectPage;
+    _this.state.totalPage = totalPage;
+    _this.state.drawPageCnt = drawPageCnt;
+    _this.state.list = _this.getPageList();
+    return _this;
+  }
+
+  _createClass(Pagination, [{
+    key: "getStyles",
+    value: function getStyles() {
+      return {
+        defaultBtn: {
+          borderRadius: '4px',
+          color: 'rgba(0, 0, 0, 0.4)',
+          fontSize: '16px',
+          minWidth: '42px',
+          height: '42px'
+        },
+        selectBtn: {
+          borderRadius: '4px',
+          backgroundColor: '#979797',
+          color: '#ffffff',
+          fontSize: '16px',
+          minWidth: '42px',
+          height: '42px'
+        }
+      };
+    }
+  }, {
+    key: "onChange",
+    value: function onChange(page) {
+      this.setState({
+        selectPage: page
+      });
+
+      if (this.props.onChange) {
+        this.props.onChange(page);
+      }
+    }
+  }, {
+    key: "disablePrevButton",
+    value: function disablePrevButton() {
+      return this.state.selectPage <= this.state.drawPageCnt;
+    }
+  }, {
+    key: "disableNextButton",
+    value: function disableNextButton() {
+      var _this$state = this.state,
+          totalPage = _this$state.totalPage,
+          drawPageCnt = _this$state.drawPageCnt;
+      if (totalPage <= drawPageCnt) return true;
+      var nextPageCnt = this.getCurrentPageCnt() + 1;
+      return nextPageCnt * drawPageCnt >= totalPage;
+    } // from 0
+
+  }, {
+    key: "getCurrentPageCnt",
+    value: function getCurrentPageCnt() {
+      return parseInt((this.state.selectPage - 1) / this.state.drawPageCnt);
+    }
+  }, {
+    key: "getPageList",
+    value: function getPageList() {
+      var _this$state2 = this.state,
+          drawPageCnt = _this$state2.drawPageCnt,
+          totalPage = _this$state2.totalPage;
+      var list = [];
+      var cnt = 1;
+      var startPage = this.getCurrentPageCnt() * drawPageCnt + 1;
+
+      for (; cnt <= drawPageCnt && startPage <= totalPage; startPage++) {
+        list[cnt - 1] = startPage;
+        cnt++;
+      }
+
+      return list;
+    }
+  }, {
+    key: "getPrevPage",
+    value: function getPrevPage() {
+      var movePage = (this.getCurrentPageCnt() - 1) * this.state.drawPageCnt + 1;
+      return movePage >= 1 ? movePage : null;
+    }
+  }, {
+    key: "getNextPage",
+    value: function getNextPage() {
+      var movePage = (this.getCurrentPageCnt() + 1) * this.state.drawPageCnt + 1;
+      return movePage;
+    }
+  }, {
+    key: "movePrevPage",
+    value: function movePrevPage() {
+      this.onChange(this.getPrevPage());
+    }
+  }, {
+    key: "moveNextPage",
+    value: function moveNextPage() {
+      this.onChange(this.getNextPage());
+    }
+  }, {
+    key: "isHidden",
+    value: function isHidden() {
+      return this.state.totalPage === 0;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var styles = this.getStyles();
+      return React__default.createElement("div", {
+        style: this.isHidden() ? {
+          display: 'none'
+        } : {}
+      }, React__default.createElement("button", {
+        style: {
+          marginRight: '14px'
+        },
+        disabled: this.disablePrevButton(),
+        onClick: this.movePrevPage.bind(this)
+      }, React__default.createElement("img", {
+        type: "image",
+        src: btn_pre,
+        width: "42px",
+        height: "42px",
+        alt: "move previous"
+      })), this.getPageList().map(function (page) {
+        var style = page === _this2.state.selectPage ? styles.selectBtn : styles.defaultBtn;
+        return React__default.createElement("button", {
+          style: style,
+          key: "page".concat(page),
+          onClick: function onClick() {
+            return _this2.onChange(page);
+          }
+        }, page);
+      }), React__default.createElement("button", {
+        style: {
+          marginLeft: '14px'
+        },
+        disabled: this.disableNextButton(),
+        onClick: this.moveNextPage.bind(this)
+      }, React__default.createElement("img", {
+        type: "image",
+        src: btn_next,
+        width: "42px",
+        height: "42px",
+        alt: "move next"
+      })));
+    }
+  }], [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(props, state) {
+      var changeProps = ['selectPage', 'totalPage', 'drawPageCnt'];
+
+      if (!lodash.isEqual(lodash.pick(props, changeProps), lodash.pick(state, changeProps))) {
+        return lodash.pick(props, changeProps);
+      }
+
+      return null;
+    }
+  }]);
+
+  return Pagination;
+}(React.Component);
+
 var icn_select_open_sm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE3LjY1NyA4LjE3MmExIDEgMCAxIDEgMS40MTQgMS40MTRsLTYuMzUyIDYuMzUxYTEuMDIgMS4wMiAwIDAgMS0uMDEyLjAxM2wtLjAxMy4wMTEtLjY5NC42OTYtMS40MTQtMS40MTQtNS42NTctNS42NTdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDEyIDEzLjgyOGw1LjY1Ny01LjY1NnoiLz4KPC9zdmc+';
 
 var icn_select_open_xs = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExLjUzNiA1LjI5M2ExIDEgMCAxIDEgMS40MTQgMS40MTRsLTMuNTM2IDMuNTM2LS43MDcuNzA3LS43MDcuNzA3LTEuNDE0LTEuNDE0TDMuMDUgNi43MDdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDggOC44MjhIOGwzLjUzNi0zLjUzNXoiLz4KPC9zdmc+';
@@ -43052,6 +43528,7 @@ exports.LineChart = LineChart;
 exports.LineMergeTimeline = LineMergeTimeline;
 exports.Modal = Modal$1;
 exports.Navbar = Navbar$1;
+exports.Pagination = Pagination;
 exports.RadarChart = RadarChart;
 exports.RadiusGauge = RadiusGauge;
 exports.SankeyChart = SankeyChart;
@@ -43060,6 +43537,7 @@ exports.SelectedCard = SelectedCard;
 exports.SummaryCard = SummaryCard;
 exports.Table = Table$1;
 exports.Tabs = Tabs;
+exports.TimeToEvent = TimeToEvent;
 exports.Timeline = Timeline;
 exports.ToastCtr = ToastCtr;
 exports.TreeMap = TreeMap;
