@@ -1,5 +1,5 @@
 import React from 'react';
-import isEmpty from 'lodash/isEmpty';
+import _ from 'lodash'
 import visualAlert from '@src/assets/svg/visual-alert.svg';
 import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
@@ -17,6 +17,14 @@ const ListTBody = styled.tbody.attrs((props = {}) => {
   }
 
   .tr:nth-child(odd) .td {
+    background: ${color.$primary_white};
+  }
+
+  .tr .td.even {
+    background: ${color.$table_cell_grey};
+  }
+
+  .tr .td.odd {
     background: ${color.$primary_white};
   }
 
@@ -52,7 +60,7 @@ const EmptyTbody = styled.tbody`
     text-align: center;
   }
 `
-const EmptyText = styled.span.attrs((props = {}) => {
+const EmptyText = styled.span.attrs(() => {
   return {
     size: 16,
     opacity: 6,
@@ -63,27 +71,50 @@ const EmptyText = styled.span.attrs((props = {}) => {
   display: block;
 `
 
-const TBody = ({headers, rowData, wrapTd, appendRow}) => {
+const TBody = ({headers, subHeaders = {}, rowData, wrapTd, appendRow, rowSpanCount = 0}) => {
   const renderEmpty = () => {
     return (
       <tr>
-        <td colSpan={isEmpty(headers) ? 1 : headers.length}>
+        <td colSpan={_.isEmpty(headers) ? 1 : headers.length}>
           <img src={visualAlert} width="290px" height="230px" alt="" />
           <EmptyText as="span">There is no data<br />Please search again</EmptyText>
         </td>
       </tr>
     )
   }
+  let singlevelHeader = headers
+
+  if (subHeaders && wrapTd) {
+    singlevelHeader = _.map(singlevelHeader, (header) => {
+      if (subHeaders[header]) {
+        return _.map(subHeaders[header], (text) => `${header}-${text}`)
+      }
+      return header
+    })
+
+    singlevelHeader = _.flatten(singlevelHeader)
+  }
 
   const createBody = rowsData => {
     return rowsData.map((data, idx) => {
       return [
         <tr key={idx} className={"tr"}>
-          {Object.values(data).map((row, idx) => {
-            return <td className={"td"} key={idx}>{
-              wrapTd ? wrapTd({data, label: headers[idx], text: row}) : <div>{row}</div>
+          {_.chain(Object.values(data)).reverse().map((row, idx) => {
+            let { rowSpan, className = '' } = row
+            idx = singlevelHeader.length - idx - 1
+
+            let text = !_.isUndefined(rowSpan) ? row.text : row
+
+            const props = {
+              key: idx,
+              rowSpan,
+              className: `td ${className}`
+            }
+
+            return <td {...props}>{
+              wrapTd ? wrapTd({data, label: singlevelHeader[idx], text, idx}) : <div>{text}</div>
             }</td>
-          })}
+          }).reverse().value()}
         </tr>,
         appendRow ? appendRow(data, idx) : null
       ]
@@ -91,7 +122,7 @@ const TBody = ({headers, rowData, wrapTd, appendRow}) => {
   }
   
   return (
-    isEmpty(rowData)
+    _.isEmpty(rowData)
     ? <EmptyTbody>{ renderEmpty() }</EmptyTbody>
     : <ListTBody>{ createBody(rowData) }</ListTBody>
   )

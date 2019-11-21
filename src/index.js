@@ -18,8 +18,10 @@ import Modal from '@Components/modal/Modal';
 import CheckList from '@Components/list/CheckList';
 import RadarChart from '@Components/charts/RadarChart';
 import TreeMap from '@Components/charts/TreeMap'
+import TimeToEvent from '@Components/charts/TimeToEvent'
 import Button, {ButtonLink, ButtonTextLink} from '@Components/button/Button'
 import ToastCtr  from '@Components/toast/ToastCtr';
+import Pagination from '@Components/pagination/Pagination'
 
 import SelectBox from '@Components/form/SelectBox';
 import * as font from '@src/assets/styles/font.js';
@@ -55,4 +57,6 @@ export {
   RadarChart,
   SelectBox,
   TreeMap,
+  TimeToEvent,
+  Pagination,
 } 
