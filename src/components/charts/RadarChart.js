@@ -4,7 +4,7 @@ import HC_more from 'highcharts/highcharts-more'
 import HighchartsReact from 'highcharts-react-official';
 import _ from 'lodash'
 import { color } from '@src/assets/styles/variables'
-import { errorMessage } from '@src/helper/chartUtility'
+import { errorMessage, getTextStyleForHighcharts } from '@src/helper/chartUtility'
 
 if (typeof Highcharts === 'object') {
   HC_more(Highcharts)
@@ -35,17 +35,7 @@ class RadarChart extends Component {
         lineWidth: 0,
         labels: {
           distance: 14,
-          style: {
-            color: color.$black,
-            fontFamily: 'Spoqa Han Sans',
-            fontSize: '14px',
-            fontWeight: 'normal',
-            fontStyle: 'normal',
-            fontStretch: 'normal',
-            lineHeight: 'normal',
-            letterSpacing: -0.5,
-            opacity: 0.6
-          }
+          style: getTextStyleForHighcharts(color.$black),
         }
       },
       yAxis: {
@@ -77,17 +67,7 @@ class RadarChart extends Component {
         symbolHeight: 10,
         symbolWidth: 10,
         symbolRadius: 5,
-        itemStyle: {
-          color: color.$black,
-          fontFamily: 'Spoqa Han Sans',
-          fontSize: '14px',
-          fontWeight: 'normal',
-          fontStyle: 'normal',
-          fontStretch: 'normal',
-          lineHeight: 'normal',
-          letterSpacing: -0.5,
-          opacity: 0.4
-        },
+        itemStyle: getTextStyleForHighcharts(color.$black),
         reversed: true,
         x: -15
       },
