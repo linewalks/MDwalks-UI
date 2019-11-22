@@ -87,7 +87,7 @@ describe('Tabs', () => {
 
 describe('defaultactivekey, key 가 없는 경우', () => {
   let wrapper
-  const initKey = 0
+  const initKey = String(0)
 
   beforeEach(() => {
     wrapper = mount(
@@ -99,7 +99,7 @@ describe('defaultactivekey, key 가 없는 경우', () => {
   })
 
   it('state 확인', () => {
-    expect(wrapper.props().defaultactivekey).toBe(0)
+    expect(wrapper.props().defaultactivekey).toBe(String(0))
     expect(wrapper.state()).toEqual({
       activeKey: initKey,
       renderObj: new Set([initKey]),

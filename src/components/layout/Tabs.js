@@ -87,7 +87,7 @@ class Tabs extends React.Component {
     const contents = []
     const { children } = this.props
     React.Children.forEach(children, (child, index) => {
-      const key = child.key || index
+      const key = child.key || String(index)
       tabs.push(
         React.cloneElement(
           <Tab
@@ -122,12 +122,12 @@ class Tabs extends React.Component {
 }
 
 Tabs.defaultProps = {
-  defaultactivekey: 0,
+  defaultactivekey: String(0),
   onChange: () => ({}),
 }
 
 Tabs.propTypes = {
-  defaultactivekey: PropTypes.number,
+  defaultactivekey: PropTypes.string,
   onChange: PropTypes.func,
 }
 
