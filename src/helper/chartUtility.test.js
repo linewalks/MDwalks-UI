@@ -145,3 +145,14 @@ it('errorMessage', () => {
   expect(chartUtility.errorMessage('typeOfVariable')).toBe('type is invalid')
   expect(chartUtility.errorMessage('haveData')).toBe('No data is provided')
 })
+
+
+it('getTextStyleForHighcharts', () => {
+  const expected = {
+    'color': '#000000', 'fontFamily': 'Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif', 'fontSize': '14px',
+    'fontStretch': 'normal', 'fontStyle': 'normal', 'fontWeight': 'normal',
+    'letterSpacing': '-0.5px', 'lineHeight': 'normal', 'opacity': 0.6,
+  }
+
+  expect(chartUtility.getTextStyleForHighcharts('#000000')).toEqual(expected)
+})
