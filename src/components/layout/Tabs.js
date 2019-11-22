@@ -51,7 +51,6 @@ const Hidden = css`
 
 export const TabPane = styled.div.attrs()`
   ${(props) => (props['aria-hidden'] ? Hidden : '')}
-  // display: ${(props) => (props['aria-hidden'] ? 'none' : '')}
 `
 
 class Tabs extends React.Component {
