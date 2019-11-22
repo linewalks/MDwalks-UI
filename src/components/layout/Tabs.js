@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components'
 import _ from 'lodash'
+import PropTypes from 'prop-types'
 
 import * as font from '@src/assets/styles/font'
 import { color } from '@src/assets/styles/variables'
@@ -18,7 +19,7 @@ const Tab = styled.span.attrs((props) => {
     opacity: 4,
   }
 
-  return Object.assign({size: 16, bold: true}, options)
+  return { size: 16, bold: true, ...options }
 })`
   ${font.Text}
   padding: 10px;
@@ -29,7 +30,15 @@ const Tab = styled.span.attrs((props) => {
   cursor: pointer;
 
   display: inline-block;
-  border-bottom: 2px solid ${props => props['aria-selected'] ? color.$solid_default : 'transparent'};
+  border-bottom: 2px solid ${(props) => (props['aria-selected'] ? color.$solid_default : 'transparent')};
+
+  min-width: 160px;
+  text-align: center;
+
+  &:hover {
+    color: ${color.$azure};
+    transition: color 0.5s ease;
+  }
 `
 
 const Hidden = css`
@@ -40,12 +49,9 @@ const Hidden = css`
   pointer-events: none;
 `
 
-export const TabPane = styled.div.attrs((props) => {
-  return {
-  }
-})`
-  ${props => props['aria-hidden'] ? Hidden : ''}
-  // display: ${props => props['aria-hidden'] ? 'none' : ''}
+export const TabPane = styled.div.attrs()`
+  ${(props) => (props['aria-hidden'] ? Hidden : '')}
+  // display: ${(props) => (props['aria-hidden'] ? 'none' : '')}
 `
 
 class Tabs extends React.Component {
@@ -58,54 +64,79 @@ class Tabs extends React.Component {
 
     this.state = {
       activeKey,
-      renderObj: new Set().add(activeKey)
+      renderObj: new Set().add(activeKey),
     }
   }
 
-  changeTab(activeKey) {
-    if (this.state.activeKey === activeKey) return null
+  // eslint-disable-next-line consistent-return
+  changeTab(selectKey) {
+    const { activeKey } = this.state
+    if (activeKey === selectKey) return null
 
-    let { renderObj } = this.state
+    const { renderObj } = this.state
+    const { onChange } = this.props
 
-    renderObj.add(activeKey)
+    renderObj.add(selectKey)
 
     this.setState({
-      activeKey,
+      activeKey: selectKey,
       renderObj,
     })
 
-    _.isFunction(this.props.onChange) && this.props.onChange(activeKey)
+    if (_.isFunction(onChange)) {
+      onChange(selectKey)
+    }
   }
 
   render() {
     const { activeKey, renderObj } = this.state
 
-    let tabs = [], contents = []
-    React.Children.forEach(this.props.children, (child, index) => {
-      const key = child.key || index
-      tabs.push(React.cloneElement(<Tab aria-selected={activeKey === key} onClick={() => this.changeTab(key)}>{child.props.tab}</Tab>, {
-        key,
-      }),)
+    const tabs = []
+    const contents = []
+    const { children } = this.props
+    React.Children.forEach(children, (child, index) => {
+      const key = child.key || String(index)
+      tabs.push(
+        React.cloneElement(
+          <Tab
+            aria-selected={activeKey === key}
+            onClick={() => this.changeTab(key)}
+          >
+            {child.props.tab}
+          </Tab>,
+          { key },
+        ),
+      )
 
       contents.push(React.cloneElement(child, {
         contents: (
-          {child}
+          { child }
         ),
         'aria-hidden': activeKey !== key,
         isReander: renderObj.has(key),
         key,
-      }),)
+      }))
     })
 
     return (
-      <article {...this.props}>
+      <article>
         <TabBox>
           {tabs}
         </TabBox>
-        {_.filter(contents, obj => obj.props.isReander)}
+        {_.filter(contents, (obj) => obj.props.isReander)}
       </article>
     )
   }
+}
+
+Tabs.defaultProps = {
+  defaultactivekey: String(0),
+  onChange: () => ({}),
+}
+
+Tabs.propTypes = {
+  defaultactivekey: PropTypes.string,
+  onChange: PropTypes.func,
 }
 
 Tabs.Tab = Tab
