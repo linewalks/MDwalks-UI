@@ -31,6 +31,14 @@ const Tab = styled.span.attrs((props) => {
 
   display: inline-block;
   border-bottom: 2px solid ${(props) => (props['aria-selected'] ? color.$solid_default : 'transparent')};
+
+  min-width: 160px;
+  text-align: center;
+
+  &:hover {
+    color: ${color.$azure};
+    transition: color 0.5s ease;
+  }
 `
 
 const Hidden = css`
