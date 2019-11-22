@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { color } from '@src/assets/styles/variables'
 
-const Navbar = styled.nav`
+const NavbarBox = styled.nav`
   height: 70px
   background-color: ${color.$primary_white}
   padding: 0 30px
@@ -14,14 +14,14 @@ const Navbar = styled.nav`
   a:active, a:hover {
     text-decoration: none
   }
-  
+
   border-bottom: 1px solid ${color.$line_search_grey}
 `
 
-export default ({style={}, children}) => {
-  return (
-    <Navbar style={style}>
-      { children }
-    </Navbar>
-  )
-}
+const Navbar = ({ style, children }) => (
+  <NavbarBox style={style}>
+    { children }
+  </NavbarBox>
+)
+
+export default Navbar
