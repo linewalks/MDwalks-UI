@@ -9,7 +9,8 @@
     "build": "rollup -c",
     "build:docz": "rm -rf docs && yarn docz build",
     "lint": "eslint ./src/**/*.js",
-    "lint:fix": "eslint ./src/**/*.js --fix"
+    "lint:fix": "eslint ./src/**/*.js --fix",
+    "travis-deploy-once": "travis-deploy-once --pro"
   },
   "jest": {
     "testPathIgnorePatterns": [

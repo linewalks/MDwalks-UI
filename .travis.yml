@@ -1,15 +1,15 @@
-language: node_js
-node_js:
-- 10
-branches:
-  only:
-before_install:
-install:
-- yarn install
-before_script:
-script:
-- yarn
-- yarn test
+# language: node_js
+# node_js:
+# - 10
+# branches:
+#   only:
+# before_install:
+# install:
+# - yarn install
+# before_script:
+# script:
+# - yarn
+# - yarn test
 # before_deploy: "yarn build"
 # deploy:
 #   provider: releases
@@ -21,3 +21,15 @@ script:
 #   on:
 #     repo: linewalks/MDwalks-UI
 #     branch: develop
+
+before_install:
+  # - yarn
+script:
+  # - yarn test
+  # - yarn build
+  - sudo chmod 755 push.sh
+after_success:
+  - ./push.sh
+env:
+  global:
+    secure: G9U7k0PiVIk5Lu6/6Mb0/X1m2b6Qrah3ufHg3Z1B1YcwXs4Rj335C5NPsXBmy9dft1QbOv6rIOyxTXxDIa+/HySeD+9mkHRgiH23Zm5LuercY4nfaXWCSpZX7JJ8HdWBGWBa3M61Ob/qTH7z0Shg7Heeh29W/FuEUaaktboZJyhmc0fq9o3RI+n06kR3X86BF0QOqaJ2LHr3+x8G06b8C7gxrK8u1sx3t68eQskS3S/Ski27I3idcweB9k3Pi/FEDbvNTGzgi4NIb+7Z/SHYr7sjzp+pAVlbqs6BW40HExFxRSxatdtnIilz3ljcOQ74TqInxGbSaNc2hFbksgUHRKCQfb3u0eabjZCqQZu/eQ+zTMff+6U6Y/4L+h4RzIvtb3haRFy7vSO2t5Nsikg8iTUVkpCXO4HgcjHbEuI5eAZWxOrgxHTzIV0clyA8Yw/uL5lLWSetXZA5/7DeT/alOsYCn5LGHo5nAnlGDY8llBXsvPAgEZRoNV0NiLTviY8RxlDNxvtmItdRgPp+ZZBejAQI7XR6D2Dy/h1YbCPOa7y9gMwgZu6sUxZ4w4oyB4SO6jdqzRcyNcOqT3a/ikosKxSqXbKqQqkDh2P0KTNXueOpi5pTKmTaUGfIPm2iXO/X8h1xcHSNaLjNXaRPb+lvyOLSFYtkfa0J9ALiewSgfhs=
