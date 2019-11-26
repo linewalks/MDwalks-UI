@@ -6,6 +6,7 @@ setup_git() {
 }
 
 commit_website_files() {
+  git branch
   git checkout -b gh-pages
   touch "$TRAVIS_BUILD_NUMBER"
   git add .
@@ -14,6 +15,7 @@ commit_website_files() {
 }
 
 upload_files() {
+  git pull origin pull
   git push origin master --force --quiet
   # git remote add origin-pages https://${GH_TOKEN}@github.com/linewalks/MDwalks-UI.git > /dev/null 2>&1
   # git push --quiet --set-upstream origin-pages gh-pages
