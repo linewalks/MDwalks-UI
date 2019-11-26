@@ -3,7 +3,7 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import _ from 'lodash'
 import { color } from '@src/assets/styles/variables'
-import { errorMessage } from '@src/helper/chartUtility'
+import { errorMessage, getTextStyleForHighcharts } from '@src/helper/chartUtility'
 
 class LineChart extends Component {
   constructor(props) {
@@ -35,17 +35,7 @@ class LineChart extends Component {
           dashStyle: 'shortdot'
         },
         labels: {
-          style: {
-            fontFamily: 'Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif',
-            color: color.$black,
-            fontSize: '14px',
-            fontWeight: 'normal',
-            fontStyle: 'normal',
-            fontStretch: 'normal',
-            lineHeight: 'normal',
-            letterSpacing: -0.5,
-            opacity: 0.4
-          }
+          style: getTextStyleForHighcharts(color.$black),
         }
       },
 
@@ -59,17 +49,7 @@ class LineChart extends Component {
         tickAmount: this.props.yAxisTickAmount,
         tickInterval: this.props.yAxisTickInterval,
         labels: {
-          style: {
-            fontFamily: 'Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif',
-            color: color.$black,
-            fontSize: '14px',
-            fontWeight: 'normal',
-            fontStyle: 'normal',
-            fontStretch: 'normal',
-            lineHeight: 'normal',
-            letterSpacing: -0.5,
-            opacity: 0.4
-          }
+          style: getTextStyleForHighcharts(color.$black),
         }
       },
 
@@ -84,17 +64,7 @@ class LineChart extends Component {
         symbolHeight: 10,
         symbolWidth: 10,
         symbolRadius: 5,
-        itemStyle: {
-          fontFamily: 'Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif',
-          color: color.$black,
-          fontSize: '14px',
-          fontWeight: 'normal',
-          fontStyle: 'normal',
-          fontStretch: 'normal',
-          lineHeight: 'normal',
-          letterSpacing: -0.5,
-          opacity: 0.4
-        }
+        itemStyle: getTextStyleForHighcharts(color.$black),
       },
 
       tooltip: {
@@ -107,16 +77,7 @@ class LineChart extends Component {
         formatter: function() {
           return `<span style="opacity:0.6">${this.series.name} </span><span style="opacity:0.9"> <b> ${this.y}</b></span>`
         },
-        style: {
-          fontFamily: 'Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif',
-          fontSize: 14,
-          fontWeight: 'normal',
-          fontStyle: 'normal',
-          fontStretch: 'normal',
-          lineHeight: 'normal',
-          letterSpacing: -0.5,
-          color: color.$black,
-        } 
+        style: getTextStyleForHighcharts(color.$black),
       },
 
       plotOptions: {

@@ -166,5 +166,21 @@ describe('td rowSpan', () => {
     expect(wrapper.find('tbody tr').at(2).find('td')).toHaveLength(2)
     expect(wrapper.find('tbody tr').at(3).find('td')).toHaveLength(1)
   })
+})
 
+it('check undefined, null', () => {
+  const EmptyTableData = {
+    headers: [
+      'subject Id',
+      'risk Score',
+    ],
+    rowData: [
+      {
+        'subject Id': undefined,
+        'risk Score': null,
+      },
+    ],
+  }
+
+  mount(<Table data={EmptyTableData} />)
 })

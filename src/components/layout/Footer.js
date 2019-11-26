@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { color, size } from '@src/assets/styles/variables'
 import * as font from '@src/assets/styles/font'
 
-const Footer = styled.footer`
+const FooterWrap = styled.footer`
   position: absolute
   bottom: 0
   height: ${size.$footer_height}
@@ -26,14 +26,17 @@ const FooterBox = styled.div`
   }
 `
 
-export default ({style={}}) => {
+const Footer = (props) => {
+  const { style } = props
   return (
-    <Footer style={style}>
+    <FooterWrap style={style}>
       <FooterBox size="12" opacity="6">
         <span>
           © 2019 linewalks. All rights reserved.
         </span>
       </FooterBox>
-    </Footer>
+    </FooterWrap>
   )
 }
+
+export default Footer
