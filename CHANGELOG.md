@@ -5,6 +5,10 @@
 ## :nut_and_bolt: Other
 ## :lock: Security Fixes
 -->
+# v0.10.2 / 2019-11-26
+## :bug: Fixes
+- [#290](https://github.com/linewalks/MDwalks-UI/issues/290) Cardio에서 test시 rowSpan이 undefined로 test error 발생 ([**@toyjhlee**](https://github.com/toyjhlee))
+
 # v0.10.1 / 2019-11-21
 ## :tada: Enhancements
 - [#251](https://github.com/linewalks/MDwalks-UI/issues/251) TimeToEvent 이동 및 테스트코드 추가 ([**@toyjhlee**](https://github.com/toyjhlee))
