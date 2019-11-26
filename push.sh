@@ -14,7 +14,7 @@ commit_website_files() {
 }
 
 upload_files() {
-  git push origin master:master --force --quiet
+  git push origin master --force --quiet
   # git remote add origin-pages https://${GH_TOKEN}@github.com/linewalks/MDwalks-UI.git > /dev/null 2>&1
   # git push --quiet --set-upstream origin-pages gh-pages
 
