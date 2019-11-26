@@ -14,10 +14,11 @@ commit_website_files() {
 }
 
 upload_files() {
+  git push origin master:master --force --quiet
   # git remote add origin-pages https://${GH_TOKEN}@github.com/linewalks/MDwalks-UI.git > /dev/null 2>&1
   # git push --quiet --set-upstream origin-pages gh-pages
 
-  git push --force --quiet "https://${secure}@github.com/linewalks/MDwalks-UI.git" master:master
+  # git push --force --quiet "https://${GH_TOKEN}@github.com/linewalks/MDwalks-UI.git" master:master
   # git push --force --quiet "https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}" master:master > /dev/null 2>&1
 }
 
