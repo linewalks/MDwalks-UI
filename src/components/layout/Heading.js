@@ -9,7 +9,7 @@ const Text = styled.header`
 `
 
 const Heading = ({
-  size = 22,
+  size,
   children,
   style,
 }) => (
@@ -18,8 +18,12 @@ const Heading = ({
   </Text>
 )
 
+Heading.defaultProps = {
+  size: '22',
+}
+
 Heading.propTypes = {
-  size: PropTypes.number.isRequired,
+  size: PropTypes.string,
 }
 
 export default Heading

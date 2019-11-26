@@ -100,15 +100,21 @@ const TBody = ({headers, subHeaders = {}, rowData, wrapTd, appendRow, rowSpanCou
       return [
         <tr key={idx} className={"tr"}>
           {_.chain(Object.values(data)).reverse().map((row, idx) => {
+            if (_.isUndefined(row) || _.isNull(row)) {
+              row = ''
+            }
             let { rowSpan, className = '' } = row
             idx = singlevelHeader.length - idx - 1
 
             let text = !_.isUndefined(rowSpan) ? row.text : row
 
-            const props = {
+            let props = {
               key: idx,
-              rowSpan,
               className: `td ${className}`
+            }
+
+            if (rowSpan) {
+              props.rowSpan = rowSpan
             }
 
             return <td {...props}>{
