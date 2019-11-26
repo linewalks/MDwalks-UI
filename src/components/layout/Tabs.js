@@ -47,7 +47,6 @@ const Hidden = css`
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
-  color: red;
 `
 
 export const TabPane = styled.div.attrs()`
