@@ -11,8 +11,8 @@ import CheckList from '@Components/list/CheckList'
 ## CheckList
 support property style
 <Playground>
-  <CheckList 
-    checkVisible={false} // true 이면 선택 된 것이 사라 지지 않는다
+  <CheckList
+    checkVisible={true} // true 이면 선택 된 것이 사라 지지 않는다
     onChange={(obj) => {alert(`onChange: ${JSON.stringify(obj)}`)}}
     onError={(obj) => {alert(`onError : ${JSON.stringify(obj)}`)}}
     data={
