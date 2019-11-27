@@ -2,15 +2,13 @@ import React from 'react';
 import styled from 'styled-components'
 import _ from 'lodash'
 import { font, variables } from '@src/index'
-
+import PropTypes from 'prop-types'
 import IcnAddSm from '@Components/list/icn-add-sm.svg'
 
-const Item = styled(font.TextTag).attrs((props = {}) => {
-  return {
-    size: 16,
-    opacity: 8,
-  }
-})`
+const Item = styled(font.TextTag).attrs(() => ({
+  size: 16,
+  opacity: 8,
+}))`
   label {
     cursor: pointer;
     display: block;
@@ -37,30 +35,33 @@ class CheckList extends React.Component {
   constructor(props) {
     super(props)
 
-    let selectedList = _.chain(this.props.data)
+    const { data } = this.props
+
+    const selectedList = _.chain(data)
       .filter(({ checked }) => checked)
       .map(({ id }) => `${id}`)
       .value()
 
     this.state = {
-      selectedList
+      selectedList,
     }
   }
 
-  getCheckCount() {
-    return _.filter(this.state.selectedList).length
-  }
-
   onErrorTrigger() {
-    _.isFunction(this.props.onError) && this.props.onError({limit: this.props.limit})
+    const { onError, limit } = this.props
+    if (_.isFunction(onError)) {
+      onError({ limit })
+    }
   }
 
   onChangeTrigger(id) {
-    if (this.props.disabled) return
+    const { disabled, limit, onChange } = this.props
+    if (disabled) return
     let { selectedList } = this.state
 
-    if (selectedList.includes(`${id}`) === false && this.getCheckCount() >= this.props.limit) {
-      return this.onErrorTrigger()
+    if (selectedList.includes(`${id}`) === false && this.getCheckCount() >= limit) {
+      this.onErrorTrigger()
+      return
     }
 
     if (selectedList.includes(`${id}`)) {
@@ -70,21 +71,31 @@ class CheckList extends React.Component {
     }
 
     this.setState({
-      selectedList
+      selectedList,
     })
 
-    _.isFunction(this.props.onChange) && this.props.onChange({selectedList})
+    if (_.isFunction(onChange)) {
+      onChange({ selectedList })
+    }
+  }
+
+  getCheckCount() {
+    const { selectedList } = this.state
+    return _.filter(selectedList).length
   }
 
   unCheckedById(id) {
+    const { onChange } = this.props
     let { selectedList } = this.state
     if (selectedList.includes(`${id}`)) {
       selectedList = _.without(selectedList, `${id}`)
       this.setState({
-        selectedList
+        selectedList,
       })
 
-      _.isFunction(this.props.onChange) && this.props.onChange({selectedList})
+      if (_.isFunction(onChange)) {
+        onChange({ selectedList })
+      }
     }
   }
 
@@ -92,10 +103,9 @@ class CheckList extends React.Component {
     const { data, disabled, checkVisible } = this.props
     const { selectedList } = this.state
     return (
-      <React.Fragment>
+      <>
         {
-          data.map(({id, name}) => {
-
+          data.map(({ id, name }) => {
             const checked = selectedList.includes(`${id}`)
 
             if (!checkVisible && checked) return null;
@@ -110,7 +120,7 @@ class CheckList extends React.Component {
             )
           })
         }
-      </React.Fragment>
+      </>
     )
   }
 }
@@ -119,7 +129,17 @@ CheckList.defaultProps = {
   limit: 5,
   disabled: false,
   checkVisible: true,
+  onChange: null,
+  onError: null,
+}
+
+CheckList.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  disabled: PropTypes.bool,
+  checkVisible: PropTypes.bool,
+  limit: PropTypes.number,
+  onChange: PropTypes.func,
+  onError: PropTypes.func,
 }
 
 export default CheckList
-
