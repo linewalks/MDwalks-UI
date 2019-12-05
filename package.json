@@ -56,8 +56,6 @@
     "@babel/preset-env": "^7.5.4",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
-    "d3": "^5.9.7",
-    "d3-sankey-circular": "^0.34.0",
     "docz": "^2.0.0-rc.67",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
@@ -89,6 +87,8 @@
   },
   "dependencies": {
     "babel-plugin-module-resolver": "^3.2.0",
+    "d3": "^5.9.7",
+    "d3-sankey-circular": "^0.34.0",
     "d3-simple-slider": "^1.5.4",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

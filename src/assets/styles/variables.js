@@ -1,4 +1,4 @@
-// Color Set START  
+// Color Set START
 export const color = {
   $black: '#000000',
   $primary_white: '#ffffff',
@@ -23,7 +23,6 @@ export const color = {
   // $pathway_link_red: '#ff3a1f',
   $alert_red: '#ff3c3c',
   $azure: '#189bff',
-
 
 
   $pathway_link_blue: 'rgba(24, 155, 255, 0.4)', // solid_default
