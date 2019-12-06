@@ -53,6 +53,9 @@
 ```
 
 **예시**
+- code reivew 적용
+  - improvement(Button): 변경 내용
+  
 - eslint 적용
   - improvement(page): eslint 적용
   - improvement(Button): eslint 적용
@@ -60,6 +63,9 @@
 - refactor
   - refactor(Button): remove
   - refactor(Button): move to /src/com/
+  
+- package, lib 변경
+  - feat(package): version up MDwalks-UI  
 
 **설명**
 - 줄에는 무엇이 달라졌는지 간략하게 기술한다.
@@ -91,7 +97,8 @@
 |docs            |     |문서|
 |test            |     |테스트 코드|
 |chore           |     |그외 자잘한 수정 사항들|
-|style           |     |formatting, missing semi colons
+|style           |     |formatting, missing semi colons|
+|package         |     |package Update|
 
 **이슈 번호 넣기**
 - 이슈 번호는 푸터에 별도 라인으로 넣는다. 이 이슈 라인은 "closes"로 시작한다:
@@ -103,11 +110,19 @@
   - Reviewers 시 보완 할 점이 있다면 코멘트 후 Reviewers 에서 지정을 취소한다
 
 ### issue 처리 가이드
+### 코드 작성 전
   - issue 작성 시 TL 에게 issue 를 공유하고 테스트 리스트를 같이 작성한다.
   - TL 부재시 스스로 테스트 리스트를 작성하고 코드를 작성한다
   - 테스트 리스트는 코멘트로 남긴다
   - 시각적으로 이상한 점이 없게 수정하여 commit 한다
   - 다른 code 의 이슈라면 티켓을 만들어 알린다
+
+### 코드 처리
+  - 특별한 경우(hotfix)를 경우를 제외하고는 feature 로 처리한다
+  - `git flow feature start issue.200` // 200 은 이슈 넘버
+  - 시각적으로 이상한 점이 없게 수정하여 commit 한다
+  - pull-request 를 한다
+  - 기능 단위로 commit 한다
 
 ### TEST 작성 가이드
   - Test 시 describe, it 또는 메시지는 한글로 작성한다
