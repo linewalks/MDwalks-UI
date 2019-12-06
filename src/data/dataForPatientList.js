@@ -1,5 +1,5 @@
 export default {
-  headers: ["subject_id", "hadm_id"],
+  headers: ['subject_id', 'hadm_id'],
   rowData: [
     { hadm_id: 145834, subject_id: 3 },
     { hadm_id: 150750, subject_id: 9 },
@@ -10,6 +10,6 @@ export default {
     { hadm_id: 161859, subject_id: 24 },
     { hadm_id: 129635, subject_id: 25 },
     { hadm_id: 197661, subject_id: 26 },
-    { hadm_id: 104557, subject_id: 30 }
-  ]
+    { hadm_id: 104557, subject_id: 30 },
+  ],
 };
