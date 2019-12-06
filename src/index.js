@@ -16,6 +16,7 @@ import Tabs from '@Components/layout/Tabs';
 import Histogram from '@Components/charts/Histogram';
 import Modal from '@Components/modal/Modal';
 import CheckList from '@Components/list/CheckList';
+import RadioList from '@Components/list/RadioList';
 import RadarChart from '@Components/charts/RadarChart';
 import TreeMap from '@Components/charts/TreeMap'
 import TimeToEvent from '@Components/charts/TimeToEvent'
@@ -46,6 +47,7 @@ export {
   Tabs,
   Modal,
   CheckList,
+  RadioList,
   font,
   variables,
   chartUtility,

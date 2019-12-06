@@ -3,47 +3,39 @@ import _ from 'lodash'
 import { font } from '@src/index'
 import PropTypes from 'prop-types'
 import Item from '@Components/list/Item'
-import IcnChecked from '@Components/list/check-box-checked-default.svg'
-import IcnUnchecked from '@Components/list/check-box-unchecked-default.svg'
+import IcnChecked from '@Components/list/radio-button-checked-default.svg'
+import IcnUnchecked from '@Components/list/radio-button-unchecked-default.svg'
 
-class CheckList extends React.Component {
+class RadioList extends React.Component {
   constructor(props) {
     super(props)
 
     const { data } = this.props
-
-    const selectedList = _.chain(data)
+    // true 가 두개이면 가장 마지막 것을 select 할 까?
+    let selectedList = _.chain(data)
       .filter(({ checked }) => checked)
       .map(({ id }) => `${id}`)
       .value()
+
+    if (selectedList.length > 1) {
+      selectedList = selectedList.slice(0, 1)
+    }
 
     this.state = {
       selectedList,
     }
   }
 
-  onErrorTrigger() {
-    const { onError, limit } = this.props
-    if (_.isFunction(onError)) {
-      onError({ limit })
-    }
-  }
-
   onChangeTrigger(id) {
-    const { disabled, limit, onChange } = this.props
+    const { disabled, onChange } = this.props
     if (disabled) return
     let { selectedList } = this.state
 
-    if (selectedList.includes(`${id}`) === false && this.getCheckCount() >= limit) {
-      this.onErrorTrigger()
+    if (selectedList.includes(`${id}`)) {
       return
     }
 
-    if (selectedList.includes(`${id}`)) {
-      selectedList = _.without(selectedList, `${id}`)
-    } else {
-      selectedList.push(`${id}`)
-    }
+    selectedList = [`${id}`]
 
     this.setState({
       selectedList,
@@ -52,11 +44,6 @@ class CheckList extends React.Component {
     if (_.isFunction(onChange)) {
       onChange({ selectedList })
     }
-  }
-
-  getCheckCount() {
-    const { selectedList } = this.state
-    return _.filter(selectedList).length
   }
 
   unCheckedById(id) {
@@ -75,9 +62,7 @@ class CheckList extends React.Component {
   }
 
   render() {
-    const {
-      data, disabled, formatter, checkVisible,
-    } = this.props
+    const { data, disabled, formatter } = this.props
     const { selectedList } = this.state
     return (
       <>
@@ -87,11 +72,10 @@ class CheckList extends React.Component {
             const checked = selectedList.includes(`${id}`)
             const text = formatter ? formatter(item) : name
 
-            if (!checkVisible && checked) return null;
             return (
               <Item size="16" opacity="6" as="div" key={`checkItem${id}`} disabled={disabled}>
                 <label>
-                  <img src={checked ? IcnChecked : IcnUnchecked} width="24px" height="24px" style={{ borderRadius: '4px' }} alt="" />
+                  <img src={checked ? IcnChecked : IcnUnchecked} width="24px" height="24px" style={{ borderRadius: '12px' }} alt="" />
                   <font.TextOverflow>{text}</font.TextOverflow>
                   <input type="checkbox" disabled={disabled} checked={checked} onChange={() => this.onChangeTrigger(id)} />
                   {/* <img src={IcnAddSm} width="24px" height="24px" alt="" /> */}
@@ -105,23 +89,17 @@ class CheckList extends React.Component {
   }
 }
 
-CheckList.defaultProps = {
-  limit: 5,
+RadioList.defaultProps = {
   disabled: false,
-  checkVisible: true,
   onChange: null,
-  onError: null,
   formatter: null,
 }
 
-CheckList.propTypes = {
+RadioList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   disabled: PropTypes.bool,
-  checkVisible: PropTypes.bool,
-  limit: PropTypes.number,
   onChange: PropTypes.func,
-  onError: PropTypes.func,
   formatter: PropTypes.func,
 }
 
-export default CheckList
+export default RadioList
