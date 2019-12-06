@@ -1,6 +1,6 @@
 {
   "name": "MDwalks-UI",
-  "version": "0.4.7",
+  "version": "0.10.4",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
@@ -9,7 +9,8 @@
     "build": "rollup -c",
     "build:docz": "rm -rf docs && yarn docz build",
     "lint": "eslint ./src/**/*.js",
-    "lint:fix": "eslint ./src/**/*.js --fix"
+    "lint:fix": "eslint ./src/**/*.js --fix",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "jest": {
     "testPathIgnorePatterns": [
@@ -87,16 +88,17 @@
   },
   "dependencies": {
     "babel-plugin-module-resolver": "^3.2.0",
+    "conventional-changelog-cli": "^2.0.28",
     "d3": "^5.9.7",
     "d3-sankey-circular": "^0.34.0",
     "d3-simple-slider": "^1.5.4",
+    "lodash": "^4.17.15",
+    "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-test-renderer": "^16.8.6",
-    "prop-types": "^15.7.2",
-    "lodash": "^4.17.15",
     "styled-components": "^4.3.2"
   }
 }
