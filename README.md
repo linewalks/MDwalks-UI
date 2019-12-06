@@ -1,6 +1,8 @@
 # MDwalks-UI
 
-**[Release Notes / History / Changes](CHANGELOG.md)**
+**[Release Notes](https://github.com/linewalks/MDwalks-UI/releases)**
+
+**[History / Changes](CHANGELOG.md)**
 
 ## 1. How to
 * install
@@ -18,7 +20,7 @@
   yarn docz dev
   ```
   ```
-  port 변경 시 doczrc.js 의 portt property 변경
+  port 변경 시 doczrc.js 의 port property 변경
   ```
 
 ## 2. build
@@ -34,9 +36,14 @@
 
 ## 3. 가이드
 
+## eslint rule 가이드
+- .eslintrc 의 수정요청은 이슈를 통해서 한다
+- 기존 파일을 수정하지 않는 경우외에는 rule 을 모두 통과해야 한다
+- warning 을 해결하기 어려울 시 issue 발급
+
 ### commit 가이드
-[사용 예정 lib](https://github.com/conventional-changelog/commitlint])
-[참고 문서](https://www.conventionalcommits.org/ko/v1.0.0-beta.4/)
+- [사용 예정 lib](https://github.com/conventional-changelog/commitlint])
+- [참고 문서](https://www.conventionalcommits.org/ko/v1.0.0-beta.4/)
 ```
 <타입>[적용 범위(선택 사항)]: <설명> // 최대 72 자
 
@@ -45,25 +52,38 @@
 [꼬리말(선택 사항)]
 ```
 
+**예시**
+- eslint 적용
+  - improvement(page): eslint 적용
+  - improvement(Button): eslint 적용
+
+- refactor
+  - refactor(Button): remove
+  - refactor(Button): move to /src/com/
+
 **설명**
-줄에는 무엇이 달라졌는지 간략하게 기술한다.
+- 줄에는 무엇이 달라졌는지 간략하게 기술한다.
 
 **적용 범위**
-무엇을 수정했는지 적는다. 예를 들어 Button, HistogramChart, Util 
+- 무엇을 수정했는지 적는다
+- 예시
+  - component name, util function name, folder name
+  - 그 외 file name
 
 **설명**
-간략하게 현재형으로 적는다: 'changed'나 'changes'가 아니라 'change'로 적는다.
-굳이 첫 문자를 대문자로 적지 않는다.
-문장 끝에 마침표(.)로 끝내지 않는다.
+- 간략하게 현재형으로 적는다: 'changed'나 'changes'가 아니라 'change'로 적는다.
+- 굳이 첫 문자를 대문자로 적지 않는다.
+- 문장 끝에 마침표(.)로 끝내지 않는다.
 
 **본문**
-간략하게 현재형으로 적는다:
-기존과 무엇이 달라졌고 왜 수정했는지에 대한 내용이 들어가야 한다.
+- 간략하게 현재형으로 적는다:
+- 기존과 무엇이 달라졌고 왜 수정했는지에 대한 내용이 들어가야 한다.
 
 **타입의 종류**
 
 |Type            |SemVer| Description |
 |---|---|---|
+|improvement     |     |새로운 기능이나 버그 수정없이 현재 구현체를 개선|
 |fix             |PATCH|Bug Fix, API 변경 사항 없이 내부 수정|
 |feat            |MINOR|기능 추가, API 변경(하위 호환)|
 |BREAKING CHANGE |MAGER|API 의 변경, 큰 변화|
@@ -74,9 +94,9 @@
 |style           |     |formatting, missing semi colons
 
 **이슈 번호 넣기**
-이슈 번호는 푸터에 별도 라인으로 넣는다. 이 이슈 라인은 "closes"로 시작한다:
-closes #234
-  
+- 이슈 번호는 푸터에 별도 라인으로 넣는다. 이 이슈 라인은 "closes"로 시작한다:
+- closes #234
+
 ### PR 신청 가이드
   - PR 신청 시  Reviewers 에 TL 을 추가 한다
   - Reviewers 지정 시 PR의 상태는 merge 가 가능한 상태, 작업이 끝난 상태이어야 한다

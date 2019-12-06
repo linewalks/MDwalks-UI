@@ -97,13 +97,13 @@ function _objectSpread2(target) {
     var source = arguments[i] != null ? arguments[i] : {};
 
     if (i % 2) {
-      ownKeys(source, true).forEach(function (key) {
+      ownKeys(Object(source), true).forEach(function (key) {
         _defineProperty(target, key, source[key]);
       });
     } else if (Object.getOwnPropertyDescriptors) {
       Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
     } else {
-      ownKeys(source).forEach(function (key) {
+      ownKeys(Object(source)).forEach(function (key) {
         Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
       });
     }
@@ -17381,7 +17381,7 @@ function (_React$Component) {
   return BarGauge;
 }(React__default.Component);
 
-var version = "5.12.0";
+var version = "5.14.2";
 
 function ascending(a, b) {
   return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
@@ -18113,7 +18113,7 @@ var noop = {value: function() {}};
 
 function dispatch() {
   for (var i = 0, n = arguments.length, _ = {}, t; i < n; ++i) {
-    if (!(t = arguments[i] + "") || (t in _)) throw new Error("illegal type: " + t);
+    if (!(t = arguments[i] + "") || (t in _) || /[\s.]/.test(t)) throw new Error("illegal type: " + t);
     _[t] = [];
   }
   return new Dispatch(_);
@@ -18854,11 +18854,13 @@ function selection_remove() {
 }
 
 function selection_cloneShallow() {
-  return this.parentNode.insertBefore(this.cloneNode(false), this.nextSibling);
+  var clone = this.cloneNode(false), parent = this.parentNode;
+  return parent ? parent.insertBefore(clone, this.nextSibling) : clone;
 }
 
 function selection_cloneDeep() {
-  return this.parentNode.insertBefore(this.cloneNode(true), this.nextSibling);
+  var clone = this.cloneNode(true), parent = this.parentNode;
+  return parent ? parent.insertBefore(clone, this.nextSibling) : clone;
 }
 
 function selection_clone(deep) {
@@ -20049,7 +20051,26 @@ function rgbSpline(spline) {
 var rgbBasis = rgbSpline(basis$1);
 var rgbBasisClosed = rgbSpline(basisClosed);
 
+function numberArray(a, b) {
+  if (!b) b = [];
+  var n = a ? Math.min(b.length, a.length) : 0,
+      c = b.slice(),
+      i;
+  return function(t) {
+    for (i = 0; i < n; ++i) c[i] = a[i] * (1 - t) + b[i] * t;
+    return c;
+  };
+}
+
+function isNumberArray(x) {
+  return ArrayBuffer.isView(x) && !(x instanceof DataView);
+}
+
 function array$1(a, b) {
+  return (isNumberArray(b) ? numberArray : genericArray)(a, b);
+}
+
+function genericArray(a, b) {
   var nb = b ? b.length : 0,
       na = a ? Math.min(nb, a.length) : 0,
       x = new Array(na),
@@ -20067,14 +20088,14 @@ function array$1(a, b) {
 
 function date(a, b) {
   var d = new Date;
-  return a = +a, b -= a, function(t) {
-    return d.setTime(a + b * t), d;
+  return a = +a, b = +b, function(t) {
+    return d.setTime(a * (1 - t) + b * t), d;
   };
 }
 
 function interpolateNumber(a, b) {
-  return a = +a, b -= a, function(t) {
-    return a + b * t;
+  return a = +a, b = +b, function(t) {
+    return a * (1 - t) + b * t;
   };
 }
 
@@ -20170,7 +20191,8 @@ function interpolateValue(a, b) {
       : t === "string" ? ((c = color(b)) ? (b = c, interpolateRgb) : interpolateString)
       : b instanceof color ? interpolateRgb
       : b instanceof Date ? date
-      : Array.isArray(b) ? array$1
+      : isNumberArray(b) ? numberArray
+      : Array.isArray(b) ? genericArray
       : typeof b.valueOf !== "function" && typeof b.toString !== "function" || isNaN(b) ? object
       : interpolateNumber)(a, b);
 }
@@ -20191,8 +20213,8 @@ function hue$1(a, b) {
 }
 
 function interpolateRound(a, b) {
-  return a = +a, b -= a, function(t) {
-    return Math.round(a + b * t);
+  return a = +a, b = +b, function(t) {
+    return Math.round(a * (1 - t) + b * t);
   };
 }
 
@@ -20944,13 +20966,13 @@ function transition_attr(name, value) {
 
 function attrInterpolate(name, i) {
   return function(t) {
-    this.setAttribute(name, i(t));
+    this.setAttribute(name, i.call(this, t));
   };
 }
 
 function attrInterpolateNS(fullname, i) {
   return function(t) {
-    this.setAttributeNS(fullname.space, fullname.local, i(t));
+    this.setAttributeNS(fullname.space, fullname.local, i.call(this, t));
   };
 }
 
@@ -21244,7 +21266,7 @@ function transition_style(name, value, priority) {
 
 function styleInterpolate(name, i, priority) {
   return function(t) {
-    this.style.setProperty(name, i(t), priority);
+    this.style.setProperty(name, i.call(this, t), priority);
   };
 }
 
@@ -21284,6 +21306,31 @@ function transition_text(value) {
   return this.tween("text", typeof value === "function"
       ? textFunction$1(tweenValue(this, "text", value))
       : textConstant$1(value == null ? "" : value + ""));
+}
+
+function textInterpolate(i) {
+  return function(t) {
+    this.textContent = i.call(this, t);
+  };
+}
+
+function textTween(value) {
+  var t0, i0;
+  function tween() {
+    var i = value.apply(this, arguments);
+    if (i !== i0) t0 = (i0 = i) && textInterpolate(i);
+    return t0;
+  }
+  tween._value = value;
+  return tween;
+}
+
+function transition_textTween(value) {
+  var key = "text";
+  if (arguments.length < 1) return (key = this.tween(key)) && key._value;
+  if (value == null) return this.tween(key, null);
+  if (typeof value !== "function") throw new Error;
+  return this.tween(key, textTween(value));
 }
 
 function transition_transition() {
@@ -21372,6 +21419,7 @@ Transition.prototype = transition.prototype = {
   style: transition_style,
   styleTween: transition_styleTween,
   text: transition_text,
+  textTween: transition_textTween,
   remove: transition_remove,
   tween: transition_tween,
   delay: transition_delay,
@@ -21824,7 +21872,7 @@ function brush$1(dim) {
       filter = defaultFilter$1,
       touchable = defaultTouchable$1,
       keys = true,
-      listeners = dispatch(brush, "start", "brush", "end"),
+      listeners = dispatch("start", "brush", "end"),
       handleSize = 6,
       touchending;
 
@@ -22231,6 +22279,10 @@ function brush$1(dim) {
 
   brush.filter = function(_) {
     return arguments.length ? (filter = typeof _ === "function" ? _ : constant$4(!!_), brush) : filter;
+  };
+
+  brush.touchable = function(_) {
+    return arguments.length ? (touchable = typeof _ === "function" ? _ : constant$4(!!_), brush) : touchable;
   };
 
   brush.handleSize = function(_) {
@@ -23221,7 +23273,7 @@ var EOL = {},
 
 function objectConverter(columns) {
   return new Function("d", "return {" + columns.map(function(name, i) {
-    return JSON.stringify(name) + ": d[" + i + "]";
+    return JSON.stringify(name) + ": d[" + i + "] || \"\"";
   }).join(",") + "}");
 }
 
@@ -23372,7 +23424,9 @@ function dsvFormat(delimiter) {
     parseRows: parseRows,
     format: format,
     formatBody: formatBody,
-    formatRows: formatRows
+    formatRows: formatRows,
+    formatRow: formatRow,
+    formatValue: formatValue
   };
 }
 
@@ -23383,6 +23437,8 @@ var csvParseRows = csv.parseRows;
 var csvFormat = csv.format;
 var csvFormatBody = csv.formatBody;
 var csvFormatRows = csv.formatRows;
+var csvFormatRow = csv.formatRow;
+var csvFormatValue = csv.formatValue;
 
 var tsv = dsvFormat("\t");
 
@@ -23391,21 +23447,29 @@ var tsvParseRows = tsv.parseRows;
 var tsvFormat = tsv.format;
 var tsvFormatBody = tsv.formatBody;
 var tsvFormatRows = tsv.formatRows;
+var tsvFormatRow = tsv.formatRow;
+var tsvFormatValue = tsv.formatValue;
 
 function autoType(object) {
   for (var key in object) {
-    var value = object[key].trim(), number;
+    var value = object[key].trim(), number, m;
     if (!value) value = null;
     else if (value === "true") value = true;
     else if (value === "false") value = false;
     else if (value === "NaN") value = NaN;
     else if (!isNaN(number = +value)) value = number;
-    else if (/^([-+]\d{2})?\d{4}(-\d{2}(-\d{2})?)?(T\d{2}:\d{2}(:\d{2}(\.\d{3})?)?(Z|[-+]\d{2}:\d{2})?)?$/.test(value)) value = new Date(value);
+    else if (m = value.match(/^([-+]\d{2})?\d{4}(-\d{2}(-\d{2})?)?(T\d{2}:\d{2}(:\d{2}(\.\d{3})?)?(Z|[-+]\d{2}:\d{2})?)?$/)) {
+      if (fixtz && !!m[4] && !m[7]) value = value.replace(/-/g, "/").replace(/T/, " ");
+      value = new Date(value);
+    }
     else continue;
     object[key] = value;
   }
   return object;
 }
+
+// https://github.com/d3/d3-dsv/issues/45
+var fixtz = new Date("2019-01-01T00:00").getHours() || new Date("2019-07-01T00:00").getHours();
 
 function responseBlob(response) {
   if (!response.ok) throw new Error(response.status + " " + response.statusText);
@@ -25790,30 +25854,6 @@ function polygonContains(polygon, point) {
   return (angle < -epsilon$2 || angle < epsilon$2 && sum$1 < -epsilon$2) ^ (winding & 1);
 }
 
-function range$1(start, stop, step) {
-  start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
-
-  var i = -1,
-      n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
-      range = new Array(n);
-
-  while (++i < n) {
-    range[i] = start + i * step;
-  }
-
-  return range;
-}
-
-function* flatten(arrays) {
-  for (const array of arrays) {
-    yield* array;
-  }
-}
-
-function merge$1(arrays) {
-  return Array.from(flatten(arrays));
-}
-
 function clip(pointVisible, clipLine, interpolate, start) {
   return function(sink) {
     var line = clipLine(sink),
@@ -25839,7 +25879,7 @@ function clip(pointVisible, clipLine, interpolate, start) {
         clip.point = point;
         clip.lineStart = lineStart;
         clip.lineEnd = lineEnd;
-        segments = merge$1(segments);
+        segments = merge(segments);
         var startInside = polygonContains(polygon, start);
         if (segments.length) {
           if (!polygonStarted) sink.polygonStart(), polygonStarted = true;
@@ -26356,7 +26396,7 @@ function clipRectangle(x0, y0, x1, y1) {
     function polygonEnd() {
       var startInside = polygonInside(),
           cleanInside = clean && startInside,
-          visible = (segments = merge$1(segments)).length;
+          visible = (segments = merge(segments)).length;
       if (cleanInside || visible) {
         stream.polygonStart();
         if (cleanInside) {
@@ -26602,12 +26642,12 @@ function contains$1(object, point) {
 }
 
 function graticuleX(y0, y1, dy) {
-  var y = range$1(y0, y1 - epsilon$2, dy).concat(y1);
+  var y = sequence(y0, y1 - epsilon$2, dy).concat(y1);
   return function(x) { return y.map(function(y) { return [x, y]; }); };
 }
 
 function graticuleY(x0, x1, dx) {
-  var x = range$1(x0, x1 - epsilon$2, dx).concat(x1);
+  var x = sequence(x0, x1 - epsilon$2, dx).concat(x1);
   return function(y) { return x.map(function(x) { return [x, y]; }); };
 }
 
@@ -26623,10 +26663,10 @@ function graticule() {
   }
 
   function lines() {
-    return range$1(ceil(X0 / DX) * DX, X1, DX).map(X)
-        .concat(range$1(ceil(Y0 / DY) * DY, Y1, DY).map(Y))
-        .concat(range$1(ceil(x0 / dx) * dx, x1, dx).filter(function(x) { return abs(x % DX) > epsilon$2; }).map(x))
-        .concat(range$1(ceil(y0 / dy) * dy, y1, dy).filter(function(y) { return abs(y % DY) > epsilon$2; }).map(y));
+    return sequence(ceil(X0 / DX) * DX, X1, DX).map(X)
+        .concat(sequence(ceil(Y0 / DY) * DY, Y1, DY).map(Y))
+        .concat(sequence(ceil(x0 / dx) * dx, x1, dx).filter(function(x) { return abs(x % DX) > epsilon$2; }).map(x))
+        .concat(sequence(ceil(y0 / dy) * dy, y1, dy).filter(function(y) { return abs(y % DY) > epsilon$2; }).map(y));
   }
 
   graticule.lines = function() {
@@ -33799,12 +33839,12 @@ function diverging$1(series, order) {
   if (!((n = series.length) > 0)) return;
   for (var i, j = 0, d, dy, yp, yn, n, m = series[order[0]].length; j < m; ++j) {
     for (yp = yn = 0, i = 0; i < n; ++i) {
-      if ((dy = (d = series[order[i]][j])[1] - d[0]) >= 0) {
+      if ((dy = (d = series[order[i]][j])[1] - d[0]) > 0) {
         d[0] = yp, d[1] = yp += dy;
       } else if (dy < 0) {
         d[1] = yn, d[0] = yn += dy;
       } else {
-        d[0] = yp;
+        d[0] = 0, d[1] = dy;
       }
     }
   }
@@ -35439,11 +35479,15 @@ var d3Core = /*#__PURE__*/Object.freeze({
   csvFormat: csvFormat,
   csvFormatBody: csvFormatBody,
   csvFormatRows: csvFormatRows,
+  csvFormatRow: csvFormatRow,
+  csvFormatValue: csvFormatValue,
   tsvParse: tsvParse,
   tsvParseRows: tsvParseRows,
   tsvFormat: tsvFormat,
   tsvFormatBody: tsvFormatBody,
   tsvFormatRows: tsvFormatRows,
+  tsvFormatRow: tsvFormatRow,
+  tsvFormatValue: tsvFormatValue,
   autoType: autoType,
   easeLinear: linear$1,
   easeQuad: quadInOut,
@@ -35582,6 +35626,7 @@ var d3Core = /*#__PURE__*/Object.freeze({
   interpolateDiscrete: discrete,
   interpolateHue: hue$1,
   interpolateNumber: interpolateNumber,
+  interpolateNumberArray: numberArray,
   interpolateObject: object,
   interpolateRound: interpolateRound,
   interpolateString: interpolateString,
@@ -37693,7 +37738,7 @@ var sankeyCircular$1 = /*#__PURE__*/Object.freeze({
   sankeyJustify: justify
 });
 
-// Color Set START  
+// Color Set START
 var color$1 = {
   $black: '#000000',
   $primary_white: '#ffffff',
@@ -37749,11 +37794,7 @@ var variables = /*#__PURE__*/Object.freeze({
 });
 
 var strIdConvert = function strIdConvert(id) {
-  if (!Array.isArray(id)) {
-    id = [id];
-  }
-
-  return id.map(function (name) {
+  return [].concat(id).map(function (name) {
     return name.split(' ').join('_');
   }).join('X');
 }; // Table Component Util
@@ -37788,7 +37829,7 @@ var getStartAndEndTime = function getStartAndEndTime(dataPoints) {
   var endTime = 0;
   dataPoints.forEach(function (d) {
     if (!Date.parse(d.startTime) || !Date.parse(d.endTime)) {
-      throw new Error('data point should have both startTime and endTime' + JSON.stringify(d));
+      throw new Error("data point should have both startTime and endTime".concat(JSON.stringify(d)));
     }
 
     if (Date.parse(d.startTime) < Date.parse(startTime)) {
@@ -38209,7 +38250,7 @@ var font = {
   }
 };
 var Text = function Text(props) {
-  return "\n  font-size: ".concat(props.size ? props.size + 'px' : font.base.size + 'px', ";\n\n  font-weight: ").concat(props.bold ? 'bold' : 'normal', ";\n  letter-spacing: -0.5px;\n  color: ").concat(hexToRGB(props.color ? props.color : color$1.$black, props.opacity ? (props.opacity * 0.1).toFixed(2) : 1), ";\n");
+  return "\n  font-size: ".concat(props.size ? "".concat(props.size, "px") : "".concat(font.base.size, "px"), ";\n\n  font-weight: ").concat(props.bold ? 'bold' : 'normal', ";\n  letter-spacing: -0.5px;\n  color: ").concat(hexToRGB(props.color ? props.color : color$1.$black, props.opacity ? (props.opacity * 0.1).toFixed(2) : 1), ";\n");
 };
 var TextTag = styled__default.span(_templateObject(), Text);
 var TextOverflow = styled__default.p(_templateObject2(), function (props) {
@@ -38755,9 +38796,9 @@ function getNative(object, key) {
 var _getNative = getNative;
 
 /* Built-in method references that are verified to be native. */
-var DataView = _getNative(_root, 'DataView');
+var DataView$1 = _getNative(_root, 'DataView');
 
-var _DataView = DataView;
+var _DataView = DataView$1;
 
 /* Built-in method references that are verified to be native. */
 var Map$2 = _getNative(_root, 'Map');
@@ -41319,7 +41360,7 @@ var Footer = function Footer(props) {
 var reactIs_production_min = createCommonjsModule(function (module, exports) {
 Object.defineProperty(exports,"__esModule",{value:!0});
 var b="function"===typeof Symbol&&Symbol.for,c=b?Symbol.for("react.element"):60103,d=b?Symbol.for("react.portal"):60106,e=b?Symbol.for("react.fragment"):60107,f=b?Symbol.for("react.strict_mode"):60108,g=b?Symbol.for("react.profiler"):60114,h=b?Symbol.for("react.provider"):60109,k=b?Symbol.for("react.context"):60110,l=b?Symbol.for("react.async_mode"):60111,m=b?Symbol.for("react.concurrent_mode"):60111,n=b?Symbol.for("react.forward_ref"):60112,p=b?Symbol.for("react.suspense"):60113,q=b?Symbol.for("react.suspense_list"):
-60120,r=b?Symbol.for("react.memo"):60115,t=b?Symbol.for("react.lazy"):60116,v=b?Symbol.for("react.fundamental"):60117,w=b?Symbol.for("react.responder"):60118,x=b?Symbol.for("react.scope"):60119;function y(a){if("object"===typeof a&&null!==a){var u=a.$$typeof;switch(u){case c:switch(a=a.type,a){case l:case m:case e:case g:case f:case p:return a;default:switch(a=a&&a.$$typeof,a){case k:case n:case h:return a;default:return u}}case t:case r:case d:return u}}}function z(a){return y(a)===m}
+60120,r=b?Symbol.for("react.memo"):60115,t=b?Symbol.for("react.lazy"):60116,v=b?Symbol.for("react.fundamental"):60117,w=b?Symbol.for("react.responder"):60118,x=b?Symbol.for("react.scope"):60119;function y(a){if("object"===typeof a&&null!==a){var u=a.$$typeof;switch(u){case c:switch(a=a.type,a){case l:case m:case e:case g:case f:case p:return a;default:switch(a=a&&a.$$typeof,a){case k:case n:case t:case r:case h:return a;default:return u}}case d:return u}}}function z(a){return y(a)===m}
 exports.typeOf=y;exports.AsyncMode=l;exports.ConcurrentMode=m;exports.ContextConsumer=k;exports.ContextProvider=h;exports.Element=c;exports.ForwardRef=n;exports.Fragment=e;exports.Lazy=t;exports.Memo=r;exports.Portal=d;exports.Profiler=g;exports.StrictMode=f;exports.Suspense=p;
 exports.isValidElementType=function(a){return "string"===typeof a||"function"===typeof a||a===e||a===m||a===g||a===f||a===p||a===q||"object"===typeof a&&null!==a&&(a.$$typeof===t||a.$$typeof===r||a.$$typeof===h||a.$$typeof===k||a.$$typeof===n||a.$$typeof===v||a.$$typeof===w||a.$$typeof===x)};exports.isAsyncMode=function(a){return z(a)||y(a)===l};exports.isConcurrentMode=z;exports.isContextConsumer=function(a){return y(a)===k};exports.isContextProvider=function(a){return y(a)===h};
 exports.isElement=function(a){return "object"===typeof a&&null!==a&&a.$$typeof===c};exports.isForwardRef=function(a){return y(a)===n};exports.isFragment=function(a){return y(a)===e};exports.isLazy=function(a){return y(a)===t};exports.isMemo=function(a){return y(a)===r};exports.isPortal=function(a){return y(a)===d};exports.isProfiler=function(a){return y(a)===g};exports.isStrictMode=function(a){return y(a)===f};exports.isSuspense=function(a){return y(a)===p};
@@ -41470,6 +41511,8 @@ function typeOf(object) {
             switch ($$typeofType) {
               case REACT_CONTEXT_TYPE:
               case REACT_FORWARD_REF_TYPE:
+              case REACT_LAZY_TYPE:
+              case REACT_MEMO_TYPE:
               case REACT_PROVIDER_TYPE:
                 return $$typeofType;
 
@@ -41479,8 +41522,6 @@ function typeOf(object) {
 
         }
 
-      case REACT_LAZY_TYPE:
-      case REACT_MEMO_TYPE:
       case REACT_PORTAL_TYPE:
         return $$typeof;
     }
@@ -43078,10 +43119,28 @@ var Modal$1 = (function () {
   }, props.children), props.footer && React__default.createElement(Footer$1, null, React__default.createElement("div", null, props.footer))));
 });
 
-var IcnAddSm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTIiIGZpbGw9IiMxODlCRkYiLz4KICAgICAgICA8cGF0aCBmaWxsPSIjRkZGIiBkPSJNMTIgNmExIDEgMCAwIDEgMSAxdjRoNGExIDEgMCAwIDEgMCAyaC00djRhMSAxIDAgMCAxLTIgMHYtNC4wMDFMNyAxM2ExIDEgMCAxIDEgMC0ybDQtLjAwMVY3YTEgMSAwIDAgMSAxLTF6Ii8+CiAgICA8L2c+Cjwvc3ZnPg==';
+function _templateObject3$7() {
+  var data = _taggedTemplateLiteral(["\n  label {\n    display: block;\n    padding: 12px 24px;\n    display: flex;\n    align-items: center;\n    img {\n      margin-right: 12px;\n    }\n  }\n  input {\n    display: none;\n  }\n\n  ", "\n"]);
+
+  _templateObject3$7 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$a() {
+  var data = _taggedTemplateLiteral(["\n  img {\n    opacity: 0.4;\n  }\n"]);
+
+  _templateObject2$a = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
 
 function _templateObject$d() {
-  var data = _taggedTemplateLiteral(["\n  label {\n    cursor: pointer;\n    display: block;\n    padding: 12px 24px;\n    display: flex;\n    align-items: center;\n    img {\n      margin-left: auto;\n      visibility: hidden;\n    }\n  }\n  &:hover {\n    background-color: ", ";\n    label img {\n      visibility: visible;\n    }\n  }\n  input {\n    display: none;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  label {\n    cursor: pointer;\n  }\n  img:hover:not(:disabled) {\n    box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16);\n  }\n  &:hover {\n    background-color: ", ";\n  }\n"]);
 
   _templateObject$d = function _templateObject() {
     return data;
@@ -43089,12 +43148,20 @@ function _templateObject$d() {
 
   return data;
 }
+var CssEnable = styled.css(_templateObject$d(), color$1.$secondary_blue);
+var CssDiable = styled.css(_templateObject2$a());
 var Item = styled__default(TextTag).attrs(function () {
   return {
     size: 16,
     opacity: 8
   };
-})(_templateObject$d(), color$1.$secondary_blue);
+})(_templateObject3$7(), function (props) {
+  return props.disabled ? CssDiable : CssEnable;
+});
+
+var IcnChecked = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjMTg5QkZGIiByeD0iNCIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik01LjA3NSAxMy4zOWExLjUgMS41IDAgMCAxIDIuMTIyIDBsMS43NjcgMS43NjYgNy40MjUtNy40MjRhMS41IDEuNSAwIDAgMSAyLjEyMSAyLjEyMmwtOC40NyA4LjQ3YTEuNSAxLjUgMCAwIDEtMi4xMzYuMDE1TDUuMDc1IDE1LjUxYTEuNSAxLjUgMCAwIDEgMC0yLjEyeiIvPgogICAgPC9nPgo8L3N2Zz4=';
+
+var IcnUnchecked = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxyZWN0IHdpZHRoPSIyMiIgaGVpZ2h0PSIyMiIgeD0iMSIgeT0iMSIgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9IiNDNEM0QzQiIHN0cm9rZS13aWR0aD0iMiIgcng9IjQiLz4KPC9zdmc+';
 
 var CheckList =
 /*#__PURE__*/
@@ -43107,8 +43174,9 @@ function (_React$Component) {
     _classCallCheck(this, CheckList);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CheckList).call(this, props));
+    var data = _this.props.data;
 
-    var selectedList = lodash.chain(_this.props.data).filter(function (_ref) {
+    var selectedList = lodash.chain(data).filter(function (_ref) {
       var checked = _ref.checked;
       return checked;
     }).map(function (_ref2) {
@@ -43123,25 +43191,31 @@ function (_React$Component) {
   }
 
   _createClass(CheckList, [{
-    key: "getCheckCount",
-    value: function getCheckCount() {
-      return lodash.filter(this.state.selectedList).length;
-    }
-  }, {
     key: "onErrorTrigger",
     value: function onErrorTrigger() {
-      lodash.isFunction(this.props.onError) && this.props.onError({
-        limit: this.props.limit
-      });
+      var _this$props = this.props,
+          onError = _this$props.onError,
+          limit = _this$props.limit;
+
+      if (lodash.isFunction(onError)) {
+        onError({
+          limit: limit
+        });
+      }
     }
   }, {
     key: "onChangeTrigger",
     value: function onChangeTrigger(id) {
-      if (this.props.disabled) return;
+      var _this$props2 = this.props,
+          disabled = _this$props2.disabled,
+          limit = _this$props2.limit,
+          onChange = _this$props2.onChange;
+      if (disabled) return;
       var selectedList = this.state.selectedList;
 
-      if (selectedList.includes("".concat(id)) === false && this.getCheckCount() >= this.props.limit) {
-        return this.onErrorTrigger();
+      if (selectedList.includes("".concat(id)) === false && this.getCheckCount() >= limit) {
+        this.onErrorTrigger();
+        return;
       }
 
       if (selectedList.includes("".concat(id))) {
@@ -43153,13 +43227,23 @@ function (_React$Component) {
       this.setState({
         selectedList: selectedList
       });
-      lodash.isFunction(this.props.onChange) && this.props.onChange({
-        selectedList: selectedList
-      });
+
+      if (lodash.isFunction(onChange)) {
+        onChange({
+          selectedList: selectedList
+        });
+      }
+    }
+  }, {
+    key: "getCheckCount",
+    value: function getCheckCount() {
+      var selectedList = this.state.selectedList;
+      return lodash.filter(selectedList).length;
     }
   }, {
     key: "unCheckedById",
     value: function unCheckedById(id) {
+      var onChange = this.props.onChange;
       var selectedList = this.state.selectedList;
 
       if (selectedList.includes("".concat(id))) {
@@ -43167,9 +43251,12 @@ function (_React$Component) {
         this.setState({
           selectedList: selectedList
         });
-        lodash.isFunction(this.props.onChange) && this.props.onChange({
-          selectedList: selectedList
-        });
+
+        if (lodash.isFunction(onChange)) {
+          onChange({
+            selectedList: selectedList
+          });
+        }
       }
     }
   }, {
@@ -43177,33 +43264,39 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var _this$props = this.props,
-          data = _this$props.data,
-          disabled = _this$props.disabled,
-          checkVisible = _this$props.checkVisible;
+      var _this$props3 = this.props,
+          data = _this$props3.data,
+          disabled = _this$props3.disabled,
+          formatter = _this$props3.formatter,
+          checkVisible = _this$props3.checkVisible;
       var selectedList = this.state.selectedList;
-      return React__default.createElement(React__default.Fragment, null, data.map(function (_ref3) {
-        var id = _ref3.id,
-            name = _ref3.name;
+      return React__default.createElement(React__default.Fragment, null, data.map(function (item) {
+        var id = item.id,
+            name = item.name;
         var checked = selectedList.includes("".concat(id));
+        var text = formatter ? formatter(item) : name;
         if (!checkVisible && checked) return null;
         return React__default.createElement(Item, {
           size: "16",
           opacity: "6",
           as: "div",
-          key: "checkItem".concat(id)
-        }, React__default.createElement("label", null, React__default.createElement(TextOverflow, null, name), React__default.createElement("input", {
+          key: "checkItem".concat(id),
+          disabled: disabled
+        }, React__default.createElement("label", null, React__default.createElement("img", {
+          src: checked ? IcnChecked : IcnUnchecked,
+          width: "24px",
+          height: "24px",
+          style: {
+            borderRadius: '4px'
+          },
+          alt: ""
+        }), React__default.createElement(TextOverflow, null, text), React__default.createElement("input", {
           type: "checkbox",
           disabled: disabled,
           checked: checked,
           onChange: function onChange() {
             return _this2.onChangeTrigger(id);
           }
-        }), React__default.createElement("img", {
-          src: IcnAddSm,
-          width: "24px",
-          height: "24px",
-          alt: ""
         })));
       }));
     }
@@ -43215,7 +43308,153 @@ function (_React$Component) {
 CheckList.defaultProps = {
   limit: 5,
   disabled: false,
-  checkVisible: true
+  checkVisible: true,
+  onChange: null,
+  onError: null,
+  formatter: null
+};
+CheckList.propTypes = {
+  data: propTypes.arrayOf(propTypes.object).isRequired,
+  disabled: propTypes.bool,
+  checkVisible: propTypes.bool,
+  limit: propTypes.number,
+  onChange: propTypes.func,
+  onError: propTypes.func,
+  formatter: propTypes.func
+};
+
+var IcnChecked$1 = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTEuOSIgZmlsbD0iIzE4OUJGRiIvPgogICAgICAgIDxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjQiIGZpbGw9IiNGRkYiLz4KICAgIDwvZz4KPC9zdmc+';
+
+var IcnUnchecked$1 = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwLjkiIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjQzRDNEM0IiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+';
+
+var RadioList =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(RadioList, _React$Component);
+
+  function RadioList(props) {
+    var _this;
+
+    _classCallCheck(this, RadioList);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(RadioList).call(this, props));
+    var data = _this.props.data; // true 가 두개이면 가장 마지막 것을 select 할 까?
+
+    var selectedList = lodash.chain(data).filter(function (_ref) {
+      var checked = _ref.checked;
+      return checked;
+    }).map(function (_ref2) {
+      var id = _ref2.id;
+      return "".concat(id);
+    }).value();
+
+    if (selectedList.length > 1) {
+      selectedList = selectedList.slice(0, 1);
+    }
+
+    _this.state = {
+      selectedList: selectedList
+    };
+    return _this;
+  }
+
+  _createClass(RadioList, [{
+    key: "onChangeTrigger",
+    value: function onChangeTrigger(id) {
+      var _this$props = this.props,
+          disabled = _this$props.disabled,
+          onChange = _this$props.onChange;
+      if (disabled) return;
+      var selectedList = this.state.selectedList;
+
+      if (selectedList.includes("".concat(id))) {
+        return;
+      }
+
+      selectedList = ["".concat(id)];
+      this.setState({
+        selectedList: selectedList
+      });
+
+      if (lodash.isFunction(onChange)) {
+        onChange({
+          selectedList: selectedList
+        });
+      }
+    }
+  }, {
+    key: "unCheckedById",
+    value: function unCheckedById(id) {
+      var onChange = this.props.onChange;
+      var selectedList = this.state.selectedList;
+
+      if (selectedList.includes("".concat(id))) {
+        selectedList = lodash.without(selectedList, "".concat(id));
+        this.setState({
+          selectedList: selectedList
+        });
+
+        if (lodash.isFunction(onChange)) {
+          onChange({
+            selectedList: selectedList
+          });
+        }
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _this$props2 = this.props,
+          data = _this$props2.data,
+          disabled = _this$props2.disabled,
+          formatter = _this$props2.formatter;
+      var selectedList = this.state.selectedList;
+      return React__default.createElement(React__default.Fragment, null, data.map(function (item) {
+        var id = item.id,
+            name = item.name;
+        var checked = selectedList.includes("".concat(id));
+        var text = formatter ? formatter(item) : name;
+        return React__default.createElement(Item, {
+          size: "16",
+          opacity: "6",
+          as: "div",
+          key: "checkItem".concat(id),
+          disabled: disabled
+        }, React__default.createElement("label", null, React__default.createElement("img", {
+          src: checked ? IcnChecked$1 : IcnUnchecked$1,
+          width: "24px",
+          height: "24px",
+          style: {
+            borderRadius: '12px'
+          },
+          alt: ""
+        }), React__default.createElement(TextOverflow, null, text), React__default.createElement("input", {
+          type: "checkbox",
+          disabled: disabled,
+          checked: checked,
+          onChange: function onChange() {
+            return _this2.onChangeTrigger(id);
+          }
+        })));
+      }));
+    }
+  }]);
+
+  return RadioList;
+}(React__default.Component);
+
+RadioList.defaultProps = {
+  disabled: false,
+  onChange: null,
+  formatter: null
+};
+RadioList.propTypes = {
+  data: propTypes.arrayOf(propTypes.object).isRequired,
+  disabled: propTypes.bool,
+  onChange: propTypes.func,
+  formatter: propTypes.func
 };
 
 var highchartsMore = createCommonjsModule(function (module) {
@@ -43943,20 +44182,20 @@ function _templateObject4$5() {
   return data;
 }
 
-function _templateObject3$7() {
+function _templateObject3$8() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.0s\n"]);
 
-  _templateObject3$7 = function _templateObject3() {
+  _templateObject3$8 = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$a() {
+function _templateObject2$b() {
   var data = _taggedTemplateLiteral(["\n  @keyframes dot {\n        0% { opacity: 0; }\n      50% { opacity: 0; }\n      100% { opacity: 1; }\n  }\n\n  opacity: 0;\n  animation: dot 1.3s infinite;\n"]);
 
-  _templateObject2$a = function _templateObject2() {
+  _templateObject2$b = function _templateObject2() {
     return data;
   };
 
@@ -44083,8 +44322,8 @@ var setBtnColor = function setBtnColor(props) {
   return "\n  box-shadow: ".concat(props.BtnColorObject.boxShasdow, ";\n  background-color: ").concat(props.BtnColorObject.backgroundColor, ";\n  color: ").concat(props.BtnColorObject.color, ";\n\n  border: ").concat(props.BtnColorObject.border ? props.BtnColorObject.border : 'none', ";\n\n  &:hover:not(:disabled) {\n    box-shadow: ").concat(props.BtnColorObject.hover.boxShasdow, ";\n    background-color: ").concat(props.BtnColorObject.hover.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.hover.color, ";\n    border: ").concat(props.BtnColorObject.hover.border ? props.BtnColorObject.hover.border : 'none', ";\n  }\n\n  &:disabled {\n    box-shadow: ").concat(props.BtnColorObject.disabled.boxShasdow, ";\n    background-color: ").concat(props.BtnColorObject.disabled.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.disabled.color, ";\n    border: ").concat(props.BtnColorObject.disabled.border ? props.BtnColorObject.disabled.border : 'none', ";\n  }\n");
 };
 
-var LoadingBase = styled.css(_templateObject2$a());
-var LoadingOne = styled__default.span(_templateObject3$7(), LoadingBase);
+var LoadingBase = styled.css(_templateObject2$b());
+var LoadingOne = styled__default.span(_templateObject3$8(), LoadingBase);
 var LoadingTwo = styled__default.span(_templateObject4$5(), LoadingBase);
 var LoadingThree = styled__default.span(_templateObject5$3(), LoadingBase);
 var ButtonTag = styled__default(TextTag).attrs(function () {
@@ -44165,20 +44404,20 @@ function _templateObject4$6() {
   return data;
 }
 
-function _templateObject3$8() {
+function _templateObject3$9() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n\n  p {\n    margin-left: 8px;\n    line-height: 1.34em;\n  }\n"]);
 
-  _templateObject3$8 = function _templateObject3() {
+  _templateObject3$9 = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$b() {
+function _templateObject2$c() {
   var data = _taggedTemplateLiteral(["\n  margin: 0 auto;\n  display: inline-block;\n"]);
 
-  _templateObject2$b = function _templateObject2() {
+  _templateObject2$c = function _templateObject2() {
     return data;
   };
 
@@ -44203,8 +44442,8 @@ var Box = styled__default.section.attrs(function () {
 })(_templateObject$f(), function (props) {
   return props.variant === 'error' ? color$1.$alert_red : color$1.$solid_default;
 }, color$1.$primary_white, Text);
-var InnerBox = styled__default.article(_templateObject2$b());
-var TextBox = styled__default.div(_templateObject3$8());
+var InnerBox = styled__default.article(_templateObject2$c());
+var TextBox = styled__default.div(_templateObject3$9());
 var CloseButton = styled__default.button(_templateObject4$6());
 
 var Toast =
@@ -44670,6 +44909,7 @@ exports.Modal = Modal$1;
 exports.Navbar = Navbar;
 exports.Pagination = Pagination;
 exports.RadarChart = RadarChart;
+exports.RadioList = RadioList;
 exports.RadiusGauge = RadiusGauge;
 exports.SankeyChart = SankeyChart;
 exports.SelectBox = SelectBox;

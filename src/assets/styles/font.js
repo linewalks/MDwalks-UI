@@ -4,12 +4,12 @@ import { color } from '@src/assets/styles/variables'
 
 const font = {
   base: {
-    size: 14
-  }
+    size: 14,
+  },
 }
 
-export const Text = props => `
-  font-size: ${props.size ? props.size + 'px' : font.base.size + 'px'};
+export const Text = (props) => `
+  font-size: ${props.size ? `${props.size}px` : `${font.base.size}px`};
 
   font-weight: ${props.bold ? 'bold' : 'normal'};
   letter-spacing: -0.5px;
@@ -25,5 +25,5 @@ export const TextOverflow = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: ${props => props.width ? props.width : '100%'};
+  width: ${(props) => (props.width ? props.width : '100%')};
 `

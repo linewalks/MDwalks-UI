@@ -1,66 +1,42 @@
 import React from 'react';
-import styled from 'styled-components'
 import _ from 'lodash'
-import { font, variables } from '@src/index'
-
-import IcnAddSm from '@Components/list/icn-add-sm.svg'
-
-const Item = styled(font.TextTag).attrs((props = {}) => {
-  return {
-    size: 16,
-    opacity: 8,
-  }
-})`
-  label {
-    cursor: pointer;
-    display: block;
-    padding: 12px 24px;
-    display: flex;
-    align-items: center;
-    img {
-      margin-left: auto;
-      visibility: hidden;
-    }
-  }
-  &:hover {
-    background-color: ${variables.color.$secondary_blue};
-    label img {
-      visibility: visible;
-    }
-  }
-  input {
-    display: none;
-  }
-`
+import { font } from '@src/index'
+import PropTypes from 'prop-types'
+import Item from '@Components/list/Item'
+import IcnChecked from '@Components/list/check-box-checked-default.svg'
+import IcnUnchecked from '@Components/list/check-box-unchecked-default.svg'
 
 class CheckList extends React.Component {
   constructor(props) {
     super(props)
 
-    let selectedList = _.chain(this.props.data)
+    const { data } = this.props
+
+    const selectedList = _.chain(data)
       .filter(({ checked }) => checked)
       .map(({ id }) => `${id}`)
       .value()
 
     this.state = {
-      selectedList
+      selectedList,
     }
   }
 
-  getCheckCount() {
-    return _.filter(this.state.selectedList).length
-  }
-
   onErrorTrigger() {
-    _.isFunction(this.props.onError) && this.props.onError({limit: this.props.limit})
+    const { onError, limit } = this.props
+    if (_.isFunction(onError)) {
+      onError({ limit })
+    }
   }
 
   onChangeTrigger(id) {
-    if (this.props.disabled) return
+    const { disabled, limit, onChange } = this.props
+    if (disabled) return
     let { selectedList } = this.state
 
-    if (selectedList.includes(`${id}`) === false && this.getCheckCount() >= this.props.limit) {
-      return this.onErrorTrigger()
+    if (selectedList.includes(`${id}`) === false && this.getCheckCount() >= limit) {
+      this.onErrorTrigger()
+      return
     }
 
     if (selectedList.includes(`${id}`)) {
@@ -70,47 +46,61 @@ class CheckList extends React.Component {
     }
 
     this.setState({
-      selectedList
+      selectedList,
     })
 
-    _.isFunction(this.props.onChange) && this.props.onChange({selectedList})
+    if (_.isFunction(onChange)) {
+      onChange({ selectedList })
+    }
+  }
+
+  getCheckCount() {
+    const { selectedList } = this.state
+    return _.filter(selectedList).length
   }
 
   unCheckedById(id) {
+    const { onChange } = this.props
     let { selectedList } = this.state
     if (selectedList.includes(`${id}`)) {
       selectedList = _.without(selectedList, `${id}`)
       this.setState({
-        selectedList
+        selectedList,
       })
 
-      _.isFunction(this.props.onChange) && this.props.onChange({selectedList})
+      if (_.isFunction(onChange)) {
+        onChange({ selectedList })
+      }
     }
   }
 
   render() {
-    const { data, disabled, checkVisible } = this.props
+    const {
+      data, disabled, formatter, checkVisible,
+    } = this.props
     const { selectedList } = this.state
     return (
-      <React.Fragment>
+      <>
         {
-          data.map(({id, name}) => {
-
+          data.map((item) => {
+            const { id, name } = item
             const checked = selectedList.includes(`${id}`)
+            const text = formatter ? formatter(item) : name
 
             if (!checkVisible && checked) return null;
             return (
-              <Item size="16" opacity="6" as="div" key={`checkItem${id}`}>
+              <Item size="16" opacity="6" as="div" key={`checkItem${id}`} disabled={disabled}>
                 <label>
-                  <font.TextOverflow>{name}</font.TextOverflow>
+                  <img src={checked ? IcnChecked : IcnUnchecked} width="24px" height="24px" style={{ borderRadius: '4px' }} alt="" />
+                  <font.TextOverflow>{text}</font.TextOverflow>
                   <input type="checkbox" disabled={disabled} checked={checked} onChange={() => this.onChangeTrigger(id)} />
-                  <img src={IcnAddSm} width="24px" height="24px" alt="" />
+                  {/* <img src={IcnAddSm} width="24px" height="24px" alt="" /> */}
                 </label>
               </Item>
             )
           })
         }
-      </React.Fragment>
+      </>
     )
   }
 }
@@ -119,7 +109,19 @@ CheckList.defaultProps = {
   limit: 5,
   disabled: false,
   checkVisible: true,
+  onChange: null,
+  onError: null,
+  formatter: null,
+}
+
+CheckList.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  disabled: PropTypes.bool,
+  checkVisible: PropTypes.bool,
+  limit: PropTypes.number,
+  onChange: PropTypes.func,
+  onError: PropTypes.func,
+  formatter: PropTypes.func,
 }
 
 export default CheckList
-

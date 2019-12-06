@@ -6,13 +6,14 @@ edit: false
 import { Playground, Props } from 'docz'
 
 import CheckList from '@Components/list/CheckList'
+import RadioList from '@Components/list/RadioList'
 
 # List
 ## CheckList
 support property style
 <Playground>
-  <CheckList 
-    checkVisible={false} // true 이면 선택 된 것이 사라 지지 않는다
+  <CheckList
+    checkVisible={true} // true 이면 선택 된 것이 사라 지지 않는다
     onChange={(obj) => {alert(`onChange: ${JSON.stringify(obj)}`)}}
     onError={(obj) => {alert(`onError : ${JSON.stringify(obj)}`)}}
     data={
@@ -45,4 +46,40 @@ support property style
       ]
     }>
   </CheckList>
+</Playground>
+
+## RadioList
+support property style
+<Playground>
+  <RadioList
+    onChange={(obj) => {alert(`onChange: ${JSON.stringify(obj)}`)}}
+    data={
+      [
+        {
+          id: 1,
+          name: 'name 1',
+        },
+        {
+          id: 2,
+          name: 'name 2',
+        },
+        {
+          id: 3,
+          name: 'name 3',
+        },
+        {
+          id: 4,
+          name: 'name 4',
+        },
+        {
+          id: 5,
+          name: 'name 5',
+        },
+        {
+          id: 6,
+          name: 'name 6',
+        },
+      ]
+    }>
+  </RadioList>
 </Playground>
