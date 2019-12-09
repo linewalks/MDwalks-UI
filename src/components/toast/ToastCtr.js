@@ -1,33 +1,35 @@
 import React from 'react';
-import _ from 'lodash'
 import ToastList from '@Components/toast/ToastList'
 
 const ReactDOM = require('react-dom');
 
-function appendReactDOM(Component, dom, props = {}, done = () => {}) {
+function appendReactDOM(Component, dom, done = () => {}) {
+  function append() {
+    // eslint-disable-next-line react/no-find-dom-node
+    dom.appendChild(ReactDOM.findDOMNode(this));
+    if (typeof done === 'function') {
+      done()
+    }
+  }
+
   ReactDOM.render(
     Component,
     document.createElement('div'),
-    function () {
-      dom.appendChild(ReactDOM.findDOMNode(this));
-      typeof done === 'function' && done();
-    }
+    append,
   );
 }
 
-const ToastCtr = ({data = []}) => {
+const ToastCtr = ({ data = [] }) => {
   const id = 'app-root'
-  let root = document.getElementById(id)
+  const root = document.getElementById(id)
 
-  const a = React.createElement(ToastList, {data}, null)
+  const a = React.createElement(ToastList, { data }, null)
 
-  appendReactDOM(a, root, {
-    data
-  })
+  appendReactDOM(a, root)
 }
 
 ToastCtr.add = (data) => {
-  ToastCtr({data})
+  ToastCtr({ data })
 }
 
 export default ToastCtr
