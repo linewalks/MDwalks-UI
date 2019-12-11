@@ -40,8 +40,20 @@ describe('default', () => {
     expect(wrapper.text()).toBe(ButtonText)
   })
 
-  it('isLoading', () => {
+  it('isLoading by String', () => {
     const wrapper = mount(<Button isLoading="true">{ButtonText}</Button>)
+    expect(wrapper.text()).not.toBe(ButtonText)
+    expect(wrapper.text()).toBe('loading...')
+  })
+
+  it('isLoading by String', () => {
+    const wrapper = mount(<Button isLoading="false">{ButtonText}</Button>)
+    expect(wrapper.text()).toBe(ButtonText)
+    expect(wrapper.text()).not.toBe('loading...')
+  })
+
+  it('isLoading by Boolean ', () => {
+    const wrapper = mount(<Button isLoading>{ButtonText}</Button>)
     expect(wrapper.text()).not.toBe(ButtonText)
     expect(wrapper.text()).toBe('loading...')
   })
@@ -215,6 +227,8 @@ describe('Button Size', () => {
 it('ButtonLink', () => {
   const tree = renderer.create(<ButtonLink variant="basic_line" />).toJSON()
   const ruls = {
+    fontWeight: 'bold',
+    fontSize: '14px',
     minWidth: 'auto',
     paddingLeft: '8px',
     paddingRight: '8px',
