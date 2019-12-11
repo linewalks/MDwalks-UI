@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import * as font from '@src/assets/styles/font'
 import { color } from '@src/assets/styles/variables'
 
@@ -25,7 +25,7 @@ const BtnDefaultCss = css`
   }
 `
 
-const BtnSize = {
+export const BtnSize = {
   xLarge: {
     minWidth: '100%',
     height: '60px',
@@ -168,15 +168,15 @@ const setBtnColor = props => `
   }
 `
 
-const LoadingBase = css`
-  @keyframes dot {
-        0% { opacity: 0; }
-      50% { opacity: 0; }
-      100% { opacity: 1; }
-  }
+const fade = keyframes`
+  0% { opacity: 0; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+`
 
+const LoadingBase = css`
   opacity: 0;
-  animation: dot 1.3s infinite;
+  animation: ${fade} 1.3s infinite;
 `
 
 const LoadingOne = styled.span`
@@ -261,7 +261,7 @@ const ButtonTextLinkTag = styled(font.TextTag).attrs((props = {}) => {
     bold: true,
   }
 })`
-  color: hexToRGB(color.$black, 0.6);
+  color: ${hexToRGB(color.$black, 0.6)};
   text-decoration: underline;
 `
 
