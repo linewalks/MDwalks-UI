@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components'
+import PropTypes from 'prop-types'
 import * as font from '@src/assets/styles/font'
 import { color } from '@src/assets/styles/variables'
 
@@ -8,20 +9,20 @@ import { hexToRGB } from '@Components/button/utility'
 const BtnDefaultCss = css`
   border:0 none;
   background-color:transparent;
-  cursor:pointer
+  cursor:pointer;
   transition: background-color 0.3s, color 0.3s ease, border-color 0.3s ease;
   line-height: 1.34em;
-  
+
   img {
-    vertical-align: middle
+    vertical-align: middle;
   }
 
   &:hover {
-    text-decoration: none
+    text-decoration: none;
   }
 
   &:disabled {
-    cursor: not-allowed
+    cursor: not-allowed;
   }
 `
 
@@ -55,10 +56,10 @@ export const BtnSize = {
       margin: '6px',
     },
     marginRight: '8px',
-  }
+  },
 }
 
-const setBtnSize = props => `
+const setBtnSize = (props) => `
   height: ${props.BtnSizeObject.height};
   border-radius: ${props.BtnSizeObject.borderRadius};
   padding: ${props.BtnSizeObject.padding};
@@ -91,7 +92,7 @@ const BtnColor = {
       boxShasdow: 'none',
       backgroundColor: hexToRGB(color.$btn_lightshaded_default, 0.48),
       color: hexToRGB(color.$black, 0.2),
-    }
+    },
   },
   primary_line: {
     boxShasdow: `none`,
@@ -109,7 +110,7 @@ const BtnColor = {
       backgroundColor: hexToRGB(color.$btn_lightshaded_default, 0.48),
       color: hexToRGB(color.$black, 0.2),
       border: `1px solid ${hexToRGB(color.$line_btn_grey, 0.48)}`,
-    }
+    },
   },
   basic: {
     boxShasdow: 'none',
@@ -124,12 +125,12 @@ const BtnColor = {
       boxShasdow: 'none',
       backgroundColor: hexToRGB(color.$btn_lightshaded_default, 0.48),
       color: hexToRGB(color.$black, 0.2),
-    }
+    },
   },
   basic_line: {
     boxShasdow: 'none',
     backgroundColor: color.$primary_white,
-    color:  hexToRGB(color.$black, 0.6),
+    color: hexToRGB(color.$black, 0.6),
     border: `1px solid ${hexToRGB(color.$black, 0.1)}`,
     hover: {
       boxShasdow: `0 4px 10px 0 rgba(0, 0, 0, 0.08)`,
@@ -142,11 +143,11 @@ const BtnColor = {
       backgroundColor: hexToRGB(color.$btn_lightshaded_default, 0.48),
       color: hexToRGB(color.$black, 0.2),
       border: `1px solid ${hexToRGB(color.$line_btn_grey, 0.48)}`,
-    }
-  }
+    },
+  },
 }
 
-const setBtnColor = props => `
+const setBtnColor = (props) => `
   box-shadow: ${props.BtnColorObject.boxShasdow};
   background-color: ${props.BtnColorObject.backgroundColor};
   color: ${props.BtnColorObject.color};
@@ -196,27 +197,30 @@ const LoadingThree = styled.span`
 
 
 const ButtonTag = styled(font.TextTag).attrs((props = {}) => {
-  props.size = props.size || 'md'
-  const BtnSizeObject = props.size === 'xlg' ? BtnSize.xLarge : props.size === 'md' ? BtnSize.middle : BtnSize.large
-  let { variant } = props
+  const size = props.size || 'md'
 
-  // CDM 에 적용 후 삭제
-  if (variant === 'secondary') { // v0.5.1
-    variant = 'basic'
-  }
+  const BtnSizeObject = {
+    xlg: BtnSize.xLarge,
+    md: BtnSize.middle,
+    lg: BtnSize.large,
+  }[size]
 
-  // CDM 에 적용 후 삭제
-  if (variant === 'light') { // v0.5.1
-    variant = 'basic_line'
-  }
+  const { variant } = props
 
-  const BtnColorObject = 
-    variant === 'primary' ? BtnColor.primary :
-    variant === 'primary_line' ? BtnColor.primary_line :
-    variant === 'basic'  ? BtnColor.basic : BtnColor.basic_line
+  const BtnColorObject = {
+    primary: BtnColor.primary,
+    primary_line: BtnColor.primary_line,
+    basic: BtnColor.basic,
+  }[variant] || BtnColor.basic_line
+
+  const fontSize = {
+    xlg: 18,
+    md: 14,
+    lg: 16,
+  }[size]
 
   return {
-    size: props.size === 'xlg' ? 18 : props.size === 'md' ? 14 : 16,
+    size: fontSize,
     bold: props.bold || true,
     BtnSizeObject,
     BtnColorObject,
@@ -228,11 +232,11 @@ const ButtonTag = styled(font.TextTag).attrs((props = {}) => {
 `
 
 const ButtonLinkTag = styled(font.TextTag).attrs((props = {}) => {
-  props.size = props.size || 'md'
+  const size = props.size || 'md'
   const BtnSizeObject = props.size === 'md' ? BtnSize.middle : BtnSize.large
 
   return {
-    size: props.size === 'md' ? 14 : 16,
+    size: size === 'md' ? 14 : 16,
     bold: props.bold || true,
     BtnSizeObject,
   }
@@ -255,39 +259,84 @@ const ButtonLinkTag = styled(font.TextTag).attrs((props = {}) => {
   }
 `
 
-const ButtonTextLinkTag = styled(font.TextTag).attrs((props = {}) => {
-  return {
-    size: 16,
-    bold: true,
-  }
-})`
+const ButtonTextLinkTag = styled(font.TextTag).attrs(() => ({
+  size: 16,
+  bold: true,
+}))`
   color: ${hexToRGB(color.$black, 0.6)};
   text-decoration: underline;
 `
 
 export const ButtonLink = (props) => {
-  return <ButtonLinkTag as="a" {...props}>{props.children}</ButtonLinkTag>
+  const { as: propsAs, children, size } = props
+  return <ButtonLinkTag as={propsAs} size={size}>{children}</ButtonLinkTag>
+}
+
+ButtonLink.defaultProps = {
+  as: 'a',
+  size: 'md',
+}
+ButtonLink.propTypes = {
+  as: PropTypes.string,
+  size: PropTypes.string,
 }
 
 export const ButtonTextLink = (props) => {
-  return <ButtonTextLinkTag as={props.as || "a"} {...props}>{props.children}</ButtonTextLinkTag>
+  const { as: propsAs, children } = props
+  return <ButtonTextLinkTag as={propsAs}>{children}</ButtonTextLinkTag>
 }
 
-export default (props) => {
-  const isLoading = props.isLoading === "true"
+ButtonTextLink.defaultProps = {
+  as: 'a',
+}
+ButtonTextLink.propTypes = {
+  as: PropTypes.string,
+}
+
+const Button = (props) => {
+  const {
+    isLoading,
+    as: propsAs,
+    disabled,
+    children,
+    size,
+    variant,
+  } = props
+
+  const showLoading = isLoading === 'true'
 
   return (
-    <ButtonTag as={props.as || "button"} {...props} disabled={props.disabled || isLoading}>
-      {isLoading ? "loading" : props.children}
+    <ButtonTag as={propsAs} disabled={disabled || showLoading} size={size} variant={variant}>
+      {showLoading ? 'loading' : children}
 
       {
-        isLoading &&
+        showLoading
+        && (
         <span>
           <LoadingOne>.</LoadingOne>
           <LoadingTwo>.</LoadingTwo>
           <LoadingThree>.</LoadingThree>
         </span>
+        )
       }
     </ButtonTag>
   )
 }
+
+Button.defaultProps = {
+  isLoading: 'false',
+  disabled: false,
+  as: 'button',
+  size: 'md',
+  variant: 'basic_line',
+}
+
+Button.propTypes = {
+  isLoading: PropTypes.string,
+  disabled: PropTypes.bool,
+  as: PropTypes.string,
+  size: PropTypes.string,
+  variant: PropTypes.string,
+}
+
+export default Button

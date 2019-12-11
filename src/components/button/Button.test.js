@@ -1,9 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-// import styled from 'styled-components'
 import renderer from 'react-test-renderer'
 import 'jest-styled-components'
-// import 'styled-components-test-utils/lib/jest'
 import _ from 'lodash'
 import Button, { ButtonLink, ButtonTextLink } from '@Components/button/Button'
 
@@ -43,7 +41,7 @@ describe('default', () => {
   })
 
   it('isLoading', () => {
-    const wrapper = mount(<Button isLoading={'true'}>{ButtonText}</Button>)
+    const wrapper = mount(<Button isLoading="true">{ButtonText}</Button>)
     expect(wrapper.text()).not.toBe(ButtonText)
     expect(wrapper.text()).toBe('loading...')
   })
@@ -144,6 +142,7 @@ describe('Button Size', () => {
   it('large', () => {
     const tree = renderer.create(<Button size="lg" />).toJSON()
     const ruls = {
+      fontSize: '16px',
       minWidth: '100px',
       height: '42px',
       borderRadius: '21px',
@@ -167,6 +166,7 @@ describe('Button Size', () => {
   it('xLarge', () => {
     const tree = renderer.create(<Button size="xlg" />).toJSON()
     const ruls = {
+      fontSize: '18px',
       minWidth: '100%',
       height: '60px',
       borderRadius: '10px',
@@ -190,6 +190,7 @@ describe('Button Size', () => {
   it('middle', () => {
     const tree = renderer.create(<Button size="md" />).toJSON()
     const ruls = {
+      fontSize: '14px',
       minWidth: '90px',
       height: '34px',
       borderRadius: '17px',
@@ -246,6 +247,7 @@ describe('ButtonLink', () => {
   it('color & size', () => {
     const tree = renderer.create(<ButtonLink />).toJSON()
     const ruls = {
+      fontSize: '14px',
       minWidth: 'auto',
       paddingLeft: '8px',
       paddingRight: '8px',
