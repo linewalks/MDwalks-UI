@@ -13,14 +13,14 @@ const toHaveStyleRules = (component, property, options) => {
   })
 }
 
-const checkColorRuls = (component, rulsTarget) => {
-  let { hover, disabled } = rulsTarget
+const checkColorRuls = (component, rulesTarget) => {
+  let { hover, disabled } = rulesTarget
 
   hover = _.extend({ border: 'none' }, hover)
   disabled = _.extend({ border: 'none' }, disabled)
-  const ruls = _.extend({ border: 'none' }, rulsTarget)
-  delete ruls.hover
-  delete ruls.disabled
+  const rules = _.extend({ border: 'none' }, rulesTarget)
+  delete rules.hover
+  delete rules.disabled
 
   toHaveStyleRules(component, hover, {
     modifier: ':hover:not(:disabled)',
@@ -30,7 +30,7 @@ const checkColorRuls = (component, rulsTarget) => {
     modifier: ':disabled',
   })
 
-  toHaveStyleRules(component, ruls)
+  toHaveStyleRules(component, rules)
 }
 
 describe('default', () => {
@@ -62,7 +62,7 @@ describe('default', () => {
 describe('Button Style', () => {
   it('primary', () => {
     const tree = renderer.create(<Button variant="primary" />).toJSON()
-    const ruls = {
+    const rules = {
       boxShadow: 'none',
       backgroundColor: '#189bff',
       color: '#ffffff',
@@ -77,12 +77,12 @@ describe('Button Style', () => {
         color: 'rgba(0,0,0,0.2)',
       },
     }
-    checkColorRuls(tree, ruls)
+    checkColorRuls(tree, rules)
   })
 
   it('primary_line', () => {
     const tree = renderer.create(<Button variant="primary_line" />).toJSON()
-    const ruls = {
+    const rules = {
       boxShadow: 'none',
       backgroundColor: '#ffffff',
       color: '#189bff',
@@ -101,12 +101,12 @@ describe('Button Style', () => {
       },
     }
 
-    checkColorRuls(tree, ruls)
+    checkColorRuls(tree, rules)
   })
 
   it('basic', () => {
     const tree = renderer.create(<Button variant="basic" />).toJSON()
-    const ruls = {
+    const rules = {
       boxShadow: 'none',
       backgroundColor: 'rgba(0,0,0,0.1)',
       color: 'rgba(0,0,0,0.6)',
@@ -122,12 +122,12 @@ describe('Button Style', () => {
       },
     }
 
-    checkColorRuls(tree, ruls)
+    checkColorRuls(tree, rules)
   })
 
   it('basic_line', () => {
     const tree = renderer.create(<Button variant="basic_line" />).toJSON()
-    const ruls = {
+    const rules = {
       boxShadow: 'none',
       backgroundColor: '#ffffff',
       color: 'rgba(0,0,0,0.6)',
@@ -146,14 +146,14 @@ describe('Button Style', () => {
       },
     }
 
-    checkColorRuls(tree, ruls)
+    checkColorRuls(tree, rules)
   })
 })
 
 describe('Button Size', () => {
   it('large', () => {
     const tree = renderer.create(<Button size="lg" />).toJSON()
-    const ruls = {
+    const rules = {
       fontSize: '16px',
       minWidth: '100px',
       height: '42px',
@@ -165,19 +165,19 @@ describe('Button Size', () => {
       marginRight: '8px',
     }
 
-    expect(tree).toHaveStyleRule('margin-right', ruls.marginRight, {
+    expect(tree).toHaveStyleRule('margin-right', rules.marginRight, {
       modifier: ':not(:last-child)',
     })
 
-    delete ruls.img
-    delete ruls.marginRight
+    delete rules.img
+    delete rules.marginRight
 
-    toHaveStyleRules(tree, ruls)
+    toHaveStyleRules(tree, rules)
   })
 
   it('xLarge', () => {
     const tree = renderer.create(<Button size="xlg" />).toJSON()
-    const ruls = {
+    const rules = {
       fontSize: '18px',
       minWidth: '100%',
       height: '60px',
@@ -189,19 +189,19 @@ describe('Button Size', () => {
       marginRight: '0',
     }
 
-    expect(tree).toHaveStyleRule('margin-right', ruls.marginRight, {
+    expect(tree).toHaveStyleRule('margin-right', rules.marginRight, {
       modifier: ':not(:last-child)',
     })
 
-    delete ruls.img
-    delete ruls.marginRight
+    delete rules.img
+    delete rules.marginRight
 
-    toHaveStyleRules(tree, ruls)
+    toHaveStyleRules(tree, rules)
   })
 
   it('middle', () => {
     const tree = renderer.create(<Button size="md" />).toJSON()
-    const ruls = {
+    const rules = {
       fontSize: '14px',
       minWidth: '90px',
       height: '34px',
@@ -213,20 +213,20 @@ describe('Button Size', () => {
       marginRight: '8px',
     }
 
-    expect(tree).toHaveStyleRule('margin-right', ruls.marginRight, {
+    expect(tree).toHaveStyleRule('margin-right', rules.marginRight, {
       modifier: ':not(:last-child)',
     })
 
-    delete ruls.img
-    delete ruls.marginRight
+    delete rules.img
+    delete rules.marginRight
 
-    toHaveStyleRules(tree, ruls)
+    toHaveStyleRules(tree, rules)
   })
 })
 
 it('ButtonLink', () => {
   const tree = renderer.create(<ButtonLink variant="basic_line" />).toJSON()
-  const ruls = {
+  const rules = {
     fontWeight: 'bold',
     fontSize: '14px',
     minWidth: 'auto',
@@ -243,24 +243,24 @@ it('ButtonLink', () => {
     },
   }
 
-  expect(tree).toHaveStyleRule('color', ruls.hover.color, {
+  expect(tree).toHaveStyleRule('color', rules.hover.color, {
     modifier: ':hover',
   })
 
-  expect(tree).toHaveStyleRule('padding-left', ruls.firstChild.paddingLeft, {
+  expect(tree).toHaveStyleRule('padding-left', rules.firstChild.paddingLeft, {
     modifier: ':first-child',
   })
 
-  delete ruls.hover
-  delete ruls.firstChild
+  delete rules.hover
+  delete rules.firstChild
 
-  toHaveStyleRules(tree, ruls)
+  toHaveStyleRules(tree, rules)
 })
 
 describe('ButtonLink', () => {
   it('color & size', () => {
     const tree = renderer.create(<ButtonLink />).toJSON()
-    const ruls = {
+    const rules = {
       fontSize: '14px',
       minWidth: 'auto',
       paddingLeft: '8px',
@@ -276,31 +276,31 @@ describe('ButtonLink', () => {
       },
     }
 
-    expect(tree).toHaveStyleRule('color', ruls.hover.color, {
+    expect(tree).toHaveStyleRule('color', rules.hover.color, {
       modifier: ':hover',
     })
 
-    expect(tree).toHaveStyleRule('padding-left', ruls.firstChild.paddingLeft, {
+    expect(tree).toHaveStyleRule('padding-left', rules.firstChild.paddingLeft, {
       modifier: ':first-child',
     })
 
-    delete ruls.hover
-    delete ruls.firstChild
+    delete rules.hover
+    delete rules.firstChild
 
-    toHaveStyleRules(tree, ruls)
+    toHaveStyleRules(tree, rules)
   })
 })
 
 describe('ButtonTextLinkTag', () => {
   it('color & size', () => {
     const tree = renderer.create(<ButtonTextLink />).toJSON()
-    const ruls = {
+    const rules = {
       fontSize: '16px',
       fontWeight: 'bold',
       color: 'rgba(0,0,0,0.6)',
       textDecoration: 'underline',
     }
 
-    toHaveStyleRules(tree, ruls)
+    toHaveStyleRules(tree, rules)
   })
 })
