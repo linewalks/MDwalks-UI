@@ -3,6 +3,9 @@ import _ from "lodash"
 import btn_next from '@src/assets/svg/pagination/btn_next.svg';
 import btn_pre from '@src/assets/svg/pagination/btn_pre.svg';
 
+import btn_next_sm from '@src/assets/svg/pagination/btn_next_sm.svg';
+import btn_pre_sm from '@src/assets/svg/pagination/btn_pre_sm.svg';
+
 class Pagination extends Component {
   state = {
     totalPage: 1,
@@ -111,13 +114,13 @@ class Pagination extends Component {
     return (
       <div style={this.isHidden() ? {display: 'none'} : {}}>
       <button style={{marginRight: '16px'}} disabled={this.disablePrevButton()} onClick={this.movePrevPage.bind(this)}>
-        <img type="image" src={btn_pre}  width="32px" height="32px" alt="move previous" />
+        <img type="image" src={btn_pre_sm}  width="32px" height="32px" alt="move previous" />
       </button>
       <span style={{ fontSize: '14px', opacity: 0.8 }}>
         { `${selectPage} / ${totalPage}` }
       </span>
       <button style={{marginLeft: '16px'}} disabled={this.disableNextButton()} onClick={this.moveNextPage.bind(this)}>
-        <img type="image" src={btn_next}  width="32px" height="32px" alt="move next" />
+        <img type="image" src={btn_next_sm}  width="32px" height="32px" alt="move next" />
       </button>
     </div>
     )
