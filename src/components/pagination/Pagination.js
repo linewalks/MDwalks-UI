@@ -13,11 +13,11 @@ class Pagination extends Component {
 
   constructor(props) {
     super(props)
-    const {selectPage = 1, totalPage = 1, drawPageCnt = 2} = props
+    const {selectPage = 1, totalPage = 1, drawPageCnt = 2, size } = props
 
     this.state.selectPage = selectPage
     this.state.totalPage = totalPage
-    this.state.drawPageCnt = drawPageCnt
+    this.state.drawPageCnt = size === 'sm' ? 1 : drawPageCnt
 
     this.state.list = this.getPageList()
   }
@@ -106,7 +106,29 @@ class Pagination extends Component {
     return this.state.totalPage === 0
   }
 
+  getSmall() {
+    const { selectPage, totalPage } = this.state
+    return (
+      <div style={this.isHidden() ? {display: 'none'} : {}}>
+      <button style={{marginRight: '16px'}} disabled={this.disablePrevButton()} onClick={this.movePrevPage.bind(this)}>
+        <img type="image" src={btn_pre}  width="32px" height="32px" alt="move previous" />
+      </button>
+      <span style={{ fontSize: '14px', opacity: 0.8 }}>
+        { `${selectPage} / ${totalPage}` }
+      </span>
+      <button style={{marginLeft: '16px'}} disabled={this.disableNextButton()} onClick={this.moveNextPage.bind(this)}>
+        <img type="image" src={btn_next}  width="32px" height="32px" alt="move next" />
+      </button>
+    </div>
+    )
+  }
+
   render() {
+    const { size } = this.props
+    if (size === 'sm') {
+      return this.getSmall()
+    }
+
     const styles = this.getStyles()
     return (
     <div style={this.isHidden() ? {display: 'none'} : {}}>

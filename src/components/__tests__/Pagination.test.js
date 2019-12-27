@@ -132,3 +132,12 @@ it('isHidden', () => {
   expect(wrapper.get(0).props.style.display).toBe('none')
 
 })
+
+describe('sm', () => {
+  it('getPrevPage, getNextPage', () => {
+    const selectPage = 2
+    const wrapper = shallow(<Pagination size="sm" selectPage={selectPage} totalPage="5" />)
+    expect(wrapper.instance().getPrevPage()).toBe(selectPage - 1)
+    expect(wrapper.instance().getNextPage()).toBe(selectPage + 1)
+  })
+})
