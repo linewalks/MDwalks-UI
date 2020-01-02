@@ -44132,8 +44132,18 @@ function (_Component) {
   return TimeToEvent;
 }(React.Component);
 
+function _templateObject9() {
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  text-decoration: underline;\n"]);
+
+  _templateObject9 = function _templateObject9() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject8() {
-  var data = _taggedTemplateLiteral(["\n  color: hexToRGB(color.$black, 0.6);\n  text-decoration: underline;\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  min-width: auto;\n  padding-left: 8px;\n  padding-right: 8px;\n  display: inline-block;\n  box-sizing: border-box;\n\n  color: ", ";\n  &:hover {\n    color: ", ";\n  }\n\n  &:first-child {\n    padding-left: 0;\n  }\n"]);
 
   _templateObject8 = function _templateObject8() {
     return data;
@@ -44143,7 +44153,7 @@ function _templateObject8() {
 }
 
 function _templateObject7() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  min-width: auto;\n  padding-left: 8px;\n  padding-right: 8px;\n  display: inline-block;\n  box-sizing: border-box;\n\n  color: ", ";\n  &:hover {\n    color: ", ";\n  }\n\n  &:first-child {\n    padding-left: 0;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  ", "\n"]);
 
   _templateObject7 = function _templateObject7() {
     return data;
@@ -44153,7 +44163,7 @@ function _templateObject7() {
 }
 
 function _templateObject6$1() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.3s\n"]);
 
   _templateObject6$1 = function _templateObject6() {
     return data;
@@ -44163,7 +44173,7 @@ function _templateObject6$1() {
 }
 
 function _templateObject5$3() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.3s\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.2s\n"]);
 
   _templateObject5$3 = function _templateObject5() {
     return data;
@@ -44173,7 +44183,7 @@ function _templateObject5$3() {
 }
 
 function _templateObject4$5() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.2s\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.0s\n"]);
 
   _templateObject4$5 = function _templateObject4() {
     return data;
@@ -44183,7 +44193,7 @@ function _templateObject4$5() {
 }
 
 function _templateObject3$8() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.0s\n"]);
+  var data = _taggedTemplateLiteral(["\n  opacity: 0;\n  animation: ", " 1.3s infinite;\n"]);
 
   _templateObject3$8 = function _templateObject3() {
     return data;
@@ -44193,7 +44203,7 @@ function _templateObject3$8() {
 }
 
 function _templateObject2$b() {
-  var data = _taggedTemplateLiteral(["\n  @keyframes dot {\n        0% { opacity: 0; }\n      50% { opacity: 0; }\n      100% { opacity: 1; }\n  }\n\n  opacity: 0;\n  animation: dot 1.3s infinite;\n"]);
+  var data = _taggedTemplateLiteral(["\n  0% { opacity: 0; }\n  50% { opacity: 0; }\n  100% { opacity: 1; }\n"]);
 
   _templateObject2$b = function _templateObject2() {
     return data;
@@ -44203,7 +44213,7 @@ function _templateObject2$b() {
 }
 
 function _templateObject$e() {
-  var data = _taggedTemplateLiteral(["\n  border:0 none;\n  background-color:transparent;\n  cursor:pointer\n  transition: background-color 0.3s, color 0.3s ease, border-color 0.3s ease;\n  line-height: 1.34em;\n  \n  img {\n    vertical-align: middle\n  }\n\n  &:hover {\n    text-decoration: none\n  }\n\n  &:disabled {\n    cursor: not-allowed\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  border:0 none;\n  background-color:transparent;\n  cursor:pointer;\n  transition: background-color 0.3s, color 0.3s ease, border-color 0.3s ease;\n  line-height: 1.34em;\n\n  img {\n    vertical-align: middle;\n  }\n\n  &:hover {\n    text-decoration: none;\n  }\n\n  &:disabled {\n    cursor: not-allowed;\n  }\n"]);
 
   _templateObject$e = function _templateObject() {
     return data;
@@ -44251,66 +44261,58 @@ var setBtnSize = function setBtnSize(props) {
 
 var BtnColor = {
   primary: {
-    boxShasdow: "none",
     backgroundColor: color$1.$solid_default,
     color: color$1.$primary_white,
     hover: {
-      boxShasdow: "0 4px 10px 0 rgba(0, 0, 0, 0.08)",
+      boxShadow: "0 4px 10px 0 rgba(0,0,0,0.08)",
       backgroundColor: color$1.$solid_hover,
       color: color$1.$primary_white
     },
     disabled: {
-      boxShasdow: 'none',
       backgroundColor: hexToRGB(color$1.$btn_lightshaded_default, 0.48),
       color: hexToRGB(color$1.$black, 0.2)
     }
   },
   primary_line: {
-    boxShasdow: "none",
     backgroundColor: color$1.$primary_white,
     color: color$1.$solid_default,
     border: "1px solid ".concat(color$1.$solid_default),
     hover: {
-      boxShasdow: "0 4px 10px 0 rgba(0, 0, 0, 0.08)",
+      boxShadow: "0 4px 10px 0 rgba(0,0,0,0.08)",
       backgroundColor: color$1.$primary_white,
       color: color$1.$solid_hover,
       border: "1px solid ".concat(color$1.$solid_default)
     },
     disabled: {
-      boxShasdow: 'none',
       backgroundColor: hexToRGB(color$1.$btn_lightshaded_default, 0.48),
       color: hexToRGB(color$1.$black, 0.2),
       border: "1px solid ".concat(hexToRGB(color$1.$line_btn_grey, 0.48))
     }
   },
   basic: {
-    boxShasdow: 'none',
     backgroundColor: hexToRGB(color$1.$black, 0.1),
     color: hexToRGB(color$1.$black, 0.6),
     hover: {
-      boxShasdow: "0 4px 10px 0 rgba(0, 0, 0, 0.08)",
+      boxShadow: "0 4px 10px 0 rgba(0,0,0,0.08)",
       backgroundColor: hexToRGB(color$1.$black, 0.18),
       color: hexToRGB(color$1.$black, 0.6)
     },
     disabled: {
-      boxShasdow: 'none',
       backgroundColor: hexToRGB(color$1.$btn_lightshaded_default, 0.48),
       color: hexToRGB(color$1.$black, 0.2)
     }
   },
   basic_line: {
-    boxShasdow: 'none',
     backgroundColor: color$1.$primary_white,
     color: hexToRGB(color$1.$black, 0.6),
     border: "1px solid ".concat(hexToRGB(color$1.$black, 0.1)),
     hover: {
-      boxShasdow: "0 4px 10px 0 rgba(0, 0, 0, 0.08)",
+      boxShadow: "0 4px 10px 0 rgba(0,0,0,0.08)",
       backgroundColor: color$1.$primary_white,
       color: hexToRGB(color$1.$black, 0.6),
       border: "1px solid ".concat(hexToRGB(color$1.$black, 0.1))
     },
     disabled: {
-      boxShasdow: 'none',
       backgroundColor: hexToRGB(color$1.$btn_lightshaded_default, 0.48),
       color: hexToRGB(color$1.$black, 0.2),
       border: "1px solid ".concat(hexToRGB(color$1.$line_btn_grey, 0.48))
@@ -44319,80 +44321,133 @@ var BtnColor = {
 };
 
 var setBtnColor = function setBtnColor(props) {
-  return "\n  box-shadow: ".concat(props.BtnColorObject.boxShasdow, ";\n  background-color: ").concat(props.BtnColorObject.backgroundColor, ";\n  color: ").concat(props.BtnColorObject.color, ";\n\n  border: ").concat(props.BtnColorObject.border ? props.BtnColorObject.border : 'none', ";\n\n  &:hover:not(:disabled) {\n    box-shadow: ").concat(props.BtnColorObject.hover.boxShasdow, ";\n    background-color: ").concat(props.BtnColorObject.hover.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.hover.color, ";\n    border: ").concat(props.BtnColorObject.hover.border ? props.BtnColorObject.hover.border : 'none', ";\n  }\n\n  &:disabled {\n    box-shadow: ").concat(props.BtnColorObject.disabled.boxShasdow, ";\n    background-color: ").concat(props.BtnColorObject.disabled.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.disabled.color, ";\n    border: ").concat(props.BtnColorObject.disabled.border ? props.BtnColorObject.disabled.border : 'none', ";\n  }\n");
+  return "\n  box-shadow: ".concat(props.BtnColorObject.boxShadow || 'none', ";\n  background-color: ").concat(props.BtnColorObject.backgroundColor, ";\n  color: ").concat(props.BtnColorObject.color, ";\n\n  border: ").concat(props.BtnColorObject.border || 'none', ";\n\n  &:hover:not(:disabled) {\n    box-shadow: ").concat(props.BtnColorObject.hover.boxShadow || 'none', ";\n    background-color: ").concat(props.BtnColorObject.hover.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.hover.color, ";\n    border: ").concat(props.BtnColorObject.hover.border || 'none', ";\n  }\n\n  &:disabled {\n    box-shadow: ").concat(props.BtnColorObject.disabled.boxShadow || 'none', ";\n    background-color: ").concat(props.BtnColorObject.disabled.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.disabled.color, ";\n    border: ").concat(props.BtnColorObject.disabled.border || 'none', ";\n  }\n");
 };
 
-var LoadingBase = styled.css(_templateObject2$b());
-var LoadingOne = styled__default.span(_templateObject3$8(), LoadingBase);
-var LoadingTwo = styled__default.span(_templateObject4$5(), LoadingBase);
-var LoadingThree = styled__default.span(_templateObject5$3(), LoadingBase);
+var fade = styled.keyframes(_templateObject2$b());
+var LoadingBase = styled.css(_templateObject3$8(), fade);
+var LoadingOne = styled__default.span(_templateObject4$5(), LoadingBase);
+var LoadingTwo = styled__default.span(_templateObject5$3(), LoadingBase);
+var LoadingThree = styled__default.span(_templateObject6$1(), LoadingBase);
 var ButtonTag = styled__default(TextTag).attrs(function () {
   var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  props.size = props.size || 'md';
-  var BtnSizeObject = props.size === 'xlg' ? BtnSize.xLarge : props.size === 'md' ? BtnSize.middle : BtnSize.large;
-  var variant = props.variant; // CDM 에 적용 후 삭제
-
-  if (variant === 'secondary') {
-    // v0.5.1
-    variant = 'basic';
-  } // CDM 에 적용 후 삭제
-
-
-  if (variant === 'light') {
-    // v0.5.1
-    variant = 'basic_line';
-  }
-
-  var BtnColorObject = variant === 'primary' ? BtnColor.primary : variant === 'primary_line' ? BtnColor.primary_line : variant === 'basic' ? BtnColor.basic : BtnColor.basic_line;
+  var size = props.size || 'md';
+  var variant = props.variant,
+      bold = props.bold;
+  var BtnSizeObject = {
+    xlg: BtnSize.xLarge,
+    md: BtnSize.middle,
+    lg: BtnSize.large
+  }[size];
+  var BtnColorObject = {
+    primary: BtnColor.primary,
+    primary_line: BtnColor.primary_line,
+    basic: BtnColor.basic
+  }[variant] || BtnColor.basic_line;
+  var fontSize = {
+    xlg: 18,
+    md: 14,
+    lg: 16
+  }[size];
   return {
-    size: props.size === 'xlg' ? 18 : props.size === 'md' ? 14 : 16,
-    bold: props.bold || true,
+    size: fontSize,
+    bold: bold || true,
     BtnSizeObject: BtnSizeObject,
     BtnColorObject: BtnColorObject
   };
-})(_templateObject6$1(), BtnDefaultCss, setBtnSize, setBtnColor);
+})(_templateObject7(), BtnDefaultCss, setBtnSize, setBtnColor);
 var ButtonLinkTag = styled__default(TextTag).attrs(function () {
   var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  props.size = props.size || 'md';
-  var BtnSizeObject = props.size === 'md' ? BtnSize.middle : BtnSize.large;
+  var size = props.size,
+      bold = props.bold;
+  var BtnSizeObject = size === 'md' ? BtnSize.middle : BtnSize.large;
+  var FontSize = size === 'md' ? 14 : 16;
   return {
-    size: props.size === 'md' ? 14 : 16,
-    bold: props.bold || true,
+    size: FontSize,
+    bold: bold || true,
     BtnSizeObject: BtnSizeObject
   };
-})(_templateObject7(), BtnDefaultCss, setBtnSize, color$1.$solid_default, color$1.$solid_hover);
+})(_templateObject8(), BtnDefaultCss, setBtnSize, color$1.$solid_default, color$1.$solid_hover);
 var ButtonTextLinkTag = styled__default(TextTag).attrs(function () {
   return {
     size: 16,
     bold: true
   };
-})(_templateObject8());
+})(_templateObject9(), hexToRGB(color$1.$black, 0.6));
 var ButtonLink = function ButtonLink(props) {
-  return React__default.createElement(ButtonLinkTag, _extends({
-    as: "a"
-  }, props), props.children);
+  var propsAs = props.as,
+      children = props.children,
+      size = props.size;
+  return React__default.createElement(ButtonLinkTag, {
+    as: propsAs,
+    size: size
+  }, children);
+};
+ButtonLink.defaultProps = {
+  as: 'a',
+  size: 'md'
+};
+ButtonLink.propTypes = {
+  as: propTypes.string,
+  size: propTypes.string
 };
 var ButtonTextLink = function ButtonTextLink(props) {
-  return React__default.createElement(ButtonTextLinkTag, _extends({
-    as: props.as || "a"
-  }, props), props.children);
+  var propsAs = props.as,
+      children = props.children;
+  return React__default.createElement(ButtonTextLinkTag, {
+    as: propsAs
+  }, children);
 };
-var Button = (function (props) {
-  var isLoading = props.isLoading === "true";
-  return React__default.createElement(ButtonTag, _extends({
-    as: props.as || "button"
-  }, props, {
-    disabled: props.disabled || isLoading
-  }), isLoading ? "loading" : props.children, isLoading && React__default.createElement("span", null, React__default.createElement(LoadingOne, null, "."), React__default.createElement(LoadingTwo, null, "."), React__default.createElement(LoadingThree, null, ".")));
-});
+ButtonTextLink.defaultProps = {
+  as: 'a'
+};
+ButtonTextLink.propTypes = {
+  as: propTypes.string
+};
 
-var icn_message_error = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyOCIgdmlld0JveD0iMCAwIDI4IDI4Ij4KICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYSIgeDE9IjUwJSIgeDI9IjUwJSIgeTE9IjEyLjE3OCUiIHkyPSIxMDAlIj4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0ZGM0MzQyIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNGRjkyODgiLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8Y2lyY2xlIGN4PSIxNCIgY3k9IjE0IiByPSIxNCIgZmlsbD0idXJsKCNhKSIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0xNCAxOWExIDEgMCAxIDEgMCAyIDEgMSAwIDAgMSAwLTJ6bS44ODMtMTFhMSAxIDAgMCAxIC45OTQgMS4xMWwtLjc3OCA3YTEgMSAwIDAgMS0uOTk0Ljg5aC0uMjFhMSAxIDAgMCAxLS45OTQtLjg5bC0uNzc4LTdBMSAxIDAgMCAxIDEzLjExNyA4aDEuNzY2eiIvPgogICAgPC9nPgo8L3N2Zz4=';
+var Button = function Button(props) {
+  var isLoading = props.isLoading,
+      propsAs = props.as,
+      disabled = props.disabled,
+      children = props.children,
+      size = props.size,
+      variant = props.variant;
+  var showLoading = isLoading;
 
-var icn_toast_error_close_default = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgxNnYxNkgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iI0ZBNkI1NyIgZD0iTTgtMmExIDEgMCAwIDEgMSAxbC0uMDAxIDcuOTk5TDE3IDdhMSAxIDAgMCAxIDAgMmwtOC4wMDEtLjAwMUw5IDE3YTEgMSAwIDAgMS0yIDBsLS4wMDEtOC4wMDFMLTEgOWExIDEgMCAxIDEgMC0ybDcuOTk5LS4wMDFMNy0xYTEgMSAwIDAgMSAxLTF6IiBtYXNrPSJ1cmwoI2IpIiB0cmFuc2Zvcm09InJvdGF0ZSgtNDUgOCA4KSIvPgogICAgPC9nPgo8L3N2Zz4=';
+  if (lodash.isString(isLoading)) {
+    showLoading = isLoading === 'true';
+  }
 
-var icn_message_complete = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyOCIgdmlld0JveD0iMCAwIDI4IDI4Ij4KICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYSIgeDE9IjUwJSIgeDI9IjUwJSIgeTE9IjEyLjE3OCUiIHkyPSIxMDAlIj4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzE4OUJGRiIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3MENERkYiLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8Y2lyY2xlIGN4PSIxNCIgY3k9IjE0IiByPSIxNCIgZmlsbD0idXJsKCNhKSIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0xNy43OTMgOS4yOTNhMSAxIDAgMCAxIDEuNDE0IDBsLjcwNy43MDdhMSAxIDAgMCAxIDAgMS40MTRsLTcuNzc4IDcuNzc4YTEgMSAwIDAgMS0xLjQxNCAwbC0uNzA3LS43MDdhMSAxIDAgMCAxIDAtMS40MTR6bS04LjM3OSA0LjEwNmwuNzA3LjcwOGExIDEgMCAwIDEgMCAxLjQxNGwtLjcwNy43MDdhMSAxIDAgMCAxLTEuNDE0IDBsLS43MDctLjcwN2ExIDEgMCAwIDEgMC0xLjQxNEw4IDEzLjM5OWExIDEgMCAwIDEgMS40MTQgMHoiLz4KICAgIDwvZz4KPC9zdmc+';
+  return React__default.createElement(ButtonTag, {
+    as: propsAs,
+    disabled: disabled || showLoading,
+    size: size,
+    variant: variant
+  }, showLoading ? 'loading' : children, showLoading && React__default.createElement("span", null, React__default.createElement(LoadingOne, null, "."), React__default.createElement(LoadingTwo, null, "."), React__default.createElement(LoadingThree, null, ".")));
+};
 
-var icn_toast_complete_close_default = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgxNnYxNkgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzE4OUJGRiIgZD0iTTgtMmExIDEgMCAwIDEgMSAxbC0uMDAxIDcuOTk5TDE3IDdhMSAxIDAgMCAxIDAgMmwtOC4wMDEtLjAwMUw5IDE3YTEgMSAwIDAgMS0yIDBsLS4wMDEtOC4wMDFMLTEgOWExIDEgMCAxIDEgMC0ybDcuOTk5LS4wMDFMNy0xYTEgMSAwIDAgMSAxLTF6IiBtYXNrPSJ1cmwoI2IpIiB0cmFuc2Zvcm09InJvdGF0ZSgtNDUgOCA4KSIvPgogICAgPC9nPgo8L3N2Zz4=';
+Button.defaultProps = {
+  isLoading: 'false',
+  disabled: false,
+  as: 'button',
+  size: 'md',
+  variant: 'basic_line'
+};
+Button.propTypes = {
+  isLoading: propTypes.oneOfType([propTypes.string, propTypes.bool]),
+  disabled: propTypes.bool,
+  as: propTypes.string,
+  size: propTypes.string,
+  variant: propTypes.string
+};
+
+var IcnMessageError = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyOCIgdmlld0JveD0iMCAwIDI4IDI4Ij4KICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYSIgeDE9IjUwJSIgeDI9IjUwJSIgeTE9IjEyLjE3OCUiIHkyPSIxMDAlIj4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0ZGM0MzQyIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNGRjkyODgiLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8Y2lyY2xlIGN4PSIxNCIgY3k9IjE0IiByPSIxNCIgZmlsbD0idXJsKCNhKSIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0xNCAxOWExIDEgMCAxIDEgMCAyIDEgMSAwIDAgMSAwLTJ6bS44ODMtMTFhMSAxIDAgMCAxIC45OTQgMS4xMWwtLjc3OCA3YTEgMSAwIDAgMS0uOTk0Ljg5aC0uMjFhMSAxIDAgMCAxLS45OTQtLjg5bC0uNzc4LTdBMSAxIDAgMCAxIDEzLjExNyA4aDEuNzY2eiIvPgogICAgPC9nPgo8L3N2Zz4=';
+
+var IcnToastErrorCloseDefault = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgxNnYxNkgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iI0ZBNkI1NyIgZD0iTTgtMmExIDEgMCAwIDEgMSAxbC0uMDAxIDcuOTk5TDE3IDdhMSAxIDAgMCAxIDAgMmwtOC4wMDEtLjAwMUw5IDE3YTEgMSAwIDAgMS0yIDBsLS4wMDEtOC4wMDFMLTEgOWExIDEgMCAxIDEgMC0ybDcuOTk5LS4wMDFMNy0xYTEgMSAwIDAgMSAxLTF6IiBtYXNrPSJ1cmwoI2IpIiB0cmFuc2Zvcm09InJvdGF0ZSgtNDUgOCA4KSIvPgogICAgPC9nPgo8L3N2Zz4=';
+
+var IcnMessageComplete = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyOCIgdmlld0JveD0iMCAwIDI4IDI4Ij4KICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYSIgeDE9IjUwJSIgeDI9IjUwJSIgeTE9IjEyLjE3OCUiIHkyPSIxMDAlIj4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzE4OUJGRiIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3MENERkYiLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8Y2lyY2xlIGN4PSIxNCIgY3k9IjE0IiByPSIxNCIgZmlsbD0idXJsKCNhKSIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0xNy43OTMgOS4yOTNhMSAxIDAgMCAxIDEuNDE0IDBsLjcwNy43MDdhMSAxIDAgMCAxIDAgMS40MTRsLTcuNzc4IDcuNzc4YTEgMSAwIDAgMS0xLjQxNCAwbC0uNzA3LS43MDdhMSAxIDAgMCAxIDAtMS40MTR6bS04LjM3OSA0LjEwNmwuNzA3LjcwOGExIDEgMCAwIDEgMCAxLjQxNGwtLjcwNy43MDdhMSAxIDAgMCAxLTEuNDE0IDBsLS43MDctLjcwN2ExIDEgMCAwIDEgMC0xLjQxNEw4IDEzLjM5OWExIDEgMCAwIDEgMS40MTQgMHoiLz4KICAgIDwvZz4KPC9zdmc+';
+
+var IcnToastCompleteCloseDefault = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgxNnYxNkgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzE4OUJGRiIgZD0iTTgtMmExIDEgMCAwIDEgMSAxbC0uMDAxIDcuOTk5TDE3IDdhMSAxIDAgMCAxIDAgMmwtOC4wMDEtLjAwMUw5IDE3YTEgMSAwIDAgMS0yIDBsLS4wMDEtOC4wMDFMLTEgOWExIDEgMCAxIDEgMC0ybDcuOTk5LS4wMDFMNy0xYTEgMSAwIDAgMSAxLTF6IiBtYXNrPSJ1cmwoI2IpIiB0cmFuc2Zvcm09InJvdGF0ZSgtNDUgOCA4KSIvPgogICAgPC9nPgo8L3N2Zz4=';
 
 function _templateObject4$6() {
   var data = _taggedTemplateLiteral(["\n  position: absolute;\n  line-height: 0;\n  right: 16px;\n  top: 16px;\n"]);
@@ -44446,43 +44501,34 @@ var InnerBox = styled__default.article(_templateObject2$c());
 var TextBox = styled__default.div(_templateObject3$9());
 var CloseButton = styled__default.button(_templateObject4$6());
 
-var Toast =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Toast, _React$Component);
-
-  function Toast() {
-    _classCallCheck(this, Toast);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Toast).apply(this, arguments));
-  }
-
-  _createClass(Toast, [{
-    key: "render",
-    value: function render() {
-      var _this$props = this.props,
-          children = _this$props.children,
-          variant = _this$props.variant,
-          _this$props$onClose = _this$props.onClose,
-          onClose = _this$props$onClose === void 0 ? function () {} : _this$props$onClose;
-      return React__default.createElement(Box, {
-        variant: variant
-      }, React__default.createElement(InnerBox, null, React__default.createElement(TextBox, null, React__default.createElement("img", {
-        src: variant === 'error' ? icn_message_error : icn_message_complete
-      }), React__default.createElement("p", null, children)), React__default.createElement(CloseButton, {
-        onClick: function onClick() {
-          return onClose();
-        }
-      }, React__default.createElement("img", {
-        src: variant === 'error' ? icn_toast_error_close_default : icn_toast_complete_close_default
-      }))));
+var Toast = function Toast(_ref) {
+  var children = _ref.children,
+      variant = _ref.variant,
+      onClose = _ref.onClose;
+  return React__default.createElement(Box, {
+    variant: variant
+  }, React__default.createElement(InnerBox, null, React__default.createElement(TextBox, null, React__default.createElement("img", {
+    src: variant === 'error' ? IcnMessageError : IcnMessageComplete,
+    alt: ""
+  }), React__default.createElement("p", null, children)), React__default.createElement(CloseButton, {
+    onClick: function onClick() {
+      return onClose();
     }
-  }]);
-
-  return Toast;
-}(React__default.Component);
+  }, React__default.createElement("img", {
+    src: variant === 'error' ? IcnToastErrorCloseDefault : IcnToastCompleteCloseDefault,
+    alt: ""
+  }))));
+};
 
 Toast.CloseButton = CloseButton;
+Toast.defaultProps = {
+  onClose: function onClose() {},
+  variant: ''
+};
+Toast.propTypes = {
+  onClose: propTypes.func,
+  variant: propTypes.string
+};
 
 function _templateObject$g() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child):not(:empty) {\n    margin-bottom: 20px;\n  }\n"]);
@@ -44493,24 +44539,22 @@ function _templateObject$g() {
 
   return data;
 }
-
-var ReactDOM = require('react-dom');
-
 var Box$1 = styled__default.article(_templateObject$g());
 
-var ToastBox =
+var ToastList =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(ToastBox, _React$Component);
+  _inherits(ToastList, _React$Component);
 
-  function ToastBox(props) {
+  function ToastList(props) {
     var _this;
 
-    _classCallCheck(this, ToastBox);
+    _classCallCheck(this, ToastList);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(ToastBox).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ToastList).call(this, props));
+    var data = props.data;
 
-    var list = lodash.map(props.data, function (_ref) {
+    var list = lodash.map(data, function (_ref) {
       var type = _ref.type,
           msg = _ref.msg,
           _ref$id = _ref.id,
@@ -44522,20 +44566,22 @@ function (_React$Component) {
       };
     });
 
+    _this.removeNotification = _this.removeNotification.bind(_assertThisInitialized(_this));
     _this.state = {
       list: list
     };
     return _this;
   }
 
-  _createClass(ToastBox, [{
+  _createClass(ToastList, [{
     key: "addNotification",
     value: function addNotification(_ref2) {
       var _ref2$type = _ref2.type,
           type = _ref2$type === void 0 ? '' : _ref2$type,
           _ref2$msg = _ref2.msg,
           msg = _ref2$msg === void 0 ? '' : _ref2$msg;
-      var list = this.state.list.concat({
+      var prevList = this.state.list;
+      var list = prevList.concat({
         type: type,
         msg: msg,
         id: lodash.uniqueId('notification_')
@@ -44561,30 +44607,51 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      return React__default.createElement(Box$1, null, lodash.map(this.state.list, function (_ref3, idx) {
+      var list = this.state.list;
+      return React__default.createElement(Box$1, null, lodash.map(list, function (_ref3) {
         var type = _ref3.type,
             msg = _ref3.msg,
             id = _ref3.id;
         return React__default.createElement(Toast, {
           variant: type,
           key: "".concat(id),
-          onClose: _this2.removeNotification.bind(_this2, id)
+          onClose: function onClose() {
+            return _this2.removeNotification(id);
+          }
         }, msg);
       }));
     }
   }]);
 
-  return ToastBox;
+  return ToastList;
 }(React__default.Component);
 
-var ReactDOM$1 = require('react-dom');
+ToastList.defaultProps = {
+  data: []
+};
+ToastList.propTypes = {
+  data: propTypes.arrayOf(propTypes.shape({
+    type: propTypes.string,
+    msg: propTypes.string.isRequired,
+    id: propTypes.string
+  }))
+};
+
+var ReactDOM = require('react-dom');
 
 function appendReactDOM(Component, dom) {
-  var done = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function () {};
-  ReactDOM$1.render(Component, document.createElement('div'), function () {
-    dom.appendChild(ReactDOM$1.findDOMNode(this));
-    typeof done === 'function' && done();
-  });
+  var done = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+  function append() {
+    // eslint-disable-next-line react/no-find-dom-node
+    dom.appendChild(ReactDOM.findDOMNode(this));
+
+    if (typeof done === 'function') {
+      done();
+    }
+  }
+
+  ReactDOM.render(Component, document.createElement('div'), append);
 }
 
 var ToastCtr = function ToastCtr(_ref) {
@@ -44592,12 +44659,10 @@ var ToastCtr = function ToastCtr(_ref) {
       data = _ref$data === void 0 ? [] : _ref$data;
   var id = 'app-root';
   var root = document.getElementById(id);
-  var a = React__default.createElement(ToastBox, {
+  var a = React__default.createElement(ToastList, {
     data: data
   }, null);
-  appendReactDOM(a, root, {
-    data: data
-  });
+  appendReactDOM(a, root);
 };
 
 ToastCtr.add = function (data) {
@@ -44609,6 +44674,10 @@ ToastCtr.add = function (data) {
 var btn_next = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgdmlld0JveD0iMCAwIDQyIDQyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJtYXRyaXgoLTEgMCAwIDEgNDIgMCkiPgogICAgICAgIDxyZWN0IHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjA2IiByeD0iNCIvPgogICAgICAgIDxwYXRoIGZpbGw9IiM4ODgiIGQ9Ik0xMy45OSAyMi4wNmwzLjg4OSAzLjg5YTEgMSAwIDEgMCAxLjQxNC0xLjQxNEwxNi43NTcgMjJIMjdhMSAxIDAgMSAwIDAtMkgxNi43NTdsMi41MzYtMi41MzZhMSAxIDAgMCAwLTEuNDE0LTEuNDE0bC0zLjUzNiAzLjUzNkwxMi45MyAyMWwxLjA2IDEuMDZ6Ii8+CiAgICA8L2c+Cjwvc3ZnPg==';
 
 var btn_pre = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgdmlld0JveD0iMCAwIDQyIDQyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjQyIiBoZWlnaHQ9IjQyIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMDYiIHJ4PSI0Ii8+CiAgICAgICAgPHBhdGggZmlsbD0iIzg4OCIgZD0iTTEzLjk5IDIyLjA2bDMuODg5IDMuODlhMSAxIDAgMSAwIDEuNDE0LTEuNDE0TDE2Ljc1NyAyMkgyN2ExIDEgMCAxIDAgMC0ySDE2Ljc1N2wyLjUzNi0yLjUzNmExIDEgMCAwIDAtMS40MTQtMS40MTRsLTMuNTM2IDMuNTM2TDEyLjkzIDIxbDEuMDYgMS4wNnoiLz4KICAgIDwvZz4KPC9zdmc+';
+
+var btn_next_sm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJtYXRyaXgoLTEgMCAwIDEgMzIgMCkiPgogICAgICAgIDxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjA2IiByeD0iNCIvPgogICAgICAgIDxwYXRoIGZpbGw9IiM4ODgiIGQ9Ik03LjkyOSAxNmw0Ljk1IDQuOTVhMSAxIDAgMSAwIDEuNDE0LTEuNDE0TDExLjc1OCAxN0gyMmExIDEgMCAxIDAgMC0ySDExLjc1OGwyLjUzNS0yLjUzNmExIDEgMCAwIDAtMS40MTQtMS40MTRMNy45MjkgMTZ6Ii8+CiAgICA8L2c+Cjwvc3ZnPg==';
+
+var btn_pre_sm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMDYiIHJ4PSI0Ii8+CiAgICAgICAgPHBhdGggZmlsbD0iIzg4OCIgZD0iTTcuOTI5IDE2bDQuOTUgNC45NWExIDEgMCAxIDAgMS40MTQtMS40MTRMMTEuNzU4IDE3SDIyYTEgMSAwIDEgMCAwLTJIMTEuNzU4bDIuNTM1LTIuNTM2YTEgMSAwIDAgMC0xLjQxNC0xLjQxNEw3LjkyOSAxNnoiLz4KICAgIDwvZz4KPC9zdmc+';
 
 var Pagination =
 /*#__PURE__*/
@@ -44634,10 +44703,11 @@ function (_Component) {
         _props$totalPage = props.totalPage,
         totalPage = _props$totalPage === void 0 ? 1 : _props$totalPage,
         _props$drawPageCnt = props.drawPageCnt,
-        drawPageCnt = _props$drawPageCnt === void 0 ? 2 : _props$drawPageCnt;
+        drawPageCnt = _props$drawPageCnt === void 0 ? 2 : _props$drawPageCnt,
+        size = props.size;
     _this.state.selectPage = selectPage;
     _this.state.totalPage = totalPage;
-    _this.state.drawPageCnt = drawPageCnt;
+    _this.state.drawPageCnt = size === 'sm' ? 1 : drawPageCnt;
     _this.state.list = _this.getPageList();
     return _this;
   }
@@ -44740,9 +44810,56 @@ function (_Component) {
       return this.state.totalPage === 0;
     }
   }, {
+    key: "getSmall",
+    value: function getSmall() {
+      var _this$state3 = this.state,
+          selectPage = _this$state3.selectPage,
+          totalPage = _this$state3.totalPage;
+      return React__default.createElement("div", {
+        style: this.isHidden() ? {
+          display: 'none'
+        } : {}
+      }, React__default.createElement("button", {
+        style: {
+          marginRight: '16px'
+        },
+        disabled: this.disablePrevButton(),
+        onClick: this.movePrevPage.bind(this)
+      }, React__default.createElement("img", {
+        type: "image",
+        src: btn_pre_sm,
+        width: "32px",
+        height: "32px",
+        alt: "move previous"
+      })), React__default.createElement("span", {
+        style: {
+          fontSize: '14px',
+          opacity: 0.8
+        }
+      }, "".concat(selectPage, " / ").concat(totalPage)), React__default.createElement("button", {
+        style: {
+          marginLeft: '16px'
+        },
+        disabled: this.disableNextButton(),
+        onClick: this.moveNextPage.bind(this)
+      }, React__default.createElement("img", {
+        type: "image",
+        src: btn_next_sm,
+        width: "32px",
+        height: "32px",
+        alt: "move next"
+      })));
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
+
+      var size = this.props.size;
+
+      if (size === 'sm') {
+        return this.getSmall();
+      }
 
       var styles = this.getStyles();
       return React__default.createElement("div", {
