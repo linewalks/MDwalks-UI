@@ -44377,32 +44377,48 @@ var ButtonTextLinkTag = styled__default(TextTag).attrs(function () {
 var ButtonLink = function ButtonLink(props) {
   var propsAs = props.as,
       children = props.children,
-      size = props.size;
+      size = props.size,
+      style = props.style,
+      onClick = props.onClick;
   return React__default.createElement(ButtonLinkTag, {
     as: propsAs,
-    size: size
+    size: size,
+    style: style,
+    onClick: onClick
   }, children);
 };
 ButtonLink.defaultProps = {
   as: 'a',
-  size: 'md'
+  size: 'md',
+  styled: {},
+  onClick: function onClick() {}
 };
 ButtonLink.propTypes = {
   as: propTypes.string,
-  size: propTypes.string
+  size: propTypes.string,
+  styled: propTypes.shape({}),
+  onClick: propTypes.func
 };
 var ButtonTextLink = function ButtonTextLink(props) {
   var propsAs = props.as,
-      children = props.children;
+      children = props.children,
+      style = props.style,
+      onClick = props.onClick;
   return React__default.createElement(ButtonTextLinkTag, {
-    as: propsAs
+    as: propsAs,
+    style: style,
+    onClick: onClick
   }, children);
 };
 ButtonTextLink.defaultProps = {
-  as: 'a'
+  as: 'a',
+  styled: {},
+  onClick: function onClick() {}
 };
 ButtonTextLink.propTypes = {
-  as: propTypes.string
+  as: propTypes.string,
+  styled: propTypes.shape({}),
+  onClick: propTypes.func
 };
 
 var Button = function Button(props) {
@@ -44411,7 +44427,9 @@ var Button = function Button(props) {
       disabled = props.disabled,
       children = props.children,
       size = props.size,
-      variant = props.variant;
+      variant = props.variant,
+      style = props.style,
+      onClick = props.onClick;
   var showLoading = isLoading;
 
   if (lodash.isString(isLoading)) {
@@ -44422,7 +44440,9 @@ var Button = function Button(props) {
     as: propsAs,
     disabled: disabled || showLoading,
     size: size,
-    variant: variant
+    variant: variant,
+    style: style,
+    onClick: onClick
   }, showLoading ? 'loading' : children, showLoading && React__default.createElement("span", null, React__default.createElement(LoadingOne, null, "."), React__default.createElement(LoadingTwo, null, "."), React__default.createElement(LoadingThree, null, ".")));
 };
 
@@ -44431,14 +44451,18 @@ Button.defaultProps = {
   disabled: false,
   as: 'button',
   size: 'md',
-  variant: 'basic_line'
+  variant: 'basic_line',
+  styled: {},
+  onClick: function onClick() {}
 };
 Button.propTypes = {
   isLoading: propTypes.oneOfType([propTypes.string, propTypes.bool]),
   disabled: propTypes.bool,
   as: propTypes.string,
   size: propTypes.string,
-  variant: propTypes.string
+  variant: propTypes.string,
+  styled: propTypes.shape({}),
+  onClick: propTypes.func
 };
 
 var IcnMessageError = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyOCIgdmlld0JveD0iMCAwIDI4IDI4Ij4KICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYSIgeDE9IjUwJSIgeDI9IjUwJSIgeTE9IjEyLjE3OCUiIHkyPSIxMDAlIj4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0ZGM0MzQyIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNGRjkyODgiLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8Y2lyY2xlIGN4PSIxNCIgY3k9IjE0IiByPSIxNCIgZmlsbD0idXJsKCNhKSIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0xNCAxOWExIDEgMCAxIDEgMCAyIDEgMSAwIDAgMSAwLTJ6bS44ODMtMTFhMSAxIDAgMCAxIC45OTQgMS4xMWwtLjc3OCA3YTEgMSAwIDAgMS0uOTk0Ljg5aC0uMjFhMSAxIDAgMCAxLS45OTQtLjg5bC0uNzc4LTdBMSAxIDAgMCAxIDEzLjExNyA4aDEuNzY2eiIvPgogICAgPC9nPgo8L3N2Zz4=';
