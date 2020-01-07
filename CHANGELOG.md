@@ -1,3 +1,11 @@
+## [0.10.6](https://github.com/linewalks/MDwalks-UI/compare/v0.10.5...v0.10.6) (2020-01-07)
+
+
+### Bug Fixes
+
+* **Button:** apply style, onClick ([58b3bba](https://github.com/linewalks/MDwalks-UI/commit/58b3bba4ca9af7d8ec34ea47848363c3cb80d1d6))
+
+
 ## [0.10.5](https://github.com/linewalks/MDwalks-UI/compare/v0.10.3...v0.10.5) (2019-12-27)
 
 
