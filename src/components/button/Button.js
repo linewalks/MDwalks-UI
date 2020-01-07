@@ -261,29 +261,66 @@ const ButtonTextLinkTag = styled(font.TextTag).attrs(() => ({
 `
 
 export const ButtonLink = (props) => {
-  const { as: propsAs, children, size } = props
-  return <ButtonLinkTag as={propsAs} size={size}>{children}</ButtonLinkTag>
+  const {
+    as: propsAs,
+    children,
+    size,
+    style,
+    onClick,
+  } = props
+
+  return (
+    <ButtonLinkTag
+      as={propsAs}
+      size={size}
+      style={style}
+      onClick={onClick}
+    >
+      {children}
+    </ButtonLinkTag>
+  )
 }
 
 ButtonLink.defaultProps = {
   as: 'a',
   size: 'md',
+  styled: {},
+  onClick: () => {},
 }
 ButtonLink.propTypes = {
   as: PropTypes.string,
   size: PropTypes.string,
+  styled: PropTypes.shape({}),
+  onClick: PropTypes.func,
 }
 
 export const ButtonTextLink = (props) => {
-  const { as: propsAs, children } = props
-  return <ButtonTextLinkTag as={propsAs}>{children}</ButtonTextLinkTag>
+  const {
+    as: propsAs,
+    children,
+    style,
+    onClick,
+  } = props
+  return (
+    <ButtonTextLinkTag
+      as={propsAs}
+      style={style}
+      onClick={onClick}
+    >
+      {children}
+    </ButtonTextLinkTag>
+  )
 }
 
 ButtonTextLink.defaultProps = {
   as: 'a',
+  styled: {},
+  onClick: () => {},
 }
 ButtonTextLink.propTypes = {
   as: PropTypes.string,
+  styled: PropTypes.shape({}),
+  onClick: PropTypes.func,
 }
 
 const Button = (props) => {
@@ -294,6 +331,8 @@ const Button = (props) => {
     children,
     size,
     variant,
+    style,
+    onClick,
   } = props
 
   let showLoading = isLoading
@@ -303,7 +342,14 @@ const Button = (props) => {
   }
 
   return (
-    <ButtonTag as={propsAs} disabled={disabled || showLoading} size={size} variant={variant}>
+    <ButtonTag
+      as={propsAs}
+      disabled={disabled || showLoading}
+      size={size}
+      variant={variant}
+      style={style}
+      onClick={onClick}
+    >
       {showLoading ? 'loading' : children}
       {
         showLoading
@@ -325,6 +371,8 @@ Button.defaultProps = {
   as: 'button',
   size: 'md',
   variant: 'basic_line',
+  styled: {},
+  onClick: () => {},
 }
 
 Button.propTypes = {
@@ -336,6 +384,8 @@ Button.propTypes = {
   as: PropTypes.string,
   size: PropTypes.string,
   variant: PropTypes.string,
+  styled: PropTypes.shape({}),
+  onClick: PropTypes.func,
 }
 
 export default Button
