@@ -267,10 +267,12 @@ export const ButtonLink = (props) => {
     size,
     style,
     onClick,
+    id,
   } = props
 
   return (
     <ButtonLinkTag
+      id={id}
       as={propsAs}
       size={size}
       style={style}
@@ -286,12 +288,14 @@ ButtonLink.defaultProps = {
   size: 'md',
   styled: {},
   onClick: () => {},
+  id: undefined,
 }
 ButtonLink.propTypes = {
   as: PropTypes.string,
   size: PropTypes.string,
   styled: PropTypes.shape({}),
   onClick: PropTypes.func,
+  id: PropTypes.string,
 }
 
 export const ButtonTextLink = (props) => {
@@ -300,9 +304,11 @@ export const ButtonTextLink = (props) => {
     children,
     style,
     onClick,
+    id,
   } = props
   return (
     <ButtonTextLinkTag
+      id={id}
       as={propsAs}
       style={style}
       onClick={onClick}
@@ -316,11 +322,13 @@ ButtonTextLink.defaultProps = {
   as: 'a',
   styled: {},
   onClick: () => {},
+  id: undefined,
 }
 ButtonTextLink.propTypes = {
   as: PropTypes.string,
   styled: PropTypes.shape({}),
   onClick: PropTypes.func,
+  id: PropTypes.string,
 }
 
 const Button = (props) => {
@@ -333,6 +341,7 @@ const Button = (props) => {
     variant,
     style,
     onClick,
+    id,
   } = props
 
   let showLoading = isLoading
@@ -343,6 +352,7 @@ const Button = (props) => {
 
   return (
     <ButtonTag
+      id={id}
       as={propsAs}
       disabled={disabled || showLoading}
       size={size}
@@ -373,6 +383,7 @@ Button.defaultProps = {
   variant: 'basic_line',
   styled: {},
   onClick: () => {},
+  id: undefined,
 }
 
 Button.propTypes = {
@@ -386,6 +397,7 @@ Button.propTypes = {
   variant: PropTypes.string,
   styled: PropTypes.shape({}),
   onClick: PropTypes.func,
+  id: PropTypes.string,
 }
 
 export default Button
