@@ -10,7 +10,7 @@
     "build:docz": "rm -rf docs && yarn docz build",
     "lint": "eslint ./src/**/*.js",
     "lint:fix": "eslint ./src/**/*.js --fix",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+    "version": "yarn build && git add ./dist && conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "jest": {
     "testPathIgnorePatterns": [
