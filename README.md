@@ -42,7 +42,7 @@
 - warning 을 해결하기 어려울 시 issue 발급
 
 ### commit 가이드
-- [사용 예정 lib](https://github.com/conventional-changelog/commitlint])
+- [사용 예정 lib](https://github.com/conventional-changelog/commitlint)
 - [참고 문서](https://www.conventionalcommits.org/ko/v1.0.0-beta.4/)
 ```
 <타입>[적용 범위(선택 사항)]: <설명> // 최대 72 자
@@ -92,7 +92,7 @@
 |improvement     |     |새로운 기능이나 버그 수정없이 현재 구현체를 개선|
 |fix             |PATCH|Bug Fix, API 변경 사항 없이 내부 수정|
 |feat            |MINOR|기능 추가, API 변경(하위 호환)|
-|BREAKING CHANGE |MAGER|API 의 변경, 큰 변화|
+|BREAKING CHANGE |MAJER|API 의 변경, 큰 변화|
 |refactor        |     |내부적인 리펙토링|
 |docs            |     |문서|
 |test            |     |테스트 코드|
