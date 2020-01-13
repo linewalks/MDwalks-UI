@@ -38205,16 +38205,16 @@ var backgroundArrow = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy5
 
 /* Suma el porcentaje indicado a un color (RR, GG o BB) hexadecimal para aclararlo */
 var hexToRGB = function hexToRGB(hex, alpha) {
-  var r = parseInt(hex.slice(1, 3), 16),
-      g = parseInt(hex.slice(3, 5), 16),
-      b = parseInt(hex.slice(5, 7), 16);
+  var r = parseInt(hex.slice(1, 3), 16);
+  var g = parseInt(hex.slice(3, 5), 16);
+  var b = parseInt(hex.slice(5, 7), 16);
   var rgb = [r, g, b];
 
   if (alpha) {
     return "rgba(".concat(rgb.join(','), ",").concat(alpha, ")");
-  } else {
-    return "rgb(".concat(rgb.join(','), ")");
   }
+
+  return "rgb(".concat(rgb.join(','), ")");
 };
 
 function _templateObject2() {
@@ -45038,4 +45038,81 @@ function (_React$Component) {
   return SelectBox;
 }(React.Component);
 
-export { BarGauge, Button, ButtonLink, ButtonTextLink, CheckList, Descriptions, Footer, Heading, Histogram, Image$1 as Image, LineChart, LineMergeTimeline, Modal$1 as Modal, Navbar, Pagination, RadarChart, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table$1 as Table, Tabs, TimeToEvent, Timeline, ToastCtr, TreeMap, chartUtility, font$1 as font, variables };
+var timeFormatConvert = function timeFormatConvert(time) {
+  var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'YYYY-MM-DD';
+  var d = new Date(time);
+  return format.replace('YYYY', d.getFullYear()).replace('MM', "0".concat(d.getMonth() + 1).slice(-2)).replace('DD', "0".concat(d.getDate()).slice(-2)).replace('HH', "0".concat(d.getHours()).slice(-2)).replace('mm', "0".concat(d.getMinutes()).slice(-2));
+};
+var isDate = function isDate(arg) {
+  return lodash.isDate(arg) && !lodash.isNaN(arg.valueOf());
+};
+var isValidPeriod = function isValidPeriod(startTime, endTime) {
+  var startDate = new Date(startTime);
+  var endDate = new Date(endTime);
+
+  if (!isDate(startDate) || !isDate(endDate)) {
+    throw new Error('Parameter is wrong.');
+  }
+
+  if (startDate.valueOf() > endDate.valueOf()) {
+    throw new Error("Can't be faster \"startTime\" than \"endTime\".");
+  }
+
+  return true;
+};
+
+var getMonthDiff = function getMonthDiff(dateFrom, dateTo) {
+  return dateTo.getMonth() - dateFrom.getMonth() + 12 * (dateTo.getFullYear() - dateFrom.getFullYear());
+};
+
+var getDayDiff = function getDayDiff(dateFrom, dateTo) {
+  return Math.ceil(Math.abs(dateTo.getTime() - dateFrom.getTime()) / (1000 * 60 * 60 * 24));
+};
+
+var pathwayTableTimeFormatter = function pathwayTableTimeFormatter(dateFrom, dateTo) {
+  var month = getMonthDiff(dateFrom, dateTo);
+  var day = getDayDiff(dateFrom, dateTo);
+  if (month === 0 && day === 0) return '';
+
+  if (month === 0) {
+    return "".concat(day, " ").concat(day > 1 ? 'days' : 'day');
+  }
+
+  var arr = [];
+  var calYear = Math.floor(month / 12);
+  var calMonth = month % 12;
+
+  if (calYear !== 0) {
+    arr.push("".concat(calYear, " ").concat(calYear > 1 ? 'years' : 'year'));
+  }
+
+  if (calMonth !== 0) {
+    arr.push("".concat(calMonth, " ").concat(calMonth > 1 ? 'months' : 'month'));
+  }
+
+  return arr.join(' ');
+};
+var getDateDiff = function getDateDiff(startTime, endTime) {
+  var rStr = '';
+
+  try {
+    isValidPeriod(startTime, endTime);
+    rStr = pathwayTableTimeFormatter(new Date(startTime), new Date(endTime));
+  } catch (error) {
+    rStr = '-';
+    console.error(error.message);
+  }
+
+  return rStr;
+};
+
+var DateUtility = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  timeFormatConvert: timeFormatConvert,
+  isDate: isDate,
+  isValidPeriod: isValidPeriod,
+  pathwayTableTimeFormatter: pathwayTableTimeFormatter,
+  getDateDiff: getDateDiff
+});
+
+export { BarGauge, Button, ButtonLink, ButtonTextLink, CheckList, DateUtility, Descriptions, Footer, Heading, Histogram, Image$1 as Image, LineChart, LineMergeTimeline, Modal$1 as Modal, Navbar, Pagination, RadarChart, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table$1 as Table, Tabs, TimeToEvent, Timeline, ToastCtr, TreeMap, chartUtility, font$1 as font, variables };

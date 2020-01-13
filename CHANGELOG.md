@@ -1,3 +1,11 @@
+## [0.11.1](https://github.com/linewalks/MDwalks-UI/compare/v0.10.7...v0.11.1) (2020-01-13)
+
+### Features
+
+* **utility:** append getDateDiff ([61a4198](https://github.com/linewalks/MDwalks-UI/commit/61a4198d11577b779f0c66a28758c922585d80e5)), closes [#303](https://github.com/linewalks/MDwalks-UI/issues/303)
+
+
+
 ## [0.10.7](https://github.com/linewalks/MDwalks-UI/compare/v0.10.6...v0.10.7) (2020-01-08)
 
 
