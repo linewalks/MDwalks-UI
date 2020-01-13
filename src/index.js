@@ -29,7 +29,7 @@ import * as font from '@src/assets/styles/font'
 import * as variables from '@src/assets/styles/variables'
 import * as chartUtility from '@src/helper/chartUtility'
 
-import utility from '@Components/button/utility'
+import * as DateUtility from '@src/helper/DateUtility'
 
 export {
   BarGauge,
@@ -63,5 +63,5 @@ export {
   TreeMap,
   TimeToEvent,
   Pagination,
-  utility,
+  DateUtility,
 }
