@@ -1,4 +1,3 @@
-import _ from 'lodash'
 const utility = require('@Components/button/utility');
 
 it('addLight', () => {
