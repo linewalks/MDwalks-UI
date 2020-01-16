@@ -7,31 +7,27 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }        
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.css$/,
         use: [
           {
-            loader: "style-loader",
-            options: { sourceMap: true }
+            loader: 'style-loader',
+            options: { sourceMap: true },
           },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               importLoaders: 1,
               modules: true,
-              localIdentName: "[name]__[local]__[hash:base64:5]"
-            }
+              localIdentName: '[name]__[local]__[hash:base64:5]',
+            },
           },
         ],
-        include: path.resolve(__dirname, "../")
-      },{
-        test: /\.(svg)(\?.*)?$/,
-        loader: 'file-loader',
-        query: { name: 'static/media/[name].[hash:8].[ext]' }
-      }
+        include: path.resolve(__dirname, '../'),
+      },
     ],
   },
 };
