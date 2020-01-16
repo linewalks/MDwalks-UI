@@ -28,6 +28,11 @@ module.exports = {
         ],
         include: path.resolve(__dirname, '../'),
       },
+      {
+        test: /\.(svg)(\?.*)?$/,
+        loader: 'file-loader',
+        query: { name: 'static/media/[name].[hash:8].[ext]' },
+      },
     ],
   },
 };
