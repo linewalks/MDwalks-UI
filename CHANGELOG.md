@@ -1,3 +1,32 @@
+## [0.11.2](https://github.com/linewalks/MDwalks-UI/compare/v0.10.3...v0.11.2) (2020-01-16)
+
+
+### Bug Fixes
+
+* **button:** support id props ([ddfdeda](https://github.com/linewalks/MDwalks-UI/commit/ddfdeda6d134c8db7d450c5b9e37dbe31d887c54)), closes [#324](https://github.com/linewalks/MDwalks-UI/issues/324)
+* **Button:** apply style, onClick ([58b3bba](https://github.com/linewalks/MDwalks-UI/commit/58b3bba4ca9af7d8ec34ea47848363c3cb80d1d6))
+* **webpack:** rollback svg file-loader ([ffc7dc2](https://github.com/linewalks/MDwalks-UI/commit/ffc7dc2c0e6d6668b11b12ab61d51dc549df8fa6)), closes [#338](https://github.com/linewalks/MDwalks-UI/issues/338)
+
+
+### Features
+
+* **build:** build command insert version command ([f4c649b](https://github.com/linewalks/MDwalks-UI/commit/f4c649bf4de18c131ea0c977800c7af37a778b8f)), closes [#328](https://github.com/linewalks/MDwalks-UI/issues/328)
+* **Button:** create TDD ([a68814c](https://github.com/linewalks/MDwalks-UI/commit/a68814c3b1f604b4effb8e24430ade7033b41709)), closes [#171](https://github.com/linewalks/MDwalks-UI/issues/171)
+* **checklist:** change icon of checked ([a38a1ab](https://github.com/linewalks/MDwalks-UI/commit/a38a1ab8cf0339eaaa6c1413983f5cb063242157))
+* **checklist:** eslint ([3aaca36](https://github.com/linewalks/MDwalks-UI/commit/3aaca36c5d30ea2eca40262f6af19be964f935bf))
+* **DateUtility:** create ([716062e](https://github.com/linewalks/MDwalks-UI/commit/716062eb4be2f0b83b3d38979301201cda9ecf0e))
+* **eslint:** to assets, data, helper ([8d62fac](https://github.com/linewalks/MDwalks-UI/commit/8d62face0e0169403c92ce2dc73d2456df801e61)), closes [#305](https://github.com/linewalks/MDwalks-UI/issues/305)
+* **font:** add className that fontSize, fontSize and opacity ([9ec365a](https://github.com/linewalks/MDwalks-UI/commit/9ec365a98985378eb564940088eb26573de4a495))
+* **form:** insert className like label ([ca4fd70](https://github.com/linewalks/MDwalks-UI/commit/ca4fd70f26ba70dd6d33ed931f012792ed4126ef)), closes [#313](https://github.com/linewalks/MDwalks-UI/issues/313)
+* **ISSUE_TEMPLATE:** create type of bug, feature ([bfd301e](https://github.com/linewalks/MDwalks-UI/commit/bfd301ea2dbb7e00ab8951cab9ae243188433666)), closes [#299](https://github.com/linewalks/MDwalks-UI/issues/299)
+* **Pagination:** support sm size ([b1cc138](https://github.com/linewalks/MDwalks-UI/commit/b1cc138044877dee908e8646914b3ec06ffc0279)), closes [#316](https://github.com/linewalks/MDwalks-UI/issues/316)
+* **radiolist:** create ([8873808](https://github.com/linewalks/MDwalks-UI/commit/887380855f37843c699a939c02713079b55abb11))
+* **README:** insert case of commit message ([81c3262](https://github.com/linewalks/MDwalks-UI/commit/81c3262f8bd47795f082576b29de1b021bb751d5)), closes [#304](https://github.com/linewalks/MDwalks-UI/issues/304)
+* **TEMPLATE:** modify ([4958bc8](https://github.com/linewalks/MDwalks-UI/commit/4958bc848da2612b693b55e4632c387aa72acc76)), closes [#302](https://github.com/linewalks/MDwalks-UI/issues/302)
+* **utility:** append getDateDiff ([61a4198](https://github.com/linewalks/MDwalks-UI/commit/61a4198d11577b779f0c66a28758c922585d80e5)), closes [#303](https://github.com/linewalks/MDwalks-UI/issues/303)
+
+
+
 ## [0.11.1](https://github.com/linewalks/MDwalks-UI/compare/v0.10.7...v0.11.1) (2020-01-13)
 
 ### Features
