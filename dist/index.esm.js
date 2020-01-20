@@ -39347,12 +39347,20 @@ var THead = function THead(_ref) {
       if (isEmpty_1(headerData)) {
         return React.createElement("tr", null, React.createElement("th", null));
       } else {
-        return React.createElement("tr", null, headerData.map(function (header, idx) {
-          return React.createElement(Th, {
-            key: header
-          }, wrapTh ? wrapTh({
-            text: tableHeaderConvert(header)
-          }) : React.createElement("div", null, tableHeaderConvert(header)));
+        return React.createElement("tr", null, headerData.map(function (row, idx) {
+          var colSpan = row.colSpan;
+          var text = !lodash.isUndefined(colSpan) ? row.text : row;
+          var props = {
+            key: text
+          };
+
+          if (colSpan) {
+            props.colSpan = colSpan;
+          }
+
+          return React.createElement(Th, props, wrapTh ? wrapTh({
+            text: tableHeaderConvert(text)
+          }) : React.createElement("div", null, tableHeaderConvert(text)));
         }));
       }
     } else {

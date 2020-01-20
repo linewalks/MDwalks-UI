@@ -1,3 +1,12 @@
+## [0.11.3](https://github.com/linewalks/MDwalks-UI/compare/v0.11.2...v0.11.3) (2020-01-20)
+
+
+### Features
+
+* **THead:** support rowSpan ([a453d5f](https://github.com/linewalks/MDwalks-UI/commit/a453d5f8d341b4f348a3d1fe408c43fab321f659)), closes [#336](https://github.com/linewalks/MDwalks-UI/issues/336)
+
+
+
 ## [0.11.2](https://github.com/linewalks/MDwalks-UI/compare/v0.10.3...v0.11.2) (2020-01-16)
 
 

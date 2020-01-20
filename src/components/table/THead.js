@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash'
 import isEmpty from 'lodash/isEmpty';
 import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
@@ -50,16 +51,27 @@ const THead = ({ headers, wrapTh, subHeaders }) => {
       if (isEmpty(headerData)) {
         return (
           <tr>
-            <th></th>
+            <th />
           </tr>
         )
       } else {
         return (
           <tr>
-            {headerData.map((header, idx) => {
+            {headerData.map((row, idx) => {
+              let { colSpan } = row
+              let text = !_.isUndefined(colSpan) ? row.text : row
+
+              let props = {
+                key: text,
+              }
+
+              if (colSpan) {
+                props.colSpan = colSpan
+              }
+
               return (
-                <Th key={header}>
-                  {wrapTh ? wrapTh({text: tableHeaderConvert(header)}) : <div>{tableHeaderConvert(header)}</div>}
+                <Th {...props}>
+                  {wrapTh ? wrapTh({text: tableHeaderConvert(text)}) : <div>{tableHeaderConvert(text)}</div>}
                 </Th>
               )
             })}
