@@ -39355,12 +39355,20 @@ var THead = function THead(_ref) {
       if (isEmpty_1(headerData)) {
         return React__default.createElement("tr", null, React__default.createElement("th", null));
       } else {
-        return React__default.createElement("tr", null, headerData.map(function (header, idx) {
-          return React__default.createElement(Th, {
-            key: header
-          }, wrapTh ? wrapTh({
-            text: tableHeaderConvert(header)
-          }) : React__default.createElement("div", null, tableHeaderConvert(header)));
+        return React__default.createElement("tr", null, headerData.map(function (row, idx) {
+          var colSpan = row.colSpan;
+          var text = !lodash.isUndefined(colSpan) ? row.text : row;
+          var props = {
+            key: text
+          };
+
+          if (colSpan) {
+            props.colSpan = colSpan;
+          }
+
+          return React__default.createElement(Th, props, wrapTh ? wrapTh({
+            text: tableHeaderConvert(text)
+          }) : React__default.createElement("div", null, tableHeaderConvert(text)));
         }));
       }
     } else {
