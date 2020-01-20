@@ -1,26 +1,24 @@
 import React from 'react';
 import styled from 'styled-components'
 import visualAlert from '@src/assets/svg/visual-alert.svg';
-import * as font from '@src/assets/styles/font'
+import fontStyle from '@src/assets/styles/font.module.sass'
 
 const EmptyContainer = styled.section`
   text-align: center;
 `
 
-const EmptyDescription = styled.div`
+const EmptyDescription = styled.img.attrs({
+  src: `${visualAlert}`
+})`
+  display: block;
   width: 290px;
   height: 230px;
   margin: 0 auto;
-  background: url('${visualAlert}')
 `
 
-const EmptyText = styled.span.attrs(() => {
-  return {
-    size: 16,
-    opacity: 6,
-  }
-})`
-  ${font.Text}
+const EmptyText = styled.span.attrs(() => ({
+  className: fontStyle.fs16_black_opacity6,
+}))`
   margin: auto;
   display: block;
 `
