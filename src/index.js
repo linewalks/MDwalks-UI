@@ -24,6 +24,7 @@ import TimeToEvent from '@Components/charts/TimeToEvent'
 import Button, { ButtonLink, ButtonTextLink } from '@Components/button/Button'
 import ToastCtr from '@Components/toast/ToastCtr'
 import Pagination from '@Components/pagination/Pagination'
+import ToggleButton from '@Components/button/ToggleButton'
 
 import SelectBox from '@Components/form/SelectBox'
 import * as font from '@src/assets/styles/font'
@@ -58,6 +59,7 @@ export {
   Button,
   ButtonLink,
   ButtonTextLink,
+  ToggleButton,
   ToastCtr,
   Histogram,
   RadarChart,
