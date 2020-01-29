@@ -44981,14 +44981,115 @@ function (_Component) {
   return Pagination;
 }(React.Component);
 
+function _templateObject2$e() {
+  var data = _taggedTemplateLiteral(["\n  min-width: 90px;\n  height: 34px;\n  border-radius: 17px;\n  background-color: ", ";\n  border: none;\n  outline: none;\n  cursor: pointer;\n  box-shadow: ", "\n"]);
+
+  _templateObject2$e = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$i() {
+  var data = _taggedTemplateLiteral(["\n  min-width: 180px;\n  height: 34px;\n  background-color: ", ";\n  border-radius: 21px;\n  padding: 2px;\n"]);
+
+  _templateObject$i = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var ButtonContainer = styled__default.div(_templateObject$i(), color$1.$btn_lightshaded_default);
+var ToggleBtn = styled__default.button.attrs(function () {
+  return {
+    className: "".concat(fontStyle.fs14_black_opacity8, " ").concat(fontStyle.bold)
+  };
+})(_templateObject2$e(), function (props) {
+  return props.selected ? color$1.$primary_white : color$1.$btn_lightshaded_default;
+}, function (props) {
+  return props.selected ? '0 4px 10px 0 rgba(0, 0, 0, 0.08)' : null;
+});
+
+var ToggleButton =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ToggleButton, _React$Component);
+
+  function ToggleButton(props) {
+    var _this;
+
+    _classCallCheck(this, ToggleButton);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ToggleButton).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "changeBtn", function (_ref) {
+      var value = _ref.target.value;
+      var onChange = _this.props.onChange;
+
+      _this.setState({
+        active: value
+      });
+
+      if (!lodash.isEmpty(onChange) && lodash.isFunction(onChange)) {
+        return onChange(value);
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderToggleBtn", function (data) {
+      return data.map(function (_ref2) {
+        var type = _ref2.type,
+            text = _ref2.text;
+        var selectedCheck = _this.state.active === type;
+        return React__default.createElement(ToggleBtn, {
+          key: type,
+          onClick: _this.changeBtn,
+          selected: selectedCheck,
+          disabled: selectedCheck,
+          value: type
+        }, text);
+      });
+    });
+
+    var defaultActive = lodash.head(_this.props.data).type;
+
+    _this.state = {
+      active: defaultActive
+    };
+    return _this;
+  }
+
+  _createClass(ToggleButton, [{
+    key: "render",
+    value: function render() {
+      var data = this.props.data;
+      return React__default.createElement(ButtonContainer, null, data && this.renderToggleBtn(data));
+    }
+  }]);
+
+  return ToggleButton;
+}(React__default.Component);
+
+ToggleButton.defaultProps = {
+  data: [],
+  onChange: function onChange() {}
+};
+ToggleButton.propTypes = {
+  data: propTypes.arrayOf(propTypes.shape({
+    type: propTypes.string,
+    text: propTypes.string
+  })),
+  onChange: propTypes.func
+};
+
 var icn_select_open_sm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE3LjY1NyA4LjE3MmExIDEgMCAxIDEgMS40MTQgMS40MTRsLTYuMzUyIDYuMzUxYTEuMDIgMS4wMiAwIDAgMS0uMDEyLjAxM2wtLjAxMy4wMTEtLjY5NC42OTYtMS40MTQtMS40MTQtNS42NTctNS42NTdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDEyIDEzLjgyOGw1LjY1Ny01LjY1NnoiLz4KPC9zdmc+';
 
 var icn_select_open_xs = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExLjUzNiA1LjI5M2ExIDEgMCAxIDEgMS40MTQgMS40MTRsLTMuNTM2IDMuNTM2LS43MDcuNzA3LS43MDcuNzA3LTEuNDE0LTEuNDE0TDMuMDUgNi43MDdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDggOC44MjhIOGwzLjUzNi0zLjUzNXoiLz4KPC9zdmc+';
 
-function _templateObject$i() {
+function _templateObject$j() {
   var data = _taggedTemplateLiteral(["\n  select {\n    ", "\n    &:focus {\n      box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16);\n    }\n\n    &:disabled {\n      background-color: rgba(0, 0, 0, 0.04);\n      color: rgba(0, 0, 0, 0.2);\n    }\n\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n\n    -moz-appearance: textfield;\n\n    option[value=\"\"][hidden] {\n      display: none;\n    }\n  }\n\n  option {\n    ", "\n  }\n\n  select:invalid {\n    color: rgba(0, 0, 0, 0.3);\n  }\n\n  ", "\n"]);
 
-  _templateObject$i = function _templateObject() {
+  _templateObject$j = function _templateObject() {
     return data;
   };
 
@@ -45044,7 +45145,7 @@ var Box$2 = styled__default.div.attrs(function () {
     opacity: props.disabled ? 2 : 8,
     SizeObject: SizeObject
   };
-})(_templateObject$i(), Text, Text, setSelectSize);
+})(_templateObject$j(), Text, Text, setSelectSize);
 
 var SelectBox =
 /*#__PURE__*/
@@ -45180,6 +45281,7 @@ exports.Tabs = Tabs;
 exports.TimeToEvent = TimeToEvent;
 exports.Timeline = Timeline;
 exports.ToastCtr = ToastCtr;
+exports.ToggleButton = ToggleButton;
 exports.TreeMap = TreeMap;
 exports.chartUtility = chartUtility;
 exports.font = font$1;
