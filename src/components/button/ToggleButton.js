@@ -6,12 +6,13 @@ import fontStyle from '@src/assets/styles/font.module.sass'
 import { color } from '@src/assets/styles/variables'
 
 const ButtonContainer = styled.div`
-  min-width: 180px;
-  height: 34px;
+  min-width: 184px;
+  height: 38px;
   background-color: ${color.$btn_lightshaded_default};
   border-radius: 21px;
   padding: 2px;
   display: inline-block;
+  box-sizing: border-box;
 `
 
 const ToggleBtn = styled.button.attrs(() => ({
