@@ -1,3 +1,12 @@
+## [0.11.5](https://github.com/linewalks/MDwalks-UI/compare/v0.11.4...v0.11.5) (2020-01-29)
+
+
+### Features
+
+* **EmptyPlaceHolder:** insert index.js ([9810884](https://github.com/linewalks/MDwalks-UI/commit/9810884f42a71618eed331d957726138ea1d536d)), closes [#351](https://github.com/linewalks/MDwalks-UI/issues/351)
+
+
+
 ## [0.11.4](https://github.com/linewalks/MDwalks-UI/compare/v0.11.3...v0.11.4) (2020-01-29)
 
 
