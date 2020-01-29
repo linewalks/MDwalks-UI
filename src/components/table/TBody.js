@@ -1,9 +1,9 @@
 import React from 'react';
 import _ from 'lodash'
-import visualAlert from '@src/assets/svg/visual-alert.svg';
 import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
 import { color } from '@src/assets/styles/variables'
+import EmptyPlaceHolder from './EmptyPlaceHolder'
 
 // .td 가 존재하는 이유는 appendRow 에 스타일을 적용하지 않기 위해서 이다
 const ListTBody = styled.tbody.attrs((props = {}) => {
@@ -60,28 +60,8 @@ const EmptyTbody = styled.tbody`
     text-align: center;
   }
 `
-const EmptyText = styled.span.attrs(() => {
-  return {
-    size: 16,
-    opacity: 6,
-  }
-})`
-  ${font.Text}
-  margin: auto;
-  display: block;
-`
 
 const TBody = ({headers, subHeaders = {}, rowData, wrapTd, appendRow, rowSpanCount = 0}) => {
-  const renderEmpty = () => {
-    return (
-      <tr>
-        <td colSpan={_.isEmpty(headers) ? 1 : headers.length}>
-          <img src={visualAlert} width="290px" height="230px" alt="" />
-          <EmptyText as="span">There is no data<br />Please search again</EmptyText>
-        </td>
-      </tr>
-    )
-  }
   let singlevelHeader = headers
 
   if (subHeaders && wrapTd) {
@@ -129,8 +109,15 @@ const TBody = ({headers, subHeaders = {}, rowData, wrapTd, appendRow, rowSpanCou
   
   return (
     _.isEmpty(rowData)
-    ? <EmptyTbody>{ renderEmpty() }</EmptyTbody>
-    : <ListTBody>{ createBody(rowData) }</ListTBody>
+    ? (
+      <EmptyTbody>
+        <tr>
+          <td colSpan={_.isEmpty(headers) ? 1 : headers.length}>
+            <EmptyPlaceHolder />
+          </td>
+        </tr>
+      </EmptyTbody>
+    ) : <ListTBody>{ createBody(rowData) }</ListTBody>
   )
 };
 
