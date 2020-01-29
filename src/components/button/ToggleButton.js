@@ -39,13 +39,11 @@ class ToggleButton extends React.Component {
 
   changeBtn = ({ target: { value } }) => {
     const { onChange } = this.props
-    if (_.isFunction(onChange)) {
-      onChange(value)
-    }
-
-    return this.setState({
+    this.setState({
       active: value,
     })
+
+    return onChange(value)
   }
 
   renderToggleBtn = (data) => (
@@ -70,14 +68,13 @@ class ToggleButton extends React.Component {
     const { data } = this.props
     return (
       <ButtonContainer>
-        {data && this.renderToggleBtn(data)}
+        {this.renderToggleBtn(data)}
       </ButtonContainer>
     )
   }
 }
 
 ToggleButton.defaultProps = {
-  data: [],
   onChange: () => {},
 }
 
@@ -88,7 +85,7 @@ ToggleButton.propTypes = {
       type: PropTypes.string,
       text: PropTypes.string,
     }),
-  ),
+  ).isRequired,
   onChange: PropTypes.func,
 }
 
