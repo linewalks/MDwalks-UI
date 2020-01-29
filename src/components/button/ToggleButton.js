@@ -11,6 +11,7 @@ const ButtonContainer = styled.div`
   background-color: ${color.$btn_lightshaded_default};
   border-radius: 21px;
   padding: 2px;
+  display: inline-block;
 `
 
 const ToggleBtn = styled.button.attrs(() => ({
@@ -42,7 +43,7 @@ class ToggleButton extends React.Component {
       active: value
     })
 
-    if (!_.isEmpty(onChange) && _.isFunction(onChange)) {
+    if (_.isFunction(onChange)) {
       return onChange(value)
     }
   }
