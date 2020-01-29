@@ -107,12 +107,30 @@ const TBody = ({headers, subHeaders = {}, rowData, wrapTd, appendRow, rowSpanCou
     })
   }
   
+  const EmptyPlaceHolderGetColSpan = (headers, subHeaders) => {
+    let colSpan;
+    if (_.isEmpty(headers)) {
+      colSpan = 1
+    } else {
+      const headersNum = headers.length
+      if (_.isEmpty(subHeaders)) {
+        colSpan = headersNum
+      } else {
+        const subHeadersKeyNum = Object.keys(subHeaders).length
+        const subHeadersNum = Object.values(subHeaders).flat().length
+        colSpan = headersNum - subHeadersKeyNum + subHeadersNum
+      }
+    }
+
+    return colSpan
+  }
+  
   return (
     _.isEmpty(rowData)
     ? (
       <EmptyTbody>
         <tr>
-          <td colSpan={_.isEmpty(headers) ? 1 : headers.length}>
+          <td colSpan={EmptyPlaceHolderGetColSpan(headers, subHeaders)}>
             <EmptyPlaceHolder />
           </td>
         </tr>
