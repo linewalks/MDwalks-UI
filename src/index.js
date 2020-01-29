@@ -5,6 +5,7 @@ import SelectedCard from '@Components/card/SelectedCard'
 import SummaryCard from '@Components/card/SummaryCard'
 import Table from '@Components/table/Table'
 import Descriptions from '@Components/table/Descriptions'
+import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import LineChart from '@Components/charts/LineChart'
 import Timeline from '@Components/charts/Timeline'
 import LineMergeTimeline from '@Components/charts/LineMergeTimeline'
@@ -38,6 +39,7 @@ export {
   SelectedCard,
   SummaryCard,
   Table,
+  EmptyPlaceHolder,
   Descriptions,
   LineChart,
   Timeline,
