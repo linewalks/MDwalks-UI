@@ -6,7 +6,7 @@ import fontStyle from '@src/assets/styles/font.module.sass'
 import { color } from '@src/assets/styles/variables'
 
 const ButtonContainer = styled.div`
-  width: 180px;
+  min-width: 180px;
   height: 34px;
   background-color: ${color.$btn_lightshaded_default};
   border-radius: 21px;
@@ -16,7 +16,7 @@ const ButtonContainer = styled.div`
 const ToggleBtn = styled.button.attrs(() => ({
   className: `${fontStyle.fs14_black_opacity8} ${fontStyle.bold}`
 }))`
-  width: 90px;
+  min-width: 90px;
   height: 34px;
   border-radius: 17px;
   background-color: ${props => props.selected ? color.$primary_white : color.$btn_lightshaded_default };
