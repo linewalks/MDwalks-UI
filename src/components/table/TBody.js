@@ -3,14 +3,13 @@ import _ from 'lodash'
 import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
 import { color } from '@src/assets/styles/variables'
+import PropTypes from 'prop-types'
 import EmptyPlaceHolder from './EmptyPlaceHolder'
 
 // .td 가 존재하는 이유는 appendRow 에 스타일을 적용하지 않기 위해서 이다
-const ListTBody = styled.tbody.attrs((props = {}) => {
-  return {
-    size: 18,
-    opacity: 8,
-  }
+const ListTBody = styled.tbody.attrs({
+  size: 18,
+  opacity: 8,
 })`
   .tr:nth-child(even) .td {
     background: ${color.$table_cell_grey};
@@ -61,7 +60,13 @@ const EmptyTbody = styled.tbody`
   }
 `
 
-const TBody = ({headers, subHeaders = {}, rowData, wrapTd, appendRow, rowSpanCount = 0}) => {
+const TBody = ({
+  headers,
+  subHeaders,
+  rowData,
+  wrapTd,
+  appendRow,
+}) => {
   let singlevelHeader = headers
 
   if (subHeaders && wrapTd) {
@@ -75,50 +80,87 @@ const TBody = ({headers, subHeaders = {}, rowData, wrapTd, appendRow, rowSpanCou
     singlevelHeader = _.flatten(singlevelHeader)
   }
 
-  const createBody = rowsData => {
-    return rowsData.map((data, idx) => {
-      return [
-        <tr key={idx} className={"tr"}>
-          {_.chain(Object.values(data)).reverse().map((row, idx) => {
+  const createBody = (rowsData) => (
+    rowsData.map((data, idx) => (
+      [
+        <tr key={data} className="tr">
+          {
+          _.chain(Object.values(data)).reverse().map((row, idx) => {
             if (_.isUndefined(row) || _.isNull(row)) {
               row = ''
             }
-            let { rowSpan, className = '' } = row
+            const { rowSpan, className = '' } = row
             idx = singlevelHeader.length - idx - 1
 
-            let text = !_.isUndefined(rowSpan) ? row.text : row
+            const text = !_.isUndefined(rowSpan) ? row.text : row
 
-            let props = {
+            const props = {
               key: idx,
-              className: `td ${className}`
+              className: `td ${className}`,
             }
 
             if (rowSpan) {
               props.rowSpan = rowSpan
             }
 
-            return <td {...props}>{
-              wrapTd ? wrapTd({data, label: singlevelHeader[idx], text, idx}) : <div>{text}</div>
-            }</td>
-          }).reverse().value()}
+            return (
+              <td {...props}>
+                { wrapTd ? wrapTd({
+                  data, label: singlevelHeader[idx], text, idx,
+                })
+                  : <div>{text}</div> }
+              </td>
+            )
+          }).reverse()
+            .value()
+          }
         </tr>,
-        appendRow ? appendRow(data, idx) : null
+        appendRow ? appendRow(data, idx) : null,
       ]
-    })
+    ))
+  )
+
+  const EmptyPlaceHolderGetColSpan = (headers, subHeaders) => {
+    let colSpan;
+    if (_.isEmpty(headers)) {
+      colSpan = 1
+    } else {
+      if (_.isEmpty(subHeaders)) {
+        colSpan = _.size(headers)
+      } else {
+        colSpan = _.size(headers) - _.size(subHeaders) + _.chain(subHeaders).map().flattenDeep().size().value()
+      }
+    }
+
+    return colSpan
   }
-  
+
   return (
     _.isEmpty(rowData)
-    ? (
-      <EmptyTbody>
-        <tr>
-          <td colSpan={_.isEmpty(headers) ? 1 : headers.length}>
-            <EmptyPlaceHolder />
-          </td>
-        </tr>
-      </EmptyTbody>
-    ) : <ListTBody>{ createBody(rowData) }</ListTBody>
+      ? (
+        <EmptyTbody>
+          <tr>
+            <td colSpan={EmptyPlaceHolderGetColSpan(headers, subHeaders)}>
+              <EmptyPlaceHolder />
+            </td>
+          </tr>
+        </EmptyTbody>
+      ) : <ListTBody>{ createBody(rowData) }</ListTBody>
   )
 };
+
+TBody.defaultProps = {
+  headers: [],
+  subHeaders: {},
+  rowData: [],
+}
+
+TBody.propTypes = {
+  headers: PropTypes.arrayOf(PropTypes.string),
+  subHeaders: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string])),
+  rowData: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string, PropTypes.number])),
+  wrapTd: PropTypes.func,
+  appendRow: PropTypes.func,
+}
 
 export default TBody;
