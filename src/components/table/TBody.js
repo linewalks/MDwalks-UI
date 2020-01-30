@@ -157,8 +157,8 @@ TBody.defaultProps = {
 
 TBody.propTypes = {
   headers: PropTypes.arrayOf(PropTypes.string),
-  subHeaders: PropTypes.objectOf(PropTypes.object),
-  rowData: PropTypes.arrayOf(PropTypes.object),
+  subHeaders: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string])),
+  rowData: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string, PropTypes.number])),
   wrapTd: PropTypes.func,
   appendRow: PropTypes.func,
 }
