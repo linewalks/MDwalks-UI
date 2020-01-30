@@ -1,3 +1,12 @@
+## [0.12.3](https://github.com/linewalks/MDwalks-UI/compare/v0.12.2...v0.12.3) (2020-01-30)
+
+
+### Bug Fixes
+
+* EmptyPlaceHolder SubHeader가 있을 경우 ColSpan 버그 해결 ([c85916b](https://github.com/linewalks/MDwalks-UI/commit/c85916bba92cc7f95bbc2393b31fbfa5c5162000)), closes [close#359](https://github.com/close/issues/359)
+
+
+
 ## [0.12.2](https://github.com/linewalks/MDwalks-UI/compare/v0.12.1...v0.12.2) (2020-01-29)
 
 
