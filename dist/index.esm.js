@@ -44984,7 +44984,7 @@ function _templateObject2$e() {
 }
 
 function _templateObject$i() {
-  var data = _taggedTemplateLiteral(["\n  min-width: 180px;\n  height: 34px;\n  background-color: ", ";\n  border-radius: 21px;\n  padding: 2px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  min-width: 184px;\n  height: 38px;\n  background-color: ", ";\n  border-radius: 21px;\n  padding: 2px;\n  display: inline-block;\n  box-sizing: border-box;\n"]);
 
   _templateObject$i = function _templateObject() {
     return data;
@@ -45023,16 +45023,15 @@ function (_React$Component) {
         active: value
       });
 
-      if (!lodash.isEmpty(onChange) && lodash.isFunction(onChange)) {
-        return onChange(value);
-      }
+      return onChange(value);
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderToggleBtn", function (data) {
       return data.map(function (_ref2) {
         var type = _ref2.type,
             text = _ref2.text;
-        var selectedCheck = _this.state.active === type;
+        var active = _this.state.active;
+        var selectedCheck = active === type;
         return React.createElement(ToggleBtn, {
           key: type,
           onClick: _this.changeBtn,
@@ -45043,7 +45042,9 @@ function (_React$Component) {
       });
     });
 
-    var defaultActive = lodash.head(_this.props.data).type;
+    var _data = _this.props.data;
+
+    var defaultActive = lodash.head(_data).type;
 
     _this.state = {
       active: defaultActive
@@ -45055,7 +45056,7 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var data = this.props.data;
-      return React.createElement(ButtonContainer, null, data && this.renderToggleBtn(data));
+      return React.createElement(ButtonContainer, null, this.renderToggleBtn(data));
     }
   }]);
 
@@ -45063,14 +45064,13 @@ function (_React$Component) {
 }(React.Component);
 
 ToggleButton.defaultProps = {
-  data: [],
   onChange: function onChange() {}
 };
 ToggleButton.propTypes = {
   data: propTypes.arrayOf(propTypes.shape({
     type: propTypes.string,
     text: propTypes.string
-  })),
+  })).isRequired,
   onChange: propTypes.func
 };
 
