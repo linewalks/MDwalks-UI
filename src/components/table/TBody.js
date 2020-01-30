@@ -125,13 +125,10 @@ const TBody = ({
     if (_.isEmpty(headers)) {
       colSpan = 1
     } else {
-      const headersNum = headers.length
       if (_.isEmpty(subHeaders)) {
-        colSpan = headersNum
+        colSpan = _.size(headers)
       } else {
-        const subHeadersKeyNum = Object.keys(subHeaders).length
-        const subHeadersNum = Object.values(subHeaders).flat().length
-        colSpan = headersNum + subHeadersNum - subHeadersKeyNum
+        colSpan = _.size(headers) - _.size(subHeaders) + _.chain(subHeaders).map().flattenDeep().size().value()
       }
     }
 
