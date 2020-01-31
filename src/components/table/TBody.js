@@ -153,12 +153,18 @@ TBody.defaultProps = {
   headers: [],
   subHeaders: {},
   rowData: [],
+  wrapTd: null,
+  appendRow: null,
 }
 
 TBody.propTypes = {
-  headers: PropTypes.arrayOf(PropTypes.string),
+  headers: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
+  ),
   subHeaders: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string])),
-  rowData: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string, PropTypes.number])),
+  rowData: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string, PropTypes.number]),
+  ),
   wrapTd: PropTypes.func,
   appendRow: PropTypes.func,
 }
