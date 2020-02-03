@@ -40713,10 +40713,12 @@ var TBody = function TBody(_ref) {
 TBody.defaultProps = {
   headers: [],
   subHeaders: {},
-  rowData: []
+  rowData: [],
+  wrapTd: null,
+  appendRow: null
 };
 TBody.propTypes = {
-  headers: propTypes.arrayOf(propTypes.string),
+  headers: propTypes.arrayOf(propTypes.oneOfType([propTypes.number, propTypes.string, propTypes.object])),
   subHeaders: propTypes.objectOf(propTypes.oneOfType([propTypes.array, propTypes.string])),
   rowData: propTypes.arrayOf(propTypes.oneOfType([propTypes.object, propTypes.array, propTypes.string, propTypes.number])),
   wrapTd: propTypes.func,
