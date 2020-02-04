@@ -1,127 +1,94 @@
-import React, { Component } from 'react';
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
+import React from 'react'
 import _ from 'lodash'
+import * as Rechart from 'recharts'
+import PropTypes from 'prop-types'
+import Heading from '@Components/layout/Heading'
+import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import { color } from '@src/assets/styles/variables'
-import { errorMessage, getTextStyleForHighcharts } from '@src/helper/chartUtility'
+import TooltipBox from '@Components/tooltip/TooltipBox'
+import * as commonTag from '@Components/common/cdmCommon'
 
-class LineChart extends Component {
-  constructor(props) {
-    super(props)
+const colorSet = {
+  blue: ['#d5e7fd', '#a5d2ff', '#63a3f3', '#3788ed', '#2f60c3', '#224b9f', '#1e3476', '#142352'],
+  green: ['#ceede7', '#97d9ce', '#24b7a3', '#0c8d84', '#006f75', '#00555a', '#043e4b', '#002340'],
+}
 
-    this.options = {
-      chart: {
-        type: 'line',
-        width: this.props.width || '1158',
-        height: this.props.height || '408',
-        backgroundColor: this.props.bgColor || color.$primary_white,
-        marginTop: 60
-      },
-      title: {
-        text: this.props.title,
-      },
-      series: this.props.data,
-      xAxis: {
-        categories: this.props.xAxisCategory,
-        title: {
-          text: this.props.xAxisTitle,
-          align: this.props.xAxisTitleAlign,
-        },
-        tickAmount: this.props.xAxisTickAmount,
-        tickInterval: this.props.xAxisTickInterval,
-        crosshair: {
-          width: 2,
-          color: color.$line_btn_grey,
-          dashStyle: 'shortdot'
-        },
-        labels: {
-          style: getTextStyleForHighcharts(color.$black),
-        }
-      },
+const LineChart = ({
+  title,
+  data,
+  xDataKey,
+  yDataKey,
+  theme,
+  isPercent,
+}) => {
+  const colors = colorSet[theme] || colorSet.blue
+  const newYDataKey = [].concat(yDataKey)
+  const legendData = _.chain(newYDataKey)
+    .map((entry, index) => ({ color: colors[index], text: entry }))
+    .value()
 
-      yAxis: {
-        min: 0,
-        max: this.props.yMaxValue,
-        title: {
-          text: this.props.yAxisTitle,
-          align: this.props.yAxisTitleAlign,
-        },
-        tickAmount: this.props.yAxisTickAmount,
-        tickInterval: this.props.yAxisTickInterval,
-        labels: {
-          style: getTextStyleForHighcharts(color.$black),
-        }
-      },
-
-      legend: {
-        enabled: this.props.legendOpen || true,
-        margin: 5,
-        padding: 0,
-        align: 'left',
-        verticalAlign: 'top',
-        layout: 'vertical',
-        floating: true,
-        symbolHeight: 10,
-        symbolWidth: 10,
-        symbolRadius: 5,
-        itemStyle: getTextStyleForHighcharts(color.$black),
-      },
-
-      tooltip: {
-        backgroundColor: '#ffffff',
-        opacity: 0.96,
-        borderRadius: 2,
-        borderWidth: 1,
-        borderColor: '#505050',
-        padding: 12,
-        formatter: function() {
-          return `<span style="opacity:0.6">${this.series.name} </span><span style="opacity:0.9"> <b> ${this.y}</b></span>`
-        },
-        style: getTextStyleForHighcharts(color.$black),
-      },
-
-      plotOptions: {
-        series: {
-          marker: {
-            radius: 5,
-            width: 10,
-            height: 10
-          },
-          color: color.$solid_default
-        }
-    },
+  const tickFormatter = (value) => {
+    if (isPercent) {
+      return `${(Number(value) * 100).toFixed(0)} %`
     }
+    const newValue = Number(value).toLocaleString()
+    return newValue
   }
+  
 
-  renderLineChart = options => {
-    return (
-      <HighchartsReact highcharts={Highcharts} options={options} />
-    )
-  }
 
-  checkDataValidation = () => {
-    const { data } = this.props    
-    if (_.isEmpty(data)) return 'haveData'
-    if (!Array.isArray(data)) return 'typeOfVariable' 
-  }
+  const isEmpty = (items) => _.isEmpty(items)
 
-  render() {
-    if (this.checkDataValidation()) {
-      return <div>{errorMessage(this.checkDataValidation())}</div>
-    }
+  return (
+    <commonTag.BoxShadow>
+      <commonTag.BoxShadowInner>
+        <Heading size="18" style={{ marginBottom: '30px' }}>{title}</Heading>
 
-    return <div>{this.renderLineChart(this.options)}</div>
-  }
+        <commonTag.LegendList data={legendData} />
+
+        {
+          isEmpty(data)
+            ? (
+              <EmptyPlaceHolder />
+            )
+            : (
+              <Rechart.ResponsiveContainer height={415}>
+                <Rechart.LineChart data={data} height={415}>
+                  <Rechart.CartesianGrid vertical={false} stroke={color.$line_graph_xy_grey} />
+                  <Rechart.XAxis tickLine={false} tickMargin={10} dataKey={xDataKey} stroke="rgba(0, 0, 0, 0.6)" />
+                  <Rechart.YAxis axisLine={false} tickLine={false} tickFormatter={tickFormatter} tickMargin={10} stroke="rgba(0, 0, 0, 0.4)" />
+                  <Rechart.Tooltip
+                    isPercent={isPercent}
+                    content={TooltipBox}
+                  />
+                  {
+                newYDataKey.map((entry, index) => (<Rechart.Line key={`bar${entry}`} dataKey={entry} fill={colors[index]} />))
+              }
+                </Rechart.LineChart>
+              </Rechart.ResponsiveContainer>
+            )
+        }
+      </commonTag.BoxShadowInner>
+    </commonTag.BoxShadow>
+  )
 }
 
 LineChart.defaultProps = {
-  title: null,
+  title: [{}, null],
   data: [],
-  xAxisCategory: [],
-  xAxisTitle: null,
-  xAxisTitleAlign: 'middle',
-  yAxisTitle: null,
-  yAxisTitleAlign: 'middle',
+  xDataKey: 'name',
+  yDataKey: ['value', []],
+  theme: 'blue',
+  isPercent: false,
 }
 
-export default LineChart;
+LineChart.propTypes = {
+  title: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
+  data: PropTypes.arrayOf(PropTypes.shape({})),
+  xDataKey: PropTypes.string,
+  yDataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+  theme: PropTypes.string,
+  isPercent: PropTypes.bool,
+}
+
+export default LineChart
