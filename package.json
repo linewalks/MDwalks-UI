@@ -1,6 +1,6 @@
 {
   "name": "MDwalks-UI",
-  "version": "0.12.3",
+  "version": "0.12.4",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
@@ -8,6 +8,8 @@
     "test:watch": "jest --watch --coverage",
     "build": "rollup -c",
     "build:docz": "rm -rf docs && yarn docz build",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build",
     "lint": "eslint ./src/**/*.js",
     "lint:fix": "eslint ./src/**/*.js --fix",
     "version": "yarn build && git add ./dist && conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
@@ -80,6 +82,7 @@
     "jest-styled-components": "^6.3.3",
     "lint-staged": "^9.4.3",
     "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2",
     "rollup": "^1.16.7",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.0.1",
@@ -101,6 +104,7 @@
     "react-dom": "^16.9.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
+    "react-styleguidist": "^10.6.1",
     "react-test-renderer": "^16.8.6",
     "styled-components": "^4.3.2"
   }
