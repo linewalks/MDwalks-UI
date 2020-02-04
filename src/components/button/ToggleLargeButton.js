@@ -68,41 +68,34 @@ class ToggleLargeButton extends React.Component {
     }
   }
 
-  addPartitionLine = async (data, activeValue) => {
-    const toggleList = document.querySelectorAll('.toggleBtn')
-    const selectedIdx = await _.findIndex(data, (el) => el.type === activeValue)
+  addPartitionLine = (selectedIdx, idx) => {
+    if (selectedIdx - 1 > idx) {
+      return 'leftLine'
+    }
 
-    _.each(toggleList, (button, idx) => {
-      button.classList.remove('leftLine', 'rightLine')
+    if (selectedIdx + 1 < idx) {
+      return 'rightLine'
+    }
 
-      if (selectedIdx - 1 > idx) {
-        return button.classList.add('leftLine')
-      }
-
-      if (selectedIdx + 1 < idx) {
-        return button.classList.add('rightLine')
-      }
-
-      return null
-    })
+    return null
   }
 
 
   changeBtn = ({ target: { value } }) => {
-    const { onChange, data } = this.props
+    const { onChange } = this.props
 
     this.setState({
       active: value,
     })
 
-    this.addPartitionLine(data, value)
-
     return onChange(value)
   }
 
-  renderToggleLargeBtn = (data) => (
-    data.map(({ type, text }) => {
-      const { active } = this.state
+  renderToggleLargeBtn = (data) => {
+    const { active } = this.state
+    const selectedIdx = _.findIndex(data, (el) => el.type === active)
+
+    return data.map(({ type, text }, idx) => {
       const selectedCheck = active === type
       return (
         <ToggleLargeBtn
@@ -111,19 +104,12 @@ class ToggleLargeButton extends React.Component {
           selected={selectedCheck}
           disabled={selectedCheck}
           value={type}
-          className="toggleBtn"
+          className={this.addPartitionLine(selectedIdx, idx)}
         >
           {text}
         </ToggleLargeBtn>
       )
     })
-  )
-
-  componentDidMount = () => {
-    const { active } = this.state
-    const { data } = this.props
-
-    return this.addPartitionLine(data, active)
   }
 
   render() {
