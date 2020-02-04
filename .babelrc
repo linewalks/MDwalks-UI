@@ -11,10 +11,5 @@
        "@Cards": "./src/components/card"
      }
    }]
-  ],
-  "env": {
-    "test": {
-      "plugins": ["@babel/plugin-transform-runtime"]
-    }
-  }
+  ]
 } 
