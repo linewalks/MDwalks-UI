@@ -37,28 +37,24 @@ const TooltipBoxTag = styled.div`
     margin-bottom: 8px;
   }
 `
-const valueConvertText = (value, isPercent = false, showOrigin = false) => {
+export const valueConvertText = (value, isPercent = false, showOrigin = false, convert) => {
+  if (convert) {
+    return convert(value)
+  }
+
   if (showOrigin) {
     return value
   }
-
-  let newValue = null
 
   if (isPercent) {
     return <span style={{ whiteSpace: 'nowrap' }}>{`${(Number(value) * 100).toFixed(2)} %`}</span>
   }
 
-  if (typeof value === 'string' && (value.indexOf('e') !== -1)) {
-    newValue = value
-  } else {
-    newValue = Number(value).toLocaleString()
-  }
-
-  return newValue
+  return Number(value).toLocaleString()
 }
 
 const TooltipBox = ({
-  payload, isPercent = false, dataKey = 'value', nameKey = 'name', width,
+  payload, isPercent = false, dataKey = 'value', nameKey = 'name', width, convert,
 }) => {
   if (!_.isArray(payload)) return null
 
@@ -73,7 +69,7 @@ const TooltipBox = ({
                 <Dot color={fill} />
                 <span>{props[nameKey]}</span>
                 <font.TextTag bold>
-                  {valueConvertText(props[dataKey], isPercent, showOrigin)}
+                  {valueConvertText(props[dataKey], isPercent, showOrigin, convert)}
                 </font.TextTag>
               </li>
             )
@@ -90,6 +86,7 @@ TooltipBox.defaultProps = {
   dataKey: 'value',
   nameKey: 'name',
   width: 250,
+  convert: null,
 }
 
 TooltipBox.propTypes = {
@@ -101,6 +98,7 @@ TooltipBox.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  convert: PropTypes.func,
 }
 
 export default TooltipBox
