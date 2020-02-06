@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import fontStyle from '@src/assets/styles/font.module.sass'
 import { color } from '@src/assets/styles/variables'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
@@ -68,7 +69,7 @@ const TooltipBox = ({
               <li key={key}>
                 <Dot color={fill} />
                 <span>{props[nameKey]}</span>
-                <span style={{ fontWeight: 'bold' }}>
+                <span className={fontStyle.bold}>
                   {valueConvertText(props[dataKey], isPercent, showOrigin, convert)}
                 </span>
               </li>
