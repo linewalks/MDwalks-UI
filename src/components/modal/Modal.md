@@ -3,7 +3,7 @@ Modal example:
 
 ```js
 import React, { useState } from 'react';
-import Button from '@Components/button/Button'
+import Button from '../button/Button'
 
 const ModalExample = () => {
   const [isShow, setShow] = useState(false);

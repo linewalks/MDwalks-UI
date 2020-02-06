@@ -6,7 +6,6 @@ import SummaryCard from '@Components/card/SummaryCard'
 import Table from '@Components/table/Table'
 import Descriptions from '@Components/table/Descriptions'
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
-import BarChart from '@Components/charts/BarChart'
 import LineChart from '@Components/charts/LineChart'
 import Timeline from '@Components/charts/Timeline'
 import LineMergeTimeline from '@Components/charts/LineMergeTimeline'
@@ -43,7 +42,6 @@ export {
   Table,
   EmptyPlaceHolder,
   Descriptions,
-  BarChart,
   LineChart,
   Timeline,
   LineMergeTimeline,
