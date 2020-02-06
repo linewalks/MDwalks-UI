@@ -34,8 +34,6 @@ const LineChart = ({
     const newValue = Number(value).toLocaleString()
     return newValue
   }
-  
-
 
   const isEmpty = (items) => _.isEmpty(items)
 
@@ -62,8 +60,8 @@ const LineChart = ({
                     content={TooltipBox}
                   />
                   {
-                newYDataKey.map((entry, index) => (<Rechart.Line key={`bar${entry}`} dataKey={entry} fill={colors[index]} />))
-              }
+                    newYDataKey.map((entry, index) => (<Rechart.Line key={`bar${entry}`} dataKey={entry} fill={colors[index]} />))
+                  }
                 </Rechart.LineChart>
               </Rechart.ResponsiveContainer>
             )

@@ -34,8 +34,6 @@ const BarChart = ({
     const newValue = Number(value).toLocaleString()
     return newValue
   }
-  
-
 
   const isEmpty = (items) => _.isEmpty(items)
 
@@ -62,8 +60,8 @@ const BarChart = ({
                     content={TooltipBox}
                   />
                   {
-                newYDataKey.map((entry, index) => (<Rechart.Bar key={`bar${entry}`} dataKey={entry} fill={colors[index]} />))
-              }
+                    newYDataKey.map((entry, index) => (<Rechart.Bar key={`bar${entry}`} dataKey={entry} fill={colors[index]} />))
+                  }
                 </Rechart.BarChart>
               </Rechart.ResponsiveContainer>
             )
