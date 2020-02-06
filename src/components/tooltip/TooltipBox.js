@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import fontStyle from '@src/assets/styles/font.module.sass'
 import { color } from '@src/assets/styles/variables'
-import * as font from '@src/assets/styles/font'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import * as commonTag from '@Components/common/cdmCommon'
@@ -9,7 +9,7 @@ import * as commonTag from '@Components/common/cdmCommon'
 const Dot = styled(commonTag.Dot).attrs(() => ({
 }))`
   position: absolute;
-  top: 5px;
+  top: 3px;
   left: 0;
 `
 
@@ -26,6 +26,7 @@ const TooltipBoxTag = styled.div`
     padding-left: 16px;
     position: relative;
     display: flex;
+    align-items: top;
 
     span:last-child {
       margin-left: auto;
@@ -37,28 +38,24 @@ const TooltipBoxTag = styled.div`
     margin-bottom: 8px;
   }
 `
-const valueConvertText = (value, isPercent = false, showOrigin = false) => {
+export const valueConvertText = (value, isPercent = false, showOrigin = false, convert) => {
+  if (convert) {
+    return convert(value)
+  }
+
   if (showOrigin) {
     return value
   }
-
-  let newValue = null
 
   if (isPercent) {
     return <span style={{ whiteSpace: 'nowrap' }}>{`${(Number(value) * 100).toFixed(2)} %`}</span>
   }
 
-  if (typeof value === 'string' && (value.indexOf('e') !== -1)) {
-    newValue = value
-  } else {
-    newValue = Number(value).toLocaleString()
-  }
-
-  return newValue
+  return Number(value).toLocaleString()
 }
 
 const TooltipBox = ({
-  payload, isPercent = false, dataKey = 'value', nameKey = 'name', width,
+  payload, isPercent = false, dataKey = 'value', nameKey = 'name', width, convert,
 }) => {
   if (!_.isArray(payload)) return null
 
@@ -72,9 +69,9 @@ const TooltipBox = ({
               <li key={key}>
                 <Dot color={fill} />
                 <span>{props[nameKey]}</span>
-                <font.TextTag bold>
-                  {valueConvertText(props[dataKey], isPercent, showOrigin)}
-                </font.TextTag>
+                <span className={fontStyle.bold}>
+                  {valueConvertText(props[dataKey], isPercent, showOrigin, convert)}
+                </span>
               </li>
             )
           })
@@ -90,6 +87,7 @@ TooltipBox.defaultProps = {
   dataKey: 'value',
   nameKey: 'name',
   width: 250,
+  convert: null,
 }
 
 TooltipBox.propTypes = {
@@ -101,6 +99,7 @@ TooltipBox.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  convert: PropTypes.func,
 }
 
 export default TooltipBox
