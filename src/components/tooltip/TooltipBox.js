@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { color } from '@src/assets/styles/variables'
-import * as font from '@src/assets/styles/font'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import * as commonTag from '@Components/common/cdmCommon'
@@ -9,7 +8,7 @@ import * as commonTag from '@Components/common/cdmCommon'
 const Dot = styled(commonTag.Dot).attrs(() => ({
 }))`
   position: absolute;
-  top: 5px;
+  top: 3px;
   left: 0;
 `
 
@@ -26,6 +25,7 @@ const TooltipBoxTag = styled.div`
     padding-left: 16px;
     position: relative;
     display: flex;
+    align-items: top;
 
     span:last-child {
       margin-left: auto;
@@ -68,9 +68,9 @@ const TooltipBox = ({
               <li key={key}>
                 <Dot color={fill} />
                 <span>{props[nameKey]}</span>
-                <font.TextTag bold>
+                <span style={{ fontWeight: 'bold' }}>
                   {valueConvertText(props[dataKey], isPercent, showOrigin, convert)}
-                </font.TextTag>
+                </span>
               </li>
             )
           })
