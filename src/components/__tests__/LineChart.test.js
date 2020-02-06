@@ -1,75 +1,78 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import LineChart from '@Charts/LineChart';
+import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
+import * as Rechart from 'recharts'
+import _ from 'lodash'
 
-const data = [{
-  "name" : "value",
-  "data": [
-    0.36,
-    0.9
-  ]
-}]
+const data = [
+  {
+    age: 20,
+    Persons: 88
+  },
+  {
+    age: 30,
+    Persons: 272
+  },
+  {
+    age: 40,
+    Persons: 568
+  },
+  {
+    age: 50,
+    Persons: 932
+  },
+  {
+    age: 60,
+    Persons: 3319
+  },
+  {
+    age: 70,
+    Persons: 5394
+  },
+  {
+    age: 80,
+    Persons: 3665
+  },
+  {
+    age: 90,
+    Persons: 989
+  },
+  {
+    age: 100,
+    Persons: 58
+  },
+]
 
-const xAxisCategory = ["2030-06-26", "2032-07-11"]
+const match = (props, Tag) => props.type && props.type.displayName === Tag.displayName
+
+const findReChartTags = (root, Tag) => (
+  _.chain(root)
+    .flatMapDeep()
+    .filter((props) => match(props, Tag))
+    .value()
+)
 
 describe('LineChart Component', () => {
-  it('renders placeholder when there is no data', () => {
-    const wrapper = shallow(<LineChart 
-                            title={'test'}
-                            xAxisCategory={xAxisCategory} 
-                          />)
-    expect(wrapper.contains(<div>No data is provided</div>)).toBeTruthy()
+  let component;
+  beforeEach(() => {
+    component = mount(
+      <LineChart
+        title="Example"
+        data={data}
+        xDataKey="age"
+        yDataKey="Persons"
+        theme="blue"
+      />
+    )
   })
 
-  it('renders properly when there is data', () => {
-    const wrapper = mount(<LineChart 
-                            title={'test'}
-                            xAxisCategory={xAxisCategory}
-                            data={data} 
-                          />)
-
-    expect(wrapper.html().includes('highcharts-root')).toBeTruthy()
+  it('데이터가 없을 때, placeholder를 렌더링 해야 한다.', () => {
+    component.setProps({ data: [] })
+    expect(component.find(EmptyPlaceHolder)).toHaveLength(1)
   })
 
-  it('renders props when props is given', () => {
-    const wrapper = mount(<LineChart 
-                            title={'test'}
-                            xAxisCategory={xAxisCategory}
-                            data={data} 
-                            xAxisTitle={'date'}
-                            xAxisTitleAlign={'low'}
-                            yAxisTitle={'value'}
-                            yAxisTitleAlign={'high'}
-                            yMaxValue={2000}
-                            yAxisTickAmount={21}
-                            yAxisTickInterval={100} 
-                          />)
-    const propsObj = {
-      title: 'test',
-      xAxisTitle: 'date',
-      xAxisTitleAlign: 'low',
-      yAxisTitle: 'value',
-      yAxisTitleAlign: 'high',
-      yMaxValue: 2000,
-      yAxisTickAmount: 21,
-      yAxisTickInterval: 100
-    }
-    expect(wrapper.get(0).props).toMatchObject(propsObj)
+  it('데이터가 있을 때, linechart를 렌더링 해야 한다.', () => {
+    expect(findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.Line)).toHaveLength(1)
   })
-
-  it('renders default props when there is no props', () => {
-    const wrapper = mount(<LineChart 
-                            xAxisCategory={xAxisCategory}
-                            data={data} 
-                          />)
-    const defaultPropsObj = {
-      title: null,
-      xAxisTitle: null,
-      xAxisTitleAlign: 'middle',
-      yAxisTitle: null,
-      yAxisTitleAlign: 'middle'
-    }
-
-    expect(wrapper.get(0).props).toMatchObject(defaultPropsObj)
-  })
-})
+}) 

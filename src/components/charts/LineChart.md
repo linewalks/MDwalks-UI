@@ -2,26 +2,48 @@ LineChart example:
 
 ```js
   <LineChart
-    title={'test'}
-    width={'850'}
-    height={'400'}
+    title="Example"
     data={[
       {
-        "name": "value",
-        "data": [
-          0.36,
-          0.9,
-        ]
-      }
+        age: 20,
+        Persons: 88
+      },
+      {
+        age: 30,
+        Persons: 272
+      },
+      {
+        age: 40,
+        Persons: 568
+      },
+      {
+        age: 50,
+        Persons: 932
+      },
+      {
+        age: 60,
+        Persons: 3319
+      },
+      {
+        age: 70,
+        Persons: 5394
+      },
+      {
+        age: 80,
+        Persons: 3665
+      },
+      {
+        age: 90,
+        Persons: 989
+      },
+      {
+        age: 100,
+        Persons: 58
+      },
     ]}
-    xAxisCategory={[
-      "2030-06-26",
-      "2032-07-11",
-    ]}
-    xAxisTitle={'Date'}
-    xAxisTitleAlign={'middle'}
-    yAxisTitle={'value'}
-    yAxisTitleAlign={'middle'}
+    xDataKey="age"
+    yDataKey="Persons"
+    theme="blue"
   >
   </LineChart>
   ```

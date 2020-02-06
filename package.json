@@ -81,7 +81,6 @@
     "jest-styled-components": "^6.3.3",
     "lint-staged": "^9.4.3",
     "node-sass": "^4.13.1",
-    "recharts": "1.6.2",
     "rollup": "^1.16.7",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.0.1",
@@ -106,6 +105,7 @@
     "react-router-dom": "^5.0.1",
     "react-styleguidist": "^10.6.1",
     "react-test-renderer": "^16.8.6",
+    "recharts": "1.6.2",
     "styled-components": "^4.3.2"
   }
 }
