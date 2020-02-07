@@ -34,4 +34,10 @@ describe('SummaryCard Component', () => {
     expect(wrapper.find(Article).first().find(EventElement)).toHaveStyleRule('cursor', 'pointer')
     expect(wrapper.find(Article).last().find(EventElement)).not.toHaveStyleRule('cursor', 'pointer')
   })
+
+  it('set ClassName', () => {
+    const className = 'ABC'
+    const wrapper = shallow(<SummaryCard data={SummaryCardData} className={className} />)
+    expect(wrapper.find(Article).first().prop('className')).toBe(className)
+  })
 })

@@ -59,14 +59,14 @@ const BodyB42 = styled(font.TextTag).attrs({
   },
 })``
 
-const SummaryCard = ({ data, events }) => {
+const SummaryCard = ({ className, data, events }) => {
   const summaryData = Object.entries(data);
   return (
     <Wrap1200>
       {summaryData.map(([name, value], idx) => {
         const key = `SummaryCard${idx}`
         return (
-          <Article key={key}>
+          <Article key={key} className={className}>
             <EventElement onClick={events[name] ? () => { events[name]() } : null}>
               <dl>
                 <BodyB42 as="dd">{value}</BodyB42>
@@ -81,11 +81,13 @@ const SummaryCard = ({ data, events }) => {
 };
 
 SummaryCard.defaultProps = {
+  className: '',
   data: {},
   events: {},
 }
 
 SummaryCard.propTypes = {
+  className: PropTypes.string,
   data: PropTypes.shape({}),
   events: PropTypes.shape({}),
 }
