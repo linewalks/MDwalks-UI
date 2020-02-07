@@ -38,13 +38,10 @@ const TooltipBoxTag = styled.div`
     margin-bottom: 8px;
   }
 `
-export const valueConvertText = (value, isPercent = false, showOrigin = false, convert) => {
+
+export const valueConvertText = (value, { isPercent, convert }) => {
   if (convert) {
     return convert(value)
-  }
-
-  if (showOrigin) {
-    return value
   }
 
   if (isPercent) {
@@ -52,6 +49,17 @@ export const valueConvertText = (value, isPercent = false, showOrigin = false, c
   }
 
   return Number(value).toLocaleString()
+}
+
+valueConvertText.defaultProps = {
+  isPercent: false,
+  convert: null,
+}
+
+valueConvertText.propTypes = {
+  value: PropTypes.number.isRequired,
+  isPercent: PropTypes.bool,
+  convert: PropTypes.func,
 }
 
 const TooltipBox = ({
@@ -63,14 +71,14 @@ const TooltipBox = ({
     <TooltipBoxTag style={{ width }}>
       <ul>
         {
-          payload.map(({ fill, showOrigin = false, ...props }, i) => {
+          payload.map(({ fill, ...props }, i) => {
             const key = `li_${i}`
             return (
               <li key={key}>
                 <Dot color={fill} />
                 <span>{props[nameKey]}</span>
                 <span className={fontStyle.bold}>
-                  {valueConvertText(props[dataKey], isPercent, showOrigin, convert)}
+                  {valueConvertText(props[dataKey], { isPercent, convert })}
                 </span>
               </li>
             )

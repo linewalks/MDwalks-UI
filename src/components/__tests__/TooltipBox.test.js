@@ -8,38 +8,29 @@ const percentValue = 0.04322
 describe('valueConvertText', () => {
   let expectedValue;
   let isPercent;
-  let showOrigin;
 
   afterEach(() => {
     isPercent = false
-    showOrigin = false
-  })
-
-  it('showOrigin 인경우 value 값이 toFixed, toLocaleString 적용되지 않는다', () => {
-    showOrigin = true
-    expectedValue = 598293
-    expect(valueConvertText(originValue, isPercent, showOrigin)).toEqual(expectedValue)
   })
 
   it('isPercent 인 경우 toFixed 이 적용된다', () => {
     isPercent = true
     expectedValue = '4.32 %'
-    expect(valueConvertText(percentValue, isPercent, showOrigin).props.children).toEqual(expectedValue)
+    expect(valueConvertText(percentValue, { isPercent }).props.children).toEqual(expectedValue)
   })
-
 
   it('isPercent, showOrigin 둘 다 지정하지 않는 경우 toLocaleString 이 적용된다', () => {
     expectedValue = '598,293'
-    expect(valueConvertText(originValue, isPercent, showOrigin)).toEqual(expectedValue)
+    expect(valueConvertText(originValue, { isPercent })).toEqual(expectedValue)
   })
 
   it('convert 함수가 있으면, convert 함수가 적용된다.', () => {
-    const convertFn = jest.fn((value) => `${value} Values`)
+    const convert = jest.fn((value) => `${value} Values`)
     expectedValue = '598293 Values'
 
-    valueConvertText(originValue, isPercent, showOrigin, convertFn)
-    expect(convertFn).toHaveBeenCalled()
-    expect(valueConvertText(originValue, isPercent, showOrigin, convertFn)).toEqual(expectedValue)
+    valueConvertText(originValue, { isPercent, convert })
+    expect(convert).toHaveBeenCalled()
+    expect(valueConvertText(originValue, { isPercent, convert })).toEqual(expectedValue)
   })
 })
 
@@ -52,7 +43,6 @@ const getDataByWraper = (wrapper) => {
     value: spans.at(2).text(),
   }
 }
-
 
 describe('TooltipBox Component', () => {
   let component;
@@ -68,7 +58,7 @@ describe('TooltipBox Component', () => {
     component = mount(
       <TooltipBox
         payload={[payload]}
-      />
+      />,
     )
   })
 
@@ -84,7 +74,7 @@ describe('TooltipBox Component', () => {
   it('dataKey, nameKey 지정', () => {
     const dataKey = 'count'
     const nameKey = 'gender_name'
-    const payload = [
+    payload = [
       {
         fill: '#62A3F3',
         [nameKey]: 'T-Value',
@@ -101,7 +91,7 @@ describe('TooltipBox Component', () => {
     component.setProps({
       payload,
       dataKey,
-      nameKey
+      nameKey,
     })
 
     expect(getDataByWraper(component)).toEqual(expectedObj)
@@ -110,7 +100,7 @@ describe('TooltipBox Component', () => {
   it('prop으로 제공 받은 convert 함수 호출 여부', () => {
     const convertFn = jest.fn()
     component.setProps({
-      convert: convertFn
+      convert: convertFn,
     })
 
     expect(convertFn).toBeCalledTimes([payload].length)
