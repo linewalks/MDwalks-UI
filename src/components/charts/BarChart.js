@@ -38,36 +38,31 @@ const BarChart = ({
   const isEmpty = (items) => _.isEmpty(items)
 
   return (
-    <commonTag.BoxShadow>
-      <commonTag.BoxShadowInner>
-        <Heading size="18" style={{ marginBottom: '30px' }}>{title}</Heading>
+    <div>
+      <Heading size="18" style={{ marginBottom: '30px' }}>{title}</Heading>
 
-        <commonTag.LegendList data={legendData} />
-
-        {
-          isEmpty(data)
-            ? (
-              <EmptyPlaceHolder />
-            )
-            : (
-              <Rechart.ResponsiveContainer height={415}>
-                <Rechart.BarChart data={data} height={415}>
-                  <Rechart.CartesianGrid vertical={false} stroke={color.$line_graph_xy_grey} />
-                  <Rechart.XAxis tickLine={false} tickMargin={10} dataKey={xDataKey} stroke="rgba(0, 0, 0, 0.6)" />
-                  <Rechart.YAxis axisLine={false} tickLine={false} tickFormatter={tickFormatter} tickMargin={10} stroke="rgba(0, 0, 0, 0.4)" />
-                  <Rechart.Tooltip
-                    isPercent={isPercent}
-                    content={TooltipBox}
-                  />
-                  {
-                    newYDataKey.map((entry, index) => (<Rechart.Bar key={`bar${entry}`} dataKey={entry} fill={colors[index]} />))
-                  }
-                </Rechart.BarChart>
-              </Rechart.ResponsiveContainer>
-            )
-        }
-      </commonTag.BoxShadowInner>
-    </commonTag.BoxShadow>
+      <commonTag.LegendList data={legendData} />
+      {
+        isEmpty(data)
+          ? <EmptyPlaceHolder />
+          : (
+            <Rechart.ResponsiveContainer height={415}>
+              <Rechart.BarChart data={data} height={415}>
+                <Rechart.CartesianGrid vertical={false} stroke={color.$line_graph_xy_grey} />
+                <Rechart.XAxis tickLine={false} tickMargin={10} dataKey={xDataKey} stroke="rgba(0, 0, 0, 0.6)" />
+                <Rechart.YAxis axisLine={false} tickLine={false} tickFormatter={tickFormatter} tickMargin={10} stroke="rgba(0, 0, 0, 0.4)" />
+                <Rechart.Tooltip
+                  isPercent={isPercent}
+                  content={TooltipBox}
+                />
+                {
+                  newYDataKey.map((entry, index) => (<Rechart.Bar key={`bar${entry}`} dataKey={entry} fill={colors[index]} />))
+                }
+              </Rechart.BarChart>
+            </Rechart.ResponsiveContainer>
+          )
+      }
+    </div>
   )
 }
 
