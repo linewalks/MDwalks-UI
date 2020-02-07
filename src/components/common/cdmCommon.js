@@ -1,7 +1,6 @@
 import React from 'react'
 import { color } from '@src/assets/styles/variables'
 import styled from 'styled-components'
-import _ from 'lodash'
 import PropTypes from 'prop-types'
 
 const LegendWrap = styled.section`
@@ -50,12 +49,12 @@ export const Legend = styled.article`
 `
 
 export const LegendList = ({ data }) => {
-  const legends = data && data.map(({ color, text }, index) => {
+  const legends = data && data.map(({ color: legendColor, text }, index) => {
     const lKey = `legend_${text}_${index}`
     return (
       <Legend key={lKey}>
         <span>
-          <Dot color={color} style={{ marginRight: '8px' }} />
+          <Dot color={legendColor} style={{ marginRight: '8px' }} />
           <span>{text}</span>
         </span>
       </Legend>
@@ -72,7 +71,7 @@ export const LegendList = ({ data }) => {
 LegendList.defaultProps = {
   data: [],
 }
-  
+
 LegendList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})),
 }
