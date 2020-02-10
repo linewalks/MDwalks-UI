@@ -1,3 +1,12 @@
+## [0.13.2](https://github.com/linewalks/MDwalks-UI/compare/v0.13.1...v0.13.2) (2020-02-10)
+
+
+### Features
+
+* **SummaryCard:** get className ([1aad226](https://github.com/linewalks/MDwalks-UI/commit/1aad22616ea4dd37c195b5aa3b6ec9aeef7d9279)), closes [#380](https://github.com/linewalks/MDwalks-UI/issues/380)
+
+
+
 ## [0.13.1](https://github.com/linewalks/MDwalks-UI/compare/v0.12.4...v0.13.1) (2020-02-06)
 
 
