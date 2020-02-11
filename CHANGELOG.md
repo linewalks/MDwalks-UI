@@ -1,3 +1,12 @@
+## [0.13.3](https://github.com/linewalks/MDwalks-UI/compare/v0.13.2...v0.13.3) (2020-02-11)
+
+
+### Features
+
+* **TooltipBox:** into index.js ([b7ea98d](https://github.com/linewalks/MDwalks-UI/commit/b7ea98de3c2987a2ce383d5ab0acdc7307987489)), closes [#389](https://github.com/linewalks/MDwalks-UI/issues/389)
+
+
+
 ## [0.13.2](https://github.com/linewalks/MDwalks-UI/compare/v0.13.1...v0.13.2) (2020-02-10)
 
 

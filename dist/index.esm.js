@@ -92022,6 +92022,15 @@ LegendList.propTypes = {
   data: propTypes.arrayOf(propTypes.shape({}))
 };
 
+var cdmCommon = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  BoxShadow: BoxShadow,
+  BoxShadowInner: BoxShadowInner,
+  Dot: Dot$1,
+  Legend: Legend$1,
+  LegendList: LegendList
+});
+
 function _templateObject2$9() {
   var data = _taggedTemplateLiteral(["\n  width: 250px;\n  border-radius: 4px;\n  box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.2);\n  border: solid 1px ", ";\n  background-color: rgba(255, 255, 255, 1);\n\n  padding: 12px 14px;\n\n  li {\n    padding-left: 16px;\n    position: relative;\n    display: flex;\n    align-items: top;\n\n    span:last-child {\n      margin-left: auto;\n      padding-left: 16px;\n    }\n  }\n\n  li:not(:last-child) {\n    margin-bottom: 8px;\n  }\n"]);
 
@@ -96493,4 +96502,4 @@ var DateUtility = /*#__PURE__*/Object.freeze({
   getDateDiff: getDateDiff
 });
 
-export { BarChart$1 as BarChart, BarGauge, Button, ButtonLink, ButtonTextLink, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image$1 as Image, LineChart$1 as LineChart, LineMergeTimeline, Modal$1 as Modal, Navbar, Pagination, RadarChart, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table$1 as Table, Tabs, TimeToEvent, Timeline, ToastCtr, ToggleButton, TreeMap, chartUtility, font$1 as font, variables };
+export { BarChart$1 as BarChart, BarGauge, Button, ButtonLink, ButtonTextLink, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image$1 as Image, LineChart$1 as LineChart, LineMergeTimeline, Modal$1 as Modal, Navbar, Pagination, RadarChart, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table$1 as Table, Tabs, TimeToEvent, Timeline, ToastCtr, ToggleButton, TooltipBox, TreeMap, chartUtility, cdmCommon as commonTag, font$1 as font, variables };
