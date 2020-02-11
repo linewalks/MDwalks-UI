@@ -26,6 +26,8 @@ import Button, { ButtonLink, ButtonTextLink } from '@Components/button/Button'
 import ToastCtr from '@Components/toast/ToastCtr'
 import Pagination from '@Components/pagination/Pagination'
 import ToggleButton from '@Components/button/ToggleButton'
+import TooltipBox from '@Components/tooltip/TooltipBox'
+import * as commonTag from '@Components/common/cdmCommon'
 
 import SelectBox from '@Components/form/SelectBox'
 import * as font from '@src/assets/styles/font'
@@ -63,6 +65,8 @@ export {
   ButtonTextLink,
   ToggleButton,
   ToastCtr,
+  TooltipBox,
+  commonTag,
   Histogram,
   RadarChart,
   SelectBox,
