@@ -63,7 +63,7 @@ valueConvertText.propTypes = {
 }
 
 const TooltipBox = ({
-  payload, isPercent = false, dataKey = 'value', nameKey = 'name', width, convert,
+  payload, isPercent = false, dataKey = 'value', nameKey = 'name', width,
 }) => {
   if (!_.isArray(payload)) return null
 
@@ -71,8 +71,8 @@ const TooltipBox = ({
     <TooltipBoxTag style={{ width }}>
       <ul>
         {
-          payload.map(({ fill, ...props }, i) => {
-            const key = `li_${i}`
+          payload.map(({ fill, convert, ...props }, i) => {
+            const key = `tooltip${i}`
             return (
               <li key={key}>
                 <Dot color={fill} />
@@ -95,7 +95,7 @@ TooltipBox.defaultProps = {
   dataKey: 'value',
   nameKey: 'name',
   width: 250,
-  convert: null,
+  // convert: null,
 }
 
 TooltipBox.propTypes = {
@@ -107,7 +107,7 @@ TooltipBox.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-  convert: PropTypes.func,
+  // convert: PropTypes.func,
 }
 
 export default TooltipBox
