@@ -97,12 +97,18 @@ describe('TooltipBox Component', () => {
     expect(getDataByWraper(component)).toEqual(expectedObj)
   })
 
-  it('prop으로 제공 받은 convert 함수 호출 여부', () => {
-    const convertFn = jest.fn()
+  it('payload 안 요소들에 convert 함수 호출 여부', () => {
+    const payloadConvert = {
+      fill: '#62A3F3',
+      name: 'T-Value',
+      value: originValue,
+      convert: jest.fn(),
+    }
+
     component.setProps({
-      convert: convertFn,
+      payload: [payloadConvert],
     })
 
-    expect(convertFn).toBeCalledTimes([payload].length)
+    expect(payloadConvert.convert).toBeCalledTimes(1)
   })
 })
