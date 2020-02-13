@@ -1,3 +1,12 @@
+## [0.13.4](https://github.com/linewalks/MDwalks-UI/compare/v0.13.3...v0.13.4) (2020-02-13)
+
+
+### Features
+
+* **TooltipBox:** modify convert option ([d3d3e26](https://github.com/linewalks/MDwalks-UI/commit/d3d3e26c5f3f7d541bf08c980b5bb9c5b80805b2)), closes [#395](https://github.com/linewalks/MDwalks-UI/issues/395)
+
+
+
 ## [0.13.3](https://github.com/linewalks/MDwalks-UI/compare/v0.13.2...v0.13.3) (2020-02-11)
 
 

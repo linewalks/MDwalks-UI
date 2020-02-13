@@ -92090,8 +92090,7 @@ var TooltipBox = function TooltipBox(_ref2) {
       dataKey = _ref2$dataKey === void 0 ? 'value' : _ref2$dataKey,
       _ref2$nameKey = _ref2.nameKey,
       nameKey = _ref2$nameKey === void 0 ? 'name' : _ref2$nameKey,
-      width = _ref2.width,
-      convert = _ref2.convert;
+      width = _ref2.width;
   if (!lodash.isArray(payload)) return null;
   return React.createElement(TooltipBoxTag, {
     style: {
@@ -92099,9 +92098,10 @@ var TooltipBox = function TooltipBox(_ref2) {
     }
   }, React.createElement("ul", null, payload.map(function (_ref3, i) {
     var fill = _ref3.fill,
-        props = _objectWithoutProperties(_ref3, ["fill"]);
+        convert = _ref3.convert,
+        props = _objectWithoutProperties(_ref3, ["fill", "convert"]);
 
-    var key = "li_".concat(i);
+    var key = "tooltip".concat(i);
     return React.createElement("li", {
       key: key
     }, React.createElement(Dot$2, {
@@ -92120,16 +92120,16 @@ TooltipBox.defaultProps = {
   isPercent: false,
   dataKey: 'value',
   nameKey: 'name',
-  width: 250,
-  convert: null
+  width: 250 // convert: null,
+
 };
 TooltipBox.propTypes = {
   payload: propTypes.arrayOf(propTypes.shape({})),
   isPercent: propTypes.bool,
   dataKey: propTypes.string,
   nameKey: propTypes.string,
-  width: propTypes.oneOfType([propTypes.string, propTypes.number]),
-  convert: propTypes.func
+  width: propTypes.oneOfType([propTypes.string, propTypes.number]) // convert: PropTypes.func,
+
 };
 
 var colorSet = {
