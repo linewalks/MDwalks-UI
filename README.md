@@ -65,7 +65,7 @@
   - refactor(Button): move to /src/com/
   
 - package, lib 변경
-  - feat(package): version up MDwalks-UI  
+  - package(MDwalks-UI): version up 
 
 **설명**
 - 줄에는 무엇이 달라졌는지 간략하게 기술한다.
