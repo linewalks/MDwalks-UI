@@ -1,6 +1,6 @@
 import babel from "rollup-plugin-babel";
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 import svg from 'rollup-plugin-svg'
 import pkg from './package.json'
@@ -25,9 +25,7 @@ export default {
       extensions: ['.css']
     }),
     resolve({
-      jsnext: true,
-      main: true,
-      browser: true,
+      mainFields: ['browser', 'jsnext', 'module', 'main'],
     }),
     commonjs(),
     svg({
@@ -35,5 +33,5 @@ export default {
     })
   ],
   globals: { 'styled-components': 'styled' },
-  external: ["react", "styled-components"],
+  external: ["react", "styled-components", "d3", "recharts"],
 } 
