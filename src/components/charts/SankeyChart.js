@@ -243,6 +243,10 @@ class SankeyChart extends React.Component {
     })
   }
 
+  removeSankey = () => (
+    this.getRootElement().select('svg').remove()
+  )
+
   componentDidMount = () => {
     const { data, resetBtnId } = this.props
     if (!_.isEmpty(resetBtnId)) {
@@ -256,6 +260,11 @@ class SankeyChart extends React.Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
+    if (!_.isEqual(prevProps.data, this.props.data)) {
+      this.removeSankey()
+      this.renderSankey()
+    }
+    
     if (JSON.stringify(this.state.selectedNodes) != JSON.stringify(prevState.selectedNodes)) {
       this.props.onChange(this.state.selectedNodes)
     }
