@@ -32,6 +32,5 @@ export default {
       base64: true
     })
   ],
-  globals: { 'styled-components': 'styled' },
   external: ["react", "styled-components", "d3", "recharts"],
 } 

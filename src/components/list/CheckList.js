@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash'
-import { font } from '@src/index'
+import * as font from '@src/assets/styles/font'
 import PropTypes from 'prop-types'
 import Item from '@Components/list/Item'
 import IcnChecked from '@Components/list/check-box-checked-default.svg'

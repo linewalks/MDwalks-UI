@@ -262,7 +262,8 @@ class SankeyChart extends React.Component {
   componentDidUpdate = (prevProps, prevState) => {
     if (!_.isEqual(prevProps.data, this.props.data)) {
       this.removeSankey()
-      this.renderSankey()
+      this.resetSankey()
+      return this.renderSankey()
     }
     
     if (JSON.stringify(this.state.selectedNodes) != JSON.stringify(prevState.selectedNodes)) {
