@@ -1,3 +1,17 @@
+## [0.13.5](https://github.com/linewalks/MDwalks-UI/compare/v0.13.3...v0.13.5) (2020-02-25)
+
+
+### Bug Fixes
+
+* **Sankey:** Sankey Chart 데이터 변경시 렌더링이 안됨 ([6418614](https://github.com/linewalks/MDwalks-UI/commit/64186142f7bd3d4a0ad3a8311fd74d4c0ae58d60)), closes [#397](https://github.com/linewalks/MDwalks-UI/issues/397)
+
+
+### Features
+
+* **TooltipBox:** modify convert option ([d3d3e26](https://github.com/linewalks/MDwalks-UI/commit/d3d3e26c5f3f7d541bf08c980b5bb9c5b80805b2)), closes [#395](https://github.com/linewalks/MDwalks-UI/issues/395)
+
+
+
 ## [0.13.3](https://github.com/linewalks/MDwalks-UI/compare/v0.13.2...v0.13.3) (2020-02-11)
 
 
