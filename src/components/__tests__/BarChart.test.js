@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import LineChart from '@Charts/LineChart';
+import BarChart from '@Charts/BarChart';
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import * as Rechart from 'recharts'
 import _ from 'lodash'
+
 
 const data = [
   {
@@ -53,11 +54,11 @@ const findReChartTags = (root, Tag) => (
     .value()
 )
 
-describe('LineChart Component', () => {
+describe('BarChart Component', () => {
   let component;
   beforeEach(() => {
     component = mount(
-      <LineChart
+      <BarChart
         title="Example"
         data={data}
         xDataKey="age"
@@ -72,7 +73,7 @@ describe('LineChart Component', () => {
     expect(component.find(EmptyPlaceHolder)).toHaveLength(1)
   })
 
-  it('데이터가 있을 때, linechart를 렌더링 해야 한다.', () => {
-    expect(findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.Line)).toHaveLength(1)
+  it('데이터가 있을 때, barchart를 렌더링 해야 한다.', () => {
+    expect(findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Bar)).toHaveLength(1)
   })
-}) 
+})

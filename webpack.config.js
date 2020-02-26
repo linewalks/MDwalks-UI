@@ -1,4 +1,5 @@
 const path = require('path');
+const sass = require('node-sass')
 
 module.exports = {
   module: {
@@ -32,6 +33,25 @@ module.exports = {
         test: /\.(svg)(\?.*)?$/,
         loader: 'file-loader',
         query: { name: 'static/media/[name].[hash:8].[ext]' },
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              // Prefer `dart-sass`
+              implementation: sass,
+            },
+          },
+        ],
       },
     ],
   },

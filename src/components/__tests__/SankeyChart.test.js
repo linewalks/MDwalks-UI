@@ -45,6 +45,37 @@ const SankeyChartData = {
   ]
 }
 
+const changedSankeyChartData = {
+  "links": [
+    {
+      "source": "A",
+      "target": "B",
+      "value": 520,
+    },
+    {
+      "source": "B",
+      "target": "C",
+      "value": 37,
+    },
+    {
+      "source": "A",
+      "target": "C",
+      "value": 15,
+    },
+  ],
+  "nodes": [
+    {
+      "name": "A"
+    },
+    {
+      "name": "B"
+    },
+    {
+      "name": "C"
+    },
+  ]
+}
+
 describe('set SelectNodes', () => {
   let wrapper, selectedNodes, data, instance
   beforeEach(() => {
@@ -117,4 +148,24 @@ describe('Selected Snapshot', () => {
     const wrapper = mount(<SankeyChart selectedNodes={selectedNodes} data={SankeyChartData}/>);
     expect(toJson(wrapper.render())).toMatchSnapshot();
   });
+})
+
+describe('데이터를 가진 Sankey Chart가 데이터 변경시, 변경된 데이터를 반영해야 한다.', () => {
+  let wrapper, instance, onChange, spy
+
+  beforeEach(() => {
+    onChange = jest.fn()
+    wrapper = mount(<SankeyChart selectedNodes={[]} data={SankeyChartData} onChange={onChange} />)
+    instance = wrapper.instance()
+  })
+
+  it('변경된 데이터 렌더링', () => {
+    spy = jest.spyOn(instance, 'componentDidUpdate')
+    wrapper.setProps({
+      data: changedSankeyChartData,
+    })
+
+    expect(wrapper.props('data')).not.toEqual(SankeyChartData)
+    expect(spy).toHaveBeenCalled()
+  })
 })

@@ -13,7 +13,7 @@ const colorSet = {
   green: ['#ceede7', '#97d9ce', '#24b7a3', '#0c8d84', '#006f75', '#00555a', '#043e4b', '#002340'],
 }
 
-const LineChart = ({
+const BarChart = ({
   title,
   data,
   xDataKey,
@@ -42,13 +42,12 @@ const LineChart = ({
       <Heading size="18" style={{ marginBottom: '30px' }}>{title}</Heading>
 
       <commonTag.LegendList data={legendData} />
-
       {
         isEmpty(data)
           ? <EmptyPlaceHolder />
           : (
             <Rechart.ResponsiveContainer height={415}>
-              <Rechart.LineChart data={data} height={415}>
+              <Rechart.BarChart data={data} height={415}>
                 <Rechart.CartesianGrid vertical={false} stroke={color.$line_graph_xy_grey} />
                 <Rechart.XAxis tickLine={false} tickMargin={10} dataKey={xDataKey} stroke="rgba(0, 0, 0, 0.6)" />
                 <Rechart.YAxis axisLine={false} tickLine={false} tickFormatter={tickFormatter} tickMargin={10} stroke="rgba(0, 0, 0, 0.4)" />
@@ -57,9 +56,9 @@ const LineChart = ({
                   content={TooltipBox}
                 />
                 {
-                  newYDataKey.map((entry, index) => (<Rechart.Line key={`bar${entry}`} dataKey={entry} fill={colors[index]} />))
+                  newYDataKey.map((entry, index) => (<Rechart.Bar key={`bar${entry}`} dataKey={entry} fill={colors[index]} />))
                 }
-              </Rechart.LineChart>
+              </Rechart.BarChart>
             </Rechart.ResponsiveContainer>
           )
       }
@@ -67,7 +66,7 @@ const LineChart = ({
   )
 }
 
-LineChart.defaultProps = {
+BarChart.defaultProps = {
   title: [{}, null],
   data: [],
   xDataKey: 'name',
@@ -76,7 +75,7 @@ LineChart.defaultProps = {
   isPercent: false,
 }
 
-LineChart.propTypes = {
+BarChart.propTypes = {
   title: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
   data: PropTypes.arrayOf(PropTypes.shape({})),
   xDataKey: PropTypes.string,
@@ -85,4 +84,4 @@ LineChart.propTypes = {
   isPercent: PropTypes.bool,
 }
 
-export default LineChart
+export default BarChart

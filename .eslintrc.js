@@ -1,4 +1,5 @@
 module.exports = {
+    "parser": "babel-eslint",
     "env": {
         "browser": true,
         "es6": true,
@@ -33,5 +34,5 @@ module.exports = {
         "import/no-unresolved": "off",
         // children 를 선언할 필요는 없지 않을까?
         "react/prop-types": [2, { ignore: ['children', 'style'] }],
-    }
+    },
 };

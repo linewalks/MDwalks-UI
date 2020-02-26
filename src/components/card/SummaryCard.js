@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import * as font from '@src/assets/styles/font'
 import { color } from '@src/assets/styles/variables'
 
@@ -38,7 +39,7 @@ export const EventElement = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  cursor: ${props => props.onClick ? 'pointer' : ''};
+  cursor: ${(props) => (props.onClick ? 'pointer' : '')};
 `
 
 const BodyB16 = styled(font.TextTag).attrs({
@@ -55,16 +56,17 @@ const BodyB42 = styled(font.TextTag).attrs({
     display: 'block',
     marginInlineStart: '40px',
     margin: 0,
-  }
+  },
 })``
 
-const SummaryCard = ({data, events = {}}) => {
-  let summaryData = Object.entries(data);
+const SummaryCard = ({ className, data, events }) => {
+  const summaryData = Object.entries(data);
   return (
     <Wrap1200>
       {summaryData.map(([name, value], idx) => {
+        const key = `SummaryCard${idx}`
         return (
-          <Article key={idx}>
+          <Article key={key} className={className}>
             <EventElement onClick={events[name] ? () => { events[name]() } : null}>
               <dl>
                 <BodyB42 as="dd">{value}</BodyB42>
@@ -78,4 +80,16 @@ const SummaryCard = ({data, events = {}}) => {
   );
 };
 
-export default SummaryCard;
+SummaryCard.defaultProps = {
+  className: '',
+  data: {},
+  events: {},
+}
+
+SummaryCard.propTypes = {
+  className: PropTypes.string,
+  data: PropTypes.shape({}),
+  events: PropTypes.shape({}),
+}
+
+export default SummaryCard

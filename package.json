@@ -1,6 +1,6 @@
 {
   "name": "MDwalks-UI",
-  "version": "0.11.4",
+  "version": "0.13.5",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
@@ -8,6 +8,8 @@
     "test:watch": "jest --watch --coverage",
     "build": "rollup -c",
     "build:docz": "rm -rf docs && yarn docz build",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build",
     "lint": "eslint ./src/**/*.js",
     "lint:fix": "eslint ./src/**/*.js --fix",
     "version": "yarn build && git add ./dist && conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
@@ -56,6 +58,9 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.5.4",
     "@babel/preset-react": "^7.0.0",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "docz": "^2.0.0-rc.67",
     "enzyme": "^3.10.0",
@@ -80,11 +85,10 @@
     "node-sass": "^4.13.1",
     "rollup": "^1.16.7",
     "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-commonjs": "^10.0.1",
-    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-svg": "^2.0.0",
+    "sass-loader": "^8.0.2",
     "scheduler": "0.14.0"
   },
   "dependencies": {
@@ -99,7 +103,9 @@
     "react-dom": "^16.9.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
+    "react-styleguidist": "^10.6.1",
     "react-test-renderer": "^16.8.6",
+    "recharts": "1.6.2",
     "styled-components": "^4.3.2"
   }
 }
