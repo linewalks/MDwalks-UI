@@ -298,9 +298,8 @@ class Histogram extends Component {
 
   renderHistogram = (data) => {
     const { width, height } = this.options
-    renderSVG(this.getRootElement(), width, height)
-    // const svg = renderSVG(this.getRootElement(), width, height)
-    // const gHistogram = generateGroup(svg, { className: 'histogram' })
+    const svg = renderSVG(this.getRootElement(), width, height)
+    generateGroup(svg, { className: 'histogram' })
 
     const xAxis = d3.axisBottom(this.xAxisScale)
       .tickPadding(14)
