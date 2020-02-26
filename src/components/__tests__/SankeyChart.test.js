@@ -151,7 +151,7 @@ describe('Selected Snapshot', () => {
 })
 
 describe('데이터를 가진 Sankey Chart가 데이터 변경시, 변경된 데이터를 반영해야 한다.', () => {
-  let wrapper, instance, onChange, spy
+  let wrapper, instance, onChange
 
   beforeEach(() => {
     onChange = jest.fn()
@@ -160,12 +160,29 @@ describe('데이터를 가진 Sankey Chart가 데이터 변경시, 변경된 데
   })
 
   it('변경된 데이터 렌더링', () => {
-    spy = jest.spyOn(instance, 'componentDidUpdate')
+    const spy = jest.spyOn(instance, 'componentDidUpdate')
+    const renderSankeySpy = jest.spyOn(instance, 'renderSankey')
+    const removeSankeySpy = jest.spyOn(instance, 'removeSankey')
     wrapper.setProps({
       data: changedSankeyChartData,
     })
 
     expect(wrapper.props('data')).not.toEqual(SankeyChartData)
     expect(spy).toHaveBeenCalled()
+    expect(renderSankeySpy).toHaveBeenCalled()
+    expect(removeSankeySpy).toHaveBeenCalled()
+  })
+
+  it('데이터를 변경하면 state를 초기화해야된다.', () => {
+    const resetSpy = jest.spyOn(instance, 'resetSankey')
+    const expectedNode = ["A"]
+    wrapper.setProps({
+      data: changedSankeyChartData,
+      selectedNodes: ["A", "B"],
+      defaultdNode: ["A"]
+    })
+
+    expect(resetSpy).toHaveBeenCalled()
+    expect(wrapper.state('selectedNodes')).toEqual(expectedNode)   
   })
 })
