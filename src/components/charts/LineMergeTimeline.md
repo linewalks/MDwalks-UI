@@ -4,7 +4,7 @@ LineMergeTimeline example:
 import Button from '@Components/button/Button';
 
 const LineMergeTimelineExample = () => (
-  <section>
+  <>
     <Button
       id="resetLineMergeTimeline"
       variant='basic_line'
@@ -199,7 +199,7 @@ const LineMergeTimelineExample = () => (
         end: "2015-06-26T00:00:00"
       }}
     />
-  </section>
+  </>
 )
 
 LineMergeTimelineExample()

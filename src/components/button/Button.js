@@ -7,7 +7,7 @@ import { color } from '@src/assets/styles/variables'
 
 import { hexToRGB } from '@Components/button/utility'
 
-const BtnDefaultCss = css`
+export const BtnDefaultCss = css`
   border:0 none;
   background-color:transparent;
   cursor:pointer;
@@ -60,7 +60,7 @@ export const BtnSize = {
   },
 }
 
-const setBtnSize = (props) => `
+export const setBtnSize = (props) => `
   height: ${props.BtnSizeObject.height};
   border-radius: ${props.BtnSizeObject.borderRadius};
   padding: ${props.BtnSizeObject.padding};
@@ -222,114 +222,6 @@ const ButtonTag = styled(font.TextTag).attrs((props = {}) => {
   ${setBtnSize}
   ${setBtnColor}
 `
-
-const ButtonLinkTag = styled(font.TextTag).attrs((props = {}) => {
-  const { size, bold } = props
-  const BtnSizeObject = size === 'md' ? BtnSize.middle : BtnSize.large
-  const FontSize = size === 'md' ? 14 : 16
-
-  return {
-    size: FontSize,
-    bold: bold || true,
-    BtnSizeObject,
-  }
-})`
-  ${BtnDefaultCss}
-  ${setBtnSize}
-  min-width: auto;
-  padding-left: 8px;
-  padding-right: 8px;
-  display: inline-block;
-  box-sizing: border-box;
-
-  color: ${color.$solid_default};
-  &:hover {
-    color: ${color.$solid_hover};
-  }
-
-  &:first-child {
-    padding-left: 0;
-  }
-`
-
-const ButtonTextLinkTag = styled(font.TextTag).attrs(() => ({
-  size: 16,
-  bold: true,
-}))`
-  color: ${hexToRGB(color.$black, 0.6)};
-  text-decoration: underline;
-`
-
-export const ButtonLink = (props) => {
-  const {
-    as: propsAs,
-    children,
-    size,
-    style,
-    onClick,
-    id,
-  } = props
-
-  return (
-    <ButtonLinkTag
-      id={id}
-      as={propsAs}
-      size={size}
-      style={style}
-      onClick={onClick}
-    >
-      {children}
-    </ButtonLinkTag>
-  )
-}
-
-ButtonLink.defaultProps = {
-  as: 'a',
-  size: 'md',
-  styled: {},
-  onClick: () => {},
-  id: undefined,
-}
-ButtonLink.propTypes = {
-  as: PropTypes.string,
-  size: PropTypes.string,
-  styled: PropTypes.shape({}),
-  onClick: PropTypes.func,
-  id: PropTypes.string,
-}
-
-export const ButtonTextLink = (props) => {
-  const {
-    as: propsAs,
-    children,
-    style,
-    onClick,
-    id,
-  } = props
-  return (
-    <ButtonTextLinkTag
-      id={id}
-      as={propsAs}
-      style={style}
-      onClick={onClick}
-    >
-      {children}
-    </ButtonTextLinkTag>
-  )
-}
-
-ButtonTextLink.defaultProps = {
-  as: 'a',
-  styled: {},
-  onClick: () => {},
-  id: undefined,
-}
-ButtonTextLink.propTypes = {
-  as: PropTypes.string,
-  styled: PropTypes.shape({}),
-  onClick: PropTypes.func,
-  id: PropTypes.string,
-}
 
 const Button = (props) => {
   const {

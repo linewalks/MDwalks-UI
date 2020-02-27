@@ -27,7 +27,7 @@ const ModalExample = () => {
   }
 
   return (
-    <section>
+    <>
       <Button variant="basic_line" size="lg" onClick={open}>default Show</Button>
       <Button variant="basic_line" size="lg" onClick={loadingOpen}>Loding Show</Button>
       <Modal
@@ -42,7 +42,7 @@ const ModalExample = () => {
             <Button variant="primary" size="lg">Submit</Button>
           </div>
         }>Contents</Modal>
-      </section>
+      </>
     )
 }
 
