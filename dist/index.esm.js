@@ -21348,7 +21348,7 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "resetSankey", function () {
       _this.setState({
-        selectedNodes: _this.props.defaultdNode
+        selectedNodes: _this.props.defaultNode
       });
     });
 
@@ -21379,7 +21379,7 @@ function (_React$Component) {
 }(React.Component);
 
 SankeyChart.defaultProps = {
-  defaultdNode: [],
+  defaultNode: [],
   onChange: function onChange() {},
   options: {
     height: 254,
@@ -24366,7 +24366,11 @@ LineMergeTimeline.defaultProps = {
   resetBtnId: undefined
 };
 LineMergeTimeline.propTypes = {
-  timeData: propTypes.shape([]),
+  timeData: propTypes.arrayOf(propTypes.shape({
+    dataPoints: propTypes.array,
+    label: propTypes.array,
+    order: propTypes.number
+  })),
   scale: propTypes.shape({
     start: propTypes.string,
     end: propTypes.string
