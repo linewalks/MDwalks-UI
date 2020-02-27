@@ -29,7 +29,7 @@ class Heatmap extends Component {
 
     // append the svg object to the body of the page
     var svg = d3
-      .select("#heatmap")
+      .select("#heatmapWrap")
       .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -92,7 +92,7 @@ class Heatmap extends Component {
 
     // create a tooltip
     var tooltip = d3
-      .select("#heatmap")
+      .select("#heatmapWrap")
       .append("div")
       .style("opacity", 0)
       .style("position", "absolute")
@@ -165,7 +165,7 @@ class Heatmap extends Component {
   removeHeatmap() {
     const d3 = this.d3;
     d3
-      .select("#heatmap")
+      .select("#heatmapWrap")
       .select('svg')
       .remove();
   }
@@ -198,7 +198,7 @@ class Heatmap extends Component {
           </SelectBox>
 
         </div>
-        <div id="heatmap"></div>
+        <div id="heatmapWrap"></div>
       </div>
     );
   }
