@@ -1,3 +1,12 @@
+## [0.13.7](https://github.com/linewalks/MDwalks-UI/compare/v0.13.6...v0.13.7) (2020-02-27)
+
+
+### Bug Fixes
+
+* Chart 자잘한 bug 수정 ([14855fc](https://github.com/linewalks/MDwalks-UI/commit/14855fcc71572e336c59e19c5a543ed635ef4f9d)), closes [#410](https://github.com/linewalks/MDwalks-UI/issues/410)
+
+
+
 ## [0.13.6](https://github.com/linewalks/MDwalks-UI/compare/v0.13.5...v0.13.6) (2020-02-27)
 
 
