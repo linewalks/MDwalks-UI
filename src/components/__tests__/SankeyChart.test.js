@@ -179,7 +179,7 @@ describe('데이터를 가진 Sankey Chart가 데이터 변경시, 변경된 데
     wrapper.setProps({
       data: changedSankeyChartData,
       selectedNodes: ["A", "B"],
-      defaultdNode: ["A"]
+      defaultNode: ["A"]
     })
 
     expect(resetSpy).toHaveBeenCalled()
