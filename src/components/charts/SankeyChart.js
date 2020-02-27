@@ -273,7 +273,7 @@ class SankeyChart extends React.Component {
   }
 
   resetSankey = () => {
-    this.setState({selectedNodes: this.props.defaultdNode})
+    this.setState({selectedNodes: this.props.defaultNode})
   }
 
   render() {
@@ -287,7 +287,7 @@ class SankeyChart extends React.Component {
 }
 
 SankeyChart.defaultProps = {
-  defaultdNode: [],
+  defaultNode: [],
   onChange: () => {},
   options: {
     height: 254,
