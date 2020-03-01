@@ -9,7 +9,7 @@
     "build": "rollup -c",
     "build:docz": "rm -rf docs && yarn docz build",
     "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build",
+    "build:docs": "styleguidist build",
     "lint": "eslint ./src/**/*.js",
     "lint:fix": "eslint ./src/**/*.js --fix",
     "version": "yarn build && git add ./dist && conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
