@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import _ from 'lodash'
 import ToggleLargeButton from '@Components/button/ToggleLargeButton'
 
 const data = [
@@ -10,11 +9,11 @@ const data = [
   },
   {
     type: 'BB',
-    text: '진단수'
+    text: '진단수',
   },
   {
     type: 'CC',
-    text: '결과'
+    text: '결과',
   },
 ]
 
@@ -56,24 +55,24 @@ describe('ToggleLargeButton Component', () => {
     component.find('button').at(0).simulate('click')
     expect(onChange).toHaveBeenCalledWith('AA')
   })
-  
+
   it('첫번째 버튼이 selected 되었을 때, 세번째 button만 rightLine class를 갖는다', () => {
     const expectedClassNames = [null, null, ['rightLine']]
-    const buttonClassList = component.find('button').map(el => el.prop('className').match(/\w+Line/ig))
+    const buttonClassList = component.find('button').map((el) => (el.prop('className').match(/\w+Line/ig)))
     expect(buttonClassList).toEqual(expectedClassNames)
   })
 
   it('두번째 버튼이 selected 되었을 때, Line class를 아무도갖지 않는다', () => {
     const expectedClassNames = [null, null, null]
     component.find('button').at(1).simulate('click')
-    const buttonClassList = component.find('button').map(el => el.prop('className').match(/\w+Line/ig))
+    const buttonClassList = component.find('button').map((el) => (el.prop('className').match(/\w+Line/ig)))
     expect(buttonClassList).toEqual(expectedClassNames)
   })
 
   it('세번째 버튼이 selected 되었을 때, 첫번째 button만 leftLine class를 갖는다', () => {
     const expectedClassNames = [['leftLine'], null, null]
     component.find('button').at(2).simulate('click')
-    const buttonClassList = component.find('button').map(el => el.prop('className').match(/\w+Line/ig))
+    const buttonClassList = component.find('button').map((el) => (el.prop('className').match(/\w+Line/ig)))
     expect(buttonClassList).toEqual(expectedClassNames)
   })
 })

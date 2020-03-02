@@ -1,6 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import _ from 'lodash'
+import { mount } from 'enzyme';
 import ToggleButton from '@Components/button/ToggleButton'
 
 const data = [
@@ -10,8 +9,8 @@ const data = [
   },
   {
     type: 'BB',
-    text: '진단수'
-  }
+    text: '진단수',
+  },
 ]
 
 describe('ToggleButton Component', () => {

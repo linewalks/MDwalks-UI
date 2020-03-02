@@ -1,7 +1,9 @@
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+
 import Highcharts from 'highcharts';
-import highchartsTreeMap from "highcharts/modules/treemap";
+import highchartsTreeMap from 'highcharts/modules/treemap';
 import highchartsHeatMap from 'highcharts/modules/heatmap'
 import HighchartsReact from 'highcharts-react-official';
 import _ from 'lodash'
@@ -11,53 +13,54 @@ class TreeMap extends Component {
   constructor(props) {
     super(props)
     if (typeof Highcharts === 'object') {
+      const { data, title } = this.props
       highchartsTreeMap(Highcharts)
       highchartsHeatMap(Highcharts)
-      const [minColor ,maxColor] = Highcharts.getOptions().colors
-      this.options = {      
+      const [minColor, maxColor] = Highcharts.getOptions().colors
+      this.options = {
         colorAxis: {
           min: 0,
           max: 1,
           minColor,
-          maxColor
+          maxColor,
         },
         legend: {
-          enabled: false
+          enabled: false,
         },
         series: [{
-          type: "treemap",
+          type: 'treemap',
           layoutAlgorithm: 'squarified',
           allowDrillToNode: true,
           animationLimit: 1000,
           dataLabels: {
-            enabled: false
+            enabled: false,
           },
           levelIsConstant: false,
           levels: [{
-              level: 1,
-              dataLabels: {
-                  enabled: true
-              },
-              borderWidth: 3
+            level: 1,
+            dataLabels: {
+              enabled: true,
+            },
+            borderWidth: 3,
           }],
-          data: this.props.data,
+          data,
         }],
         title: {
-            text: this.props.title
-        }
+          text: title,
+        },
       }
     }
   }
-  renderTreeMap = options => {
-    return (
-      <HighchartsReact highcharts={Highcharts} options={options} />
-    )
-  }
+
+  renderTreeMap = (options) => (
+    <HighchartsReact highcharts={Highcharts} options={options} />
+  )
 
   checkDataValidation = () => {
     const { data } = this.props
     if (_.isEmpty(data)) return 'haveData'
-    if (!Array.isArray(data)) return 'typeOfVariable' 
+    if (!Array.isArray(data)) return 'typeOfVariable'
+    return null
   }
 
 
@@ -74,4 +77,14 @@ class TreeMap extends Component {
   }
 }
 
-export default TreeMap; 
+TreeMap.defaultProps = {
+  data: [],
+  title: '',
+}
+
+TreeMap.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape()),
+  title: PropTypes.string,
+}
+
+export default TreeMap;
