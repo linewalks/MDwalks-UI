@@ -15,7 +15,7 @@ describe('RadiusGauge', () => {
 
   it('Score Props excluded Range renders error messege', () => {
     const wrapper = shallow(<RadiusGauge width={300} height={200} score={10} />)
-    expect(wrapper.html()).toEqual("<div>Invalid Score</div>")
+    expect(wrapper.html()).toEqual('<div>Invalid Score</div>')
   })
 
   it('Score Props Match Angle 0', () => {

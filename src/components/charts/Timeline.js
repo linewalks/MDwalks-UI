@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import * as d3 from 'd3'
 import _ from 'lodash'
+
+import * as d3 from 'd3'
 import isEmpty from 'lodash/isEmpty'
 import styles from '@Charts/Timeline.module.css'
+
 import {
-  renderSVG, generateGroup,
-  getStartAndEndTime, circleDataFilter, rectDataFilter, labelList, errorMessage,
+  renderSVG, generateGroup, getStartAndEndTime,
+  circleDataFilter, rectDataFilter, labelList, errorMessage,
 } from '@src/helper/chartUtility'
 
 class Timeline extends Component {
@@ -340,6 +342,12 @@ class Timeline extends Component {
       if (selection === null) return
 
       const [brushStart, brushEnd] = selection
+
+      const overViewXAxisScale = d3
+        .scaleTime()
+        .domain([startTime, endTime])
+        .range([0, xAxisWidth])
+
       const start = overViewXAxisScale.invert(brushStart)
       const end = overViewXAxisScale.invert(brushEnd)
       const time = { start, end }
@@ -361,7 +369,7 @@ class Timeline extends Component {
 
       gYAxisGrid.selectAll('tick').remove()
 
-      const yAxisGridLines = d3
+      const yAxisGridLines1 = d3
         .axisTop(xAxisScale)
         .tickSize(-yAxisGridHeight)
         .tickFormat('')
@@ -369,7 +377,7 @@ class Timeline extends Component {
       gYAxisGrid
         .transition()
         .duration(500)
-        .call(yAxisGridLines)
+        .call(yAxisGridLines1)
 
       gYAxisGrid
         .selectAll('.tick line')
@@ -403,11 +411,6 @@ class Timeline extends Component {
       ])
       .on('end', brushed)
 
-    const overViewXAxisScale = d3
-      .scaleTime()
-      .domain([startTime, endTime])
-      .range([0, xAxisWidth])
-
     const gBrush = generateGroup(gOverViewAxis, {
       className: 'overViewXAxisBrush',
     })
@@ -417,13 +420,18 @@ class Timeline extends Component {
     // add reset
     d3.select('#reset').on('click', () => {
       const { brushEvent } = this.props;
+      const overViewXAxisScale = d3
+        .scaleTime()
+        .domain([startTime, endTime])
+        .range([0, xAxisWidth])
+
       xAxisScale.domain(overViewXAxisScale.domain())
       lineScale.domain(overViewXAxisScale.domain())
 
       gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M 0.5 0V0.5H998.5V-6')
       gXAxis.selectAll('.tick line').remove()
 
-      const yAxisGridLines = d3
+      const yAxisGridLines1 = d3
         .axisTop(xAxisScale)
         .tickSize(-yAxisGridHeight)
         .tickFormat('')
@@ -431,7 +439,7 @@ class Timeline extends Component {
       gYAxisGrid
         .transition()
         .duration(500)
-        .call(yAxisGridLines)
+        .call(yAxisGridLines1)
 
       gYAxisGrid
         .selectAll('.tick line')
@@ -496,7 +504,6 @@ class Timeline extends Component {
 }
 
 Timeline.defaultProps = {
-  data: [],
   brushEvent: () => {},
 }
 
@@ -508,7 +515,7 @@ Timeline.propTypes = {
       label: PropTypes.arrayOf(PropTypes.string),
       order: PropTypes.number,
     }),
-  ),
+  ).isRequired,
 }
 
 export default Timeline;

@@ -18335,9 +18335,9 @@ var RadiusGauge = function RadiusGauge(_ref) {
     return React__default.createElement("svg", {
       width: width,
       height: height,
-      transform: 'translate(-26, 20)'
+      transform: "translate(-26, 20)"
     }, React__default.createElement("defs", null, React__default.createElement("linearGradient", {
-      id: 'gaugeGradient',
+      id: "gaugeGradient",
       x1: "0%",
       y1: "0%",
       x2: "100%",
@@ -18352,19 +18352,19 @@ var RadiusGauge = function RadiusGauge(_ref) {
       stopColor: "#002d4f",
       stopOpacity: 1
     }))), React__default.createElement("g", {
-      transform: 'translate(0, 20)'
+      transform: "translate(0, 20)"
     }, React__default.createElement("path", {
       d: "M 50,160 A ".concat(radius, " ").concat(radius, " 0 1 1 250 160"),
-      fill: 'none',
-      stroke: 'url(#gaugeGradient)',
-      strokeWidth: '10'
+      fill: "none",
+      stroke: "url(#gaugeGradient)",
+      strokeWidth: "10"
     })), React__default.createElement("path", {
       transform: "translate(75, 150) rotate(".concat(angleScale(score), ", 75, 3.1)"),
       fill: "#189BFF",
       fillRule: "evenodd",
       d: "M1.605 4.5l64.83 2.434A3.437 3.437 0 0 0 70 3.5 3.437 3.437 0 0 0 66.434.066L1.605 2.5a1 1 0 0 0 0 1.998z"
     }), React__default.createElement("g", {
-      transform: 'translate(0, 55)',
+      transform: "translate(0, 55)",
       className: styles$1.gauge_point
     }, React__default.createElement("text", {
       x: cx - Math.round(120 * Math.cos(0)),
@@ -18382,12 +18382,23 @@ var RadiusGauge = function RadiusGauge(_ref) {
       x: cx + Math.round(120 * Math.cos(0)),
       y: cy - Math.round(120 * Math.sin(0))
     }, "1.0")), React__default.createElement("g", {
-      transform: 'translate(150, 200)',
+      transform: "translate(150, 200)",
       className: styles$1.gauge_score
     }, React__default.createElement("text", null, "".concat(score).slice(0, 4))));
-  } else {
-    return React__default.createElement("div", null, "Invalid Score");
   }
+
+  return React__default.createElement("div", null, "Invalid Score");
+};
+
+RadiusGauge.defaultProps = {
+  width: undefined,
+  height: undefined,
+  score: undefined
+};
+RadiusGauge.propTypes = {
+  width: propTypes.number,
+  height: propTypes.number,
+  score: propTypes.number
 };
 
 function _typeof(obj) {
@@ -21118,18 +21129,22 @@ function (_React$Component) {
       return node.name;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "setSelectedNode", function (selectedNode) {
+    _defineProperty(_assertThisInitialized(_this), "setSelectedNode", function (_selectedNode) {
+      var selectedNodes = _this.state.selectedNodes;
+
       _this.setState({
-        selectedNodes: lodash.uniq(_this.state.selectedNodes.concat(selectedNode))
+        selectedNodes: lodash.uniq(selectedNodes.concat(_selectedNode))
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "highlightLink", function () {
+      var selectedNodes = _this.state.selectedNodes;
+
       _this.d3.selectAll(".sankey-link").style('opacity', 0.04).style('stroke', '#000000');
 
-      var ids = _this.createLinkId(_this.state.selectedNodes);
+      var ids = _this.createLinkId(selectedNodes);
 
-      for (var i = 0; i < ids.length; i++) {
+      for (var i = 0; i < ids.length; i += 1) {
         var _ids$i$split = ids[i].split('X'),
             _ids$i$split2 = _slicedToArray(_ids$i$split, 2),
             source = _ids$i$split2[0],
@@ -21205,7 +21220,7 @@ function (_React$Component) {
         return d.x1 - d.x0;
       }).attr('rx', 4).attr('ry', 4).attr('id', function (d) {
         return strIdConvert(d.name);
-      }).style('fill', "#002d4f").style('cursor', "pointer"); // Render node name
+      }).style('fill', '#002d4f').style('cursor', 'pointer'); // Render node name
 
       node.append('text').attr('x', function (d) {
         return (d.x0 + d.x1) / 2;
@@ -21226,15 +21241,19 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "renderLinks", function (linkG, sankeyLinksData) {
       var link = linkG.data(sankeyLinksData).enter().append('g');
-      var mapLinks = _this.mapLinks;
+
+      var _assertThisInitialize = _assertThisInitialized(_this),
+          mapLinks = _assertThisInitialize.mapLinks;
+
       link.append('path').attr('class', 'sankey-link').attr('id', function (_ref5) {
         var source = _ref5.source,
             target = _ref5.target;
         var id = "".concat(strIdConvert([source.name, target.name]));
         mapLinks.set(id, this);
         return id;
-      }).attr('d', function (link) {
-        return link.path;
+      }).attr('d', function (_ref6) {
+        var path = _ref6.path;
+        return path;
       }).style('stroke-width', function (d) {
         return Math.max(1, d.width);
       }).style('opacity', 0.04).style('stroke', '#000000'); // reset 과 동일
@@ -21263,14 +21282,19 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderSankey", function () {
-      var d3 = _this.d3;
-      var _this$props$options = _this.props.options,
-          height = _this$props$options.height,
-          width = _this$props$options.width,
-          margin = _this$props$options.margin,
-          nodeWidth = _this$props$options.nodeWidth,
-          iterations = _this$props$options.iterations,
-          circularLinkGap = _this$props$options.circularLinkGap;
+      var _assertThisInitialize2 = _assertThisInitialized(_this),
+          d3 = _assertThisInitialize2.d3;
+
+      var _this$props = _this.props,
+          options = _this$props.options,
+          data = _this$props.data,
+          onChange = _this$props.onChange;
+      var height = options.height,
+          width = options.width,
+          margin = options.margin,
+          nodeWidth = options.nodeWidth,
+          iterations = options.iterations,
+          circularLinkGap = options.circularLinkGap;
       _this.sankey = _this.initializeSankey({
         height: height,
         width: width,
@@ -21291,7 +21315,7 @@ function (_React$Component) {
           nodeG = _this$initializeGroup2[0],
           linkG = _this$initializeGroup2[1];
 
-      var sankeyData = _this.sankey(_this.props.data);
+      var sankeyData = _this.sankey(data);
 
       var nodes = _this.renderNodes(nodeG, sankeyData.nodes, {
         width: width
@@ -21300,14 +21324,15 @@ function (_React$Component) {
       _this.renderLinks(linkG, sankeyData.links);
 
       _this.attachEventHandlersToNode(d3, nodes, {
-        onChange: _this.props.onChange
+        onChange: onChange
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "attachEventHandlersToNode", function (d3, nodes, _ref6) {
-      var onChange = _ref6.onChange;
+    _defineProperty(_assertThisInitialized(_this), "attachEventHandlersToNode", function (d3, nodes) {
       nodes.on('click', function (node) {
-        var prevSelectedNode = lodash.last(_this.state.selectedNodes);
+        var selectedNodes = _this.state.selectedNodes;
+
+        var prevSelectedNode = lodash.last(selectedNodes);
 
         var currentSelectedNode = _this.getNodeName(node);
 
@@ -21322,9 +21347,9 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
-      var _this$props = _this.props,
-          data = _this$props.data,
-          resetBtnId = _this$props.resetBtnId;
+      var _this$props2 = _this.props,
+          data = _this$props2.data,
+          resetBtnId = _this$props2.resetBtnId;
 
       if (!lodash.isEmpty(resetBtnId)) {
         _this.d3.select("#".concat(resetBtnId)).on('click', _this.resetSankey);
@@ -21338,7 +21363,12 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps, prevState) {
-      if (!lodash.isEqual(prevProps.data, _this.props.data)) {
+      var _this$props3 = _this.props,
+          data = _this$props3.data,
+          onChange = _this$props3.onChange;
+      var selectedNodes = _this.state.selectedNodes;
+
+      if (!lodash.isEqual(prevProps.data, data)) {
         _this.removeSankey();
 
         _this.resetSankey();
@@ -21346,16 +21376,20 @@ function (_React$Component) {
         return _this.renderSankey();
       }
 
-      if (JSON.stringify(_this.state.selectedNodes) != JSON.stringify(prevState.selectedNodes)) {
-        _this.props.onChange(_this.state.selectedNodes);
+      if (JSON.stringify(selectedNodes) !== JSON.stringify(prevState.selectedNodes)) {
+        onChange(selectedNodes);
       }
 
       _this.highlightLink();
+
+      return null;
     });
 
     _defineProperty(_assertThisInitialized(_this), "resetSankey", function () {
+      var defaultdNode = _this.props.defaultdNode;
+
       _this.setState({
-        selectedNodes: _this.props.defaultNode
+        selectedNodes: defaultdNode
       });
     });
 
@@ -21386,7 +21420,8 @@ function (_React$Component) {
 }(React__default.Component);
 
 SankeyChart.defaultProps = {
-  defaultNode: [],
+  selectedNodes: [],
+  defaultdNode: [],
   onChange: function onChange() {},
   options: {
     height: 254,
@@ -21401,7 +21436,31 @@ SankeyChart.defaultProps = {
       bottom: 100,
       left: 100
     }
-  }
+  },
+  resetBtnId: undefined
+};
+SankeyChart.propTypes = {
+  selectedNodes: propTypes.arrayOf(propTypes.any),
+  defaultdNode: propTypes.arrayOf(propTypes.string),
+  onChange: propTypes.func,
+  data: propTypes.shape({
+    links: propTypes.arrayOf(propTypes.shape()),
+    nodes: propTypes.arrayOf(propTypes.shape())
+  }).isRequired,
+  options: propTypes.shape({
+    height: propTypes.number,
+    width: propTypes.number,
+    margin: propTypes.shape({
+      top: propTypes.number,
+      right: propTypes.number,
+      bottom: propTypes.number,
+      left: propTypes.number
+    }),
+    nodeWidth: propTypes.number,
+    iterations: propTypes.number,
+    circularLinkGap: propTypes.number
+  }),
+  resetBtnId: propTypes.string
 };
 
 var backgroundArrow = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDE0IDE0Ij4KICAgIDxwYXRoIGZpbGw9IiMwMDJENEYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTguNzA3IDEuNjM2bDQuNjU3IDQuNjU3YTEgMSAwIDAgMSAwIDEuNDE0bC00LjY1NyA0LjY1N0ExIDEgMCAwIDEgNyAxMS42NTdWMi4zNDNhMSAxIDAgMCAxIDEuNzA3LS43MDd6IiBvcGFjaXR5PSIuOCIvPgo8L3N2Zz4=';
@@ -23510,11 +23569,11 @@ function (_Component) {
         verticalLineText.style('opacity', 0);
       };
 
-      var verticalLine = gTimeline.append('rect').style('fill', 'none').style('pointer-events', 'all').attr('x', 179).attr('y', 32).attr('width', xAxisWidth).attr('height', height - xAxisHeight - overViewAxisHeight).on('mouseover', mouseover).on('mousemove', mousemove).on('mouseout', mouseout); // Add color scale 
+      gTimeline.append('rect').style('fill', 'none').style('pointer-events', 'all').attr('x', 179).attr('y', 32).attr('width', xAxisWidth).attr('height', height - xAxisHeight - overViewAxisHeight).on('mouseover', mouseover).on('mousemove', mousemove).on('mouseout', mouseout); // Add color scale
 
       var circleColorScale = d3.scaleOrdinal().domain(labelList(timelineData)).range(['#00745e', '#faafa5', '#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec']);
       var rectColorScale = d3.scaleOrdinal().domain(labelList(timelineData)).range(['#27b097', '#fa6b57', '#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec']);
-      var legendColorScale = d3.scaleOrdinal(d3.schemePaired); // Add tooltip
+      d3.scaleOrdinal(d3.schemePaired); // Add tooltip
 
       var tooltip = d3.select(".".concat(styles$2.timelineChart)).append('div').attr('class', styles$2.tooltip).style('opacity', 0); //  Create Data Group
 
@@ -23524,47 +23583,51 @@ function (_Component) {
         yOffset: xAxisHeight
       }); //  Add Circle Group
 
-      timelineData.forEach(function (data, idx) {
-        gData.append('g').attr('class', function (d) {
+      timelineData.forEach(function (_ref, idx) {
+        var dataPoints = _ref.dataPoints,
+            label = _ref.label;
+        gData.append('g').attr('class', function () {
           return "circles-".concat(idx);
-        }).selectAll('circle').data(circleDataFilter(data.dataPoints)).enter().append('circle').attr('cx', function (d, i) {
+        }).selectAll('circle').data(circleDataFilter(dataPoints)).enter().append('circle').attr('cx', function (d) {
           return xAxisScale(Date.parse(d.startTime));
-        }).attr('cy', yAxisScale(data.label[data.label.length - 1]) + 23.5).attr('r', 7.5).attr('fill', circleColorScale(data.label[data.label.length - 1])).attr('clip-path', 'url(#clip)').on('mouseover', function (d, i, nodes) {
+        }).attr('cy', yAxisScale(label[label.length - 1]) + 23.5).attr('r', 7.5).attr('fill', circleColorScale(label[label.length - 1])).attr('clip-path', 'url(#clip)').on('mouseover', function (d, i, nodes) {
           var _d3$mouse = d3.mouse(nodes[i]),
               _d3$mouse2 = _slicedToArray(_d3$mouse, 2),
               x = _d3$mouse2[0],
               y = _d3$mouse2[1];
 
-          var label = data.label[data.label.length - 1];
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          var drawLabel = label[label.length - 1];
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, "></span> ").concat(drawLabel, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + 200, "px")).style('top', "".concat(y - 20, "px")).style('pointer-events', 'none').html(tooltipDescription);
-        }).on('mouseout', function (d) {
+        }).on('mouseout', function () {
           return tooltip.transition().duration(200).style('opacity', 0);
         });
       }); // Add Rect Group
 
-      timelineData.forEach(function (data, idx) {
-        gData.append('g').attr('class', "rects-".concat(idx)).selectAll('rect').data(rectDataFilter(data.dataPoints)).enter().append('rect').attr('x', function (d, i) {
+      timelineData.forEach(function (_ref2, idx) {
+        var dataPoints = _ref2.dataPoints,
+            label = _ref2.label;
+        gData.append('g').attr('class', "rects-".concat(idx)).selectAll('rect').data(rectDataFilter(dataPoints)).enter().append('rect').attr('x', function (d) {
           return xAxisScale(Date.parse(d.startTime));
-        }).attr('y', yAxisScale(data.label[data.label.length - 1]) + 16).attr('height', 15).attr('width', function (d) {
+        }).attr('y', yAxisScale(label[label.length - 1]) + 16).attr('height', 15).attr('width', function (d) {
           return xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime));
-        }).attr('fill', rectColorScale(data.label[data.label.length - 1])).attr('clip-path', 'url(#clip)').on('mouseover', function (d, i, nodes) {
+        }).attr('fill', rectColorScale(label[label.length - 1])).attr('clip-path', 'url(#clip)').on('mouseover', function (d, i, nodes) {
           var _d3$mouse3 = d3.mouse(nodes[i]),
               _d3$mouse4 = _slicedToArray(_d3$mouse3, 2),
               x = _d3$mouse4[0],
               y = _d3$mouse4[1];
 
-          var label = data.label[data.label.length - 1];
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          var drawLabel = label[label.length - 1];
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, "></span> ").concat(drawLabel, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + 200, "px")).style('top', "".concat(y - 20, "px")).style('pointer-events', 'none').html(tooltipDescription);
-        }).on('mouseout', function (d) {
+        }).on('mouseout', function () {
           return tooltip.transition().duration(200).style('opacity', 0);
         });
       }); // add clip (avoid displaying the circle and rect outside the chart area)
 
-      var clip = gTimeline.append('defs').append('clipPath').attr('id', 'clip').append('rect').attr('x', 0).attr('y', 0).attr('width', xAxisWidth).attr('height', height - overViewAxisHeight - xAxisHeight * 2); // overviewAxis
+      gTimeline.append('defs').append('clipPath').attr('id', 'clip').append('rect').attr('x', 0).attr('y', 0).attr('width', xAxisWidth).attr('height', height - overViewAxisHeight - xAxisHeight * 2); // overviewAxis
 
       var gOverViewAxis = generateGroup(gTimeline, {
         className: 'overViewAxis',
@@ -23602,6 +23665,7 @@ function (_Component) {
             brushStart = _selection[0],
             brushEnd = _selection[1];
 
+        var overViewXAxisScale = d3.scaleTime().domain([startTime, endTime]).range([0, xAxisWidth]);
         var start = overViewXAxisScale.invert(brushStart);
         var end = overViewXAxisScale.invert(brushEnd);
         var time = {
@@ -23610,19 +23674,23 @@ function (_Component) {
         };
         xAxisScale.domain([Date.parse(start), Date.parse(end)]);
         lineScale.domain([Date.parse(start), Date.parse(end)]);
-        typeof brushEvent === "function" && brushEvent(time);
+
+        if (lodash.isFunction(brushEvent)) {
+          brushEvent(time);
+        }
+
         gXAxis.transition().duration(500).call(xAxis);
         gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H998.5V-6');
         gXAxis.selectAll('.tick line').remove();
         gYAxisGrid.selectAll('tick').remove();
-        var yAxisGridLines = d3.axisTop(xAxisScale).tickSize(-yAxisGridHeight).tickFormat('');
-        gYAxisGrid.transition().duration(500).call(yAxisGridLines);
+        var yAxisGridLines1 = d3.axisTop(xAxisScale).tickSize(-yAxisGridHeight).tickFormat('');
+        gYAxisGrid.transition().duration(500).call(yAxisGridLines1);
         gYAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
         gYAxisGrid.select('.domain').remove();
-        gData.selectAll('circle').transition().duration(500).attr('cx', function (d, i) {
+        gData.selectAll('circle').transition().duration(500).attr('cx', function (d) {
           return xAxisScale(Date.parse(d.startTime));
         }).attr('clip-path', 'url(#clip)');
-        gData.selectAll('rect').transition().duration(500).attr('x', function (d, i) {
+        gData.selectAll('rect').transition().duration(500).attr('x', function (d) {
           return xAxisScale(Date.parse(d.startTime));
         }).attr('width', function (d) {
           return xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime));
@@ -23630,7 +23698,6 @@ function (_Component) {
       };
 
       var brush = d3.brushX().extent([[brushLeftTopPositionX, brushLeftTopPositionY], [brushRightTopPositionX, brushRightTopPositionY]]).on('end', brushed);
-      var overViewXAxisScale = d3.scaleTime().domain([startTime, endTime]).range([0, xAxisWidth]);
       var gBrush = generateGroup(gOverViewAxis, {
         className: 'overViewXAxisBrush'
       });
@@ -23638,25 +23705,29 @@ function (_Component) {
 
       d3.select('#reset').on('click', function () {
         var brushEvent = _this.props.brushEvent;
+        var overViewXAxisScale = d3.scaleTime().domain([startTime, endTime]).range([0, xAxisWidth]);
         xAxisScale.domain(overViewXAxisScale.domain());
         lineScale.domain(overViewXAxisScale.domain());
         gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M 0.5 0V0.5H998.5V-6');
         gXAxis.selectAll('.tick line').remove();
-        var yAxisGridLines = d3.axisTop(xAxisScale).tickSize(-yAxisGridHeight).tickFormat('');
-        gYAxisGrid.transition().duration(500).call(yAxisGridLines);
+        var yAxisGridLines1 = d3.axisTop(xAxisScale).tickSize(-yAxisGridHeight).tickFormat('');
+        gYAxisGrid.transition().duration(500).call(yAxisGridLines1);
         gYAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
         gYAxisGrid.select('.domain').remove();
         gXAxis.transition().duration(500).call(xAxis);
         gBrush.select('rect.selection').transition().duration(500).attr('width', 0);
-        gData.selectAll('circle').transition().duration(500).attr('cx', function (d, i) {
+        gData.selectAll('circle').transition().duration(500).attr('cx', function (d) {
           return xAxisScale(Date.parse(d.startTime));
         });
-        gData.selectAll('rect').transition().duration(500).attr('x', function (d, i) {
+        gData.selectAll('rect').transition().duration(500).attr('x', function (d) {
           return xAxisScale(Date.parse(d.startTime));
         }).attr('width', function (d) {
           return xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime));
         });
-        typeof brushEvent === "function" && brushEvent();
+
+        if (lodash.isFunction(brushEvent)) {
+          brushEvent();
+        }
       });
     });
 
@@ -23669,6 +23740,7 @@ function (_Component) {
       var data = _this.props.data;
       if (isEmpty_1(data)) return 'haveData';
       if (!Array.isArray(data)) return 'typeOfVariable';
+      return null;
     });
 
     return _this;
@@ -23695,6 +23767,18 @@ function (_Component) {
 
   return Timeline;
 }(React.Component);
+
+Timeline.defaultProps = {
+  brushEvent: function brushEvent() {}
+};
+Timeline.propTypes = {
+  brushEvent: propTypes.func,
+  data: propTypes.arrayOf(propTypes.shape({
+    dataPoints: propTypes.arrayOf(propTypes.shape()),
+    label: propTypes.arrayOf(propTypes.string),
+    order: propTypes.number
+  })).isRequired
+};
 
 var css$4 = ".LineMergeTimeline-module_timelineChart__fPLk5 {\n  position: relative;\n}\n\n.LineMergeTimeline-module_title__3WWUl {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: #000000;\n  opacity: 0.6;      \n}\n\n/* xAxis */\n.LineMergeTimeline-module_xAxis__k99X0, .LineMergeTimeline-module_overViewXAxis__wNJ-S {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.LineMergeTimeline-module_timelineLabels__134WI text, .LineMergeTimeline-module_gLineYAxis__21s70 {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.3);\n  color: rgba(0, 0, 0, 0.3);\n}\n\n.LineMergeTimeline-module_verticalLineText__jLQi7 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.LineMergeTimeline-module_overViewXAxisGrid__3TiBI path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.LineMergeTimeline-module_tooltip__2Pb8F {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.LineMergeTimeline-module_tooltip__2Pb8F .LineMergeTimeline-module_tooltipDay__1z4eb {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.LineMergeTimeline-module_tooltip__2Pb8F .LineMergeTimeline-module_tooltipLabel__3tt0o {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.LineMergeTimeline-module_dot__3RKc6 {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}\n\n.LineMergeTimeline-module_lineDot__3JOC_ {\n  cursor: pointer;\n}";
 var styles$3 = {"timelineChart":"LineMergeTimeline-module_timelineChart__fPLk5","title":"LineMergeTimeline-module_title__3WWUl","xAxis":"LineMergeTimeline-module_xAxis__k99X0","overViewXAxis":"LineMergeTimeline-module_overViewXAxis__wNJ-S","timelineLabels":"LineMergeTimeline-module_timelineLabels__134WI","gLineYAxis":"LineMergeTimeline-module_gLineYAxis__21s70","verticalLineText":"LineMergeTimeline-module_verticalLineText__jLQi7","overViewXAxisGrid":"LineMergeTimeline-module_overViewXAxisGrid__3TiBI","tooltip":"LineMergeTimeline-module_tooltip__2Pb8F","tooltipDay":"LineMergeTimeline-module_tooltipDay__1z4eb","tooltipLabel":"LineMergeTimeline-module_tooltipLabel__3tt0o","dot":"LineMergeTimeline-module_dot__3RKc6","lineDot":"LineMergeTimeline-module_lineDot__3JOC_"};
@@ -24446,14 +24530,11 @@ var Footer = function Footer(props) {
 
 var Image = function Image(_ref) {
   var logo = _ref.logo;
-
-  var _logo$src$split = logo.src.split('.'),
-      _logo$src$split2 = _slicedToArray(_logo$src$split, 2),
-      path = _logo$src$split2[0],
-      extension = _logo$src$split2[1];
-
+  var src = logo.src;
   var width = logo.width,
       height = logo.height;
+  var path = src.substring(0, src.lastIndexOf('.'));
+  var extension = src.substring(src.lastIndexOf('.') + 1, src.length);
   return React__default.createElement("img", {
     alt: logo.alt,
     src: "".concat(path, ".").concat(extension),
@@ -26062,25 +26143,34 @@ function (_Component) {
           patientData = _this$props.patientData;
       if (lodash.isEmpty(groupData) || lodash.isEmpty(patientData)) return 'haveData';
       if (!Array.isArray(groupData) || !Array.isArray(patientData)) return 'typeOfVariable';
+      return null;
     });
 
+    var _this$props2 = _this.props,
+        title = _this$props2.title,
+        width = _this$props2.width,
+        height = _this$props2.height,
+        radarCategory = _this$props2.radarCategory,
+        _groupData = _this$props2.groupData,
+        _patientData = _this$props2.patientData,
+        legendOpen = _this$props2.legendOpen;
     _this.options = {
       chart: {
         polar: true,
         type: 'area',
-        width: _this.props.width,
-        height: _this.props.height,
+        width: width,
+        height: height,
         marginLeft: 100,
         marginTop: 50
       },
       title: {
-        text: _this.props.title
+        text: title
       },
       pane: {
         size: 488
       },
       xAxis: {
-        categories: _this.props.radarCategory,
+        categories: radarCategory,
         tickmarkPlacement: 'on',
         lineWidth: 0,
         labels: {
@@ -26100,16 +26190,16 @@ function (_Component) {
       series: [{
         name: 'Group',
         color: color.$legend_timeline_red_01,
-        data: _this.props.groupData,
+        data: _groupData,
         pointPlacement: 'on'
       }, {
         name: 'Patient',
         color: color.$primary_navy,
-        data: _this.props.patientData,
+        data: _patientData,
         pointPlacement: 'on'
       }],
       legend: {
-        enabled: _this.props.legendOpen,
+        enabled: legendOpen,
         align: 'left',
         verticalAlign: 'top',
         layout: 'horizontal',
@@ -26149,14 +26239,27 @@ function (_Component) {
   }]);
 
   return RadarChart;
-}(React.Component);
+}(React.Component); // title, width, height,
+// radarCategory, groupData, patientData, legendOpen,
+
 
 RadarChart.defaultProps = {
   title: null,
   width: 1200,
   height: 1200,
-  radarCategory: ["visit_info", "visit_history", "lab", "echo", "drug", "spect", "demo", "comorbidity", "cabgpci", "vitalsign"],
+  radarCategory: ['visit_info', 'visit_history', 'lab', 'echo', 'drug', 'spect', 'demo', 'comorbidity', 'cabgpci', 'vitalsign'],
+  groupData: [],
+  patientData: [],
   legendOpen: true
+};
+RadarChart.propTypes = {
+  title: propTypes.string,
+  width: propTypes.number,
+  height: propTypes.number,
+  radarCategory: propTypes.arrayOf(propTypes.string),
+  groupData: propTypes.arrayOf(propTypes.number),
+  patientData: propTypes.arrayOf(propTypes.number),
+  legendOpen: propTypes.bool
 };
 
 var treemap = createCommonjsModule(function (module) {
@@ -26551,26 +26654,6 @@ function (_Component) {
   return TimeToEvent;
 }(React.Component);
 
-function _templateObject9() {
-  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  text-decoration: underline;\n"]);
-
-  _templateObject9 = function _templateObject9() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject8() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  min-width: auto;\n  padding-left: 8px;\n  padding-right: 8px;\n  display: inline-block;\n  box-sizing: border-box;\n\n  color: ", ";\n  &:hover {\n    color: ", ";\n  }\n\n  &:first-child {\n    padding-left: 0;\n  }\n"]);
-
-  _templateObject8 = function _templateObject8() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject7() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  ", "\n"]);
 
@@ -26673,11 +26756,9 @@ var BtnSize = {
     marginRight: '8px'
   }
 };
-
 var setBtnSize = function setBtnSize(props) {
   return "\n  height: ".concat(props.BtnSizeObject.height, ";\n  border-radius: ").concat(props.BtnSizeObject.borderRadius, ";\n  padding: ").concat(props.BtnSizeObject.padding, ";\n  min-width: ").concat(props.BtnSizeObject.minWidth, ";\n\n  &:not(:last-child) {\n    margin-right: ").concat(props.BtnSizeObject.marginRight, ";\n  }\n\n  img:first-child {\n    margin-right: ").concat(props.BtnSizeObject.img.margin, ";\n  }\n\n  img:last-child {\n    margin-left: ").concat(props.BtnSizeObject.img.margin, ";\n  }\n");
 };
-
 var BtnColor = {
   primary: {
     backgroundColor: color.$solid_default,
@@ -26775,78 +26856,6 @@ var ButtonTag = styled__default(TextTag).attrs(function () {
     BtnColorObject: BtnColorObject
   };
 })(_templateObject7(), BtnDefaultCss, setBtnSize, setBtnColor);
-var ButtonLinkTag = styled__default(TextTag).attrs(function () {
-  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var size = props.size,
-      bold = props.bold;
-  var BtnSizeObject = size === 'md' ? BtnSize.middle : BtnSize.large;
-  var FontSize = size === 'md' ? 14 : 16;
-  return {
-    size: FontSize,
-    bold: bold || true,
-    BtnSizeObject: BtnSizeObject
-  };
-})(_templateObject8(), BtnDefaultCss, setBtnSize, color.$solid_default, color.$solid_hover);
-var ButtonTextLinkTag = styled__default(TextTag).attrs(function () {
-  return {
-    size: 16,
-    bold: true
-  };
-})(_templateObject9(), hexToRGB(color.$black, 0.6));
-var ButtonLink = function ButtonLink(props) {
-  var propsAs = props.as,
-      children = props.children,
-      size = props.size,
-      style = props.style,
-      onClick = props.onClick,
-      id = props.id;
-  return React__default.createElement(ButtonLinkTag, {
-    id: id,
-    as: propsAs,
-    size: size,
-    style: style,
-    onClick: onClick
-  }, children);
-};
-ButtonLink.defaultProps = {
-  as: 'a',
-  size: 'md',
-  styled: {},
-  onClick: function onClick() {},
-  id: undefined
-};
-ButtonLink.propTypes = {
-  as: propTypes.string,
-  size: propTypes.string,
-  styled: propTypes.shape({}),
-  onClick: propTypes.func,
-  id: propTypes.string
-};
-var ButtonTextLink = function ButtonTextLink(props) {
-  var propsAs = props.as,
-      children = props.children,
-      style = props.style,
-      onClick = props.onClick,
-      id = props.id;
-  return React__default.createElement(ButtonTextLinkTag, {
-    id: id,
-    as: propsAs,
-    style: style,
-    onClick: onClick
-  }, children);
-};
-ButtonTextLink.defaultProps = {
-  as: 'a',
-  styled: {},
-  onClick: function onClick() {},
-  id: undefined
-};
-ButtonTextLink.propTypes = {
-  as: propTypes.string,
-  styled: propTypes.shape({}),
-  onClick: propTypes.func,
-  id: propTypes.string
-};
 
 var Button = function Button(props) {
   var isLoading = props.isLoading,
@@ -26896,6 +26905,100 @@ Button.propTypes = {
   id: propTypes.string
 };
 
+function _templateObject$i() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  min-width: auto;\n  padding-left: 8px;\n  padding-right: 8px;\n  display: inline-block;\n  box-sizing: border-box;\n\n  color: ", ";\n  &:hover {\n    color: ", ";\n  }\n\n  &:first-child {\n    padding-left: 0;\n  }\n"]);
+
+  _templateObject$i = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var ButtonLinkTag = styled__default(TextTag).attrs(function () {
+  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var size = props.size,
+      bold = props.bold;
+  var BtnSizeObject = size === 'md' ? BtnSize.middle : BtnSize.large;
+  var FontSize = size === 'md' ? 14 : 16;
+  return {
+    size: FontSize,
+    bold: bold || true,
+    BtnSizeObject: BtnSizeObject
+  };
+})(_templateObject$i(), BtnDefaultCss, setBtnSize, color.$solid_default, color.$solid_hover);
+
+var ButtonLink = function ButtonLink(props) {
+  var propsAs = props.as,
+      children = props.children,
+      size = props.size,
+      style = props.style,
+      onClick = props.onClick,
+      id = props.id;
+  return React__default.createElement(ButtonLinkTag, {
+    id: id,
+    as: propsAs,
+    size: size,
+    style: style,
+    onClick: onClick
+  }, children);
+};
+
+ButtonLink.defaultProps = {
+  as: 'a',
+  size: 'md',
+  styled: {},
+  onClick: function onClick() {},
+  id: undefined
+};
+ButtonLink.propTypes = {
+  as: propTypes.string,
+  size: propTypes.string,
+  styled: propTypes.shape({}),
+  onClick: propTypes.func,
+  id: propTypes.string
+};
+
+function _templateObject$j() {
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  text-decoration: underline;\n"]);
+
+  _templateObject$j = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var ButtonTextLinkTag = styled__default(TextTag).attrs(function () {
+  return {
+    size: 16,
+    bold: true
+  };
+})(_templateObject$j(), hexToRGB(color.$black, 0.6));
+var ButtonTextLink = function ButtonTextLink(props) {
+  var propsAs = props.as,
+      children = props.children,
+      style = props.style,
+      onClick = props.onClick,
+      id = props.id;
+  return React__default.createElement(ButtonTextLinkTag, {
+    id: id,
+    as: propsAs,
+    style: style,
+    onClick: onClick
+  }, children);
+};
+ButtonTextLink.defaultProps = {
+  as: 'a',
+  styled: {},
+  onClick: function onClick() {},
+  id: undefined
+};
+ButtonTextLink.propTypes = {
+  as: propTypes.string,
+  styled: propTypes.shape({}),
+  onClick: propTypes.func,
+  id: propTypes.string
+};
+
 var IcnMessageError = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyOCIgdmlld0JveD0iMCAwIDI4IDI4Ij4KICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYSIgeDE9IjUwJSIgeDI9IjUwJSIgeTE9IjEyLjE3OCUiIHkyPSIxMDAlIj4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0ZGM0MzQyIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNGRjkyODgiLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8Y2lyY2xlIGN4PSIxNCIgY3k9IjE0IiByPSIxNCIgZmlsbD0idXJsKCNhKSIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0xNCAxOWExIDEgMCAxIDEgMCAyIDEgMSAwIDAgMSAwLTJ6bS44ODMtMTFhMSAxIDAgMCAxIC45OTQgMS4xMWwtLjc3OCA3YTEgMSAwIDAgMS0uOTk0Ljg5aC0uMjFhMSAxIDAgMCAxLS45OTQtLjg5bC0uNzc4LTdBMSAxIDAgMCAxIDEzLjExNyA4aDEuNzY2eiIvPgogICAgPC9nPgo8L3N2Zz4=';
 
 var IcnToastErrorCloseDefault = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgxNnYxNkgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iI0ZBNkI1NyIgZD0iTTgtMmExIDEgMCAwIDEgMSAxbC0uMDAxIDcuOTk5TDE3IDdhMSAxIDAgMCAxIDAgMmwtOC4wMDEtLjAwMUw5IDE3YTEgMSAwIDAgMS0yIDBsLS4wMDEtOC4wMDFMLTEgOWExIDEgMCAxIDEgMC0ybDcuOTk5LS4wMDFMNy0xYTEgMSAwIDAgMSAxLTF6IiBtYXNrPSJ1cmwoI2IpIiB0cmFuc2Zvcm09InJvdGF0ZSgtNDUgOCA4KSIvPgogICAgPC9nPgo8L3N2Zz4=';
@@ -26934,10 +27037,10 @@ function _templateObject2$f() {
   return data;
 }
 
-function _templateObject$i() {
+function _templateObject$k() {
   var data = _taggedTemplateLiteral(["\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.2);\n  border: 2px solid ", ";\n  background-color: ", ";\n  padding: 15px 56px 15px 24px;\n  max-width: 700px;\n  line-height: 1;\n  ", "\n  text-align: center;\n  position: relative;\n\n  &:not(:last-child) {\n    margin-bottom: 20px;\n  }\n"]);
 
-  _templateObject$i = function _templateObject() {
+  _templateObject$k = function _templateObject() {
     return data;
   };
 
@@ -26949,7 +27052,7 @@ var Box = styled__default.section.attrs(function () {
     size: 16,
     opacity: 8
   };
-})(_templateObject$i(), function (props) {
+})(_templateObject$k(), function (props) {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
 var InnerBox = styled__default.article(_templateObject2$f());
@@ -26985,16 +27088,16 @@ Toast.propTypes = {
   variant: propTypes.string
 };
 
-function _templateObject$j() {
+function _templateObject$l() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child):not(:empty) {\n    margin-bottom: 20px;\n  }\n"]);
 
-  _templateObject$j = function _templateObject() {
+  _templateObject$l = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Box$1 = styled__default.article(_templateObject$j());
+var Box$1 = styled__default.article(_templateObject$l());
 
 var ToastList =
 /*#__PURE__*/
@@ -27382,16 +27485,16 @@ function _templateObject2$g() {
   return data;
 }
 
-function _templateObject$k() {
+function _templateObject$m() {
   var data = _taggedTemplateLiteral(["\n  min-width: 184px;\n  height: 38px;\n  background-color: ", ";\n  border-radius: 21px;\n  padding: 2px;\n  display: inline-block;\n  box-sizing: border-box;\n"]);
 
-  _templateObject$k = function _templateObject() {
+  _templateObject$m = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var ButtonContainer = styled__default.div(_templateObject$k(), color.$btn_lightshaded_default);
+var ButtonContainer = styled__default.div(_templateObject$m(), color.$btn_lightshaded_default);
 var ToggleBtn = styled__default.button.attrs(function () {
   return {
     className: "".concat(fontStyle.fs14_black_opacity8, " ").concat(fontStyle.bold)
@@ -27477,10 +27580,10 @@ var icn_select_open_sm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3
 
 var icn_select_open_xs = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExLjUzNiA1LjI5M2ExIDEgMCAxIDEgMS40MTQgMS40MTRsLTMuNTM2IDMuNTM2LS43MDcuNzA3LS43MDcuNzA3LTEuNDE0LTEuNDE0TDMuMDUgNi43MDdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDggOC44MjhIOGwzLjUzNi0zLjUzNXoiLz4KPC9zdmc+';
 
-function _templateObject$l() {
+function _templateObject$n() {
   var data = _taggedTemplateLiteral(["\n  select {\n    ", "\n    &:focus {\n      box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16);\n    }\n\n    &:disabled {\n      background-color: rgba(0, 0, 0, 0.04);\n      color: rgba(0, 0, 0, 0.2);\n    }\n\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n\n    -moz-appearance: textfield;\n\n    option[value=\"\"][hidden] {\n      display: none;\n    }\n  }\n\n  option {\n    ", "\n  }\n\n  select:invalid {\n    color: rgba(0, 0, 0, 0.3);\n  }\n\n  ", "\n"]);
 
-  _templateObject$l = function _templateObject() {
+  _templateObject$n = function _templateObject() {
     return data;
   };
 
@@ -27536,7 +27639,7 @@ var Box$2 = styled__default.div.attrs(function () {
     opacity: props.disabled ? 2 : 8,
     SizeObject: SizeObject
   };
-})(_templateObject$l(), Text, Text, setSelectSize);
+})(_templateObject$n(), Text, Text, setSelectSize);
 
 var SelectBox =
 /*#__PURE__*/
