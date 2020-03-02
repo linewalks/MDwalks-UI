@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import _ from 'lodash'
 import * as font from '@src/assets/styles/font'

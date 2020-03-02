@@ -936,11 +936,18 @@ LineMergeTimeline.defaultProps = {
 }
 
 LineMergeTimeline.propTypes = {
-  timeData: PropTypes.arrayOf(PropTypes.shape({
-    dataPoints: PropTypes.array,
-    label: PropTypes.array,
-    order: PropTypes.number,
-  })),
+  timeData: PropTypes.arrayOf(
+    PropTypes.shape({
+      dataPoints: PropTypes.arrayOf(
+        PropTypes.shape({
+          startTime: PropTypes.string,
+          endTime: PropTypes.string,
+        }),
+      ),
+      label: PropTypes.arrayOf(PropTypes.string),
+      order: PropTypes.number,
+    }),
+  ),
   scale: PropTypes.shape({
     start: PropTypes.string,
     end: PropTypes.string,

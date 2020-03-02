@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 import Heading from '@Components/layout/Heading'
 import { color, zIndex } from '@src/assets/styles/variables'
 import * as font from '@src/assets/styles/font'
 import { hexToRGB } from '@Components/button/utility'
-import icn_popup_close_md from '@src/assets/svg/icn_popup_close_md.svg';
+import icnPopupCloseMd from '@src/assets/svg/icn_popup_close_md.svg';
 
 const size = {
   modalPadding: '30px',
@@ -24,7 +25,7 @@ const Overlay = styled.div`
   bottom: 0;
   right: 0;
   background-color: ${hexToRGB(color.$black, 0.6)};
-  z-index: ${props => props.isLoading ? zIndex.$modalOverlayLoading : zIndex.$modalOverlay};
+  z-index: ${(props) => (props.isLoading ? zIndex.$modalOverlayLoading : zIndex.$modalOverlay)};
 `
 
 const Modal = styled.div`
@@ -91,52 +92,75 @@ const Footer = styled.footer`
   padding-right: ${size.modalPadding};
 `
 
-export default (props = {}) => {
-  return (
-    <React.Fragment>
-      {
-        props.isOpen && 
-        <Overlay isLoading={props.isLoading}>
-          { props.isLoading &&
-            <Loading></Loading>
+const ModalComponent = ({
+  title, isOpen, isLoading, closeModal, description, footer, children,
+}) => (
+  <>
+    {
+      isOpen && (
+        <Overlay isLoading={isLoading}>
+          {
+            isLoading && (
+              <Loading />
+            )
           }
         </Overlay>
-      }
-      {
-        props.isOpen &&
+      )
+    }
+    {
+      isOpen && (
         <Modal>
-          {
-            <Header>
-              <div>
-                <Heading size="22" opacity="8">{props.title}</Heading>
-                <div style={{marginLeft: 'auto', marginTop: '-10px', marginRight: '-10px'}}>
-                  <button onClick={props.closeModal}>
-                    <img src={icn_popup_close_md} width="34x" height="34px" alt="" />
-                  </button>
-                </div>
+          <Header>
+            <div>
+              <Heading size="22" opacity="8">{title}</Heading>
+              <div style={{ marginLeft: 'auto', marginTop: '-10px', marginRight: '-10px' }}>
+                <button onClick={closeModal} type="button">
+                  <img src={icnPopupCloseMd} width="34x" height="34px" alt="" />
+                </button>
               </div>
-              {
-                props.description &&
-                <font.TextTag as="p" size={14} opacity={6} style={{marginTop: '6px'}}>{props.description}</font.TextTag>
-              }
-            </Header>
-          }
+            </div>
+            {
+              description && (
+                <font.TextTag as="p" size={14} opacity={6} style={{ marginTop: '6px' }}>{description}</font.TextTag>
+              )
+            }
+          </Header>
 
           <Contents as="article">
-            {props.children}
+            {children}
           </Contents>
-          
           {
-            props.footer &&
-            <Footer>
-              <div>
-                {props.footer}
-              </div>
-            </Footer>
+            footer && (
+              <Footer>
+                <div>
+                  {footer}
+                </div>
+              </Footer>
+            )
           }
         </Modal>
-      }
+      )
+    }
 
-    </React.Fragment>
-  )
+  </>
+)
+
+ModalComponent.defaultProps = {
+  title: '',
+  isOpen: undefined,
+  isLoading: undefined,
+  closeModal: () => {},
+  description: '',
+  footer: null,
 }
+
+ModalComponent.propTypes = {
+  title: PropTypes.string,
+  isOpen: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  closeModal: PropTypes.func,
+  description: PropTypes.string,
+  footer: PropTypes.node,
+}
+
+export default ModalComponent
