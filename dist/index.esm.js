@@ -24450,7 +24450,11 @@ LineMergeTimeline.defaultProps = {
   resetBtnId: undefined
 };
 LineMergeTimeline.propTypes = {
-  timeData: propTypes.shape([]),
+  timeData: propTypes.arrayOf(propTypes.shape({
+    dataPoints: propTypes.array,
+    label: propTypes.array,
+    order: propTypes.number
+  })),
   scale: propTypes.shape({
     start: propTypes.string,
     end: propTypes.string
@@ -24519,14 +24523,11 @@ var Footer = function Footer(props) {
 
 var Image = function Image(_ref) {
   var logo = _ref.logo;
-
-  var _logo$src$split = logo.src.split('.'),
-      _logo$src$split2 = _slicedToArray(_logo$src$split, 2),
-      path = _logo$src$split2[0],
-      extension = _logo$src$split2[1];
-
+  var src = logo.src;
   var width = logo.width,
       height = logo.height;
+  var path = src.substring(0, src.lastIndexOf('.'));
+  var extension = src.substring(src.lastIndexOf('.') + 1, src.length);
   return React.createElement("img", {
     alt: logo.alt,
     src: "".concat(path, ".").concat(extension),
@@ -24880,9 +24881,10 @@ function (_Component) {
       var _this$options2 = _this.options,
           width = _this$options2.width,
           height = _this$options2.height;
-      renderSVG(_this.getRootElement(), width, height); // const svg = renderSVG(this.getRootElement(), width, height)
-      // const gHistogram = generateGroup(svg, { className: 'histogram' })
-
+      var svg = renderSVG(_this.getRootElement(), width, height);
+      generateGroup(svg, {
+        className: 'histogram'
+      });
       var xAxis = axisBottom(_this.xAxisScale).tickPadding(14).ticks(10).tickSize(0); // 10^n으로 바꾸는 포맷 함수
 
       var superscript = '⁰¹²³⁴⁵⁶⁷⁸⁹';
@@ -26645,26 +26647,6 @@ function (_Component) {
   return TimeToEvent;
 }(Component);
 
-function _templateObject9() {
-  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  text-decoration: underline;\n"]);
-
-  _templateObject9 = function _templateObject9() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject8() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  min-width: auto;\n  padding-left: 8px;\n  padding-right: 8px;\n  display: inline-block;\n  box-sizing: border-box;\n\n  color: ", ";\n  &:hover {\n    color: ", ";\n  }\n\n  &:first-child {\n    padding-left: 0;\n  }\n"]);
-
-  _templateObject8 = function _templateObject8() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject7() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  ", "\n"]);
 
@@ -26767,11 +26749,9 @@ var BtnSize = {
     marginRight: '8px'
   }
 };
-
 var setBtnSize = function setBtnSize(props) {
   return "\n  height: ".concat(props.BtnSizeObject.height, ";\n  border-radius: ").concat(props.BtnSizeObject.borderRadius, ";\n  padding: ").concat(props.BtnSizeObject.padding, ";\n  min-width: ").concat(props.BtnSizeObject.minWidth, ";\n\n  &:not(:last-child) {\n    margin-right: ").concat(props.BtnSizeObject.marginRight, ";\n  }\n\n  img:first-child {\n    margin-right: ").concat(props.BtnSizeObject.img.margin, ";\n  }\n\n  img:last-child {\n    margin-left: ").concat(props.BtnSizeObject.img.margin, ";\n  }\n");
 };
-
 var BtnColor = {
   primary: {
     backgroundColor: color.$solid_default,
@@ -26869,78 +26849,6 @@ var ButtonTag = styled(TextTag).attrs(function () {
     BtnColorObject: BtnColorObject
   };
 })(_templateObject7(), BtnDefaultCss, setBtnSize, setBtnColor);
-var ButtonLinkTag = styled(TextTag).attrs(function () {
-  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var size = props.size,
-      bold = props.bold;
-  var BtnSizeObject = size === 'md' ? BtnSize.middle : BtnSize.large;
-  var FontSize = size === 'md' ? 14 : 16;
-  return {
-    size: FontSize,
-    bold: bold || true,
-    BtnSizeObject: BtnSizeObject
-  };
-})(_templateObject8(), BtnDefaultCss, setBtnSize, color.$solid_default, color.$solid_hover);
-var ButtonTextLinkTag = styled(TextTag).attrs(function () {
-  return {
-    size: 16,
-    bold: true
-  };
-})(_templateObject9(), hexToRGB(color.$black, 0.6));
-var ButtonLink = function ButtonLink(props) {
-  var propsAs = props.as,
-      children = props.children,
-      size = props.size,
-      style = props.style,
-      onClick = props.onClick,
-      id = props.id;
-  return React.createElement(ButtonLinkTag, {
-    id: id,
-    as: propsAs,
-    size: size,
-    style: style,
-    onClick: onClick
-  }, children);
-};
-ButtonLink.defaultProps = {
-  as: 'a',
-  size: 'md',
-  styled: {},
-  onClick: function onClick() {},
-  id: undefined
-};
-ButtonLink.propTypes = {
-  as: propTypes.string,
-  size: propTypes.string,
-  styled: propTypes.shape({}),
-  onClick: propTypes.func,
-  id: propTypes.string
-};
-var ButtonTextLink = function ButtonTextLink(props) {
-  var propsAs = props.as,
-      children = props.children,
-      style = props.style,
-      onClick = props.onClick,
-      id = props.id;
-  return React.createElement(ButtonTextLinkTag, {
-    id: id,
-    as: propsAs,
-    style: style,
-    onClick: onClick
-  }, children);
-};
-ButtonTextLink.defaultProps = {
-  as: 'a',
-  styled: {},
-  onClick: function onClick() {},
-  id: undefined
-};
-ButtonTextLink.propTypes = {
-  as: propTypes.string,
-  styled: propTypes.shape({}),
-  onClick: propTypes.func,
-  id: propTypes.string
-};
 
 var Button = function Button(props) {
   var isLoading = props.isLoading,
@@ -26990,6 +26898,100 @@ Button.propTypes = {
   id: propTypes.string
 };
 
+function _templateObject$i() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  min-width: auto;\n  padding-left: 8px;\n  padding-right: 8px;\n  display: inline-block;\n  box-sizing: border-box;\n\n  color: ", ";\n  &:hover {\n    color: ", ";\n  }\n\n  &:first-child {\n    padding-left: 0;\n  }\n"]);
+
+  _templateObject$i = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var ButtonLinkTag = styled(TextTag).attrs(function () {
+  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var size = props.size,
+      bold = props.bold;
+  var BtnSizeObject = size === 'md' ? BtnSize.middle : BtnSize.large;
+  var FontSize = size === 'md' ? 14 : 16;
+  return {
+    size: FontSize,
+    bold: bold || true,
+    BtnSizeObject: BtnSizeObject
+  };
+})(_templateObject$i(), BtnDefaultCss, setBtnSize, color.$solid_default, color.$solid_hover);
+
+var ButtonLink = function ButtonLink(props) {
+  var propsAs = props.as,
+      children = props.children,
+      size = props.size,
+      style = props.style,
+      onClick = props.onClick,
+      id = props.id;
+  return React.createElement(ButtonLinkTag, {
+    id: id,
+    as: propsAs,
+    size: size,
+    style: style,
+    onClick: onClick
+  }, children);
+};
+
+ButtonLink.defaultProps = {
+  as: 'a',
+  size: 'md',
+  styled: {},
+  onClick: function onClick() {},
+  id: undefined
+};
+ButtonLink.propTypes = {
+  as: propTypes.string,
+  size: propTypes.string,
+  styled: propTypes.shape({}),
+  onClick: propTypes.func,
+  id: propTypes.string
+};
+
+function _templateObject$j() {
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  text-decoration: underline;\n"]);
+
+  _templateObject$j = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var ButtonTextLinkTag = styled(TextTag).attrs(function () {
+  return {
+    size: 16,
+    bold: true
+  };
+})(_templateObject$j(), hexToRGB(color.$black, 0.6));
+var ButtonTextLink = function ButtonTextLink(props) {
+  var propsAs = props.as,
+      children = props.children,
+      style = props.style,
+      onClick = props.onClick,
+      id = props.id;
+  return React.createElement(ButtonTextLinkTag, {
+    id: id,
+    as: propsAs,
+    style: style,
+    onClick: onClick
+  }, children);
+};
+ButtonTextLink.defaultProps = {
+  as: 'a',
+  styled: {},
+  onClick: function onClick() {},
+  id: undefined
+};
+ButtonTextLink.propTypes = {
+  as: propTypes.string,
+  styled: propTypes.shape({}),
+  onClick: propTypes.func,
+  id: propTypes.string
+};
+
 var IcnMessageError = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyOCIgdmlld0JveD0iMCAwIDI4IDI4Ij4KICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYSIgeDE9IjUwJSIgeDI9IjUwJSIgeTE9IjEyLjE3OCUiIHkyPSIxMDAlIj4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0ZGM0MzQyIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNGRjkyODgiLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8Y2lyY2xlIGN4PSIxNCIgY3k9IjE0IiByPSIxNCIgZmlsbD0idXJsKCNhKSIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0xNCAxOWExIDEgMCAxIDEgMCAyIDEgMSAwIDAgMSAwLTJ6bS44ODMtMTFhMSAxIDAgMCAxIC45OTQgMS4xMWwtLjc3OCA3YTEgMSAwIDAgMS0uOTk0Ljg5aC0uMjFhMSAxIDAgMCAxLS45OTQtLjg5bC0uNzc4LTdBMSAxIDAgMCAxIDEzLjExNyA4aDEuNzY2eiIvPgogICAgPC9nPgo8L3N2Zz4=';
 
 var IcnToastErrorCloseDefault = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgxNnYxNkgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iI0ZBNkI1NyIgZD0iTTgtMmExIDEgMCAwIDEgMSAxbC0uMDAxIDcuOTk5TDE3IDdhMSAxIDAgMCAxIDAgMmwtOC4wMDEtLjAwMUw5IDE3YTEgMSAwIDAgMS0yIDBsLS4wMDEtOC4wMDFMLTEgOWExIDEgMCAxIDEgMC0ybDcuOTk5LS4wMDFMNy0xYTEgMSAwIDAgMSAxLTF6IiBtYXNrPSJ1cmwoI2IpIiB0cmFuc2Zvcm09InJvdGF0ZSgtNDUgOCA4KSIvPgogICAgPC9nPgo8L3N2Zz4=';
@@ -27028,10 +27030,10 @@ function _templateObject2$f() {
   return data;
 }
 
-function _templateObject$i() {
+function _templateObject$k() {
   var data = _taggedTemplateLiteral(["\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.2);\n  border: 2px solid ", ";\n  background-color: ", ";\n  padding: 15px 56px 15px 24px;\n  max-width: 700px;\n  line-height: 1;\n  ", "\n  text-align: center;\n  position: relative;\n\n  &:not(:last-child) {\n    margin-bottom: 20px;\n  }\n"]);
 
-  _templateObject$i = function _templateObject() {
+  _templateObject$k = function _templateObject() {
     return data;
   };
 
@@ -27043,7 +27045,7 @@ var Box = styled.section.attrs(function () {
     size: 16,
     opacity: 8
   };
-})(_templateObject$i(), function (props) {
+})(_templateObject$k(), function (props) {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
 var InnerBox = styled.article(_templateObject2$f());
@@ -27079,16 +27081,16 @@ Toast.propTypes = {
   variant: propTypes.string
 };
 
-function _templateObject$j() {
+function _templateObject$l() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child):not(:empty) {\n    margin-bottom: 20px;\n  }\n"]);
 
-  _templateObject$j = function _templateObject() {
+  _templateObject$l = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Box$1 = styled.article(_templateObject$j());
+var Box$1 = styled.article(_templateObject$l());
 
 var ToastList =
 /*#__PURE__*/
@@ -27476,16 +27478,16 @@ function _templateObject2$g() {
   return data;
 }
 
-function _templateObject$k() {
+function _templateObject$m() {
   var data = _taggedTemplateLiteral(["\n  min-width: 184px;\n  height: 38px;\n  background-color: ", ";\n  border-radius: 21px;\n  padding: 2px;\n  display: inline-block;\n  box-sizing: border-box;\n"]);
 
-  _templateObject$k = function _templateObject() {
+  _templateObject$m = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var ButtonContainer = styled.div(_templateObject$k(), color.$btn_lightshaded_default);
+var ButtonContainer = styled.div(_templateObject$m(), color.$btn_lightshaded_default);
 var ToggleBtn = styled.button.attrs(function () {
   return {
     className: "".concat(fontStyle.fs14_black_opacity8, " ").concat(fontStyle.bold)
@@ -27571,10 +27573,10 @@ var icn_select_open_sm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3
 
 var icn_select_open_xs = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExLjUzNiA1LjI5M2ExIDEgMCAxIDEgMS40MTQgMS40MTRsLTMuNTM2IDMuNTM2LS43MDcuNzA3LS43MDcuNzA3LTEuNDE0LTEuNDE0TDMuMDUgNi43MDdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDggOC44MjhIOGwzLjUzNi0zLjUzNXoiLz4KPC9zdmc+';
 
-function _templateObject$l() {
+function _templateObject$n() {
   var data = _taggedTemplateLiteral(["\n  select {\n    ", "\n    &:focus {\n      box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16);\n    }\n\n    &:disabled {\n      background-color: rgba(0, 0, 0, 0.04);\n      color: rgba(0, 0, 0, 0.2);\n    }\n\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n\n    -moz-appearance: textfield;\n\n    option[value=\"\"][hidden] {\n      display: none;\n    }\n  }\n\n  option {\n    ", "\n  }\n\n  select:invalid {\n    color: rgba(0, 0, 0, 0.3);\n  }\n\n  ", "\n"]);
 
-  _templateObject$l = function _templateObject() {
+  _templateObject$n = function _templateObject() {
     return data;
   };
 
@@ -27630,7 +27632,7 @@ var Box$2 = styled.div.attrs(function () {
     opacity: props.disabled ? 2 : 8,
     SizeObject: SizeObject
   };
-})(_templateObject$l(), Text, Text, setSelectSize);
+})(_templateObject$n(), Text, Text, setSelectSize);
 
 var SelectBox =
 /*#__PURE__*/

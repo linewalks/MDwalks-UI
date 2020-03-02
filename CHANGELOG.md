@@ -1,3 +1,22 @@
+## [0.13.7](https://github.com/linewalks/MDwalks-UI/compare/v0.13.6...v0.13.7) (2020-02-27)
+
+
+### Bug Fixes
+
+* Chart 자잘한 bug 수정 ([14855fc](https://github.com/linewalks/MDwalks-UI/commit/14855fcc71572e336c59e19c5a543ed635ef4f9d)), closes [#410](https://github.com/linewalks/MDwalks-UI/issues/410)
+
+
+
+## [0.13.6](https://github.com/linewalks/MDwalks-UI/compare/v0.13.5...v0.13.6) (2020-02-27)
+
+
+### Bug Fixes
+
+* **Histogram:** render ([b5f3c3a](https://github.com/linewalks/MDwalks-UI/commit/b5f3c3a592512e36a90705f05b0fb3fe6839c575)), closes [#406](https://github.com/linewalks/MDwalks-UI/issues/406)
+* **Sankey:** SankeyChart 초기값문제 ([73e21fd](https://github.com/linewalks/MDwalks-UI/commit/73e21fddb3f7b4919a5b77d0353f7b188dc5f231)), closes [#401](https://github.com/linewalks/MDwalks-UI/issues/401)
+
+
+
 ## [0.13.5](https://github.com/linewalks/MDwalks-UI/compare/v0.13.3...v0.13.5) (2020-02-25)
 
 
