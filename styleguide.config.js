@@ -21,4 +21,5 @@ module.exports = {
     'src/components/button/utility.js',
     'src/components/toast/ToastCtr.js',
   ]),
+  styleguideDir: 'docs',
 }
