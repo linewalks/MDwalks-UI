@@ -2,8 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const Image = ({ logo }) => {
-  const [path, extension] = logo.src.split('.')
+  const { src } = logo
   const { width, height } = logo
+
+  const path = src.substring(0, src.lastIndexOf('.'));
+  const extension = src.substring(src.lastIndexOf('.') + 1, src.length);
 
   const size = {}
   if (width) size.width = `${width}px`

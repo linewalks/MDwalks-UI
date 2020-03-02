@@ -15,6 +15,6 @@ describe('BarGauge Component', () => {
 
   it('Score Props excluded Range renders error messege', () => {
     const wrapper = shallow(<BarGauge score={200} />)
-    expect(wrapper.html()).toEqual("<div>Invalid Score</div>")
+    expect(wrapper.html()).toEqual('<div>Invalid Score</div>')
   })
 })
