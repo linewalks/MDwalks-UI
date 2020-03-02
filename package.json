@@ -10,8 +10,8 @@
     "build:docz": "rm -rf docs && yarn docz build",
     "styleguide": "styleguidist server",
     "build:docs": "styleguidist build",
-    "lint": "eslint ./src/**/pagination/*.js",
-    "lint:fix": "eslint ./src/**/*.js --fix",
+    "eslint": "eslint ./src/**/*.js ./src/**/**/*.js",
+    "eslint:fix": "eslint ./src/**/*.js --fix",
     "version": "yarn build && git add ./dist && conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "jest": {
@@ -35,7 +35,7 @@
   "husky": {
     "hooks": {
       "**comment_pre-commit**": "lint-staged",
-      "pre-push": "yarn test"
+      "pre-push": "yarn eslint && yarn test"
     }
   },
   "**comment_lint-staged**": {

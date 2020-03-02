@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types'
+
 import styled from 'styled-components'
 
 import { color } from '@src/assets/styles/variables'
@@ -60,43 +62,41 @@ const Td = styled.td`
     a : 0, d : 3, e : 4
 */
 
-export const isLastRow = ({cellTotal, cellCount, rowCurrent}) => {
-  let rowCount = (() => {
+export const isLastRow = ({ cellTotal, cellCount, rowCurrent }) => {
+  const rowCount = (() => {
     if (cellTotal % cellCount === 0) {
       return cellTotal / cellCount
-    } else {
-      return Math.floor(cellTotal / cellCount) + 1
     }
+    return Math.floor(cellTotal / cellCount) + 1
   })()
 
   return rowCount === rowCurrent + 1
 }
 
-export const isLastCell = ({cellTotal, cellCurrent}) => {
-  return cellTotal === cellCurrent
-}
+export const isLastCell = ({ cellTotal, cellCurrent }) => cellTotal === cellCurrent
 
-export const hasRow = ({cellTotal, cellCount, cellCurrent}) => {
+export const hasRow = ({ cellTotal, cellCount, cellCurrent }) => {
   if (!isLastCell(cellTotal, cellCurrent)) return false
   if (cellCount === 1) return false
   return cellTotal === cellCurrent + 1
 }
 
-export const getColspan = ({cellTotal, cellCount}) => {
+export const getColspan = ({ cellTotal, cellCount }) => {
   if (cellTotal % cellCount === 0) return 0
   return (cellCount - (cellTotal % cellCount)) * 2 + 1
 }
 
-export default ({ data, cellCount = 2, colWidths = [] }) => {
+const Descriptions = ({ data, cellCount = 2, colWidths = [] }) => {
   const createTable = () => {
-    let table = []
+    const table = []
     let props = {}
-    let thWidth, tdWidth
+    let thWidth; let
+      tdWidth
 
-    for (let i = 0 ; i < data.length ; i += cellCount) {
-      let children = []
-      for (let j = i ; j < i + cellCount && j < data.length ; j++) {
-        props = {cellTotal: data.length, cellCount, cellCurrent: j}
+    for (let i = 0; i < data.length; i += cellCount) {
+      const children = []
+      for (let j = i; j < i + cellCount && j < data.length; j += 1) {
+        props = { cellTotal: data.length, cellCount, cellCurrent: j }
         thWidth = colWidths[(j - i) * 2]
         tdWidth = colWidths[(j - i) * 2 + 1]
 
@@ -128,3 +128,17 @@ export default ({ data, cellCount = 2, colWidths = [] }) => {
     </TableWrap>
   );
 };
+
+Descriptions.defaultProps = {
+  data: [],
+  cellCount: 2,
+  colWidths: [],
+}
+
+Descriptions.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({})),
+  cellCount: PropTypes.number,
+  colWidths: PropTypes.arrayOf(PropTypes.number),
+}
+
+export default Descriptions

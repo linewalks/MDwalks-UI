@@ -1,13 +1,10 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components'
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
 import * as font from '@src/assets/styles/font'
 import { color } from '@src/assets/styles/variables'
 
 import { hexToRGB } from '@Components/button/utility'
-
-import { BtnDefaultCss, BtnSize, setBtnSize } from '@Components/button/Button'
 
 const ButtonTextLinkTag = styled(font.TextTag).attrs(() => ({
   size: 16,

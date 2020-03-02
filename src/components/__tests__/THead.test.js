@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash'
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import THead from '@Table/THead'
 
 describe('THead', () => {

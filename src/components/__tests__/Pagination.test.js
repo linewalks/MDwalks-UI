@@ -11,6 +11,15 @@ const props = {
   selectPage: 1, totalPage: 6, drawPageCnt: 5,
 }
 
+it('defaultProps', () => {
+  const wrapper = shallow(<Pagination />)
+  expect(wrapper.state('selectPage')).toBe(1)
+  expect(wrapper.state('totalPage')).toBe(1)
+  expect(wrapper.state('drawPageCnt')).toBe(1)
+  expect(wrapper.prop('size')).toBe(undefined)
+  expect(wrapper.state('list')).toEqual(_.range(1, 2))
+})
+
 it('init', () => {
   const wrapper = shallow(<Pagination
     selectPage={props.selectPage}
@@ -168,7 +177,7 @@ it('isHidden', () => {
 describe('sm', () => {
   it('getPrevPage, getNextPage', () => {
     const selectPage = 2
-    const wrapper = shallow(<Pagination size="sm" selectPage={selectPage} totalPage="5" />)
+    const wrapper = shallow(<Pagination size="sm" selectPage={selectPage} totalPage={5} />)
     expect(wrapper.instance().getPrevPage()).toBe(selectPage - 1)
     expect(wrapper.instance().getNextPage()).toBe(selectPage + 1)
   })
