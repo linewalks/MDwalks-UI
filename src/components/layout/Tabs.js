@@ -4,40 +4,52 @@ import _ from 'lodash'
 import PropTypes from 'prop-types'
 
 import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
+import { colorV1 } from '@src/assets/styles/variables'
 
 const TabBox = styled.section`
-  border-bottom: 1px solid ${color.$line_dashboard_edge_grey};
+  border-bottom: 1px solid #dce0e4;
   margin-bottom: 24px;
 `
 
+const UnderLineSize = 3
+
 const Tab = styled.span.attrs((props) => {
   const options = props['aria-selected'] ? {
-    color: color.$solid_default,
+    color: colorV1.$pmblue,
   } : {
-    color: color.$black,
-    opacity: 4,
+    color: colorV1.$grey08,
   }
 
   return { size: 16, bold: true, ...options }
 })`
   ${font.Text}
-  padding: 10px;
+  padding: 14px 10px ${14 + UnderLineSize}px;
   &:not(:last-child) {
     margin-right: 20px;
   }
 
   cursor: pointer;
-
   display: inline-block;
-  border-bottom: 2px solid ${(props) => (props['aria-selected'] ? color.$solid_default : 'transparent')};
-
   text-align: center;
 
   &:hover {
-    color: ${color.$azure};
+    color: ${colorV1.$pmblue};
     transition: color 0.5s ease;
   }
+
+  position: relative;
+`
+
+const TabUnderLine = styled.div.attrs(() => {})`
+  position: absolute;
+  height: ${UnderLineSize}px;
+  background-color: ${colorV1.$pmblue};
+  bottom: -1px;
+  width: 100%;
+  left: 0;
+
+  display: ${(props) => (props['aria-selected'] ? 'block' : 'none')};
+}
 `
 
 const Hidden = css`
@@ -101,6 +113,7 @@ class Tabs extends React.Component {
             onClick={() => this.changeTab(key)}
           >
             {child.props.tab}
+            <TabUnderLine aria-selected={activeKey === key} />
           </Tab>,
           { key },
         ),
@@ -139,5 +152,6 @@ Tabs.propTypes = {
 
 Tabs.Tab = Tab
 Tabs.TabPane = TabPane
+Tabs.TabUnderLine = TabUnderLine
 
 export default Tabs
