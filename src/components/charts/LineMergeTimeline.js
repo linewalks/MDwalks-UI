@@ -808,14 +808,7 @@ class LineMergeTimeline extends Component {
   getScaleTime = () => {
     const { timeData, scale } = this.props
     if (_.isEmpty(scale)) {
-      const { startTime, endTime } = !this.checkDataValidation(timeData) && getStartAndEndTime(
-        _.flatten(_.map(timeData, (d) => d.dataPoints)),
-      )
-
-      return {
-        startTime,
-        endTime,
-      }
+      return getStartAndEndTime(_.flatten(_.map(timeData, (d) => d.dataPoints)))
     }
 
     const { start, end } = scale
@@ -835,8 +828,7 @@ class LineMergeTimeline extends Component {
       lineYAxisHeight, defaultPadding, labelStartYPosition, labelLastYPosition,
     } = this.options
     const { resetBtnId } = this.props
-    const scaleTime = this.getScaleTime()
-    const { startTime, endTime } = scaleTime
+    const { startTime, endTime } = this.getScaleTime()
 
     // Create tooltip
     this.getRootElement()
