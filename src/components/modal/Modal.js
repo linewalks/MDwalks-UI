@@ -28,7 +28,7 @@ const Overlay = styled.div`
   z-index: ${(props) => (props.isLoading ? zIndex.$modalOverlayLoading : zIndex.$modalOverlay)};
 `
 
-const Modal = styled.div`
+const ModalBox = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -92,7 +92,7 @@ const Footer = styled.footer`
   padding-right: ${size.modalPadding};
 `
 
-const ModalComponent = ({
+const Modal = ({
   title, isOpen, isLoading, closeModal, description, footer, children,
 }) => (
   <>
@@ -109,7 +109,7 @@ const ModalComponent = ({
     }
     {
       isOpen && (
-        <Modal>
+        <ModalBox>
           <Header>
             <div>
               <Heading size="22" opacity="8">{title}</Heading>
@@ -138,14 +138,14 @@ const ModalComponent = ({
               </Footer>
             )
           }
-        </Modal>
+        </ModalBox>
       )
     }
 
   </>
 )
 
-ModalComponent.defaultProps = {
+Modal.defaultProps = {
   title: '',
   isOpen: undefined,
   isLoading: undefined,
@@ -154,7 +154,7 @@ ModalComponent.defaultProps = {
   footer: null,
 }
 
-ModalComponent.propTypes = {
+Modal.propTypes = {
   title: PropTypes.string,
   isOpen: PropTypes.bool,
   isLoading: PropTypes.bool,
@@ -163,4 +163,4 @@ ModalComponent.propTypes = {
   footer: PropTypes.node,
 }
 
-export default ModalComponent
+export default Modal
