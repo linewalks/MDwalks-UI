@@ -8,7 +8,7 @@ const FooterWrap = styled.footer`
   position: absolute
   bottom: 0
   height: ${size.$footer_height}
-  padding: 0 30px
+  padding: 0
   width: 100%
   box-sizing: border-box
 `
@@ -21,8 +21,8 @@ const FooterBox = styled.div`
   display: flex
   align-items: center
 
-  span {
-    padding-left: 30px
+  p {
+    padding-left: 32px
   }
 `
 
@@ -30,10 +30,10 @@ const Footer = (props) => {
   const { style } = props
   return (
     <FooterWrap style={style}>
-      <FooterBox size="12" opacity="6">
-        <span>
-          © 2019 linewalks. All rights reserved.
-        </span>
+      <FooterBox size="12" opacity="6" style={{ color: '#6d7884' }}>
+        <p>
+          © 2020 linewalks. All rights reserved.
+        </p>
       </FooterBox>
     </FooterWrap>
   )
