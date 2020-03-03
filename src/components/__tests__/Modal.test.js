@@ -62,5 +62,3 @@ describe('Footer', () => {
     expect(wrapper.find('footer button')).toHaveLength(1)
   })
 })
-
-

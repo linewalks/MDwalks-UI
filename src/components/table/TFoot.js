@@ -1,5 +1,6 @@
 import React from 'react';
-import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types'
+import _ from 'lodash';
 import styled from 'styled-components'
 import * as variables from '@src/assets/styles/variables'
 
@@ -16,18 +17,42 @@ const TFootTag = styled.tfoot`
   border-top: 2px solid ${variables.color.$line_dashboard_edge_grey};
 `
 
-const TFoot = ({ headers, footData }) => {
-  const createFooter = () => {
-    return footData.map((data, idx) =>
-      <tr key={`tr${idx}`}>{data.map((d, i) => <td key={`td${i}`}>{d}</td>)}</tr>
-    )
-  }
+const TFoot = ({ footData }) => {
+  const createFooter = () => (
+    _.map(footData, (data, i) => {
+      const trKey = `footer${data.join(' ')}${i}`
+      return (
+        <tr key={trKey}>
+          {
+            _.map(data, (d, j) => {
+              const tdKey = `footeritem${d}${j}`
+              return (
+                <td key={tdKey}>{d}</td>
+              )
+            })
+          }
+        </tr>
+      )
+    })
+  )
 
   return (
-    <React.Fragment>
-      {isEmpty(footData) ? null : <TFootTag>{createFooter()}</TFootTag>}
-    </React.Fragment>
+    <>
+      {_.isEmpty(footData) ? null : <TFootTag>{createFooter()}</TFootTag>}
+    </>
   )
 };
 
-export default TFoot;
+TFoot.defaultProps = {
+  footData: undefined,
+}
+
+TFoot.propTypes = {
+  footData: PropTypes.arrayOf(
+    PropTypes.arrayOf(
+      PropTypes.string,
+    ),
+  ),
+}
+
+export default TFoot

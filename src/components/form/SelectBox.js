@@ -1,10 +1,11 @@
 import React from 'react';
-import styled  from 'styled-components'
+import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import * as font from '@src/assets/styles/font'
 import { color } from '@src/assets/styles/variables'
 
-import icn_select_open_sm from '@src/assets/svg/icn_select_open_sm.svg';
-import icn_select_open_xs from '@src/assets/svg/icn_select_open_xs.svg';
+import icnSelectOpenSm from '@src/assets/svg/icn_select_open_sm.svg';
+import icnSelectOpenXs from '@src/assets/svg/icn_select_open_xs.svg';
 
 const SelectSize = {
   xLarge: {
@@ -15,7 +16,7 @@ const SelectSize = {
     iconSize: '24px',
     marginRight: '0px',
     borderRadius: '10px',
-    backgroundImage: icn_select_open_sm,
+    backgroundImage: icnSelectOpenSm,
     backgroundPosition: 'calc(100% - 20px) center',
   },
   large: {
@@ -26,7 +27,7 @@ const SelectSize = {
     iconSize: '16px',
     marginRight: '8px',
     borderRadius: '21px',
-    backgroundImage: icn_select_open_xs,
+    backgroundImage: icnSelectOpenXs,
     backgroundPosition: 'calc(100% - 13px) center',
   },
   middle: {
@@ -37,12 +38,12 @@ const SelectSize = {
     iconSize: '16px',
     marginRight: '8px',
     borderRadius: '21px',
-    backgroundImage: icn_select_open_xs,
+    backgroundImage: icnSelectOpenXs,
     backgroundPosition: 'calc(100% - 13px) center',
-  }
+  },
 }
 
-const setSelectSize = props => `
+const setSelectSize = (props) => `
   select {
     height: ${props.SizeObject.height};
     padding: ${props.SizeObject.padding};
@@ -65,13 +66,15 @@ const setSelectSize = props => `
 `
 
 // size : xlg, lg, md
-const Box = styled.div.attrs((props = {}) => {
-  props.size = props.size || 'md'
-  const SizeObject = props.size === 'xlg' ? SelectSize.xLarge : props.size === 'md' ? SelectSize.middle : SelectSize.large
+const Box = styled.div.attrs(({ size = 'md', disabled }) => {
+  const SizeObject = ({
+    xlg: SelectSize.xLarge,
+    md: SelectSize.middle,
+  })[size] || SelectSize.large
 
   return {
     size: SizeObject.fontSize,
-    opacity: props.disabled ? 2 : 8,
+    opacity: disabled ? 2 : 8,
     SizeObject,
   }
 })`
@@ -108,15 +111,18 @@ const Box = styled.div.attrs((props = {}) => {
   ${setSelectSize}
 `
 
-class SelectBox extends React.Component {
-  render() {
-    const {style, children, size} = this.props
-    return (
-      <Box style={style} size={size}>
-        {children}
-      </Box>
-    )
-  }
+const SelectBox = ({ style, children, size }) => (
+  <Box style={style} size={size}>
+    {children}
+  </Box>
+)
+
+SelectBox.defaultProps = {
+  size: 'md',
+}
+
+SelectBox.propTypes = {
+  size: PropTypes.string,
 }
 
 export default SelectBox

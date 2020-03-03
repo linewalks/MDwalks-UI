@@ -8,7 +8,7 @@ const EmptyContainer = styled.section`
 `
 
 const EmptyDescription = styled.img.attrs({
-  src: `${visualAlert}`
+  src: `${visualAlert}`,
 })`
   display: block;
   width: 290px;
@@ -26,6 +26,10 @@ const EmptyText = styled.span.attrs(() => ({
 export default () => (
   <EmptyContainer>
     <EmptyDescription />
-    <EmptyText as="span">There is no data<br />Please search again</EmptyText>
+    <EmptyText as="span">
+      There is no data
+      <br />
+      Please search again
+    </EmptyText>
   </EmptyContainer>
 )

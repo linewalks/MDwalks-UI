@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import Table from "@Components/table/Table";
-import SelectedCard from "@Cards/SelectedCard";
-import SankeyChart from "@Charts/SankeyChart";
-import sankeyData from "@src/data/dataForSankey2";
-import patientListData from "@src/data/dataForPatientList";
-import axios from "axios";
+import React, { Component } from 'react';
+import Table from '@Components/table/Table';
+import SelectedCard from '@Cards/SelectedCard';
+import SankeyChart from '@Charts/SankeyChart';
+import sankeyData from '@src/data/dataForSankey2';
+import patientListData from '@src/data/dataForPatientList';
+// import axios from 'axios'
 
-// to test interaction with server
-axios.defaults.baseURL = "http://192.168.0.103:5000";
-axios.defaults.headers.post["Accept"] = "application/json";
-axios.defaults.headers.post["Content-Type"] = "application/json";
-axios.defaults.headers.delete["Accept"] = "application/json";
-axios.defaults.headers.delete["Content-Type"] = "application/json";
+// // to test interaction with server
+// axios.defaults.baseURL = 'http://192.168.0.103:5000';
+// axios.defaults.headers.post.Accept = 'application/json';
+// axios.defaults.headers.post['Content-Type'] = 'application/json';
+// axios.defaults.headers.delete.Accept = 'application/json';
+// axios.defaults.headers.delete['Content-Type'] = 'application/json';
 
 class Sequence extends Component {
   constructor(props) {
@@ -19,14 +19,14 @@ class Sequence extends Component {
     this.state = {
       pathway: sankeyData,
       selectedNodes: [],
-      dataForTable: patientListData
+      dataForTable: patientListData,
     };
   }
 
   onChange(selectedNodes) {
     this.setState({
       selectedNodes,
-      selectPage: 1
+      // selectPage: 1,
     });
   }
 
@@ -34,24 +34,27 @@ class Sequence extends Component {
   };
 
   render() {
-    if (this.state.pathway)
-      if (this.state.dataForTable)
+    const { pathway, dataForTable, selectedNodes } = this.state
+    if (pathway) {
+      if (dataForTable) {
         return (
           <div>
             <SankeyChart
-              data={this.state.pathway}
-              selectedNodes={this.state.selectedNodes}
-              onChange={this.onChange.bind(this)}
+              data={pathway}
+              selectedNodes={selectedNodes}
+              onChange={this.onChange}
               onNodeClick={{}}
             />
-            <SelectedCard selectedElement={this.state.selectedNodes} isLastHighlighted={true} />
-            <div style={{ width: "900px", padding: "20px 0 0 40px" }}>
-              <Table data={this.state.dataForTable} />
+            <SelectedCard selectedElement={selectedNodes} isLastHighlighted />
+            <div style={{ width: '900px', padding: '20px 0 0 40px' }}>
+              <Table data={dataForTable} />
             </div>
           </div>
         );
-      else return <div></div>;
-    else return <div></div>;
+      }
+      return <div />;
+    }
+    return <div />;
   }
 }
 
