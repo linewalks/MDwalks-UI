@@ -4,21 +4,32 @@ import renderer from 'react-test-renderer'
 import 'jest-styled-components'
 
 import Tabs from '@Components/layout/Tabs';
-import { color } from '@src/assets/styles/variables'
+import { colorV1 } from '@src/assets/styles/variables'
 import { hexToRGB } from '@Components/button/utility'
 
-const { Tab, TabPane } = Tabs
+const { Tab, TabPane, TabUnderLine } = Tabs
 
 describe('Style', () => {
-  it('Tab 이 selected 된 경우 color 값과 border 값이 지정된다', () => {
+  it('Tab 이 selected 된 경우 color 값이 지정된다', () => {
     const tab = renderer.create(<Tab aria-selected />).toJSON()
-    expect(tab).toHaveStyleRule('color', hexToRGB(color.$solid_default, 1))
-    expect(tab).toHaveStyleRule('border-bottom', `2px solid ${color.$solid_default}`)
+    expect(tab).toHaveStyleRule('color', hexToRGB(colorV1.$pmblue, 1))
   })
 
   it('Tab 이 selected 되지 않는 경우', () => {
     const tab = renderer.create(<Tab aria-selected={false} />).toJSON()
-    expect(tab).not.toHaveStyleRule('color', color.$solid_default)
+    expect(tab).not.toHaveStyleRule('color', colorV1.$grey08)
+  })
+
+  it('tabUnderLine 이 selected 된 경우 backgorund-color, display 값이 지정 된다', () => {
+    const tabUnderLine = renderer.create(<TabUnderLine aria-selected />).toJSON()
+    expect(tabUnderLine).toHaveStyleRule('display', 'block')
+    expect(tabUnderLine).toHaveStyleRule('background-color', colorV1.$pmblue)
+  })
+
+  it('tabUnderLine 이 selected 되지 않는 경우', () => {
+    const tabUnderLine = renderer.create(<TabUnderLine />).toJSON()
+    expect(tabUnderLine).toHaveStyleRule('display', 'none')
+    expect(tabUnderLine).toHaveStyleRule('background-color', colorV1.$pmblue)
   })
 
   it('TabPane 이 hidden 된 경우', () => {
@@ -53,6 +64,9 @@ describe('Tabs', () => {
     expect(wrapper.find(Tab)).toHaveLength(2)
     expect(wrapper.find(TabPane)).toHaveLength(1)
 
+    expect(wrapper.find(TabUnderLine)).toHaveLength(2)
+    expect(wrapper.find(TabUnderLine).map((el) => el.props()['aria-selected'])).toEqual([true, false])
+
     expect(wrapper.props().defaultactivekey).toBe(firstKey)
     expect(wrapper.state()).toEqual({
       activeKey: firstKey,
@@ -64,6 +78,7 @@ describe('Tabs', () => {
     wrapper.find(Tab).last().simulate('click')
     expect(wrapper.find(Tab).map((el) => el.props()['aria-selected'])).toEqual([false, true])
     expect(wrapper.find(TabPane)).toHaveLength(2)
+    expect(wrapper.find(TabUnderLine).map((el) => el.props()['aria-selected'])).toEqual([false, true])
 
     expect(wrapper.state()).toEqual({
       activeKey: lastKey,

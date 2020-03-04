@@ -37,6 +37,27 @@ export const color = {
   $txt_solid_disable_02: '#b7ddf9',
 }
 
+export const colorV1 = {
+  $pmblue01: '#f7fbff',
+  $pmblue02: '#eef7ff',
+  $pmblue: '#189bff',
+  $pmnavy: '#132a4a',
+
+  $grey01: '#f8f9fa',
+  $grey02: '#f3f6f8',
+  $grey03: '#edf1f5',
+  $grey04: '#e7ebee',
+  $grey05: '#d3d9de',
+  $grey06: '#b0b8c1',
+  $grey07: '#8b96a3',
+  $grey08: '#6d7884',
+  $grey09: '#4d5661',
+  $grey10: '#303841',
+
+  $red01: '#ff5d46',
+  $red02: '#c70901',
+}
+
 export const size = {
   $footer_height: '60px',
   $footer_margin_top: '80px',
