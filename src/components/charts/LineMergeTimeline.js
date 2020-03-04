@@ -908,11 +908,6 @@ class LineMergeTimeline extends Component {
     // TODO: Code Refactoring Module
   }
 
-  removeLineMergedTimeline = () => {
-    this.getRootElement().select('div').remove()
-    return this.getRootElement().select('svg').remove()
-  }
-
   componentDidMount = () => {
     const { timeData, lineData } = this.props
     return !this.checkDataValidation() && this.renderLineMergeTimeline(timeData, lineData)
@@ -933,6 +928,11 @@ class LineMergeTimeline extends Component {
     if (_.isEmpty(timeData) || _.isEmpty(lineData)) return 'haveData'
     if (!Array.isArray(timeData) || Array.isArray(lineData)) return 'typeOfVariable'
     return null
+  }
+
+  removeLineMergedTimeline = () => {
+    this.getRootElement().select('div').remove()
+    return this.getRootElement().select('svg').remove()
   }
 
   render() {
