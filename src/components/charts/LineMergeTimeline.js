@@ -910,17 +910,20 @@ class LineMergeTimeline extends Component {
 
   componentDidMount = () => {
     const { timeData, lineData } = this.props
-    return !this.checkDataValidation() && this.renderLineMergeTimeline(timeData, lineData)
+    if (!this.checkDataValidation()) {
+      this.renderLineMergeTimeline(timeData, lineData)
+    }
   }
 
   componentDidUpdate = (preProps) => {
     const { timeData, lineData } = this.props
     if (!_.isEqual(preProps.timeData, timeData) || !_.isEqual(preProps.lineData, lineData)) {
       this.removeLineMergedTimeline()
-      return !this.checkDataValidation() && this.renderLineMergeTimeline(timeData, lineData)
-    }
 
-    return null
+      if (!this.checkDataValidation()) {
+        this.renderLineMergeTimeline(timeData, lineData)
+      }
+    }
   }
 
   checkDataValidation = () => {
@@ -932,7 +935,7 @@ class LineMergeTimeline extends Component {
 
   removeLineMergedTimeline = () => {
     this.getRootElement().select('div').remove()
-    return this.getRootElement().select('svg').remove()
+    this.getRootElement().select('svg').remove()
   }
 
   render() {
