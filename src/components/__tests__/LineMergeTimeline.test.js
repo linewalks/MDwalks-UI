@@ -290,7 +290,7 @@ describe('LineMergeTimeline', () => {
     const renderChartSpy = jest.spyOn(instance, 'renderLineMergeTimeline')
 
     wrapper.setProps({
-      timeData: changedTimeData
+      timeData: changedTimeData,
     })
 
     expect(wrapper.props('data')).not.toEqual(timelineData)
