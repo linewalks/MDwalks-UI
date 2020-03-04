@@ -6,7 +6,12 @@ module.exports = {
         "jest": true,
         "commonjs": true
     },
-    "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb", "airbnb/hooks"] ,
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "airbnb",
+        "airbnb/hooks"
+    ] ,
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
