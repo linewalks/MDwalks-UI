@@ -22,16 +22,35 @@ const TextLinkTag = styled(font.TextTag).attrs(() => ({
   cursor: pointer;
 `
 
+const Icon = styled.img``
+
+const TextLinkIconTag = styled(TextLinkTag)`
+  display: inline-block;
+
+  vertical-align: middle;
+  > div {
+    display: flex;
+    align-items: center;
+  }
+
+  ${Icon} {
+    &:first-child {
+      margin-right: 8px;
+    }
+    &:last-child {
+      margin-left: 8px;
+    }
+  }
+`
+
 const TextLink = (props) => {
   const {
-    as: propsAs,
     children,
     style,
-    onClick,
-    id,
     size,
     variant,
     underline,
+    hasIcon,
   } = props
 
   const fontSize = {
@@ -40,15 +59,29 @@ const TextLink = (props) => {
     lg: 16,
   }[size]
 
+  if (hasIcon) {
+    return (
+      <TextLinkIconTag
+        as="a"
+        variant={variant}
+        underline={underline}
+        fontSize={fontSize}
+        style={style}
+      >
+        <div>
+          {children}
+        </div>
+      </TextLinkIconTag>
+    )
+  }
+
   return (
     <TextLinkTag
-      id={id}
-      as={propsAs}
+      as="a"
       variant={variant}
       underline={underline}
       fontSize={fontSize}
       style={style}
-      onClick={onClick}
     >
       {children}
     </TextLinkTag>
@@ -56,22 +89,20 @@ const TextLink = (props) => {
 }
 
 TextLink.defaultProps = {
-  as: 'a',
   styled: {},
-  onClick: () => {},
-  id: undefined,
   size: 'md',
   variant: 'basic',
   underline: false,
+  hasIcon: false,
 }
 TextLink.propTypes = {
-  as: PropTypes.string,
   styled: PropTypes.shape({}),
-  onClick: PropTypes.func,
-  id: PropTypes.string,
   size: PropTypes.string,
   variant: PropTypes.string,
   underline: PropTypes.bool,
+  hasIcon: PropTypes.bool,
 }
+
+TextLink.Icon = Icon
 
 export default TextLink
