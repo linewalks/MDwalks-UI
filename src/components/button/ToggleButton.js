@@ -1,31 +1,70 @@
 import React from 'react';
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import fontStyle from '@src/assets/styles/font.module.sass'
-import { color } from '@src/assets/styles/variables'
+import { color, colorV1 } from '@src/assets/styles/variables'
 
-const ButtonContainer = styled.div`
-  min-width: 184px;
-  height: 38px;
-  background-color: ${color.$btn_lightshaded_default};
-  border-radius: 21px;
+export const BtnSize = {
+  large: {
+    box: {
+      height: 46,
+      padding: 2,
+    },
+    button: {
+      minWidth: 100,
+      height: 42,
+      fontSize: 16,
+      padding: '9px 20px',
+    },
+  },
+  middle: {
+    box: {
+      height: 38,
+      padding: 2,
+    },
+    button: {
+      minWidth: 90,
+      height: 34,
+      fontSize: 14,
+      padding: '7px 18px',
+    },
+  },
+}
+
+const BoxShadow = css`
+  box-shadow: ${(props) => (props.selected ? '0 1px 8px 0 rgba(117, 127, 139, 0.36);' : null)}
+`
+
+const ButtonContainer = styled.section`
+  height: ${(props) => (props.height)}px;
+  background-color: ${colorV1.$grey04};
+  border-radius: ${(props) => (props.height / 2)}px;
   padding: 2px;
-  display: inline-block;
-  box-sizing: border-box;
+  display: table;
 `
 
 const ToggleBtn = styled.button.attrs(() => ({
-  className: `${fontStyle.fs14_black_opacity8} ${fontStyle.bold}`,
+  className: `${fontStyle.font} ${fontStyle.bold}`,
 }))`
-  min-width: 90px;
-  height: 34px;
-  border-radius: 17px;
-  background-color: ${(props) => (props.selected ? color.$primary_white : color.$btn_lightshaded_default)};
-  border: none;
+  color: ${colorV1.$grey10};
+  font-size: ${(props) => (props.fontSize)}px;
+  min-width: ${(props) => (props.minWidth)}px;
+  height: ${(props) => (props.height)}px;
+  padding: ${(props) => (props.padding)};
+  border-radius: ${(props) => (props.height / 2)}px;
   outline: none;
-  cursor: pointer;
-  box-shadow: ${(props) => (props.selected ? '0 4px 10px 0 rgba(0, 0, 0, 0.08)' : null)}
+  text-align: center;
+
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+  ${BoxShadow};
+  background-color: ${(props) => (props.selected ? color.$primary_white : colorV1.$grey04)};
+  &:hover {
+    background-color: ${(props) => (props.selected ? color.$primary_white : colorV1.$grey05)};
+    ${BoxShadow};
+  }
 `
 
 class ToggleButton extends React.Component {
@@ -44,32 +83,40 @@ class ToggleButton extends React.Component {
       active: value,
     })
 
-    return onChange(value)
+    onChange(value)
   }
 
-  renderToggleBtn = (data) => (
-    data.map(({ type, text }) => {
-      const { active } = this.state
-      const selectedCheck = active === type
-      return (
-        <ToggleBtn
-          key={type}
-          onClick={this.changeBtn}
-          selected={selectedCheck}
-          disabled={selectedCheck}
-          value={type}
-        >
-          {text}
-        </ToggleBtn>
-      )
-    })
-  )
-
   render() {
-    const { data } = this.props
+    const { data, size } = this.props
+
+    const BtnSizeObject = {
+      md: BtnSize.middle,
+      lg: BtnSize.large,
+    }[size]
+
     return (
-      <ButtonContainer>
-        {this.renderToggleBtn(data)}
+      <ButtonContainer height={BtnSizeObject.box.height}>
+        {
+          data.map(({ type, text }) => {
+            const { active } = this.state
+            const selectedCheck = active === type
+            return (
+              <ToggleBtn
+                key={type}
+                onClick={this.changeBtn}
+                selected={selectedCheck}
+                disabled={selectedCheck}
+                value={type}
+                height={BtnSizeObject.button.height}
+                fontSize={BtnSizeObject.button.fontSize}
+                minWidth={BtnSizeObject.button.minWidth}
+                padding={BtnSizeObject.button.padding}
+              >
+                {text}
+              </ToggleBtn>
+            )
+          })
+        }
       </ButtonContainer>
     )
   }
@@ -77,8 +124,8 @@ class ToggleButton extends React.Component {
 
 ToggleButton.defaultProps = {
   onChange: () => {},
+  size: 'md',
 }
-
 
 ToggleButton.propTypes = {
   data: PropTypes.arrayOf(
@@ -87,6 +134,7 @@ ToggleButton.propTypes = {
       text: PropTypes.string,
     }),
   ).isRequired,
+  size: PropTypes.oneOf(['md', 'lg']),
   onChange: PropTypes.func,
 }
 
