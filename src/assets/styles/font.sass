@@ -1,8 +1,12 @@
 @import "variables.sass"
 
-.summary_b_42, .search_b_32, .header_b_22, .body_b_20, .body_b_18, .body_b_16, .body_b_14
-    font-weight: bold
+.font
     letter-spacing: -0.5px
+    // font-family 추가 예정
+
+.summary_b_42, .search_b_32, .header_b_22, .body_b_20, .body_b_18, .body_b_16, .body_b_14
+    @extend .font
+    font-weight: bold
     color: $black
 
 .summary_b_42 
@@ -22,7 +26,7 @@
 
 .body_r_20, .body_r_18, .body_r_16, .body_r_14, .body_r_12
     font-weight: normal
-    letter-spacing: -0.5px
+    @extend .font
     color: $black
 
 .body_b_16, .body_r_16
@@ -40,14 +44,14 @@
 
 @each $fontSize in (12, 14, 16, 18, 20, 22, 32, 42)
     .fs#{$fontSize}
-        letter-spacing: -0.5px
+        @extend .font
         color: $black
         font-size: #{$fontSize}px
 
 @each $fontSize in (12, 14, 16, 18, 20, 22, 32, 42)
     @each $opacity in (2, 3, 4, 5, 6, 7, 8)
         .fs#{$fontSize}_black_opacity#{$opacity}
-            letter-spacing: -0.5px
+            @extend .font
             color: rgba($black, $opacity * 0.1)
             font-size: #{$fontSize}px
 
