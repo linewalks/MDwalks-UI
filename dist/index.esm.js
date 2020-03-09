@@ -18445,24 +18445,6 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
-
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
 
@@ -20963,6 +20945,24 @@ var color = {
   $txt_solid_disable: '#ebf6fe',
   $txt_solid_disable_02: '#b7ddf9'
 };
+var colorV1 = {
+  $pmblue01: '#f7fbff',
+  $pmblue02: '#eef7ff',
+  $pmblue: '#189bff',
+  $pmnavy: '#132a4a',
+  $grey01: '#f8f9fa',
+  $grey02: '#f3f6f8',
+  $grey03: '#edf1f5',
+  $grey04: '#e7ebee',
+  $grey05: '#d3d9de',
+  $grey06: '#b0b8c1',
+  $grey07: '#8b96a3',
+  $grey08: '#6d7884',
+  $grey09: '#4d5661',
+  $grey10: '#303841',
+  $red01: '#ff5d46',
+  $red02: '#c70901'
+};
 var size = {
   $footer_height: '60px',
   $footer_margin_top: '80px'
@@ -20976,6 +20976,7 @@ var zIndex = {
 var variables = /*#__PURE__*/Object.freeze({
 	__proto__: null,
 	color: color,
+	colorV1: colorV1,
 	size: size,
 	zIndex: zIndex
 });
@@ -21565,18 +21566,26 @@ var Card = styled(TextTag).attrs({
 
 var SelectedCard = function SelectedCard(_ref) {
   var selectedElement = _ref.selectedElement,
-      _ref$isLastHighlighte = _ref.isLastHighlighted,
-      isLastHighlighted = _ref$isLastHighlighte === void 0 ? false : _ref$isLastHighlighte;
+      isLastHighlighted = _ref.isLastHighlighted;
   return React.createElement(Wrap1200, null, selectedElement.map(function (element, idx) {
     var isLast = idx === selectedElement.length - 1;
     return React.createElement(Arrow, {
-      key: "SelectedCard".concat(idx),
+      key: "SelectedCard".concat(element),
       isLastHighlighted: isLastHighlighted,
       style: isLast ? null : {
         backgroundImage: "url(".concat(backgroundArrow, ")")
       }
     }, React.createElement(CardContatiner, null, React.createElement(Card, null, element)));
   }));
+};
+
+SelectedCard.defaultProps = {
+  selectedElement: [],
+  isLastHighlighted: false
+};
+SelectedCard.propTypes = {
+  selectedElement: propTypes.arrayOf(propTypes.string),
+  isLastHighlighted: propTypes.bool
 };
 
 function _templateObject5() {
@@ -22613,57 +22622,64 @@ var THead = function THead(_ref) {
   var createHeader = function createHeader(headerData, subHeaderData) {
     if (isEmpty_1(subHeaderData)) {
       if (isEmpty_1(headerData)) {
-        return React.createElement("tr", null, React.createElement("th", null));
-      } else {
-        return React.createElement("tr", null, headerData.map(function (row, idx) {
-          var colSpan = row.colSpan;
-          var text = !lodash.isUndefined(colSpan) ? row.text : row;
-          var props = {
-            key: text
-          };
-
-          if (colSpan) {
-            props.colSpan = colSpan;
-          }
-
-          return React.createElement(Th, props, wrapTh ? wrapTh({
-            text: tableHeaderConvert(text)
-          }) : React.createElement("div", null, tableHeaderConvert(text)));
-        }));
+        return React.createElement("tr", null, React.createElement("th", null, "\xA0"));
       }
-    } else {
-      return React.createElement("tr", null, headerData.map(function (header, idx) {
-        if (!subHeaders[header]) {
-          return React.createElement(Th, {
-            rowSpan: 2,
-            key: idx
-          }, wrapTh ? wrapTh({
-            text: header
-          }) : React.createElement("div", null, header));
-        } else {
-          var subHeaderColNum = subHeaders[header].length;
-          return React.createElement(Th, {
-            colSpan: subHeaderColNum,
-            key: idx,
-            subHeader: true
-          }, wrapTh ? wrapTh({
-            text: header
-          }) : React.createElement("div", null, header));
-        }
+
+      return React.createElement("tr", null, headerData.map(function (row) {
+        var colSpan = row.colSpan;
+        var text = !lodash.isUndefined(colSpan) ? row.text : row;
+        return React.createElement(Th, {
+          key: text,
+          colSpan: colSpan
+        }, wrapTh ? wrapTh({
+          text: tableHeaderConvert(text)
+        }) : React.createElement("div", null, tableHeaderConvert(text)));
       }));
     }
+
+    return React.createElement("tr", null, headerData.map(function (header) {
+      if (!subHeaders[header]) {
+        return React.createElement(Th, {
+          rowSpan: 2,
+          key: "header_".concat(header)
+        }, wrapTh ? wrapTh({
+          text: header
+        }) : React.createElement("div", null, header));
+      }
+
+      var subHeaderColNum = subHeaders[header].length;
+      return React.createElement(Th, {
+        colSpan: subHeaderColNum,
+        key: "header_".concat(header),
+        subHeader: true
+      }, wrapTh ? wrapTh({
+        text: header
+      }) : React.createElement("div", null, header));
+    }));
   };
 
   var createSubHeader = function createSubHeader(subHeaderData) {
     var subTitleGroup = Object.values(subHeaderData).join().split(',');
-    return React.createElement("tr", null, subTitleGroup.map(function (subTitle, idx) {
+    return React.createElement("tr", null, subTitleGroup.map(function (subTitle, i) {
+      var key = "subheader_".concat(subTitle).concat(i);
       return React.createElement(Td, {
-        key: idx
+        key: key
       }, subTitle);
     }));
   };
 
   return React.createElement(Thead, null, createHeader(headers, subHeaders), isEmpty_1(subHeaders) ? null : createSubHeader(subHeaders));
+};
+
+THead.defaultProps = {
+  headers: undefined,
+  wrapTh: undefined,
+  subHeaders: undefined
+};
+THead.propTypes = {
+  headers: propTypes.arrayOf(propTypes.oneOfType([propTypes.string, propTypes.shape()])),
+  wrapTh: propTypes.func,
+  subHeaders: propTypes.shape({})
 };
 
 var visualAlert = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjkwIiBoZWlnaHQ9IjIzMCIgdmlld0JveD0iMCAwIDI5MCAyMzAiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9ImEiIGQ9Ik0yOTAgMjA1LjYxNEMyNjAuODI2IDE4NC4zMDYgMjA2LjgxMSAxNzAgMTQ1IDE3MGMtNjEuODExIDAtMTE1LjgyNiAxNC4zMDYtMTQ1IDM1LjYxNFYwaDI5MHYyMDUuNjE0eiIvPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYyIgeDE9IjM0LjcyNiUiIHgyPSIzNC43MjYlIiB5MT0iMCUiIHkyPSI4Ni44MDglIj4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzE4OUJGRiIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNCMkRFRkYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPHBhdGggaWQ9ImQiIGQ9Ik0yOSAwaDc2LjM3YTQgNCAwIDAgMSAyLjg3IDEuMjE1bDI1LjYzMSAyNi40MjJBNCA0IDAgMCAxIDEzNSAzMC40MjJWMTMxYTQgNCAwIDAgMS00IDRIMjlhNCA0IDAgMCAxLTQtNFY0YTQgNCAwIDAgMSA0LTR6Ii8+CiAgICAgICAgPGxpbmVhckdyYWRpZW50IGlkPSJmIiB4MT0iNDIuMTI5JSIgeDI9IjQyLjEyOSUiIHkxPSIwJSIgeTI9IjEwMCUiPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMTg5QkZGIi8+CiAgICAgICAgICAgIDxzdG9wIG9mZnNldD0iMTMuMzY4JSIgc3RvcC1jb2xvcj0iIzE4OUJGRiIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxODlCRkYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPHBhdGggaWQ9ImUiIGQ9Ik0zMSAwaDczLjUyM2E2IDYgMCAwIDEgNC4zMDcgMS44MjJsMjQuNDc3IDI1LjIzM0E2IDYgMCAwIDEgMTM1IDMxLjIzM1YxMjlhNiA2IDAgMCAxLTYgNkgzMWE2IDYgMCAwIDEtNi02VjZhNiA2IDAgMCAxIDYtNnoiLz4KICAgICAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSI0My40OCUiIHgyPSI0My40OCUiIHkxPSI1MCUiIHkyPSIyMDQuMzA4JSI+CiAgICAgICAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNFQUY2RkYiLz4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTg5QkZGIi8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgICA8cGF0aCBpZD0iaiIgZD0iTTE1NyAxMzZjLTE1LjQ2NCAwLTI4LTEyLjUzNi0yOC0yOHMxMi41MzYtMjggMjgtMjggMjggMTIuNTM2IDI4IDI4LTEyLjUzNiAyOC0yOCAyOHptMC0yYzE0LjM2IDAgMjYtMTEuNjQgMjYtMjZzLTExLjY0LTI2LTI2LTI2LTI2IDExLjY0LTI2IDI2IDExLjY0IDI2IDI2IDI2em0wLTI3LjQxNGw4LjQ4NS04LjQ4NSAxLjQxNCAxLjQxNC04LjQ4NSA4LjQ4NSA4LjQ4NSA4LjQ4NS0xLjQxNCAxLjQxNC04LjQ4NS04LjQ4NS04LjQ4NSA4LjQ4NS0xLjQxNC0xLjQxNCA4LjQ4NS04LjQ4NS04LjQ4NS04LjQ4NSAxLjQxNC0xLjQxNCA4LjQ4NSA4LjQ4NXoiLz4KICAgICAgICA8ZmlsdGVyIGlkPSJpIiB3aWR0aD0iMTQ0LjYlIiBoZWlnaHQ9IjE0NC42JSIgeD0iLTIyLjMlIiB5PSItMjAuNSUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+CiAgICAgICAgICAgIDxmZU9mZnNldCBkeT0iMSIgaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9InNoYWRvd09mZnNldE91dGVyMSIvPgogICAgICAgICAgICA8ZmVHYXVzc2lhbkJsdXIgaW49InNoYWRvd09mZnNldE91dGVyMSIgcmVzdWx0PSJzaGFkb3dCbHVyT3V0ZXIxIiBzdGREZXZpYXRpb249IjQiLz4KICAgICAgICAgICAgPGZlQ29sb3JNYXRyaXggaW49InNoYWRvd0JsdXJPdXRlcjEiIHZhbHVlcz0iMCAwIDAgMCAwIDAgMCAwIDAgMC41Njk2MjAyNTMgMCAwIDAgMCAxIDAgMCAwIDAuMzk5MDExMTQ1IDAiLz4KICAgICAgICA8L2ZpbHRlcj4KICAgICAgICA8ZWxsaXBzZSBpZD0ibCIgY3g9IjE0NiIgY3k9IjI0MyIgcng9IjE0NSIgcnk9IjcyIi8+CiAgICAgICAgPGZpbHRlciBpZD0iayIgd2lkdGg9IjExNS45JSIgaGVpZ2h0PSIxMzEuOSUiIHg9Ii03LjklIiB5PSItMTguOCUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+CiAgICAgICAgICAgIDxmZU9mZnNldCBkeT0iLTQiIGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJzaGFkb3dPZmZzZXRPdXRlcjEiLz4KICAgICAgICAgICAgPGZlR2F1c3NpYW5CbHVyIGluPSJzaGFkb3dPZmZzZXRPdXRlcjEiIHJlc3VsdD0ic2hhZG93Qmx1ck91dGVyMSIgc3RkRGV2aWF0aW9uPSI3Ii8+CiAgICAgICAgICAgIDxmZUNvbG9yTWF0cml4IGluPSJzaGFkb3dCbHVyT3V0ZXIxIiB2YWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAuNDcxOTA4NzcxIDAgMCAwIDAgMC44MzIxNDQ0NzUgMCAwIDAgMC43MDEyNDAxNjYgMCIvPgogICAgICAgIDwvZmlsdGVyPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDI0KSI+CiAgICAgICAgICAgIDxtYXNrIGlkPSJiIiBmaWxsPSIjZmZmIj4KICAgICAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICA8ZyBtYXNrPSJ1cmwoI2IpIiBvcGFjaXR5PSIuNiI+CiAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3NyA0MCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9InVybCgjYykiIGQ9Ik02IDI1aDczLjUyM2E2IDYgMCAwIDEgNC4zMDcgMS44MjJsMjQuNDc3IDI1LjIzM0E2IDYgMCAwIDEgMTEwIDU2LjIzM1YxNTRhNiA2IDAgMCAxLTYgNkg2YTYgNiAwIDAgMS02LTZWMzFhNiA2IDAgMCAxIDYtNnoiIG9wYWNpdHk9Ii41NTEiLz4KICAgICAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNkIi8+CiAgICAgICAgICAgICAgICAgICAgPG1hc2sgaWQ9ImgiIGZpbGw9IiNmZmYiPgogICAgICAgICAgICAgICAgICAgICAgICA8dXNlIHhsaW5rOmhyZWY9IiNlIi8+CiAgICAgICAgICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICAgICAgICAgIDx1c2UgZmlsbD0idXJsKCNmKSIgb3BhY2l0eT0iLjcyMiIgeGxpbms6aHJlZj0iI2UiLz4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSJ1cmwoI2cpIiBkPSJNMTA2LjcyOC0xLjE2NGwyOC42ODYgMzAuNDc5YTEgMSAwIDAgMS0uNzI4IDEuNjg1SDEwOWE0IDQgMCAwIDEtNC00Vi0uNDc4YTEgMSAwIDAgMSAxLjcyOC0uNjg2eiIgbWFzaz0idXJsKCNoKSIvPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDxnIG1hc2s9InVybCgjYikiPgogICAgICAgICAgICAgICAgPHVzZSBmaWxsPSIjMDAwIiBmaWx0ZXI9InVybCgjaSkiIHhsaW5rOmhyZWY9IiNqIi8+CiAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNqIi8+CiAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPGcgbWFzaz0idXJsKCNiKSIgb3BhY2l0eT0iLjIiPgogICAgICAgICAgICAgICAgPHVzZSBmaWxsPSIjMDAwIiBmaWx0ZXI9InVybCgjaykiIHhsaW5rOmhyZWY9IiNsIi8+CiAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiMxODlCRkYiIHhsaW5rOmhyZWY9IiNsIi8+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPGNpcmNsZSBjeD0iMjM5IiBjeT0iMTUzIiByPSIxOCIgZmlsbD0iIzE4OUJGRiIgb3BhY2l0eT0iLjEwNyIvPgogICAgICAgIDxjaXJjbGUgY3g9Ijc4LjUiIGN5PSI1NC41IiByPSIxMC41IiBmaWxsPSIjMTg5QkZGIiBvcGFjaXR5PSIuMyIvPgogICAgICAgIDxjaXJjbGUgY3g9IjU4IiBjeT0iMjkiIHI9IjI5IiBmaWxsPSIjMTg5QkZGIiBvcGFjaXR5PSIuMTA3Ii8+CiAgICAgICAgPGNpcmNsZSBjeD0iMjU3IiBjeT0iMTI2IiByPSI3IiBmaWxsPSIjMTg5QkZGIiBvcGFjaXR5PSIuMjk5Ii8+CiAgICA8L2c+Cjwvc3ZnPg==';
@@ -22768,54 +22784,42 @@ var TBody = function TBody(_ref) {
       return [React.createElement("tr", {
         key: data,
         className: "tr"
-      }, lodash.chain(Object.values(data)).reverse().map(function (row, idx) {
-        if (lodash.isUndefined(row) || lodash.isNull(row)) {
-          row = '';
-        }
+      }, lodash.chain(Object.values(data)).reverse().map(function (row, i) {
+        var _ref2 = row || '',
+            rowSpan = _ref2.rowSpan,
+            _ref2$className = _ref2.className,
+            className = _ref2$className === void 0 ? '' : _ref2$className;
 
-        var _row = row,
-            rowSpan = _row.rowSpan,
-            _row$className = _row.className,
-            className = _row$className === void 0 ? '' : _row$className;
-        idx = singlevelHeader.length - idx - 1;
+        var drawIdx = singlevelHeader.length - i - 1;
         var text = !lodash.isUndefined(rowSpan) ? row.text : row;
-        var props = {
-          key: idx,
-          className: "td ".concat(className)
-        };
-
-        if (rowSpan) {
-          props.rowSpan = rowSpan;
-        }
-
-        return React.createElement("td", props, wrapTd ? wrapTd({
+        return React.createElement("td", {
+          key: drawIdx,
+          className: "td ".concat(className),
+          rowSpan: rowSpan
+        }, wrapTd ? wrapTd({
           data: data,
-          label: singlevelHeader[idx],
+          label: singlevelHeader[drawIdx],
           text: text,
-          idx: idx
+          idx: drawIdx
         }) : React.createElement("div", null, text));
       }).reverse().value()), appendRow ? appendRow(data, idx) : null];
     });
   };
 
-  var EmptyPlaceHolderGetColSpan = function EmptyPlaceHolderGetColSpan(headers, subHeaders) {
+  var EmptyPlaceHolderGetColSpan = function EmptyPlaceHolderGetColSpan() {
     var colSpan;
 
     if (lodash.isEmpty(headers)) {
       colSpan = 1;
-    } else {
-      if (lodash.isEmpty(subHeaders)) {
-        colSpan = lodash.size(headers);
-      } else {
-        colSpan = lodash.size(headers) - lodash.size(subHeaders) + lodash.chain(subHeaders).map().flattenDeep().size().value();
-      }
+      return colSpan;
     }
 
+    colSpan = lodash.size(headers) - lodash.size(subHeaders) + lodash.chain(subHeaders).map().flattenDeep().size().value();
     return colSpan;
   };
 
   return lodash.isEmpty(rowData) ? React.createElement(EmptyTbody, null, React.createElement("tr", null, React.createElement("td", {
-    colSpan: EmptyPlaceHolderGetColSpan(headers, subHeaders)
+    colSpan: EmptyPlaceHolderGetColSpan()
   }, React.createElement(EmptyPlaceHolder, null)))) : React.createElement(ListTBody, null, createBody(rowData));
 };
 
@@ -22846,22 +22850,30 @@ function _templateObject$6() {
 var TFootTag = styled.tfoot(_templateObject$6(), color.$table_grey, color.$line_dashboard_edge_grey);
 
 var TFoot = function TFoot(_ref) {
-  var headers = _ref.headers,
-      footData = _ref.footData;
+  var footData = _ref.footData;
 
   var createFooter = function createFooter() {
-    return footData.map(function (data, idx) {
+    return lodash.map(footData, function (data, i) {
+      var trKey = "footer".concat(data.join(' ')).concat(i);
       return React.createElement("tr", {
-        key: "tr".concat(idx)
-      }, data.map(function (d, i) {
+        key: trKey
+      }, lodash.map(data, function (d, j) {
+        var tdKey = "footeritem".concat(d).concat(j);
         return React.createElement("td", {
-          key: "td".concat(i)
+          key: tdKey
         }, d);
       }));
     });
   };
 
-  return React.createElement(React.Fragment, null, isEmpty_1(footData) ? null : React.createElement(TFootTag, null, createFooter()));
+  return React.createElement(React.Fragment, null, lodash.isEmpty(footData) ? null : React.createElement(TFootTag, null, createFooter()));
+};
+
+TFoot.defaultProps = {
+  footData: undefined
+};
+TFoot.propTypes = {
+  footData: propTypes.arrayOf(propTypes.arrayOf(propTypes.string))
 };
 
 function _templateObject2$6() {
@@ -22884,32 +22896,61 @@ function _templateObject$7() {
   return data;
 }
 var sideFit = css$7(_templateObject$7());
-var Table = styled.table(_templateObject2$6(), color.$line_search_grey, function (props) {
+var TableBox = styled.table(_templateObject2$6(), color.$line_search_grey, function (props) {
   return props.className.split(' ').includes('sideFit') ? sideFit : null;
 });
-var Table$1 = (function (_ref) {
+
+var Table = function Table(_ref) {
   var data = _ref.data,
       rowSpanCount = _ref.rowSpanCount,
       wrapTh = _ref.wrapTh,
       wrapTd = _ref.wrapTd,
       appendRow = _ref.appendRow,
-      _ref$className = _ref.className,
-      className = _ref$className === void 0 ? '' : _ref$className;
+      className = _ref.className;
 
   if (isEmpty_1(data)) {
     return React.createElement("div", null, "There is no data", React.createElement("br", null), "Please search agains");
-  } else {
-    return React.createElement(Table, {
-      className: className
-    }, React.createElement(THead, _extends({}, data, {
-      wrapTh: wrapTh
-    })), React.createElement(TBody, _extends({}, data, {
-      wrapTd: wrapTd,
-      appendRow: appendRow,
-      rowSpanCount: rowSpanCount
-    })), React.createElement(TFoot, data));
   }
-});
+
+  return React.createElement(TableBox, {
+    className: className
+  }, React.createElement(THead, {
+    headers: data.headers,
+    subHeaders: data.subHeaders,
+    wrapTh: wrapTh
+  }), React.createElement(TBody, {
+    headers: data.headers,
+    subHeaders: data.subHeaders,
+    rowData: data.rowData,
+    wrapTd: wrapTd,
+    appendRow: appendRow,
+    rowSpanCount: rowSpanCount
+  }), React.createElement(TFoot, {
+    footData: data.footData
+  }));
+};
+
+Table.defaultProps = {
+  data: {},
+  rowSpanCount: undefined,
+  wrapTh: undefined,
+  wrapTd: undefined,
+  appendRow: undefined,
+  className: ''
+};
+Table.propTypes = {
+  data: propTypes.shape({
+    headers: propTypes.arrayOf(propTypes.oneOfType([propTypes.string, propTypes.shape()])),
+    subHeaders: propTypes.shape({}),
+    rowData: propTypes.arrayOf(propTypes.oneOfType([propTypes.object, propTypes.array, propTypes.string, propTypes.number])),
+    footData: propTypes.arrayOf(propTypes.arrayOf(propTypes.string))
+  }),
+  rowSpanCount: propTypes.number,
+  wrapTh: propTypes.func,
+  wrapTd: propTypes.func,
+  appendRow: propTypes.func,
+  className: propTypes.string
+};
 
 function _templateObject5$1() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-right: 1px solid ", "\n  }\n\n  color: #161616;\n  font-size: 18px;\n  font-family: \"Spoqa Han Sans\";\n  background: #ffffff;\n  font-weight: normal;\n  text-align: left;\n  padding: 24px;\n"]);
@@ -22961,7 +23002,7 @@ function _templateObject$8() {
   return data;
 }
 var TableWrap = styled.div(_templateObject$8(), color.$line_search_grey);
-var Table$2 = styled.table(_templateObject2$7());
+var Table$1 = styled.table(_templateObject2$7());
 var Tr = styled.tr(_templateObject3$4(), color.$line_search_grey);
 var Th$1 = styled.th(_templateObject4$2(), color.$line_search_grey);
 var Td$1 = styled.td(_templateObject5$1(), color.$line_search_grey);
@@ -22984,7 +23025,8 @@ var getColspan = function getColspan(_ref4) {
   if (cellTotal % cellCount === 0) return 0;
   return (cellCount - cellTotal % cellCount) * 2 + 1;
 };
-var Descriptions = (function (_ref5) {
+
+var Descriptions = function Descriptions(_ref5) {
   var data = _ref5.data,
       _ref5$cellCount = _ref5.cellCount,
       cellCount = _ref5$cellCount === void 0 ? 2 : _ref5$cellCount,
@@ -22994,12 +23036,13 @@ var Descriptions = (function (_ref5) {
   var createTable = function createTable() {
     var table = [];
     var props = {};
-    var thWidth, tdWidth;
+    var thWidth;
+    var tdWidth;
 
     for (var i = 0; i < data.length; i += cellCount) {
       var children = [];
 
-      for (var j = i; j < i + cellCount && j < data.length; j++) {
+      for (var j = i; j < i + cellCount && j < data.length; j += 1) {
         props = {
           cellTotal: data.length,
           cellCount: cellCount,
@@ -23033,11 +23076,22 @@ var Descriptions = (function (_ref5) {
       }, children));
     }
 
-    return React.createElement(Table$2, null, React.createElement("tbody", null, table));
+    return React.createElement(Table$1, null, React.createElement("tbody", null, table));
   };
 
   return React.createElement(TableWrap, null, createTable());
-});
+};
+
+Descriptions.defaultProps = {
+  data: [],
+  cellCount: 2,
+  colWidths: []
+};
+Descriptions.propTypes = {
+  data: propTypes.arrayOf(propTypes.shape({})),
+  cellCount: propTypes.number,
+  colWidths: propTypes.arrayOf(propTypes.number)
+};
 
 function _templateObject$9() {
   var data = _taggedTemplateLiteral(["\n  ", "\n"]);
@@ -23804,7 +23858,7 @@ function (_Component) {
       }); // 2. Render xAxis
 
       gXAxis.call(xAxis);
-      gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5 V0.5');
+      gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5 V0.5');
       gXAxis.selectAll('.tick line').remove();
     });
 
@@ -23987,7 +24041,7 @@ function (_Component) {
       }); // 2. Render Timeline XAxis
 
       gTimelineXAxis.call(xAxis);
-      gTimelineXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5V0.5');
+      gTimelineXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5V0.5');
       gTimelineXAxis.selectAll('.tick').remove();
     });
 
@@ -24113,7 +24167,7 @@ function (_Component) {
         xOffset: 0,
         yOffset: overViewAxisHeight
       }).call(axisBottom(xAxisScale).tickPadding(17));
-      overViewXAxis.selectAll('.domain').attr('stroke', '#003964').attr('d', 'M0.5 0V0.5H962.5V0.5');
+      overViewXAxis.selectAll('.domain').attr('stroke', '#003964').attr('d', 'M0.5 0V0.5H942.5V0.5');
       overViewXAxis.selectAll('.tick line').remove(); // 4. Render OverView Cover Line
 
       _this.getRootElement().select('.timeline').append('line').attr('x1', yAxisWidth).attr('x2', width - defaultPadding.right).attr('y1', height - overViewAxisHeight - defaultPadding.bottom + 10).attr('y2', height - overViewAxisHeight - defaultPadding.bottom + 10).attr('stroke', '#003964');
@@ -24161,7 +24215,7 @@ function (_Component) {
 
         _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).call(xAxis);
 
-        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5V0.5');
+        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5V0.5');
 
         _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Line Chart Grid
 
@@ -24231,7 +24285,7 @@ function (_Component) {
 
         _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).call(xAxis);
 
-        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5 V0.5');
+        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5 V0.5');
 
         _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Initialize Line Chart Grid
 
@@ -24281,6 +24335,25 @@ function (_Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "getScaleTime", function () {
+      var _this$props = _this.props,
+          timeData = _this$props.timeData,
+          scale = _this$props.scale;
+
+      if (lodash.isEmpty(scale)) {
+        return getStartAndEndTime(lodash.flatten(lodash.map(timeData, function (d) {
+          return d.dataPoints;
+        })));
+      }
+
+      var start = scale.start,
+          end = scale.end;
+      return {
+        startTime: Date.parse(start),
+        endTime: Date.parse(end)
+      };
+    });
+
     _defineProperty(_assertThisInitialized(_this), "renderLineMergeTimeline", function (timeData, lineData) {
       var timelineData = timeData;
       var lineChartData = lineDataFormatConvert(lineData);
@@ -24289,13 +24362,16 @@ function (_Component) {
           height = _this$options13.height,
           overViewAxisHeight = _this$options13.overViewAxisHeight,
           yAxisWidth = _this$options13.yAxisWidth,
-          startTime = _this$options13.startTime,
-          endTime = _this$options13.endTime,
           lineYAxisHeight = _this$options13.lineYAxisHeight,
           defaultPadding = _this$options13.defaultPadding,
           labelStartYPosition = _this$options13.labelStartYPosition,
           labelLastYPosition = _this$options13.labelLastYPosition;
-      var resetBtnId = _this.props.resetBtnId; // Create tooltip
+      var resetBtnId = _this.props.resetBtnId;
+
+      var _this$getScaleTime = _this.getScaleTime(),
+          startTime = _this$getScaleTime.startTime,
+          endTime = _this$getScaleTime.endTime; // Create tooltip
+
 
       _this.getRootElement().append('div').attr('class', styles$3.tooltip).style('opacity', 0);
 
@@ -24356,33 +24432,47 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
-      var _this$props = _this.props,
-          timeData = _this$props.timeData,
-          lineData = _this$props.lineData;
-      return !_this.checkDataValidation() && _this.renderLineMergeTimeline(timeData, lineData);
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "checkDataValidation", function () {
       var _this$props2 = _this.props,
           timeData = _this$props2.timeData,
           lineData = _this$props2.lineData;
+
+      if (!_this.checkDataValidation()) {
+        _this.renderLineMergeTimeline(timeData, lineData);
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (preProps) {
+      var _this$props3 = _this.props,
+          timeData = _this$props3.timeData,
+          lineData = _this$props3.lineData;
+
+      if (!lodash.isEqual(preProps.timeData, timeData) || !lodash.isEqual(preProps.lineData, lineData)) {
+        _this.removeLineMergedTimeline();
+
+        if (!_this.checkDataValidation()) {
+          _this.renderLineMergeTimeline(timeData, lineData);
+        }
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "checkDataValidation", function () {
+      var _this$props4 = _this.props,
+          timeData = _this$props4.timeData,
+          lineData = _this$props4.lineData;
       if (lodash.isEmpty(timeData) || lodash.isEmpty(lineData)) return 'haveData';
       if (!Array.isArray(timeData) || Array.isArray(lineData)) return 'typeOfVariable';
       return null;
     });
 
-    var _this$props3 = _this.props,
-        _timeData = _this$props3.timeData,
-        chartWidth = _this$props3.chartWidth,
-        chartHeight = _this$props3.chartHeight,
-        scale = _this$props3.scale;
+    _defineProperty(_assertThisInitialized(_this), "removeLineMergedTimeline", function () {
+      _this.getRootElement().select('div').remove();
 
-    var _ref = !_this.checkDataValidation(_timeData) && getStartAndEndTime(lodash.flatten(lodash.map(_timeData, function (d) {
-      return d.dataPoints;
-    }))),
-        _startTime = _ref.startTime,
-        _endTime = _ref.endTime;
+      _this.getRootElement().select('svg').remove();
+    });
 
+    var _this$props5 = _this.props,
+        chartWidth = _this$props5.chartWidth,
+        chartHeight = _this$props5.chartHeight;
     _this.options = {
       width: chartWidth || 1200,
       // 차트가 그려지는 전체 영역 넓이
@@ -24397,7 +24487,7 @@ function (_Component) {
       defaultPadding: {
         top: 42,
         // x축에서 처음 그리드 라인까지의 거리
-        right: 30,
+        right: 50,
         // x축 오른쪽 끝과 차트 오른쪽 끝 사이의 거리
         left: 23,
         // 축에서 라벨까지의 거리
@@ -24407,8 +24497,6 @@ function (_Component) {
       defaultMargin: {
         top: 40
       },
-      startTime: lodash.isEmpty(scale) ? _startTime : Date.parse(scale.start),
-      endTime: lodash.isEmpty(scale) ? _endTime : Date.parse(scale.end),
       lineYAxisHeight: 206,
       labelStartYPosition: 0,
       labelLastYPosition: 369
@@ -24451,8 +24539,11 @@ LineMergeTimeline.defaultProps = {
 };
 LineMergeTimeline.propTypes = {
   timeData: propTypes.arrayOf(propTypes.shape({
-    dataPoints: propTypes.array,
-    label: propTypes.array,
+    dataPoints: propTypes.arrayOf(propTypes.shape({
+      startTime: propTypes.string,
+      endTime: propTypes.string
+    })),
+    label: propTypes.arrayOf(propTypes.string),
     order: propTypes.number
   })),
   scale: propTypes.shape({
@@ -24490,7 +24581,7 @@ var Navbar = function Navbar(_ref) {
 };
 
 function _templateObject2$a() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  border-top: 1px solid ", "\n  height: ", "\n\n  display: flex\n  align-items: center\n\n  span {\n    padding-left: 30px\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  border-top: 1px solid ", "\n  height: ", "\n\n  display: flex\n  align-items: center\n\n  p {\n    padding-left: 32px\n  }\n"]);
 
   _templateObject2$a = function _templateObject2() {
     return data;
@@ -24500,7 +24591,7 @@ function _templateObject2$a() {
 }
 
 function _templateObject$d() {
-  var data = _taggedTemplateLiteral(["\n  position: absolute\n  bottom: 0\n  height: ", "\n  padding: 0 30px\n  width: 100%\n  box-sizing: border-box\n"]);
+  var data = _taggedTemplateLiteral(["\n  position: absolute\n  bottom: 0\n  height: ", "\n  padding: 0\n  width: 100%\n  box-sizing: border-box\n"]);
 
   _templateObject$d = function _templateObject() {
     return data;
@@ -24517,8 +24608,11 @@ var Footer = function Footer(props) {
     style: style
   }, React.createElement(FooterBox, {
     size: "12",
-    opacity: "6"
-  }, React.createElement("span", null, "\xA9 2019 linewalks. All rights reserved.")));
+    opacity: "6",
+    style: {
+      color: '#6d7884'
+    }
+  }, React.createElement("p", null, "\xA9 2020 linewalks. All rights reserved.")));
 };
 
 var Image = function Image(_ref) {
@@ -24546,8 +24640,18 @@ Image.propTypes = {
   }).isRequired
 };
 
-function _templateObject4$4() {
+function _templateObject5$3() {
   var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject5$3 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4$4() {
+  var data = _taggedTemplateLiteral(["\n  height: 0;\n  padding: 0 !important;\n  overflow: hidden;\n  opacity: 0;\n  pointer-events: none;\n"]);
 
   _templateObject4$4 = function _templateObject4() {
     return data;
@@ -24557,7 +24661,7 @@ function _templateObject4$4() {
 }
 
 function _templateObject3$6() {
-  var data = _taggedTemplateLiteral(["\n  height: 0;\n  padding: 0 !important;\n  overflow: hidden;\n  opacity: 0;\n  pointer-events: none;\n"]);
+  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  height: ", "px;\n  background-color: ", ";\n  bottom: -1px;\n  width: 100%;\n  left: 0;\n\n  display: ", ";\n}\n"]);
 
   _templateObject3$6 = function _templateObject3() {
     return data;
@@ -24567,7 +24671,7 @@ function _templateObject3$6() {
 }
 
 function _templateObject2$b() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 10px;\n  &:not(:last-child) {\n    margin-right: 20px;\n  }\n\n  cursor: pointer;\n\n  display: inline-block;\n  border-bottom: 2px solid ", ";\n\n  text-align: center;\n\n  &:hover {\n    color: ", ";\n    transition: color 0.5s ease;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 14px 10px ", "px;\n  &:not(:last-child) {\n    margin-right: 20px;\n  }\n\n  cursor: pointer;\n  display: inline-block;\n  text-align: center;\n\n  &:hover {\n    color: ", ";\n    transition: color 0.5s ease;\n  }\n\n  position: relative;\n"]);
 
   _templateObject2$b = function _templateObject2() {
     return data;
@@ -24577,7 +24681,7 @@ function _templateObject2$b() {
 }
 
 function _templateObject$e() {
-  var data = _taggedTemplateLiteral(["\n  border-bottom: 1px solid ", ";\n  margin-bottom: 24px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  border-bottom: 1px solid #dce0e4;\n  margin-bottom: 24px;\n"]);
 
   _templateObject$e = function _templateObject() {
     return data;
@@ -24585,23 +24689,24 @@ function _templateObject$e() {
 
   return data;
 }
-var TabBox = styled.section(_templateObject$e(), color.$line_dashboard_edge_grey);
+var TabBox = styled.section(_templateObject$e());
+var UnderLineSize = 3;
 var Tab = styled.span.attrs(function (props) {
   var options = props['aria-selected'] ? {
-    color: color.$solid_default
+    color: colorV1.$pmblue
   } : {
-    color: color.$black,
-    opacity: 4
+    color: colorV1.$grey08
   };
   return _objectSpread2({
     size: 16,
     bold: true
   }, options);
-})(_templateObject2$b(), Text, function (props) {
-  return props['aria-selected'] ? color.$solid_default : 'transparent';
-}, color.$azure);
-var Hidden = css$7(_templateObject3$6());
-var TabPane = styled.div.attrs()(_templateObject4$4(), function (props) {
+})(_templateObject2$b(), Text, 14 + UnderLineSize, colorV1.$pmblue);
+var TabUnderLine = styled.div.attrs(function () {})(_templateObject3$6(), UnderLineSize, colorV1.$pmblue, function (props) {
+  return props['aria-selected'] ? 'block' : 'none';
+});
+var Hidden = css$7(_templateObject4$4());
+var TabPane = styled.div.attrs()(_templateObject5$3(), function (props) {
   return props['aria-hidden'] ? Hidden : '';
 });
 
@@ -24661,7 +24766,9 @@ function (_React$Component) {
           onClick: function onClick() {
             return _this2.changeTab(key);
           }
-        }, child.props.tab), {
+        }, child.props.tab, React.createElement(TabUnderLine, {
+          "aria-selected": activeKey === key
+        })), {
           key: key
         }));
         contents.push(React.cloneElement(child, {
@@ -24694,6 +24801,7 @@ Tabs.propTypes = {
 };
 Tabs.Tab = Tab;
 Tabs.TabPane = TabPane;
+Tabs.TabUnderLine = TabUnderLine;
 
 var css$5 = "/* tooltip  */\n.Histogram-module_tooltipTitle__2olSH {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  opacity: 0.6;\n}\n\n.Histogram-module_tooltipValue__gir_k {\n  height: 20px;\n  line-height: 1.5;\n  font-size: 12px;\n  font-weight: bold;\n  opacity: 0.9;\n}";
 var styles$4 = {"tooltipTitle":"Histogram-module_tooltipTitle__2olSH","tooltipValue":"Histogram-module_tooltipValue__gir_k"};
@@ -25011,7 +25119,7 @@ Histogram.propTypes = {
   chartHeight: propTypes.number
 };
 
-var icn_popup_close_md = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzQiIGhlaWdodD0iMzQiIHZpZXdCb3g9IjAgMCAzNCAzNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgzNHYzNEgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzU2NUI1RiIgZD0iTTE3LjE0MiA0LjE0MmExIDEgMCAwIDEgMSAxdjExaDExYTEgMSAwIDEgMSAwIDJoLTExdjExYTEgMSAwIDEgMS0yIDB2LTExaC0xMWExIDEgMCAxIDEgMC0yaDExdi0xMWExIDEgMCAwIDEgMS0xeiIgbWFzaz0idXJsKCNiKSIgdHJhbnNmb3JtPSJyb3RhdGUoLTQ1IDE3LjE0MiAxNy4xNDIpIi8+CiAgICA8L2c+Cjwvc3ZnPg==';
+var icnPopupCloseMd = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzQiIGhlaWdodD0iMzQiIHZpZXdCb3g9IjAgMCAzNCAzNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgzNHYzNEgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzU2NUI1RiIgZD0iTTE3LjE0MiA0LjE0MmExIDEgMCAwIDEgMSAxdjExaDExYTEgMSAwIDEgMSAwIDJoLTExdjExYTEgMSAwIDEgMS0yIDB2LTExaC0xMWExIDEgMCAxIDEgMC0yaDExdi0xMWExIDEgMCAwIDEgMS0xeiIgbWFzaz0idXJsKCNiKSIgdHJhbnNmb3JtPSJyb3RhdGUoLTQ1IDE3LjE0MiAxNy4xNDIpIi8+CiAgICA8L2c+Cjwvc3ZnPg==';
 
 function _templateObject6() {
   var data = _taggedTemplateLiteral(["\n  margin-top: ", ";\n  padding-top: ", ";\n  border-top: 1px solid ", ";\n  text-align: right;\n\n  margin-left: -", ";\n  margin-right: -", ";\n  padding-left: ", ";\n  padding-right: ", ";\n"]);
@@ -25023,10 +25131,10 @@ function _templateObject6() {
   return data;
 }
 
-function _templateObject5$3() {
+function _templateObject5$4() {
   var data = _taggedTemplateLiteral(["\n  border: 16px solid #63a3f3; /* Light grey */\n  border-top: 16px solid #d5e7fd; /* Blue */\n  border-radius: 50%;\n  width: 120px;\n  height: 120px;\n  animation: spin 2s linear infinite;\n\n  @keyframes spin {\n    0% { transform: rotate(0deg); }\n    100% { transform: rotate(360deg); }\n  }\n\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  margin-left: -60px;\n  margin-top: -60px;\n"]);
 
-  _templateObject5$3 = function _templateObject5() {
+  _templateObject5$4 = function _templateObject5() {
     return data;
   };
 
@@ -25084,45 +25192,70 @@ var size$1 = {
 var Overlay = styled.div(_templateObject$f(), hexToRGB(color.$black, 0.6), function (props) {
   return props.isLoading ? zIndex.$modalOverlayLoading : zIndex.$modalOverlay;
 });
-var Modal = styled.div(_templateObject2$c(), size$1.minWidth, size$1.borderRadius, color.$primary_white, zIndex.$modal, size$1.modalPadding);
+var ModalBox = styled.div(_templateObject2$c(), size$1.minWidth, size$1.borderRadius, color.$primary_white, zIndex.$modal, size$1.modalPadding);
 var Header = styled.header(_templateObject3$7());
 var Contents = styled(TextTag).attrs({
   size: '18',
   bold: false
 })(_templateObject4$5());
-var Loading = styled.div(_templateObject5$3());
+var Loading = styled.div(_templateObject5$4());
 var Footer$1 = styled.footer(_templateObject6(), size$1.footerMarginTop, size$1.footerPaddingTop, color.$line_graph_xy_grey, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding);
-var Modal$1 = (function () {
-  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return React.createElement(React.Fragment, null, props.isOpen && React.createElement(Overlay, {
-    isLoading: props.isLoading
-  }, props.isLoading && React.createElement(Loading, null)), props.isOpen && React.createElement(Modal, null, React.createElement(Header, null, React.createElement("div", null, React.createElement(Heading, {
+
+var Modal = function Modal(_ref) {
+  var title = _ref.title,
+      isOpen = _ref.isOpen,
+      isLoading = _ref.isLoading,
+      closeModal = _ref.closeModal,
+      description = _ref.description,
+      footer = _ref.footer,
+      children = _ref.children;
+  return React.createElement(React.Fragment, null, isOpen && React.createElement(Overlay, {
+    isLoading: isLoading
+  }, isLoading && React.createElement(Loading, null)), isOpen && React.createElement(ModalBox, null, React.createElement(Header, null, React.createElement("div", null, React.createElement(Heading, {
     size: "22",
     opacity: "8"
-  }, props.title), React.createElement("div", {
+  }, title), React.createElement("div", {
     style: {
       marginLeft: 'auto',
       marginTop: '-10px',
       marginRight: '-10px'
     }
   }, React.createElement("button", {
-    onClick: props.closeModal
+    onClick: closeModal,
+    type: "button"
   }, React.createElement("img", {
-    src: icn_popup_close_md,
+    src: icnPopupCloseMd,
     width: "34x",
     height: "34px",
     alt: ""
-  })))), props.description && React.createElement(TextTag, {
+  })))), description && React.createElement(TextTag, {
     as: "p",
     size: 14,
     opacity: 6,
     style: {
       marginTop: '6px'
     }
-  }, props.description)), React.createElement(Contents, {
+  }, description)), React.createElement(Contents, {
     as: "article"
-  }, props.children), props.footer && React.createElement(Footer$1, null, React.createElement("div", null, props.footer))));
-});
+  }, children), footer && React.createElement(Footer$1, null, React.createElement("div", null, footer))));
+};
+
+Modal.defaultProps = {
+  title: '',
+  isOpen: undefined,
+  isLoading: undefined,
+  closeModal: function closeModal() {},
+  description: '',
+  footer: null
+};
+Modal.propTypes = {
+  title: propTypes.string,
+  isOpen: propTypes.bool,
+  isLoading: propTypes.bool,
+  closeModal: propTypes.func,
+  description: propTypes.string,
+  footer: propTypes.node
+};
 
 function _templateObject3$8() {
   var data = _taggedTemplateLiteral(["\n  label {\n    display: block;\n    padding: 12px 24px;\n    display: flex;\n    align-items: center;\n    img {\n      margin-right: 12px;\n    }\n  }\n  input {\n    display: none;\n  }\n\n  ", "\n"]);
@@ -26357,9 +26490,13 @@ function (_Component) {
       var data = _this.props.data;
       if (lodash.isEmpty(data)) return 'haveData';
       if (!Array.isArray(data)) return 'typeOfVariable';
+      return null;
     });
 
     if (_typeof(highcharts) === 'object') {
+      var _this$props = _this.props,
+          data = _this$props.data,
+          title = _this$props.title;
       treemap(highcharts);
       heatmap(highcharts);
 
@@ -26378,7 +26515,7 @@ function (_Component) {
           enabled: false
         },
         series: [{
-          type: "treemap",
+          type: 'treemap',
           layoutAlgorithm: 'squarified',
           allowDrillToNode: true,
           animationLimit: 1000,
@@ -26393,10 +26530,10 @@ function (_Component) {
             },
             borderWidth: 3
           }],
-          data: _this.props.data
+          data: data
         }],
         title: {
-          text: _this.props.title
+          text: title
         }
       };
     }
@@ -26418,18 +26555,18 @@ function (_Component) {
   return TreeMap;
 }(Component);
 
-var css$6 = ".TimeToEvent-module_gLegend__3k55w text, .TimeToEvent-module_xAxis__hL73d text, .TimeToEvent-module_timeToEventLabel__1-iB2 {\n  font-size: 14px;\n  font-family: 'Spoqa Han Sans';\n  font-weight: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n}\n\n.TimeToEvent-module_gLegend__3k55w text {\n  text-anchor: start;\n  opacity: 0.4;\n}\n\n.TimeToEvent-module_xAxis__hL73d text {\n  text-anchor: middle;  \n  fill: rgba(0, 0, 0, 0.6)\n}\n\n#TimeToEvent-module_xAxisTitle__2Suka {\n  opacity: 0.4;\n}\n\n.TimeToEvent-module_timeToEventLabel__1-iB2 {\n  font-weight: bold;\n  opacity: 0.6;\n}\n";
+TreeMap.defaultProps = {
+  data: [],
+  title: ''
+};
+TreeMap.propTypes = {
+  data: propTypes.arrayOf(propTypes.shape()),
+  title: propTypes.string
+};
+
+var css$6 = ".TimeToEvent-module_gLegend__3k55w text, .TimeToEvent-module_xAxis__hL73d text, .TimeToEvent-module_timeToEventLabel__1-iB2 {\n  font-size: 14px;\n  font-family: 'Spoqa Han Sans';\n  font-weight: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n}\n\n.TimeToEvent-module_gLegend__3k55w text {\n  text-anchor: start;\n  opacity: 0.4;\n}\n\n.TimeToEvent-module_xAxis__hL73d text {\n  text-anchor: middle;\n  fill: rgba(0, 0, 0, 0.6)\n}\n\n#TimeToEvent-module_xAxisTitle__2Suka {\n  opacity: 0.4;\n}\n\n.TimeToEvent-module_timeToEventLabel__1-iB2 {\n  font-weight: bold;\n  opacity: 0.6;\n}\n";
 var styles$5 = {"gLegend":"TimeToEvent-module_gLegend__3k55w","xAxis":"TimeToEvent-module_xAxis__hL73d","timeToEventLabel":"TimeToEvent-module_timeToEventLabel__1-iB2","xAxisTitle":"TimeToEvent-module_xAxisTitle__2Suka"};
 styleInject(css$6);
-
-typeof Array.prototype.flat === 'undefined' && Object.defineProperty(Array.prototype, 'flat', {
-  value: function value() {
-    var depth = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-    return this.reduce(function (flat, toFlatten) {
-      return flat.concat(Array.isArray(toFlatten) && depth > 1 ? toFlatten.flat(depth - 1) : toFlatten);
-    }, []);
-  }
-});
 
 var TimeToEvent =
 /*#__PURE__*/
@@ -26509,17 +26646,19 @@ function (_Component) {
         xOffset: defaultMargin.left,
         yOffset: defaultMargin.top + defaultPadding.top
       });
-      data.forEach(function (el, idx) {
-        gTimeToEventData.append('g').attr('class', "rects-".concat(idx)).selectAll('rect').data(rectDataFilter(el.dataPoints)).enter().append('rect').attr('x', function (d, i) {
+
+      lodash.each(data, function (el, idx) {
+        gTimeToEventData.append('g').attr('class', "rects-".concat(idx)).selectAll('rect').data(rectDataFilter(el.dataPoints)).enter().append('rect').attr('x', function (d) {
           return _this.xAxisScale(Date.parse(d.startTime));
         }).attr('y', _this.yAxisScale(el.label[el.label.length - 1]) - 1).attr('height', 3).attr('width', function (d) {
           return _this.xAxisScale(Date.parse(d.endTime)) - _this.xAxisScale(Date.parse(d.startTime));
         }).attr('fill', color.$primary_navy);
       });
-      data.forEach(function (el, idx) {
-        gTimeToEventData.append('g').attr('class', function (d) {
+
+      lodash.each(data, function (el, idx) {
+        gTimeToEventData.append('g').attr('class', function () {
           return "circles-".concat(idx);
-        }).selectAll('circle').data(circleDataFilter(el.dataPoints)).enter().append('circle').attr('cx', function (d, i) {
+        }).selectAll('circle').data(circleDataFilter(el.dataPoints)).enter().append('circle').attr('cx', function (d) {
           return _this.xAxisScale(Date.parse(d.startTime));
         }).attr('cy', _this.yAxisScale(el.label[el.label.length - 1])).attr('r', radius).attr('fill', function (d, i) {
           return circleColorScale[i];
@@ -26528,9 +26667,9 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "createLegend", function () {
-      var $primary_navy = color.$primary_navy,
-          $legend_timeline_red_01 = color.$legend_timeline_red_01;
-      var legendColorSet = [$primary_navy, $legend_timeline_red_01];
+      var $primaryNavy = color.$primary_navy,
+          $legendTimelineRed01 = color.$legend_timeline_red_01;
+      var legendColorSet = [$primaryNavy, $legendTimelineRed01];
       var gLegend = generateGroup(_this.getRootElement().select('.timeToEvent'), {
         className: "".concat(styles$5.gLegend)
       });
@@ -26559,7 +26698,7 @@ function (_Component) {
           height = _this$options5.height,
           startTime = _this$options5.startTime;
       var svg = renderSVG(select(_this.rootElement.current), width, height);
-      var gTimeToEvent = generateGroup(svg, {
+      generateGroup(svg, {
         className: 'timeToEvent'
       });
       var xAxis = axisBottom(_this.xAxisScale).tickPadding(14).tickSize(0).tickArguments([timeYear.every(1)]).tickFormat(function (d) {
@@ -26579,25 +26718,34 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
       var data = _this.props.data;
-      !_this.checkDataValidation() && _this.renderTimeToEvent(data);
+
+      if (!_this.checkDataValidation()) {
+        _this.renderTimeToEvent(data);
+      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "checkDataValidation", function () {
       var data = _this.props.data;
       if (lodash.isEmpty(data)) return 'haveData';
       if (!Array.isArray(data)) return 'typeOfVariable';
+      return null;
     });
 
-    var _ref = !_this.checkDataValidation() && getStartAndEndTime(_this.props.data.map(function (d) {
+    var _this$props = _this.props,
+        _data = _this$props.data,
+        chartWidth = _this$props.chartWidth,
+        chartHeight = _this$props.chartHeight;
+
+    var _ref = !_this.checkDataValidation() && getStartAndEndTime(lodash.flatten(lodash.map(_data, function (d) {
       return d.dataPoints;
-    }).flat()),
+    }))),
         _startTime = _ref.startTime,
         endTime = _ref.endTime;
 
     _this.options = {
-      width: _this.props.chartWidth || 776,
+      width: chartWidth || 776,
       // 차트가 그려지는 전체 영역 넓이
-      height: _this.props.chartHeight || 290,
+      height: chartHeight || 290,
       // 차트가 그려지는 전체 영영 높이
       defaultMargin: {
         top: 58,
@@ -26621,7 +26769,7 @@ function (_Component) {
     _this.yAxisHeight = _this.options.height - _this.options.defaultMargin.top - _this.options.defaultMargin.bottom;
     _this.rootElement = React.createRef();
     _this.xAxisScale = scaleTime().domain([_startTime, endTime]).range([0, _this.xAxisWidth]).nice();
-    _this.yAxisScale = scalePoint().domain(!_this.checkDataValidation() && labelList(_this.props.data)).range([_this.options.labelStartYPosition, _this.options.labelLastYPosition]);
+    _this.yAxisScale = scalePoint().domain(!_this.checkDataValidation() && labelList(_data)).range([_this.options.labelStartYPosition, _this.options.labelLastYPosition]);
     return _this;
   }
 
@@ -26647,6 +26795,26 @@ function (_Component) {
   return TimeToEvent;
 }(Component);
 
+TimeToEvent.defaultProps = {
+  data: [],
+  chartWidth: 776,
+  // 차트가 그려지는 전체 영역 넓이
+  chartHeight: 290 // 차트가 그려지는 전체 영영 높이
+
+};
+TimeToEvent.propTypes = {
+  data: propTypes.arrayOf(propTypes.shape({
+    dataPoints: propTypes.arrayOf(propTypes.shape({
+      startTime: propTypes.string,
+      endTime: propTypes.string
+    })),
+    label: propTypes.arrayOf(propTypes.string),
+    order: propTypes.number
+  })),
+  chartWidth: propTypes.number,
+  chartHeight: propTypes.number
+};
+
 function _templateObject7() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  ", "\n"]);
 
@@ -26667,10 +26835,10 @@ function _templateObject6$1() {
   return data;
 }
 
-function _templateObject5$4() {
+function _templateObject5$5() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.2s\n"]);
 
-  _templateObject5$4 = function _templateObject5() {
+  _templateObject5$5 = function _templateObject5() {
     return data;
   };
 
@@ -26820,7 +26988,7 @@ var setBtnColor = function setBtnColor(props) {
 var fade = keyframes(_templateObject2$e());
 var LoadingBase = css$7(_templateObject3$9(), fade);
 var LoadingOne = styled.span(_templateObject4$6(), LoadingBase);
-var LoadingTwo = styled.span(_templateObject5$4(), LoadingBase);
+var LoadingTwo = styled.span(_templateObject5$5(), LoadingBase);
 var LoadingThree = styled.span(_templateObject6$1(), LoadingBase);
 var ButtonTag = styled(TextTag).attrs(function () {
   var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -26992,6 +27160,101 @@ ButtonTextLink.propTypes = {
   id: propTypes.string
 };
 
+function _templateObject3$a() {
+  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n\n  vertical-align: middle;\n  > div {\n    display: flex;\n    align-items: center;\n  }\n\n  ", " {\n    &:first-child {\n      margin-right: 8px;\n    }\n    &:last-child {\n      margin-left: 8px;\n    }\n  }\n"]);
+
+  _templateObject3$a = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$f() {
+  var data = _taggedTemplateLiteral([""]);
+
+  _templateObject2$f = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$k() {
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  &:hover {\n    text-decoration: underline;\n  }\n\n  ", ";\n  font-size: ", "px;\n  cursor: pointer;\n"]);
+
+  _templateObject$k = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var colorSet$2 = {
+  basic: colorV1.$grey09,
+  primary: colorV1.$pmblue
+};
+var TextLinkTag = styled(TextTag).attrs(function () {
+  return {
+    bold: true
+  };
+})(_templateObject$k(), function (props) {
+  return colorSet$2[props.variant];
+}, function (props) {
+  return props.underline ? 'text-decoration: underline' : '';
+}, function (props) {
+  return props.fontSize;
+});
+var Icon = styled.img(_templateObject2$f());
+var TextLinkIconTag = styled(TextLinkTag)(_templateObject3$a(), Icon);
+
+var TextLink = function TextLink(props) {
+  var children = props.children,
+      style = props.style,
+      size = props.size,
+      variant = props.variant,
+      underline = props.underline,
+      hasIcon = props.hasIcon;
+  var fontSize = {
+    xlg: 18,
+    md: 14,
+    lg: 16
+  }[size];
+
+  if (hasIcon) {
+    return React.createElement(TextLinkIconTag, {
+      as: "a",
+      variant: variant,
+      underline: underline,
+      fontSize: fontSize,
+      style: style
+    }, React.createElement("div", null, children));
+  }
+
+  return React.createElement(TextLinkTag, {
+    as: "a",
+    variant: variant,
+    underline: underline,
+    fontSize: fontSize,
+    style: style
+  }, children);
+};
+
+TextLink.defaultProps = {
+  styled: {},
+  size: 'md',
+  variant: 'basic',
+  underline: false,
+  hasIcon: false
+};
+TextLink.propTypes = {
+  styled: propTypes.shape({}),
+  size: propTypes.string,
+  variant: propTypes.string,
+  underline: propTypes.bool,
+  hasIcon: propTypes.bool
+};
+TextLink.Icon = Icon;
+
 var IcnMessageError = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyOCIgdmlld0JveD0iMCAwIDI4IDI4Ij4KICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYSIgeDE9IjUwJSIgeDI9IjUwJSIgeTE9IjEyLjE3OCUiIHkyPSIxMDAlIj4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0ZGM0MzQyIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNGRjkyODgiLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8Y2lyY2xlIGN4PSIxNCIgY3k9IjE0IiByPSIxNCIgZmlsbD0idXJsKCNhKSIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0xNCAxOWExIDEgMCAxIDEgMCAyIDEgMSAwIDAgMSAwLTJ6bS44ODMtMTFhMSAxIDAgMCAxIC45OTQgMS4xMWwtLjc3OCA3YTEgMSAwIDAgMS0uOTk0Ljg5aC0uMjFhMSAxIDAgMCAxLS45OTQtLjg5bC0uNzc4LTdBMSAxIDAgMCAxIDEzLjExNyA4aDEuNzY2eiIvPgogICAgPC9nPgo8L3N2Zz4=';
 
 var IcnToastErrorCloseDefault = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgxNnYxNkgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iI0ZBNkI1NyIgZD0iTTgtMmExIDEgMCAwIDEgMSAxbC0uMDAxIDcuOTk5TDE3IDdhMSAxIDAgMCAxIDAgMmwtOC4wMDEtLjAwMUw5IDE3YTEgMSAwIDAgMS0yIDBsLS4wMDEtOC4wMDFMLTEgOWExIDEgMCAxIDEgMC0ybDcuOTk5LS4wMDFMNy0xYTEgMSAwIDAgMSAxLTF6IiBtYXNrPSJ1cmwoI2IpIiB0cmFuc2Zvcm09InJvdGF0ZSgtNDUgOCA4KSIvPgogICAgPC9nPgo8L3N2Zz4=';
@@ -27010,30 +27273,30 @@ function _templateObject4$7() {
   return data;
 }
 
-function _templateObject3$a() {
+function _templateObject3$b() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n\n  p {\n    margin-left: 8px;\n    line-height: 1.34em;\n  }\n"]);
 
-  _templateObject3$a = function _templateObject3() {
+  _templateObject3$b = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$f() {
+function _templateObject2$g() {
   var data = _taggedTemplateLiteral(["\n  margin: 0 auto;\n  display: inline-block;\n"]);
 
-  _templateObject2$f = function _templateObject2() {
+  _templateObject2$g = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$k() {
+function _templateObject$l() {
   var data = _taggedTemplateLiteral(["\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.2);\n  border: 2px solid ", ";\n  background-color: ", ";\n  padding: 15px 56px 15px 24px;\n  max-width: 700px;\n  line-height: 1;\n  ", "\n  text-align: center;\n  position: relative;\n\n  &:not(:last-child) {\n    margin-bottom: 20px;\n  }\n"]);
 
-  _templateObject$k = function _templateObject() {
+  _templateObject$l = function _templateObject() {
     return data;
   };
 
@@ -27045,11 +27308,11 @@ var Box = styled.section.attrs(function () {
     size: 16,
     opacity: 8
   };
-})(_templateObject$k(), function (props) {
+})(_templateObject$l(), function (props) {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
-var InnerBox = styled.article(_templateObject2$f());
-var TextBox = styled.div(_templateObject3$a());
+var InnerBox = styled.article(_templateObject2$g());
+var TextBox = styled.div(_templateObject3$b());
 var CloseButton = styled.button(_templateObject4$7());
 
 var Toast = function Toast(_ref) {
@@ -27081,16 +27344,16 @@ Toast.propTypes = {
   variant: propTypes.string
 };
 
-function _templateObject$l() {
+function _templateObject$m() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child):not(:empty) {\n    margin-bottom: 20px;\n  }\n"]);
 
-  _templateObject$l = function _templateObject() {
+  _templateObject$m = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Box$1 = styled.article(_templateObject$l());
+var Box$1 = styled.article(_templateObject$m());
 
 var ToastList =
 /*#__PURE__*/
@@ -27222,13 +27485,13 @@ ToastCtr.add = function (data) {
   });
 };
 
-var btn_next = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgdmlld0JveD0iMCAwIDQyIDQyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJtYXRyaXgoLTEgMCAwIDEgNDIgMCkiPgogICAgICAgIDxyZWN0IHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjA2IiByeD0iNCIvPgogICAgICAgIDxwYXRoIGZpbGw9IiM4ODgiIGQ9Ik0xMy45OSAyMi4wNmwzLjg4OSAzLjg5YTEgMSAwIDEgMCAxLjQxNC0xLjQxNEwxNi43NTcgMjJIMjdhMSAxIDAgMSAwIDAtMkgxNi43NTdsMi41MzYtMi41MzZhMSAxIDAgMCAwLTEuNDE0LTEuNDE0bC0zLjUzNiAzLjUzNkwxMi45MyAyMWwxLjA2IDEuMDZ6Ii8+CiAgICA8L2c+Cjwvc3ZnPg==';
+var btnNext = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgdmlld0JveD0iMCAwIDQyIDQyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJtYXRyaXgoLTEgMCAwIDEgNDIgMCkiPgogICAgICAgIDxyZWN0IHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjA2IiByeD0iNCIvPgogICAgICAgIDxwYXRoIGZpbGw9IiM4ODgiIGQ9Ik0xMy45OSAyMi4wNmwzLjg4OSAzLjg5YTEgMSAwIDEgMCAxLjQxNC0xLjQxNEwxNi43NTcgMjJIMjdhMSAxIDAgMSAwIDAtMkgxNi43NTdsMi41MzYtMi41MzZhMSAxIDAgMCAwLTEuNDE0LTEuNDE0bC0zLjUzNiAzLjUzNkwxMi45MyAyMWwxLjA2IDEuMDZ6Ii8+CiAgICA8L2c+Cjwvc3ZnPg==';
 
-var btn_pre = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgdmlld0JveD0iMCAwIDQyIDQyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjQyIiBoZWlnaHQ9IjQyIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMDYiIHJ4PSI0Ii8+CiAgICAgICAgPHBhdGggZmlsbD0iIzg4OCIgZD0iTTEzLjk5IDIyLjA2bDMuODg5IDMuODlhMSAxIDAgMSAwIDEuNDE0LTEuNDE0TDE2Ljc1NyAyMkgyN2ExIDEgMCAxIDAgMC0ySDE2Ljc1N2wyLjUzNi0yLjUzNmExIDEgMCAwIDAtMS40MTQtMS40MTRsLTMuNTM2IDMuNTM2TDEyLjkzIDIxbDEuMDYgMS4wNnoiLz4KICAgIDwvZz4KPC9zdmc+';
+var btnPre = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgdmlld0JveD0iMCAwIDQyIDQyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjQyIiBoZWlnaHQ9IjQyIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMDYiIHJ4PSI0Ii8+CiAgICAgICAgPHBhdGggZmlsbD0iIzg4OCIgZD0iTTEzLjk5IDIyLjA2bDMuODg5IDMuODlhMSAxIDAgMSAwIDEuNDE0LTEuNDE0TDE2Ljc1NyAyMkgyN2ExIDEgMCAxIDAgMC0ySDE2Ljc1N2wyLjUzNi0yLjUzNmExIDEgMCAwIDAtMS40MTQtMS40MTRsLTMuNTM2IDMuNTM2TDEyLjkzIDIxbDEuMDYgMS4wNnoiLz4KICAgIDwvZz4KPC9zdmc+';
 
-var btn_next_sm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJtYXRyaXgoLTEgMCAwIDEgMzIgMCkiPgogICAgICAgIDxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjA2IiByeD0iNCIvPgogICAgICAgIDxwYXRoIGZpbGw9IiM4ODgiIGQ9Ik03LjkyOSAxNmw0Ljk1IDQuOTVhMSAxIDAgMSAwIDEuNDE0LTEuNDE0TDExLjc1OCAxN0gyMmExIDEgMCAxIDAgMC0ySDExLjc1OGwyLjUzNS0yLjUzNmExIDEgMCAwIDAtMS40MTQtMS40MTRMNy45MjkgMTZ6Ii8+CiAgICA8L2c+Cjwvc3ZnPg==';
+var btnNextSm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJtYXRyaXgoLTEgMCAwIDEgMzIgMCkiPgogICAgICAgIDxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjA2IiByeD0iNCIvPgogICAgICAgIDxwYXRoIGZpbGw9IiM4ODgiIGQ9Ik03LjkyOSAxNmw0Ljk1IDQuOTVhMSAxIDAgMSAwIDEuNDE0LTEuNDE0TDExLjc1OCAxN0gyMmExIDEgMCAxIDAgMC0ySDExLjc1OGwyLjUzNS0yLjUzNmExIDEgMCAwIDAtMS40MTQtMS40MTRMNy45MjkgMTZ6Ii8+CiAgICA8L2c+Cjwvc3ZnPg==';
 
-var btn_pre_sm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMDYiIHJ4PSI0Ii8+CiAgICAgICAgPHBhdGggZmlsbD0iIzg4OCIgZD0iTTcuOTI5IDE2bDQuOTUgNC45NWExIDEgMCAxIDAgMS40MTQtMS40MTRMMTEuNzU4IDE3SDIyYTEgMSAwIDEgMCAwLTJIMTEuNzU4bDIuNTM1LTIuNTM2YTEgMSAwIDAgMC0xLjQxNC0xLjQxNEw3LjkyOSAxNnoiLz4KICAgIDwvZz4KPC9zdmc+';
+var btnPreSm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMDYiIHJ4PSI0Ii8+CiAgICAgICAgPHBhdGggZmlsbD0iIzg4OCIgZD0iTTcuOTI5IDE2bDQuOTUgNC45NWExIDEgMCAxIDAgMS40MTQtMS40MTRMMTEuNzU4IDE3SDIyYTEgMSAwIDEgMCAwLTJIMTEuNzU4bDIuNTM1LTIuNTM2YTEgMSAwIDAgMC0xLjQxNC0xLjQxNEw3LjkyOSAxNnoiLz4KICAgIDwvZz4KPC9zdmc+';
 
 var Pagination =
 /*#__PURE__*/
@@ -27242,30 +27505,7 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Pagination).call(this, props));
 
-    _defineProperty(_assertThisInitialized(_this), "state", {
-      totalPage: 1,
-      list: [],
-      selectPage: null,
-      drawPageCnt: 2
-    });
-
-    var _props$selectPage = props.selectPage,
-        selectPage = _props$selectPage === void 0 ? 1 : _props$selectPage,
-        _props$totalPage = props.totalPage,
-        totalPage = _props$totalPage === void 0 ? 1 : _props$totalPage,
-        _props$drawPageCnt = props.drawPageCnt,
-        drawPageCnt = _props$drawPageCnt === void 0 ? 2 : _props$drawPageCnt,
-        size = props.size;
-    _this.state.selectPage = selectPage;
-    _this.state.totalPage = totalPage;
-    _this.state.drawPageCnt = size === 'sm' ? 1 : drawPageCnt;
-    _this.state.list = _this.getPageList();
-    return _this;
-  }
-
-  _createClass(Pagination, [{
-    key: "getStyles",
-    value: function getStyles() {
+    _defineProperty(_assertThisInitialized(_this), "getStyles", function () {
       return {
         defaultBtn: {
           borderRadius: '4px',
@@ -27283,52 +27523,95 @@ function (_Component) {
           height: '42px'
         }
       };
-    }
-  }, {
+    });
+
+    var selectPage = props.selectPage,
+        totalPage = props.totalPage,
+        drawPageCnt = props.drawPageCnt,
+        size = props.size;
+    _this.state = {
+      selectPage: selectPage,
+      totalPage: totalPage,
+      drawPageCnt: size === 'sm' ? 1 : drawPageCnt
+    };
+    _this.state.list = _this.getPageList();
+    return _this;
+  }
+
+  _createClass(Pagination, [{
     key: "onChange",
     value: function onChange(page) {
       this.setState({
         selectPage: page
       });
-
-      if (this.props.onChange) {
-        this.props.onChange(page);
-      }
+      var onChange = this.props.onChange;
+      onChange(page);
     }
   }, {
-    key: "disablePrevButton",
-    value: function disablePrevButton() {
-      return this.state.selectPage <= this.state.drawPageCnt;
-    }
-  }, {
-    key: "disableNextButton",
-    value: function disableNextButton() {
+    key: "getSmall",
+    value: function getSmall() {
       var _this$state = this.state,
-          totalPage = _this$state.totalPage,
-          drawPageCnt = _this$state.drawPageCnt;
-      if (totalPage <= drawPageCnt) return true;
-      var nextPageCnt = this.getCurrentPageCnt() + 1;
-      return nextPageCnt * drawPageCnt >= totalPage;
-    } // from 0
-
+          selectPage = _this$state.selectPage,
+          totalPage = _this$state.totalPage;
+      return React.createElement("div", {
+        style: this.isHidden() ? {
+          display: 'none'
+        } : {}
+      }, React.createElement("button", {
+        type: "button",
+        style: {
+          marginRight: '16px'
+        },
+        disabled: this.disablePrevButton(),
+        onClick: this.movePrevPage.bind(this)
+      }, React.createElement("img", {
+        type: "image",
+        src: btnPreSm,
+        width: "32px",
+        height: "32px",
+        alt: "move previous"
+      })), React.createElement("span", {
+        style: {
+          fontSize: '14px',
+          opacity: 0.8
+        }
+      }, "".concat(selectPage, " / ").concat(totalPage)), React.createElement("button", {
+        type: "button",
+        style: {
+          marginLeft: '16px'
+        },
+        disabled: this.disableNextButton(),
+        onClick: this.moveNextPage.bind(this)
+      }, React.createElement("img", {
+        type: "image",
+        src: btnNextSm,
+        width: "32px",
+        height: "32px",
+        alt: "move next"
+      })));
+    }
   }, {
     key: "getCurrentPageCnt",
+    // from 0
     value: function getCurrentPageCnt() {
-      return parseInt((this.state.selectPage - 1) / this.state.drawPageCnt);
+      var _this$state2 = this.state,
+          selectPage = _this$state2.selectPage,
+          drawPageCnt = _this$state2.drawPageCnt;
+      return parseInt((selectPage - 1) / drawPageCnt, 10);
     }
   }, {
     key: "getPageList",
     value: function getPageList() {
-      var _this$state2 = this.state,
-          drawPageCnt = _this$state2.drawPageCnt,
-          totalPage = _this$state2.totalPage;
+      var _this$state3 = this.state,
+          drawPageCnt = _this$state3.drawPageCnt,
+          totalPage = _this$state3.totalPage;
       var list = [];
       var cnt = 1;
       var startPage = this.getCurrentPageCnt() * drawPageCnt + 1;
 
-      for (; cnt <= drawPageCnt && startPage <= totalPage; startPage++) {
+      for (; cnt <= drawPageCnt && startPage <= totalPage; startPage += 1) {
         list[cnt - 1] = startPage;
-        cnt++;
+        cnt += 1;
       }
 
       return list;
@@ -27336,14 +27619,34 @@ function (_Component) {
   }, {
     key: "getPrevPage",
     value: function getPrevPage() {
-      var movePage = (this.getCurrentPageCnt() - 1) * this.state.drawPageCnt + 1;
+      var drawPageCnt = this.state.drawPageCnt;
+      var movePage = (this.getCurrentPageCnt() - 1) * drawPageCnt + 1;
       return movePage >= 1 ? movePage : null;
     }
   }, {
     key: "getNextPage",
     value: function getNextPage() {
-      var movePage = (this.getCurrentPageCnt() + 1) * this.state.drawPageCnt + 1;
+      var drawPageCnt = this.state.drawPageCnt;
+      var movePage = (this.getCurrentPageCnt() + 1) * drawPageCnt + 1;
       return movePage;
+    }
+  }, {
+    key: "disableNextButton",
+    value: function disableNextButton() {
+      var _this$state4 = this.state,
+          totalPage = _this$state4.totalPage,
+          drawPageCnt = _this$state4.drawPageCnt;
+      if (totalPage <= drawPageCnt) return true;
+      var nextPageCnt = this.getCurrentPageCnt() + 1;
+      return nextPageCnt * drawPageCnt >= totalPage;
+    }
+  }, {
+    key: "disablePrevButton",
+    value: function disablePrevButton() {
+      var _this$state5 = this.state,
+          selectPage = _this$state5.selectPage,
+          drawPageCnt = _this$state5.drawPageCnt;
+      return selectPage <= drawPageCnt;
     }
   }, {
     key: "movePrevPage",
@@ -27358,48 +27661,8 @@ function (_Component) {
   }, {
     key: "isHidden",
     value: function isHidden() {
-      return this.state.totalPage === 0;
-    }
-  }, {
-    key: "getSmall",
-    value: function getSmall() {
-      var _this$state3 = this.state,
-          selectPage = _this$state3.selectPage,
-          totalPage = _this$state3.totalPage;
-      return React.createElement("div", {
-        style: this.isHidden() ? {
-          display: 'none'
-        } : {}
-      }, React.createElement("button", {
-        style: {
-          marginRight: '16px'
-        },
-        disabled: this.disablePrevButton(),
-        onClick: this.movePrevPage.bind(this)
-      }, React.createElement("img", {
-        type: "image",
-        src: btn_pre_sm,
-        width: "32px",
-        height: "32px",
-        alt: "move previous"
-      })), React.createElement("span", {
-        style: {
-          fontSize: '14px',
-          opacity: 0.8
-        }
-      }, "".concat(selectPage, " / ").concat(totalPage)), React.createElement("button", {
-        style: {
-          marginLeft: '16px'
-        },
-        disabled: this.disableNextButton(),
-        onClick: this.moveNextPage.bind(this)
-      }, React.createElement("img", {
-        type: "image",
-        src: btn_next_sm,
-        width: "32px",
-        height: "32px",
-        alt: "move next"
-      })));
+      var totalPage = this.state.totalPage;
+      return totalPage === 0;
     }
   }, {
     key: "render",
@@ -27418,6 +27681,7 @@ function (_Component) {
           display: 'none'
         } : {}
       }, React.createElement("button", {
+        type: "button",
         style: {
           marginRight: '14px'
         },
@@ -27425,13 +27689,15 @@ function (_Component) {
         onClick: this.movePrevPage.bind(this)
       }, React.createElement("img", {
         type: "image",
-        src: btn_pre,
+        src: btnPre,
         width: "42px",
         height: "42px",
         alt: "move previous"
       })), this.getPageList().map(function (page) {
-        var style = page === _this2.state.selectPage ? styles.selectBtn : styles.defaultBtn;
+        var selectPage = _this2.state.selectPage;
+        var style = page === selectPage ? styles.selectBtn : styles.defaultBtn;
         return React.createElement("button", {
+          type: "button",
           style: style,
           key: "page".concat(page),
           onClick: function onClick() {
@@ -27439,6 +27705,7 @@ function (_Component) {
           }
         }, page);
       }), React.createElement("button", {
+        type: "button",
         style: {
           marginLeft: '14px'
         },
@@ -27446,7 +27713,7 @@ function (_Component) {
         onClick: this.moveNextPage.bind(this)
       }, React.createElement("img", {
         type: "image",
-        src: btn_next,
+        src: btnNext,
         width: "42px",
         height: "42px",
         alt: "move next"
@@ -27468,31 +27735,46 @@ function (_Component) {
   return Pagination;
 }(Component);
 
-function _templateObject2$g() {
+Pagination.defaultProps = {
+  onChange: function onChange() {},
+  size: undefined,
+  selectPage: 1,
+  totalPage: 1,
+  drawPageCnt: 1
+};
+Pagination.propTypes = {
+  onChange: propTypes.func,
+  size: propTypes.string,
+  selectPage: propTypes.number,
+  totalPage: propTypes.number,
+  drawPageCnt: propTypes.number
+};
+
+function _templateObject2$h() {
   var data = _taggedTemplateLiteral(["\n  min-width: 90px;\n  height: 34px;\n  border-radius: 17px;\n  background-color: ", ";\n  border: none;\n  outline: none;\n  cursor: pointer;\n  box-shadow: ", "\n"]);
 
-  _templateObject2$g = function _templateObject2() {
+  _templateObject2$h = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$m() {
+function _templateObject$n() {
   var data = _taggedTemplateLiteral(["\n  min-width: 184px;\n  height: 38px;\n  background-color: ", ";\n  border-radius: 21px;\n  padding: 2px;\n  display: inline-block;\n  box-sizing: border-box;\n"]);
 
-  _templateObject$m = function _templateObject() {
+  _templateObject$n = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var ButtonContainer = styled.div(_templateObject$m(), color.$btn_lightshaded_default);
+var ButtonContainer = styled.div(_templateObject$n(), color.$btn_lightshaded_default);
 var ToggleBtn = styled.button.attrs(function () {
   return {
     className: "".concat(fontStyle.fs14_black_opacity8, " ").concat(fontStyle.bold)
   };
-})(_templateObject2$g(), function (props) {
+})(_templateObject2$h(), function (props) {
   return props.selected ? color.$primary_white : color.$btn_lightshaded_default;
 }, function (props) {
   return props.selected ? '0 4px 10px 0 rgba(0, 0, 0, 0.08)' : null;
@@ -27569,14 +27851,14 @@ ToggleButton.propTypes = {
   onChange: propTypes.func
 };
 
-var icn_select_open_sm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE3LjY1NyA4LjE3MmExIDEgMCAxIDEgMS40MTQgMS40MTRsLTYuMzUyIDYuMzUxYTEuMDIgMS4wMiAwIDAgMS0uMDEyLjAxM2wtLjAxMy4wMTEtLjY5NC42OTYtMS40MTQtMS40MTQtNS42NTctNS42NTdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDEyIDEzLjgyOGw1LjY1Ny01LjY1NnoiLz4KPC9zdmc+';
+var icnSelectOpenSm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE3LjY1NyA4LjE3MmExIDEgMCAxIDEgMS40MTQgMS40MTRsLTYuMzUyIDYuMzUxYTEuMDIgMS4wMiAwIDAgMS0uMDEyLjAxM2wtLjAxMy4wMTEtLjY5NC42OTYtMS40MTQtMS40MTQtNS42NTctNS42NTdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDEyIDEzLjgyOGw1LjY1Ny01LjY1NnoiLz4KPC9zdmc+';
 
-var icn_select_open_xs = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExLjUzNiA1LjI5M2ExIDEgMCAxIDEgMS40MTQgMS40MTRsLTMuNTM2IDMuNTM2LS43MDcuNzA3LS43MDcuNzA3LTEuNDE0LTEuNDE0TDMuMDUgNi43MDdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDggOC44MjhIOGwzLjUzNi0zLjUzNXoiLz4KPC9zdmc+';
+var icnSelectOpenXs = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExLjUzNiA1LjI5M2ExIDEgMCAxIDEgMS40MTQgMS40MTRsLTMuNTM2IDMuNTM2LS43MDcuNzA3LS43MDcuNzA3LTEuNDE0LTEuNDE0TDMuMDUgNi43MDdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDggOC44MjhIOGwzLjUzNi0zLjUzNXoiLz4KPC9zdmc+';
 
-function _templateObject$n() {
+function _templateObject$o() {
   var data = _taggedTemplateLiteral(["\n  select {\n    ", "\n    &:focus {\n      box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16);\n    }\n\n    &:disabled {\n      background-color: rgba(0, 0, 0, 0.04);\n      color: rgba(0, 0, 0, 0.2);\n    }\n\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n\n    -moz-appearance: textfield;\n\n    option[value=\"\"][hidden] {\n      display: none;\n    }\n  }\n\n  option {\n    ", "\n  }\n\n  select:invalid {\n    color: rgba(0, 0, 0, 0.3);\n  }\n\n  ", "\n"]);
 
-  _templateObject$n = function _templateObject() {
+  _templateObject$o = function _templateObject() {
     return data;
   };
 
@@ -27591,7 +27873,7 @@ var SelectSize = {
     iconSize: '24px',
     marginRight: '0px',
     borderRadius: '10px',
-    backgroundImage: icn_select_open_sm,
+    backgroundImage: icnSelectOpenSm,
     backgroundPosition: 'calc(100% - 20px) center'
   },
   large: {
@@ -27602,7 +27884,7 @@ var SelectSize = {
     iconSize: '16px',
     marginRight: '8px',
     borderRadius: '21px',
-    backgroundImage: icn_select_open_xs,
+    backgroundImage: icnSelectOpenXs,
     backgroundPosition: 'calc(100% - 13px) center'
   },
   middle: {
@@ -27613,7 +27895,7 @@ var SelectSize = {
     iconSize: '16px',
     marginRight: '8px',
     borderRadius: '21px',
-    backgroundImage: icn_select_open_xs,
+    backgroundImage: icnSelectOpenXs,
     backgroundPosition: 'calc(100% - 13px) center'
   }
 };
@@ -27623,44 +27905,37 @@ var setSelectSize = function setSelectSize(props) {
 }; // size : xlg, lg, md
 
 
-var Box$2 = styled.div.attrs(function () {
-  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  props.size = props.size || 'md';
-  var SizeObject = props.size === 'xlg' ? SelectSize.xLarge : props.size === 'md' ? SelectSize.middle : SelectSize.large;
+var Box$2 = styled.div.attrs(function (_ref) {
+  var _ref$size = _ref.size,
+      size = _ref$size === void 0 ? 'md' : _ref$size,
+      disabled = _ref.disabled;
+  var SizeObject = {
+    xlg: SelectSize.xLarge,
+    md: SelectSize.middle
+  }[size] || SelectSize.large;
   return {
     size: SizeObject.fontSize,
-    opacity: props.disabled ? 2 : 8,
+    opacity: disabled ? 2 : 8,
     SizeObject: SizeObject
   };
-})(_templateObject$n(), Text, Text, setSelectSize);
+})(_templateObject$o(), Text, Text, setSelectSize);
 
-var SelectBox =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(SelectBox, _React$Component);
+var SelectBox = function SelectBox(_ref2) {
+  var style = _ref2.style,
+      children = _ref2.children,
+      size = _ref2.size;
+  return React.createElement(Box$2, {
+    style: style,
+    size: size
+  }, children);
+};
 
-  function SelectBox() {
-    _classCallCheck(this, SelectBox);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(SelectBox).apply(this, arguments));
-  }
-
-  _createClass(SelectBox, [{
-    key: "render",
-    value: function render() {
-      var _this$props = this.props,
-          style = _this$props.style,
-          children = _this$props.children,
-          size = _this$props.size;
-      return React.createElement(Box$2, {
-        style: style,
-        size: size
-      }, children);
-    }
-  }]);
-
-  return SelectBox;
-}(React.Component);
+SelectBox.defaultProps = {
+  size: 'md'
+};
+SelectBox.propTypes = {
+  size: propTypes.string
+};
 
 var timeFormatConvert = function timeFormatConvert(time) {
   var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'YYYY-MM-DD';
@@ -27739,4 +28014,4 @@ var DateUtility = /*#__PURE__*/Object.freeze({
 	getDateDiff: getDateDiff
 });
 
-export { BarChart, BarGauge, Button, ButtonLink, ButtonTextLink, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal$1 as Modal, Navbar, Pagination, RadarChart, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table$1 as Table, Tabs, TimeToEvent, Timeline, ToastCtr, ToggleButton, TooltipBox, TreeMap, chartUtility, cdmCommon as commonTag, font$1 as font, variables };
+export { BarChart, BarGauge, Button, ButtonLink, ButtonTextLink, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, RadarChart, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, Timeline, ToastCtr, ToggleButton, TooltipBox, TreeMap, chartUtility, cdmCommon as commonTag, font$1 as font, variables };

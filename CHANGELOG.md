@@ -1,3 +1,18 @@
+## [0.13.8](https://github.com/linewalks/MDwalks-UI/compare/v0.13.7...v0.13.8) (2020-03-05)
+
+
+### Bug Fixes
+
+* **LineMergedTimeline:** LineMergedTimeline data 변경에 따른 리렌더링 추가 ([2c73d55](https://github.com/linewalks/MDwalks-UI/commit/2c73d557dd47d97199a7f5ce99d9eb3f44b53aab)), closes [#415](https://github.com/linewalks/MDwalks-UI/issues/415)
+
+
+### Features
+
+* **docs:** use styleguide ([ee57258](https://github.com/linewalks/MDwalks-UI/commit/ee57258c7f605376907275b5de5b7eb75d4eeedc)), closes [#414](https://github.com/linewalks/MDwalks-UI/issues/414)
+* **styleguide:** update components ([cbeb765](https://github.com/linewalks/MDwalks-UI/commit/cbeb765966e1a66c5034747a0c6ed296609bc711)), closes [#408](https://github.com/linewalks/MDwalks-UI/issues/408)
+* **TextLink:** create ([b8ddf00](https://github.com/linewalks/MDwalks-UI/commit/b8ddf00ba35d36e1f824357f09a3169f906b64b7)), closes [#426](https://github.com/linewalks/MDwalks-UI/issues/426)
+
+
 ## [0.13.7](https://github.com/linewalks/MDwalks-UI/compare/v0.13.6...v0.13.7) (2020-02-27)
 
 
