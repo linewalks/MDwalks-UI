@@ -3,9 +3,7 @@ import styled, { css, keyframes } from 'styled-components'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
-
-import { hexToRGB } from '@Components/button/utility'
+import { color, colorV1 } from '@src/assets/styles/variables'
 
 export const BtnDefaultCss = css`
   border:0 none;
@@ -81,61 +79,81 @@ export const setBtnSize = (props) => `
 
 const BtnColor = {
   primary: {
-    backgroundColor: color.$solid_default,
+    backgroundColor: colorV1.$pmblue,
     color: color.$primary_white,
     hover: {
-      boxShadow: `0 4px 10px 0 rgba(0,0,0,0.08)`,
-      backgroundColor: color.$solid_hover,
+      backgroundColor: '#008af3',
       color: color.$primary_white,
     },
     disabled: {
-      backgroundColor: hexToRGB(color.$btn_lightshaded_default, 0.48),
-      color: hexToRGB(color.$black, 0.2),
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$grey06,
     },
   },
   primary_line: {
     backgroundColor: color.$primary_white,
-    color: color.$solid_default,
-    border: `1px solid ${color.$solid_default}`,
+    color: colorV1.$pmblue,
+    border: `1px solid ${colorV1.$pmblue}`,
     hover: {
-      boxShadow: `0 4px 10px 0 rgba(0,0,0,0.08)`,
+      boxShadow: '0 4px 10px 0 rgba(0,0,0,0.08)',
       backgroundColor: color.$primary_white,
-      color: color.$solid_hover,
-      border: `1px solid ${color.$solid_default}`,
+      color: colorV1.$pmblue,
+      border: `1px solid ${colorV1.$pmblue}`,
     },
     disabled: {
-      backgroundColor: hexToRGB(color.$btn_lightshaded_default, 0.48),
-      color: hexToRGB(color.$black, 0.2),
-      border: `1px solid ${hexToRGB(color.$line_btn_grey, 0.48)}`,
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$grey06,
     },
   },
   basic: {
-    backgroundColor: hexToRGB(color.$black, 0.1),
-    color: hexToRGB(color.$black, 0.6),
+    backgroundColor: colorV1.$grey04,
+    color: colorV1.$grey09,
     hover: {
-      boxShadow: `0 4px 10px 0 rgba(0,0,0,0.08)`,
-      backgroundColor: hexToRGB(color.$black, 0.18),
-      color: hexToRGB(color.$black, 0.6),
+      backgroundColor: colorV1.$grey05,
+      color: colorV1.$grey09,
     },
     disabled: {
-      backgroundColor: hexToRGB(color.$btn_lightshaded_default, 0.48),
-      color: hexToRGB(color.$black, 0.2),
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$grey06,
     },
   },
   basic_line: {
     backgroundColor: color.$primary_white,
-    color: hexToRGB(color.$black, 0.6),
-    border: `1px solid ${hexToRGB(color.$black, 0.1)}`,
+    color: colorV1.$grey09,
+    border: `1px solid ${colorV1.$grey05}`,
     hover: {
-      boxShadow: `0 4px 10px 0 rgba(0,0,0,0.08)`,
+      boxShadow: `0 1px 8px 0 rgba(117, 127, 139, 0.36)`,
       backgroundColor: color.$primary_white,
-      color: hexToRGB(color.$black, 0.6),
-      border: `1px solid ${hexToRGB(color.$black, 0.1)}`,
+      color: colorV1.$grey09,
+      border: `1px solid ${colorV1.$grey05}`,
     },
     disabled: {
-      backgroundColor: hexToRGB(color.$btn_lightshaded_default, 0.48),
-      color: hexToRGB(color.$black, 0.2),
-      border: `1px solid ${hexToRGB(color.$line_btn_grey, 0.48)}`,
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$grey06,
+    },
+  },
+  primary_light: {
+    backgroundColor: color.$primary_white,
+    color: colorV1.$pmblue,
+    hover: {
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$pmblue,
+    },
+    disabled: {
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$grey06,
+    },
+  },
+  basic_light: {
+    backgroundColor: color.$primary_white,
+    color: colorV1.$grey09,
+    hover: {
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$grey09,
+    },
+    disabled: {
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$grey06,
     },
   },
 }

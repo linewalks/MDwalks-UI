@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types'
+
 import isEmpty from 'lodash/isEmpty';
 import THead from '@Components/table/THead';
 import TBody from '@Components/table/TBody';
@@ -52,30 +54,77 @@ const sideFit = css`
     }
   }
 `
-const Table = styled.table`
+const TableBox = styled.table`
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
 
   border-bottom: 1px solid ${variables.color.$line_search_grey};
 
-  ${props => props.className.split(' ').includes('sideFit') ? sideFit : null}
+  ${(props) => (props.className.split(' ').includes('sideFit') ? sideFit : null)}
 `
 
-export default ({ data, rowSpanCount, wrapTh, wrapTd, appendRow, className = '' }) => {
-  if(isEmpty(data)) {
+const Table = ({
+  data, rowSpanCount, wrapTh, wrapTd, appendRow, className,
+}) => {
+  if (isEmpty(data)) {
     return (
       <div>
-        There is no data<br />Please search agains
+        There is no data
+        <br />
+        Please search agains
       </div>
     )
-  } else {
-    return (
-      <Table className={className}>
-        <THead {...data} wrapTh={wrapTh} />
-        <TBody {...data} wrapTd={wrapTd} appendRow={appendRow} rowSpanCount={rowSpanCount} />
-        <TFoot {...data} />
-      </Table>
-    );
   }
+
+  return (
+    <TableBox className={className}>
+      <THead headers={data.headers} subHeaders={data.subHeaders} wrapTh={wrapTh} />
+      <TBody
+        headers={data.headers}
+        subHeaders={data.subHeaders}
+        rowData={data.rowData}
+        wrapTd={wrapTd}
+        appendRow={appendRow}
+        rowSpanCount={rowSpanCount}
+      />
+      <TFoot footData={data.footData} />
+    </TableBox>
+  );
 };
+
+Table.defaultProps = {
+  data: {},
+  rowSpanCount: undefined,
+  wrapTh: undefined,
+  wrapTd: undefined,
+  appendRow: undefined,
+  className: '',
+}
+
+Table.propTypes = {
+  data: PropTypes.shape({
+    headers: PropTypes.arrayOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.shape(),
+      ]),
+    ),
+    subHeaders: PropTypes.shape({}),
+    rowData: PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string, PropTypes.number]),
+    ),
+    footData: PropTypes.arrayOf(
+      PropTypes.arrayOf(
+        PropTypes.string,
+      ),
+    ),
+  }),
+  rowSpanCount: PropTypes.number,
+  wrapTh: PropTypes.func,
+  wrapTd: PropTypes.func,
+  appendRow: PropTypes.func,
+  className: PropTypes.string,
+}
+
+export default Table

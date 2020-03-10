@@ -1,9 +1,55 @@
 Pagination example:
 
 ```js
-const PaginationExample = () => (
-  <Pagination selectPage={1} totalPage={6} drawPageCnt={5} />
-)
+import React, { useState } from 'react'
 
-PaginationExample()
+;(() => {
+  const [page, setPage] = useState(2);
+  const onChange = (p) => (setPage(p))
+  return (
+    <Pagination
+      selectPage={page}
+      totalPage={6}
+      drawPageCnt={5}
+      onChange={onChange}
+    />
+  )
+})();
+```
+
+```js
+import React, { useState } from 'react'
+
+;(() => {
+  const [page, setPage] = useState(2);
+  const onChange = (p) => (setPage(p))
+  return (
+    <Pagination
+      selectPage={page}
+      size="sm"
+      totalPage={6}
+      drawPageCnt={5}
+      onChange={onChange}
+    />
+  )
+})();
+```
+
+```js
+import React, { useState } from 'react'
+
+;(() => {
+  const [page, setPage] = useState(2);
+  const onChange = (p) => (setPage(p))
+  return (
+    <Pagination
+      simple={true}
+      selectPage={page}
+      size="sm"
+      totalPage={6}
+      drawPageCnt={5}
+      onChange={onChange}
+    />
+  )
+})();
 ```

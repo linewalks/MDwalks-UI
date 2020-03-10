@@ -14,13 +14,7 @@ class LineMergeTimeline extends Component {
 
   constructor(props) {
     super(props);
-    const {
-      timeData, chartWidth, chartHeight, scale,
-    } = this.props
-
-    const { startTime, endTime } = !this.checkDataValidation(timeData) && getStartAndEndTime(
-      _.flatten(_.map(timeData, (d) => d.dataPoints)),
-    )
+    const { chartWidth, chartHeight } = this.props
 
     this.options = {
       width: chartWidth || 1200, // 차트가 그려지는 전체 영역 넓이
@@ -30,15 +24,13 @@ class LineMergeTimeline extends Component {
       overViewAxisHeight: 50, // 차트 브러쉬 높이
       defaultPadding: {
         top: 42, // x축에서 처음 그리드 라인까지의 거리
-        right: 30, // x축 오른쪽 끝과 차트 오른쪽 끝 사이의 거리
+        right: 50, // x축 오른쪽 끝과 차트 오른쪽 끝 사이의 거리
         left: 23, // 축에서 라벨까지의 거리
         bottom: 64, // 차트 전체높이에서 브러쉬 밑부분까지의 거리
       },
       defaultMargin: {
         top: 40,
       },
-      startTime: _.isEmpty(scale) ? startTime : Date.parse(scale.start),
-      endTime: _.isEmpty(scale) ? endTime : Date.parse(scale.end),
       lineYAxisHeight: 206,
       labelStartYPosition: 0,
       labelLastYPosition: 369,
@@ -67,7 +59,7 @@ class LineMergeTimeline extends Component {
 
     // 2. Render xAxis
     gXAxis.call(xAxis)
-    gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5 V0.5')
+    gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5 V0.5')
     gXAxis.selectAll('.tick line').remove()
   }
 
@@ -359,7 +351,7 @@ class LineMergeTimeline extends Component {
 
     // 2. Render Timeline XAxis
     gTimelineXAxis.call(xAxis)
-    gTimelineXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H962.5V0.5')
+    gTimelineXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5V0.5')
     gTimelineXAxis.selectAll('.tick').remove()
   }
 
@@ -541,7 +533,7 @@ class LineMergeTimeline extends Component {
       yOffset: overViewAxisHeight,
     }).call(d3.axisBottom(xAxisScale).tickPadding(17))
 
-    overViewXAxis.selectAll('.domain').attr('stroke', '#003964').attr('d', 'M0.5 0V0.5H962.5V0.5')
+    overViewXAxis.selectAll('.domain').attr('stroke', '#003964').attr('d', 'M0.5 0V0.5H942.5V0.5')
     overViewXAxis.selectAll('.tick line').remove()
 
     // 4. Render OverView Cover Line
@@ -602,7 +594,7 @@ class LineMergeTimeline extends Component {
         .duration(500)
         .selectAll('.domain')
         .attr('stroke', '#c4c4c4')
-        .attr('d', 'M0.5 0V0.5H962.5V0.5')
+        .attr('d', 'M0.5 0V0.5H942.5V0.5')
 
       this.getRootElement().select(`.${styles.xAxis}`)
         .transition()
@@ -723,7 +715,7 @@ class LineMergeTimeline extends Component {
         .duration(500)
         .selectAll('.domain')
         .attr('stroke', '#c4c4c4')
-        .attr('d', 'M0.5 0V0.5H962.5 V0.5')
+        .attr('d', 'M0.5 0V0.5H942.5 V0.5')
 
       this.getRootElement().select(`.${styles.xAxis}`)
         .transition()
@@ -813,6 +805,19 @@ class LineMergeTimeline extends Component {
     })
   }
 
+  getScaleTime = () => {
+    const { timeData, scale } = this.props
+    if (_.isEmpty(scale)) {
+      return getStartAndEndTime(_.flatten(_.map(timeData, (d) => d.dataPoints)))
+    }
+
+    const { start, end } = scale
+    return {
+      startTime: Date.parse(start),
+      endTime: Date.parse(end),
+    }
+  }
+
 
   renderLineMergeTimeline = (timeData, lineData) => {
     const timelineData = timeData;
@@ -820,9 +825,11 @@ class LineMergeTimeline extends Component {
     const {
       width, height,
       overViewAxisHeight, yAxisWidth,
-      startTime, endTime, lineYAxisHeight, defaultPadding, labelStartYPosition, labelLastYPosition,
+      lineYAxisHeight, defaultPadding, labelStartYPosition, labelLastYPosition,
     } = this.options
     const { resetBtnId } = this.props
+    const { startTime, endTime } = this.getScaleTime()
+
     // Create tooltip
     this.getRootElement()
       .append('div')
@@ -903,7 +910,20 @@ class LineMergeTimeline extends Component {
 
   componentDidMount = () => {
     const { timeData, lineData } = this.props
-    return !this.checkDataValidation() && this.renderLineMergeTimeline(timeData, lineData)
+    if (!this.checkDataValidation()) {
+      this.renderLineMergeTimeline(timeData, lineData)
+    }
+  }
+
+  componentDidUpdate = (preProps) => {
+    const { timeData, lineData } = this.props
+    if (!_.isEqual(preProps.timeData, timeData) || !_.isEqual(preProps.lineData, lineData)) {
+      this.removeLineMergedTimeline()
+
+      if (!this.checkDataValidation()) {
+        this.renderLineMergeTimeline(timeData, lineData)
+      }
+    }
   }
 
   checkDataValidation = () => {
@@ -911,6 +931,11 @@ class LineMergeTimeline extends Component {
     if (_.isEmpty(timeData) || _.isEmpty(lineData)) return 'haveData'
     if (!Array.isArray(timeData) || Array.isArray(lineData)) return 'typeOfVariable'
     return null
+  }
+
+  removeLineMergedTimeline = () => {
+    this.getRootElement().select('div').remove()
+    this.getRootElement().select('svg').remove()
   }
 
   render() {
@@ -936,11 +961,18 @@ LineMergeTimeline.defaultProps = {
 }
 
 LineMergeTimeline.propTypes = {
-  timeData: PropTypes.arrayOf(PropTypes.shape({
-    dataPoints: PropTypes.array,
-    label: PropTypes.array,
-    order: PropTypes.number,
-  })),
+  timeData: PropTypes.arrayOf(
+    PropTypes.shape({
+      dataPoints: PropTypes.arrayOf(
+        PropTypes.shape({
+          startTime: PropTypes.string,
+          endTime: PropTypes.string,
+        }),
+      ),
+      label: PropTypes.arrayOf(PropTypes.string),
+      order: PropTypes.number,
+    }),
+  ),
   scale: PropTypes.shape({
     start: PropTypes.string,
     end: PropTypes.string,

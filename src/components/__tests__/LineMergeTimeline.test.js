@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import LineMergeTimeline from '@Charts/LineMergeTimeline';
 
 const timelineData = [
@@ -185,9 +185,84 @@ const lineData = {
   ],
 }
 
+const changedTimeData = [
+  {
+    dataPoints: [
+      {
+        startTime: '2000-03-08T15:43:00',
+        endTime: '2000-03-09T13:51:00',
+      },
+      {
+        startTime: '2000-03-09T13:52:00',
+        endTime: '2000-03-11T13:52:00',
+      },
+      {
+        startTime: '2000-03-17T09:00:00',
+        endTime: '2000-03-17T09:00:00',
+      },
+      {
+        startTime: '2000-04-11T09:30:00',
+        endTime: '2000-04-11T09:30:00',
+      },
+      {
+        startTime: '2000-05-12T10:15:00',
+        endTime: '2000-05-12T10:15:00',
+      },
+    ],
+    label: [
+      'a',
+    ],
+    order: 0,
+  },
+  {
+    dataPoints: [
+      {
+        startTime: '2000-03-09T00:00:00',
+        endTime: '2000-04-10T00:00:00',
+      },
+      {
+        startTime: '2000-05-12T00:00:00',
+        endTime: '2000-07-11T00:00:00',
+      },
+      {
+        startTime: '2000-07-14T00:00:00',
+        endTime: '2000-09-12T00:00:00',
+      },
+    ],
+    label: [
+      'b',
+    ],
+    order: 1,
+  },
+  {
+    dataPoints: [
+      {
+        startTime: '2015-06-26T00:00:00',
+        endTime: '2015-06-26T00:00:00',
+      },
+      {
+        startTime: '2002-09-06T00:00:00',
+        endTime: '2002-12-05T00:00:00',
+      },
+      {
+        startTime: '2000-05-12T00:00:00',
+        endTime: '2000-07-11T00:00:00',
+      },
+      {
+        startTime: '2001-10-12T00:00:00',
+        endTime: '2002-03-05T00:00:00',
+      },
+    ],
+    label: [
+      'c',
+    ],
+    order: 2,
+  },
+]
 
 describe('LineMergeTimeline', () => {
-  let wrapper
+  let wrapper;
+  let instance;
 
   beforeEach(() => {
     wrapper = mount(
@@ -202,10 +277,25 @@ describe('LineMergeTimeline', () => {
         scoreClickEvent={() => 'clicked'}
       />,
     );
-    wrapper.instance()
+    instance = wrapper.instance()
   })
 
   it('scoreClickEvent', () => {
     expect(wrapper.props().scoreClickEvent()).toEqual('clicked')
+  })
+
+  it('데이터를 가진 LineMergeTimeline 차트가 데이터 변경시, 변경된 데이터를 반영해야 한다.', () => {
+    const didUpdateSpy = jest.spyOn(instance, 'componentDidUpdate')
+    const removeChartSpy = jest.spyOn(instance, 'removeLineMergedTimeline')
+    const renderChartSpy = jest.spyOn(instance, 'renderLineMergeTimeline')
+
+    wrapper.setProps({
+      timeData: changedTimeData,
+    })
+
+    expect(wrapper.props('data')).not.toEqual(timelineData)
+    expect(didUpdateSpy).toHaveBeenCalled()
+    expect(removeChartSpy).toHaveBeenCalled()
+    expect(renderChartSpy).toHaveBeenCalled()
   })
 })

@@ -1,5 +1,6 @@
 ToggleLargeButton example:
 
+### 삭제 예정
 ```js
 <ToggleLargeButton
   data={[

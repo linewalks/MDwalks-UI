@@ -1,6 +1,6 @@
 {
   "name": "MDwalks-UI",
-  "version": "0.13.7",
+  "version": "0.13.9",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
@@ -10,9 +10,9 @@
     "build:docz": "rm -rf docs && yarn docz build",
     "styleguide": "styleguidist server",
     "build:docs": "styleguidist build",
-    "lint": "eslint ./src/**/*.js",
-    "lint:fix": "eslint ./src/**/*.js --fix",
-    "version": "yarn build && git add ./dist && conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+    "eslint": "eslint ./src/**/*.js ./src/**/**/*.js",
+    "eslint:fix": "eslint ./src/**/*.js ./src/**/**/*.js --fix",
+    "version": "yarn build && build:docs && git add ./dist && conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "jest": {
     "testPathIgnorePatterns": [
@@ -35,7 +35,7 @@
   "husky": {
     "hooks": {
       "**comment_pre-commit**": "lint-staged",
-      "pre-push": "yarn test"
+      "pre-push": "yarn eslint && yarn test"
     }
   },
   "**comment_lint-staged**": {
@@ -71,12 +71,10 @@
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^2.3.0",
     "gatsby-plugin-asset-path": "^1.0.2",
     "gatsby-source-filesystem": "^2.1.22",
-    "highcharts": "^7.1.2",
-    "highcharts-react-official": "^2.2.2",
     "husky": "^3.0.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "24.7.1",
@@ -97,6 +95,8 @@
     "d3": "^5.9.7",
     "d3-sankey-circular": "^0.34.0",
     "d3-simple-slider": "^1.5.4",
+    "highcharts": "^7.1.2",
+    "highcharts-react-official": "^2.2.2",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",

@@ -25,6 +25,7 @@ import TimeToEvent from '@Components/charts/TimeToEvent'
 import Button from '@Components/button/Button'
 import ButtonLink from '@Components/button/ButtonLink'
 import ButtonTextLink from '@Components/button/ButtonTextLink'
+import TextLink from '@Components/button/TextLink'
 import ToastCtr from '@Components/toast/ToastCtr'
 import Pagination from '@Components/pagination/Pagination'
 import ToggleButton from '@Components/button/ToggleButton'
@@ -65,6 +66,7 @@ export {
   Button,
   ButtonLink,
   ButtonTextLink,
+  TextLink,
   ToggleButton,
   ToastCtr,
   TooltipBox,

@@ -19,6 +19,7 @@ module.exports = {
     'src/components/toast/ToastList.js',
     'src/components/list/Item.js',
     'src/components/button/utility.js',
+    'src/components/pagination/Input.js',
     'src/components/toast/ToastCtr.js',
   ]),
   styleguideDir: 'docs',

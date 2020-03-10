@@ -85,28 +85,20 @@ const TBody = ({
       [
         <tr key={data} className="tr">
           {
-          _.chain(Object.values(data)).reverse().map((row, idx) => {
-            if (_.isUndefined(row) || _.isNull(row)) {
-              row = ''
-            }
-            const { rowSpan, className = '' } = row
-            idx = singlevelHeader.length - idx - 1
+          _.chain(Object.values(data)).reverse().map((row, i) => {
+            const { rowSpan, className = '' } = row || ''
+            const drawIdx = singlevelHeader.length - i - 1
 
             const text = !_.isUndefined(rowSpan) ? row.text : row
 
-            const props = {
-              key: idx,
-              className: `td ${className}`,
-            }
-
-            if (rowSpan) {
-              props.rowSpan = rowSpan
-            }
-
             return (
-              <td {...props}>
+              <td
+                key={drawIdx}
+                className={`td ${className}`}
+                rowSpan={rowSpan}
+              >
                 { wrapTd ? wrapTd({
-                  data, label: singlevelHeader[idx], text, idx,
+                  data, label: singlevelHeader[drawIdx], text, idx: drawIdx,
                 })
                   : <div>{text}</div> }
               </td>
@@ -120,17 +112,20 @@ const TBody = ({
     ))
   )
 
-  const EmptyPlaceHolderGetColSpan = (headers, subHeaders) => {
+  const EmptyPlaceHolderGetColSpan = () => {
     let colSpan;
     if (_.isEmpty(headers)) {
       colSpan = 1
-    } else {
-      if (_.isEmpty(subHeaders)) {
-        colSpan = _.size(headers)
-      } else {
-        colSpan = _.size(headers) - _.size(subHeaders) + _.chain(subHeaders).map().flattenDeep().size().value()
-      }
+      return colSpan
     }
+
+    colSpan = _.size(headers)
+      - _.size(subHeaders)
+      + _.chain(subHeaders)
+        .map()
+        .flattenDeep()
+        .size()
+        .value()
 
     return colSpan
   }
@@ -140,7 +135,7 @@ const TBody = ({
       ? (
         <EmptyTbody>
           <tr>
-            <td colSpan={EmptyPlaceHolderGetColSpan(headers, subHeaders)}>
+            <td colSpan={EmptyPlaceHolderGetColSpan()}>
               <EmptyPlaceHolder />
             </td>
           </tr>

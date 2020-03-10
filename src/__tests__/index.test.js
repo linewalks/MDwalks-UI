@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 const includeModule = [
   'BarChart', 'BarGauge',
-  'Button', 'ButtonLink',
+  'Button', 'ButtonLink', 'TextLink',
   'ButtonTextLink', 'CheckList',
   'DateUtility', 'Descriptions',
   'EmptyPlaceHolder', 'Footer',
@@ -24,5 +24,5 @@ const includeModule = [
 ]
 
 it('include module', () => {
-  expect(_.chain(index).keys().sort().value()).toEqual(includeModule)
+  expect(_.chain(index).keys().sort().value()).toEqual(includeModule.sort())
 })

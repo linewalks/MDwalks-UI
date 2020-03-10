@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import backgroundArrow from '@src/assets/svg/icn-12-px.svg';
 import * as font from '@src/assets/styles/font'
 import { color } from '@src/assets/styles/variables'
@@ -20,7 +21,7 @@ export const Arrow = styled.article`
   margin-right: 8px;
 
   &:last-child div {
-    background-color: ${props => props.isLastHighlighted ? '#ff4757' : '#002b4f'};
+    background-color: ${(props) => (props.isLastHighlighted ? '#ff4757' : '#002b4f')};
   }
 `
 
@@ -36,26 +37,39 @@ export const Card = styled(font.TextTag).attrs({
   size: '20',
   bold: true,
   style: {
-    color: '#ffffff'
-  }
+    color: '#ffffff',
+  },
 })``
 
-const SelectedCard = ({ selectedElement, isLastHighlighted = false }) => {
-  return (
-    <Wrap1200>
-      {selectedElement.map((element, idx) => {
+const SelectedCard = ({ selectedElement, isLastHighlighted }) => (
+  <Wrap1200>
+    {
+      selectedElement.map((element, idx) => {
         const isLast = idx === selectedElement.length - 1
         return (
-          <Arrow key={`SelectedCard${idx}`} isLastHighlighted={isLastHighlighted}
-           style={isLast ? null : {backgroundImage:`url(${backgroundArrow})`}}>
+          <Arrow
+            key={`SelectedCard${element}`}
+            isLastHighlighted={isLastHighlighted}
+            style={isLast ? null : { backgroundImage: `url(${backgroundArrow})` }}
+          >
             <CardContatiner>
               <Card>{element}</Card>
             </CardContatiner>
           </Arrow>
         )
-      })}
-    </Wrap1200>
-  )
+      })
+    }
+  </Wrap1200>
+)
+
+SelectedCard.defaultProps = {
+  selectedElement: [],
+  isLastHighlighted: false,
+}
+
+SelectedCard.propTypes = {
+  selectedElement: PropTypes.arrayOf(PropTypes.string),
+  isLastHighlighted: PropTypes.bool,
 }
 
 export default SelectedCard
