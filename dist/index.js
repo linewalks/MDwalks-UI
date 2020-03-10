@@ -22691,8 +22691,8 @@ THead.propTypes = {
 
 var visualAlert = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjkwIiBoZWlnaHQ9IjIzMCIgdmlld0JveD0iMCAwIDI5MCAyMzAiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9ImEiIGQ9Ik0yOTAgMjA1LjYxNEMyNjAuODI2IDE4NC4zMDYgMjA2LjgxMSAxNzAgMTQ1IDE3MGMtNjEuODExIDAtMTE1LjgyNiAxNC4zMDYtMTQ1IDM1LjYxNFYwaDI5MHYyMDUuNjE0eiIvPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYyIgeDE9IjM0LjcyNiUiIHgyPSIzNC43MjYlIiB5MT0iMCUiIHkyPSI4Ni44MDglIj4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzE4OUJGRiIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNCMkRFRkYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPHBhdGggaWQ9ImQiIGQ9Ik0yOSAwaDc2LjM3YTQgNCAwIDAgMSAyLjg3IDEuMjE1bDI1LjYzMSAyNi40MjJBNCA0IDAgMCAxIDEzNSAzMC40MjJWMTMxYTQgNCAwIDAgMS00IDRIMjlhNCA0IDAgMCAxLTQtNFY0YTQgNCAwIDAgMSA0LTR6Ii8+CiAgICAgICAgPGxpbmVhckdyYWRpZW50IGlkPSJmIiB4MT0iNDIuMTI5JSIgeDI9IjQyLjEyOSUiIHkxPSIwJSIgeTI9IjEwMCUiPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMTg5QkZGIi8+CiAgICAgICAgICAgIDxzdG9wIG9mZnNldD0iMTMuMzY4JSIgc3RvcC1jb2xvcj0iIzE4OUJGRiIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxODlCRkYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPHBhdGggaWQ9ImUiIGQ9Ik0zMSAwaDczLjUyM2E2IDYgMCAwIDEgNC4zMDcgMS44MjJsMjQuNDc3IDI1LjIzM0E2IDYgMCAwIDEgMTM1IDMxLjIzM1YxMjlhNiA2IDAgMCAxLTYgNkgzMWE2IDYgMCAwIDEtNi02VjZhNiA2IDAgMCAxIDYtNnoiLz4KICAgICAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSI0My40OCUiIHgyPSI0My40OCUiIHkxPSI1MCUiIHkyPSIyMDQuMzA4JSI+CiAgICAgICAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNFQUY2RkYiLz4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTg5QkZGIi8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgICA8cGF0aCBpZD0iaiIgZD0iTTE1NyAxMzZjLTE1LjQ2NCAwLTI4LTEyLjUzNi0yOC0yOHMxMi41MzYtMjggMjgtMjggMjggMTIuNTM2IDI4IDI4LTEyLjUzNiAyOC0yOCAyOHptMC0yYzE0LjM2IDAgMjYtMTEuNjQgMjYtMjZzLTExLjY0LTI2LTI2LTI2LTI2IDExLjY0LTI2IDI2IDExLjY0IDI2IDI2IDI2em0wLTI3LjQxNGw4LjQ4NS04LjQ4NSAxLjQxNCAxLjQxNC04LjQ4NSA4LjQ4NSA4LjQ4NSA4LjQ4NS0xLjQxNCAxLjQxNC04LjQ4NS04LjQ4NS04LjQ4NSA4LjQ4NS0xLjQxNC0xLjQxNCA4LjQ4NS04LjQ4NS04LjQ4NS04LjQ4NSAxLjQxNC0xLjQxNCA4LjQ4NSA4LjQ4NXoiLz4KICAgICAgICA8ZmlsdGVyIGlkPSJpIiB3aWR0aD0iMTQ0LjYlIiBoZWlnaHQ9IjE0NC42JSIgeD0iLTIyLjMlIiB5PSItMjAuNSUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+CiAgICAgICAgICAgIDxmZU9mZnNldCBkeT0iMSIgaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9InNoYWRvd09mZnNldE91dGVyMSIvPgogICAgICAgICAgICA8ZmVHYXVzc2lhbkJsdXIgaW49InNoYWRvd09mZnNldE91dGVyMSIgcmVzdWx0PSJzaGFkb3dCbHVyT3V0ZXIxIiBzdGREZXZpYXRpb249IjQiLz4KICAgICAgICAgICAgPGZlQ29sb3JNYXRyaXggaW49InNoYWRvd0JsdXJPdXRlcjEiIHZhbHVlcz0iMCAwIDAgMCAwIDAgMCAwIDAgMC41Njk2MjAyNTMgMCAwIDAgMCAxIDAgMCAwIDAuMzk5MDExMTQ1IDAiLz4KICAgICAgICA8L2ZpbHRlcj4KICAgICAgICA8ZWxsaXBzZSBpZD0ibCIgY3g9IjE0NiIgY3k9IjI0MyIgcng9IjE0NSIgcnk9IjcyIi8+CiAgICAgICAgPGZpbHRlciBpZD0iayIgd2lkdGg9IjExNS45JSIgaGVpZ2h0PSIxMzEuOSUiIHg9Ii03LjklIiB5PSItMTguOCUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+CiAgICAgICAgICAgIDxmZU9mZnNldCBkeT0iLTQiIGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJzaGFkb3dPZmZzZXRPdXRlcjEiLz4KICAgICAgICAgICAgPGZlR2F1c3NpYW5CbHVyIGluPSJzaGFkb3dPZmZzZXRPdXRlcjEiIHJlc3VsdD0ic2hhZG93Qmx1ck91dGVyMSIgc3RkRGV2aWF0aW9uPSI3Ii8+CiAgICAgICAgICAgIDxmZUNvbG9yTWF0cml4IGluPSJzaGFkb3dCbHVyT3V0ZXIxIiB2YWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAuNDcxOTA4NzcxIDAgMCAwIDAgMC44MzIxNDQ0NzUgMCAwIDAgMC43MDEyNDAxNjYgMCIvPgogICAgICAgIDwvZmlsdGVyPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDI0KSI+CiAgICAgICAgICAgIDxtYXNrIGlkPSJiIiBmaWxsPSIjZmZmIj4KICAgICAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICA8ZyBtYXNrPSJ1cmwoI2IpIiBvcGFjaXR5PSIuNiI+CiAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3NyA0MCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9InVybCgjYykiIGQ9Ik02IDI1aDczLjUyM2E2IDYgMCAwIDEgNC4zMDcgMS44MjJsMjQuNDc3IDI1LjIzM0E2IDYgMCAwIDEgMTEwIDU2LjIzM1YxNTRhNiA2IDAgMCAxLTYgNkg2YTYgNiAwIDAgMS02LTZWMzFhNiA2IDAgMCAxIDYtNnoiIG9wYWNpdHk9Ii41NTEiLz4KICAgICAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNkIi8+CiAgICAgICAgICAgICAgICAgICAgPG1hc2sgaWQ9ImgiIGZpbGw9IiNmZmYiPgogICAgICAgICAgICAgICAgICAgICAgICA8dXNlIHhsaW5rOmhyZWY9IiNlIi8+CiAgICAgICAgICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICAgICAgICAgIDx1c2UgZmlsbD0idXJsKCNmKSIgb3BhY2l0eT0iLjcyMiIgeGxpbms6aHJlZj0iI2UiLz4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSJ1cmwoI2cpIiBkPSJNMTA2LjcyOC0xLjE2NGwyOC42ODYgMzAuNDc5YTEgMSAwIDAgMS0uNzI4IDEuNjg1SDEwOWE0IDQgMCAwIDEtNC00Vi0uNDc4YTEgMSAwIDAgMSAxLjcyOC0uNjg2eiIgbWFzaz0idXJsKCNoKSIvPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDxnIG1hc2s9InVybCgjYikiPgogICAgICAgICAgICAgICAgPHVzZSBmaWxsPSIjMDAwIiBmaWx0ZXI9InVybCgjaSkiIHhsaW5rOmhyZWY9IiNqIi8+CiAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNqIi8+CiAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPGcgbWFzaz0idXJsKCNiKSIgb3BhY2l0eT0iLjIiPgogICAgICAgICAgICAgICAgPHVzZSBmaWxsPSIjMDAwIiBmaWx0ZXI9InVybCgjaykiIHhsaW5rOmhyZWY9IiNsIi8+CiAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiMxODlCRkYiIHhsaW5rOmhyZWY9IiNsIi8+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPGNpcmNsZSBjeD0iMjM5IiBjeT0iMTUzIiByPSIxOCIgZmlsbD0iIzE4OUJGRiIgb3BhY2l0eT0iLjEwNyIvPgogICAgICAgIDxjaXJjbGUgY3g9Ijc4LjUiIGN5PSI1NC41IiByPSIxMC41IiBmaWxsPSIjMTg5QkZGIiBvcGFjaXR5PSIuMyIvPgogICAgICAgIDxjaXJjbGUgY3g9IjU4IiBjeT0iMjkiIHI9IjI5IiBmaWxsPSIjMTg5QkZGIiBvcGFjaXR5PSIuMTA3Ii8+CiAgICAgICAgPGNpcmNsZSBjeD0iMjU3IiBjeT0iMTI2IiByPSI3IiBmaWxsPSIjMTg5QkZGIiBvcGFjaXR5PSIuMjk5Ii8+CiAgICA8L2c+Cjwvc3ZnPg==';
 
-var css$2 = ".font-module_summary_b_42__npbYY, .font-module_search_b_32__3-265, .font-module_header_b_22__9B2mM, .font-module_body_b_20__edw-k, .font-module_body_b_18__3DIfb, .font-module_body_b_16__2lhMQ, .font-module_body_b_14__y0YSD {\n  font-weight: bold;\n  letter-spacing: -0.5px;\n  color: #000000; }\n\n.font-module_summary_b_42__npbYY {\n  font-size: 42px; }\n\n.font-module_search_b_32__3-265 {\n  font-size: 32px; }\n\n.font-module_header_b_22__9B2mM {\n  font-size: 22px; }\n\n.font-module_body_b_20__edw-k, .font-module_body_r_20__102C5 {\n  font-size: 20px; }\n\n.font-module_body_b_18__3DIfb, .font-module_body_r_18__1Dp65 {\n  font-size: 18px; }\n\n.font-module_body_r_20__102C5, .font-module_body_r_18__1Dp65, .font-module_body_r_16__3i8HZ, .font-module_body_r_14__3nMvr, .font-module_body_r_12__1YE9s {\n  font-weight: normal;\n  letter-spacing: -0.5px;\n  color: #000000; }\n\n.font-module_body_b_16__2lhMQ, .font-module_body_r_16__3i8HZ {\n  font-size: 16px; }\n\n.font-module_body_b_14__y0YSD, .font-module_body_r_14__3nMvr {\n  font-size: 14px; }\n\n.font-module_body_r_12__1YE9s {\n  font-size: 12px; }\n\n.font-module_black_opacity_2__icR8L {\n  color: rgba(0, 0, 0, 0.2); }\n\n.font-module_black_opacity_3__3F8Hv {\n  color: rgba(0, 0, 0, 0.3); }\n\n.font-module_black_opacity_4__39p6b {\n  color: rgba(0, 0, 0, 0.4); }\n\n.font-module_black_opacity_5__2sq4k {\n  color: rgba(0, 0, 0, 0.5); }\n\n.font-module_black_opacity_6__2IZKi {\n  color: rgba(0, 0, 0, 0.6); }\n\n.font-module_black_opacity_7__3m9k3 {\n  color: rgba(0, 0, 0, 0.7); }\n\n.font-module_black_opacity_8__1gUbG {\n  color: rgba(0, 0, 0, 0.8); }\n\n.font-module_fs12__31_tz {\n  letter-spacing: -0.5px;\n  color: #000000;\n  font-size: 12px; }\n\n.font-module_fs14__2C1ub {\n  letter-spacing: -0.5px;\n  color: #000000;\n  font-size: 14px; }\n\n.font-module_fs16__iEzao {\n  letter-spacing: -0.5px;\n  color: #000000;\n  font-size: 16px; }\n\n.font-module_fs18__1oCD8 {\n  letter-spacing: -0.5px;\n  color: #000000;\n  font-size: 18px; }\n\n.font-module_fs20__3DzbI {\n  letter-spacing: -0.5px;\n  color: #000000;\n  font-size: 20px; }\n\n.font-module_fs22__1HMrv {\n  letter-spacing: -0.5px;\n  color: #000000;\n  font-size: 22px; }\n\n.font-module_fs32__23a17 {\n  letter-spacing: -0.5px;\n  color: #000000;\n  font-size: 32px; }\n\n.font-module_fs42__1Htbb {\n  letter-spacing: -0.5px;\n  color: #000000;\n  font-size: 42px; }\n\n.font-module_fs12_black_opacity2__xRZHC {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity3__2SSyI {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity4__25OxM {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity5__QGJvM {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity6__2G5yW {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity7__355qH {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity8__Z4HlX {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 12px; }\n\n.font-module_fs14_black_opacity2__3Iwt3 {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity3__3zLOK {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity4__1rsnm {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity5__3X0qA {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity6__2g_-G {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity7__xWkoF {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity8__2xl0H {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 14px; }\n\n.font-module_fs16_black_opacity2__1pVmQ {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity3__kfKjQ {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity4__MHlM8 {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity5__hib5n {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity6__1Vntl {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity7__XyTNF {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity8__33fA6 {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 16px; }\n\n.font-module_fs18_black_opacity2__1kXFl {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity3__2It1I {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity4__2V5EB {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity5__1I_PD {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity6__3Cr46 {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity7__2CjKk {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity8__3GsBZ {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 18px; }\n\n.font-module_fs20_black_opacity2__3V1SX {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity3__rvYr7 {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity4__2r4uI {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity5__25hQI {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity6__2Ku8M {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity7__WJ73P {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity8__1n5dW {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 20px; }\n\n.font-module_fs22_black_opacity2__2NwCy {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity3__3Cqry {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity4__2VtxV {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity5__29WTq {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity6__3MIO_ {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity7__1BAgl {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity8__1Iyb3 {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 22px; }\n\n.font-module_fs32_black_opacity2__2KWq6 {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity3__2hLsO {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity4__HELf5 {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity5__x53_a {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity6__v6U6_ {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity7__2JTxu {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity8__1Bzu6 {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 32px; }\n\n.font-module_fs42_black_opacity2__1rtJi {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity3__1X4_L {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity4__3e4qW {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity5__2j3GU {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity6__1HI_o {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity7__1zT_l {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity8__2wOXJ {\n  letter-spacing: -0.5px;\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 42px; }\n\n.font-module_bold__1aMQB {\n  font-weight: bold; }\n";
-var fontStyle = {"summary_b_42":"font-module_summary_b_42__npbYY","search_b_32":"font-module_search_b_32__3-265","header_b_22":"font-module_header_b_22__9B2mM","body_b_20":"font-module_body_b_20__edw-k","body_b_18":"font-module_body_b_18__3DIfb","body_b_16":"font-module_body_b_16__2lhMQ","body_b_14":"font-module_body_b_14__y0YSD","body_r_20":"font-module_body_r_20__102C5","body_r_18":"font-module_body_r_18__1Dp65","body_r_16":"font-module_body_r_16__3i8HZ","body_r_14":"font-module_body_r_14__3nMvr","body_r_12":"font-module_body_r_12__1YE9s","black_opacity_2":"font-module_black_opacity_2__icR8L","black_opacity_3":"font-module_black_opacity_3__3F8Hv","black_opacity_4":"font-module_black_opacity_4__39p6b","black_opacity_5":"font-module_black_opacity_5__2sq4k","black_opacity_6":"font-module_black_opacity_6__2IZKi","black_opacity_7":"font-module_black_opacity_7__3m9k3","black_opacity_8":"font-module_black_opacity_8__1gUbG","fs12":"font-module_fs12__31_tz","fs14":"font-module_fs14__2C1ub","fs16":"font-module_fs16__iEzao","fs18":"font-module_fs18__1oCD8","fs20":"font-module_fs20__3DzbI","fs22":"font-module_fs22__1HMrv","fs32":"font-module_fs32__23a17","fs42":"font-module_fs42__1Htbb","fs12_black_opacity2":"font-module_fs12_black_opacity2__xRZHC","fs12_black_opacity3":"font-module_fs12_black_opacity3__2SSyI","fs12_black_opacity4":"font-module_fs12_black_opacity4__25OxM","fs12_black_opacity5":"font-module_fs12_black_opacity5__QGJvM","fs12_black_opacity6":"font-module_fs12_black_opacity6__2G5yW","fs12_black_opacity7":"font-module_fs12_black_opacity7__355qH","fs12_black_opacity8":"font-module_fs12_black_opacity8__Z4HlX","fs14_black_opacity2":"font-module_fs14_black_opacity2__3Iwt3","fs14_black_opacity3":"font-module_fs14_black_opacity3__3zLOK","fs14_black_opacity4":"font-module_fs14_black_opacity4__1rsnm","fs14_black_opacity5":"font-module_fs14_black_opacity5__3X0qA","fs14_black_opacity6":"font-module_fs14_black_opacity6__2g_-G","fs14_black_opacity7":"font-module_fs14_black_opacity7__xWkoF","fs14_black_opacity8":"font-module_fs14_black_opacity8__2xl0H","fs16_black_opacity2":"font-module_fs16_black_opacity2__1pVmQ","fs16_black_opacity3":"font-module_fs16_black_opacity3__kfKjQ","fs16_black_opacity4":"font-module_fs16_black_opacity4__MHlM8","fs16_black_opacity5":"font-module_fs16_black_opacity5__hib5n","fs16_black_opacity6":"font-module_fs16_black_opacity6__1Vntl","fs16_black_opacity7":"font-module_fs16_black_opacity7__XyTNF","fs16_black_opacity8":"font-module_fs16_black_opacity8__33fA6","fs18_black_opacity2":"font-module_fs18_black_opacity2__1kXFl","fs18_black_opacity3":"font-module_fs18_black_opacity3__2It1I","fs18_black_opacity4":"font-module_fs18_black_opacity4__2V5EB","fs18_black_opacity5":"font-module_fs18_black_opacity5__1I_PD","fs18_black_opacity6":"font-module_fs18_black_opacity6__3Cr46","fs18_black_opacity7":"font-module_fs18_black_opacity7__2CjKk","fs18_black_opacity8":"font-module_fs18_black_opacity8__3GsBZ","fs20_black_opacity2":"font-module_fs20_black_opacity2__3V1SX","fs20_black_opacity3":"font-module_fs20_black_opacity3__rvYr7","fs20_black_opacity4":"font-module_fs20_black_opacity4__2r4uI","fs20_black_opacity5":"font-module_fs20_black_opacity5__25hQI","fs20_black_opacity6":"font-module_fs20_black_opacity6__2Ku8M","fs20_black_opacity7":"font-module_fs20_black_opacity7__WJ73P","fs20_black_opacity8":"font-module_fs20_black_opacity8__1n5dW","fs22_black_opacity2":"font-module_fs22_black_opacity2__2NwCy","fs22_black_opacity3":"font-module_fs22_black_opacity3__3Cqry","fs22_black_opacity4":"font-module_fs22_black_opacity4__2VtxV","fs22_black_opacity5":"font-module_fs22_black_opacity5__29WTq","fs22_black_opacity6":"font-module_fs22_black_opacity6__3MIO_","fs22_black_opacity7":"font-module_fs22_black_opacity7__1BAgl","fs22_black_opacity8":"font-module_fs22_black_opacity8__1Iyb3","fs32_black_opacity2":"font-module_fs32_black_opacity2__2KWq6","fs32_black_opacity3":"font-module_fs32_black_opacity3__2hLsO","fs32_black_opacity4":"font-module_fs32_black_opacity4__HELf5","fs32_black_opacity5":"font-module_fs32_black_opacity5__x53_a","fs32_black_opacity6":"font-module_fs32_black_opacity6__v6U6_","fs32_black_opacity7":"font-module_fs32_black_opacity7__2JTxu","fs32_black_opacity8":"font-module_fs32_black_opacity8__1Bzu6","fs42_black_opacity2":"font-module_fs42_black_opacity2__1rtJi","fs42_black_opacity3":"font-module_fs42_black_opacity3__1X4_L","fs42_black_opacity4":"font-module_fs42_black_opacity4__3e4qW","fs42_black_opacity5":"font-module_fs42_black_opacity5__2j3GU","fs42_black_opacity6":"font-module_fs42_black_opacity6__1HI_o","fs42_black_opacity7":"font-module_fs42_black_opacity7__1zT_l","fs42_black_opacity8":"font-module_fs42_black_opacity8__2wOXJ","bold":"font-module_bold__1aMQB"};
+var css$2 = ".font-module_font__1pbr7, .font-module_summary_b_42__npbYY, .font-module_search_b_32__3-265, .font-module_header_b_22__9B2mM, .font-module_body_b_20__edw-k, .font-module_body_b_18__3DIfb, .font-module_body_b_16__2lhMQ, .font-module_body_b_14__y0YSD, .font-module_body_r_20__102C5, .font-module_body_r_18__1Dp65, .font-module_body_r_16__3i8HZ, .font-module_body_r_14__3nMvr, .font-module_body_r_12__1YE9s, .font-module_fs12__31_tz, .font-module_fs14__2C1ub, .font-module_fs16__iEzao, .font-module_fs18__1oCD8, .font-module_fs20__3DzbI, .font-module_fs22__1HMrv, .font-module_fs32__23a17, .font-module_fs42__1Htbb, .font-module_fs12_black_opacity2__xRZHC, .font-module_fs12_black_opacity3__2SSyI, .font-module_fs12_black_opacity4__25OxM, .font-module_fs12_black_opacity5__QGJvM, .font-module_fs12_black_opacity6__2G5yW, .font-module_fs12_black_opacity7__355qH, .font-module_fs12_black_opacity8__Z4HlX, .font-module_fs14_black_opacity2__3Iwt3, .font-module_fs14_black_opacity3__3zLOK, .font-module_fs14_black_opacity4__1rsnm, .font-module_fs14_black_opacity5__3X0qA, .font-module_fs14_black_opacity6__2g_-G, .font-module_fs14_black_opacity7__xWkoF, .font-module_fs14_black_opacity8__2xl0H, .font-module_fs16_black_opacity2__1pVmQ, .font-module_fs16_black_opacity3__kfKjQ, .font-module_fs16_black_opacity4__MHlM8, .font-module_fs16_black_opacity5__hib5n, .font-module_fs16_black_opacity6__1Vntl, .font-module_fs16_black_opacity7__XyTNF, .font-module_fs16_black_opacity8__33fA6, .font-module_fs18_black_opacity2__1kXFl, .font-module_fs18_black_opacity3__2It1I, .font-module_fs18_black_opacity4__2V5EB, .font-module_fs18_black_opacity5__1I_PD, .font-module_fs18_black_opacity6__3Cr46, .font-module_fs18_black_opacity7__2CjKk, .font-module_fs18_black_opacity8__3GsBZ, .font-module_fs20_black_opacity2__3V1SX, .font-module_fs20_black_opacity3__rvYr7, .font-module_fs20_black_opacity4__2r4uI, .font-module_fs20_black_opacity5__25hQI, .font-module_fs20_black_opacity6__2Ku8M, .font-module_fs20_black_opacity7__WJ73P, .font-module_fs20_black_opacity8__1n5dW, .font-module_fs22_black_opacity2__2NwCy, .font-module_fs22_black_opacity3__3Cqry, .font-module_fs22_black_opacity4__2VtxV, .font-module_fs22_black_opacity5__29WTq, .font-module_fs22_black_opacity6__3MIO_, .font-module_fs22_black_opacity7__1BAgl, .font-module_fs22_black_opacity8__1Iyb3, .font-module_fs32_black_opacity2__2KWq6, .font-module_fs32_black_opacity3__2hLsO, .font-module_fs32_black_opacity4__HELf5, .font-module_fs32_black_opacity5__x53_a, .font-module_fs32_black_opacity6__v6U6_, .font-module_fs32_black_opacity7__2JTxu, .font-module_fs32_black_opacity8__1Bzu6, .font-module_fs42_black_opacity2__1rtJi, .font-module_fs42_black_opacity3__1X4_L, .font-module_fs42_black_opacity4__3e4qW, .font-module_fs42_black_opacity5__2j3GU, .font-module_fs42_black_opacity6__1HI_o, .font-module_fs42_black_opacity7__1zT_l, .font-module_fs42_black_opacity8__2wOXJ {\n  letter-spacing: -0.5px; }\n\n.font-module_summary_b_42__npbYY, .font-module_search_b_32__3-265, .font-module_header_b_22__9B2mM, .font-module_body_b_20__edw-k, .font-module_body_b_18__3DIfb, .font-module_body_b_16__2lhMQ, .font-module_body_b_14__y0YSD {\n  font-weight: bold;\n  color: #000000; }\n\n.font-module_summary_b_42__npbYY {\n  font-size: 42px; }\n\n.font-module_search_b_32__3-265 {\n  font-size: 32px; }\n\n.font-module_header_b_22__9B2mM {\n  font-size: 22px; }\n\n.font-module_body_b_20__edw-k, .font-module_body_r_20__102C5 {\n  font-size: 20px; }\n\n.font-module_body_b_18__3DIfb, .font-module_body_r_18__1Dp65 {\n  font-size: 18px; }\n\n.font-module_body_r_20__102C5, .font-module_body_r_18__1Dp65, .font-module_body_r_16__3i8HZ, .font-module_body_r_14__3nMvr, .font-module_body_r_12__1YE9s {\n  font-weight: normal;\n  color: #000000; }\n\n.font-module_body_b_16__2lhMQ, .font-module_body_r_16__3i8HZ {\n  font-size: 16px; }\n\n.font-module_body_b_14__y0YSD, .font-module_body_r_14__3nMvr {\n  font-size: 14px; }\n\n.font-module_body_r_12__1YE9s {\n  font-size: 12px; }\n\n.font-module_black_opacity_2__icR8L {\n  color: rgba(0, 0, 0, 0.2); }\n\n.font-module_black_opacity_3__3F8Hv {\n  color: rgba(0, 0, 0, 0.3); }\n\n.font-module_black_opacity_4__39p6b {\n  color: rgba(0, 0, 0, 0.4); }\n\n.font-module_black_opacity_5__2sq4k {\n  color: rgba(0, 0, 0, 0.5); }\n\n.font-module_black_opacity_6__2IZKi {\n  color: rgba(0, 0, 0, 0.6); }\n\n.font-module_black_opacity_7__3m9k3 {\n  color: rgba(0, 0, 0, 0.7); }\n\n.font-module_black_opacity_8__1gUbG {\n  color: rgba(0, 0, 0, 0.8); }\n\n.font-module_fs12__31_tz {\n  color: #000000;\n  font-size: 12px; }\n\n.font-module_fs14__2C1ub {\n  color: #000000;\n  font-size: 14px; }\n\n.font-module_fs16__iEzao {\n  color: #000000;\n  font-size: 16px; }\n\n.font-module_fs18__1oCD8 {\n  color: #000000;\n  font-size: 18px; }\n\n.font-module_fs20__3DzbI {\n  color: #000000;\n  font-size: 20px; }\n\n.font-module_fs22__1HMrv {\n  color: #000000;\n  font-size: 22px; }\n\n.font-module_fs32__23a17 {\n  color: #000000;\n  font-size: 32px; }\n\n.font-module_fs42__1Htbb {\n  color: #000000;\n  font-size: 42px; }\n\n.font-module_fs12_black_opacity2__xRZHC {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity3__2SSyI {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity4__25OxM {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity5__QGJvM {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity6__2G5yW {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity7__355qH {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity8__Z4HlX {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 12px; }\n\n.font-module_fs14_black_opacity2__3Iwt3 {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity3__3zLOK {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity4__1rsnm {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity5__3X0qA {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity6__2g_-G {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity7__xWkoF {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity8__2xl0H {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 14px; }\n\n.font-module_fs16_black_opacity2__1pVmQ {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity3__kfKjQ {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity4__MHlM8 {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity5__hib5n {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity6__1Vntl {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity7__XyTNF {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity8__33fA6 {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 16px; }\n\n.font-module_fs18_black_opacity2__1kXFl {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity3__2It1I {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity4__2V5EB {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity5__1I_PD {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity6__3Cr46 {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity7__2CjKk {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity8__3GsBZ {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 18px; }\n\n.font-module_fs20_black_opacity2__3V1SX {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity3__rvYr7 {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity4__2r4uI {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity5__25hQI {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity6__2Ku8M {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity7__WJ73P {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity8__1n5dW {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 20px; }\n\n.font-module_fs22_black_opacity2__2NwCy {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity3__3Cqry {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity4__2VtxV {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity5__29WTq {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity6__3MIO_ {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity7__1BAgl {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity8__1Iyb3 {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 22px; }\n\n.font-module_fs32_black_opacity2__2KWq6 {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity3__2hLsO {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity4__HELf5 {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity5__x53_a {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity6__v6U6_ {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity7__2JTxu {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity8__1Bzu6 {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 32px; }\n\n.font-module_fs42_black_opacity2__1rtJi {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity3__1X4_L {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity4__3e4qW {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity5__2j3GU {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity6__1HI_o {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity7__1zT_l {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity8__2wOXJ {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 42px; }\n\n.font-module_bold__1aMQB {\n  font-weight: bold; }\n";
+var fontStyle = {"font":"font-module_font__1pbr7","summary_b_42":"font-module_summary_b_42__npbYY","search_b_32":"font-module_search_b_32__3-265","header_b_22":"font-module_header_b_22__9B2mM","body_b_20":"font-module_body_b_20__edw-k","body_b_18":"font-module_body_b_18__3DIfb","body_b_16":"font-module_body_b_16__2lhMQ","body_b_14":"font-module_body_b_14__y0YSD","body_r_20":"font-module_body_r_20__102C5","body_r_18":"font-module_body_r_18__1Dp65","body_r_16":"font-module_body_r_16__3i8HZ","body_r_14":"font-module_body_r_14__3nMvr","body_r_12":"font-module_body_r_12__1YE9s","fs12":"font-module_fs12__31_tz","fs14":"font-module_fs14__2C1ub","fs16":"font-module_fs16__iEzao","fs18":"font-module_fs18__1oCD8","fs20":"font-module_fs20__3DzbI","fs22":"font-module_fs22__1HMrv","fs32":"font-module_fs32__23a17","fs42":"font-module_fs42__1Htbb","fs12_black_opacity2":"font-module_fs12_black_opacity2__xRZHC","fs12_black_opacity3":"font-module_fs12_black_opacity3__2SSyI","fs12_black_opacity4":"font-module_fs12_black_opacity4__25OxM","fs12_black_opacity5":"font-module_fs12_black_opacity5__QGJvM","fs12_black_opacity6":"font-module_fs12_black_opacity6__2G5yW","fs12_black_opacity7":"font-module_fs12_black_opacity7__355qH","fs12_black_opacity8":"font-module_fs12_black_opacity8__Z4HlX","fs14_black_opacity2":"font-module_fs14_black_opacity2__3Iwt3","fs14_black_opacity3":"font-module_fs14_black_opacity3__3zLOK","fs14_black_opacity4":"font-module_fs14_black_opacity4__1rsnm","fs14_black_opacity5":"font-module_fs14_black_opacity5__3X0qA","fs14_black_opacity6":"font-module_fs14_black_opacity6__2g_-G","fs14_black_opacity7":"font-module_fs14_black_opacity7__xWkoF","fs14_black_opacity8":"font-module_fs14_black_opacity8__2xl0H","fs16_black_opacity2":"font-module_fs16_black_opacity2__1pVmQ","fs16_black_opacity3":"font-module_fs16_black_opacity3__kfKjQ","fs16_black_opacity4":"font-module_fs16_black_opacity4__MHlM8","fs16_black_opacity5":"font-module_fs16_black_opacity5__hib5n","fs16_black_opacity6":"font-module_fs16_black_opacity6__1Vntl","fs16_black_opacity7":"font-module_fs16_black_opacity7__XyTNF","fs16_black_opacity8":"font-module_fs16_black_opacity8__33fA6","fs18_black_opacity2":"font-module_fs18_black_opacity2__1kXFl","fs18_black_opacity3":"font-module_fs18_black_opacity3__2It1I","fs18_black_opacity4":"font-module_fs18_black_opacity4__2V5EB","fs18_black_opacity5":"font-module_fs18_black_opacity5__1I_PD","fs18_black_opacity6":"font-module_fs18_black_opacity6__3Cr46","fs18_black_opacity7":"font-module_fs18_black_opacity7__2CjKk","fs18_black_opacity8":"font-module_fs18_black_opacity8__3GsBZ","fs20_black_opacity2":"font-module_fs20_black_opacity2__3V1SX","fs20_black_opacity3":"font-module_fs20_black_opacity3__rvYr7","fs20_black_opacity4":"font-module_fs20_black_opacity4__2r4uI","fs20_black_opacity5":"font-module_fs20_black_opacity5__25hQI","fs20_black_opacity6":"font-module_fs20_black_opacity6__2Ku8M","fs20_black_opacity7":"font-module_fs20_black_opacity7__WJ73P","fs20_black_opacity8":"font-module_fs20_black_opacity8__1n5dW","fs22_black_opacity2":"font-module_fs22_black_opacity2__2NwCy","fs22_black_opacity3":"font-module_fs22_black_opacity3__3Cqry","fs22_black_opacity4":"font-module_fs22_black_opacity4__2VtxV","fs22_black_opacity5":"font-module_fs22_black_opacity5__29WTq","fs22_black_opacity6":"font-module_fs22_black_opacity6__3MIO_","fs22_black_opacity7":"font-module_fs22_black_opacity7__1BAgl","fs22_black_opacity8":"font-module_fs22_black_opacity8__1Iyb3","fs32_black_opacity2":"font-module_fs32_black_opacity2__2KWq6","fs32_black_opacity3":"font-module_fs32_black_opacity3__2hLsO","fs32_black_opacity4":"font-module_fs32_black_opacity4__HELf5","fs32_black_opacity5":"font-module_fs32_black_opacity5__x53_a","fs32_black_opacity6":"font-module_fs32_black_opacity6__v6U6_","fs32_black_opacity7":"font-module_fs32_black_opacity7__2JTxu","fs32_black_opacity8":"font-module_fs32_black_opacity8__1Bzu6","fs42_black_opacity2":"font-module_fs42_black_opacity2__1rtJi","fs42_black_opacity3":"font-module_fs42_black_opacity3__1X4_L","fs42_black_opacity4":"font-module_fs42_black_opacity4__3e4qW","fs42_black_opacity5":"font-module_fs42_black_opacity5__2j3GU","fs42_black_opacity6":"font-module_fs42_black_opacity6__1HI_o","fs42_black_opacity7":"font-module_fs42_black_opacity7__1zT_l","fs42_black_opacity8":"font-module_fs42_black_opacity8__2wOXJ","black_opacity_2":"font-module_black_opacity_2__icR8L","black_opacity_3":"font-module_black_opacity_3__3F8Hv","black_opacity_4":"font-module_black_opacity_4__39p6b","black_opacity_5":"font-module_black_opacity_5__2sq4k","black_opacity_6":"font-module_black_opacity_6__2IZKi","black_opacity_7":"font-module_black_opacity_7__3m9k3","black_opacity_8":"font-module_black_opacity_8__1gUbG","bold":"font-module_bold__1aMQB"};
 styleInject(css$2);
 
 function _templateObject3$3() {
@@ -26929,61 +26929,81 @@ var setBtnSize = function setBtnSize(props) {
 };
 var BtnColor = {
   primary: {
-    backgroundColor: color.$solid_default,
+    backgroundColor: colorV1.$pmblue,
     color: color.$primary_white,
     hover: {
-      boxShadow: "0 4px 10px 0 rgba(0,0,0,0.08)",
-      backgroundColor: color.$solid_hover,
+      backgroundColor: '#008af3',
       color: color.$primary_white
     },
     disabled: {
-      backgroundColor: hexToRGB(color.$btn_lightshaded_default, 0.48),
-      color: hexToRGB(color.$black, 0.2)
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$grey06
     }
   },
   primary_line: {
     backgroundColor: color.$primary_white,
-    color: color.$solid_default,
-    border: "1px solid ".concat(color.$solid_default),
+    color: colorV1.$pmblue,
+    border: "1px solid ".concat(colorV1.$pmblue),
     hover: {
-      boxShadow: "0 4px 10px 0 rgba(0,0,0,0.08)",
+      boxShadow: '0 4px 10px 0 rgba(0,0,0,0.08)',
       backgroundColor: color.$primary_white,
-      color: color.$solid_hover,
-      border: "1px solid ".concat(color.$solid_default)
+      color: colorV1.$pmblue,
+      border: "1px solid ".concat(colorV1.$pmblue)
     },
     disabled: {
-      backgroundColor: hexToRGB(color.$btn_lightshaded_default, 0.48),
-      color: hexToRGB(color.$black, 0.2),
-      border: "1px solid ".concat(hexToRGB(color.$line_btn_grey, 0.48))
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$grey06
     }
   },
   basic: {
-    backgroundColor: hexToRGB(color.$black, 0.1),
-    color: hexToRGB(color.$black, 0.6),
+    backgroundColor: colorV1.$grey04,
+    color: colorV1.$grey09,
     hover: {
-      boxShadow: "0 4px 10px 0 rgba(0,0,0,0.08)",
-      backgroundColor: hexToRGB(color.$black, 0.18),
-      color: hexToRGB(color.$black, 0.6)
+      backgroundColor: colorV1.$grey05,
+      color: colorV1.$grey09
     },
     disabled: {
-      backgroundColor: hexToRGB(color.$btn_lightshaded_default, 0.48),
-      color: hexToRGB(color.$black, 0.2)
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$grey06
     }
   },
   basic_line: {
     backgroundColor: color.$primary_white,
-    color: hexToRGB(color.$black, 0.6),
-    border: "1px solid ".concat(hexToRGB(color.$black, 0.1)),
+    color: colorV1.$grey09,
+    border: "1px solid ".concat(colorV1.$grey05),
     hover: {
-      boxShadow: "0 4px 10px 0 rgba(0,0,0,0.08)",
+      boxShadow: "0 1px 8px 0 rgba(117, 127, 139, 0.36)",
       backgroundColor: color.$primary_white,
-      color: hexToRGB(color.$black, 0.6),
-      border: "1px solid ".concat(hexToRGB(color.$black, 0.1))
+      color: colorV1.$grey09,
+      border: "1px solid ".concat(colorV1.$grey05)
     },
     disabled: {
-      backgroundColor: hexToRGB(color.$btn_lightshaded_default, 0.48),
-      color: hexToRGB(color.$black, 0.2),
-      border: "1px solid ".concat(hexToRGB(color.$line_btn_grey, 0.48))
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$grey06
+    }
+  },
+  primary_light: {
+    backgroundColor: color.$primary_white,
+    color: colorV1.$pmblue,
+    hover: {
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$pmblue
+    },
+    disabled: {
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$grey06
+    }
+  },
+  basic_light: {
+    backgroundColor: color.$primary_white,
+    color: colorV1.$grey09,
+    hover: {
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$grey09
+    },
+    disabled: {
+      backgroundColor: colorV1.$grey03,
+      color: colorV1.$grey06
     }
   }
 };
@@ -27496,9 +27516,133 @@ var btnNext = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmc
 
 var btnPre = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgdmlld0JveD0iMCAwIDQyIDQyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjQyIiBoZWlnaHQ9IjQyIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMDYiIHJ4PSI0Ii8+CiAgICAgICAgPHBhdGggZmlsbD0iIzg4OCIgZD0iTTEzLjk5IDIyLjA2bDMuODg5IDMuODlhMSAxIDAgMSAwIDEuNDE0LTEuNDE0TDE2Ljc1NyAyMkgyN2ExIDEgMCAxIDAgMC0ySDE2Ljc1N2wyLjUzNi0yLjUzNmExIDEgMCAwIDAtMS40MTQtMS40MTRsLTMuNTM2IDMuNTM2TDEyLjkzIDIxbDEuMDYgMS4wNnoiLz4KICAgIDwvZz4KPC9zdmc+';
 
-var btnNextSm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJtYXRyaXgoLTEgMCAwIDEgMzIgMCkiPgogICAgICAgIDxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjA2IiByeD0iNCIvPgogICAgICAgIDxwYXRoIGZpbGw9IiM4ODgiIGQ9Ik03LjkyOSAxNmw0Ljk1IDQuOTVhMSAxIDAgMSAwIDEuNDE0LTEuNDE0TDExLjc1OCAxN0gyMmExIDEgMCAxIDAgMC0ySDExLjc1OGwyLjUzNS0yLjUzNmExIDEgMCAwIDAtMS40MTQtMS40MTRMNy45MjkgMTZ6Ii8+CiAgICA8L2c+Cjwvc3ZnPg==';
+function _templateObject$n() {
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  letter-spacing: -0.5px;\n  text-align: center;\n  line-height: 1;\n\n  padding: 7px 18px;\n  border-radius: 21px;\n  border: solid 1px #dce0e4;\n  background-color: ", ";\n"]);
 
-var btnPreSm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMDYiIHJ4PSI0Ii8+CiAgICAgICAgPHBhdGggZmlsbD0iIzg4OCIgZD0iTTcuOTI5IDE2bDQuOTUgNC45NWExIDEgMCAxIDAgMS40MTQtMS40MTRMMTEuNzU4IDE3SDIyYTEgMSAwIDEgMCAwLTJIMTEuNzU4bDIuNTM1LTIuNTM2YTEgMSAwIDAgMC0xLjQxNC0xLjQxNEw3LjkyOSAxNnoiLz4KICAgIDwvZz4KPC9zdmc+';
+  _templateObject$n = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var InputBox = styled__default.input(_templateObject$n(), colorV1.$grey10, color.primary_white);
+var Input = function Input(_ref) {
+  var initPage = _ref.initPage,
+      size = _ref.size,
+      min = _ref.min,
+      onChange = _ref.onChange,
+      max = _ref.max;
+
+  var _useState = React.useState(initPage),
+      _useState2 = _slicedToArray(_useState, 2),
+      page = _useState2[0],
+      setPage = _useState2[1];
+
+  React.useEffect(function () {
+    setPage(initPage);
+  }, [initPage]);
+
+  var onInputChange = function onInputChange(inputPage) {
+    setPage(inputPage);
+  };
+
+  var onInputKeyPress = function onInputKeyPress(e) {
+    if (e.key !== 'Enter') return;
+    var inputPage = Number(e.target.value);
+
+    if (inputPage < min) {
+      inputPage = min;
+    }
+
+    if (inputPage > max) {
+      inputPage = max;
+    }
+
+    setPage(inputPage);
+    onChange(inputPage);
+  };
+
+  return React__default.createElement(InputBox, {
+    inputsize: size,
+    size: String(page).length || 1,
+    value: page,
+    onChange: function onChange(e) {
+      return onInputChange(e.target.value);
+    },
+    onKeyPress: function onKeyPress(e) {
+      return onInputKeyPress(e);
+    }
+  });
+};
+Input.defaultProps = {
+  onChange: function onChange() {},
+  min: 1,
+  size: undefined,
+  initPage: 1
+};
+Input.propTypes = {
+  initPage: propTypes.number,
+  onChange: propTypes.func,
+  size: propTypes.string,
+  min: propTypes.number,
+  max: propTypes.number.isRequired
+};
+
+function _templateObject4$8() {
+  var data = _taggedTemplateLiteral(["\n  img {\n    border-radius: 8px;\n  }\n  ", ";\n  font-size: 0;\n  &:first-child {\n    margin-right: 16px;\n  }\n\n  &:last-child {\n    margin-left: 16px;\n  }\n\n  ", ";\n"]);
+
+  _templateObject4$8 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$c() {
+  var data = _taggedTemplateLiteral(["\n  border-radius: 4px;\n\n  ", ";\n  ", ";\n  ", ";\n"]);
+
+  _templateObject3$c = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$h() {
+  var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    margin-left: 8px;\n  }\n  letter-spacing: -0.5px;\n  color: ", ";\n  ", ";\n"]);
+
+  _templateObject2$h = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$o() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n"]);
+
+  _templateObject$o = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var PaginationBox = styled__default.section(_templateObject$o());
+var PageText = styled__default.span(_templateObject2$h(), colorV1.$grey10, function (props) {
+  return props.size === 'sm' ? "font-size: 14px;" : "font-size: 16px;";
+});
+var ButtonPage = styled__default.button(_templateObject3$c(), function (props) {
+  return props.selected ? "background-color: ".concat(colorV1.$grey08) : '';
+}, function (props) {
+  return props.selected ? "color: ".concat(color.$primary_white) : "color: ".concat(colorV1.$grey8);
+}, function (props) {
+  return props.size === 'sm' ? "\n      font-size: 14px;\n      min-width: 32px;\n      height: 32px;\n    " : "\n      font-size: 16px;\n      min-width: 42px;\n      height: 42px;\n    ";
+});
+var ButtonMove = styled__default.button(_templateObject4$8(), function (props) {
+  return props.selected ? "background-color: ".concat(colorV1.$grey03) : '';
+}, function (props) {
+  return props.size === 'sm' ? "\n      height: 32px;\n    " : "\n      height: 42px;\n    ";
+});
 
 var Pagination =
 /*#__PURE__*/
@@ -27511,27 +27655,6 @@ function (_Component) {
     _classCallCheck(this, Pagination);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Pagination).call(this, props));
-
-    _defineProperty(_assertThisInitialized(_this), "getStyles", function () {
-      return {
-        defaultBtn: {
-          borderRadius: '4px',
-          color: 'rgba(0, 0, 0, 0.4)',
-          fontSize: '16px',
-          minWidth: '42px',
-          height: '42px'
-        },
-        selectBtn: {
-          borderRadius: '4px',
-          backgroundColor: '#979797',
-          color: '#ffffff',
-          fontSize: '16px',
-          minWidth: '42px',
-          height: '42px'
-        }
-      };
-    });
-
     var selectPage = props.selectPage,
         totalPage = props.totalPage,
         drawPageCnt = props.drawPageCnt,
@@ -27553,65 +27676,22 @@ function (_Component) {
       });
       var onChange = this.props.onChange;
       onChange(page);
-    }
-  }, {
-    key: "getSmall",
-    value: function getSmall() {
-      var _this$state = this.state,
-          selectPage = _this$state.selectPage,
-          totalPage = _this$state.totalPage;
-      return React__default.createElement("div", {
-        style: this.isHidden() ? {
-          display: 'none'
-        } : {}
-      }, React__default.createElement("button", {
-        type: "button",
-        style: {
-          marginRight: '16px'
-        },
-        disabled: this.disablePrevButton(),
-        onClick: this.movePrevPage.bind(this)
-      }, React__default.createElement("img", {
-        type: "image",
-        src: btnPreSm,
-        width: "32px",
-        height: "32px",
-        alt: "move previous"
-      })), React__default.createElement("span", {
-        style: {
-          fontSize: '14px',
-          opacity: 0.8
-        }
-      }, "".concat(selectPage, " / ").concat(totalPage)), React__default.createElement("button", {
-        type: "button",
-        style: {
-          marginLeft: '16px'
-        },
-        disabled: this.disableNextButton(),
-        onClick: this.moveNextPage.bind(this)
-      }, React__default.createElement("img", {
-        type: "image",
-        src: btnNextSm,
-        width: "32px",
-        height: "32px",
-        alt: "move next"
-      })));
-    }
+    } // from 0
+
   }, {
     key: "getCurrentPageCnt",
-    // from 0
     value: function getCurrentPageCnt() {
-      var _this$state2 = this.state,
-          selectPage = _this$state2.selectPage,
-          drawPageCnt = _this$state2.drawPageCnt;
+      var _this$state = this.state,
+          selectPage = _this$state.selectPage,
+          drawPageCnt = _this$state.drawPageCnt;
       return parseInt((selectPage - 1) / drawPageCnt, 10);
     }
   }, {
     key: "getPageList",
     value: function getPageList() {
-      var _this$state3 = this.state,
-          drawPageCnt = _this$state3.drawPageCnt,
-          totalPage = _this$state3.totalPage;
+      var _this$state2 = this.state,
+          drawPageCnt = _this$state2.drawPageCnt,
+          totalPage = _this$state2.totalPage;
       var list = [];
       var cnt = 1;
       var startPage = this.getCurrentPageCnt() * drawPageCnt + 1;
@@ -27640,9 +27720,9 @@ function (_Component) {
   }, {
     key: "disableNextButton",
     value: function disableNextButton() {
-      var _this$state4 = this.state,
-          totalPage = _this$state4.totalPage,
-          drawPageCnt = _this$state4.drawPageCnt;
+      var _this$state3 = this.state,
+          totalPage = _this$state3.totalPage,
+          drawPageCnt = _this$state3.drawPageCnt;
       if (totalPage <= drawPageCnt) return true;
       var nextPageCnt = this.getCurrentPageCnt() + 1;
       return nextPageCnt * drawPageCnt >= totalPage;
@@ -27650,9 +27730,9 @@ function (_Component) {
   }, {
     key: "disablePrevButton",
     value: function disablePrevButton() {
-      var _this$state5 = this.state,
-          selectPage = _this$state5.selectPage,
-          drawPageCnt = _this$state5.drawPageCnt;
+      var _this$state4 = this.state,
+          selectPage = _this$state4.selectPage,
+          drawPageCnt = _this$state4.drawPageCnt;
       return selectPage <= drawPageCnt;
     }
   }, {
@@ -27676,53 +27756,63 @@ function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      var size = this.props.size;
-
-      if (size === 'sm') {
-        return this.getSmall();
-      }
-
-      var styles = this.getStyles();
-      return React__default.createElement("div", {
+      var _this$props = this.props,
+          size = _this$props.size,
+          simple = _this$props.simple;
+      var _this$state5 = this.state,
+          selectPage = _this$state5.selectPage,
+          totalPage = _this$state5.totalPage;
+      var imageSize = size === 'sm' ? 32 : 42;
+      return React__default.createElement(PaginationBox, {
         style: this.isHidden() ? {
           display: 'none'
         } : {}
-      }, React__default.createElement("button", {
+      }, React__default.createElement(ButtonMove, {
         type: "button",
-        style: {
-          marginRight: '14px'
-        },
+        size: size,
         disabled: this.disablePrevButton(),
-        onClick: this.movePrevPage.bind(this)
+        onClick: function onClick() {
+          return _this2.movePrevPage.bind(_this2)();
+        }
       }, React__default.createElement("img", {
         type: "image",
         src: btnPre,
-        width: "42px",
-        height: "42px",
+        width: imageSize,
+        height: imageSize,
         alt: "move previous"
-      })), this.getPageList().map(function (page) {
-        var selectPage = _this2.state.selectPage;
-        var style = page === selectPage ? styles.selectBtn : styles.defaultBtn;
-        return React__default.createElement("button", {
+      })), simple && React__default.createElement(React__default.Fragment, null, React__default.createElement(Input, {
+        size: size,
+        initPage: selectPage * 1,
+        max: totalPage,
+        onChange: function onChange(page) {
+          return _this2.onChange.bind(_this2)(page);
+        }
+      }), React__default.createElement(PageText, {
+        size: size
+      }, "/"), React__default.createElement(PageText, {
+        size: size
+      }, totalPage)), !simple && this.getPageList().map(function (page) {
+        return React__default.createElement(ButtonPage, {
           type: "button",
-          style: style,
+          size: size,
+          selected: page === selectPage,
           key: "page".concat(page),
           onClick: function onClick() {
             return _this2.onChange(page);
           }
         }, page);
-      }), React__default.createElement("button", {
+      }), React__default.createElement(ButtonMove, {
         type: "button",
-        style: {
-          marginLeft: '14px'
-        },
+        size: size,
         disabled: this.disableNextButton(),
-        onClick: this.moveNextPage.bind(this)
+        onClick: function onClick() {
+          return _this2.moveNextPage.bind(_this2)();
+        }
       }, React__default.createElement("img", {
         type: "image",
         src: btnNext,
-        width: "42px",
-        height: "42px",
+        width: imageSize,
+        height: imageSize,
         alt: "move next"
       })));
     }
@@ -27747,45 +27837,100 @@ Pagination.defaultProps = {
   size: undefined,
   selectPage: 1,
   totalPage: 1,
-  drawPageCnt: 1
+  drawPageCnt: 1,
+  simple: false
 };
 Pagination.propTypes = {
   onChange: propTypes.func,
   size: propTypes.string,
   selectPage: propTypes.number,
   totalPage: propTypes.number,
-  drawPageCnt: propTypes.number
+  drawPageCnt: propTypes.number,
+  simple: propTypes.bool
 };
 
-function _templateObject2$h() {
-  var data = _taggedTemplateLiteral(["\n  min-width: 90px;\n  height: 34px;\n  border-radius: 17px;\n  background-color: ", ";\n  border: none;\n  outline: none;\n  cursor: pointer;\n  box-shadow: ", "\n"]);
+function _templateObject3$d() {
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: ", "px;\n  min-width: ", "px;\n  height: ", "px;\n  padding: ", ";\n  border-radius: ", "px;\n  outline: none;\n  text-align: center;\n\n  &:not(:last-child) {\n    margin-right: 8px;\n  }\n  ", ";\n  background-color: ", ";\n  &:hover {\n    background-color: ", ";\n    ", ";\n  }\n"]);
 
-  _templateObject2$h = function _templateObject2() {
+  _templateObject3$d = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$n() {
-  var data = _taggedTemplateLiteral(["\n  min-width: 184px;\n  height: 38px;\n  background-color: ", ";\n  border-radius: 21px;\n  padding: 2px;\n  display: inline-block;\n  box-sizing: border-box;\n"]);
+function _templateObject2$i() {
+  var data = _taggedTemplateLiteral(["\n  height: ", "px;\n  background-color: ", ";\n  border-radius: ", "px;\n  padding: 2px;\n  display: table;\n"]);
 
-  _templateObject$n = function _templateObject() {
+  _templateObject2$i = function _templateObject2() {
     return data;
   };
 
   return data;
 }
-var ButtonContainer = styled__default.div(_templateObject$n(), color.$btn_lightshaded_default);
+
+function _templateObject$p() {
+  var data = _taggedTemplateLiteral(["\n  box-shadow: ", "\n"]);
+
+  _templateObject$p = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var BtnSize$1 = {
+  large: {
+    box: {
+      height: 46,
+      padding: 2
+    },
+    button: {
+      minWidth: 100,
+      height: 42,
+      fontSize: 16,
+      padding: '9px 20px'
+    }
+  },
+  middle: {
+    box: {
+      height: 38,
+      padding: 2
+    },
+    button: {
+      minWidth: 90,
+      height: 34,
+      fontSize: 14,
+      padding: '7px 18px'
+    }
+  }
+};
+var BoxShadow$1 = styled.css(_templateObject$p(), function (props) {
+  return props.selected ? '0 1px 8px 0 rgba(117, 127, 139, 0.36);' : null;
+});
+var ButtonContainer = styled__default.section(_templateObject2$i(), function (props) {
+  return props.height;
+}, colorV1.$grey04, function (props) {
+  return props.height / 2;
+});
 var ToggleBtn = styled__default.button.attrs(function () {
   return {
-    className: "".concat(fontStyle.fs14_black_opacity8, " ").concat(fontStyle.bold)
+    className: "".concat(fontStyle.font, " ").concat(fontStyle.bold)
   };
-})(_templateObject2$h(), function (props) {
-  return props.selected ? color.$primary_white : color.$btn_lightshaded_default;
+})(_templateObject3$d(), colorV1.$grey10, function (props) {
+  return props.fontSize;
 }, function (props) {
-  return props.selected ? '0 4px 10px 0 rgba(0, 0, 0, 0.08)' : null;
-});
+  return props.minWidth;
+}, function (props) {
+  return props.height;
+}, function (props) {
+  return props.padding;
+}, function (props) {
+  return props.height / 2;
+}, BoxShadow$1, function (props) {
+  return props.selected ? color.$primary_white : colorV1.$grey04;
+}, function (props) {
+  return props.selected ? color.$primary_white : colorV1.$grey05;
+}, BoxShadow$1);
 
 var ToggleButton =
 /*#__PURE__*/
@@ -27807,28 +27952,12 @@ function (_React$Component) {
         active: value
       });
 
-      return onChange(value);
+      onChange(value);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "renderToggleBtn", function (data) {
-      return data.map(function (_ref2) {
-        var type = _ref2.type,
-            text = _ref2.text;
-        var active = _this.state.active;
-        var selectedCheck = active === type;
-        return React__default.createElement(ToggleBtn, {
-          key: type,
-          onClick: _this.changeBtn,
-          selected: selectedCheck,
-          disabled: selectedCheck,
-          value: type
-        }, text);
-      });
-    });
+    var data = _this.props.data;
 
-    var _data = _this.props.data;
-
-    var defaultActive = lodash.head(_data).type;
+    var defaultActive = lodash.head(data).type;
 
     _this.state = {
       active: defaultActive
@@ -27839,8 +27968,34 @@ function (_React$Component) {
   _createClass(ToggleButton, [{
     key: "render",
     value: function render() {
-      var data = this.props.data;
-      return React__default.createElement(ButtonContainer, null, this.renderToggleBtn(data));
+      var _this2 = this;
+
+      var _this$props = this.props,
+          data = _this$props.data,
+          size = _this$props.size;
+      var BtnSizeObject = {
+        md: BtnSize$1.middle,
+        lg: BtnSize$1.large
+      }[size];
+      return React__default.createElement(ButtonContainer, {
+        height: BtnSizeObject.box.height
+      }, data.map(function (_ref2) {
+        var type = _ref2.type,
+            text = _ref2.text;
+        var active = _this2.state.active;
+        var selectedCheck = active === type;
+        return React__default.createElement(ToggleBtn, {
+          key: type,
+          onClick: _this2.changeBtn,
+          selected: selectedCheck,
+          disabled: selectedCheck,
+          value: type,
+          height: BtnSizeObject.button.height,
+          fontSize: BtnSizeObject.button.fontSize,
+          minWidth: BtnSizeObject.button.minWidth,
+          padding: BtnSizeObject.button.padding
+        }, text);
+      }));
     }
   }]);
 
@@ -27848,13 +28003,15 @@ function (_React$Component) {
 }(React__default.Component);
 
 ToggleButton.defaultProps = {
-  onChange: function onChange() {}
+  onChange: function onChange() {},
+  size: 'md'
 };
 ToggleButton.propTypes = {
   data: propTypes.arrayOf(propTypes.shape({
     type: propTypes.string,
     text: propTypes.string
   })).isRequired,
+  size: propTypes.oneOf(['md', 'lg']),
   onChange: propTypes.func
 };
 
@@ -27862,10 +28019,10 @@ var icnSelectOpenSm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy5
 
 var icnSelectOpenXs = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExLjUzNiA1LjI5M2ExIDEgMCAxIDEgMS40MTQgMS40MTRsLTMuNTM2IDMuNTM2LS43MDcuNzA3LS43MDcuNzA3LTEuNDE0LTEuNDE0TDMuMDUgNi43MDdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDggOC44MjhIOGwzLjUzNi0zLjUzNXoiLz4KPC9zdmc+';
 
-function _templateObject$o() {
+function _templateObject$q() {
   var data = _taggedTemplateLiteral(["\n  select {\n    ", "\n    &:focus {\n      box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16);\n    }\n\n    &:disabled {\n      background-color: rgba(0, 0, 0, 0.04);\n      color: rgba(0, 0, 0, 0.2);\n    }\n\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n\n    -moz-appearance: textfield;\n\n    option[value=\"\"][hidden] {\n      display: none;\n    }\n  }\n\n  option {\n    ", "\n  }\n\n  select:invalid {\n    color: rgba(0, 0, 0, 0.3);\n  }\n\n  ", "\n"]);
 
-  _templateObject$o = function _templateObject() {
+  _templateObject$q = function _templateObject() {
     return data;
   };
 
@@ -27925,7 +28082,7 @@ var Box$2 = styled__default.div.attrs(function (_ref) {
     opacity: disabled ? 2 : 8,
     SizeObject: SizeObject
   };
-})(_templateObject$o(), Text, Text, setSelectSize);
+})(_templateObject$q(), Text, Text, setSelectSize);
 
 var SelectBox = function SelectBox(_ref2) {
   var style = _ref2.style,
