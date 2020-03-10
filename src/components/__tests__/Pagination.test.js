@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16.3';
-import Pagination from '@Components/pagination/Pagination';
+import Pagination, { ButtonPage, ButtonMove } from '@Components/pagination/Pagination';
 
 import _ from 'lodash'
 
@@ -114,7 +114,7 @@ it('draw list', () => {
 
 const getButtons = (wrapper) => {
   const pagingElements = {}
-  wrapper.find(`button`).forEach((element) => {
+  wrapper.find(ButtonPage).forEach((element) => {
     if (element.text()) {
       pagingElements[element.text()] = element
     }
@@ -129,17 +129,16 @@ it('button style', () => {
     totalPage={props.totalPage}
     drawPageCnt={props.drawPageCnt}
   />)
-  const styles = wrapper.instance().getStyles()
   const changePage = props.selectPage + 1
 
   let pagingElements = getButtons(wrapper)
-  expect(pagingElements[props.selectPage].props().style).toEqual(styles.selectBtn)
-  expect(pagingElements[changePage].props().style).toEqual(styles.defaultBtn)
+  expect(pagingElements[props.selectPage].props().selected).toBe(true)
+  expect(pagingElements[changePage].props().selected).toBe(false)
 
   pagingElements[changePage].simulate('click')
   pagingElements = getButtons(wrapper)
-  expect(pagingElements[props.selectPage].props().style).not.toEqual(styles.selectBtn)
-  expect(pagingElements[changePage].props().style).toEqual(styles.selectBtn)
+  expect(pagingElements[props.selectPage].props().selected).toBe(false)
+  expect(pagingElements[changePage].props().selected).toBe(true)
 })
 
 it('onChange', () => {
@@ -158,7 +157,6 @@ it('onChange', () => {
   pagingElements[props.selectPage].simulate('click')
   expect(onChange).toHaveBeenNthCalledWith(2, 1)
 })
-
 
 it('isHidden', () => {
   const wrapper = shallow(<Pagination
@@ -181,4 +179,19 @@ describe('sm', () => {
     expect(wrapper.instance().getPrevPage()).toBe(selectPage - 1)
     expect(wrapper.instance().getNextPage()).toBe(selectPage + 1)
   })
+})
+
+describe('disablePrevButton', () => {
+  const wrapper = shallow(<Pagination
+    selectPage={props.selectPage}
+    totalPage={props.totalPage}
+    drawPageCnt={props.drawPageCnt}
+    simple
+  />)
+
+  wrapper.find(ButtonMove).last().simulate('click')
+  expect(wrapper.state('selectPage')).toBe(6)
+
+  wrapper.find(ButtonMove).first().simulate('click')
+  expect(wrapper.state('selectPage')).toBe(1)
 })

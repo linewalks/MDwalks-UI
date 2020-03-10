@@ -3,7 +3,7 @@ Pagination example:
 ```js
 import React, { useState } from 'react'
 
-const PaginationExample = () => {
+;(() => {
   const [page, setPage] = useState(2);
   const onChange = (p) => (setPage(p))
   return (
@@ -14,7 +14,42 @@ const PaginationExample = () => {
       onChange={onChange}
     />
   )
-}
+})();
+```
 
-PaginationExample()
+```js
+import React, { useState } from 'react'
+
+;(() => {
+  const [page, setPage] = useState(2);
+  const onChange = (p) => (setPage(p))
+  return (
+    <Pagination
+      selectPage={page}
+      size="sm"
+      totalPage={6}
+      drawPageCnt={5}
+      onChange={onChange}
+    />
+  )
+})();
+```
+
+```js
+import React, { useState } from 'react'
+
+;(() => {
+  const [page, setPage] = useState(2);
+  const onChange = (p) => (setPage(p))
+  return (
+    <Pagination
+      simple={true}
+      selectPage={page}
+      size="sm"
+      totalPage={6}
+      drawPageCnt={5}
+      onChange={onChange}
+    />
+  )
+})();
 ```
