@@ -12,7 +12,7 @@
     "build:docs": "styleguidist build",
     "eslint": "eslint ./src/**/*.js ./src/**/**/*.js",
     "eslint:fix": "eslint ./src/**/*.js ./src/**/**/*.js --fix",
-    "version": "yarn build && git add ./dist && conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+    "version": "yarn build && build:docs && git add ./dist && conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "jest": {
     "testPathIgnorePatterns": [
