@@ -1,3 +1,13 @@
+## [0.13.10](https://github.com/linewalks/MDwalks-UI/compare/v0.13.9...v0.13.10) (2020-03-12)
+
+
+### Bug Fixes
+
+* **Input:** only number ([a8d1161](https://github.com/linewalks/MDwalks-UI/commit/a8d1161ae93253f615a5dff64270651be398acac)), closes [#444](https://github.com/linewalks/MDwalks-UI/issues/444)
+* **TextLink:** rename styled to style ([8331151](https://github.com/linewalks/MDwalks-UI/commit/833115169765fd903dc011762f4f8d609a9fef5f)), closes [#446](https://github.com/linewalks/MDwalks-UI/issues/446)
+
+
+
 ## [0.13.9](https://github.com/linewalks/MDwalks-UI/compare/v0.13.7...v0.13.9) (2020-03-10)
 
 
