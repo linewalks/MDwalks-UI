@@ -9,27 +9,40 @@ const InputBox = styled.input`
   text-align: center;
   line-height: 1;
 
+  max-width: 100px;
+
   padding: 7px 18px;
   border-radius: 21px;
   border: solid 1px #dce0e4;
   background-color: ${color.primary_white};
 `
 
-export const Input = ({
+// 범위도 추가 되어야겟다
+const Input = ({
   initPage, size, min, onChange, max,
 }) => {
   const [page, setPage] = useState(initPage);
+  const pattern = `^[0-9]+$`
 
   useEffect(() => {
     setPage(initPage)
   }, [initPage])
 
-  const onInputChange = (inputPage) => {
-    setPage(inputPage)
+  const valid = (e) => {
+    if (e.target.validity) return e.target.validity.valid
+    return (new RegExp(pattern)).test(e.target.value) // for enzyme // keypress 인 경우는 있다
+  }
+
+  // only isInteger
+  const onInputChange = (e) => {
+    const financialGoal = valid(e) ? e.target.value : page
+    setPage(financialGoal)
   }
 
   const onInputKeyPress = (e) => {
     if (e.key !== 'Enter') return
+    if (e.target.value === '') return
+
     let inputPage = Number(e.target.value)
 
     if (inputPage < min) {
@@ -48,7 +61,8 @@ export const Input = ({
       inputsize={size}
       size={String(page).length || 1}
       value={page}
-      onChange={(e) => onInputChange(e.target.value)}
+      pattern={pattern}
+      onChange={(e) => onInputChange(e)}
       onKeyPress={(e) => onInputKeyPress(e)}
     />
   )

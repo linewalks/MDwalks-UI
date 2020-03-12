@@ -63,9 +63,6 @@
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "docz": "^2.0.0-rc.67",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
-    "enzyme-adapter-react-16.3": "^1.7.2",
     "enzyme-to-json": "^3.4.0",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.0.1",
@@ -106,6 +103,9 @@
     "react-styleguidist": "^10.6.1",
     "react-test-renderer": "^16.8.6",
     "recharts": "1.6.2",
-    "styled-components": "^4.3.2"
+    "styled-components": "^4.3.2",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-adapter-react-16.3": "^1.7.2"
   }
 }
