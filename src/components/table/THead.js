@@ -7,8 +7,6 @@ import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
 import { color } from '@src/assets/styles/variables'
 
-import { tableHeaderConvert } from '@src/helper/chartUtility'
-
 const Td = styled.td.attrs(() => ({
   size: 16,
   bold: true,
@@ -62,8 +60,8 @@ const THead = ({ headers, wrapTh, subHeaders }) => {
             return (
               <Th key={text} colSpan={colSpan}>
                 {wrapTh
-                  ? wrapTh({ text: tableHeaderConvert(text) })
-                  : <div>{tableHeaderConvert(text)}</div>}
+                  ? wrapTh({ text })
+                  : <div>{text}</div>}
               </Th>
             )
           })}

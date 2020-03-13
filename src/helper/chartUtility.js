@@ -4,9 +4,6 @@ import * as d3 from 'd3'
 // Sankey Component Util
 export const strIdConvert = (id) => [].concat(id).map((name) => name.split(' ').join('_')).join('X')
 
-// Table Component Util
-export const tableHeaderConvert = (header) => header.split('_').map((title) => `${title[0].toUpperCase()}${title.slice(1)}`).join(' ')
-
 export const renderSVG = (domObj, width, height) => {
   if (!(domObj instanceof d3.selection)) {
     throw new Error('domObj is not a d3.selection')

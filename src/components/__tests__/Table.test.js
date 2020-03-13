@@ -87,7 +87,7 @@ describe('Table Component', () => {
 describe('wrapTh', () => {
   it('default', () => {
     const wrapper = mount(<Table data={data.exceptSubHeaders} />)
-    expect(wrapper.find('th').map((node) => node.text()).join('')).toEqual(`ABC`)
+    expect(wrapper.find('th').map((node) => node.text()).join('')).toEqual(`abc`)
   })
 
   it('set wrapTh', () => {
