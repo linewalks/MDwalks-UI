@@ -41,8 +41,14 @@ describe('subHeaderData 가 없는 경우', () => {
 
     expect(wrapper.find('tr')).toHaveLength(1)
     expect(wrapper.text()).toBe('123')
-    expect(wrapper.find('th').at(0).prop('colSpan')).toBe(undefined)
-    expect(wrapper.find('th').at(2).prop('colSpan')).toBe(_.last(headers).colSpan)
+
+    expect(wrapper.find('th').map((node) => (
+      node.prop('colSpan')
+    ))).toEqual([undefined, undefined, _.last(headers).colSpan])
+
+    expect(wrapper.find('th').map((node) => (
+      node.prop('rowSpan')
+    ))).toEqual([undefined, undefined, undefined])
   })
 
   it('wrapTh 이 있는 경우 ', () => {
@@ -73,7 +79,7 @@ describe('subHeaderData 가 있는 경우', () => {
   const headers = ['1', '2', '3']
 
   const subHeaders = {
-    1: ['1a', '1b'],
+    1: ['1a', '1b', '1c'],
     3: ['3a', '3b'],
   }
 
@@ -100,6 +106,10 @@ describe('subHeaderData 가 있는 경우', () => {
     expect(wrapper.find('th').map((node) => (
       node.prop('rowSpan')
     ))).toEqual([undefined, 2, undefined])
+
+    expect(wrapper.find('th').map((node) => (
+      node.prop('colSpan')
+    ))).toEqual([3, undefined, 2])
   })
 
   it('wrapTh 가 있을 때, subHeaders 는 wrapTh 가 호출 되지 않느다', () => {

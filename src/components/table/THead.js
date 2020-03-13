@@ -13,7 +13,7 @@ const Td = styled.td.attrs(() => ({
   opacity: 6,
 }))`
   ${font.Text}
-  padding: ${(props) => (props.subHeader ? '28px 24px' : '12px 22px')};
+  padding: 12px 22px;
   text-align: center;
   background: ${color.$table_grey};
 `
@@ -41,71 +41,63 @@ const Thead = styled.thead`
   border-bottom: 2px solid ${color.$line_dashboard_edge_grey};
 `
 
+const TrEmpty = () => (
+  <tr>
+    <th>&nbsp;</th>
+  </tr>
+)
+
+const createSubHeader = (subHeaderData) => {
+  const subTitleGroup = Object.values(subHeaderData).join().split(',')
+  return (
+    <tr>
+      {subTitleGroup.map((subTitle, i) => {
+        const key = `subheader_${subTitle}${i}`
+        return <Td key={key}>{subTitle}</Td>
+      })}
+    </tr>
+  )
+}
+
 const THead = ({ headers, wrapTh, subHeaders }) => {
-  const createHeader = (headerData, subHeaderData) => {
-    if (isEmpty(subHeaderData)) {
-      if (isEmpty(headerData)) {
+  const createHeader = (headerData) => (
+    <tr>
+      {headerData.map((row) => {
+        let rowSpan
+        let colSpan
+
+        const text = _.isObject(row) ? row.text : row
+
+        if (row.colSpan) {
+          colSpan = row.colSpan
+        }
+
+        if (subHeaders && subHeaders[text]) {
+          colSpan = subHeaders[text].length
+        } else if (subHeaders) {
+          rowSpan = 2
+        }
+
         return (
-          <tr>
-            <th>&nbsp;</th>
-          </tr>
+          <Th colSpan={colSpan} rowSpan={rowSpan} key={`header_${text}`}>
+            {wrapTh ? wrapTh({ text }) : <div>{text}</div>}
+          </Th>
         )
-      }
-      return (
-        <tr>
-          {headerData.map((row) => {
-            const { colSpan } = row
-            const text = !_.isUndefined(colSpan) ? row.text : row
+      })}
+    </tr>
+  )
 
-            return (
-              <Th key={text} colSpan={colSpan}>
-                {wrapTh
-                  ? wrapTh({ text })
-                  : <div>{text}</div>}
-              </Th>
-            )
-          })}
-        </tr>
-      )
-    }
-
+  if (isEmpty(subHeaders) && isEmpty(headers)) {
     return (
-      <tr>
-        {headerData.map((header) => {
-          if (!subHeaders[header]) {
-            return (
-              <Th rowSpan={2} key={`header_${header}`}>
-                {wrapTh ? wrapTh({ text: header }) : <div>{header}</div>}
-              </Th>
-            )
-          }
-
-          const subHeaderColNum = subHeaders[header].length
-          return (
-            <Th colSpan={subHeaderColNum} key={`header_${header}`} subHeader>
-              {wrapTh ? wrapTh({ text: header }) : <div>{header}</div>}
-            </Th>
-          )
-        })}
-      </tr>
-    )
-  }
-
-  const createSubHeader = (subHeaderData) => {
-    const subTitleGroup = Object.values(subHeaderData).join().split(',')
-    return (
-      <tr>
-        {subTitleGroup.map((subTitle, i) => {
-          const key = `subheader_${subTitle}${i}`
-          return <Td key={key}>{subTitle}</Td>
-        })}
-      </tr>
+      <Thead>
+        <TrEmpty />
+      </Thead>
     )
   }
 
   return (
     <Thead>
-      {createHeader(headers, subHeaders)}
+      {createHeader(headers)}
       {isEmpty(subHeaders) ? null : createSubHeader(subHeaders)}
     </Thead>
   )
