@@ -12,7 +12,10 @@ const colorSet = {
 const TextLinkTag = styled(font.TextTag).attrs(() => ({
   bold: true,
 }))`
-  color: ${(props) => (colorSet[props.variant])};
+  &, &:hover {
+    color: ${(props) => (colorSet[props.variant])};
+  }
+
   &:hover {
     text-decoration: underline;
   }
