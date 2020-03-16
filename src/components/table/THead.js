@@ -116,7 +116,6 @@ export const HeaderSortIcon = ({ sort, loading }) => {
       <span>
         <img src={ICO_UP_DISABLE} alt="disabled up" />
         <img src={ICO_DOWN_DISABLE} alt="disabled down" />
-        {sort}
       </span>
     )
   }
@@ -126,7 +125,6 @@ export const HeaderSortIcon = ({ sort, loading }) => {
       <span>
         <img src={ICO_UP_FOCUS} alt="focus up" />
         <img src={ICO_DOWN} alt="down" />
-        {sort}
       </span>
     )
   }
@@ -136,7 +134,6 @@ export const HeaderSortIcon = ({ sort, loading }) => {
       <span>
         <img src={ICO_UP} alt="up" />
         <img src={ICO_DOWN_FOCUS} alt="focus down" />
-        {sort}
       </span>
     )
   }
@@ -145,7 +142,6 @@ export const HeaderSortIcon = ({ sort, loading }) => {
     <span>
       <img src={ICO_UP} alt="up" />
       <img src={ICO_DOWN} alt="down" />
-      {sort}
     </span>
   )
 }

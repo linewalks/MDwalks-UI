@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 
-import isEmpty from 'lodash/isEmpty';
+import { Scrollbars } from 'react-custom-scrollbars';
+
 import THead from '@Components/table/THead';
 import TBody from '@Components/table/TBody';
 import TFoot from '@Components/table/TFoot';
@@ -54,6 +56,7 @@ const sideFit = css`
     }
   }
 `
+
 const TableBox = styled.table`
   border-collapse: collapse;
   border-spacing: 0;
@@ -61,13 +64,29 @@ const TableBox = styled.table`
 
   border-bottom: 1px solid ${variables.color.$line_search_grey};
 
+  ${(props) => (props.notBottom ? 'border-bottom: none' : '')};
+
   ${(props) => (props.className.split(' ').includes('sideFit') ? sideFit : null)}
 `
 
+const Columns = (columns, i) => {
+  const key = `columns${i}`
+  return (
+    columns && (
+      <colgroup>
+        {
+          _.map(columns, (width) => (<col key={key} style={{ width }} />))
+        }
+      </colgroup>
+    )
+  )
+}
+
 const Table = ({
-  data, rowSpanCount, wrapTh, wrapTd, appendRow, className, loading,
+  data, rowSpanCount, wrapTh, wrapTd, appendRow, className,
+  loading, scroll, columns,
 }) => {
-  if (isEmpty(data)) {
+  if (_.isEmpty(data)) {
     return (
       <div>
         There is no data
@@ -77,8 +96,42 @@ const Table = ({
     )
   }
 
+  if (!_.isEmpty(scroll)) {
+    return (
+      <div>
+        <TableBox className={className} notBottom>
+          <Columns columns={columns} />
+          <THead
+            headers={data.headers}
+            subHeaders={data.subHeaders}
+            wrapTh={wrapTh}
+            loading={loading}
+          />
+        </TableBox>
+        <Scrollbars style={{ height: scroll.y }}>
+          <TableBox className={className} notBottom>
+            <Columns columns={columns} />
+            <TBody
+              headers={data.headers}
+              subHeaders={data.subHeaders}
+              rowData={data.rowData}
+              wrapTd={wrapTd}
+              appendRow={appendRow}
+              rowSpanCount={rowSpanCount}
+            />
+          </TableBox>
+        </Scrollbars>
+        <TableBox className={className}>
+          <Columns columns={columns} />
+          <TFoot footData={data.footData} />
+        </TableBox>
+      </div>
+    )
+  }
+
   return (
     <TableBox className={className}>
+      <Columns columns={columns} />
       <THead
         headers={data.headers}
         subHeaders={data.subHeaders}
@@ -106,9 +159,14 @@ Table.defaultProps = {
   appendRow: undefined,
   className: '',
   loading: false,
+  scroll: {},
+  columns: [],
 }
 
 Table.propTypes = {
+  columns: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  ),
   data: PropTypes.shape({
     headers: PropTypes.arrayOf(
       PropTypes.oneOfType([
@@ -132,6 +190,9 @@ Table.propTypes = {
   appendRow: PropTypes.func,
   className: PropTypes.string,
   loading: PropTypes.bool,
+  scroll: PropTypes.shape({
+    y: PropTypes.number,
+  }),
 }
 
 export default Table
