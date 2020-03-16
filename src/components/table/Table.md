@@ -134,3 +134,24 @@ import React, { useState, useEffect } from 'react'
 })()
 
 ```
+
+#### scroll Array List
+```js
+<Table
+  columns={[100, 'auto', 300]}
+  scroll={{ y: 300 }}
+  data={{
+    headers: ['a', 'b', 'c'],
+    rowData: [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9],
+      [10, 11, 12],
+      [13, 14, 15],
+    ],
+    footData: [
+      ['t1', 't2', 't3'],
+    ]
+  }}
+/>
+```
