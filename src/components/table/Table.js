@@ -65,7 +65,7 @@ const TableBox = styled.table`
 `
 
 const Table = ({
-  data, rowSpanCount, wrapTh, wrapTd, appendRow, className,
+  data, rowSpanCount, wrapTh, wrapTd, appendRow, className, loading,
 }) => {
   if (isEmpty(data)) {
     return (
@@ -79,7 +79,12 @@ const Table = ({
 
   return (
     <TableBox className={className}>
-      <THead headers={data.headers} subHeaders={data.subHeaders} wrapTh={wrapTh} />
+      <THead
+        headers={data.headers}
+        subHeaders={data.subHeaders}
+        wrapTh={wrapTh}
+        loading={loading}
+      />
       <TBody
         headers={data.headers}
         subHeaders={data.subHeaders}
@@ -100,6 +105,7 @@ Table.defaultProps = {
   wrapTd: undefined,
   appendRow: undefined,
   className: '',
+  loading: false,
 }
 
 Table.propTypes = {
@@ -125,6 +131,7 @@ Table.propTypes = {
   wrapTd: PropTypes.func,
   appendRow: PropTypes.func,
   className: PropTypes.string,
+  loading: PropTypes.bool,
 }
 
 export default Table
