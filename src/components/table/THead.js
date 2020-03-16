@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import _ from 'lodash'
@@ -59,7 +59,62 @@ const createSubHeader = (subHeaderData) => {
   )
 }
 
+const HeaderText = ({ text, wrapTh }) => (
+  wrapTh
+    ? wrapTh({ text })
+    : <div>{text}</div>
+)
+
+HeaderText.defaultProps = {
+  wrapTh: undefined,
+}
+
+HeaderText.propTypes = {
+  text: PropTypes.string.isRequired,
+  wrapTh: PropTypes.func,
+}
+
+
+const HeaderTextSort = ({ text, sort, toggle }) => (
+  <button
+    type="button"
+    onClick={sort}
+  >
+    {text}
+    <span>{toggle[text]}</span>
+  </button>
+)
+
+HeaderTextSort.defaultProps = {
+  sort: undefined,
+  toggle: {},
+}
+
+HeaderTextSort.propTypes = {
+  text: PropTypes.string.isRequired,
+  sort: PropTypes.func,
+  toggle: PropTypes.shape({}),
+}
+
 const THead = ({ headers, wrapTh, subHeaders }) => {
+  const [toggle, setToggle] = useState({})
+
+  const onSort = (text, sort) => {
+    let toggleDumy = { ...toggle }
+
+    if (!toggleDumy[text]) { // 없다면 처음, 그러면 다른 것들도 초기화
+      toggleDumy = _.mapValues(toggleDumy, () => (''))
+      toggleDumy[text] = 'asc'
+    } else if (toggleDumy[text] === 'asc') {
+      toggleDumy[text] = 'desc'
+    } else {
+      toggleDumy[text] = ''
+    }
+
+    setToggle(toggleDumy)
+    sort(text, toggleDumy[text])
+  }
+
   const createHeader = (headerData) => (
     <tr>
       {headerData.map((row) => {
@@ -67,6 +122,7 @@ const THead = ({ headers, wrapTh, subHeaders }) => {
         let colSpan
 
         const text = _.isObject(row) ? row.text : row
+        const sort = _.isObject(row) && row.sort ? () => onSort(text, row.sort) : null
 
         if (row.colSpan) {
           colSpan = row.colSpan
@@ -80,7 +136,11 @@ const THead = ({ headers, wrapTh, subHeaders }) => {
 
         return (
           <Th colSpan={colSpan} rowSpan={rowSpan} key={`header_${text}`}>
-            {wrapTh ? wrapTh({ text }) : <div>{text}</div>}
+            {
+              sort
+                ? HeaderTextSort({ text, sort, toggle })
+                : HeaderText({ text, wrapTh })
+            }
           </Th>
         )
       })}

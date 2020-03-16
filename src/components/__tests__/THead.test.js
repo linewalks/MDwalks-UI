@@ -127,3 +127,66 @@ describe('subHeaderData 가 있는 경우', () => {
     expect(wrapTh.mock.calls).toEqual([[{ text: '1' }], [{ text: '2' }], [{ text: '3' }]])
   })
 })
+
+describe('sort', () => {
+  let wrapper
+  let sortSpy = jest.fn()
+  let sortSpy1 = jest.fn()
+  let th
+  beforeEach(() => {
+    sortSpy = jest.fn()
+    sortSpy1 = jest.fn()
+    const headers = [
+      'a',
+      'b',
+      {
+        text: 'c',
+        sort: sortSpy,
+      },
+      {
+        text: 'd',
+        sort: sortSpy1,
+      },
+    ]
+
+    wrapper = mount(
+      <table>
+        <THead
+          headers={headers}
+        />
+      </table>,
+    )
+
+    th = wrapper.find('th')
+  })
+
+  it('sort 가 있으면 그려진다', () => {
+    expect(th.at(0).find('button')).toHaveLength(0)
+    expect(th.at(1).find('button')).toHaveLength(0)
+    expect(th.at(2).find('button')).toHaveLength(1)
+    expect(th.at(3).find('button')).toHaveLength(1)
+  })
+
+  it('asc, desc, 빈문자열 순으로 반환 된다 ', () => {
+    th.at(2).find('button').simulate('click')
+    th.at(2).find('button').simulate('click')
+    th.at(2).find('button').simulate('click')
+
+    expect(sortSpy).toHaveBeenNthCalledWith(1, 'c', 'asc')
+    expect(sortSpy).toHaveBeenNthCalledWith(2, 'c', 'desc')
+    expect(sortSpy).toHaveBeenNthCalledWith(3, 'c', '')
+  })
+
+  it('sort 시 기존에 다른 sort 된 th 가 있으면 빈문자열을 반환 된다 ', () => {
+    th.at(2).find('button').simulate('click')
+    th.at(2).find('button').simulate('click')
+
+    expect(th.at(2).find('span').text()).toBe('desc')
+    expect(th.at(3).find('span').text()).toBe('')
+
+    th.at(3).find('button').simulate('click')
+
+    expect(th.at(2).find('span').text()).toBe('')
+    expect(th.at(3).find('span').text()).toBe('asc')
+  })
+})
