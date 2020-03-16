@@ -1,3 +1,27 @@
+## [0.13.11](https://github.com/linewalks/MDwalks-UI/compare/v0.13.10...v0.13.11) (2020-03-16)
+
+
+### Bug Fixes
+
+* **TextLink:** set hover color ([3a8c98c](https://github.com/linewalks/MDwalks-UI/commit/3a8c98c577842550071556e661326eddba77d906)), closes [#452](https://github.com/linewalks/MDwalks-UI/issues/452)
+
+
+### Features
+
+* **Thead:** add sort icon ([31d88b2](https://github.com/linewalks/MDwalks-UI/commit/31d88b25c23230cfdc31ebc6f8005ae8ccce5801)), closes [#443](https://github.com/linewalks/MDwalks-UI/issues/443)
+
+
+
+## [0.13.10](https://github.com/linewalks/MDwalks-UI/compare/v0.13.9...v0.13.10) (2020-03-12)
+
+
+### Bug Fixes
+
+* **Input:** only number ([a8d1161](https://github.com/linewalks/MDwalks-UI/commit/a8d1161ae93253f615a5dff64270651be398acac)), closes [#444](https://github.com/linewalks/MDwalks-UI/issues/444)
+* **TextLink:** rename styled to style ([8331151](https://github.com/linewalks/MDwalks-UI/commit/833115169765fd903dc011762f4f8d609a9fef5f)), closes [#446](https://github.com/linewalks/MDwalks-UI/issues/446)
+
+
+
 ## [0.13.9](https://github.com/linewalks/MDwalks-UI/compare/v0.13.7...v0.13.9) (2020-03-10)
 
 

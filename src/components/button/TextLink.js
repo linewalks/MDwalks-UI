@@ -12,7 +12,10 @@ const colorSet = {
 const TextLinkTag = styled(font.TextTag).attrs(() => ({
   bold: true,
 }))`
-  color: ${(props) => (colorSet[props.variant])};
+  &, &:hover {
+    color: ${(props) => (colorSet[props.variant])};
+  }
+
   &:hover {
     text-decoration: underline;
   }
@@ -45,6 +48,9 @@ const TextLinkIconTag = styled(TextLinkTag)`
 
 const TextLink = (props) => {
   const {
+    href,
+    target,
+    rel,
     children,
     style,
     size,
@@ -62,6 +68,9 @@ const TextLink = (props) => {
   if (hasIcon) {
     return (
       <TextLinkIconTag
+        href={href}
+        target={target}
+        rel={rel}
         as="a"
         variant={variant}
         underline={underline}
@@ -77,6 +86,9 @@ const TextLink = (props) => {
 
   return (
     <TextLinkTag
+      href={href}
+      target={target}
+      rel={rel}
       as="a"
       variant={variant}
       underline={underline}
@@ -89,14 +101,20 @@ const TextLink = (props) => {
 }
 
 TextLink.defaultProps = {
-  styled: {},
+  href: undefined,
+  target: undefined,
+  rel: undefined,
+  style: {},
   size: 'md',
   variant: 'basic',
   underline: false,
   hasIcon: false,
 }
 TextLink.propTypes = {
-  styled: PropTypes.shape({}),
+  href: PropTypes.string,
+  target: PropTypes.string,
+  rel: PropTypes.string,
+  style: PropTypes.shape({}),
   size: PropTypes.string,
   variant: PropTypes.string,
   underline: PropTypes.bool,

@@ -10,11 +10,6 @@ it('strIdConvert', () => {
   expect(chartUtility.strIdConvert(['a', 'b'])).toBe('aXb')
 })
 
-it('tableHeaderConvert', () => {
-  expect(chartUtility.tableHeaderConvert('aa_bb')).toBe('Aa Bb')
-  expect(chartUtility.tableHeaderConvert('aa')).toBe('Aa')
-})
-
 describe('renderSVG', () => {
   it('throw', () => {
     const div = document.createElement('div')

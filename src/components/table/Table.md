@@ -99,3 +99,59 @@ Table example:
   }}>
 </Table>
 ```
+
+##### Sort List Table
+```js
+import React, { useState, useEffect } from 'react'
+
+;(() => {
+  const [loading, setLoading] = useState(false)
+  const onChange = (e) => {
+    setLoading(e.target.checked)
+  }
+
+  return (
+    <>
+      <input type="checkbox" onChange={onChange} /><span>loading</span>
+      <Table
+        loading={loading}
+        data={{
+          headers: ['a', 'b', { text: 'c', sort: function(a, b) { console.log(a, b) } }],
+          rowData: [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+          ],
+          footData: [
+            ['t1', 't2', 't3'],
+            ['t4', 't5', 't6']
+          ]
+        }}
+      >
+      </Table>
+    </>
+  )
+})()
+
+```
+
+#### scroll Array List
+```js
+<Table
+  columns={[100, 'auto', 300]}
+  scroll={{ y: 300 }}
+  data={{
+    headers: ['a', 'b', 'c'],
+    rowData: [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9],
+      [10, 11, 12],
+      [13, 14, 15],
+    ],
+    footData: [
+      ['t1', 't2', 't3'],
+    ]
+  }}
+/>
+```

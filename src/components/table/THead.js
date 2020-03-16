@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import _ from 'lodash'
@@ -7,7 +7,14 @@ import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
 import { color } from '@src/assets/styles/variables'
 
-import { tableHeaderConvert } from '@src/helper/chartUtility'
+import ICO_DOWN from '@src/assets/svg/table/icn_sort_down_default.svg'
+import ICO_UP from '@src/assets/svg/table/icn_sort_up_default.svg'
+
+import ICO_DOWN_FOCUS from '@src/assets/svg/table/icn_sort_down_focus.svg'
+import ICO_UP_FOCUS from '@src/assets/svg/table/icn_sort_up_focus.svg'
+
+import ICO_DOWN_DISABLE from '@src/assets/svg/table/icn_sort_down_disable.svg'
+import ICO_UP_DISABLE from '@src/assets/svg/table/icn_sort_up_disable.svg'
 
 const Td = styled.td.attrs(() => ({
   size: 16,
@@ -15,7 +22,7 @@ const Td = styled.td.attrs(() => ({
   opacity: 6,
 }))`
   ${font.Text}
-  padding: ${(props) => (props.subHeader ? '28px 24px' : '12px 22px')};
+  padding: 12px 22px;
   text-align: center;
   background: ${color.$table_grey};
 `
@@ -26,7 +33,11 @@ const Th = styled.th.attrs(() => ({
   opacity: 6,
 }))`
   ${font.Text}
-  padding: 28px 24px;
+
+  > div, > button {
+    padding: 28px 24px;
+  }
+
   text-align: center;
   background: ${color.$table_grey};
 
@@ -39,75 +50,204 @@ const Th = styled.th.attrs(() => ({
   }
 `
 
+const SortButton = styled.button`
+  > span {
+    position: relative;
+    width: 16px;
+    height: 100%;
+    margin-left: 8px;
+  }
+  img {
+    position: absolute;
+  }
+
+  img:first-child {
+    top: 0;
+  }
+
+  img:last-child {
+    bottom: 0;
+  }
+
+  width: 100%;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+`
+
 const Thead = styled.thead`
   border-bottom: 2px solid ${color.$line_dashboard_edge_grey};
 `
 
-const THead = ({ headers, wrapTh, subHeaders }) => {
-  const createHeader = (headerData, subHeaderData) => {
-    if (isEmpty(subHeaderData)) {
-      if (isEmpty(headerData)) {
-        return (
-          <tr>
-            <th>&nbsp;</th>
-          </tr>
-        )
-      }
-      return (
-        <tr>
-          {headerData.map((row) => {
-            const { colSpan } = row
-            const text = !_.isUndefined(colSpan) ? row.text : row
+const TrEmpty = () => (
+  <tr>
+    <th>&nbsp;</th>
+  </tr>
+)
 
-            return (
-              <Th key={text} colSpan={colSpan}>
-                {wrapTh
-                  ? wrapTh({ text: tableHeaderConvert(text) })
-                  : <div>{tableHeaderConvert(text)}</div>}
-              </Th>
-            )
-          })}
-        </tr>
-      )
-    }
+const createSubHeader = (subHeaderData) => {
+  const subTitleGroup = Object.values(subHeaderData).join().split(',')
+  return (
+    <tr>
+      {subTitleGroup.map((subTitle, i) => {
+        const key = `subheader_${subTitle}${i}`
+        return <Td key={key}>{subTitle}</Td>
+      })}
+    </tr>
+  )
+}
 
+const HeaderText = ({ text, wrapTh }) => (
+  wrapTh
+    ? wrapTh({ text })
+    : <div>{text}</div>
+)
+
+HeaderText.defaultProps = {
+  wrapTh: undefined,
+}
+
+HeaderText.propTypes = {
+  text: PropTypes.string.isRequired,
+  wrapTh: PropTypes.func,
+}
+
+export const HeaderSortIcon = ({ sort, loading }) => {
+  if (loading) {
     return (
-      <tr>
-        {headerData.map((header) => {
-          if (!subHeaders[header]) {
-            return (
-              <Th rowSpan={2} key={`header_${header}`}>
-                {wrapTh ? wrapTh({ text: header }) : <div>{header}</div>}
-              </Th>
-            )
-          }
-
-          const subHeaderColNum = subHeaders[header].length
-          return (
-            <Th colSpan={subHeaderColNum} key={`header_${header}`} subHeader>
-              {wrapTh ? wrapTh({ text: header }) : <div>{header}</div>}
-            </Th>
-          )
-        })}
-      </tr>
+      <span>
+        <img src={ICO_UP_DISABLE} alt="disabled up" />
+        <img src={ICO_DOWN_DISABLE} alt="disabled down" />
+      </span>
     )
   }
 
-  const createSubHeader = (subHeaderData) => {
-    const subTitleGroup = Object.values(subHeaderData).join().split(',')
+  if (sort === 'asc') {
     return (
-      <tr>
-        {subTitleGroup.map((subTitle, i) => {
-          const key = `subheader_${subTitle}${i}`
-          return <Td key={key}>{subTitle}</Td>
-        })}
-      </tr>
+      <span>
+        <img src={ICO_UP_FOCUS} alt="focus up" />
+        <img src={ICO_DOWN} alt="down" />
+      </span>
+    )
+  }
+
+  if (sort === 'desc') {
+    return (
+      <span>
+        <img src={ICO_UP} alt="up" />
+        <img src={ICO_DOWN_FOCUS} alt="focus down" />
+      </span>
+    )
+  }
+
+  return (
+    <span>
+      <img src={ICO_UP} alt="up" />
+      <img src={ICO_DOWN} alt="down" />
+    </span>
+  )
+}
+
+HeaderSortIcon.defaultProps = {
+  loading: false,
+  sort: '',
+}
+
+HeaderSortIcon.propTypes = {
+  loading: PropTypes.bool,
+  sort: PropTypes.string,
+}
+
+const HeaderTextSort = ({
+  text, sort, toggle, loading,
+}) => (
+  <SortButton
+    disabled={loading}
+    type="button"
+    onClick={sort}
+  >
+    {text}
+    <HeaderSortIcon sort={toggle[text]} loading={loading} />
+  </SortButton>
+)
+
+HeaderTextSort.defaultProps = {
+  sort: '',
+  toggle: {},
+  loading: false,
+}
+
+HeaderTextSort.propTypes = {
+  text: PropTypes.string.isRequired,
+  sort: PropTypes.func,
+  toggle: PropTypes.shape({}),
+  loading: PropTypes.bool,
+}
+
+const THead = ({
+  headers, wrapTh, subHeaders, loading,
+}) => {
+  const [toggle, setToggle] = useState({})
+
+  const onSort = (text, sort) => {
+    let toggleDumy = { ...toggle }
+
+    if (!toggleDumy[text]) { // 없다면 처음, 그러면 다른 것들도 초기화
+      toggleDumy = _.mapValues(toggleDumy, () => (''))
+      toggleDumy[text] = 'asc'
+    } else if (toggleDumy[text] === 'asc') {
+      toggleDumy[text] = 'desc'
+    } else {
+      toggleDumy[text] = ''
+    }
+
+    setToggle(toggleDumy)
+    sort(text, toggleDumy[text])
+  }
+
+  const createHeader = (headerData) => (
+    <tr>
+      {headerData.map((row) => {
+        let rowSpan
+        let colSpan
+
+        const text = _.isObject(row) ? row.text : row
+        const sort = _.isObject(row) && row.sort ? () => onSort(text, row.sort) : null
+
+        if (row.colSpan) {
+          colSpan = row.colSpan
+        }
+
+        if (subHeaders && subHeaders[text]) {
+          colSpan = subHeaders[text].length
+        } else if (subHeaders) {
+          rowSpan = 2
+        }
+
+        return (
+          <Th colSpan={colSpan} rowSpan={rowSpan} key={`header_${text}`}>
+            {
+              sort
+                ? HeaderTextSort({
+                  text, sort, toggle, loading,
+                })
+                : HeaderText({ text, wrapTh })
+            }
+          </Th>
+        )
+      })}
+    </tr>
+  )
+
+  if (isEmpty(subHeaders) && isEmpty(headers)) {
+    return (
+      <Thead>
+        <TrEmpty />
+      </Thead>
     )
   }
 
   return (
     <Thead>
-      {createHeader(headers, subHeaders)}
+      {createHeader(headers)}
       {isEmpty(subHeaders) ? null : createSubHeader(subHeaders)}
     </Thead>
   )
@@ -117,6 +257,7 @@ THead.defaultProps = {
   headers: undefined,
   wrapTh: undefined,
   subHeaders: undefined,
+  loading: false,
 }
 
 THead.propTypes = {
@@ -128,6 +269,7 @@ THead.propTypes = {
   ),
   wrapTh: PropTypes.func,
   subHeaders: PropTypes.shape({}),
+  loading: PropTypes.bool,
 }
 
 export default THead

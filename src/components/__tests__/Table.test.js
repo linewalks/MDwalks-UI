@@ -87,7 +87,7 @@ describe('Table Component', () => {
 describe('wrapTh', () => {
   it('default', () => {
     const wrapper = mount(<Table data={data.exceptSubHeaders} />)
-    expect(wrapper.find('th').map((node) => node.text()).join('')).toEqual(`ABC`)
+    expect(wrapper.find('th').map((node) => node.text()).join('')).toEqual(`abc`)
   })
 
   it('set wrapTh', () => {
@@ -173,4 +173,50 @@ it('check undefined, null', () => {
   }
 
   mount(<Table data={EmptyTableData} />)
+})
+
+describe('check scroll ', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = mount(<Table
+      columns={[100, 'auto', 300]}
+      scroll={{ y: 300 }}
+      data={{
+        headers: ['a', 'b', 'c'],
+        rowData: [
+          [1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9],
+          [10, 11, 12],
+          [13, 14, 15],
+        ],
+        footData: [
+          ['t1', 't2', 't3'],
+        ],
+      }}
+    />)
+  })
+
+  it('set style', () => {
+    expect(wrapper.find('table')).toHaveLength(3)
+
+    expect(wrapper.find('div').at(4).prop('style')).toEqual({
+      position: 'relative',
+      overflow: 'hidden',
+      width: '100%',
+      height: 300,
+    })
+
+    expect(wrapper.find('div').at(5).prop('style')).toEqual({
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      overflow: 'scroll',
+      WebkitOverflowScrolling: 'touch',
+      marginRight: 0,
+      marginBottom: 0,
+    })
+  })
 })
