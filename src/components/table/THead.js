@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import _ from 'lodash'
@@ -6,6 +6,15 @@ import isEmpty from 'lodash/isEmpty';
 import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
 import { color } from '@src/assets/styles/variables'
+
+import ICO_DOWN from '@src/assets/svg/table/icn_sort_down_default.svg'
+import ICO_UP from '@src/assets/svg/table/icn_sort_up_default.svg'
+
+import ICO_DOWN_FOCUS from '@src/assets/svg/table/icn_sort_down_focus.svg'
+import ICO_UP_FOCUS from '@src/assets/svg/table/icn_sort_up_focus.svg'
+
+import ICO_DOWN_DISABLE from '@src/assets/svg/table/icn_sort_down_disable.svg'
+import ICO_UP_DISABLE from '@src/assets/svg/table/icn_sort_up_disable.svg'
 
 const Td = styled.td.attrs(() => ({
   size: 16,
@@ -24,7 +33,11 @@ const Th = styled.th.attrs(() => ({
   opacity: 6,
 }))`
   ${font.Text}
-  padding: 28px 24px;
+
+  > div, > button {
+    padding: 28px 24px;
+  }
+
   text-align: center;
   background: ${color.$table_grey};
 
@@ -35,6 +48,29 @@ const Th = styled.th.attrs(() => ({
   &:last-child {
     border-radius: 0 10px 0 0;
   }
+`
+
+const SortButton = styled.button`
+  > span {
+    position: relative;
+    width: 16px;
+    height: 100%;
+    margin-left: 8px;
+  }
+  img {
+    position: absolute;
+  }
+
+  img:first-child {
+    top: 0;
+  }
+
+  img:last-child {
+    bottom: 0;
+  }
+
+  width: 100%;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
 `
 
 const Thead = styled.thead`
@@ -74,29 +110,85 @@ HeaderText.propTypes = {
   wrapTh: PropTypes.func,
 }
 
+export const HeaderSortIcon = ({ sort, loading }) => {
+  if (loading) {
+    return (
+      <span>
+        <img src={ICO_UP_DISABLE} alt="disabled up" />
+        <img src={ICO_DOWN_DISABLE} alt="disabled down" />
+        {sort}
+      </span>
+    )
+  }
 
-const HeaderTextSort = ({ text, sort, toggle }) => (
-  <button
+  if (sort === 'asc') {
+    return (
+      <span>
+        <img src={ICO_UP_FOCUS} alt="focus up" />
+        <img src={ICO_DOWN} alt="down" />
+        {sort}
+      </span>
+    )
+  }
+
+  if (sort === 'desc') {
+    return (
+      <span>
+        <img src={ICO_UP} alt="up" />
+        <img src={ICO_DOWN_FOCUS} alt="focus down" />
+        {sort}
+      </span>
+    )
+  }
+
+  return (
+    <span>
+      <img src={ICO_UP} alt="up" />
+      <img src={ICO_DOWN} alt="down" />
+      {sort}
+    </span>
+  )
+}
+
+HeaderSortIcon.defaultProps = {
+  loading: false,
+  sort: '',
+}
+
+HeaderSortIcon.propTypes = {
+  loading: PropTypes.bool,
+  sort: PropTypes.string,
+}
+
+const HeaderTextSort = ({
+  text, sort, toggle, loading,
+}) => (
+  <SortButton
+    disabled={loading}
     type="button"
     onClick={sort}
   >
     {text}
-    <span>{toggle[text]}</span>
-  </button>
+    <HeaderSortIcon sort={toggle[text]} loading={loading} />
+  </SortButton>
 )
 
 HeaderTextSort.defaultProps = {
-  sort: undefined,
+  sort: '',
   toggle: {},
+  loading: false,
 }
 
 HeaderTextSort.propTypes = {
   text: PropTypes.string.isRequired,
   sort: PropTypes.func,
   toggle: PropTypes.shape({}),
+  loading: PropTypes.bool,
 }
 
-const THead = ({ headers, wrapTh, subHeaders }) => {
+const THead = ({
+  headers, wrapTh, subHeaders, loading,
+}) => {
   const [toggle, setToggle] = useState({})
 
   const onSort = (text, sort) => {
@@ -138,7 +230,9 @@ const THead = ({ headers, wrapTh, subHeaders }) => {
           <Th colSpan={colSpan} rowSpan={rowSpan} key={`header_${text}`}>
             {
               sort
-                ? HeaderTextSort({ text, sort, toggle })
+                ? HeaderTextSort({
+                  text, sort, toggle, loading,
+                })
                 : HeaderText({ text, wrapTh })
             }
           </Th>
@@ -167,6 +261,7 @@ THead.defaultProps = {
   headers: undefined,
   wrapTh: undefined,
   subHeaders: undefined,
+  loading: false,
 }
 
 THead.propTypes = {
@@ -178,6 +273,7 @@ THead.propTypes = {
   ),
   wrapTh: PropTypes.func,
   subHeaders: PropTypes.shape({}),
+  loading: PropTypes.bool,
 }
 
 export default THead

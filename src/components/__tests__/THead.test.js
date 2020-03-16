@@ -181,12 +181,10 @@ describe('sort', () => {
     th.at(2).find('button').simulate('click')
     th.at(2).find('button').simulate('click')
 
-    expect(th.at(2).find('span').text()).toBe('desc')
-    expect(th.at(3).find('span').text()).toBe('')
-
     th.at(3).find('button').simulate('click')
 
-    expect(th.at(2).find('span').text()).toBe('')
-    expect(th.at(3).find('span').text()).toBe('asc')
+    expect(sortSpy).toHaveBeenNthCalledWith(1, 'c', 'asc')
+    expect(sortSpy).toHaveBeenNthCalledWith(2, 'c', 'desc')
+    expect(sortSpy1).toHaveBeenNthCalledWith(1, 'd', 'asc')
   })
 })
