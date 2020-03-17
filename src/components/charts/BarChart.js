@@ -26,6 +26,7 @@ const BarChart = ({
   title,
   data,
   layout,
+  stackId,
   xDataKey,
   yDataKey,
   theme,
@@ -69,7 +70,7 @@ const BarChart = ({
                   content={TooltipBox}
                 />
                 {
-                  newYDataKey.map((entry, index) => (<Rechart.Bar key={`bar${entry}`} dataKey={entry} fill={colors[index]} />))
+                  newYDataKey.map((entry, index) => (<Rechart.Bar key={`bar${entry}`} dataKey={entry} fill={colors[index]} stackId={stackId} />))
                 }
               </Rechart.BarChart>
             </Rechart.ResponsiveContainer>
@@ -83,6 +84,7 @@ BarChart.defaultProps = {
   title: [{}, null],
   data: [],
   layout: 'horizontal',
+  stackId: undefined,
   xDataKey: 'name',
   yDataKey: ['value', []],
   theme: 'blue',
@@ -93,6 +95,7 @@ BarChart.propTypes = {
   title: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
   data: PropTypes.arrayOf(PropTypes.shape({})),
   layout: PropTypes.oneOf(['horizontal', 'vertical']),
+  stackId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   xDataKey: PropTypes.string,
   yDataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   theme: PropTypes.oneOf(['blue', 'green', 'compare']),
