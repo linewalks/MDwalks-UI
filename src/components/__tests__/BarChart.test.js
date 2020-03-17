@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import BarChart from '@Charts/BarChart';
+import BarChart, { tickFormatterCustom } from '@Charts/BarChart';
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import * as Rechart from 'recharts'
 import _ from 'lodash'
@@ -10,38 +10,32 @@ const data = [
   {
     age: 20,
     Persons: 88,
+    weight: 100,
   },
   {
     age: 30,
     Persons: 272,
+    weight: 200,
   },
   {
     age: 40,
     Persons: 568,
+    weight: 500,
   },
   {
     age: 50,
     Persons: 932,
+    weight: 941,
   },
   {
     age: 60,
     Persons: 3319,
+    weight: 2312,
   },
   {
     age: 70,
     Persons: 5394,
-  },
-  {
-    age: 80,
-    Persons: 3665,
-  },
-  {
-    age: 90,
-    Persons: 989,
-  },
-  {
-    age: 100,
-    Persons: 58,
+    weight: 5323,
   },
 ]
 
@@ -56,6 +50,9 @@ const findReChartTags = (root, Tag) => (
 
 describe('BarChart Component', () => {
   let component;
+  let Bar
+  let XAxis
+  let YAxis
   beforeEach(() => {
     component = mount(
       <BarChart
@@ -66,6 +63,10 @@ describe('BarChart Component', () => {
         theme="blue"
       />,
     )
+
+    Bar = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Bar)
+    XAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.XAxis)
+    YAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.YAxis)
   })
 
   it('데이터가 없을 때, placeholder를 렌더링 해야 한다.', () => {
@@ -74,6 +75,67 @@ describe('BarChart Component', () => {
   })
 
   it('데이터가 있을 때, barchart를 렌더링 해야 한다.', () => {
-    expect(findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Bar)).toHaveLength(1)
+    expect(Bar).toHaveLength(1)
   })
+
+  it('XAxis props', () => {
+    expect(XAxis[0].props.dataKey).toBe('age')
+    expect(XAxis[0].props.type).toBe('category')
+    expect(XAxis[0].props.tickFormatter).toBe(undefined)
+  })
+
+  it('YAxis props', () => {
+    expect(YAxis[0].props.dataKey).toBe(undefined)
+    expect(YAxis[0].props.type).toBe('number')
+    expect(YAxis[0].props.tickFormatter.name).toBe('tickFormatter')
+  })
+})
+
+describe('BarChart Component', () => {
+  let component;
+  let Bar
+  let XAxis
+  let YAxis
+  beforeEach(() => {
+    component = mount(
+      <BarChart
+        title="Example"
+        data={data}
+        layout="vertical"
+        xDataKey="age"
+        yDataKey="Persons"
+        theme="blue"
+      />,
+    )
+
+    Bar = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Bar)
+    XAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.XAxis)
+    YAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.YAxis)
+  })
+
+  it('데이터가 없을 때, placeholder를 렌더링 해야 한다.', () => {
+    component.setProps({ data: [] })
+    expect(component.find(EmptyPlaceHolder)).toHaveLength(1)
+  })
+
+  it('데이터가 있을 때, barchart를 렌더링 해야 한다.', () => {
+    expect(Bar).toHaveLength(1)
+  })
+
+  it('XAxis props', () => {
+    expect(XAxis[0].props.dataKey).toBe(undefined)
+    expect(XAxis[0].props.type).toBe('number')
+    expect(XAxis[0].props.tickFormatter.name).toBe('tickFormatter')
+  })
+
+  it('YAxis props', () => {
+    expect(YAxis[0].props.dataKey).toBe('age')
+    expect(YAxis[0].props.type).toBe('category')
+    expect(YAxis[0].props.tickFormatter).toBe(undefined)
+  })
+})
+
+it('tickFormatterCustom', () => {
+  expect(tickFormatterCustom(1000)).toBe('1,000')
+  expect(tickFormatterCustom(0.1, true)).toBe('10 %')
 })
