@@ -34,9 +34,7 @@ const Th = styled.th.attrs(() => ({
 }))`
   ${font.Text}
 
-  > div, > button {
-    padding: 28px 24px;
-  }
+  ${(props) => (props.sort ? `` : `padding: 28px 24px`)};
 
   text-align: center;
   background: ${color.$table_grey};
@@ -51,6 +49,7 @@ const Th = styled.th.attrs(() => ({
 `
 
 const SortButton = styled.button`
+  padding: 28px 24px;
   > span {
     position: relative;
     width: 16px;
@@ -223,7 +222,7 @@ const THead = ({
         }
 
         return (
-          <Th colSpan={colSpan} rowSpan={rowSpan} key={`header_${text}`}>
+          <Th colSpan={colSpan} rowSpan={rowSpan} key={`header_${text}`} sort={_.isFunction(sort)}>
             {
               sort
                 ? HeaderTextSort({

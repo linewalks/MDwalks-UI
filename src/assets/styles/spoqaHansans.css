@@ -1,0 +1,47 @@
+body,th,td,input,select,textarea,button {
+  font-family: "Spoqa Han Sans";
+}
+
+@font-face {
+font-family: 'Spoqa Han Sans';
+font-weight: 700;
+font-display: swap;
+src:
+  local('Spoqa Han Sans Bold'),
+  url('/static/fonts/SpoqaHanSansBold.woff2') format('woff2'),
+  url('/static/fonts/SpoqaHanSansBold.woff') format('woff'),
+  url('/static/fonts/SpoqaHanSansBold.ttf') format('truetype');
+}
+
+@font-face {
+font-family: 'Spoqa Han Sans';
+font-weight: 400;
+font-display: swap;
+src:
+  local('Spoqa Han Sans Regular'),
+  url('/static/fonts/SpoqaHanSansRegular.woff2') format('woff2'),
+  url('/static/fonts/SpoqaHanSansRegular.woff') format('woff'),
+  url('/static/fonts/SpoqaHanSansRegular.ttf') format('truetype');
+}
+
+@font-face {
+font-family: 'Spoqa Han Sans';
+font-weight: 300;
+font-display: swap;
+src:
+  local('Spoqa Han Sans Light'),
+  url('/static/fonts/SpoqaHanSansLight.woff2') format('woff2'),
+  url('/static/fonts/SpoqaHanSansLight.woff') format('woff'),
+  url('/static/fonts/SpoqaHanSansLight.ttf') format('truetype');
+}
+
+@font-face {
+font-family: 'Spoqa Han Sans';
+font-weight: 100;
+font-display: swap;
+src:
+  local('Spoqa Han Sans Thin'),
+  url('/static/fonts/SpoqaHanSansThin.woff2') format('woff2'),
+  url('/static/fonts/SpoqaHanSansThin.woff') format('woff'),
+  url('/static/fonts/SpoqaHanSansThin.ttf') format('truetype');
+}

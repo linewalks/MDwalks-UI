@@ -1,6 +1,6 @@
 {
   "name": "MDwalks-UI",
-  "version": "0.13.11",
+  "version": "0.13.12",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
@@ -77,6 +77,7 @@
     "jest": "24.7.1",
     "jest-styled-components": "^6.3.3",
     "lint-staged": "^9.4.3",
+    "minimist": "^1.2.2",
     "node-sass": "^4.13.1",
     "rollup": "^1.16.7",
     "rollup-plugin-babel": "^4.3.3",

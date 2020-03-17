@@ -2,47 +2,166 @@ BarChart example:
 
 ```js
 <BarChart
-  title="Example"
+  title="Default"
   data={[
     {
       age: 20,
-      Persons: 88
+      Persons: 88,
+      weight: 100,
     },
     {
       age: 30,
-      Persons: 272
+      Persons: 272,
+      weight: 200,
     },
     {
       age: 40,
-      Persons: 568
+      Persons: 568,
+      weight: 500,
     },
     {
       age: 50,
-      Persons: 932
+      Persons: 932,
+      weight: 941,
     },
     {
       age: 60,
-      Persons: 3319
+      Persons: 3319,
+      weight: 2312,
     },
     {
       age: 70,
-      Persons: 5394
-    },
-    {
-      age: 80,
-      Persons: 3665
-    },
-    {
-      age: 90,
-      Persons: 989
-    },
-    {
-      age: 100,
-      Persons: 58
+      Persons: 5394,
+      weight: 5323,
     },
   ]}
   xDataKey="age"
   yDataKey="Persons"
-  theme="blue"
+/>
+```
+
+```js
+<BarChart
+  title="theme(green)"
+  data={[
+    {
+      age: 20,
+      Persons: 88,
+      weight: 100,
+    },
+    {
+      age: 30,
+      Persons: 272,
+      weight: 200,
+    },
+    {
+      age: 40,
+      Persons: 568,
+      weight: 500,
+    },
+    {
+      age: 50,
+      Persons: 932,
+      weight: 941,
+    },
+    {
+      age: 60,
+      Persons: 3319,
+      weight: 2312,
+    },
+    {
+      age: 70,
+      Persons: 5394,
+      weight: 5323,
+    },
+  ]}
+  xDataKey="age"
+  yDataKey={["Persons", "weight"]}
+  theme="green"
+/>
+```
+
+```js
+<BarChart
+  title="vertical"
+  layout="vertical"
+  data={[
+    {
+      age: 20,
+      Persons: 88,
+      weight: 100,
+    },
+    {
+      age: 30,
+      Persons: 272,
+      weight: 200,
+    },
+    {
+      age: 40,
+      Persons: 568,
+      weight: 500,
+    },
+    {
+      age: 50,
+      Persons: 932,
+      weight: 941,
+    },
+    {
+      age: 60,
+      Persons: 3319,
+      weight: 2312,
+    },
+    {
+      age: 70,
+      Persons: 5394,
+      weight: 5323,
+    },
+  ]}
+  xDataKey="age"
+  yDataKey={["Persons", "weight"]}
+  theme="compare"
+/>
+```
+
+```js
+<BarChart
+  title="stackId"
+  layout="vertical"
+  stackId="a"
+  data={[
+    {
+      age: 20,
+      Persons: 88,
+      weight: 100,
+    },
+    {
+      age: 30,
+      Persons: 272,
+      weight: 200,
+    },
+    {
+      age: 40,
+      Persons: 568,
+      weight: 500,
+    },
+    {
+      age: 50,
+      Persons: 932,
+      weight: 941,
+    },
+    {
+      age: 60,
+      Persons: 3319,
+      weight: 2312,
+    },
+    {
+      age: 70,
+      Persons: 5394,
+      weight: 5323,
+    },
+  ]}
+  xDataKey="age"
+  yDataKey={["Persons", "weight"]}
+  theme="compare"
 />
 ```
