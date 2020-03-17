@@ -4,7 +4,10 @@ const { version } = require('./package');
 const ignore = ['**/__tests__/**', '**/*.test.{js,jsx,ts,tsx}', '**/*.spec.{js,jsx,ts,tsx}', '**/*.d.ts']
 
 module.exports = {
-  require: [path.resolve(__dirname, 'src/assets/styles/reset.css')],
+  require: [
+    path.resolve(__dirname, 'src/assets/styles/reset.css'),
+    path.resolve(__dirname, 'src/assets/styles/spoqaHansans.css'),
+  ],
   moduleAliases: {
     '@src': path.resolve(__dirname, 'src'),
     '@Components': path.resolve(__dirname, 'src/components'),
