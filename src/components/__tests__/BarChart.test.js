@@ -99,7 +99,7 @@ describe('BarChart Component', () => {
   beforeEach(() => {
     component = mount(
       <BarChart
-        title="Example"
+        title="vertical"
         data={data}
         layout="vertical"
         xDataKey="age"
@@ -132,6 +132,31 @@ describe('BarChart Component', () => {
     expect(YAxis[0].props.dataKey).toBe('age')
     expect(YAxis[0].props.type).toBe('category')
     expect(YAxis[0].props.tickFormatter).toBe(undefined)
+  })
+})
+
+describe('BarChart Component', () => {
+  let component;
+  let Bar
+  const stackId = 'a'
+  beforeEach(() => {
+    component = mount(
+      <BarChart
+        title="stackId"
+        data={data}
+        stackId={stackId}
+        xDataKey="age"
+        yDataKey={['Persons', 'weight']}
+        theme="blue"
+      />,
+    )
+
+    Bar = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Bar)
+  })
+
+  it('set stackId', () => {
+    expect(Bar).not.toHaveLength(1)
+    expect(_.every(Bar, (bar) => (bar.props.stackId === stackId))).toBe(true)
   })
 })
 
