@@ -23,7 +23,7 @@ const Tab = styled.span.attrs((props) => {
   return { size: 16, bold: true, ...options }
 })`
   ${font.Text}
-  padding: 14px 10px ${14 + UnderLineSize}px;
+  padding: 14px 10px ${13 + UnderLineSize}px;
   &:not(:last-child) {
     margin-right: 20px;
   }
