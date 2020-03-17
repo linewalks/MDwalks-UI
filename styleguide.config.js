@@ -16,6 +16,7 @@ module.exports = {
     'src/components/table/THead.js',
     'src/components/table/TBody.js',
     'src/components/table/TFoot.js',
+    'src/components/table/Columns.js',
     'src/components/toast/ToastList.js',
     'src/components/list/Item.js',
     'src/components/button/utility.js',
