@@ -1,3 +1,22 @@
+## [0.13.12](https://github.com/linewalks/MDwalks-UI/compare/v0.13.11...v0.13.12) (2020-03-17)
+
+
+### Bug Fixes
+
+* **THead:** remove text for test ([ece9ebe](https://github.com/linewalks/MDwalks-UI/commit/ece9ebed16dadd52aa50ebe4dbbd6a363d6a6160))
+* **THead:** rollback style of th ([2b27bb1](https://github.com/linewalks/MDwalks-UI/commit/2b27bb1d6e2f1b1127a8891a0e7dab12e264f563)), closes [#469](https://github.com/linewalks/MDwalks-UI/issues/469)
+
+
+### Features
+
+* **BarChart:** add prop of layout(horizontal, vertical) ([ffe5859](https://github.com/linewalks/MDwalks-UI/commit/ffe5859a1a999e90a12977e38b345d3483df8305)), closes [#463](https://github.com/linewalks/MDwalks-UI/issues/463)
+* **BarChart:** add prop of stackId ([07cb3c4](https://github.com/linewalks/MDwalks-UI/commit/07cb3c464a68078b681afb52cd0899b6669354e7)), closes [#463](https://github.com/linewalks/MDwalks-UI/issues/463)
+* **docs:** apply SpoqaHanSans ([3a8838f](https://github.com/linewalks/MDwalks-UI/commit/3a8838f48ed26e1b58bd5830904be8acabd47098)), closes [#465](https://github.com/linewalks/MDwalks-UI/issues/465)
+* **Pagination:** add prop of align ([5ec4c4e](https://github.com/linewalks/MDwalks-UI/commit/5ec4c4eb2d3565cd46ce18519b41d6b175c8640e)), closes [#468](https://github.com/linewalks/MDwalks-UI/issues/468)
+* **Table:** add scroll option ([35a5a59](https://github.com/linewalks/MDwalks-UI/commit/35a5a5988017ac6d77512c42d02cf433effcb4ef)), closes [#451](https://github.com/linewalks/MDwalks-UI/issues/451)
+
+
+
 ## [0.13.11](https://github.com/linewalks/MDwalks-UI/compare/v0.13.10...v0.13.11) (2020-03-16)
 
 
