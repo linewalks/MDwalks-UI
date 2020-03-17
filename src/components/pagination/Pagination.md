@@ -30,6 +30,7 @@ import React, { useState } from 'react'
       totalPage={6}
       drawPageCnt={5}
       onChange={onChange}
+      align="left"
     />
   )
 })();
@@ -49,6 +50,7 @@ import React, { useState } from 'react'
       totalPage={6}
       drawPageCnt={5}
       onChange={onChange}
+      align="right"
     />
   )
 })();
