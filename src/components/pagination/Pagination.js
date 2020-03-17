@@ -15,6 +15,14 @@ const PaginationBox = styled.section`
   align-items: center;
 `
 
+const PaginationInner = styled.div`
+  display: inline-block;
+
+  ${(props) => (props.align === 'center' ? `margin: 0 auto` : '')}
+  ${(props) => (props.align === 'left' ? `margin-right: auto` : '')}
+  ${(props) => (props.align === 'right' ? `margin-left: auto` : '')}
+`
+
 export const PageText = styled.span`
   &:not(:last-child) {
     margin-left: 8px;
@@ -168,61 +176,63 @@ class Pagination extends Component {
   }
 
   render() {
-    const { size, simple } = this.props
+    const { size, simple, align } = this.props
     const { selectPage, totalPage } = this.state
 
     const imageSize = size === 'sm' ? 32 : 42
 
     return (
       <PaginationBox style={this.isHidden() ? { display: 'none' } : {}}>
-        <ButtonMove
-          type="button"
-          size={size}
-          disabled={this.disablePrevButton()}
-          onClick={() => (this.movePrevPage.bind(this)())}
-        >
-          <img type="image" src={btnPre} width={imageSize} height={imageSize} alt="move previous" />
-        </ButtonMove>
-        {
-          simple
-          && (
-            <>
-              <Input
+        <PaginationInner align={align}>
+          <ButtonMove
+            type="button"
+            size={size}
+            disabled={this.disablePrevButton()}
+            onClick={() => (this.movePrevPage.bind(this)())}
+          >
+            <img type="image" src={btnPre} width={imageSize} height={imageSize} alt="move previous" />
+          </ButtonMove>
+          {
+            simple
+            && (
+              <>
+                <Input
+                  size={size}
+                  initPage={selectPage * 1}
+                  max={totalPage}
+                  onChange={(page) => ((this.onChange.bind(this))(page))}
+                />
+                <PageText size={size}>
+                  /
+                </PageText>
+                <PageText size={size}>
+                  {totalPage}
+                </PageText>
+              </>
+            )
+          }
+          {
+            !simple && this.getPageList().map((page) => (
+              <ButtonPage
+                type="button"
                 size={size}
-                initPage={selectPage * 1}
-                max={totalPage}
-                onChange={(page) => ((this.onChange.bind(this))(page))}
-              />
-              <PageText size={size}>
-                /
-              </PageText>
-              <PageText size={size}>
-                {totalPage}
-              </PageText>
-            </>
-          )
-        }
-        {
-          !simple && this.getPageList().map((page) => (
-            <ButtonPage
-              type="button"
-              size={size}
-              selected={page === selectPage}
-              key={`page${page}`}
-              onClick={() => this.onChange(page)}
-            >
-              {page}
-            </ButtonPage>
-          ))
-        }
-        <ButtonMove
-          type="button"
-          size={size}
-          disabled={this.disableNextButton()}
-          onClick={() => (this.moveNextPage.bind(this)())}
-        >
-          <img type="image" src={btnNext} width={imageSize} height={imageSize} alt="move next" />
-        </ButtonMove>
+                selected={page === selectPage}
+                key={`page${page}`}
+                onClick={() => this.onChange(page)}
+              >
+                {page}
+              </ButtonPage>
+            ))
+          }
+          <ButtonMove
+            type="button"
+            size={size}
+            disabled={this.disableNextButton()}
+            onClick={() => (this.moveNextPage.bind(this)())}
+          >
+            <img type="image" src={btnNext} width={imageSize} height={imageSize} alt="move next" />
+          </ButtonMove>
+        </PaginationInner>
       </PaginationBox>
     )
   }
@@ -236,6 +246,7 @@ Pagination.defaultProps = {
   totalPage: 1,
   drawPageCnt: 1,
   simple: false,
+  align: 'center',
 }
 
 Pagination.propTypes = {
@@ -245,6 +256,7 @@ Pagination.propTypes = {
   totalPage: PropTypes.number,
   drawPageCnt: PropTypes.number,
   simple: PropTypes.bool,
+  align: PropTypes.string,
 }
 
 export default Pagination
