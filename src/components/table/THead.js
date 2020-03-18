@@ -48,7 +48,12 @@ const Th = styled.th.attrs(() => ({
   }
 `
 
-const SortButton = styled.button`
+const SortButton = styled.button.attrs(() => ({
+  size: 16,
+  bold: true,
+  opacity: 6,
+}))`
+  ${font.Text}
   padding: 28px 24px;
   > span {
     position: relative;
@@ -61,11 +66,13 @@ const SortButton = styled.button`
   }
 
   img:first-child {
-    top: 0;
+    top: 50%;
+    margin-top: -8px;
   }
 
   img:last-child {
-    bottom: 0;
+    bottom: 50%;
+    margin-bottom: -8px;
   }
 
   width: 100%;
