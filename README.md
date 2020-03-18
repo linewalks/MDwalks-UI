@@ -15,12 +15,9 @@
   yarn build
   ```
 
-* run docz
+* run docs
   ```bash
-  yarn docz dev
-  ```
-  ```
-  port 변경 시 doczrc.js 의 port property 변경
+  yarn styleguide
   ```
 
 ## 2. build
@@ -29,9 +26,9 @@
   yarn build
   ```
 
-* docz build
+* docs build
   ```bash
-  yarn build:docz
+  yarn build:docs
   ```
 
 ## 3. 가이드
