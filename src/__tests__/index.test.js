@@ -11,7 +11,7 @@ const includeModule = [
   'Image', 'LineChart',
   'LineMergeTimeline', 'Modal',
   'Navbar', 'Pagination',
-  'RadarChart', 'RadioList',
+  'RadarChart', 'RadioList', 'RadioBox',
   'RadiusGauge', 'SankeyChart',
   'SelectBox', 'SelectedCard',
   'SummaryCard', 'Table',

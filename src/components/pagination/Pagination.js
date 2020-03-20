@@ -238,7 +238,6 @@ class Pagination extends Component {
   }
 }
 
-
 Pagination.defaultProps = {
   onChange: () => {},
   size: undefined,
@@ -256,7 +255,7 @@ Pagination.propTypes = {
   totalPage: PropTypes.number,
   drawPageCnt: PropTypes.number,
   simple: PropTypes.bool,
-  align: PropTypes.string,
+  align: PropTypes.oneOf(['center', 'left', 'right']),
 }
 
 export default Pagination
