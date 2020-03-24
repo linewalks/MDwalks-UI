@@ -1,20 +1,11 @@
-/* tooltip  */
-.tooltipTitle {
-  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP';
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: -0.5px;
-  color: #000000;
-  opacity: 0.6;
-}
+/* select box */
 
-.tooltipValue {
-  height: 20px;
-  line-height: 1.5;
-  font-size: 12px;
-  font-weight: bold;
-  opacity: 0.9;
+.binsDropDown {
+  min-width: 80px;
+  height: 34px;
+  padding: 7px 34px 7px 18px;
+  border: 1px solid #d3d9de;
+  border-radius: 21px;
+  margin-left: 8px;
+  background: url(../../assets/svg/icn_select_open_xs.svg) no-repeat #ffffff calc(100% - 13px) center;
 }
