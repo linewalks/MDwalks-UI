@@ -1,11 +1,6 @@
 /* select box */
-
-.binsDropDown {
-  min-width: 80px;
-  height: 34px;
-  padding: 7px 34px 7px 18px;
-  border: 1px solid #d3d9de;
-  border-radius: 21px;
-  margin-left: 8px;
-  background: url(../../assets/svg/icn_select_open_xs.svg) no-repeat #ffffff calc(100% - 13px) center;
+.gDropDown {
+  position: absolute;
+  top: -8px;
+  right: 0px
 }

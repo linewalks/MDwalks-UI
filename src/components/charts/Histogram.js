@@ -6,6 +6,7 @@ import _ from 'lodash'
 import { renderSVG, generateGroup, errorMessage } from '@src/helper/chartUtility'
 import { color, colorV1 } from '@src/assets/styles/variables'
 import fontStyle from '@src/assets/styles/font.module.sass'
+import SelectBox from '@Components/form/SelectBox'
 
 class Histogram extends Component {
   constructor(props) {
@@ -175,46 +176,6 @@ class Histogram extends Component {
       .style('fill', colorV1.$grey08)
   }
 
-  createDropDown = (data) => {
-    const dropDownList = [10, 20, 50, 100]
-
-    const dropDownBox = this.getRootElement()
-      .append('div')
-      .attr('class', 'gDropDown')
-      .style('position', 'absolute')
-      .style('top', '-7px')
-      .style('right', '0px')
-
-
-    dropDownBox
-      .append('span')
-      .attr('class', `${fontStyle.fs14} ${fontStyle.fc_grey10}`)
-      .text('Bars :')
-
-    const select = dropDownBox
-      .append('select')
-      .attr('id', 'binsDropDown')
-      .attr('class', `${fontStyle.fs14} ${fontStyle.fc_grey10} ${styles.binsDropDown}`)
-      .on('change', () => {
-        this.getRootElement().select('.gBar')
-          .remove()
-
-        this.getRootElement().select('.gRiskMeanLine')
-          .remove()
-        const binsN = this.getRootElement().select('#binsDropDown').property('value')
-        this.createBar(data, binsN)
-        this.createRiskMeanLine(data)
-      })
-
-    select
-      .selectAll('option')
-      .data(dropDownList)
-      .enter()
-      .append('option')
-      .attr('value', (d) => d)
-      .text((d) => d)
-  }
-
   createXAxisGridLines = (gridXAxis) => {
     const { defaultPadding } = this.options
 
@@ -303,7 +264,6 @@ class Histogram extends Component {
     this.createXAxis(xAxis)
     this.createYAxis(yAxis)
     this.createLegend('Patient', 'Group')
-    this.createDropDown(data)
     this.createXAxisGridLines(gridXAxis)
     this.createBar(data)
     this.createRiskMeanLine(data)
@@ -311,9 +271,6 @@ class Histogram extends Component {
 
   removeHistogram = () => {
     this.getRootElement().select('svg')
-      .remove()
-
-    this.getRootElement().select('.gDropDown')
       .remove()
   }
 
@@ -344,12 +301,45 @@ class Histogram extends Component {
     return null
   }
 
+  onChangeHistogram = ({ target: { value } }) => {
+    const { data } = this.props
+
+    this.getRootElement().select('.gBar')
+      .remove()
+
+
+    this.getRootElement().select('.gRiskMeanLine')
+      .remove()
+
+    this.createBar(data, value)
+    this.createRiskMeanLine(data)
+  }
+
   render() {
+    const dropDownList = [10, 20, 50, 100]
+
     if (this.checkDataValidation()) {
       return <div>{errorMessage(this.checkDataValidation())}</div>
     }
 
-    return <div ref={this.rootElement} style={{ position: 'relative' }} />
+    return (
+      <div ref={this.rootElement} style={{ position: 'relative' }}>
+        <div className={styles.gDropDown}>
+          <span className={`${fontStyle.fs14} ${fontStyle.fc_grey10}`}>
+            Bars :
+          </span>
+          <SelectBox style={{ marginLeft: 8 }}>
+            <select onChange={this.onChangeHistogram}>
+              {
+                dropDownList.map((value) => (
+                  <option key={value} value={value}>{value}</option>
+                ))
+              }
+            </select>
+          </SelectBox>
+        </div>
+      </div>
+    )
   }
 }
 
