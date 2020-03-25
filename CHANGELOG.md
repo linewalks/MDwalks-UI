@@ -1,3 +1,12 @@
+## [0.13.14](https://github.com/linewalks/MDwalks-UI/compare/v0.13.13...v0.13.14) (2020-03-25)
+
+
+### Features
+
+* **BarChart:** add scroll option ([597bdc2](https://github.com/linewalks/MDwalks-UI/commit/597bdc20b96aeb86665cffad0bc00c2ec980e9a4)), closes [#487](https://github.com/linewalks/MDwalks-UI/issues/487)
+
+
+
 ## [0.13.13](https://github.com/linewalks/MDwalks-UI/compare/v0.13.12...v0.13.13) (2020-03-20)
 
 

@@ -24961,7 +24961,8 @@ var BarChart = function BarChart(_ref) {
       xDataKey = _ref.xDataKey,
       yDataKey = _ref.yDataKey,
       theme = _ref.theme,
-      isPercent = _ref.isPercent;
+      isPercent = _ref.isPercent,
+      scroll = _ref.scroll;
   var colors = colorSet[theme] || colorSet.blue;
   var newYDataKey = [].concat(yDataKey);
 
@@ -24986,6 +24987,7 @@ var BarChart = function BarChart(_ref) {
   var YAxisDataKey = layout === 'horizontal' ? undefined : xDataKey;
   var XAxisTicFormatter = layout === 'horizontal' ? undefined : tickFormatter;
   var YAxisTicFormatter = layout === 'horizontal' ? tickFormatter : undefined;
+  var isScroll = !lodash.isUndefined(scroll.y);
   return React__default.createElement("div", null, React__default.createElement(Heading, {
     size: "18",
     style: {
@@ -24993,16 +24995,27 @@ var BarChart = function BarChart(_ref) {
     }
   }, title), React__default.createElement(LegendList, {
     data: legendData
-  }), isEmpty(data) ? React__default.createElement(EmptyPlaceHolder, null) : React__default.createElement(Rechart.ResponsiveContainer, {
+  }), isEmpty(data) ? React__default.createElement(EmptyPlaceHolder, null) : React__default.createElement("div", null, React__default.createElement(lib_1, {
+    style: {
+      height: isScroll ? scroll.y : 415
+    }
+  }, React__default.createElement(Rechart.ResponsiveContainer, {
     height: 415
   }, React__default.createElement(Rechart.BarChart, {
     data: data,
     height: 415,
-    layout: layout
+    layout: layout,
+    margin: {
+      top: 5,
+      right: 5,
+      bottom: isScroll ? 0 : 5,
+      left: 5
+    }
   }, React__default.createElement(Rechart.CartesianGrid, {
     vertical: false,
     stroke: color.$line_graph_xy_grey
   }), React__default.createElement(Rechart.XAxis, {
+    hide: isScroll,
     tickLine: false,
     tickMargin: 10,
     stroke: "rgba(0, 0, 0, 0.6)",
@@ -25027,7 +25040,38 @@ var BarChart = function BarChart(_ref) {
       fill: colors[index],
       stackId: stackId
     });
-  }))));
+  })))), isScroll && React__default.createElement(Rechart.ResponsiveContainer, {
+    height: 36
+  }, React__default.createElement(Rechart.BarChart, {
+    data: data,
+    height: 36,
+    layout: layout
+  }, React__default.createElement(Rechart.XAxis, {
+    tickLine: false,
+    tickMargin: 10,
+    stroke: "rgba(0, 0, 0, 0.6)",
+    dataKey: XAxisDataKey,
+    tickFormatter: XAxisTicFormatter,
+    type: XAxisType
+  }), React__default.createElement(Rechart.YAxis, {
+    axisLine: false,
+    tickMargin: 10,
+    stroke: "rgba(0, 0, 0, 0.4)",
+    tickLine: false,
+    dataKey: YAxisDataKey,
+    tickFormatter: YAxisTicFormatter,
+    type: YAxisType
+  }), newYDataKey.map(function (entry, index) {
+    return React__default.createElement(Rechart.Bar, {
+      style: {
+        visibility: 'hidden'
+      },
+      key: "bar".concat(entry),
+      dataKey: entry,
+      fill: colors[index],
+      stackId: stackId
+    });
+  })))));
 };
 
 BarChart.defaultProps = {
@@ -25038,7 +25082,8 @@ BarChart.defaultProps = {
   xDataKey: 'name',
   yDataKey: ['value', []],
   theme: 'blue',
-  isPercent: false
+  isPercent: false,
+  scroll: {}
 };
 BarChart.propTypes = {
   title: propTypes.oneOfType([propTypes.shape({}), propTypes.string]),
@@ -25048,7 +25093,10 @@ BarChart.propTypes = {
   xDataKey: propTypes.string,
   yDataKey: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
   theme: propTypes.oneOf(['blue', 'green', 'compare']),
-  isPercent: propTypes.bool
+  isPercent: propTypes.bool,
+  scroll: propTypes.shape({
+    y: propTypes.number
+  })
 };
 
 var colorSet$1 = {
@@ -26446,9 +26494,95 @@ Tabs.Tab = Tab;
 Tabs.TabPane = TabPane;
 Tabs.TabUnderLine = TabUnderLine;
 
-var css_248z$5 = "/* tooltip  */\n.Histogram-module_tooltipTitle__2olSH {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  opacity: 0.6;\n}\n\n.Histogram-module_tooltipValue__gir_k {\n  height: 20px;\n  line-height: 1.5;\n  font-size: 12px;\n  font-weight: bold;\n  opacity: 0.9;\n}";
-var styles$5 = {"tooltipTitle":"Histogram-module_tooltipTitle__2olSH","tooltipValue":"Histogram-module_tooltipValue__gir_k"};
+var css_248z$5 = "/* select box */\n.Histogram-module_gDropDown__3g6OC {\n  position: absolute;\n  top: -8px;\n  right: 0px\n}";
+var styles$5 = {"gDropDown":"Histogram-module_gDropDown__3g6OC"};
 styleInject(css_248z$5);
+
+var icnSelectOpenSm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE3LjY1NyA4LjE3MmExIDEgMCAxIDEgMS40MTQgMS40MTRsLTYuMzUyIDYuMzUxYTEuMDIgMS4wMiAwIDAgMS0uMDEyLjAxM2wtLjAxMy4wMTEtLjY5NC42OTYtMS40MTQtMS40MTQtNS42NTctNS42NTdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDEyIDEzLjgyOGw1LjY1Ny01LjY1NnoiLz4KPC9zdmc+';
+
+var icnSelectOpenXs = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExLjUzNiA1LjI5M2ExIDEgMCAxIDEgMS40MTQgMS40MTRsLTMuNTM2IDMuNTM2LS43MDcuNzA3LS43MDcuNzA3LTEuNDE0LTEuNDE0TDMuMDUgNi43MDdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDggOC44MjhIOGwzLjUzNi0zLjUzNXoiLz4KPC9zdmc+';
+
+function _templateObject$f() {
+  var data = _taggedTemplateLiteral(["\n  select {\n    ", "\n    &:focus {\n      box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16);\n    }\n\n    &:disabled {\n      background-color: rgba(0, 0, 0, 0.04);\n      color: rgba(0, 0, 0, 0.2);\n    }\n\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n\n    -moz-appearance: textfield;\n\n    option[value=\"\"][hidden] {\n      display: none;\n    }\n  }\n\n  option {\n    ", "\n  }\n\n  select:invalid {\n    color: rgba(0, 0, 0, 0.3);\n  }\n\n  ", "\n"]);
+
+  _templateObject$f = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var SelectSize = {
+  xLarge: {
+    fontSize: 16,
+    height: '64px',
+    minWidth: '200px',
+    padding: '20px 64px 20px 24px',
+    iconSize: '24px',
+    marginRight: '0px',
+    borderRadius: '10px',
+    backgroundImage: icnSelectOpenSm,
+    backgroundPosition: 'calc(100% - 20px) center'
+  },
+  large: {
+    fontSize: 16,
+    height: '42px',
+    minWidth: '90px',
+    padding: '9px 42px 9px 20px',
+    iconSize: '16px',
+    marginRight: '8px',
+    borderRadius: '21px',
+    backgroundImage: icnSelectOpenXs,
+    backgroundPosition: 'calc(100% - 13px) center'
+  },
+  middle: {
+    fontSize: 14,
+    height: '34px',
+    minWidth: '80px',
+    padding: '7px 34px 7px 18px',
+    iconSize: '16px',
+    marginRight: '8px',
+    borderRadius: '21px',
+    backgroundImage: icnSelectOpenXs,
+    backgroundPosition: 'calc(100% - 13px) center'
+  }
+};
+
+var setSelectSize = function setSelectSize(props) {
+  return "\n  select {\n    height: ".concat(props.SizeObject.height, ";\n    padding: ").concat(props.SizeObject.padding, ";\n    min-width: ").concat(props.SizeObject.minWidth, ";\n    border-radius: ").concat(props.SizeObject.borderRadius, ";\n    background: url(").concat(props.SizeObject.backgroundImage, ") no-repeat ").concat(color.$primary_white, " ").concat(props.SizeObject.backgroundPosition, ";\n\n    border: 1px solid ").concat(color.$line_search_grey, "\n  }\n\n  &:not(:last-child) {\n    margin-right: ").concat(props.SizeObject.marginRight, ";\n  }\n\n  option {\n    background-color: #ffffff;\n  }\n\n  display: inline-block;\n");
+}; // size : xlg, lg, md
+
+
+var Box = styled__default.div.attrs(function (_ref) {
+  var _ref$size = _ref.size,
+      size = _ref$size === void 0 ? 'md' : _ref$size,
+      disabled = _ref.disabled;
+  var SizeObject = {
+    xlg: SelectSize.xLarge,
+    md: SelectSize.middle
+  }[size] || SelectSize.large;
+  return {
+    size: SizeObject.fontSize,
+    opacity: disabled ? 2 : 8,
+    SizeObject: SizeObject
+  };
+})(_templateObject$f(), Text, Text, setSelectSize);
+
+var SelectBox = function SelectBox(_ref2) {
+  var style = _ref2.style,
+      children = _ref2.children,
+      size = _ref2.size;
+  return React__default.createElement(Box, {
+    style: style,
+    size: size
+  }, children);
+};
+
+SelectBox.defaultProps = {
+  size: 'md'
+};
+SelectBox.propTypes = {
+  size: propTypes.string
+};
 
 var Histogram = /*#__PURE__*/function (_Component) {
   _inherits(Histogram, _Component);
@@ -26492,6 +26626,7 @@ var Histogram = /*#__PURE__*/function (_Component) {
       gYAxis.selectAll('.domain').remove();
       gYAxis.selectAll('.tick line').attr('x2', -6).attr('stroke', color.$line_graph_xy_grey);
       gYAxis.selectAll('.tick:last-child line').attr('stroke', color.$line_btn_grey);
+      gYAxis.selectAll('.tick:last-child text').attr('class', "".concat(fontStyle.fs14, " ").concat(fontStyle.bold)).style('fill', colorV1.$grey08).text('명');
       gYAxis.selectAll('.tick text').attr('font-size', 14).attr('font-family', 'Spoqa Han Sans').style('fill', color.$black).attr('opacity', 0.4);
     });
 
@@ -26500,8 +26635,6 @@ var Histogram = /*#__PURE__*/function (_Component) {
       var histogramData = data.risks,
           patientRisk = data.patientRisk;
       var defaultPadding = _this.options.defaultPadding;
-      var tooltipTitle = _this.props.tooltipTitle;
-      var $primaryNavy = color.$primary_navy;
       var gBar = generateGroup(_this.getRootElement().select('.histogram'), {
         className: 'gBar',
         xOffset: defaultPadding.left,
@@ -26523,37 +26656,20 @@ var Histogram = /*#__PURE__*/function (_Component) {
         return d.length === 0 ? 0 : _this.yAxisHeight - _this.yAxisScale(d.length);
       }).style('fill', function (d, i) {
         if (i === patientRiskIndex) {
-          return $primaryNavy;
+          return '#2c6ff5';
         }
 
-        return '#e1e1e1';
+        return '#c3d1da';
       }).transition().duration(500);
       gBar.exit().remove();
-      var tooltipDescription = "\n      <div style='display:flex;'>\n        <span class=".concat(styles$5.tooltipTitle, " style='width: 85px; height: 20px; margin-right:24px;'>").concat(tooltipTitle, "</span>\n        <span class=").concat(styles$5.tooltipValue, " style='margin-left:auto;'>").concat(patientRisk, "</span>\n      </div>\n      <div style='display:flex;'>\n        <span class=").concat(styles$5.tooltipTitle, " style='width: 118px; height: 20px; margin-right: 24px;'>Number of Patients</span>\n        <span class=").concat(styles$5.tooltipValue, " style='margin-left:auto;'>").concat(bins[patientRiskIndex].length, "</span>\n      </div>\n    ");
-
-      _this.getRootElement().append('div').attr('class', 'histogramTooltip').style('position', 'absolute').style('border', "solid 1px ".concat(color.$menu_grey)).style('border-radius', '4px').style('padding', '12px 14px').style('box-sizing', 'border-box').style('background', "".concat(color.$primary_white)).style('top', "".concat(_this.yAxisScale(bins[patientRiskIndex].length) + defaultPadding.top - 90, "px")).style('left', "".concat(_this.xAxisScale(bins[patientRiskIndex].x0) + defaultPadding.left, "px")).html(tooltipDescription);
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "createTitle", function () {
-      var title = _this.props.title; // const { defaultPadding } = this.options
-
-      var gTitle = generateGroup(_this.getRootElement().select('.histogram'), {
-        className: 'Title',
-        xOffset: 0,
-        yOffset: 0
-      });
-      gTitle.append('text').text("".concat(title)).attr('text-anchor', 'start').attr('font-size', 18).attr('letter-spacing', -0.5).attr('font-weight', 'bold').attr('x', 0).attr('y', 22).style('fill', color.$black).style('opacity', 0.6);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createLegend", function () {
-      var $primaryNavy = color.$primary_navy,
-          $legendTimelineRed01 = color.$legend_timeline_red_01;
-      var legendColorSet = [$primaryNavy, $legendTimelineRed01]; // const { defaultPadding } = this.options
-
+      var legendColorSet = ['#3c5ee5', '#c3d1da'];
       var gLegend = generateGroup(_this.getRootElement().select('.histogram'), {
         className: 'gLegend',
         xOffset: 0,
-        yOffset: 58
+        yOffset: 0
       }); // add legend circle
 
       for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
@@ -26561,40 +26677,16 @@ var Histogram = /*#__PURE__*/function (_Component) {
       }
 
       gLegend.selectAll('legendCircle').data(args).enter().append('circle').attr('cx', function (d, i) {
-        return 5 + 140 * i;
+        return 5 + 86 * i;
       }).attr('cy', 10).attr('r', 5).style('fill', function (d, i) {
         return legendColorSet[i];
       }); // add legend text
 
       gLegend.selectAll('legend').data(args).enter().append('text').attr('x', function (d, i) {
-        return 18 + 140 * i;
+        return 18 + 86 * i;
       }).attr('y', 15).text(function (d) {
         return d;
-      }).attr('text-anchor', 'start').attr('font-size', 14).attr('textLength', 108).attr('font-family', 'Spoqa Han Sans').style('fill', '#999999');
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "createDropDown", function (data) {
-      var dropDownList = [10, 20, 50, 100];
-
-      var dropDownBox = _this.getRootElement().append('div').attr('class', 'gDropDown').style('position', 'absolute').style('top', '55px').style('left', '1100px').append('select').attr('id', 'binsDropDown').on('change', function () {
-        _this.getRootElement().select('.gBar').remove();
-
-        _this.getRootElement().select('.histogramTooltip').remove();
-
-        _this.getRootElement().select('.gRiskMeanLine').remove();
-
-        var binsN = _this.getRootElement().select('#binsDropDown').property('value');
-
-        _this.createBar(data, binsN);
-
-        _this.createRiskMeanLine(data);
-      });
-
-      dropDownBox.selectAll('option').data(dropDownList).enter().append('option').attr('value', function (d) {
-        return d;
-      }).text(function (d) {
-        return d;
-      });
+      }).attr('text-anchor', 'start').attr('class', fontStyle.fs14).attr('font-family', 'Spoqa Han Sans').style('fill', colorV1.$grey08);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createXAxisGridLines", function (gridXAxis) {
@@ -26619,7 +26711,8 @@ var Histogram = /*#__PURE__*/function (_Component) {
         xOffset: defaultPadding.left,
         yOffset: defaultPadding.top
       });
-      gRiskMeanLine.append('line').attr('x1', _this.xAxisScale(data.avgRisk)).attr('x2', _this.xAxisScale(data.avgRisk)).attr('y1', 0).attr('y2', _this.yAxisHeight).attr('stroke', color.$legend_timeline_red_01);
+      gRiskMeanLine.append('line').attr('x1', _this.xAxisScale(data.avgRisk)).attr('x2', _this.xAxisScale(data.avgRisk)).attr('y1', 0).attr('y2', _this.yAxisHeight).attr('stroke', '#091840').attr('stroke-width', 2);
+      gRiskMeanLine.append('text').attr('x', _this.xAxisScale(data.avgRisk) + 4).attr('y', 12).attr('class', "".concat(fontStyle.fs12, " ").concat(fontStyle.bold)).style('fill', colorV1.$grey09).text('Average Risk Score');
     });
 
     _defineProperty(_assertThisInitialized(_this), "getPatientRiskScoreIndex", function (score, binsNumber) {
@@ -26630,11 +26723,19 @@ var Histogram = /*#__PURE__*/function (_Component) {
       var _this$options2 = _this.options,
           width = _this$options2.width,
           height = _this$options2.height;
+      var yMaxValue = _this.props.yMaxValue;
       var svg = renderSVG(_this.getRootElement(), width, height);
       generateGroup(svg, {
         className: 'histogram'
       });
-      var xAxis = d3.axisBottom(_this.xAxisScale).tickPadding(14).ticks(10).tickSize(0); // 10^n으로 바꾸는 포맷 함수
+      var tickValues = [1e0, 1e1, 1e2, 1e3, 1e4, 2e4 + 5e3];
+      var xAxis = d3.axisBottom(_this.xAxisScale).tickPadding(14).ticks(10).tickSize(0);
+
+      if (yMaxValue) {
+        tickValues[lodash.findLastIndex(tickValues)] = yMaxValue;
+        _this.yAxisScale = d3.scaleLog().domain([1e0, yMaxValue]).range([_this.yAxisHeight, 0]);
+      } // 10^n으로 바꾸는 포맷 함수
+
 
       var superscript = '⁰¹²³⁴⁵⁶⁷⁸⁹';
 
@@ -26642,28 +26743,28 @@ var Histogram = /*#__PURE__*/function (_Component) {
         return superscript[d];
       };
 
-      var yAxis = d3.axisLeft(_this.yAxisScale).tickPadding(21).tickSize(0).tickValues([1e0, 1e1, 1e2, 1e3, 1e4, 2e4 + 5e3]).ticks(5, function (d) {
+      var yAxis = d3.axisLeft(_this.yAxisScale).tickPadding(21).tickSize(0).tickValues(tickValues).ticks(5, function (d) {
         return "10".concat(formatPower(Math.log10(d)));
       });
       _this.yAxis = yAxis;
-      var gridXAxis = d3.axisRight(_this.yAxisScale).tickSize(_this.xAxisWidth).tickValues([1e0, 1e1, 1e2, 1e3, 1e4, 2e4 + 5e3]);
+      var gridXAxis = d3.axisRight(_this.yAxisScale).tickSize(_this.xAxisWidth).tickValues(tickValues);
       _this.gridXAxis = gridXAxis;
-
-      _this.createTitle();
 
       _this.createXAxis(xAxis);
 
       _this.createYAxis(yAxis);
 
-      _this.createLegend('Patient Risk Score', 'Average Risk Score');
-
-      _this.createDropDown(data);
+      _this.createLegend('Patient', 'Group');
 
       _this.createXAxisGridLines(gridXAxis);
 
       _this.createBar(data);
 
       _this.createRiskMeanLine(data);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "removeHistogram", function () {
+      _this.getRootElement().select('svg').remove();
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
@@ -26675,14 +26776,18 @@ var Histogram = /*#__PURE__*/function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "componentDidUpdate", function (prevProps) {
-      var data = _this.props.data;
+      var _this$props = _this.props,
+          data = _this$props.data,
+          yMaxValue = _this$props.yMaxValue;
 
       if (!lodash.isEqual(prevProps.data, data)) {
-        _this.getRootElement().select('svg').remove();
+        _this.removeHistogram();
 
-        _this.getRootElement().select('.histogramTooltip').remove();
+        _this.renderHistogram(data);
+      }
 
-        _this.getRootElement().select('.gDropDown').remove();
+      if (!lodash.isEqual(prevProps.yMaxValue, yMaxValue)) {
+        _this.removeHistogram();
 
         _this.renderHistogram(data);
       }
@@ -26695,14 +26800,27 @@ var Histogram = /*#__PURE__*/function (_Component) {
       return null;
     });
 
-    var _this$props = _this.props,
-        chartWidth = _this$props.chartWidth,
-        chartHeight = _this$props.chartHeight;
+    _defineProperty(_assertThisInitialized(_this), "onChangeHistogram", function (_ref) {
+      var value = _ref.target.value;
+      var data = _this.props.data;
+
+      _this.getRootElement().select('.gBar').remove();
+
+      _this.getRootElement().select('.gRiskMeanLine').remove();
+
+      _this.createBar(data, value);
+
+      _this.createRiskMeanLine(data);
+    });
+
+    var _this$props2 = _this.props,
+        chartWidth = _this$props2.chartWidth,
+        chartHeight = _this$props2.chartHeight;
     _this.options = {
       width: chartWidth || 1140,
-      height: chartHeight || 529,
+      height: chartHeight || 385,
       defaultPadding: {
-        top: 115,
+        top: 67,
         right: 0,
         left: 43,
         bottom: 34
@@ -26729,6 +26847,8 @@ var Histogram = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var dropDownList = [10, 20, 50, 100];
+
       if (this.checkDataValidation()) {
         return React__default.createElement("div", null, errorMessage(this.checkDataValidation()));
       }
@@ -26738,7 +26858,22 @@ var Histogram = /*#__PURE__*/function (_Component) {
         style: {
           position: 'relative'
         }
-      });
+      }, React__default.createElement("div", {
+        className: styles$5.gDropDown
+      }, React__default.createElement("span", {
+        className: "".concat(fontStyle.fs14, " ").concat(fontStyle.fc_grey10)
+      }, "Bars :"), React__default.createElement(SelectBox, {
+        style: {
+          marginLeft: 8
+        }
+      }, React__default.createElement("select", {
+        onChange: this.onChangeHistogram
+      }, dropDownList.map(function (value) {
+        return React__default.createElement("option", {
+          key: value,
+          value: value
+        }, value);
+      })))));
     }
   }]);
 
@@ -26747,15 +26882,13 @@ var Histogram = /*#__PURE__*/function (_Component) {
 
 Histogram.defaultProps = {
   data: undefined,
-  title: '',
-  tooltipTitle: '',
+  yMaxValue: undefined,
   chartWidth: undefined,
   chartHeight: undefined
 };
 Histogram.propTypes = {
   data: propTypes.shape({}),
-  title: propTypes.string,
-  tooltipTitle: propTypes.string,
+  yMaxValue: propTypes.number,
   chartWidth: propTypes.number,
   chartHeight: propTypes.number
 };
@@ -26812,10 +26945,10 @@ function _templateObject2$c() {
   return data;
 }
 
-function _templateObject$f() {
+function _templateObject$g() {
   var data = _taggedTemplateLiteral(["\n  position: fixed;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background-color: ", ";\n  z-index: ", ";\n"]);
 
-  _templateObject$f = function _templateObject() {
+  _templateObject$g = function _templateObject() {
     return data;
   };
 
@@ -26830,7 +26963,7 @@ var size$1 = {
   footerPaddingTop: '24px',
   minWidth: '480px'
 };
-var Overlay = styled__default.div(_templateObject$f(), hexToRGB(color.$black, 0.6), function (props) {
+var Overlay = styled__default.div(_templateObject$g(), hexToRGB(color.$black, 0.6), function (props) {
   return props.isLoading ? zIndex.$modalOverlayLoading : zIndex.$modalOverlay;
 });
 var ModalBox = styled__default.div(_templateObject2$c(), size$1.minWidth, size$1.borderRadius, color.$primary_white, zIndex.$modal, size$1.modalPadding);
@@ -26918,16 +27051,16 @@ function _templateObject2$d() {
   return data;
 }
 
-function _templateObject$g() {
+function _templateObject$h() {
   var data = _taggedTemplateLiteral(["\n  label {\n    cursor: pointer;\n  }\n  img:hover:not(:disabled) {\n    box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16);\n  }\n  &:hover {\n    background-color: ", ";\n  }\n"]);
 
-  _templateObject$g = function _templateObject() {
+  _templateObject$h = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var CssEnable = styled.css(_templateObject$g(), color.$secondary_blue);
+var CssEnable = styled.css(_templateObject$h(), color.$secondary_blue);
 var CssDiable = styled.css(_templateObject2$d());
 var Item = styled__default(TextTag).attrs(function () {
   return {
@@ -27262,16 +27395,16 @@ function _templateObject2$e() {
   return data;
 }
 
-function _templateObject$h() {
+function _templateObject$i() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n"]);
 
-  _templateObject$h = function _templateObject() {
+  _templateObject$i = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Outer = styled__default.section(_templateObject$h());
+var Outer = styled__default.section(_templateObject$i());
 var Inner = styled__default.div(_templateObject2$e(), function (props) {
   return props.align === 'center' ? "margin: 0 auto" : '';
 }, function (props) {
@@ -27279,7 +27412,7 @@ var Inner = styled__default.div(_templateObject2$e(), function (props) {
 }, function (props) {
   return props.align === 'right' ? "margin-left: auto" : '';
 });
-var Box = styled__default.div(_templateObject3$9());
+var Box$1 = styled__default.div(_templateObject3$9());
 var Label = styled__default.label.attrs(function () {
   return {
     className: [fontStyle.fs16, fontStyle.fc_grey09, fontStyle.bold].join(' ')
@@ -27385,7 +27518,7 @@ var RadioBox = /*#__PURE__*/function (_React$Component) {
             name = item.name;
         var checked = selectedList.includes("".concat(id));
         var text = formatter ? formatter(item) : name;
-        return React__default.createElement(Box, {
+        return React__default.createElement(Box$1, {
           key: "".concat(name).concat(id)
         }, React__default.createElement(Label, null, React__default.createElement("img", {
           src: checked ? IcnChecked$1 : IcnUnchecked$1,
@@ -28702,16 +28835,16 @@ function _templateObject2$f() {
   return data;
 }
 
-function _templateObject$i() {
+function _templateObject$j() {
   var data = _taggedTemplateLiteral(["\n  border:0 none;\n  background-color:transparent;\n  cursor:pointer;\n  transition: background-color 0.3s, color 0.3s ease, border-color 0.3s ease;\n  line-height: 1.34em;\n\n  img {\n    vertical-align: middle;\n  }\n\n  &:hover {\n    text-decoration: none;\n  }\n\n  &:disabled {\n    cursor: not-allowed;\n  }\n"]);
 
-  _templateObject$i = function _templateObject() {
+  _templateObject$j = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var BtnDefaultCss = styled.css(_templateObject$i());
+var BtnDefaultCss = styled.css(_templateObject$j());
 var BtnSize = {
   xLarge: {
     minWidth: '100%',
@@ -28913,10 +29046,10 @@ Button.propTypes = {
   id: propTypes.string
 };
 
-function _templateObject$j() {
+function _templateObject$k() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  min-width: auto;\n  padding-left: 8px;\n  padding-right: 8px;\n  display: inline-block;\n  box-sizing: border-box;\n\n  color: ", ";\n  &:hover {\n    color: ", ";\n  }\n\n  &:first-child {\n    padding-left: 0;\n  }\n"]);
 
-  _templateObject$j = function _templateObject() {
+  _templateObject$k = function _templateObject() {
     return data;
   };
 
@@ -28933,7 +29066,7 @@ var ButtonLinkTag = styled__default(TextTag).attrs(function () {
     bold: bold || true,
     BtnSizeObject: BtnSizeObject
   };
-})(_templateObject$j(), BtnDefaultCss, setBtnSize, color.$solid_default, color.$solid_hover);
+})(_templateObject$k(), BtnDefaultCss, setBtnSize, color.$solid_default, color.$solid_hover);
 
 var ButtonLink = function ButtonLink(props) {
   var propsAs = props.as,
@@ -28966,10 +29099,10 @@ ButtonLink.propTypes = {
   id: propTypes.string
 };
 
-function _templateObject$k() {
+function _templateObject$l() {
   var data = _taggedTemplateLiteral(["\n  color: ", ";\n  text-decoration: underline;\n"]);
 
-  _templateObject$k = function _templateObject() {
+  _templateObject$l = function _templateObject() {
     return data;
   };
 
@@ -28980,7 +29113,7 @@ var ButtonTextLinkTag = styled__default(TextTag).attrs(function () {
     size: 16,
     bold: true
   };
-})(_templateObject$k(), hexToRGB(color.$black, 0.6));
+})(_templateObject$l(), hexToRGB(color.$black, 0.6));
 var ButtonTextLink = function ButtonTextLink(props) {
   var propsAs = props.as,
       children = props.children,
@@ -29027,10 +29160,10 @@ function _templateObject2$g() {
   return data;
 }
 
-function _templateObject$l() {
+function _templateObject$m() {
   var data = _taggedTemplateLiteral(["\n  &, &:hover {\n    color: ", ";\n  }\n\n  &:hover {\n    text-decoration: underline;\n  }\n\n  ", ";\n  font-size: ", "px;\n  cursor: pointer;\n"]);
 
-  _templateObject$l = function _templateObject() {
+  _templateObject$m = function _templateObject() {
     return data;
   };
 
@@ -29044,7 +29177,7 @@ var TextLinkTag = styled__default(TextTag).attrs(function () {
   return {
     bold: true
   };
-})(_templateObject$l(), function (props) {
+})(_templateObject$m(), function (props) {
   return colorSet$2[props.variant];
 }, function (props) {
   return props.underline ? 'text-decoration: underline' : '';
@@ -29155,22 +29288,22 @@ function _templateObject2$h() {
   return data;
 }
 
-function _templateObject$m() {
+function _templateObject$n() {
   var data = _taggedTemplateLiteral(["\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.2);\n  border: 2px solid ", ";\n  background-color: ", ";\n  padding: 15px 56px 15px 24px;\n  max-width: 700px;\n  line-height: 1;\n  ", "\n  text-align: center;\n  position: relative;\n\n  &:not(:last-child) {\n    margin-bottom: 20px;\n  }\n"]);
 
-  _templateObject$m = function _templateObject() {
+  _templateObject$n = function _templateObject() {
     return data;
   };
 
   return data;
 }
 
-var Box$1 = styled__default.section.attrs(function () {
+var Box$2 = styled__default.section.attrs(function () {
   return {
     size: 16,
     opacity: 8
   };
-})(_templateObject$m(), function (props) {
+})(_templateObject$n(), function (props) {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
 var InnerBox = styled__default.article(_templateObject2$h());
@@ -29181,7 +29314,7 @@ var Toast = function Toast(_ref) {
   var children = _ref.children,
       variant = _ref.variant,
       onClose = _ref.onClose;
-  return React__default.createElement(Box$1, {
+  return React__default.createElement(Box$2, {
     variant: variant
   }, React__default.createElement(InnerBox, null, React__default.createElement(TextBox, null, React__default.createElement("img", {
     src: variant === 'error' ? IcnMessageError : IcnMessageComplete,
@@ -29206,16 +29339,16 @@ Toast.propTypes = {
   variant: propTypes.string
 };
 
-function _templateObject$n() {
+function _templateObject$o() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child):not(:empty) {\n    margin-bottom: 20px;\n  }\n"]);
 
-  _templateObject$n = function _templateObject() {
+  _templateObject$o = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Box$2 = styled__default.article(_templateObject$n());
+var Box$3 = styled__default.article(_templateObject$o());
 
 var ToastList = /*#__PURE__*/function (_React$Component) {
   _inherits(ToastList, _React$Component);
@@ -29282,7 +29415,7 @@ var ToastList = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       var list = this.state.list;
-      return React__default.createElement(Box$2, null, lodash.map(list, function (_ref3) {
+      return React__default.createElement(Box$3, null, lodash.map(list, function (_ref3) {
         var type = _ref3.type,
             msg = _ref3.msg,
             id = _ref3.id;
@@ -29349,16 +29482,16 @@ var btnNext = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmc
 
 var btnPre = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgdmlld0JveD0iMCAwIDQyIDQyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjQyIiBoZWlnaHQ9IjQyIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMDYiIHJ4PSI0Ii8+CiAgICAgICAgPHBhdGggZmlsbD0iIzg4OCIgZD0iTTEzLjk5IDIyLjA2bDMuODg5IDMuODlhMSAxIDAgMSAwIDEuNDE0LTEuNDE0TDE2Ljc1NyAyMkgyN2ExIDEgMCAxIDAgMC0ySDE2Ljc1N2wyLjUzNi0yLjUzNmExIDEgMCAwIDAtMS40MTQtMS40MTRsLTMuNTM2IDMuNTM2TDEyLjkzIDIxbDEuMDYgMS4wNnoiLz4KICAgIDwvZz4KPC9zdmc+';
 
-function _templateObject$o() {
+function _templateObject$p() {
   var data = _taggedTemplateLiteral(["\n  color: ", ";\n  letter-spacing: -0.5px;\n  text-align: center;\n  line-height: 1;\n\n  max-width: 100px;\n\n  padding: 7px 18px;\n  border-radius: 21px;\n  border: solid 1px #dce0e4;\n  background-color: ", ";\n"]);
 
-  _templateObject$o = function _templateObject() {
+  _templateObject$p = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var InputBox = styled__default.input(_templateObject$o(), colorV1.$grey10, color.primary_white); // 범위도 추가 되어야겟다
+var InputBox = styled__default.input(_templateObject$p(), colorV1.$grey10, color.primary_white); // 범위도 추가 되어야겟다
 
 var Input = function Input(_ref) {
   var initPage = _ref.initPage,
@@ -29473,16 +29606,16 @@ function _templateObject2$i() {
   return data;
 }
 
-function _templateObject$p() {
+function _templateObject$q() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n"]);
 
-  _templateObject$p = function _templateObject() {
+  _templateObject$q = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var PaginationBox = styled__default.section(_templateObject$p());
+var PaginationBox = styled__default.section(_templateObject$q());
 var PaginationInner = styled__default.div(_templateObject2$i(), function (props) {
   return props.align === 'center' ? "margin: 0 auto" : '';
 }, function (props) {
@@ -29734,10 +29867,10 @@ function _templateObject2$j() {
   return data;
 }
 
-function _templateObject$q() {
+function _templateObject$r() {
   var data = _taggedTemplateLiteral(["\n  box-shadow: ", "\n"]);
 
-  _templateObject$q = function _templateObject() {
+  _templateObject$r = function _templateObject() {
     return data;
   };
 
@@ -29769,7 +29902,7 @@ var BtnSize$1 = {
     }
   }
 };
-var BoxShadow$1 = styled.css(_templateObject$q(), function (props) {
+var BoxShadow$1 = styled.css(_templateObject$r(), function (props) {
   return props.selected ? '0 1px 8px 0 rgba(117, 127, 139, 0.36);' : null;
 });
 var ButtonContainer = styled__default.section(_templateObject2$j(), function (props) {
@@ -29876,92 +30009,6 @@ ToggleButton.propTypes = {
   })).isRequired,
   size: propTypes.oneOf(['md', 'lg']),
   onChange: propTypes.func
-};
-
-var icnSelectOpenSm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE3LjY1NyA4LjE3MmExIDEgMCAxIDEgMS40MTQgMS40MTRsLTYuMzUyIDYuMzUxYTEuMDIgMS4wMiAwIDAgMS0uMDEyLjAxM2wtLjAxMy4wMTEtLjY5NC42OTYtMS40MTQtMS40MTQtNS42NTctNS42NTdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDEyIDEzLjgyOGw1LjY1Ny01LjY1NnoiLz4KPC9zdmc+';
-
-var icnSelectOpenXs = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExLjUzNiA1LjI5M2ExIDEgMCAxIDEgMS40MTQgMS40MTRsLTMuNTM2IDMuNTM2LS43MDcuNzA3LS43MDcuNzA3LTEuNDE0LTEuNDE0TDMuMDUgNi43MDdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDggOC44MjhIOGwzLjUzNi0zLjUzNXoiLz4KPC9zdmc+';
-
-function _templateObject$r() {
-  var data = _taggedTemplateLiteral(["\n  select {\n    ", "\n    &:focus {\n      box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16);\n    }\n\n    &:disabled {\n      background-color: rgba(0, 0, 0, 0.04);\n      color: rgba(0, 0, 0, 0.2);\n    }\n\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n\n    -moz-appearance: textfield;\n\n    option[value=\"\"][hidden] {\n      display: none;\n    }\n  }\n\n  option {\n    ", "\n  }\n\n  select:invalid {\n    color: rgba(0, 0, 0, 0.3);\n  }\n\n  ", "\n"]);
-
-  _templateObject$r = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var SelectSize = {
-  xLarge: {
-    fontSize: 16,
-    height: '64px',
-    minWidth: '200px',
-    padding: '20px 64px 20px 24px',
-    iconSize: '24px',
-    marginRight: '0px',
-    borderRadius: '10px',
-    backgroundImage: icnSelectOpenSm,
-    backgroundPosition: 'calc(100% - 20px) center'
-  },
-  large: {
-    fontSize: 16,
-    height: '42px',
-    minWidth: '90px',
-    padding: '9px 42px 9px 20px',
-    iconSize: '16px',
-    marginRight: '8px',
-    borderRadius: '21px',
-    backgroundImage: icnSelectOpenXs,
-    backgroundPosition: 'calc(100% - 13px) center'
-  },
-  middle: {
-    fontSize: 14,
-    height: '34px',
-    minWidth: '80px',
-    padding: '7px 34px 7px 18px',
-    iconSize: '16px',
-    marginRight: '8px',
-    borderRadius: '21px',
-    backgroundImage: icnSelectOpenXs,
-    backgroundPosition: 'calc(100% - 13px) center'
-  }
-};
-
-var setSelectSize = function setSelectSize(props) {
-  return "\n  select {\n    height: ".concat(props.SizeObject.height, ";\n    padding: ").concat(props.SizeObject.padding, ";\n    min-width: ").concat(props.SizeObject.minWidth, ";\n    border-radius: ").concat(props.SizeObject.borderRadius, ";\n    background: url(").concat(props.SizeObject.backgroundImage, ") no-repeat ").concat(color.$primary_white, " ").concat(props.SizeObject.backgroundPosition, ";\n\n    border: 1px solid ").concat(color.$line_search_grey, "\n  }\n\n  &:not(:last-child) {\n    margin-right: ").concat(props.SizeObject.marginRight, ";\n  }\n\n  option {\n    background-color: #ffffff;\n  }\n\n  display: inline-block;\n");
-}; // size : xlg, lg, md
-
-
-var Box$3 = styled__default.div.attrs(function (_ref) {
-  var _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 'md' : _ref$size,
-      disabled = _ref.disabled;
-  var SizeObject = {
-    xlg: SelectSize.xLarge,
-    md: SelectSize.middle
-  }[size] || SelectSize.large;
-  return {
-    size: SizeObject.fontSize,
-    opacity: disabled ? 2 : 8,
-    SizeObject: SizeObject
-  };
-})(_templateObject$r(), Text, Text, setSelectSize);
-
-var SelectBox = function SelectBox(_ref2) {
-  var style = _ref2.style,
-      children = _ref2.children,
-      size = _ref2.size;
-  return React__default.createElement(Box$3, {
-    style: style,
-    size: size
-  }, children);
-};
-
-SelectBox.defaultProps = {
-  size: 'md'
-};
-SelectBox.propTypes = {
-  size: propTypes.string
 };
 
 var timeFormatConvert = function timeFormatConvert(time) {
