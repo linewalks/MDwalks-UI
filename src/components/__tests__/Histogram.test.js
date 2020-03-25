@@ -70,4 +70,21 @@ describe('Histogram Component', () => {
     expect(instance.yAxis.tickValues()).toEqual([1, 10, 100, 1000, 10000, 40000])
     expect(instance.gridXAxis.tickValues()).toEqual([1, 10, 100, 1000, 10000, 40000])
   })
+
+  it('onChage 함수를 props로 받으면, selectbox를 선택할 때, onChange가 호출되어야 한다.', () => {
+    const onChange = jest.fn()
+    component.setProps({
+      onChange,
+    })
+
+    component.find('select').simulate('change', {
+      target: {
+        value: 20,
+      },
+    })
+
+    component.update()
+
+    expect(onChange).toHaveBeenCalled()
+  })
 })
