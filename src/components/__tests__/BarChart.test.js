@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import BarChart, { tickFormatterCustom } from '@Charts/BarChart';
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import * as Rechart from 'recharts'
+import { Scrollbars } from 'react-custom-scrollbars';
 import _ from 'lodash'
 
 
@@ -48,7 +49,7 @@ const findReChartTags = (root, Tag) => (
     .value()
 )
 
-describe('BarChart Component', () => {
+describe('default Component', () => {
   let component;
   let Bar
   let XAxis
@@ -67,6 +68,11 @@ describe('BarChart Component', () => {
     Bar = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Bar)
     XAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.XAxis)
     YAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.YAxis)
+  })
+
+  it('scroll 이 아닌 경우 BarChart 는 하나만 그려져야 한다', () => {
+    expect(component.find(Rechart.BarChart)).toHaveLength(1)
+    expect(component.find(Scrollbars).prop('style').height).toBe(415)
   })
 
   it('데이터가 없을 때, placeholder를 렌더링 해야 한다.', () => {
@@ -91,7 +97,7 @@ describe('BarChart Component', () => {
   })
 })
 
-describe('BarChart Component', () => {
+describe('vertical Component', () => {
   let component;
   let Bar
   let XAxis
@@ -135,7 +141,7 @@ describe('BarChart Component', () => {
   })
 })
 
-describe('BarChart Component', () => {
+describe('stackId Component', () => {
   let component;
   let Bar
   const stackId = 'a'
@@ -163,4 +169,25 @@ describe('BarChart Component', () => {
 it('tickFormatterCustom', () => {
   expect(tickFormatterCustom(1000)).toBe('1,000')
   expect(tickFormatterCustom(0.1, true)).toBe('10 %')
+})
+
+describe('Scroll Component', () => {
+  let component;
+  beforeEach(() => {
+    component = mount(
+      <BarChart
+        title="Example"
+        data={data}
+        xDataKey="age"
+        yDataKey="Persons"
+        theme="blue"
+        scroll={{ y: 100 }}
+      />,
+    )
+  })
+
+  it('render, set scroll height', () => {
+    expect(component.find(Rechart.BarChart)).toHaveLength(2)
+    expect(component.find(Scrollbars).prop('style').height).toBe(100)
+  })
 })
