@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
 import PropTypes from 'prop-types'
-
 import styles from '@Charts/Histogram.module.css';
 import _ from 'lodash'
 import { renderSVG, generateGroup, errorMessage } from '@src/helper/chartUtility'
-import { color } from '@src/assets/styles/variables'
+import { color, colorV1 } from '@src/assets/styles/variables'
+import fontStyle from '@src/assets/styles/font.module.sass'
+import SelectBox from '@Components/form/SelectBox'
 
 class Histogram extends Component {
   constructor(props) {
@@ -13,9 +14,9 @@ class Histogram extends Component {
     const { chartWidth, chartHeight } = this.props
     this.options = {
       width: chartWidth || 1140,
-      height: chartHeight || 529,
+      height: chartHeight || 385,
       defaultPadding: {
-        top: 115,
+        top: 67,
         right: 0,
         left: 43,
         bottom: 34,
@@ -89,6 +90,7 @@ class Histogram extends Component {
     gYAxis.selectAll('.domain').remove()
     gYAxis.selectAll('.tick line').attr('x2', -6).attr('stroke', color.$line_graph_xy_grey)
     gYAxis.selectAll('.tick:last-child line').attr('stroke', color.$line_btn_grey)
+    gYAxis.selectAll('.tick:last-child text').attr('class', `${fontStyle.fs14} ${fontStyle.bold}`).style('fill', colorV1.$grey08).text('명')
     gYAxis
       .selectAll('.tick text')
       .attr('font-size', 14)
@@ -100,8 +102,6 @@ class Histogram extends Component {
   createBar = (data, binsNumber = 10) => {
     const { risks: histogramData, patientRisk } = data;
     const { defaultPadding } = this.options
-    const { tooltipTitle } = this.props
-    const { $primary_navy: $primaryNavy } = color
     const gBar = generateGroup(this.getRootElement().select('.histogram'), {
       className: 'gBar',
       xOffset: defaultPadding.left,
@@ -130,9 +130,9 @@ class Histogram extends Component {
       .attr('height', (d) => (d.length === 0 ? 0 : (this.yAxisHeight - this.yAxisScale(d.length))))
       .style('fill', (d, i) => {
         if (i === patientRiskIndex) {
-          return $primaryNavy
+          return '#2c6ff5'
         }
-        return '#e1e1e1'
+        return '#c3d1da'
       })
       .transition()
       .duration(500)
@@ -140,62 +140,14 @@ class Histogram extends Component {
     gBar
       .exit()
       .remove()
-
-    const tooltipDescription = `
-      <div style='display:flex;'>
-        <span class=${styles.tooltipTitle} style='width: 85px; height: 20px; margin-right:24px;'>${tooltipTitle}</span>
-        <span class=${styles.tooltipValue} style='margin-left:auto;'>${patientRisk}</span>
-      </div>
-      <div style='display:flex;'>
-        <span class=${styles.tooltipTitle} style='width: 118px; height: 20px; margin-right: 24px;'>Number of Patients</span>
-        <span class=${styles.tooltipValue} style='margin-left:auto;'>${bins[patientRiskIndex].length}</span>
-      </div>
-    `
-
-    this.getRootElement()
-      .append('div')
-      .attr('class', 'histogramTooltip')
-      .style('position', 'absolute')
-      .style('border', `solid 1px ${color.$menu_grey}`)
-      .style('border-radius', '4px')
-      .style('padding', '12px 14px')
-      .style('box-sizing', 'border-box')
-      .style('background', `${color.$primary_white}`)
-      .style('top', `${this.yAxisScale(bins[patientRiskIndex].length) + defaultPadding.top - 90}px`)
-      .style('left', `${this.xAxisScale(bins[patientRiskIndex].x0) + defaultPadding.left}px`)
-      .html(tooltipDescription)
-  }
-
-  createTitle = () => {
-    const { title } = this.props
-    // const { defaultPadding } = this.options
-    const gTitle = generateGroup(this.getRootElement().select('.histogram'), {
-      className: 'Title',
-      xOffset: 0,
-      yOffset: 0,
-    })
-
-    gTitle
-      .append('text')
-      .text(`${title}`)
-      .attr('text-anchor', 'start')
-      .attr('font-size', 18)
-      .attr('letter-spacing', -0.5)
-      .attr('font-weight', 'bold')
-      .attr('x', 0)
-      .attr('y', 22)
-      .style('fill', color.$black)
-      .style('opacity', 0.6)
   }
 
   createLegend = (...args) => {
-    const { $primary_navy: $primaryNavy, $legend_timeline_red_01: $legendTimelineRed01 } = color
-    const legendColorSet = [$primaryNavy, $legendTimelineRed01]
-    // const { defaultPadding } = this.options
+    const legendColorSet = ['#3c5ee5', '#c3d1da']
     const gLegend = generateGroup(this.getRootElement().select('.histogram'), {
       className: 'gLegend',
       xOffset: 0,
-      yOffset: 58,
+      yOffset: 0,
     })
     // add legend circle
     gLegend
@@ -203,7 +155,7 @@ class Histogram extends Component {
       .data(args)
       .enter()
       .append('circle')
-      .attr('cx', (d, i) => 5 + (140 * i))
+      .attr('cx', (d, i) => 5 + (86 * i))
       .attr('cy', 10)
       .attr('r', 5)
       .style('fill', (d, i) => legendColorSet[i])
@@ -215,48 +167,13 @@ class Histogram extends Component {
       .data(args)
       .enter()
       .append('text')
-      .attr('x', (d, i) => 18 + (140 * i))
+      .attr('x', (d, i) => 18 + (86 * i))
       .attr('y', 15)
       .text((d) => d)
       .attr('text-anchor', 'start')
-      .attr('font-size', 14)
-      .attr('textLength', 108)
+      .attr('class', fontStyle.fs14)
       .attr('font-family', 'Spoqa Han Sans')
-      .style('fill', '#999999')
-  }
-
-  createDropDown = (data) => {
-    const dropDownList = [10, 20, 50, 100]
-
-    const dropDownBox = this.getRootElement()
-      .append('div')
-      .attr('class', 'gDropDown')
-      .style('position', 'absolute')
-      .style('top', '55px')
-      .style('left', '1100px')
-      .append('select')
-      .attr('id', 'binsDropDown')
-      .on('change', () => {
-        this.getRootElement().select('.gBar')
-          .remove()
-
-        this.getRootElement().select('.histogramTooltip')
-          .remove()
-
-        this.getRootElement().select('.gRiskMeanLine')
-          .remove()
-        const binsN = this.getRootElement().select('#binsDropDown').property('value')
-        this.createBar(data, binsN)
-        this.createRiskMeanLine(data)
-      })
-
-    dropDownBox
-      .selectAll('option')
-      .data(dropDownList)
-      .enter()
-      .append('option')
-      .attr('value', (d) => d)
-      .text((d) => d)
+      .style('fill', colorV1.$grey08)
   }
 
   createXAxisGridLines = (gridXAxis) => {
@@ -291,20 +208,39 @@ class Histogram extends Component {
       .attr('x2', this.xAxisScale(data.avgRisk))
       .attr('y1', 0)
       .attr('y2', this.yAxisHeight)
-      .attr('stroke', color.$legend_timeline_red_01)
+      .attr('stroke', '#091840')
+      .attr('stroke-width', 2)
+
+    gRiskMeanLine
+      .append('text')
+      .attr('x', this.xAxisScale(data.avgRisk) + 4)
+      .attr('y', 12)
+      .attr('class', `${fontStyle.fs12} ${fontStyle.bold}`)
+      .style('fill', colorV1.$grey09)
+      .text('Average Risk Score')
   }
 
   getPatientRiskScoreIndex = (score, binsNumber) => (Math.floor(score * binsNumber))
 
   renderHistogram = (data) => {
     const { width, height } = this.options
+    const { yMaxValue } = this.props
     const svg = renderSVG(this.getRootElement(), width, height)
     generateGroup(svg, { className: 'histogram' })
+    const tickValues = [1e0, 1e1, 1e2, 1e3, 1e4, 2e4 + 5e3]
 
     const xAxis = d3.axisBottom(this.xAxisScale)
       .tickPadding(14)
       .ticks(10)
       .tickSize(0)
+
+    if (yMaxValue) {
+      tickValues[_.findLastIndex(tickValues)] = yMaxValue
+      this.yAxisScale = d3
+        .scaleLog()
+        .domain([1e0, yMaxValue])
+        .range([this.yAxisHeight, 0])
+    }
 
     // 10^n으로 바꾸는 포맷 함수
     const superscript = '⁰¹²³⁴⁵⁶⁷⁸⁹';
@@ -313,7 +249,7 @@ class Histogram extends Component {
       .axisLeft(this.yAxisScale)
       .tickPadding(21)
       .tickSize(0)
-      .tickValues([1e0, 1e1, 1e2, 1e3, 1e4, 2e4 + 5e3])
+      .tickValues(tickValues)
       .ticks(5, (d) => (`10${formatPower(Math.log10(d))}`))
 
     this.yAxis = yAxis
@@ -321,18 +257,21 @@ class Histogram extends Component {
     const gridXAxis = d3
       .axisRight(this.yAxisScale)
       .tickSize(this.xAxisWidth)
-      .tickValues([1e0, 1e1, 1e2, 1e3, 1e4, 2e4 + 5e3])
+      .tickValues(tickValues)
 
     this.gridXAxis = gridXAxis
 
-    this.createTitle()
     this.createXAxis(xAxis)
     this.createYAxis(yAxis)
-    this.createLegend('Patient Risk Score', 'Average Risk Score')
-    this.createDropDown(data)
+    this.createLegend('Patient', 'Group')
     this.createXAxisGridLines(gridXAxis)
     this.createBar(data)
     this.createRiskMeanLine(data)
+  }
+
+  removeHistogram = () => {
+    this.getRootElement().select('svg')
+      .remove()
   }
 
   componentDidMount = () => {
@@ -343,17 +282,14 @@ class Histogram extends Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    const { data } = this.props
+    const { data, yMaxValue } = this.props
     if (!_.isEqual(prevProps.data, data)) {
-      this.getRootElement().select('svg')
-        .remove()
+      this.removeHistogram()
+      this.renderHistogram(data)
+    }
 
-      this.getRootElement().select('.histogramTooltip')
-        .remove()
-
-      this.getRootElement().select('.gDropDown')
-        .remove()
-
+    if (!_.isEqual(prevProps.yMaxValue, yMaxValue)) {
+      this.removeHistogram()
       this.renderHistogram(data)
     }
   }
@@ -365,27 +301,58 @@ class Histogram extends Component {
     return null
   }
 
+  onChangeHistogram = ({ target: { value } }) => {
+    const { data } = this.props
+
+    this.getRootElement().select('.gBar')
+      .remove()
+
+
+    this.getRootElement().select('.gRiskMeanLine')
+      .remove()
+
+    this.createBar(data, value)
+    this.createRiskMeanLine(data)
+  }
+
   render() {
+    const dropDownList = [10, 20, 50, 100]
+
     if (this.checkDataValidation()) {
       return <div>{errorMessage(this.checkDataValidation())}</div>
     }
 
-    return <div ref={this.rootElement} style={{ position: 'relative' }} />
+    return (
+      <div ref={this.rootElement} style={{ position: 'relative' }}>
+        <div className={styles.gDropDown}>
+          <span className={`${fontStyle.fs14} ${fontStyle.fc_grey10}`}>
+            Bars :
+          </span>
+          <SelectBox style={{ marginLeft: 8 }}>
+            <select onChange={this.onChangeHistogram}>
+              {
+                dropDownList.map((value) => (
+                  <option key={value} value={value}>{value}</option>
+                ))
+              }
+            </select>
+          </SelectBox>
+        </div>
+      </div>
+    )
   }
 }
 
 Histogram.defaultProps = {
   data: undefined,
-  title: '',
-  tooltipTitle: '',
+  yMaxValue: undefined,
   chartWidth: undefined,
   chartHeight: undefined,
 }
 
 Histogram.propTypes = {
   data: PropTypes.shape({}),
-  title: PropTypes.string,
-  tooltipTitle: PropTypes.string,
+  yMaxValue: PropTypes.number,
   chartWidth: PropTypes.number,
   chartHeight: PropTypes.number,
 }
