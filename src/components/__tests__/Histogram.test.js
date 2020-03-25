@@ -25,7 +25,7 @@ let histogram
 let bins
 let binsNumberArr
 beforeEach(() => {
-  component = mount(<Histogram title="Risk Score Histogram" tooltipTitle="I.I.T Risk Score" data={data} />)
+  component = mount(<Histogram data={data} />)
   instance = component.instance()
   histogram = d3
     .histogram()
@@ -39,7 +39,7 @@ beforeEach(() => {
 
 describe('Histogram Component', () => {
   it('histogram renders when data is no provided', () => {
-    component = mount(<Histogram title="Risk Score Histogram" />)
+    component = mount(<Histogram />)
     expect(component.html()).toContain('No data is provided')
 
     expect(instance.yAxisScale.domain()).toEqual([1, 25000])
@@ -57,8 +57,17 @@ describe('Histogram Component', () => {
     expect(histogramHeight).toBeGreaterThan(dataMaxNumHeight)
   })
 
-  it('툴팁 제목을 정확하게 리턴해야 한다.', () => {
-    const expectTooltipTitle = 'I.I.T Risk Score'
-    expect(component.prop('tooltipTitle')).toEqual(expectTooltipTitle)
+  it('데이터를 받으면 평균선 문구 Average Risk Score가 렌더링 되어야한다', () => {
+    expect(component.html()).toContain('Average Risk Score')
+  })
+
+  it('yMaxValue값을 props로 받으면, yAxisScale 도메인과 tickValue 최대값이 변경되어야 한다.', () => {
+    component.setProps({
+      yMaxValue: 40000,
+    })
+
+    expect(instance.yAxisScale.domain()).toEqual([1, 40000])
+    expect(instance.yAxis.tickValues()).toEqual([1, 10, 100, 1000, 10000, 40000])
+    expect(instance.gridXAxis.tickValues()).toEqual([1, 10, 100, 1000, 10000, 40000])
   })
 })
