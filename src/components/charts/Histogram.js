@@ -302,7 +302,7 @@ class Histogram extends Component {
   }
 
   onChangeHistogram = ({ target: { value } }) => {
-    const { data } = this.props
+    const { data, onChange } = this.props
 
     this.getRootElement().select('.gBar')
       .remove()
@@ -313,6 +313,7 @@ class Histogram extends Component {
 
     this.createBar(data, value)
     this.createRiskMeanLine(data)
+    onChange(value)
   }
 
   render() {
@@ -348,6 +349,7 @@ Histogram.defaultProps = {
   yMaxValue: undefined,
   chartWidth: undefined,
   chartHeight: undefined,
+  onChange: () => {},
 }
 
 Histogram.propTypes = {
@@ -355,6 +357,7 @@ Histogram.propTypes = {
   yMaxValue: PropTypes.number,
   chartWidth: PropTypes.number,
   chartHeight: PropTypes.number,
+  onChange: PropTypes.func,
 }
 
 export default Histogram
