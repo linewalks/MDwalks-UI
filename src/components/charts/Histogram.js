@@ -349,7 +349,7 @@ Histogram.defaultProps = {
   yMaxValue: undefined,
   chartWidth: undefined,
   chartHeight: undefined,
-  onChange: undefined,
+  onChange: () => {},
 }
 
 Histogram.propTypes = {
