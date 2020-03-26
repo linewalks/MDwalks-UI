@@ -48,6 +48,7 @@ const Label = styled.label.attrs(() => ({
     margin-right: 12px;
   }
   cursor: pointer;
+  ${(props) => (props.disabled ? 'cursor: not-allowed;' : '')}
 `
 
 class RadioBox extends React.Component {
@@ -98,17 +99,17 @@ class RadioBox extends React.Component {
     this.onChange({ selectedList })
   }
 
-  unCheckedById(id) {
-    let { selectedList } = this.state
-    if (selectedList.includes(`${id}`)) {
-      selectedList = _.without(selectedList, `${id}`)
-      this.setState({
-        selectedList,
-      })
+  // unCheckedById(id) {
+  //   let { selectedList } = this.state
+  //   if (selectedList.includes(`${id}`)) {
+  //     selectedList = _.without(selectedList, `${id}`)
+  //     this.setState({
+  //       selectedList,
+  //     })
 
-      this.onChange({ selectedList })
-    }
-  }
+  //     this.onChange({ selectedList })
+  //   }
+  // }
 
   render() {
     const {
@@ -127,12 +128,14 @@ class RadioBox extends React.Component {
               const checked = selectedList.includes(`${id}`)
               const text = formatter ? formatter(item) : name
 
+              const itemDisabled = disabled || (item.disabled === true)
+
               return (
                 <Box key={`${name}${id}`}>
-                  <Label>
+                  <Label disabled={itemDisabled}>
                     <img src={checked ? IcnChecked : IcnUnchecked} width="24px" height="24px" style={{ borderRadius: '12px' }} alt="" />
                     <font.TextOverflow>{text}</font.TextOverflow>
-                    <input type="radio" disabled={disabled} checked={checked} onChange={() => this.onChangeTrigger(id)} />
+                    <input type="radio" disabled={itemDisabled} checked={checked} onChange={() => this.onChangeTrigger(id)} />
                   </Label>
                 </Box>
               )
@@ -157,6 +160,7 @@ RadioBox.propTypes = {
       id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       name: PropTypes.string.isRequired,
       checked: PropTypes.bool,
+      disabled: PropTypes.bool,
     }),
   ).isRequired,
   disabled: PropTypes.bool,
