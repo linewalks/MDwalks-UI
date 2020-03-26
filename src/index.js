@@ -23,6 +23,7 @@ import RadioBox from '@Components/form/RadioBox'
 import RadarChart from '@Components/charts/RadarChart'
 import TreeMap from '@Components/charts/TreeMap'
 import TimeToEvent from '@Components/charts/TimeToEvent'
+import PieChart from '@Components/charts/PieChart'
 import Button from '@Components/button/Button'
 import ButtonLink from '@Components/button/ButtonLink'
 import ButtonTextLink from '@Components/button/ButtonTextLink'
@@ -78,6 +79,7 @@ export {
   SelectBox,
   TreeMap,
   TimeToEvent,
+  PieChart,
   Pagination,
   DateUtility,
 }

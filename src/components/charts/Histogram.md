@@ -2,8 +2,6 @@ Histogram example:
 
 ```js
   <Histogram
-    title='histogram title'
-    tooltipTitle='I.I.T Risk Score'
     data={{
       avgRisk: 0.34,
       patientRisk: 0.45,
@@ -18,7 +16,7 @@ Histogram example:
         0.81, 0.82,
         0.9
       ]
-    }
-    }
+    }}
+    onChange={(value) => alert(value)}
   />
 ```
