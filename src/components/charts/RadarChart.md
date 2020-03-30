@@ -41,6 +41,6 @@ const data = {
   height={650}
   radarCategory={data.groupVariableWeights.variables}
   groupData={data.groupVariableWeights.weights}
-  patientData={data.groupVariableWeights.weights}
+  patientData={data.patientVariableWeights.weights}
 />
 ```
