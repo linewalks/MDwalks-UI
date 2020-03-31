@@ -2,6 +2,7 @@ TimeToEvent example:
 
 ```js
 <TimeToEvent
+  chartHeight={340}
   data={[
     {
       dataPoints: [

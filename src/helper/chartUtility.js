@@ -83,7 +83,7 @@ export const errorMessage = (errorType) => {
 }
 
 export const getTextStyleForHighcharts = (color) => ({
-  color,
+  fill: color,
   fontFamily: 'Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif',
   fontSize: '14px',
   fontWeight: 'normal',

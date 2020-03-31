@@ -9,19 +9,13 @@
 
 .gLegend text {
   text-anchor: start;
-  opacity: 0.4;
 }
 
 .xAxis text {
   text-anchor: middle;
-  fill: rgba(0, 0, 0, 0.6)
+  fill: #6d7884;
 }
 
-#xAxisTitle {
-  opacity: 0.4;
-}
-
-.timeToEventLabel {
+.timeToEventLabel, #xAxisTitle {
   font-weight: bold;
-  opacity: 0.6;
 }

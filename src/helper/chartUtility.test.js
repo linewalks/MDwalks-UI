@@ -144,7 +144,7 @@ it('errorMessage', () => {
 
 it('getTextStyleForHighcharts', () => {
   const expected = {
-    color: '#000000',
+    fill: '#000000',
     fontFamily: 'Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif',
     fontSize: '14px',
     fontStretch: 'normal',

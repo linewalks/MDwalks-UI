@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-
 import Highcharts from 'highcharts';
 import HCMore from 'highcharts/highcharts-more'
 import HighchartsReact from 'highcharts-react-official';
 import _ from 'lodash'
-import { color } from '@src/assets/styles/variables'
+import { colorV1 } from '@src/assets/styles/variables'
 import { errorMessage, getTextStyleForHighcharts } from '@src/helper/chartUtility'
 
 if (typeof Highcharts === 'object') {
@@ -33,36 +32,38 @@ class RadarChart extends Component {
       title: {
         text: title,
       },
-      pane: {
-        size: 488,
-      },
       xAxis: {
         categories: radarCategory,
         tickmarkPlacement: 'on',
         lineWidth: 0,
         labels: {
           distance: 14,
-          style: getTextStyleForHighcharts(color.$black),
+          style: getTextStyleForHighcharts(colorV1.$grey08),
         },
+        gridLineWidth: 1,
+        gridLineColor: colorV1.$grey06,
       },
       yAxis: {
         gridLineInterpolation: 'polygon',
+        gridLineWidth: 1,
+        gridLineColor: colorV1.$grey06,
         lineWidth: 1,
         min: 0,
         labels: {
           enabled: false,
         },
         tickAmount: 3,
+        lineColor: colorV1.$grey06,
       },
       series: [
         {
           name: 'Group',
-          color: color.$legend_timeline_red_01,
+          color: '#b3c1ca',
           data: groupData,
           pointPlacement: 'on',
         }, {
           name: 'Patient',
-          color: color.$primary_navy,
+          color: '#3c5ee5',
           data: patientData,
           pointPlacement: 'on',
         }],
@@ -74,9 +75,10 @@ class RadarChart extends Component {
         symbolHeight: 10,
         symbolWidth: 10,
         symbolRadius: 5,
-        itemStyle: getTextStyleForHighcharts(color.$black),
+        itemStyle: getTextStyleForHighcharts(colorV1.$grey08),
         reversed: true,
-        x: -15,
+        x: -18.5,
+        itemDistance: 24,
       },
       tooltip: {
         enabled: false,
