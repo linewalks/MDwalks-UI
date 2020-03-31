@@ -21032,7 +21032,7 @@ var errorMessage = function errorMessage(errorType) {
 };
 var getTextStyleForHighcharts = function getTextStyleForHighcharts(color) {
   return {
-    color: color,
+    fill: color,
     fontFamily: 'Spoqa Han Sans, Spoqa Han Sans JP, Sans-serif',
     fontSize: '14px',
     fontWeight: 'normal',
@@ -28256,35 +28256,37 @@ var RadarChart = /*#__PURE__*/function (_Component) {
       title: {
         text: title
       },
-      pane: {
-        size: 488
-      },
       xAxis: {
         categories: radarCategory,
         tickmarkPlacement: 'on',
         lineWidth: 0,
         labels: {
           distance: 14,
-          style: getTextStyleForHighcharts(color.$black)
-        }
+          style: getTextStyleForHighcharts(colorV1.$grey08)
+        },
+        gridLineWidth: 1,
+        gridLineColor: colorV1.$grey06
       },
       yAxis: {
         gridLineInterpolation: 'polygon',
+        gridLineWidth: 1,
+        gridLineColor: colorV1.$grey06,
         lineWidth: 1,
         min: 0,
         labels: {
           enabled: false
         },
-        tickAmount: 3
+        tickAmount: 3,
+        lineColor: colorV1.$grey06
       },
       series: [{
         name: 'Group',
-        color: color.$legend_timeline_red_01,
+        color: '#b3c1ca',
         data: _groupData,
         pointPlacement: 'on'
       }, {
         name: 'Patient',
-        color: color.$primary_navy,
+        color: '#3c5ee5',
         data: _patientData,
         pointPlacement: 'on'
       }],
@@ -28296,9 +28298,10 @@ var RadarChart = /*#__PURE__*/function (_Component) {
         symbolHeight: 10,
         symbolWidth: 10,
         symbolRadius: 5,
-        itemStyle: getTextStyleForHighcharts(color.$black),
+        itemStyle: getTextStyleForHighcharts(colorV1.$grey08),
         reversed: true,
-        x: -15
+        x: -18.5,
+        itemDistance: 24
       },
       tooltip: {
         enabled: false
@@ -28526,7 +28529,7 @@ TreeMap.propTypes = {
   title: propTypes.string
 };
 
-var css_248z$6 = ".TimeToEvent-module_gLegend__3k55w text, .TimeToEvent-module_xAxis__hL73d text, .TimeToEvent-module_timeToEventLabel__1-iB2 {\n  font-size: 14px;\n  font-family: 'Spoqa Han Sans';\n  font-weight: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n}\n\n.TimeToEvent-module_gLegend__3k55w text {\n  text-anchor: start;\n  opacity: 0.4;\n}\n\n.TimeToEvent-module_xAxis__hL73d text {\n  text-anchor: middle;\n  fill: rgba(0, 0, 0, 0.6)\n}\n\n#TimeToEvent-module_xAxisTitle__2Suka {\n  opacity: 0.4;\n}\n\n.TimeToEvent-module_timeToEventLabel__1-iB2 {\n  font-weight: bold;\n  opacity: 0.6;\n}\n";
+var css_248z$6 = ".TimeToEvent-module_gLegend__3k55w text, .TimeToEvent-module_xAxis__hL73d text, .TimeToEvent-module_timeToEventLabel__1-iB2 {\n  font-size: 14px;\n  font-family: 'Spoqa Han Sans';\n  font-weight: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n}\n\n.TimeToEvent-module_gLegend__3k55w text {\n  text-anchor: start;\n}\n\n.TimeToEvent-module_xAxis__hL73d text {\n  text-anchor: middle;\n  fill: #6d7884;\n}\n\n.TimeToEvent-module_timeToEventLabel__1-iB2, #TimeToEvent-module_xAxisTitle__2Suka {\n  font-weight: bold;\n}\n";
 var styles$6 = {"gLegend":"TimeToEvent-module_gLegend__3k55w","xAxis":"TimeToEvent-module_xAxis__hL73d","timeToEventLabel":"TimeToEvent-module_timeToEventLabel__1-iB2","xAxisTitle":"TimeToEvent-module_xAxisTitle__2Suka"};
 styleInject(css_248z$6);
 
@@ -28543,7 +28546,6 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "createXAxis", function (xAxis) {
       var _this$options = _this.options,
           defaultMargin = _this$options.defaultMargin,
-          defaultPadding = _this$options.defaultPadding,
           height = _this$options.height;
       var gXAxis = generateGroup(_this.getRootElement().select('.timeToEvent'), {
         className: styles$6.xAxis,
@@ -28551,10 +28553,10 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
         yOffset: height - defaultMargin.bottom
       });
       gXAxis.call(xAxis);
-      gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4');
+      gXAxis.selectAll('.domain').attr('stroke', colorV1.$grey06).attr('d', "M0.5,0.5H".concat(_this.xAxisWidth, ".5"));
       gXAxis.selectAll('.tick line').remove();
-      gXAxis.append('line').attr('x1', 0).attr('x2', _this.xAxisWidth).attr('y1', -_this.yAxisHeight).attr('y2', -_this.yAxisHeight).attr('stroke', '#c4c4c4');
-      gXAxis.append('text').text('Years').attr('x', 328).attr('y', defaultPadding.bottom).attr('id', "".concat(styles$6.xAxisTitle)).style('fill', color.$black);
+      gXAxis.append('line').attr('x1', 0).attr('x2', _this.xAxisWidth).attr('y1', -_this.yAxisHeight).attr('y2', -_this.yAxisHeight).attr('stroke', colorV1.$grey06);
+      gXAxis.append('text').text('Years').attr('x', _this.xAxisWidth - 15).attr('y', 26).attr('id', "".concat(styles$6.xAxisTitle)).style('fill', colorV1.$grey08);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createTimeToEventLabel", function (data) {
@@ -28570,7 +28572,7 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
         return d.label[d.label.length - 1];
       }).attr('x', -16).attr('y', function (d) {
         return _this.yAxisScale(d.label[d.label.length - 1]) + 4;
-      }).attr('text-anchor', 'end').attr('class', "".concat(styles$6.timeToEventLabel));
+      }).attr('text-anchor', 'end').attr('class', "".concat(styles$6.timeToEventLabel)).style('fill', colorV1.$grey08);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createTimeToEventGrid", function () {
@@ -28586,11 +28588,11 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
       var timeToEventYAxisGridHeight = height - defaultMargin.top - defaultMargin.bottom;
       var timeToEventYAxisGridLines = axisTop(_this.xAxisScale).tickSize(-timeToEventYAxisGridHeight).tickFormat('');
       var gTimeToEventYAxisGrid = gTimelToEventGrid.append('g').attr('class', 'timeToEventYAxisGrid').call(timeToEventYAxisGridLines);
-      gTimeToEventYAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+      gTimeToEventYAxisGrid.selectAll('.tick line').attr('stroke', '#dce0e4').attr('stroke-dasharray', '2');
       gTimeToEventYAxisGrid.select('.domain').remove();
       var timeToEventXAxisGridLines = axisRight(_this.yAxisScale).tickSize(_this.xAxisWidth).tickFormat('');
       var gTimeToEventXAxisGrid = gTimelToEventGrid.append('g').attr('class', 'timeToEventXAxisGrid').attr('transform', "translate(0, ".concat(defaultPadding.top, ")")).call(timeToEventXAxisGridLines);
-      gTimeToEventXAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8');
+      gTimeToEventXAxisGrid.selectAll('.tick line').attr('stroke', '#dce0e4');
       gTimeToEventXAxisGrid.select('.domain').remove();
     });
 
@@ -28600,7 +28602,7 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
           defaultPadding = _this$options4.defaultPadding,
           radius = _this$options4.radius;
       var data = _this.props.data;
-      var circleColorScale = [color.$primary_navy, color.$legend_timeline_red_01];
+      var colorScale = ['#2c6ff5', '#b3c1ca'];
       var gTimeToEventData = generateGroup(_this.getRootElement().select('.timeToEvent'), {
         className: 'timelineData',
         xOffset: defaultMargin.left,
@@ -28612,7 +28614,7 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
           return _this.xAxisScale(Date.parse(d.startTime));
         }).attr('y', _this.yAxisScale(el.label[el.label.length - 1]) - 1).attr('height', 3).attr('width', function (d) {
           return _this.xAxisScale(Date.parse(d.endTime)) - _this.xAxisScale(Date.parse(d.startTime));
-        }).attr('fill', color.$primary_navy);
+        }).attr('fill', colorScale[idx]);
       });
 
       lodash.each(data, function (el, idx) {
@@ -28620,16 +28622,12 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
           return "circles-".concat(idx);
         }).selectAll('circle').data(circleDataFilter(el.dataPoints)).enter().append('circle').attr('cx', function (d) {
           return _this.xAxisScale(Date.parse(d.startTime));
-        }).attr('cy', _this.yAxisScale(el.label[el.label.length - 1])).attr('r', radius).attr('fill', function (d, i) {
-          return circleColorScale[i];
-        });
+        }).attr('cy', _this.yAxisScale(el.label[el.label.length - 1])).attr('r', radius).attr('fill', colorScale[idx]);
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "createLegend", function () {
-      var $primaryNavy = color.$primary_navy,
-          $legendTimelineRed01 = color.$legend_timeline_red_01;
-      var legendColorSet = [$primaryNavy, $legendTimelineRed01];
+      var legendColorSet = ['#3c5ee5', '#b3c1ca'];
       var gLegend = generateGroup(_this.getRootElement().select('.timeToEvent'), {
         className: "".concat(styles$6.gLegend)
       });
@@ -28639,17 +28637,17 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
       }
 
       gLegend.selectAll('legendCircle').data(args).enter().append('circle').attr('cx', function (d, i) {
-        return 5 + i * 189;
+        return 5 + i * 86;
       }).attr('cy', 5).attr('r', 5).style('fill', function (d, i) {
         return legendColorSet[i];
       });
       gLegend.selectAll('legend').data(args).enter().append('text').text(function (d) {
         return d;
       }).attr('x', function (d, i) {
-        return 18 + 189 * i;
+        return 18 + 86 * i;
       }).attr('y', 10.5).text(function (d) {
         return d;
-      }).style('fill', color.$black);
+      }).style('fill', colorV1.$grey08);
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderTimeToEvent", function (data) {
@@ -28661,11 +28659,11 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
       generateGroup(svg, {
         className: 'timeToEvent'
       });
-      var xAxis = axisBottom(_this.xAxisScale).tickPadding(14).tickSize(0).tickArguments([timeYear.every(1)]).tickFormat(function (d) {
+      var xAxis = axisBottom(_this.xAxisScale).tickPadding(16).tickSize(0).tickArguments([timeYear.every(1)]).tickFormat(function (d) {
         return timeFormat('%Y')(d) - timeFormat('%Y')(new Date(startTime));
       });
 
-      _this.createLegend('Index Invasive Treatment', 'MACE');
+      _this.createLegend('Patient', 'Group');
 
       _this.createXAxis(xAxis);
 
@@ -28708,27 +28706,27 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
       height: chartHeight || 290,
       // 차트가 그려지는 전체 영영 높이
       defaultMargin: {
-        top: 58,
+        top: 55,
         right: 24,
-        left: 63,
-        bottom: 78
+        left: 96,
+        bottom: 28
       },
       defaultPadding: {
-        top: 39,
+        top: 85,
         right: 24,
         left: 63,
         bottom: 50
       },
       radius: 7.5,
       labelStartYPosition: 0,
-      labelLastYPosition: 70,
+      labelLastYPosition: 92,
       startTime: _startTime,
       endTime: endTime
     };
     _this.xAxisWidth = _this.options.width - _this.options.defaultMargin.left - _this.options.defaultMargin.right;
     _this.yAxisHeight = _this.options.height - _this.options.defaultMargin.top - _this.options.defaultMargin.bottom;
     _this.rootElement = React.createRef();
-    _this.xAxisScale = scaleTime().domain([_startTime, endTime]).range([0, _this.xAxisWidth]).nice();
+    _this.xAxisScale = scaleTime().domain([_startTime, endTime]).range([4, _this.xAxisWidth - 59]).nice();
     _this.yAxisScale = scalePoint().domain(!_this.checkDataValidation() && labelList(_data)).range([_this.options.labelStartYPosition, _this.options.labelLastYPosition]);
     return _this;
   }
