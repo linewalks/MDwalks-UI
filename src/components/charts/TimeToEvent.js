@@ -6,7 +6,7 @@ import {
   renderSVG, generateGroup, getStartAndEndTime,
   circleDataFilter, rectDataFilter, labelList, errorMessage,
 } from '@src/helper/chartUtility'
-import { color } from '@src/assets/styles/variables'
+import { colorV1 } from '@src/assets/styles/variables'
 import styles from './TimeToEvent.module.css'
 
 class TimeToEvent extends Component {
@@ -24,20 +24,20 @@ class TimeToEvent extends Component {
       width: chartWidth || 776, // 차트가 그려지는 전체 영역 넓이
       height: chartHeight || 290, // 차트가 그려지는 전체 영영 높이
       defaultMargin: {
-        top: 58,
+        top: 55,
         right: 24,
-        left: 63,
-        bottom: 78,
+        left: 96,
+        bottom: 28,
       },
       defaultPadding: {
-        top: 39,
+        top: 85,
         right: 24,
         left: 63,
         bottom: 50,
       },
       radius: 7.5,
       labelStartYPosition: 0,
-      labelLastYPosition: 70,
+      labelLastYPosition: 92,
       startTime,
       endTime,
     }
@@ -50,7 +50,7 @@ class TimeToEvent extends Component {
     this.xAxisScale = d3
       .scaleTime()
       .domain([startTime, endTime])
-      .range([0, this.xAxisWidth])
+      .range([4, this.xAxisWidth - 59])
       .nice()
 
     this.yAxisScale = d3
@@ -64,7 +64,7 @@ class TimeToEvent extends Component {
   }
 
   createXAxis = (xAxis) => {
-    const { defaultMargin, defaultPadding, height } = this.options
+    const { defaultMargin, height } = this.options
 
     const gXAxis = generateGroup(this.getRootElement().select('.timeToEvent'), {
       className: styles.xAxis,
@@ -73,7 +73,7 @@ class TimeToEvent extends Component {
     })
 
     gXAxis.call(xAxis)
-    gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4')
+    gXAxis.selectAll('.domain').attr('stroke', colorV1.$grey06).attr('d', `M0.5,0.5H${this.xAxisWidth}.5`)
     gXAxis.selectAll('.tick line').remove()
 
     gXAxis
@@ -82,15 +82,15 @@ class TimeToEvent extends Component {
       .attr('x2', this.xAxisWidth)
       .attr('y1', -this.yAxisHeight)
       .attr('y2', -this.yAxisHeight)
-      .attr('stroke', '#c4c4c4')
+      .attr('stroke', colorV1.$grey06)
 
     gXAxis
       .append('text')
       .text('Years')
-      .attr('x', 328)
-      .attr('y', defaultPadding.bottom)
+      .attr('x', this.xAxisWidth - 15)
+      .attr('y', 26)
       .attr('id', `${styles.xAxisTitle}`)
-      .style('fill', color.$black)
+      .style('fill', colorV1.$grey08)
   }
 
   createTimeToEventLabel = (data) => {
@@ -112,6 +112,7 @@ class TimeToEvent extends Component {
       .attr('y', (d) => this.yAxisScale(d.label[d.label.length - 1]) + 4)
       .attr('text-anchor', 'end')
       .attr('class', `${styles.timeToEventLabel}`)
+      .style('fill', colorV1.$grey08)
   }
 
   createTimeToEventGrid = () => {
@@ -136,7 +137,7 @@ class TimeToEvent extends Component {
 
     gTimeToEventYAxisGrid
       .selectAll('.tick line')
-      .attr('stroke', '#e8e8e8')
+      .attr('stroke', '#dce0e4')
       .attr('stroke-dasharray', '2')
 
     gTimeToEventYAxisGrid.select('.domain').remove()
@@ -152,14 +153,14 @@ class TimeToEvent extends Component {
       .attr('transform', `translate(0, ${defaultPadding.top})`)
       .call(timeToEventXAxisGridLines)
 
-    gTimeToEventXAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8')
+    gTimeToEventXAxisGrid.selectAll('.tick line').attr('stroke', '#dce0e4')
     gTimeToEventXAxisGrid.select('.domain').remove()
   }
 
   renderTimeToEventData = () => {
     const { defaultMargin, defaultPadding, radius } = this.options
     const { data } = this.props
-    const circleColorScale = [color.$primary_navy, color.$legend_timeline_red_01]
+    const colorScale = ['#2c6ff5', '#b3c1ca']
 
     const gTimeToEventData = generateGroup(this.getRootElement().select('.timeToEvent'), {
       className: 'timelineData',
@@ -179,7 +180,7 @@ class TimeToEvent extends Component {
         .attr('y', this.yAxisScale(el.label[el.label.length - 1]) - 1)
         .attr('height', 3)
         .attr('width', (d) => this.xAxisScale(Date.parse(d.endTime)) - this.xAxisScale(Date.parse(d.startTime)))
-        .attr('fill', color.$primary_navy)
+        .attr('fill', colorScale[idx])
     })
 
     _.each(data, (el, idx) => {
@@ -193,13 +194,12 @@ class TimeToEvent extends Component {
         .attr('cx', (d) => this.xAxisScale(Date.parse(d.startTime)))
         .attr('cy', this.yAxisScale(el.label[el.label.length - 1]))
         .attr('r', radius)
-        .attr('fill', (d, i) => circleColorScale[i])
+        .attr('fill', colorScale[idx])
     })
   }
 
   createLegend = (...args) => {
-    const { $primary_navy: $primaryNavy, $legend_timeline_red_01: $legendTimelineRed01 } = color
-    const legendColorSet = [$primaryNavy, $legendTimelineRed01]
+    const legendColorSet = ['#3c5ee5', '#b3c1ca']
     const gLegend = generateGroup(this.getRootElement().select('.timeToEvent'), {
       className: `${styles.gLegend}`,
     })
@@ -209,7 +209,7 @@ class TimeToEvent extends Component {
       .data(args)
       .enter()
       .append('circle')
-      .attr('cx', (d, i) => 5 + (i * 189))
+      .attr('cx', (d, i) => 5 + (i * 86))
       .attr('cy', 5)
       .attr('r', 5)
       .style('fill', (d, i) => legendColorSet[i])
@@ -220,10 +220,10 @@ class TimeToEvent extends Component {
       .enter()
       .append('text')
       .text((d) => d)
-      .attr('x', (d, i) => 18 + (189 * i))
+      .attr('x', (d, i) => 18 + (86 * i))
       .attr('y', 10.5)
       .text((d) => d)
-      .style('fill', color.$black)
+      .style('fill', colorV1.$grey08)
   }
 
   renderTimeToEvent = (data) => {
@@ -234,12 +234,12 @@ class TimeToEvent extends Component {
 
     const xAxis = d3
       .axisBottom(this.xAxisScale)
-      .tickPadding(14)
+      .tickPadding(16)
       .tickSize(0)
       .tickArguments([d3.timeYear.every(1)])
       .tickFormat((d) => d3.timeFormat('%Y')(d) - d3.timeFormat('%Y')(new Date(startTime)))
 
-    this.createLegend('Index Invasive Treatment', 'MACE')
+    this.createLegend('Patient', 'Group')
     this.createXAxis(xAxis)
     this.createTimeToEventLabel(data)
     this.createTimeToEventGrid()
