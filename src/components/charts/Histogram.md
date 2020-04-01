@@ -17,6 +17,6 @@ Histogram example:
         0.9
       ]
     }}
-    onChange={(value) => alert(value)}
+    onChange={(value, binsList) => alert(value)}
   />
 ```

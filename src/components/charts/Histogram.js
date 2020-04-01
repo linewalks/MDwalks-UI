@@ -99,8 +99,19 @@ class Histogram extends Component {
       .attr('opacity', 0.4)
   }
 
-  createBar = (data, binsNumber = 10) => {
-    const { risks: histogramData, patientRisk } = data;
+  createHistogramData = (data, binsNumber = 10) => {
+    const histogram = d3
+      .histogram()
+      .value((d) => d)
+      .domain(this.xAxisScale.domain())
+      .thresholds(this.xAxisScale.ticks(binsNumber))
+    const bins = histogram(data)
+    bins.pop();
+    return bins
+  }
+
+  createBar = (bins) => {
+    const { data: { patientRisk } } = this.props
     const { defaultPadding } = this.options
     const gBar = generateGroup(this.getRootElement().select('.histogram'), {
       className: 'gBar',
@@ -108,14 +119,6 @@ class Histogram extends Component {
       yOffset: defaultPadding.top,
     })
 
-    const histogram = d3
-      .histogram()
-      .value((d) => d)
-      .domain(this.xAxisScale.domain())
-      .thresholds(this.xAxisScale.ticks(binsNumber))
-
-    const bins = histogram(histogramData)
-    bins.pop();
     const patientRiskIndex = this.getPatientRiskScoreIndex(patientRisk, bins.length)
 
     gBar
@@ -225,6 +228,8 @@ class Histogram extends Component {
   renderHistogram = (data) => {
     const { width, height } = this.options
     const { yMaxValue } = this.props
+    const { risks } = data
+    const bins = this.createHistogramData(risks)
     const svg = renderSVG(this.getRootElement(), width, height)
     generateGroup(svg, { className: 'histogram' })
     const tickValues = [1e0, 1e1, 1e2, 1e3, 1e4, 2e4 + 5e3]
@@ -265,7 +270,7 @@ class Histogram extends Component {
     this.createYAxis(yAxis)
     this.createLegend('Patient', 'Group')
     this.createXAxisGridLines(gridXAxis)
-    this.createBar(data)
+    this.createBar(bins)
     this.createRiskMeanLine(data)
   }
 
@@ -275,22 +280,27 @@ class Histogram extends Component {
   }
 
   componentDidMount = () => {
-    const { data } = this.props
+    const { data, onChange, initOnChangeFlag } = this.props
     if (!this.checkDataValidation()) {
       this.renderHistogram(data)
+      if (initOnChangeFlag) onChange(10, this.createHistogramData(data.risks))
     }
   }
 
   componentDidUpdate = (prevProps) => {
-    const { data, yMaxValue } = this.props
+    const {
+      data, yMaxValue, onChange, initOnChangeFlag,
+    } = this.props
     if (!_.isEqual(prevProps.data, data)) {
       this.removeHistogram()
       this.renderHistogram(data)
+      if (initOnChangeFlag) onChange(10, this.createHistogramData(data.risks))
     }
 
     if (!_.isEqual(prevProps.yMaxValue, yMaxValue)) {
       this.removeHistogram()
       this.renderHistogram(data)
+      if (initOnChangeFlag) onChange(10, this.createHistogramData(data.risks))
     }
   }
 
@@ -303,17 +313,17 @@ class Histogram extends Component {
 
   onChangeHistogram = ({ target: { value } }) => {
     const { data, onChange } = this.props
-
     this.getRootElement().select('.gBar')
       .remove()
-
 
     this.getRootElement().select('.gRiskMeanLine')
       .remove()
 
-    this.createBar(data, value)
+    const bins = this.createHistogramData(data.risks, value)
+
+    this.createBar(bins)
     this.createRiskMeanLine(data)
-    onChange(value)
+    onChange(value, bins)
   }
 
   render() {
@@ -327,7 +337,7 @@ class Histogram extends Component {
       <div ref={this.rootElement} style={{ position: 'relative' }}>
         <div className={styles.gDropDown}>
           <span className={`${fontStyle.fs14} ${fontStyle.fc_grey10}`}>
-            Bars :
+            Bins :
           </span>
           <SelectBox style={{ marginLeft: 8 }}>
             <select onChange={this.onChangeHistogram}>
@@ -350,14 +360,19 @@ Histogram.defaultProps = {
   chartWidth: undefined,
   chartHeight: undefined,
   onChange: () => {},
+  initOnChangeFlag: false,
 }
 
 Histogram.propTypes = {
-  data: PropTypes.shape({}),
+  data: PropTypes.shape({
+    risks: PropTypes.arrayOf(PropTypes.number),
+    patientRisk: PropTypes.number,
+  }),
   yMaxValue: PropTypes.number,
   chartWidth: PropTypes.number,
   chartHeight: PropTypes.number,
   onChange: PropTypes.func,
+  initOnChangeFlag: PropTypes.bool,
 }
 
 export default Histogram
