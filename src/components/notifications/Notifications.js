@@ -1,7 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+import {
+  CSSTransition,
+  TransitionGroup,
+} from 'react-transition-group';
+
 import Notification from './Notification';
+
+const fadeInDown = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const fadeOutUp = keyframes`
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+`
 
 const List = styled.section`
   box-sizing: border-box;
@@ -13,12 +43,22 @@ const List = styled.section`
   max-height: calc(100% - 30px -99px);
   overflow-x: hidden;
   overflow-y: auto;
-`
-export const Animation = styled.div`
-  transition: 0.5s;
-  transform: translateX(
-    ${({ state }) => (state === 'entering' || state === 'entered' ? 400 : 0)}px
-  );
+
+  .item-enter {
+    animation: ${fadeInDown} 100ms linear;
+    animation-fill-mode: both;
+  }
+
+  .item-enter-active {
+  }
+
+  .item-exit {
+    animation: ${fadeOutUp} 100ms linear;
+    animation-fill-mode: both;
+  }
+
+  .item-exit-active {
+  }
 `
 
 const Notifications = (props) => {
@@ -35,20 +75,27 @@ const Notifications = (props) => {
 
   return (
     <List>
-      {notifications.map((notification) => {
-        const key = notification.id || new Date().getTime();
-        return (
-          <Notification
-            key={key}
-            type={notification.type}
-            title={notification.title}
-            message={notification.message}
-            timeOut={notification.timeOut}
-            onClick={notification.onClick}
-            onRequestHide={handleRequestHide(notification)}
-          />
-        );
-      })}
+      <TransitionGroup>
+        {notifications.map((notification) => {
+          const key = notification.id || new Date().getTime();
+          return (
+            <CSSTransition
+              key={key}
+              timeout={100}
+              classNames="item"
+            >
+              <Notification
+                type={notification.type}
+                title={notification.title}
+                message={notification.message}
+                timeOut={notification.timeOut}
+                onClick={notification.onClick}
+                onRequestHide={handleRequestHide(notification)}
+              />
+            </CSSTransition>
+          );
+        })}
+      </TransitionGroup>
     </List>
   )
 }
