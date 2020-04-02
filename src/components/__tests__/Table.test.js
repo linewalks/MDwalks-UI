@@ -200,6 +200,8 @@ describe('check scroll ', () => {
   it('set style', () => {
     expect(wrapper.find('table')).toHaveLength(3)
 
+    expect(wrapper.find('col')).toHaveLength(3 * 3)
+
     expect(wrapper.find('div').at(4).prop('style')).toEqual({
       position: 'relative',
       overflow: 'hidden',
