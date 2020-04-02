@@ -25,6 +25,11 @@ module.exports = {
     'src/components/button/utility.js',
     'src/components/pagination/Input.js',
     'src/components/toast/ToastCtr.js',
+
+    'src/components/notifications/index.js',
+    'src/components/notifications/NotificationContainer.js',
+    'src/components/notifications/NotificationManager.js',
+    'src/components/notifications/Notifications.js',
   ]),
   styleguideDir: 'docs',
 }

@@ -41,6 +41,8 @@ import * as chartUtility from '@src/helper/chartUtility'
 
 import * as DateUtility from '@src/helper/DateUtility'
 
+import notifications from '@Components/notifications'
+
 export {
   BarGauge,
   RadiusGauge,
@@ -82,4 +84,5 @@ export {
   PieChart,
   Pagination,
   DateUtility,
+  notifications,
 }
