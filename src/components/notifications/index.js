@@ -7,4 +7,4 @@ import NotificationManager from './NotificationManager';
 // import NotificationManager from '@Components/notifications/NotificationManager';
 
 export { Notifications, NotificationContainer, NotificationManager };
-// export default Notifications
+export default Notifications
