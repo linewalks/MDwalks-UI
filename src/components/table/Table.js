@@ -69,17 +69,27 @@ const TableBox = styled.table`
   ${(props) => (props.className.split(' ').includes('sideFit') ? sideFit : null)}
 `
 
-const Columns = (columns, i) => {
-  const key = `columns${i}`
-  return (
-    columns && (
-      <colgroup>
-        {
-          _.map(columns, (width) => (<col key={key} style={{ width }} />))
-        }
-      </colgroup>
-    )
+const Columns = ({ columns }) => (
+  !_.isEmpty(columns) && (
+    <colgroup>
+      {
+        _.map(columns, (width, i) => {
+          const key = `columns${i}`
+          return (<col key={key} style={{ width }} />)
+        })
+      }
+    </colgroup>
   )
+)
+
+Columns.defaultProps = {
+  columns: {},
+}
+
+Columns.propTypes = {
+  columns: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  ),
 }
 
 const Table = ({

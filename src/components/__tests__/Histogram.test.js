@@ -87,4 +87,22 @@ describe('Histogram Component', () => {
 
     expect(onChange).toHaveBeenCalled()
   })
+
+  it('selectbox onChange 이벤트가 발생할 때, selectbox value와 bins 데이터를 인자로 받습니다.', () => {
+    const onChange = jest.fn()
+    const expectedValue = instance.createHistogramData(data.risks, 20)
+    component.setProps({
+      onChange,
+    })
+
+    component.find('select').simulate('change', {
+      target: {
+        value: 20,
+      },
+    })
+
+    component.update()
+
+    expect(onChange).toHaveBeenCalledWith(20, expectedValue)
+  })
 })
