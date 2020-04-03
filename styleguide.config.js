@@ -31,5 +31,20 @@ module.exports = {
     'src/components/notifications/NotificationManager.js',
     'src/components/notifications/Notifications.js',
   ]),
+  template: {
+    head: {
+      links: [
+        {
+          rel: 'stylesheet',
+          href: 'https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css',
+        },
+      ],
+    },
+  },
+  theme: {
+    fontFamily: {
+      base: '"Spoqa Han Sans", sans-serif',
+    },
+  },
   styleguideDir: 'docs',
 }
