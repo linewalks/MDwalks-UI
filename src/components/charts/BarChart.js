@@ -33,6 +33,9 @@ const BarChart = ({
   yDataKey,
   theme,
   isPercent,
+  margin,
+  xData,
+  yData,
   scroll,
 }) => {
   const colors = colorSet[theme] || colorSet.blue
@@ -56,6 +59,12 @@ const BarChart = ({
 
   const isScroll = !_.isUndefined(scroll.y)
 
+  const scrollChartMargin = _.extend({}, margin)
+
+  if (isScroll) {
+    scrollChartMargin.bottom = 0
+  }
+
   return (
     <div>
       <Heading size="18" style={{ marginBottom: '30px' }}>{title}</Heading>
@@ -72,13 +81,23 @@ const BarChart = ({
                     data={data}
                     height={415}
                     layout={layout}
-                    margin={{
-                      top: 5, right: 5, bottom: (isScroll ? 0 : 5), left: 5,
-                    }}
+                    margin={scrollChartMargin}
                   >
                     <Rechart.CartesianGrid vertical={false} stroke={color.$line_graph_xy_grey} />
-                    <Rechart.XAxis hide={isScroll} tickLine={false} tickMargin={10} stroke="rgba(0, 0, 0, 0.6)" dataKey={XAxisDataKey} tickFormatter={XAxisTicFormatter} type={XAxisType} />
-                    <Rechart.YAxis axisLine={false} tickMargin={10} stroke="rgba(0, 0, 0, 0.4)" tickLine={false} dataKey={YAxisDataKey} tickFormatter={YAxisTicFormatter} type={YAxisType} />
+                    <Rechart.XAxis hide={isScroll} tickLine={false} tickMargin={10} stroke="rgba(0, 0, 0, 0.6)" dataKey={XAxisDataKey} tickFormatter={XAxisTicFormatter} type={XAxisType}>
+                      {
+                        xData.label && (
+                          <Rechart.Label value={xData.label.value} offset={10} position="bottom" style={{ fill: 'rgba(0, 0, 0, 0.6)' }} />
+                        )
+                      }
+                    </Rechart.XAxis>
+                    <Rechart.YAxis axisLine={false} tickMargin={10} stroke="rgba(0, 0, 0, 0.4)" tickLine={false} dataKey={YAxisDataKey} tickFormatter={YAxisTicFormatter} type={YAxisType}>
+                      {
+                        yData.label && (
+                          <Rechart.Label value={yData.label.value} offset={0} position="left" style={{ fill: 'rgba(0, 0, 0, 0.4)' }} />
+                        )
+                      }
+                    </Rechart.YAxis>
                     <Rechart.Tooltip
                       isPercent={isPercent}
                       content={TooltipBox}
@@ -91,9 +110,20 @@ const BarChart = ({
               </Scrollbars>
               {
                 isScroll && (
-                  <Rechart.ResponsiveContainer height={36}>
-                    <Rechart.BarChart data={data} height={36} layout={layout}>
-                      <Rechart.XAxis tickLine={false} tickMargin={10} stroke="rgba(0, 0, 0, 0.6)" dataKey={XAxisDataKey} tickFormatter={XAxisTicFormatter} type={XAxisType} />
+                  <Rechart.ResponsiveContainer height={(31 + margin.bottom)}>
+                    <Rechart.BarChart
+                      data={data}
+                      height={36}
+                      layout={layout}
+                      margin={_.extend({}, margin, { top: 5 })}
+                    >
+                      <Rechart.XAxis tickLine={false} tickMargin={10} stroke="rgba(0, 0, 0, 0.6)" dataKey={XAxisDataKey} tickFormatter={XAxisTicFormatter} type={XAxisType}>
+                        {
+                          xData.label && (
+                            <Rechart.Label value={xData.label.value} offset={10} position="bottom" style={{ fill: 'rgba(0, 0, 0, 0.6)' }} />
+                          )
+                        }
+                      </Rechart.XAxis>
                       <Rechart.YAxis axisLine={false} tickMargin={10} stroke="rgba(0, 0, 0, 0.4)" tickLine={false} dataKey={YAxisDataKey} tickFormatter={YAxisTicFormatter} type={YAxisType} />
                       {
                         newYDataKey.map((entry, index) => (<Rechart.Bar style={{ visibility: 'hidden' }} key={`bar${entry}`} dataKey={entry} fill={colors[index]} stackId={stackId} />))
@@ -118,6 +148,11 @@ BarChart.defaultProps = {
   yDataKey: ['value', []],
   theme: 'blue',
   isPercent: false,
+  margin: {
+    top: 5, right: 5, bottom: 5, left: 5,
+  },
+  xData: {},
+  yData: {},
   scroll: {},
 }
 
@@ -130,6 +165,22 @@ BarChart.propTypes = {
   yDataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   theme: PropTypes.oneOf(['blue', 'green', 'compare']),
   isPercent: PropTypes.bool,
+  margin: PropTypes.shape({
+    top: PropTypes.number,
+    right: PropTypes.number,
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+  }),
+  xData: PropTypes.shape({
+    label: PropTypes.shape({
+      value: PropTypes.string.isRequired,
+    }),
+  }),
+  yData: PropTypes.shape({
+    label: PropTypes.shape({
+      value: PropTypes.string.isRequired,
+    }),
+  }),
   scroll: PropTypes.shape({
     y: PropTypes.number,
   }),
