@@ -2,12 +2,20 @@ RadioBox example:
 
 ##### checked 가 없으면 처음에는 선택 된 radio 는 없습니다
 ```js
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import Button from '@Components/button/Button';
 
 const RadioBoxExample = () => {
   const [info, setInfo] = useState({});
+  const ref = useRef(null);
+
+  const unCheckedAll = () => {
+    ref.current.unCheckedAll()
+  }
+
   return (
     <>
+      <Button variant="primary" onClick={unCheckedAll}>unChecked All</Button>
       <section>
         <span>id: {info.id}</span>
         <span>{`  `}</span>
@@ -15,6 +23,7 @@ const RadioBoxExample = () => {
       </section>
 
       <RadioBox
+        ref={ref}
         onChange={(obj) => (setInfo(obj))}
         align="center"
         data={
