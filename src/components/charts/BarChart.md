@@ -1,6 +1,8 @@
 BarChart example:
 
 ```js
+import { Themes } from '@Components/ChartColor';
+
 <BarChart
   title="Default"
   data={[
@@ -37,10 +39,13 @@ BarChart example:
   ]}
   xDataKey="age"
   yDataKey="Persons"
+  theme={Themes.ThemeArrangePrimarySea}
 />
 ```
 
 ```js
+import { Themes } from '@Components/ChartColor';
+
 <BarChart
   title="theme(green)"
   data={[
@@ -77,7 +82,7 @@ BarChart example:
   ]}
   xDataKey="age"
   yDataKey={["Persons", "weight"]}
-  theme="green"
+  theme={Themes.ThemeArrangeSecondaryTeal}
 />
 ```
 

@@ -1,0 +1,5 @@
+ChartColor example:
+
+```js
+<ChartColor />
+```

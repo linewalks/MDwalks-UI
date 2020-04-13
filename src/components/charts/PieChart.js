@@ -9,6 +9,7 @@ import Heading from '@Components/layout/Heading'
 import * as font from '@src/assets/styles/font'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as cdmCommon from '@Components/common/cdmCommon'
+import { getColorsByTheme } from '@Components/ChartColor'
 
 const Dot = styled(cdmCommon.Dot).attrs(() => ({}))`
   position: absolute;
@@ -52,12 +53,6 @@ const PieLegend = styled.div`
   }
 `
 
-const colorSet = {
-  blue: ['#d5e7fd', '#a5d2ff', '#63a3f3', '#3788ed', '#2f60c3', '#224b9f', '#1e3476', '#142352'],
-  green: ['#ceede7', '#97d9ce', '#24b7a3', '#0c8d84', '#006f75', '#00555a', '#043e4b', '#002340'],
-  compare: ['#63a3f3', '#d686c8'],
-}
-
 const tooltipContent = ({
   active, payload, dataKey, nameKey, isPercent,
 }) => {
@@ -96,8 +91,10 @@ const PieChart = ({
   isPercent,
   legend: _legend,
 }) => {
-  const colors = colorList || colorSet[theme] || colorSet.blue
+  // const colors = colorList || colorSet[theme] || colorSet.blue
+  const colors = colorList || getColorsByTheme(theme, data.length)
 
+  // console.log(data.length)
   const defaultLegend = _.extend({
     isPercent: null,
     dataKey: null,
@@ -189,7 +186,10 @@ PieChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})),
   dataKey: PropTypes.string,
   nameKey: PropTypes.string,
-  theme: PropTypes.oneOf(['blue', 'green', 'compare']),
+  theme: PropTypes.oneOf([
+    'blue', 'green', 'compare',
+    'theme-compare-primary-sea', 'theme-compare-secondary-teal',
+  ]),
   isPercent: PropTypes.bool,
   colorList: PropTypes.arrayOf(PropTypes.string),
   legend: PropTypes.shape({

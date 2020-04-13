@@ -20,7 +20,7 @@ const includeModule = [
   'ToggleButton', 'TooltipBox',
   'TreeMap', 'chartUtility',
   'commonTag', 'font',
-  'variables', 'notifications',
+  'variables', 'notifications', 'ChartColor',
 ]
 
 it('include module', () => {
