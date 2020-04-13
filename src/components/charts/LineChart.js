@@ -7,11 +7,7 @@ import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import { color } from '@src/assets/styles/variables'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as commonTag from '@Components/common/cdmCommon'
-
-const colorSet = {
-  blue: ['#d5e7fd', '#a5d2ff', '#63a3f3', '#3788ed', '#2f60c3', '#224b9f', '#1e3476', '#142352'],
-  green: ['#ceede7', '#97d9ce', '#24b7a3', '#0c8d84', '#006f75', '#00555a', '#043e4b', '#002340'],
-}
+import { getColorsByTheme } from '@Components/ChartColor'
 
 const LineChart = ({
   title,
@@ -24,8 +20,8 @@ const LineChart = ({
   xData,
   yData,
 }) => {
-  const colors = colorSet[theme] || colorSet.blue
   const newYDataKey = [].concat(yDataKey)
+  const colors = getColorsByTheme(theme, newYDataKey.length)
   const legendData = _.chain(newYDataKey)
     .map((entry, index) => ({ color: colors[index], text: entry }))
     .value()
@@ -101,7 +97,11 @@ LineChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})),
   xDataKey: PropTypes.string,
   yDataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-  theme: PropTypes.string,
+  theme: PropTypes.oneOf([
+    'blue', 'green', 'compare',
+    'theme-arrange-primary-sea', 'theme-arrange-secondary-teal', 'theme-arrange-tertiary-rose',
+    'theme-arrange-quaternary-gold', 'theme-arrange-quinary-berry',
+  ]),
   isPercent: PropTypes.bool,
   margin: PropTypes.shape({
     top: PropTypes.number,

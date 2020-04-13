@@ -2,6 +2,8 @@ LineChart example:
 
 #### default
 ```js
+  import { Themes } from '@Components/ChartColor';
+
   <LineChart
     title="Example"
     data={[
@@ -28,7 +30,7 @@ LineChart example:
     ]}
     xDataKey="age"
     yDataKey="Persons"
-    theme="blue"
+    theme={Themes.ThemeArrangePrimarySea}
   >
   </LineChart>
   ```
@@ -36,6 +38,7 @@ LineChart example:
 #### add Label
 
 ```js
+  import { Themes } from '@Components/ChartColor';
   <LineChart
     title="add Label"
     xDataKey="age"
@@ -75,7 +78,7 @@ LineChart example:
         Persons: 3319
       },
     ]}
-    theme="blue"
+    theme={Themes.ThemeArrangePrimarySea}
   >
   </LineChart>
   ```
