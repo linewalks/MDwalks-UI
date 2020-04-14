@@ -1,6 +1,8 @@
 RadarChart example:
 
 ```js
+import { Themes } from '@Components/ChartColor'
+
 const mockData = {
   pieChart: [
     { gender_name: 'Male', count: 7864, rate: 0.4222508591065292 },
@@ -13,5 +15,6 @@ const mockData = {
   data={mockData.pieChart}
   nameKey={'gender_name'}
   dataKey={'count'}
+  theme={Themes.ThemeComparePrimarySea}
 />
 ```

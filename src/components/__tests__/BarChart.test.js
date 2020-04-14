@@ -173,6 +173,9 @@ it('tickFormatterCustom', () => {
 
 describe('Scroll Component', () => {
   let component;
+  const margin = {
+    top: 10, right: 5, bottom: 10, left: 5,
+  }
   beforeEach(() => {
     component = mount(
       <BarChart
@@ -181,13 +184,81 @@ describe('Scroll Component', () => {
         xDataKey="age"
         yDataKey="Persons"
         theme="blue"
+        margin={margin}
         scroll={{ y: 100 }}
       />,
     )
   })
 
-  it('render, set scroll height', () => {
-    expect(component.find(Rechart.BarChart)).toHaveLength(2)
-    expect(component.find(Scrollbars).prop('style').height).toBe(100)
+  describe('render, set scroll height', () => {
+    it('render', () => {
+      expect(component.find(Rechart.BarChart)).toHaveLength(2)
+      expect(component.find(Scrollbars).prop('style').height).toBe(100)
+    })
+
+    it('margin', () => {
+      expect(component.find(Rechart.BarChart).at(0).prop('margin')).toEqual(_.extend({}, margin, { bottom: 0 }))
+      expect(component.find(Rechart.BarChart).at(1).prop('margin')).toEqual(_.extend({}, margin, { top: 5 }))
+      expect(component.find(Rechart.ResponsiveContainer).at(1).prop('height')).toBe(31 + margin.bottom)
+    })
+  })
+})
+
+describe('Label Component', () => {
+  let component;
+  const margin = {
+    top: 5, right: 5, bottom: 40, left: 20,
+  }
+  beforeEach(() => {
+    component = mount(
+      <BarChart
+        title="Example"
+        data={data}
+        xDataKey="age"
+        xData={{
+          label: {
+            value: '건수',
+          },
+        }}
+        yDataKey="Persons"
+        yData={{
+          label: {
+            value: '축1',
+          },
+        }}
+        margin={margin}
+        theme="blue"
+      />,
+    )
+  })
+
+  it('check label', () => {
+    const XAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.XAxis)
+    expect(XAxis[0].props.children.type.displayName).toBe('Label')
+    expect(XAxis[0].props.children.props.value).toBe('건수')
+
+    const YAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.YAxis)
+    expect(YAxis[0].props.children.type.displayName).toBe('Label')
+    expect(YAxis[0].props.children.props.value).toBe('축1')
+  })
+
+  it('set scroll', () => {
+    component.setProps({
+      scroll: { y: 100 },
+    })
+
+    component.update()
+
+    const XAxis = findReChartTags(component.find(Rechart.BarChart).at(0).prop('children'), Rechart.XAxis)
+    expect(XAxis[0].props.children.type.displayName).toBe('Label')
+
+    const YAxis = findReChartTags(component.find(Rechart.BarChart).at(0).prop('children'), Rechart.YAxis)
+    expect(YAxis[0].props.children.type.displayName).toBe('Label')
+
+    const XAxis1 = findReChartTags(component.find(Rechart.BarChart).at(1).prop('children'), Rechart.XAxis)
+    expect(XAxis1[0].props.children.type.displayName).toBe('Label')
+
+    const YAxis1 = findReChartTags(component.find(Rechart.BarChart).at(1).prop('children'), Rechart.YAxis)
+    expect(YAxis1[0].props.children).toBe(undefined)
   })
 })

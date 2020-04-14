@@ -1,6 +1,8 @@
 BarChart example:
 
 ```js
+import { Themes } from '@Components/ChartColor';
+
 <BarChart
   title="Default"
   data={[
@@ -37,10 +39,13 @@ BarChart example:
   ]}
   xDataKey="age"
   yDataKey="Persons"
+  theme={Themes.ThemeArrangePrimarySea}
 />
 ```
 
 ```js
+import { Themes } from '@Components/ChartColor';
+
 <BarChart
   title="theme(green)"
   data={[
@@ -77,7 +82,7 @@ BarChart example:
   ]}
   xDataKey="age"
   yDataKey={["Persons", "weight"]}
-  theme="green"
+  theme={Themes.ThemeArrangeSecondaryTeal}
 />
 ```
 
@@ -166,7 +171,7 @@ BarChart example:
 />
 ```
 
-  ```js
+ ```js
 <BarChart
   title="scroll"
   layout="vertical"
@@ -205,6 +210,62 @@ BarChart example:
   ]}
   xDataKey="age"
   yDataKey={["Persons", "weight"]}
+  theme="compare"
+/>
+```
+
+ ```js
+<BarChart
+  title="scroll label"
+  layout="vertical"
+  scroll={{ y: 300 }}
+  data={[
+    {
+      age: 20,
+      Persons: 88,
+      weight: 100,
+    },
+    {
+      age: 30,
+      Persons: 272,
+      weight: 200,
+    },
+    {
+      age: 40,
+      Persons: 568,
+      weight: 500,
+    },
+    {
+      age: 50,
+      Persons: 932,
+      weight: 941,
+    },
+    {
+      age: 60,
+      Persons: 3319,
+      weight: 2312,
+    },
+    {
+      age: 70,
+      Persons: 5394,
+      weight: 5323,
+    },
+  ]}
+  margin={{
+    top: 5, right: 5, bottom: 20, left: 20,
+  }}
+  xDataKey="age"
+  xData={{
+    label: {
+      value: '건',
+    },
+  }}
+  yDataKey={["Persons", "weight"]}
+  yData={{
+    label: {
+      value: '축',
+    },
+  }}
   theme="compare"
 />
 ```

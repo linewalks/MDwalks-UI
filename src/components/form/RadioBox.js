@@ -73,12 +73,10 @@ class RadioBox extends React.Component {
 
   onChange({ selectedList }) {
     const { data, onChange } = this.props
-    if (_.isFunction(onChange)) {
-      const targetId = _.first(selectedList)
-      const target = _.find(data, (obj) => (String(obj.id) === targetId))
+    const targetId = _.first(selectedList)
+    const target = _.find(data, (obj) => (String(obj.id) === targetId))
 
-      onChange(target)
-    }
+    onChange(_.extend({ id: '', name: '' }, target))
   }
 
   onChangeTrigger(id) {
@@ -92,6 +90,15 @@ class RadioBox extends React.Component {
 
     selectedList = [`${id}`]
 
+    this.setState({
+      selectedList,
+    })
+
+    this.onChange({ selectedList })
+  }
+
+  unCheckedAll() {
+    const selectedList = []
     this.setState({
       selectedList,
     })
@@ -149,7 +156,7 @@ class RadioBox extends React.Component {
 
 RadioBox.defaultProps = {
   disabled: false,
-  onChange: null,
+  onChange: () => {},
   formatter: null,
   align: 'center',
 }

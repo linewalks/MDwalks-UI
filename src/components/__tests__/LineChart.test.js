@@ -74,5 +74,45 @@ describe('LineChart Component', () => {
 
   it('데이터가 있을 때, linechart를 렌더링 해야 한다.', () => {
     expect(findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.Line)).toHaveLength(1)
+
+    const XAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.XAxis)
+    expect(XAxis[0].props.children).toBe(undefined)
+
+    const YAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.YAxis)
+    expect(YAxis[0].props.children).toBe(undefined)
+  })
+})
+
+describe('LineChart Component', () => {
+  let component;
+  beforeEach(() => {
+    component = mount(
+      <LineChart
+        title="Example"
+        data={data}
+        xDataKey="age"
+        xData={{
+          label: {
+            value: '건',
+          },
+        }}
+        yDataKey="Persons"
+        yData={{
+          label: {
+            value: '축',
+          },
+        }}
+        theme="blue"
+      />,
+    )
+  })
+
+  it('데이터가 있을 때, linechart를 렌더링 해야 한다.', () => {
+    const XAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.XAxis)
+    expect(XAxis[0].props.children.type.displayName).toBe('Label')
+
+    const YAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.YAxis)
+    expect(YAxis[0].props.children.type.displayName).toBe('Label')
+    expect(findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.Line)).toHaveLength(1)
   })
 })
