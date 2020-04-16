@@ -1,4 +1,4 @@
-## [0.13.18](https://github.com/linewalks/MDwalks-UI/compare/v0.13.13...v0.13.18) (2020-04-14)
+## [0.13.19](https://github.com/linewalks/MDwalks-UI/compare/v0.13.13...v0.13.19) (2020-04-16)
 
 
 ### Bug Fixes
@@ -12,76 +12,14 @@
 
 * **BarChart:** add label ([80c4370](https://github.com/linewalks/MDwalks-UI/commit/80c4370cb168fe549b74c5e63203979bdaf7fa13)), closes [#505](https://github.com/linewalks/MDwalks-UI/issues/505)
 * **BarChart:** add scroll option ([597bdc2](https://github.com/linewalks/MDwalks-UI/commit/597bdc20b96aeb86665cffad0bc00c2ec980e9a4)), closes [#487](https://github.com/linewalks/MDwalks-UI/issues/487)
+* **BarChart:** multi Theme ([1b5be20](https://github.com/linewalks/MDwalks-UI/commit/1b5be2080fe8a2f606bccc9f03ca1ea572d181f4)), closes [#537](https://github.com/linewalks/MDwalks-UI/issues/537)
 * **ColorSet:** create ([5cd448e](https://github.com/linewalks/MDwalks-UI/commit/5cd448ecbc8c178b6e74fca4f8debd21f8cad59e)), closes [#529](https://github.com/linewalks/MDwalks-UI/issues/529)
 * **LineChart:** add label ([cc1cd88](https://github.com/linewalks/MDwalks-UI/commit/cc1cd88409c660b7dc6f543ceb30a62af0ce9818)), closes [#505](https://github.com/linewalks/MDwalks-UI/issues/505)
-* **PieChart:** create ([8b16189](https://github.com/linewalks/MDwalks-UI/commit/8b16189c7d577ee27a4dbcbc529d7d2855bb9761)), closes [#491](https://github.com/linewalks/MDwalks-UI/issues/491)
+* **RadioBox:** add disabled of item ([0100672](https://github.com/linewalks/MDwalks-UI/commit/0100672711dbb78ff6c8722f87c2a40ed6140874)), closes [#490](https://github.com/linewalks/MDwalks-UI/issues/490)
 * **RadioBox:** add method of unCheckedAll ([24d4bf5](https://github.com/linewalks/MDwalks-UI/commit/24d4bf55885862726f747f1b025604849506c8d2)), closes [#528](https://github.com/linewalks/MDwalks-UI/issues/528)
 * Histogram 차트의 onChange event에 인자를 하나 더 추가합니다 ([2e96d63](https://github.com/linewalks/MDwalks-UI/commit/2e96d6375fefe6460a31cad5377ec7124f1266b2)), closes [#503](https://github.com/linewalks/MDwalks-UI/issues/503)
 * **Notifications:** create ([571baf7](https://github.com/linewalks/MDwalks-UI/commit/571baf7ce70c634fd718821f63c505d641c98b11)), closes [#250](https://github.com/linewalks/MDwalks-UI/issues/250)
-* **RadioBox:** add disabled of item ([0100672](https://github.com/linewalks/MDwalks-UI/commit/0100672711dbb78ff6c8722f87c2a40ed6140874)), closes [#490](https://github.com/linewalks/MDwalks-UI/issues/490)
-
-
-
-## [0.13.17](https://github.com/linewalks/MDwalks-UI/compare/v0.13.13...v0.13.17) (2020-04-02)
-
-
-### Bug Fixes
-
-* **table:** apply columns ([7c5f954](https://github.com/linewalks/MDwalks-UI/commit/7c5f95432850a5f56f9e2652c7620829c7ac95d5)), closes [#520](https://github.com/linewalks/MDwalks-UI/issues/520)
-* Histogram 차트의 selectbox 이벤트를 props로 받을수 있도록 합니다 ([47493bf](https://github.com/linewalks/MDwalks-UI/commit/47493bff5e23a8db47b607f39c6d768289c0cf0c)), closes [#496](https://github.com/linewalks/MDwalks-UI/issues/496)
-* Histogram 차트의 selectbox 이벤트를 props로 받을수 있도록 합니다 ([817d78f](https://github.com/linewalks/MDwalks-UI/commit/817d78fbfbd1d0e11f777a7f42fcbec4e3e0dd11)), closes [#496](https://github.com/linewalks/MDwalks-UI/issues/496)
-
-
-### Features
-
-* Histogram 차트의 onChange event에 인자를 하나 더 추가합니다 ([2e96d63](https://github.com/linewalks/MDwalks-UI/commit/2e96d6375fefe6460a31cad5377ec7124f1266b2)), closes [#503](https://github.com/linewalks/MDwalks-UI/issues/503)
-* **BarChart:** add scroll option ([597bdc2](https://github.com/linewalks/MDwalks-UI/commit/597bdc20b96aeb86665cffad0bc00c2ec980e9a4)), closes [#487](https://github.com/linewalks/MDwalks-UI/issues/487)
-* **Notifications:** create ([571baf7](https://github.com/linewalks/MDwalks-UI/commit/571baf7ce70c634fd718821f63c505d641c98b11)), closes [#250](https://github.com/linewalks/MDwalks-UI/issues/250)
 * **PieChart:** create ([8b16189](https://github.com/linewalks/MDwalks-UI/commit/8b16189c7d577ee27a4dbcbc529d7d2855bb9761)), closes [#491](https://github.com/linewalks/MDwalks-UI/issues/491)
-* **RadioBox:** add disabled of item ([0100672](https://github.com/linewalks/MDwalks-UI/commit/0100672711dbb78ff6c8722f87c2a40ed6140874)), closes [#490](https://github.com/linewalks/MDwalks-UI/issues/490)
-
-
-
-## [0.13.16](https://github.com/linewalks/MDwalks-UI/compare/v0.13.13...v0.13.16) (2020-03-31)
-
-
-### Bug Fixes
-
-* Histogram 차트의 selectbox 이벤트를 props로 받을수 있도록 합니다 ([47493bf](https://github.com/linewalks/MDwalks-UI/commit/47493bff5e23a8db47b607f39c6d768289c0cf0c)), closes [#496](https://github.com/linewalks/MDwalks-UI/issues/496)
-* Histogram 차트의 selectbox 이벤트를 props로 받을수 있도록 합니다 ([817d78f](https://github.com/linewalks/MDwalks-UI/commit/817d78fbfbd1d0e11f777a7f42fcbec4e3e0dd11)), closes [#496](https://github.com/linewalks/MDwalks-UI/issues/496)
-
-
-### Features
-
-* **BarChart:** add scroll option ([597bdc2](https://github.com/linewalks/MDwalks-UI/commit/597bdc20b96aeb86665cffad0bc00c2ec980e9a4)), closes [#487](https://github.com/linewalks/MDwalks-UI/issues/487)
-* **PieChart:** create ([8b16189](https://github.com/linewalks/MDwalks-UI/commit/8b16189c7d577ee27a4dbcbc529d7d2855bb9761)), closes [#491](https://github.com/linewalks/MDwalks-UI/issues/491)
-* **RadioBox:** add disabled of item ([0100672](https://github.com/linewalks/MDwalks-UI/commit/0100672711dbb78ff6c8722f87c2a40ed6140874)), closes [#490](https://github.com/linewalks/MDwalks-UI/issues/490)
-
-
-
-## [0.13.15](https://github.com/linewalks/MDwalks-UI/compare/v0.13.13...v0.13.15) (2020-03-26)
-
-
-### Bug Fixes
-
-* Histogram 차트의 selectbox 이벤트를 props로 받을수 있도록 합니다 ([47493bf](https://github.com/linewalks/MDwalks-UI/commit/47493bff5e23a8db47b607f39c6d768289c0cf0c)), closes [#496](https://github.com/linewalks/MDwalks-UI/issues/496)
-* Histogram 차트의 selectbox 이벤트를 props로 받을수 있도록 합니다 ([817d78f](https://github.com/linewalks/MDwalks-UI/commit/817d78fbfbd1d0e11f777a7f42fcbec4e3e0dd11)), closes [#496](https://github.com/linewalks/MDwalks-UI/issues/496)
-
-
-### Features
-
-* **BarChart:** add scroll option ([597bdc2](https://github.com/linewalks/MDwalks-UI/commit/597bdc20b96aeb86665cffad0bc00c2ec980e9a4)), closes [#487](https://github.com/linewalks/MDwalks-UI/issues/487)
-* **PieChart:** create ([8b16189](https://github.com/linewalks/MDwalks-UI/commit/8b16189c7d577ee27a4dbcbc529d7d2855bb9761)), closes [#491](https://github.com/linewalks/MDwalks-UI/issues/491)
-* **RadioBox:** add disabled of item ([0100672](https://github.com/linewalks/MDwalks-UI/commit/0100672711dbb78ff6c8722f87c2a40ed6140874)), closes [#490](https://github.com/linewalks/MDwalks-UI/issues/490)
-
-
-
-## [0.13.14](https://github.com/linewalks/MDwalks-UI/compare/v0.13.13...v0.13.14) (2020-03-25)
-
-
-### Features
-
-* **BarChart:** add scroll option ([597bdc2](https://github.com/linewalks/MDwalks-UI/commit/597bdc20b96aeb86665cffad0bc00c2ec980e9a4)), closes [#487](https://github.com/linewalks/MDwalks-UI/issues/487)
 
 
 
@@ -163,21 +101,6 @@
 
 
 
-## [0.13.8](https://github.com/linewalks/MDwalks-UI/compare/v0.13.7...v0.13.8) (2020-03-05)
-
-
-### Bug Fixes
-
-* **LineMergedTimeline:** LineMergedTimeline data 변경에 따른 리렌더링 추가 ([2c73d55](https://github.com/linewalks/MDwalks-UI/commit/2c73d557dd47d97199a7f5ce99d9eb3f44b53aab)), closes [#415](https://github.com/linewalks/MDwalks-UI/issues/415)
-
-
-### Features
-
-* **docs:** use styleguide ([ee57258](https://github.com/linewalks/MDwalks-UI/commit/ee57258c7f605376907275b5de5b7eb75d4eeedc)), closes [#414](https://github.com/linewalks/MDwalks-UI/issues/414)
-* **styleguide:** update components ([cbeb765](https://github.com/linewalks/MDwalks-UI/commit/cbeb765966e1a66c5034747a0c6ed296609bc711)), closes [#408](https://github.com/linewalks/MDwalks-UI/issues/408)
-* **TextLink:** create ([b8ddf00](https://github.com/linewalks/MDwalks-UI/commit/b8ddf00ba35d36e1f824357f09a3169f906b64b7)), closes [#426](https://github.com/linewalks/MDwalks-UI/issues/426)
-
-
 ## [0.13.7](https://github.com/linewalks/MDwalks-UI/compare/v0.13.6...v0.13.7) (2020-02-27)
 
 
@@ -228,8 +151,6 @@
 * **SummaryCard:** get className ([1aad226](https://github.com/linewalks/MDwalks-UI/commit/1aad22616ea4dd37c195b5aa3b6ec9aeef7d9279)), closes [#380](https://github.com/linewalks/MDwalks-UI/issues/380)
 
 
-### style
-* **BarChart:** remove BoxShadow ([6e74ded])(https://github.com/linewalks/MDwalks-UI/commit/6e74ded3733028f134b330e98c17f68df1fac37b), closes [#381](https://github.com/linewalks/MDwalks-UI/issues/381)
 
 ## [0.13.1](https://github.com/linewalks/MDwalks-UI/compare/v0.12.4...v0.13.1) (2020-02-06)
 
@@ -305,6 +226,8 @@
 
 * **button:** support id props ([ddfdeda](https://github.com/linewalks/MDwalks-UI/commit/ddfdeda6d134c8db7d450c5b9e37dbe31d887c54)), closes [#324](https://github.com/linewalks/MDwalks-UI/issues/324)
 * **Button:** apply style, onClick ([58b3bba](https://github.com/linewalks/MDwalks-UI/commit/58b3bba4ca9af7d8ec34ea47848363c3cb80d1d6))
+* **README:** table markdown ([05c1ecb](https://github.com/linewalks/MDwalks-UI/commit/05c1ecb1c24689bd46c006511bd9b0e0ecd34509)), closes [#268](https://github.com/linewalks/MDwalks-UI/issues/268)
+* **table:** support undefind, null ([26c2f4a](https://github.com/linewalks/MDwalks-UI/commit/26c2f4a84c9faf7baddfd04ab71a8d305a42343d)), closes [#290](https://github.com/linewalks/MDwalks-UI/issues/290)
 * **webpack:** rollback svg file-loader ([ffc7dc2](https://github.com/linewalks/MDwalks-UI/commit/ffc7dc2c0e6d6668b11b12ab61d51dc549df8fa6)), closes [#338](https://github.com/linewalks/MDwalks-UI/issues/338)
 
 
@@ -312,236 +235,35 @@
 
 * **build:** build command insert version command ([f4c649b](https://github.com/linewalks/MDwalks-UI/commit/f4c649bf4de18c131ea0c977800c7af37a778b8f)), closes [#328](https://github.com/linewalks/MDwalks-UI/issues/328)
 * **Button:** create TDD ([a68814c](https://github.com/linewalks/MDwalks-UI/commit/a68814c3b1f604b4effb8e24430ade7033b41709)), closes [#171](https://github.com/linewalks/MDwalks-UI/issues/171)
+* **changelog:** update ([525a99e](https://github.com/linewalks/MDwalks-UI/commit/525a99edab2cae5131f00c140a6198a2daa4a9e1))
+* **changelog:** update ([eb4412d](https://github.com/linewalks/MDwalks-UI/commit/eb4412d9576b269700a76563c8ed4e4babec6b8e))
 * **checklist:** change icon of checked ([a38a1ab](https://github.com/linewalks/MDwalks-UI/commit/a38a1ab8cf0339eaaa6c1413983f5cb063242157))
 * **checklist:** eslint ([3aaca36](https://github.com/linewalks/MDwalks-UI/commit/3aaca36c5d30ea2eca40262f6af19be964f935bf))
 * **DateUtility:** create ([716062e](https://github.com/linewalks/MDwalks-UI/commit/716062eb4be2f0b83b3d38979301201cda9ecf0e))
 * **eslint:** to assets, data, helper ([8d62fac](https://github.com/linewalks/MDwalks-UI/commit/8d62face0e0169403c92ce2dc73d2456df801e61)), closes [#305](https://github.com/linewalks/MDwalks-UI/issues/305)
 * **font:** add className that fontSize, fontSize and opacity ([9ec365a](https://github.com/linewalks/MDwalks-UI/commit/9ec365a98985378eb564940088eb26573de4a495))
 * **form:** insert className like label ([ca4fd70](https://github.com/linewalks/MDwalks-UI/commit/ca4fd70f26ba70dd6d33ed931f012792ed4126ef)), closes [#313](https://github.com/linewalks/MDwalks-UI/issues/313)
+* **highchart:** create function getTextStyle ([e92a856](https://github.com/linewalks/MDwalks-UI/commit/e92a8565f12b8e87595f62236ba505f406443c3c)), closes [#230](https://github.com/linewalks/MDwalks-UI/issues/230)
 * **ISSUE_TEMPLATE:** create type of bug, feature ([bfd301e](https://github.com/linewalks/MDwalks-UI/commit/bfd301ea2dbb7e00ab8951cab9ae243188433666)), closes [#299](https://github.com/linewalks/MDwalks-UI/issues/299)
+* **layout:** apply eslint ([a38a24c](https://github.com/linewalks/MDwalks-UI/commit/a38a24c518589851d375f8f3c92684f9c6fd6d2a)), closes [#287](https://github.com/linewalks/MDwalks-UI/issues/287)
 * **Pagination:** support sm size ([b1cc138](https://github.com/linewalks/MDwalks-UI/commit/b1cc138044877dee908e8646914b3ec06ffc0279)), closes [#316](https://github.com/linewalks/MDwalks-UI/issues/316)
 * **radiolist:** create ([8873808](https://github.com/linewalks/MDwalks-UI/commit/887380855f37843c699a939c02713079b55abb11))
 * **README:** insert case of commit message ([81c3262](https://github.com/linewalks/MDwalks-UI/commit/81c3262f8bd47795f082576b29de1b021bb751d5)), closes [#304](https://github.com/linewalks/MDwalks-UI/issues/304)
+* **Tabs:** change style ([2405bc8](https://github.com/linewalks/MDwalks-UI/commit/2405bc8fb0aa19a157dee13948aa89e355c3b563)), closes [#281](https://github.com/linewalks/MDwalks-UI/issues/281)
+* **Tabs:** eslint ([ff15956](https://github.com/linewalks/MDwalks-UI/commit/ff159568009ce7fecf40f6c30a40dd2e053bc4ab))
+* **Tabs:** Proptypes ([9c0f61a](https://github.com/linewalks/MDwalks-UI/commit/9c0f61ac15bfb8460c1ef3399d53a104b0e26aa7))
 * **TEMPLATE:** modify ([4958bc8](https://github.com/linewalks/MDwalks-UI/commit/4958bc848da2612b693b55e4632c387aa72acc76)), closes [#302](https://github.com/linewalks/MDwalks-UI/issues/302)
+* **travis:** comment ([595adb8](https://github.com/linewalks/MDwalks-UI/commit/595adb86927ba7fce146b3a1fe3da06876184845))
+* **travis:** modify travis.yml ([77b5db1](https://github.com/linewalks/MDwalks-UI/commit/77b5db16fcd9922fc07206741cb273f520f09317))
 * **utility:** append getDateDiff ([61a4198](https://github.com/linewalks/MDwalks-UI/commit/61a4198d11577b779f0c66a28758c922585d80e5)), closes [#303](https://github.com/linewalks/MDwalks-UI/issues/303)
 
 
 
-## [0.11.1](https://github.com/linewalks/MDwalks-UI/compare/v0.10.7...v0.11.1) (2020-01-13)
-
-### Features
-
-* **utility:** append getDateDiff ([61a4198](https://github.com/linewalks/MDwalks-UI/commit/61a4198d11577b779f0c66a28758c922585d80e5)), closes [#303](https://github.com/linewalks/MDwalks-UI/issues/303)
+## [0.4.4](https://github.com/linewalks/MDwalks-UI/compare/v0.3.4...v0.4.4) (2019-09-24)
 
 
 
-## [0.10.7](https://github.com/linewalks/MDwalks-UI/compare/v0.10.6...v0.10.7) (2020-01-08)
-
-
-### Bug Fixes
-
-* **button:** support id props ([ddfdeda](https://github.com/linewalks/MDwalks-UI/commit/ddfdeda6d134c8db7d450c5b9e37dbe31d887c54)), closes [#324](https://github.com/linewalks/MDwalks-UI/issues/324)
-
-
-## [0.10.6](https://github.com/linewalks/MDwalks-UI/compare/v0.10.5...v0.10.6) (2020-01-07)
-
-
-### Bug Fixes
-
-* **Button:** apply style, onClick ([58b3bba](https://github.com/linewalks/MDwalks-UI/commit/58b3bba4ca9af7d8ec34ea47848363c3cb80d1d6))
-
-
-## [0.10.5](https://github.com/linewalks/MDwalks-UI/compare/v0.10.4...v0.10.5) (2019-12-27)
-
-
-### Features
-
-* **Button:** create TDD ([a68814c](https://github.com/linewalks/MDwalks-UI/commit/a68814c3b1f604b4effb8e24430ade7033b41709)), closes [#171](https://github.com/linewalks/MDwalks-UI/issues/171)
-* **form:** insert className like label ([ca4fd70](https://github.com/linewalks/MDwalks-UI/commit/ca4fd70f26ba70dd6d33ed931f012792ed4126ef)), closes [#313](https://github.com/linewalks/MDwalks-UI/issues/313)
-* **Pagination:** support sm size ([b1cc138](https://github.com/linewalks/MDwalks-UI/commit/b1cc138044877dee908e8646914b3ec06ffc0279)), closes [#316](https://github.com/linewalks/MDwalks-UI/issues/316)
+## [0.3.4](https://github.com/linewalks/MDwalks-UI/compare/v0.3.3...v0.3.4) (2019-08-09)
 
 
 
-## [0.10.4](https://github.com/linewalks/MDwalks-UI/compare/v0.10.3...v0.10.4) (2019-12-06)
-
-
-### Features
-
-* **checklist:** change icon of checked ([a38a1ab](https://github.com/linewalks/MDwalks-UI/commit/a38a1ab8cf0339eaaa6c1413983f5cb063242157))
-* **checklist:** eslint ([3aaca36](https://github.com/linewalks/MDwalks-UI/commit/3aaca36c5d30ea2eca40262f6af19be964f935bf))
-* **eslint:** to assets, data, helper ([8d62fac](https://github.com/linewalks/MDwalks-UI/commit/8d62face0e0169403c92ce2dc73d2456df801e61)), closes [#305](https://github.com/linewalks/MDwalks-UI/issues/305)
-* **ISSUE_TEMPLATE:** create type of bug, feature ([bfd301e](https://github.com/linewalks/MDwalks-UI/commit/bfd301ea2dbb7e00ab8951cab9ae243188433666)), closes [#299](https://github.com/linewalks/MDwalks-UI/issues/299)
-* **radiolist:** create ([8873808](https://github.com/linewalks/MDwalks-UI/commit/887380855f37843c699a939c02713079b55abb11))
-* **README:** insert case of commit message ([81c3262](https://github.com/linewalks/MDwalks-UI/commit/81c3262f8bd47795f082576b29de1b021bb751d5)), closes [#304](https://github.com/linewalks/MDwalks-UI/issues/304)
-* **TEMPLATE:** modify ([4958bc8](https://github.com/linewalks/MDwalks-UI/commit/4958bc848da2612b693b55e4632c387aa72acc76)), closes [#302](https://github.com/linewalks/MDwalks-UI/issues/302)
-
-
-
-<!--
-## :tada: Enhancements
-## :bug: Fixes
-## :book: Documentation
-## :nut_and_bolt: Other
-## :lock: Security Fixes
--->
-#### [v0.10.2](https://github.com/linewalks/MDwalks-UI/compare/v0.10.1...v0.10.2)
-# v0.10.2 / 2019-11-26
-## :bug: Fixes
-- [#290](https://github.com/linewalks/MDwalks-UI/issues/290) Cardio에서 test시 rowSpan이 undefined로 test error 발생 ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.10.1 / 2019-11-21
-## :tada: Enhancements
-- [#251](https://github.com/linewalks/MDwalks-UI/issues/251) TimeToEvent 이동 및 테스트코드 추가 ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#265](https://github.com/linewalks/MDwalks-UI/issues/265) support rowSpan to Table ([**@jik0090**](https://github.com/jik0090))
-- [#269](https://github.com/linewalks/MDwalks-UI/issues/269) feat:Pagination ([**@jik0090**](https://github.com/jik0090))
-- [#275](https://github.com/linewalks/MDwalks-UI/issues/275) feat(travis): modify travis.yml ([**@toyjhlee**](https://github.com/toyjhlee))
-
-## :bug: Fixes
-- [#268](https://github.com/linewalks/MDwalks-UI/issues/268) fix(README): table markdown ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.9.1 / 2019-11-08
-## :tada: Enhancements
-- [#244](https://github.com/linewalks/MDwalks-UI/issues/244) Button 에 xlg
-([**@toyjhlee**](https://github.com/toyjhlee))
-- [#242](https://github.com/linewalks/MDwalks-UI/issues/242) alias 적용
-([**@toyjhlee**](https://github.com/toyjhlee))
-- [#240](https://github.com/linewalks/MDwalks-UI/issues/240) Tab Component 생성
-([**@toyjhlee**](https://github.com/toyjhlee))
-- [#238](https://github.com/linewalks/MDwalks-UI/issues/238) SelectBox component 생성
-([**@toyjhlee**](https://github.com/toyjhlee))
-- [#234](https://github.com/linewalks/MDwalks-UI/issues/234) 차트 에러메세지 util 함수로 만들고, 모든차트에서 적용.
- ([**@jik0090**](https://github.com/jik0090))
-- [#233](https://github.com/linewalks/MDwalks-UI/issues/233) 트리맵 차트 및 테스트 추가
- ([**@jik0090**](https://github.com/jik0090))
-
- ## :bug: Fixes
-- [#248](https://github.com/linewalks/MDwalks-UI/issues/248) Image Component 에 width, height property 적용 Component bug
-([**@toyjhlee**](https://github.com/toyjhlee))
-- [#228](https://github.com/linewalks/MDwalks-UI/issues/228) 요약카드 차트 폰트 크기, 가로선 간격 수정
- ([**@jik0090**](https://github.com/jik0090))
-- [#226](https://github.com/linewalks/MDwalks-UI/issues/226) MACE 위험도 차트의 선과 점 불일치
- ([**@jik0090**](https://github.com/jik0090))
-
-
-
-# v0.8.1 / 2019-10-31
-## :tada: Enhancements
-- [#224](https://github.com/linewalks/MDwalks-UI/issues/224'): 레이더 차트 및 테스트 추가 ([**@jik0090**](https://github.com/jik0090))
-- [#228](https://github.com/linewalks/MDwalks-UI/issues/228'): 요약카드 차트 폰트 크기, 가로선 간격 수정 ([**@jik0090**](https://github.com/jik0090))
-
-## :bug: Fixes
-- [#226](https://github.com/linewalks/MDwalks-UI/issues/226'): MACE 위험도 차트의 선과 점 불일치 ([**@jik0090**](https://github.com/jik0090))
-
-# v0.7.3 / 2019-10-25
-## :tada: Enhancements
-- [#194](https://github.com/linewalks/MDwalks-UI/issues/194'): UI 컴포넌트 CSS import 문제 #194 ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#213](https://github.com/linewalks/MDwalks-UI/issues/213'): 방문시점별 위험도와 가중치 이벤트 커서추가 ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#216](https://github.com/linewalks/MDwalks-UI/issues/216'): CheckList 를 선택한 순서를 보장 ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.7.2 / 2019-10-24
-## :tada: Enhancements
-- [#208](https://github.com/linewalks/MDwalks-UI/issues/208'): Table 의 기본 스타일 조정 ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.7.1 / 2019-10-22
-## :tada: Enhancements
-- [#204](https://github.com/linewalks/MDwalks-UI/issues/204'): Table Component 가 Th 커스텀 지원 ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#201](https://github.com/linewalks/MDwalks-UI/issues/201'): button/utility Test 작성 ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#198](https://github.com/linewalks/MDwalks-UI/issues/198'): Check List Component 생성 ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#193](https://github.com/linewalks/MDwalks-UI/issues/193'): Histogram 높이 test 변경 ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#184](https://github.com/linewalks/MDwalks-UI/issues/184'): TimelineMergedLinechart 이벤트 추가 ([**@jik0090**](https://github.com/jik0090))
-
-# v0.6.2 / 2019-10-17
-## :tada: Enhancements
-- [#186](https://github.com/linewalks/MDwalks-UI/issues/186'): Modal 에 description option 추가 ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#181](https://github.com/linewalks/MDwalks-UI/issues/181'): Button, Modal 스타일 조정 ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.6.1 / 2019-10-11
-## :tada: Enhancements
-- [#178](https://github.com/linewalks/MDwalks-UI/issues/178'): Modal component 생성 ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.5.2 / 2019-10-10
-## :tada: Enhancements
-- [#168](https://github.com/linewalks/MDwalks-UI/issues/168'): Rename button components ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#175](https://github.com/linewalks/MDwalks-UI/issues/175'): SelectedCard 에 옵션 추가 ([**@toyjhlee**](https://github.com/toyjhlee))
-
-## :bug: Fixes
-- [#172](https://github.com/linewalks/MDwalks-UI/issues/172'): Insert chartUtility in src/index.js #173 ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.5.1 / 2019-10-08
-## :tada: Enhancements
-- [#175](https://github.com/linewalks/MDwalks-UI/issues/175'): SelectedCard 에 옵션 추가 ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#161](https://github.com/linewalks/MDwalks-UI/issues/161'): Button Components 만들기 ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#164](https://github.com/linewalks/MDwalks-UI/issues/164'): Create Beta menu in docz ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#159](https://github.com/linewalks/MDwalks-UI/issues/159'): Table 에 subHeaders 가 있는 경우 docz 에 추가 ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.4.7 / 2019-09-30
-## :bug: Fixes
-- [#153](https://github.com/linewalks/MDwalks-UI/issues/153'): SankeyChart onChange Bug ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.4.6 / 2019-09-27
-## :tada: Enhancements
-- [#151](https://github.com/linewalks/MDwalks-UI/issues/151'): Descriptions width 지정 ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.4.5 / 2019-09-26
-## :bug: Fixes
-- [#146](https://github.com/linewalks/MDwalks-UI/issues/146'): build 파일에서 helper/chartUtility 를 찾지 못 함 ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#141](https://github.com/linewalks/MDwalks-UI/issues/141): Warning: validateDOMNesting on Description ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.4.4 / 2019-09-24
-## :bug: Fixes
-- [#131](https://github.com/linewalks/MDwalks-UI/issues/131): Cardio Test Import Error ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#129](https://github.com/linewalks/MDwalks-UI/issues/129): Warning 수정 ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.4.3 / 2019-09-19
-## :tada: Enhancements
-- [#125](https://github.com/linewalks/MDwalks-UI/issues/125): Update variables ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#121](https://github.com/linewalks/MDwalks-UI/issues/121): Descriptions 에 colspan 기능 추가 ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.4.2 / 2019-09-17
-## :tada: Enhancements
-- [#110](https://github.com/linewalks/MDwalks-UI/issues/110): SelectedCard 스타일 교정 및 리팩토링 ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#50](https://github.com/linewalks/MDwalks-UI/issues/50): add summarycard component test ([**@toyjhlee**](https://github.com/toyjhlee))
-
-## :book: Documentation
-- [#113](https://github.com/linewalks/MDwalks-UI/issues/113): linewalks.github.io/MDwalks-UI 에 연결 ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.4.1 / 2019-09-11
-## :tada: Enhancements
-- [#106](https://github.com/linewalks/MDwalks-UI/issues/106): Travis CI 도입 ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#104](https://github.com/linewalks/MDwalks-UI/issues/104): Descriptions 생성 ([**@toyjhlee**](https://github.com/toyjhlee))
-- [#100](https://github.com/linewalks/MDwalks-UI/issues/100): Layout 의 Component 만들기 ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.3.7 / 2019-09-04
-## :tada: Enhancements
-- [#94](https://github.com/linewalks/MDwalks-UI/issues/94): EXI, CDM 의 공통 Style 파일을 MDwalks-UI 에서 지원 ([**@toyjhlee**](https://github.com/toyjhlee))
-
-## :book: Documentation
-- [#90](https://github.com/linewalks/MDwalks-UI/issues/90): docz 사용 ([**@toyjhlee**](https://github.com/toyjhlee))
-
-# v0.3.6 / 2019-08-19
-## :bug: Fixes
-- [#83](https://github.com/linewalks/MDwalks-UI/issues/83): sankey 새로고침시 하이라이팅안되는문제 ([**@jik0090**](https://github.com/jik0090))
-
-# v0.3.5 / 2019-08-16
-## :tada: Enhancements
-- [#75](https://github.com/linewalks/MDwalks-UI/issues/75): add sankey reset ([**@jik0090**](https://github.com/jik0090))
-
-## :bug: Fixes
-- [#80](https://github.com/linewalks/MDwalks-UI/issues/80): add sankey reset ([**@jik0090**](https://github.com/jik0090))
-- [#75](https://github.com/linewalks/MDwalks-UI/issues/73): [하] mace risk score의 그래프에서 점사이에 연결선이 없음 ([**@jik0090**](https://github.com/jik0090))
-- [#72](https://github.com/linewalks/MDwalks-UI/issues/75): sankey 노드클릭과 선택노드의 불일치 ([**@jik0090**](https://github.com/jik0090))
-
-# v0.3.4 / 2019-08-09
-## :tada: Enhancements
-- [#65](https://github.com/linewalks/MDwalks-UI/issues/59): linemergedtimeline data format scale 적용 ([**@jik0090**](https://github.com/jik0090))
-
-## :mag: Coverage
-- [#59](https://github.com/linewalks/MDwalks-UI/issues/59): add table test ([**@jik0090**](https://github.com/jik0090))
-- [#64](https://github.com/linewalks/MDwalks-UI/issues/64): add linkcheck function and test ([**@jik0090**](https://github.com/jik0090))
-
-## :bug: Fixes
-- [#68](https://github.com/linewalks/MDwalks-UI/issues/68): sankey chart 클릭한 nodelist 개수 불일치 ([**@jik0090**](https://github.com/jik0090))
-
-# v0.3.3 / 2019-08-06
-## :tada: Enhancements
-- [#60](https://github.com/linewalks/MDwalks-UI/issues/60): Table 에 appendRow 추가 ([**@toyjhlee**](https://github.com/toyjhlee))

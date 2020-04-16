@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import { color } from '@src/assets/styles/variables'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
@@ -54,7 +55,15 @@ export const LegendList = ({ data }) => {
     return (
       <Legend key={lKey}>
         <span>
-          <Dot color={legendColor} style={{ marginRight: '8px' }} />
+          {
+            _.isArray(legendColor) && (_.map(legendColor, (c, i) => {
+              const key = `${index}${c}${i}`
+              return (<Dot key={key} color={c} style={{ marginRight: '8px' }} />)
+            }))
+          }
+          {
+            !_.isArray(legendColor) && (<Dot color={legendColor} style={{ marginRight: '8px' }} />)
+          }
           <span>{text}</span>
         </span>
       </Legend>
