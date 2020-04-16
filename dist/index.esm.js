@@ -2,7 +2,7 @@ import React, { useState, Component, useEffect, Children, isValidElement, cloneE
 import * as d3 from 'd3';
 import { scaleLinear, selection, select, scaleTime, axisTop, scalePoint, axisRight, scaleOrdinal, schemePaired, mouse, timeFormat, axisBottom, brushX, event, axisLeft, line, histogram, scaleLog, range, randomBates, timeYear } from 'd3';
 import styled, { css, keyframes } from 'styled-components';
-import { ResponsiveContainer, BarChart as BarChart$1, CartesianGrid, XAxis, Label as Label$1, YAxis, Tooltip, Bar, LineChart as LineChart$1, Line, PieChart as PieChart$1, Pie, Cell } from 'recharts';
+import { ResponsiveContainer, BarChart as BarChart$1, CartesianGrid, XAxis, Label as Label$1, YAxis, Tooltip, Bar, Cell, LineChart as LineChart$1, Line, PieChart as PieChart$1, Pie } from 'recharts';
 import { EventEmitter } from 'events';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
@@ -24815,7 +24815,16 @@ var LegendList = function LegendList(_ref) {
     var lKey = "legend_".concat(text, "_").concat(index);
     return React.createElement(Legend, {
       key: lKey
-    }, React.createElement("span", null, React.createElement(Dot, {
+    }, React.createElement("span", null, lodash.isArray(legendColor) && lodash.map(legendColor, function (c, i) {
+      var key = "".concat(index).concat(c).concat(i);
+      return React.createElement(Dot, {
+        key: key,
+        color: c,
+        style: {
+          marginRight: '8px'
+        }
+      });
+    }), !lodash.isArray(legendColor) && React.createElement(Dot, {
       color: legendColor,
       style: {
         marginRight: '8px'
@@ -24939,6 +24948,58 @@ TooltipBox.propTypes = {
   nameKey: propTypes.string,
   width: propTypes.oneOfType([propTypes.string, propTypes.number]) // convert: PropTypes.func,
 
+};
+
+var TooltipCompareContent = function TooltipCompareContent(_ref) {
+  var active = _ref.active,
+      payload = _ref.payload,
+      dataKey = _ref.dataKey,
+      nameKey = _ref.nameKey,
+      isPercent = _ref.isPercent,
+      colorObject = _ref.colorObject,
+      colorKeyMap = _ref.colorKeyMap;
+
+  if (active) {
+    var converted = lodash.map(payload, function (e, i) {
+      var index = lodash.findIndex(colorKeyMap, function (name) {
+        return name === e.payload.name;
+      });
+
+      var fill = colorObject[index][i];
+      return _objectSpread2({}, e, {
+        fill: fill
+      });
+    });
+
+    return React.createElement(TooltipBox, {
+      payload: converted,
+      isPercent: isPercent,
+      dataKey: dataKey,
+      nameKey: nameKey
+    });
+  }
+
+  return null;
+};
+
+TooltipCompareContent.displayName = 'TooltipCompareContent';
+TooltipCompareContent.defaultProps = {
+  active: false,
+  payload: [],
+  isPercent: false,
+  dataKey: 'value',
+  nameKey: 'name',
+  colorObject: [],
+  colorKeyMap: []
+};
+TooltipCompareContent.propTypes = {
+  active: propTypes.bool,
+  payload: propTypes.arrayOf(propTypes.shape({})),
+  isPercent: propTypes.bool,
+  dataKey: propTypes.string,
+  nameKey: propTypes.string,
+  colorObject: propTypes.arrayOf(propTypes.arrayOf(propTypes.string)),
+  colorKeyMap: propTypes.arrayOf(propTypes.string)
 };
 
 var _ThemeMap;
@@ -25215,20 +25276,37 @@ var BarChart = function BarChart(_ref) {
       xDataKey = _ref.xDataKey,
       yDataKey = _ref.yDataKey,
       theme = _ref.theme,
+      themes = _ref.themes,
       isPercent = _ref.isPercent,
       margin = _ref.margin,
       xData = _ref.xData,
       yData = _ref.yData,
       scroll = _ref.scroll;
   var newYDataKey = [].concat(yDataKey);
-  var colors = getColorsByTheme(theme, newYDataKey.length);
+  var colors = '';
+  var legendData;
 
-  var legendData = lodash.chain(newYDataKey).map(function (entry, index) {
-    return {
-      color: colors[index],
-      text: entry
-    };
-  }).value();
+  if (!lodash.isUndefined(themes)) {
+    colors = lodash.map(themes, function (t) {
+      return getColorsByTheme(t, newYDataKey.length);
+    });
+    legendData = lodash.chain(newYDataKey).map(function (entry, index) {
+      return {
+        color: lodash.map(colors, function (c) {
+          return c[index];
+        }),
+        text: entry
+      };
+    }).value();
+  } else {
+    colors = getColorsByTheme(theme, newYDataKey.length);
+    legendData = lodash.chain(newYDataKey).map(function (entry, index) {
+      return {
+        color: colors[index],
+        text: entry
+      };
+    }).value();
+  }
 
   var tickFormatter = function tickFormatter(value) {
     return tickFormatterCustom(value, isPercent);
@@ -25303,10 +25381,31 @@ var BarChart = function BarChart(_ref) {
     style: {
       fill: 'rgba(0, 0, 0, 0.4)'
     }
-  })), React.createElement(Tooltip, {
+  })), !lodash.isUndefined(themes) && React.createElement(Tooltip, {
+    isPercent: isPercent,
+    content: TooltipCompareContent,
+    colorKeyMap: lodash.map(data, function (_ref2) {
+      var name = _ref2[xDataKey];
+      return name;
+    }),
+    colorObject: colors
+  }), !lodash.isUndefined(themes) && newYDataKey.map(function (entry, index) {
+    return React.createElement(Bar, {
+      key: "bar".concat(entry),
+      dataKey: entry,
+      stackId: stackId
+    }, data.map(function (entry1, index1) {
+      var key = "".concat(index).concat(index1);
+      var fill = colors[index1][index];
+      return React.createElement(Cell, {
+        key: key,
+        fill: fill
+      });
+    }));
+  }), lodash.isUndefined(themes) && React.createElement(Tooltip, {
     isPercent: isPercent,
     content: TooltipBox
-  }), newYDataKey.map(function (entry, index) {
+  }), lodash.isUndefined(themes) && newYDataKey.map(function (entry, index) {
     return React.createElement(Bar, {
       key: "bar".concat(entry),
       dataKey: entry,
@@ -25364,7 +25463,8 @@ BarChart.defaultProps = {
   stackId: undefined,
   xDataKey: 'name',
   yDataKey: ['value', []],
-  theme: 'blue',
+  theme: 'theme-arrange-primary-sea',
+  themes: undefined,
   isPercent: false,
   margin: {
     top: 5,
@@ -25383,6 +25483,7 @@ BarChart.propTypes = {
   stackId: propTypes.oneOfType([propTypes.string, propTypes.number]),
   xDataKey: propTypes.string,
   yDataKey: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
+  themes: propTypes.oneOfType([propTypes.arrayOf(propTypes.string)]),
   theme: propTypes.oneOf(['blue', 'green', 'compare', 'theme-arrange-primary-sea', 'theme-arrange-secondary-teal', 'theme-arrange-tertiary-rose', 'theme-arrange-quaternary-gold', 'theme-arrange-quinary-berry']),
   isPercent: propTypes.bool,
   margin: propTypes.shape({
