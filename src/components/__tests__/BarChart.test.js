@@ -1,9 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import BarChart, { tickFormatterCustom } from '@Charts/BarChart';
+import TooltipCompareContent from '@Components/tooltip/TooltipCompareContent'
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import * as Rechart from 'recharts'
+import * as commonTag from '@Components/common/cdmCommon'
 import { Scrollbars } from 'react-custom-scrollbars';
+import { Themes, getColorsByTheme } from '@Components/ChartColor'
 import _ from 'lodash'
 
 
@@ -260,5 +263,74 @@ describe('Label Component', () => {
 
     const YAxis1 = findReChartTags(component.find(Rechart.BarChart).at(1).prop('children'), Rechart.YAxis)
     expect(YAxis1[0].props.children).toBe(undefined)
+  })
+})
+
+
+describe('Group', () => {
+  let component;
+  let Bar
+  beforeEach(() => {
+    component = mount(
+      <BarChart
+        title="group"
+        data={[
+          {
+            name: '유지',
+            '1주이내': 150,
+            '1주~2주': 131,
+            '2주~1달': 330,
+            '1달~3달': 680,
+            '3달~반년': 357,
+            '반년 후': 205,
+          },
+          {
+            name: '변경',
+            '1주이내': 663,
+            '1주~2주': 573,
+            '2주~1달': 1145,
+            '1달~3달': 2455,
+            '3달~반년': 1421,
+            '반년 후': 679,
+          },
+        ]}
+        xDataKey="name"
+        yDataKey={['1주이내', '1주~2주', '2주~1달', '1달~3달', '3달~반년', '반년 후']}
+        themes={[Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeQuaternaryGold]}
+      />,
+    )
+
+    Bar = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Bar)
+  })
+
+  it('set bar color', () => {
+    const colorSet = _.map(Bar, (bar) => (
+      _.map(bar.props.children, ({ props }) => (props.fill))
+    ))
+
+    const expected = _.map(Bar, (bar, i) => ([
+      getColorsByTheme(Themes.ThemeArrangePrimarySea, Bar.length)[i],
+      getColorsByTheme(Themes.ThemeArrangeQuaternaryGold, Bar.length)[i],
+    ]))
+
+    expect(colorSet).toEqual(expected)
+  })
+
+  it('call tooltip', () => {
+    const tooltip = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Tooltip)
+    expect(tooltip).toHaveLength(1)
+
+    expect(tooltip[0].props.content.displayName).toBe(TooltipCompareContent.displayName)
+  })
+
+  it('call LegendList', () => {
+    expect(component.find(commonTag.LegendList).at(0).prop('data')).toEqual([
+      { color: ['#c0d7fc', '#fae0c3'], text: '1주이내' },
+      { color: ['#92b9fc', '#fccc90'], text: '1주~2주' },
+      { color: ['#2c6ff5', '#ffb157'], text: '2주~1달' },
+      { color: ['#0f3ca6', '#d9840d'], text: '1달~3달' },
+      { color: ['#0e2769', '#69400f'], text: '3달~반년' },
+      { color: ['#091840', '#3d2408'], text: '반년 후' },
+    ])
   })
 })

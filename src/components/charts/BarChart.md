@@ -269,3 +269,34 @@ import { Themes } from '@Components/ChartColor';
   theme="compare"
 />
 ```
+
+```js
+import { Themes } from '@Components/ChartColor';
+
+<BarChart
+  title="group"
+  data={[
+    {
+      "name": "유지",
+      "1주이내": 150,
+      "1주~2주": 131,
+      "2주~1달": 330,
+      "1달~3달": 680,
+      "3달~반년": 357,
+      "반년 후": 205,
+    },
+    {
+      "name": "변경",
+      "1주이내": 663,
+      "1주~2주": 573,
+      "2주~1달": 1145,
+      "1달~3달": 2455,
+      "3달~반년": 1421,
+      "반년 후": 679,
+    }
+  ]}
+  xDataKey="name"
+  yDataKey={["1주이내", "1주~2주", "2주~1달", "1달~3달", "반년 후"]}
+  themes={[Themes.ThemeArrangeSecondaryTeal, Themes.ThemeArrangeQuaternaryGold]}
+/>
+```
