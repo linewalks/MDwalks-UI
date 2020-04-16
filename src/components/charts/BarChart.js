@@ -8,6 +8,7 @@ import Heading from '@Components/layout/Heading'
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import { color } from '@src/assets/styles/variables'
 import TooltipBox from '@Components/tooltip/TooltipBox'
+import TooltipCompareContent from '@Components/tooltip/TooltipCompareContent'
 import * as commonTag from '@Components/common/cdmCommon'
 import { getColorsByTheme } from '@Components/ChartColor'
 
@@ -27,17 +28,29 @@ const BarChart = ({
   xDataKey,
   yDataKey,
   theme,
+  themes,
   isPercent,
   margin,
   xData,
   yData,
   scroll,
 }) => {
-  const newYDataKey = [].concat(yDataKey)
-  const colors = getColorsByTheme(theme, newYDataKey.length)
-  const legendData = _.chain(newYDataKey)
-    .map((entry, index) => ({ color: colors[index], text: entry }))
-    .value()
+  const newYDataKey = [].concat(yDataKey);
+
+  let colors = ''
+  let legendData
+
+  if (!_.isUndefined(themes)) {
+    colors = _.map(themes, (t) => (getColorsByTheme(t, newYDataKey.length)))
+    legendData = _.chain(newYDataKey)
+      .map((entry, index) => ({ color: _.map(colors, (c) => c[index]), text: entry }))
+      .value()
+  } else {
+    colors = getColorsByTheme(theme, newYDataKey.length)
+    legendData = _.chain(newYDataKey)
+      .map((entry, index) => ({ color: colors[index], text: entry }))
+      .value()
+  }
 
   const tickFormatter = (value) => tickFormatterCustom(value, isPercent)
 
@@ -93,12 +106,39 @@ const BarChart = ({
                         )
                       }
                     </Rechart.YAxis>
-                    <Rechart.Tooltip
-                      isPercent={isPercent}
-                      content={TooltipBox}
-                    />
                     {
-                      newYDataKey.map((entry, index) => (<Rechart.Bar key={`bar${entry}`} dataKey={entry} fill={colors[index]} stackId={stackId} />))
+                      !_.isUndefined(themes) && (
+                        <Rechart.Tooltip
+                          isPercent={isPercent}
+                          content={TooltipCompareContent}
+                          colorKeyMap={_.map(data, ({ [xDataKey]: name }) => (name))}
+                          colorObject={colors}
+                        />
+                      )
+                    }
+                    {
+                      !_.isUndefined(themes) && newYDataKey.map((entry, index) => (
+                        <Rechart.Bar key={`bar${entry}`} dataKey={entry} stackId={stackId}>
+                          {
+                            data.map((entry1, index1) => {
+                              const key = `${index}${index1}`
+                              const fill = colors[index1][index]
+                              return <Rechart.Cell key={key} fill={fill} />;
+                            })
+                          }
+                        </Rechart.Bar>
+                      ))
+                    }
+                    {
+                      _.isUndefined(themes) && (
+                        <Rechart.Tooltip
+                          isPercent={isPercent}
+                          content={TooltipBox}
+                        />
+                      )
+                    }
+                    {
+                      _.isUndefined(themes) && (newYDataKey.map((entry, index) => (<Rechart.Bar key={`bar${entry}`} dataKey={entry} fill={colors[index]} stackId={stackId} />)))
                     }
                   </Rechart.BarChart>
                 </Rechart.ResponsiveContainer>
@@ -141,7 +181,8 @@ BarChart.defaultProps = {
   stackId: undefined,
   xDataKey: 'name',
   yDataKey: ['value', []],
-  theme: 'blue',
+  theme: 'theme-arrange-primary-sea',
+  themes: undefined,
   isPercent: false,
   margin: {
     top: 5, right: 5, bottom: 5, left: 5,
@@ -158,6 +199,9 @@ BarChart.propTypes = {
   stackId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   xDataKey: PropTypes.string,
   yDataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+  themes: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
   theme: PropTypes.oneOf([
     'blue', 'green', 'compare',
     'theme-arrange-primary-sea', 'theme-arrange-secondary-teal', 'theme-arrange-tertiary-rose',
