@@ -2,7 +2,6 @@ import React from 'react'
 import _ from 'lodash'
 import * as Rechart from 'recharts'
 import PropTypes from 'prop-types'
-import { Scrollbars } from 'react-custom-scrollbars';
 
 import Heading from '@Components/layout/Heading'
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
@@ -83,7 +82,7 @@ const BarChart = ({
           ? <EmptyPlaceHolder />
           : (
             <div>
-              <Scrollbars style={{ height: isScroll ? scroll.y : 415 }}>
+              <commonTag.WrapperScrollBars scroll={scroll}>
                 <Rechart.ResponsiveContainer height={415}>
                   <Rechart.BarChart
                     data={data}
@@ -142,7 +141,7 @@ const BarChart = ({
                     }
                   </Rechart.BarChart>
                 </Rechart.ResponsiveContainer>
-              </Scrollbars>
+              </commonTag.WrapperScrollBars>
               {
                 isScroll && (
                   <Rechart.ResponsiveContainer height={(31 + margin.bottom)}>
