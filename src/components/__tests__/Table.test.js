@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash'
 import { shallow, mount } from 'enzyme';
+import { Scrollbars } from 'react-custom-scrollbars';
 import Table from '@Table/Table';
 
 const data = {
@@ -176,11 +177,12 @@ it('check undefined, null', () => {
 })
 
 describe('check scroll ', () => {
+  const scroll = { y: 300 }
   let wrapper;
   beforeEach(() => {
     wrapper = mount(<Table
       columns={[100, 'auto', 300]}
-      scroll={{ y: 300 }}
+      scroll={scroll}
       data={{
         headers: ['a', 'b', 'c'],
         rowData: [
@@ -198,6 +200,7 @@ describe('check scroll ', () => {
   })
 
   it('set style', () => {
+    expect(wrapper.find(Scrollbars).prop('style').height).toBe(scroll.y)
     expect(wrapper.find('table')).toHaveLength(3)
 
     expect(wrapper.find('col')).toHaveLength(3 * 3)

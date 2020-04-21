@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
-import { Scrollbars } from 'react-custom-scrollbars';
-
 import THead from '@Components/table/THead';
 import TBody from '@Components/table/TBody';
 import TFoot from '@Components/table/TFoot';
 import styled, { css } from 'styled-components'
 import * as variables from '@src/assets/styles/variables'
+import * as commonTag from '@Components/common/cdmCommon'
 
 const sideFit = css`
   tbody {
@@ -118,7 +117,7 @@ const Table = ({
             loading={loading}
           />
         </TableBox>
-        <Scrollbars style={{ height: scroll.y }}>
+        <commonTag.WrapperScrollBars scroll={scroll}>
           <TableBox className={className} notBottom>
             <Columns columns={columns} />
             <TBody
@@ -130,7 +129,7 @@ const Table = ({
               rowSpanCount={rowSpanCount}
             />
           </TableBox>
-        </Scrollbars>
+        </commonTag.WrapperScrollBars>
         <TableBox className={className}>
           <Columns columns={columns} />
           <TFoot footData={data.footData} />
