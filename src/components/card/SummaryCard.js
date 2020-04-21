@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
+import fontStyle from '@src/assets/styles/font.module.sass'
+
+import icnMoreModalMdDefault from '@src/assets/svg/icn-more-modal-md-default.svg';
 
 const Wrap1200 = styled.div`
   max-width: 1200px;
@@ -12,9 +13,9 @@ const Wrap1200 = styled.div`
 
 export const Article = styled.article`
   width: 282px;
-  height: 170px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.16);
+  height: 160px;
+  border-radius: 8px;
+  box-shadow: 0 1px 8px 0 rgb(117, 127, 139);
   background-color: #ffffff;
   font-size: 0;
   display: inline-block;
@@ -42,22 +43,21 @@ export const EventElement = styled.div`
   cursor: ${(props) => (props.onClick ? 'pointer' : '')};
 `
 
-const BodyB16 = styled(font.TextTag).attrs({
-  size: '16',
-  bold: true,
-  opacity: 4,
-})``
+const DT = styled.dt.attrs(() => ({
+  className: [fontStyle.fs16, fontStyle.fc_grey08, fontStyle.bold].join(' '),
+}))`
+`
 
-const BodyB42 = styled(font.TextTag).attrs({
-  size: '42',
-  bold: true,
-  style: {
-    color: color.$primary_navy,
-    display: 'block',
-    marginInlineStart: '40px',
-    margin: 0,
-  },
-})``
+const DD = styled.dd.attrs(() => ({
+  className: [fontStyle.fs40, fontStyle.fc_grey10, fontStyle.bold].join(' '),
+}))`
+`
+
+const Icon = styled.img`
+  position: absolute;
+  right: 8px;
+  top: 8px;
+`
 
 const SummaryCard = ({ className, data, events }) => {
   const summaryData = Object.entries(data);
@@ -69,9 +69,14 @@ const SummaryCard = ({ className, data, events }) => {
           <Article key={key} className={className}>
             <EventElement onClick={events[name] ? () => { events[name]() } : null}>
               <dl>
-                <BodyB42 as="dd">{value}</BodyB42>
-                <BodyB16 as="dt">{name}</BodyB16>
+                <DD>{value}</DD>
+                <DT>{name}</DT>
               </dl>
+              {
+                events[name] && (
+                  <Icon src={icnMoreModalMdDefault} width="34px" height="34px" alt="open modal" />
+                )
+              }
             </EventElement>
           </Article>
         )

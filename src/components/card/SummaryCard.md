@@ -4,7 +4,7 @@ SummaryCard example:
 <SummaryCard
   data={{
     "Follow-up Patients": 24764,
-    "High Risk Patients": 4833,
+    "High Risk Patients": '4,833',
     "A.I. Analysis Features": 780,
     "Total Patients": 572811
   }}
