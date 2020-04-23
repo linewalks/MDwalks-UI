@@ -2,7 +2,7 @@ import * as index from '@src/index'
 import _ from 'lodash'
 
 const includeModule = [
-  'BarChart', 'BarGauge',
+  'BarChart', 'BarChartMulti', 'BarGauge',
   'Button', 'ButtonLink', 'TextLink',
   'ButtonTextLink', 'CheckList',
   'DateUtility', 'Descriptions',

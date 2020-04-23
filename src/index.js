@@ -7,6 +7,7 @@ import Table from '@Components/table/Table'
 import Descriptions from '@Components/table/Descriptions'
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import BarChart from '@Components/charts/BarChart'
+import BarChartMulti from '@Components/charts/BarChartMulti'
 import LineChart from '@Components/charts/LineChart'
 import Timeline from '@Components/charts/Timeline'
 import LineMergeTimeline from '@Components/charts/LineMergeTimeline'
@@ -54,6 +55,7 @@ export {
   EmptyPlaceHolder,
   Descriptions,
   BarChart,
+  BarChartMulti,
   LineChart,
   Timeline,
   LineMergeTimeline,
