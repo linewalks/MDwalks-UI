@@ -1,13 +1,23 @@
 import React from 'react';
 import * as d3 from 'd3'
 import PropTypes from 'prop-types'
+
+import {
+  getColorsByTheme,
+  Themes,
+} from '@Components/ChartColor'
+
 import styles from '@Charts/RadiusGauge.module.css'
 
-const RadiusGauge = ({ width, height, score }) => {
+const RadiusGauge = ({
+  width, height, score, theme,
+}) => {
   const cx = 150;
   const cy = 103;
   const radius = 103;
   const angleScale = d3.scaleLinear().domain([0, 1]).range([0, 180])
+
+  const colors = getColorsByTheme(theme)
 
   if (score >= 0 && score <= 1) {
     return (
@@ -23,12 +33,12 @@ const RadiusGauge = ({ width, height, score }) => {
           >
             <stop
               offset="0%"
-              stopColor="#189bff"
+              stopColor={colors[0]}
               stopOpacity={1}
             />
             <stop
               offset="100%"
-              stopColor="#002d4f"
+              stopColor={colors[2]}
               stopOpacity={1}
             />
           </linearGradient>
@@ -89,12 +99,17 @@ RadiusGauge.defaultProps = {
   width: undefined,
   height: undefined,
   score: undefined,
+  theme: Themes.ThemeArrangeGradientPrimarySea,
 }
 
 RadiusGauge.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   score: PropTypes.number,
+  theme: PropTypes.oneOf([
+    Themes.ThemeArrangeGradientPrimarySea,
+    Themes.ThemeArrangeGradientSecondaryTeal,
+  ]),
 }
 
 export default RadiusGauge;

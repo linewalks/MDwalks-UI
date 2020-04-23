@@ -9,7 +9,7 @@ import { color } from '@src/assets/styles/variables'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import TooltipCompareContent from '@Components/tooltip/TooltipCompareContent'
 import * as commonTag from '@Components/common/cdmCommon'
-import { getColorsByTheme } from '@Components/ChartColor'
+import { getColorsByTheme, Themes } from '@Components/ChartColor'
 
 export const tickFormatterCustom = (value, isPercent) => {
   if (isPercent) {
@@ -180,7 +180,7 @@ BarChart.defaultProps = {
   stackId: undefined,
   xDataKey: 'name',
   yDataKey: ['value', []],
-  theme: 'theme-arrange-primary-sea',
+  theme: Themes.ThemeArrangePrimarySea,
   themes: undefined,
   isPercent: false,
   margin: {
@@ -203,8 +203,9 @@ BarChart.propTypes = {
   ]),
   theme: PropTypes.oneOf([
     'blue', 'green', 'compare',
-    'theme-arrange-primary-sea', 'theme-arrange-secondary-teal', 'theme-arrange-tertiary-rose',
-    'theme-arrange-quaternary-gold', 'theme-arrange-quinary-berry',
+    Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal,
+    Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold,
+    Themes.ThemeArrangeQuinaryBerry,
   ]),
   isPercent: PropTypes.bool,
   margin: PropTypes.shape({

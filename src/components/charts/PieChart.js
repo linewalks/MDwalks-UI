@@ -9,7 +9,7 @@ import Heading from '@Components/layout/Heading'
 import * as font from '@src/assets/styles/font'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as cdmCommon from '@Components/common/cdmCommon'
-import { getColorsByTheme } from '@Components/ChartColor'
+import { getColorsByTheme, Themes } from '@Components/ChartColor'
 
 const Dot = styled(cdmCommon.Dot).attrs(() => ({}))`
   position: absolute;
@@ -175,7 +175,7 @@ PieChart.defaultProps = {
   data: [],
   dataKey: 'value',
   nameKey: 'name',
-  theme: 'blue',
+  theme: Themes.ThemeComparePrimarySea,
   isPercent: false,
   colorList: null,
   legend: {},
@@ -188,7 +188,10 @@ PieChart.propTypes = {
   nameKey: PropTypes.string,
   theme: PropTypes.oneOf([
     'blue', 'green', 'compare',
-    'theme-compare-primary-sea', 'theme-compare-secondary-teal',
+    Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
+    Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3,
+    Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
+    Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
   ]),
   isPercent: PropTypes.bool,
   colorList: PropTypes.arrayOf(PropTypes.string),
