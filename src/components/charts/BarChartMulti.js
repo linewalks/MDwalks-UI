@@ -61,7 +61,6 @@ const BarChartMulti = ({
 
   const isEmpty = (items) => _.isEmpty(items)
 
-  console.log(isEmpty(data))
   return (
     <div>
       <Heading size="18" style={{ marginBottom: '30px' }}>{title}</Heading>
