@@ -45,7 +45,10 @@ import * as DateUtility from '@src/helper/DateUtility'
 import notifications from '@Components/notifications'
 import * as ChartColor from '@Components/ChartColor'
 
+import { version } from '../package.json'
+
 export {
+  version,
   BarGauge,
   RadiusGauge,
   SankeyChart,
