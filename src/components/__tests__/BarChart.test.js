@@ -75,7 +75,7 @@ describe('default Component', () => {
 
   it('scroll 이 아닌 경우 BarChart 는 하나만 그려져야 한다', () => {
     expect(component.find(Rechart.BarChart)).toHaveLength(1)
-    expect(component.find(Scrollbars).prop('style').height).toBe(415)
+    expect(component.find(Scrollbars)).toHaveLength(0)
   })
 
   it('데이터가 없을 때, placeholder를 렌더링 해야 한다.', () => {

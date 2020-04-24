@@ -1,4 +1,5 @@
 import React from 'react'
+import { Scrollbars } from 'react-custom-scrollbars'
 import _ from 'lodash'
 import { color } from '@src/assets/styles/variables'
 import styled from 'styled-components'
@@ -83,4 +84,20 @@ LegendList.defaultProps = {
 
 LegendList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})),
+}
+
+export const WrapperScrollBars = ({ scroll, children }) => (
+  !_.isUndefined(scroll.y)
+    ? <Scrollbars style={{ height: scroll.y }}>{children}</Scrollbars>
+    : children
+)
+
+WrapperScrollBars.defaultProps = {
+  scroll: {},
+}
+
+WrapperScrollBars.propTypes = {
+  scroll: PropTypes.shape({
+    y: PropTypes.number,
+  }),
 }

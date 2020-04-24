@@ -7,6 +7,7 @@ import Table from '@Components/table/Table'
 import Descriptions from '@Components/table/Descriptions'
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import BarChart from '@Components/charts/BarChart'
+import BarChartMulti from '@Components/charts/BarChartMulti'
 import LineChart from '@Components/charts/LineChart'
 import Timeline from '@Components/charts/Timeline'
 import LineMergeTimeline from '@Components/charts/LineMergeTimeline'
@@ -44,7 +45,10 @@ import * as DateUtility from '@src/helper/DateUtility'
 import notifications from '@Components/notifications'
 import * as ChartColor from '@Components/ChartColor'
 
+import { version } from '../package.json'
+
 export {
+  version,
   BarGauge,
   RadiusGauge,
   SankeyChart,
@@ -54,6 +58,7 @@ export {
   EmptyPlaceHolder,
   Descriptions,
   BarChart,
+  BarChartMulti,
   LineChart,
   Timeline,
   LineMergeTimeline,

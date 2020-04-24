@@ -33,7 +33,11 @@ const Label = styled.label.attrs(() => ({
 }))`
   display: flex;
   align-items: center;
-  position: relative;
+
+  span {
+    position: relative;
+    font-size: 0;
+  }
   input {
     position: absolute;
     top: 0;
@@ -140,9 +144,11 @@ class RadioBox extends React.Component {
               return (
                 <Box key={`${name}${id}`}>
                   <Label disabled={itemDisabled}>
-                    <img src={checked ? IcnChecked : IcnUnchecked} width="24px" height="24px" style={{ borderRadius: '12px' }} alt="" />
+                    <span>
+                      <input type="radio" disabled={itemDisabled} checked={checked} onChange={() => this.onChangeTrigger(id)} />
+                      <img src={checked ? IcnChecked : IcnUnchecked} width="24px" height="24px" style={{ borderRadius: '12px' }} alt="" />
+                    </span>
                     <font.TextOverflow>{text}</font.TextOverflow>
-                    <input type="radio" disabled={itemDisabled} checked={checked} onChange={() => this.onChangeTrigger(id)} />
                   </Label>
                 </Box>
               )

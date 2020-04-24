@@ -1,3 +1,32 @@
+## [0.13.20](https://github.com/linewalks/MDwalks-UI/compare/v0.13.13...v0.13.20) (2020-04-24)
+
+
+### Bug Fixes
+
+* **RadioBox:** show Icon Image ([c2ffb7d](https://github.com/linewalks/MDwalks-UI/commit/c2ffb7d80c8ac3ba01ed3b957e97094c27c27c61)), closes [#539](https://github.com/linewalks/MDwalks-UI/issues/539)
+* **table:** apply columns ([7c5f954](https://github.com/linewalks/MDwalks-UI/commit/7c5f95432850a5f56f9e2652c7620829c7ac95d5)), closes [#520](https://github.com/linewalks/MDwalks-UI/issues/520)
+* Histogram 차트의 selectbox 이벤트를 props로 받을수 있도록 합니다 ([47493bf](https://github.com/linewalks/MDwalks-UI/commit/47493bff5e23a8db47b607f39c6d768289c0cf0c)), closes [#496](https://github.com/linewalks/MDwalks-UI/issues/496)
+* Histogram 차트의 selectbox 이벤트를 props로 받을수 있도록 합니다 ([817d78f](https://github.com/linewalks/MDwalks-UI/commit/817d78fbfbd1d0e11f777a7f42fcbec4e3e0dd11)), closes [#496](https://github.com/linewalks/MDwalks-UI/issues/496)
+
+
+### Features
+
+* **BarChart:** add label ([80c4370](https://github.com/linewalks/MDwalks-UI/commit/80c4370cb168fe549b74c5e63203979bdaf7fa13)), closes [#505](https://github.com/linewalks/MDwalks-UI/issues/505)
+* **BarChart:** add scroll option ([597bdc2](https://github.com/linewalks/MDwalks-UI/commit/597bdc20b96aeb86665cffad0bc00c2ec980e9a4)), closes [#487](https://github.com/linewalks/MDwalks-UI/issues/487)
+* **BarChart:** multi Theme ([1b5be20](https://github.com/linewalks/MDwalks-UI/commit/1b5be2080fe8a2f606bccc9f03ca1ea572d181f4)), closes [#537](https://github.com/linewalks/MDwalks-UI/issues/537)
+* **BarChartMulti:** create ([1d63cc3](https://github.com/linewalks/MDwalks-UI/commit/1d63cc39f1aafcd2444fe90c06aa351ceece3753)), closes [#544](https://github.com/linewalks/MDwalks-UI/issues/544)
+* **ColorSet:** create ([5cd448e](https://github.com/linewalks/MDwalks-UI/commit/5cd448ecbc8c178b6e74fca4f8debd21f8cad59e)), closes [#529](https://github.com/linewalks/MDwalks-UI/issues/529)
+* **index:** add version ([0a57eac](https://github.com/linewalks/MDwalks-UI/commit/0a57eac2fc08234f496337ce3e3061db7b88ec67)), closes [#552](https://github.com/linewalks/MDwalks-UI/issues/552)
+* **LineChart:** add label ([cc1cd88](https://github.com/linewalks/MDwalks-UI/commit/cc1cd88409c660b7dc6f543ceb30a62af0ce9818)), closes [#505](https://github.com/linewalks/MDwalks-UI/issues/505)
+* **Notifications:** create ([571baf7](https://github.com/linewalks/MDwalks-UI/commit/571baf7ce70c634fd718821f63c505d641c98b11)), closes [#250](https://github.com/linewalks/MDwalks-UI/issues/250)
+* **PieChart:** create ([8b16189](https://github.com/linewalks/MDwalks-UI/commit/8b16189c7d577ee27a4dbcbc529d7d2855bb9761)), closes [#491](https://github.com/linewalks/MDwalks-UI/issues/491)
+* **RadioBox:** add disabled of item ([0100672](https://github.com/linewalks/MDwalks-UI/commit/0100672711dbb78ff6c8722f87c2a40ed6140874)), closes [#490](https://github.com/linewalks/MDwalks-UI/issues/490)
+* **RadioBox:** add method of unCheckedAll ([24d4bf5](https://github.com/linewalks/MDwalks-UI/commit/24d4bf55885862726f747f1b025604849506c8d2)), closes [#528](https://github.com/linewalks/MDwalks-UI/issues/528)
+* **WrapperScrollBars:** create ([a8ae57f](https://github.com/linewalks/MDwalks-UI/commit/a8ae57f77ff610218789b557d6894da539d58829)), closes [#543](https://github.com/linewalks/MDwalks-UI/issues/543)
+* Histogram 차트의 onChange event에 인자를 하나 더 추가합니다 ([2e96d63](https://github.com/linewalks/MDwalks-UI/commit/2e96d6375fefe6460a31cad5377ec7124f1266b2)), closes [#503](https://github.com/linewalks/MDwalks-UI/issues/503)
+
+
+
 ## [0.13.19](https://github.com/linewalks/MDwalks-UI/compare/v0.13.13...v0.13.19) (2020-04-16)
 
 

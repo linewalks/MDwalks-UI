@@ -1,8 +1,12 @@
 import * as index from '@src/index'
 import _ from 'lodash'
+import { version } from '@src/index'
+
+import packageJson from '../../package.json'
 
 const includeModule = [
-  'BarChart', 'BarGauge',
+  'version',
+  'BarChart', 'BarChartMulti', 'BarGauge',
   'Button', 'ButtonLink', 'TextLink',
   'ButtonTextLink', 'CheckList',
   'DateUtility', 'Descriptions',
@@ -25,4 +29,8 @@ const includeModule = [
 
 it('include module', () => {
   expect(_.chain(index).keys().sort().value()).toEqual(includeModule.sort())
+})
+
+it('version', () => {
+  expect(version).toBe(packageJson.version)
 })

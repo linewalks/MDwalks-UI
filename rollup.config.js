@@ -1,36 +1,39 @@
-import babel from "rollup-plugin-babel";
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import postcss from 'rollup-plugin-postcss';
+import babel from 'rollup-plugin-babel'
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import postcss from 'rollup-plugin-postcss'
+import json from 'rollup-plugin-json'
 import svg from 'rollup-plugin-svg'
 import pkg from './package.json'
 
 export default {
-  input: "src/index.js",
+  input: 'src/index.js',
   output: [
     {
       file: pkg.main,
-      format: "cjs"
-    },    {
+      format: 'cjs',
+    },
+    {
       file: pkg.module,
-      format: "esm"
-    }
+      format: 'esm',
+    },
   ],
   plugins: [
     babel({
-      exclude: "node_modules/**"
+      exclude: 'node_modules/**',
     }),
     postcss({
       modules: true,
-      extensions: ['.css']
+      extensions: ['.css'],
     }),
     resolve({
       mainFields: ['browser', 'jsnext', 'module', 'main'],
     }),
     commonjs(),
     svg({
-      base64: true
-    })
+      base64: true,
+    }),
+    json(),
   ],
-  external: ["react", "styled-components", "d3", "recharts"],
-} 
+  external: ['react', 'styled-components', 'd3', 'recharts'],
+}
