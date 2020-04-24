@@ -1,6 +1,6 @@
 {
   "name": "MDwalks-UI",
-  "version": "0.13.19",
+  "version": "0.13.20",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
@@ -107,6 +107,7 @@
     "react-test-renderer": "^16.8.6",
     "react-transition-group": "^4.3.0",
     "recharts": "1.6.2",
+    "rollup-plugin-json": "^4.0.0",
     "styled-components": "^4.3.2"
   }
 }
