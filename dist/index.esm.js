@@ -25507,7 +25507,7 @@ BarChart.propTypes = {
   xDataKey: propTypes.string,
   yDataKey: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
   themes: propTypes.oneOfType([propTypes.arrayOf(propTypes.string)]),
-  theme: propTypes.oneOf(['blue', 'green', 'compare', 'theme-arrange-primary-sea', 'theme-arrange-secondary-teal', 'theme-arrange-tertiary-rose', 'theme-arrange-quaternary-gold', 'theme-arrange-quinary-berry']),
+  theme: propTypes.oneOf(['blue', 'green', 'compare', 'theme-arrange-primary-sea', 'theme-arrange-secondary-teal', 'theme-arrange-tertiary-rose', 'theme-arrange-quaternary-gold', 'theme-arrange-quinary-berry', 'theme-compare-primary-sea', 'theme-compare-secondary-teal']),
   isPercent: propTypes.bool,
   margin: propTypes.shape({
     top: propTypes.number,
@@ -59362,6 +59362,6 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.20";
+var version$1 = "0.13.21";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, RadarChart, RadioBox, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, Timeline, ToastCtr, ToggleButton, TooltipBox, TreeMap, chartUtility, cdmCommon as commonTag, font$1 as font, Notifications as notifications, variables, version$1 as version };

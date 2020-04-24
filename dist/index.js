@@ -25514,7 +25514,7 @@ BarChart.propTypes = {
   xDataKey: propTypes.string,
   yDataKey: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
   themes: propTypes.oneOfType([propTypes.arrayOf(propTypes.string)]),
-  theme: propTypes.oneOf(['blue', 'green', 'compare', 'theme-arrange-primary-sea', 'theme-arrange-secondary-teal', 'theme-arrange-tertiary-rose', 'theme-arrange-quaternary-gold', 'theme-arrange-quinary-berry']),
+  theme: propTypes.oneOf(['blue', 'green', 'compare', 'theme-arrange-primary-sea', 'theme-arrange-secondary-teal', 'theme-arrange-tertiary-rose', 'theme-arrange-quaternary-gold', 'theme-arrange-quinary-berry', 'theme-compare-primary-sea', 'theme-compare-secondary-teal']),
   isPercent: propTypes.bool,
   margin: propTypes.shape({
     top: propTypes.number,
@@ -59369,7 +59369,7 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.20";
+var version$1 = "0.13.21";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;
