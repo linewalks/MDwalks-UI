@@ -204,7 +204,8 @@ BarChart.propTypes = {
   theme: PropTypes.oneOf([
     'blue', 'green', 'compare',
     'theme-arrange-primary-sea', 'theme-arrange-secondary-teal', 'theme-arrange-tertiary-rose',
-    'theme-arrange-quaternary-gold', 'theme-arrange-quinary-berry',
+    'theme-arrange-quaternary-gold', 'theme-arrange-quinary-berry', 'theme-compare-primary-sea',
+    'theme-compare-secondary-teal',
   ]),
   isPercent: PropTypes.bool,
   margin: PropTypes.shape({
