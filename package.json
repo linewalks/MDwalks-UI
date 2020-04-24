@@ -107,6 +107,7 @@
     "react-test-renderer": "^16.8.6",
     "react-transition-group": "^4.3.0",
     "recharts": "1.6.2",
+    "rollup-plugin-json": "^4.0.0",
     "styled-components": "^4.3.2"
   }
 }
