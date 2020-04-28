@@ -8,6 +8,7 @@ import * as cdmCommon from '@Components/common/cdmCommon';
     <BarChart
       title="Empty and BoxShadow"
       data={[]}
+      yDataKey="Persons"
     />
   </cdmCommon.BoxShadowInner>
 </cdmCommon.BoxShadow>
@@ -227,7 +228,61 @@ import { Themes } from '@Components/ChartColor';
 />
 ```
 
- ```js
+```js
+<BarChart
+  title="label"
+  data={[
+    {
+      age: 20,
+      Persons: 88,
+      weight: 100,
+    },
+    {
+      age: 30,
+      Persons: 272,
+      weight: 200,
+    },
+    {
+      age: 40,
+      Persons: 568,
+      weight: 500,
+    },
+    {
+      age: 50,
+      Persons: 932,
+      weight: 941,
+    },
+    {
+      age: 60,
+      Persons: 3319,
+      weight: 2312,
+    },
+    {
+      age: 70,
+      Persons: 5394,
+      weight: 5323,
+    },
+  ]}
+  margin={{
+    top: 5, right: 5, bottom: 22, left: 22,
+  }}
+  xDataKey="age"
+  xData={{
+    label: {
+      value: '건',
+    },
+  }}
+  yDataKey={["Persons", "weight"]}
+  yData={{
+    label: {
+      value: '축',
+    },
+  }}
+  theme="compare"
+/>
+```
+
+```js
 <BarChart
   title="scroll label"
   layout="vertical"
