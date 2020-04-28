@@ -7,7 +7,7 @@ import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import { color } from '@src/assets/styles/variables'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as commonTag from '@Components/common/cdmCommon'
-import { getColorsByTheme } from '@Components/ChartColor'
+import { getColorsByTheme, Themes } from '@Components/ChartColor'
 
 const LineChart = ({
   title,
@@ -83,7 +83,7 @@ LineChart.defaultProps = {
   data: [],
   xDataKey: 'name',
   yDataKey: ['value', []],
-  theme: 'blue',
+  theme: Themes.ThemeArrangePrimarySea,
   isPercent: false,
   margin: {
     top: 10, right: 5, bottom: 5, left: 5,
@@ -99,8 +99,9 @@ LineChart.propTypes = {
   yDataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   theme: PropTypes.oneOf([
     'blue', 'green', 'compare',
-    'theme-arrange-primary-sea', 'theme-arrange-secondary-teal', 'theme-arrange-tertiary-rose',
-    'theme-arrange-quaternary-gold', 'theme-arrange-quinary-berry',
+    Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal,
+    Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold,
+    Themes.ThemeArrangeQuinaryBerry,
   ]),
   isPercent: PropTypes.bool,
   margin: PropTypes.shape({

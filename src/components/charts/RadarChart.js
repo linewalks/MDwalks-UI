@@ -7,6 +7,11 @@ import _ from 'lodash'
 import { colorV1 } from '@src/assets/styles/variables'
 import { errorMessage, getTextStyleForHighcharts } from '@src/helper/chartUtility'
 
+import {
+  getColorsByTheme,
+  Themes,
+} from '@Components/ChartColor'
+
 if (typeof Highcharts === 'object') {
   HCMore(Highcharts)
 }
@@ -18,7 +23,10 @@ class RadarChart extends Component {
     const {
       title, width, height,
       radarCategory, groupData, patientData, legendOpen,
+      theme,
     } = this.props
+
+    this.colors = getColorsByTheme(theme)
 
     this.options = {
       chart: {
@@ -58,15 +66,17 @@ class RadarChart extends Component {
       series: [
         {
           name: 'Group',
-          color: '#b3c1ca',
+          color: this.colors[1],
           data: groupData,
           pointPlacement: 'on',
-        }, {
+        },
+        {
           name: 'Patient',
-          color: '#3c5ee5',
+          color: this.colors[0],
           data: patientData,
           pointPlacement: 'on',
-        }],
+        },
+      ],
       legend: {
         enabled: legendOpen,
         align: 'left',
@@ -139,6 +149,7 @@ RadarChart.defaultProps = {
   groupData: [],
   patientData: [],
   legendOpen: true,
+  theme: Themes.ThemeComparePrimarySea2,
 }
 
 RadarChart.propTypes = {
@@ -149,6 +160,12 @@ RadarChart.propTypes = {
   groupData: PropTypes.arrayOf(PropTypes.number),
   patientData: PropTypes.arrayOf(PropTypes.number),
   legendOpen: PropTypes.bool,
+  theme: PropTypes.oneOf([
+    Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
+    Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3,
+    Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
+    Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
+  ]),
 }
 
 export default RadarChart;

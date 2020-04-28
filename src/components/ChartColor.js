@@ -69,6 +69,18 @@ export const ColorSet = {
   },
 }
 
+export const toCamel = (s) => (
+  s
+    .replace(/([-_][a-z])/ig, ($1) => (
+      $1.toUpperCase()
+        .replace('-', '')
+        .replace('_', '')
+    ))
+    .replace(/^[a-z]{1}/ig, ($1) => (
+      $1.toUpperCase()
+    ))
+)
+
 export const ColorSetMap = _.chain(ColorSet)
   .values()
   .reduce((sum, obj) => (_.extend(sum, obj)), {})
@@ -77,13 +89,20 @@ export const ColorSetMap = _.chain(ColorSet)
 export const Themes = {
   V1: 'v1',
   ThemeComparePrimarySea: 'theme-compare-primary-sea',
+  ThemeComparePrimarySea1: 'theme-compare-primary-sea1',
+  ThemeComparePrimarySea2: 'theme-compare-primary-sea2',
+  ThemeComparePrimarySea3: 'theme-compare-primary-sea3',
   ThemeCompareSecondaryTeal: 'theme-compare-secondary-teal',
+  ThemeCompareSecondaryTeal1: 'theme-compare-secondary-teal1',
+  ThemeCompareSecondaryTeal2: 'theme-compare-secondary-teal2',
+  ThemeCompareSecondaryTeal3: 'theme-compare-secondary-teal3',
   ThemeArrangePrimarySea: 'theme-arrange-primary-sea',
   ThemeArrangeSecondaryTeal: 'theme-arrange-secondary-teal',
   ThemeArrangeTertiaryRose: 'theme-arrange-tertiary-rose',
   ThemeArrangeQuaternaryGold: 'theme-arrange-quaternary-gold',
   ThemeArrangeQuinaryBerry: 'theme-arrange-quinary-berry',
-  ThemeArrangeGradient: 'theme-arrange-gradient',
+  ThemeArrangeGradientPrimarySea: 'theme-arrange-gradient-primary-sea',
+  ThemeArrangeGradientSecondaryTeal: 'theme-arrange-gradient-secondary-teal',
 }
 
 const ThemeMap = {
@@ -94,21 +113,33 @@ const ThemeMap = {
   },
   [Themes.ThemeComparePrimarySea]: {
     2: ['sea300', 'rose200'],
-    '2-1': ['sea300', 'bluegrey80'],
-    '2-2': ['sea300', 'bluegrey120'],
-    '2-3': ['sea300', 'sea600'],
     3: ['sea300', 'rose200', 'gold100'],
-    '3-1': ['sea300', 'bluegrey120', 'sea600'],
     4: ['sea300', 'rose200', 'gold100', 'teal400'],
+  },
+  [Themes.ThemeComparePrimarySea1]: {
+    2: ['sea300', 'bluegrey80'],
+  },
+  [Themes.ThemeComparePrimarySea2]: {
+    2: ['sea300', 'bluegrey120'],
+    3: ['sea300', 'bluegrey120', 'sea600'],
+  },
+  [Themes.ThemeComparePrimarySea3]: {
+    2: ['sea300', 'sea600'],
   },
   [Themes.ThemeCompareSecondaryTeal]: {
     2: ['teal400', 'gold200'],
-    '2-1': ['teal400', 'bluegrey80'],
-    '2-2': ['teal400', 'bluegrey120'],
-    '2-3': ['teal400', 'teal700'],
     3: ['teal400', 'gold200', 'berry300'],
-    '3-1': ['teal400', 'bluegrey120', 'teal700'],
     4: ['teal400', 'gold200', 'berry300', 'sea200'],
+  },
+  [Themes.ThemeCompareSecondaryTeal1]: {
+    2: ['teal400', 'bluegrey80'],
+  },
+  [Themes.ThemeCompareSecondaryTeal2]: {
+    2: ['teal400', 'bluegrey120'],
+    3: ['teal400', 'bluegrey120', 'teal700'],
+  },
+  [Themes.ThemeCompareSecondaryTeal3]: {
+    2: ['teal400', 'teal700'],
   },
   [Themes.ThemeArrangePrimarySea]: {
     2: ['sea300', 'sea500'],
@@ -145,28 +176,43 @@ const ThemeMap = {
     5: ['berry50', 'berry100', 'berry200', 'berry400', 'berry600'],
     6: ['berry50', 'berry100', 'berry200', 'berry400', 'berry600', 'berry700'],
   },
-  [Themes.ThemeArrangeGradient]: {
-    'Primary-Sea': {
-      0: 'sea100',
-      50: 'sea300',
-      100: 'sea500',
-    },
-    'Secondary-Teal': {
-      0: 'teal200',
-      50: 'teal400',
-      100: 'teal600',
-    },
+  [Themes.ThemeArrangeGradientPrimarySea]: {
+    0: 'sea100',
+    50: 'sea300',
+    100: 'sea500',
+  },
+  [Themes.ThemeArrangeGradientSecondaryTeal]: {
+    0: 'teal200',
+    50: 'teal400',
+    100: 'teal600',
   },
 }
 
+const isV1 = (theme) => (['blue', 'green', 'compare', 'v1'].includes(theme))
+const isArrange = (theme) => (_.includes(theme, 'arrange') && !_.includes(theme, 'gradient'))
+const isCompare = (theme) => (_.includes(theme, 'compare'))
+const isGradient = (theme) => (_.includes(theme, 'gradient'))
+
 export const getColorsByTheme = (theme, size) => {
-  if (['blue', 'green', 'compare'].includes(theme)) {
+  if (isV1(theme)) {
     return ThemeMap.v1[theme]
   }
 
-  const dataSize = Math.max(2, size)
-  const list = ThemeMap[theme || Themes.ThemeArrangePrimarySea][dataSize]
+  const themeName = _.isUndefined(theme) ? Themes.ThemeArrangePrimarySea : theme
 
+  let list = []
+
+  const dataSize = Math.max(2, size || 0)
+  if (isArrange(themeName)) {
+    list = ThemeMap[themeName][dataSize]
+  } else if (isCompare(themeName)) {
+    list = ThemeMap[themeName][dataSize]
+  } else if (isGradient(themeName)) {
+    list = ThemeMap[themeName]
+  }
+
+  // Arrange 시 지원 개수 초과시 반복
+  // compare 시 지원 개수 초과시 에러
   return _.map(list, (name) => (ColorSetMap[name]))
 }
 
@@ -207,7 +253,7 @@ const ColorBox = styled.section`
   background-color: ${(props) => (props.value)}
 `
 
-const ChartColorSet = ({ themeName }) => (
+export const ChartColorSet = ({ themeName }) => (
   <Box>
     <h3>{themeName}</h3>
     {
@@ -231,9 +277,13 @@ ChartColorSet.propTypes = {
   themeName: PropTypes.string.isRequired,
 }
 
-const ChartColorTheme = ({ themeName }) => (
+export const ChartColorTheme = ({ themeName }) => (
   <ThemeBox>
     <h3>{themeName}</h3>
+    <p>
+      <strong>Use : </strong>
+      {`Themes.${toCamel(themeName)}`}
+    </p>
     <article>
       {
         _.map(ThemeMap[themeName], (value, key) => (
@@ -241,7 +291,8 @@ const ChartColorTheme = ({ themeName }) => (
             <h4>{key}</h4>
             <div>
               {
-                _.map(value, (str) => (
+                (isV1(themeName) || isArrange(themeName) || isCompare(themeName))
+                && _.map(value, (str) => (
                   <dl key={str}>
                     <dt>{str}</dt>
                     <dd>{ColorSetMap[str]}</dd>
@@ -250,6 +301,17 @@ const ChartColorTheme = ({ themeName }) => (
                     </dd>
                   </dl>
                 ))
+              }
+              {
+                (isGradient(themeName)) && ( // is Gradient
+                  <dl>
+                    <dt>{key}</dt>
+                    <dd>{value}</dd>
+                    <dd>
+                      <ColorBox size={40} value={ColorSetMap[value]} />
+                    </dd>
+                  </dl>
+                )
               }
             </div>
           </div>
