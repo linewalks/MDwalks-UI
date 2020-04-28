@@ -1,6 +1,19 @@
 BarChart example:
 
 ```js
+import * as cdmCommon from '@Components/common/cdmCommon';
+
+<cdmCommon.BoxShadow>
+  <cdmCommon.BoxShadowInner>
+    <BarChart
+      title="Empty and BoxShadow"
+      data={[]}
+    />
+  </cdmCommon.BoxShadowInner>
+</cdmCommon.BoxShadow>
+```
+
+```js
 import { Themes } from '@Components/ChartColor';
 
 <BarChart

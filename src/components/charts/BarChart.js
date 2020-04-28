@@ -79,7 +79,7 @@ const BarChart = ({
       <commonTag.LegendList data={legendData} />
       {
         isEmpty(data)
-          ? <EmptyPlaceHolder />
+          ? <EmptyPlaceHolder height={415} />
           : (
             <div>
               <commonTag.WrapperScrollBars scroll={scroll}>

@@ -1,35 +1,51 @@
 import React from 'react';
 import styled from 'styled-components'
-import visualAlert from '@src/assets/svg/visual-alert.svg';
+import PropTypes from 'prop-types'
+import icnNoData from '@src/assets/svg/icn-nodata.svg';
 import fontStyle from '@src/assets/styles/font.module.sass'
 
 const EmptyContainer = styled.section`
+  display: flex;
+  align-items: center;
+  height: ${(props) => (props.height ? `${props.height}px` : 'auto')};
+`
+const EmptyInner = styled.div`
   text-align: center;
+  padding: 8px;
+  margin: auto;
 `
 
 const EmptyDescription = styled.img.attrs({
-  src: `${visualAlert}`,
+  src: `${icnNoData}`,
 })`
-  display: block;
-  width: 290px;
-  height: 230px;
-  margin: 0 auto;
+  width: 198px;
+  height: 140px;
+  margin-bottom: 8px;
+  font-size: 0;
 `
 
-const EmptyText = styled.span.attrs(() => ({
-  className: fontStyle.fs16_black_opacity6,
+const EmptyText = styled.p.attrs(() => ({
+  className: [fontStyle.fs18, fontStyle.fc_grey08].join(' '),
 }))`
-  margin: auto;
-  display: block;
 `
 
-export default () => (
-  <EmptyContainer>
-    <EmptyDescription />
-    <EmptyText as="span">
-      There is no data
-      <br />
-      Please search again
-    </EmptyText>
+const EmptyPlaceHolder = ({ height }) => (
+  <EmptyContainer height={height}>
+    <EmptyInner>
+      <EmptyDescription />
+      <EmptyText>
+        There is no data
+      </EmptyText>
+    </EmptyInner>
   </EmptyContainer>
 )
+
+EmptyPlaceHolder.defaultProps = {
+  height: undefined,
+}
+
+EmptyPlaceHolder.propTypes = {
+  height: PropTypes.number,
+}
+
+export default EmptyPlaceHolder
