@@ -6,11 +6,235 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var React = require('react');
 var React__default = _interopDefault(React);
-var d3 = require('d3');
 var styled = require('styled-components');
 var styled__default = _interopDefault(styled);
+var d3 = require('d3');
 var Rechart = require('recharts');
 var events = require('events');
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function (obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function (obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+function _objectWithoutProperties(source, excluded) {
+  if (source == null) return {};
+
+  var target = _objectWithoutPropertiesLoose(source, excluded);
+
+  var key, i;
+
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+
+  return target;
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (typeof call === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _taggedTemplateLiteral(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
+}
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -18216,6 +18440,361 @@ if (process.env.NODE_ENV !== 'production') {
 }
 });
 
+var _ThemeMap;
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  width: ", ";\n  height: ", ";\n  background-color: ", "\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  dl {\n    position: relative;\n    padding-left: calc(40px + 5px);\n    min-height: 40px;\n  }\n  dd:last-child {\n    position: absolute;\n    left: 0; top: 0;\n  }\n\n  > article {\n    display: grid;\n    grid-template-rows: repeat(1, 350px);\n    grid-template-columns: repeat(8, 1fr);\n  }\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  dl {\n    text-align: center;\n    display: inline-block;\n    padding: 5px;\n  }\n\n  &:not(:last-child) {\n    margin-bottom: 20px;\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var ColorSet = {
+  'Primary-Sea': {
+    sea50: '#c0d7fc',
+    sea100: '#92b9fc',
+    sea200: '#5892fc',
+    sea300: '#2c6ff5',
+    sea400: '#1952cf',
+    sea500: '#0f3ca6',
+    sea600: '#0e2769',
+    sea700: '#091840'
+  },
+  'Secondary-Teal': {
+    teal100: '#ade0da',
+    teal200: '#84d1c8',
+    teal300: '#5cbfb4',
+    teal400: '#3bada0',
+    teal500: '#1f948a',
+    teal600: '#06706d',
+    teal700: '#004545',
+    teal800: '#012b2b'
+  },
+  'Tertiary-Rose': {
+    rose50: '#fac8c3',
+    rose100: '#ff9e91',
+    rose200: '#fc6c5c',
+    rose300: '#e34b3d',
+    rose400: '#ba2f33',
+    rose500: '#922228',
+    rose600: '#661216',
+    rose700: '#3d080b'
+  },
+  'Quaternary-Gold': {
+    gold50: '#fae0c3',
+    gold100: '#fccc90',
+    gold200: '#ffb157',
+    gold300: '#f7a223',
+    gold400: '#d9840d',
+    gold500: '#ad6507',
+    gold600: '#69400f',
+    gold700: '#3d2408'
+  },
+  'Quinary-Berry': {
+    berry50: '#f5c9e0',
+    berry100: '#eda1cb',
+    berry200: '#e374b1',
+    berry300: '#cf5194',
+    berry400: '#b03775',
+    berry500: '#8c2659',
+    berry600: '#61133a',
+    berry700: '#3d0923'
+  },
+  'Total-Bluegrey': {
+    bluegrey50: '#d8dde8',
+    bluegrey80: '#c7cdd9',
+    bluegrey120: '#bac0cc',
+    bluegrey170: '#aab0bd',
+    bluegrey230: '#9aa1ad',
+    bluegrey300: '#888e99'
+  },
+  'Chart-Hover': {
+    'red-hover': 'rgba(255, 41, 10, 0.08)',
+    'grey-hover': 'rgba(48, 56, 65, 0.06)',
+    'highlight-hover': 'rgba(255, 240, 0, 0.14)'
+  }
+};
+var toCamel = function toCamel(s) {
+  return s.replace(/([-_][a-z])/ig, function ($1) {
+    return $1.toUpperCase().replace('-', '').replace('_', '');
+  }).replace(/^[a-z]{1}/ig, function ($1) {
+    return $1.toUpperCase();
+  });
+};
+var ColorSetMap = lodash.chain(ColorSet).values().reduce(function (sum, obj) {
+  return lodash.extend(sum, obj);
+}, {}).value();
+var Themes = {
+  V1: 'v1',
+  ThemeComparePrimarySea: 'theme-compare-primary-sea',
+  ThemeComparePrimarySea1: 'theme-compare-primary-sea1',
+  ThemeComparePrimarySea2: 'theme-compare-primary-sea2',
+  ThemeComparePrimarySea3: 'theme-compare-primary-sea3',
+  ThemeCompareSecondaryTeal: 'theme-compare-secondary-teal',
+  ThemeCompareSecondaryTeal1: 'theme-compare-secondary-teal1',
+  ThemeCompareSecondaryTeal2: 'theme-compare-secondary-teal2',
+  ThemeCompareSecondaryTeal3: 'theme-compare-secondary-teal3',
+  ThemeArrangePrimarySea: 'theme-arrange-primary-sea',
+  ThemeArrangeSecondaryTeal: 'theme-arrange-secondary-teal',
+  ThemeArrangeTertiaryRose: 'theme-arrange-tertiary-rose',
+  ThemeArrangeQuaternaryGold: 'theme-arrange-quaternary-gold',
+  ThemeArrangeQuinaryBerry: 'theme-arrange-quinary-berry',
+  ThemeArrangeGradientPrimarySea: 'theme-arrange-gradient-primary-sea',
+  ThemeArrangeGradientSecondaryTeal: 'theme-arrange-gradient-secondary-teal'
+};
+var ThemeMap = (_ThemeMap = {}, _defineProperty(_ThemeMap, Themes.V1, {
+  blue: ['#d5e7fd', '#a5d2ff', '#63a3f3', '#3788ed', '#2f60c3', '#224b9f', '#1e3476', '#142352'],
+  green: ['#ceede7', '#97d9ce', '#24b7a3', '#0c8d84', '#006f75', '#00555a', '#043e4b', '#002340'],
+  compare: ['#63a3f3', '#d686c8']
+}), _defineProperty(_ThemeMap, Themes.ThemeComparePrimarySea, {
+  2: ['sea300', 'rose200'],
+  3: ['sea300', 'rose200', 'gold100'],
+  4: ['sea300', 'rose200', 'gold100', 'teal400']
+}), _defineProperty(_ThemeMap, Themes.ThemeComparePrimarySea1, {
+  2: ['sea300', 'bluegrey80']
+}), _defineProperty(_ThemeMap, Themes.ThemeComparePrimarySea2, {
+  2: ['sea300', 'bluegrey120'],
+  3: ['sea300', 'bluegrey120', 'sea600']
+}), _defineProperty(_ThemeMap, Themes.ThemeComparePrimarySea3, {
+  2: ['sea300', 'sea600']
+}), _defineProperty(_ThemeMap, Themes.ThemeCompareSecondaryTeal, {
+  2: ['teal400', 'gold200'],
+  3: ['teal400', 'gold200', 'berry300'],
+  4: ['teal400', 'gold200', 'berry300', 'sea200']
+}), _defineProperty(_ThemeMap, Themes.ThemeCompareSecondaryTeal1, {
+  2: ['teal400', 'bluegrey80']
+}), _defineProperty(_ThemeMap, Themes.ThemeCompareSecondaryTeal2, {
+  2: ['teal400', 'bluegrey120'],
+  3: ['teal400', 'bluegrey120', 'teal700']
+}), _defineProperty(_ThemeMap, Themes.ThemeCompareSecondaryTeal3, {
+  2: ['teal400', 'teal700']
+}), _defineProperty(_ThemeMap, Themes.ThemeArrangePrimarySea, {
+  2: ['sea300', 'sea500'],
+  3: ['sea100', 'sea300', 'sea500'],
+  4: ['sea100', 'sea300', 'sea500', 'sea600'],
+  5: ['sea50', 'sea100', 'sea300', 'sea500', 'sea600'],
+  6: ['sea50', 'sea100', 'sea300', 'sea500', 'sea600', 'sea700']
+}), _defineProperty(_ThemeMap, Themes.ThemeArrangeSecondaryTeal, {
+  2: ['teal400', 'teal600'],
+  3: ['teal200', 'teal400', 'teal600'],
+  4: ['teal200', 'teal400', 'teal600', 'teal700'],
+  5: ['teal100', 'teal200', 'teal400', 'teal600', 'teal700'],
+  6: ['teal100', 'teal200', 'teal400', 'teal600', 'teal700', 'teal800']
+}), _defineProperty(_ThemeMap, Themes.ThemeArrangeTertiaryRose, {
+  2: ['rose200', 'rose400'],
+  3: ['rose100', 'rose200', 'rose400'],
+  4: ['rose100', 'rose200', 'rose400', 'rose600'],
+  5: ['rose50', 'rose100', 'rose200', 'rose400', 'rose600'],
+  6: ['rose50', 'rose100', 'rose200', 'rose400', 'rose600', 'rose700']
+}), _defineProperty(_ThemeMap, Themes.ThemeArrangeQuaternaryGold, {
+  2: ['gold200', 'gold400'],
+  3: ['gold100', 'gold200', 'gold400'],
+  4: ['gold100', 'gold200', 'gold400', 'gold600'],
+  5: ['gold50', 'gold100', 'gold200', 'gold400', 'gold600'],
+  6: ['gold50', 'gold100', 'gold200', 'gold400', 'gold600', 'gold700']
+}), _defineProperty(_ThemeMap, Themes.ThemeArrangeQuinaryBerry, {
+  2: ['berry200', 'berry400'],
+  3: ['berry100', 'berry200', 'berry400'],
+  4: ['berry100', 'berry200', 'berry400', 'berry600'],
+  5: ['berry50', 'berry100', 'berry200', 'berry400', 'berry600'],
+  6: ['berry50', 'berry100', 'berry200', 'berry400', 'berry600', 'berry700']
+}), _defineProperty(_ThemeMap, Themes.ThemeArrangeGradientPrimarySea, {
+  0: 'sea100',
+  50: 'sea300',
+  100: 'sea500'
+}), _defineProperty(_ThemeMap, Themes.ThemeArrangeGradientSecondaryTeal, {
+  0: 'teal200',
+  50: 'teal400',
+  100: 'teal600'
+}), _ThemeMap);
+
+var isV1 = function isV1(theme) {
+  return ['blue', 'green', 'compare', 'v1'].includes(theme);
+};
+
+var isArrange = function isArrange(theme) {
+  return lodash.includes(theme, 'arrange') && !lodash.includes(theme, 'gradient');
+};
+
+var isCompare = function isCompare(theme) {
+  return lodash.includes(theme, 'compare');
+};
+
+var isGradient = function isGradient(theme) {
+  return lodash.includes(theme, 'gradient');
+};
+
+var getColorsByTheme = function getColorsByTheme(theme, size) {
+  if (isV1(theme)) {
+    return ThemeMap.v1[theme];
+  }
+
+  var themeName = lodash.isUndefined(theme) ? Themes.ThemeArrangePrimarySea : theme;
+  var list = [];
+  var dataSize = Math.max(2, size || 0);
+
+  if (isArrange(themeName)) {
+    list = ThemeMap[themeName][dataSize];
+  } else if (isCompare(themeName)) {
+    list = ThemeMap[themeName][dataSize];
+  } else if (isGradient(themeName)) {
+    list = ThemeMap[themeName];
+  } // Arrange 시 지원 개수 초과시 반복
+  // compare 시 지원 개수 초과시 에러
+
+
+  return lodash.map(list, function (name) {
+    return ColorSetMap[name];
+  });
+};
+var Box = styled__default.div(_templateObject());
+var ThemeBox = styled__default.div(_templateObject2());
+var ColorBox = styled__default.section(_templateObject3(), function (props) {
+  return props.size ? "".concat(props.size, "px") : '100px';
+}, function (props) {
+  return props.size ? "".concat(props.size, "px") : '100px';
+}, function (props) {
+  return props.value;
+});
+var ChartColorSet = function ChartColorSet(_ref) {
+  var themeName = _ref.themeName;
+  return React__default.createElement(Box, null, React__default.createElement("h3", null, themeName), lodash.map(ColorSet[themeName], function (value, key) {
+    return React__default.createElement("dl", {
+      key: key
+    }, React__default.createElement("dt", null, key), React__default.createElement("dd", null, value), React__default.createElement("dd", null, React__default.createElement(ColorBox, {
+      value: value
+    })));
+  }));
+};
+ChartColorSet.defaultProps = {};
+ChartColorSet.propTypes = {
+  themeName: propTypes.string.isRequired
+};
+var ChartColorTheme = function ChartColorTheme(_ref2) {
+  var themeName = _ref2.themeName;
+  return React__default.createElement(ThemeBox, null, React__default.createElement("h3", null, themeName), React__default.createElement("p", null, React__default.createElement("strong", null, "Use : "), "Themes.".concat(toCamel(themeName))), React__default.createElement("article", null, lodash.map(ThemeMap[themeName], function (value, key) {
+    return React__default.createElement("div", {
+      key: key
+    }, React__default.createElement("h4", null, key), React__default.createElement("div", null, (isV1(themeName) || isArrange(themeName) || isCompare(themeName)) && lodash.map(value, function (str) {
+      return React__default.createElement("dl", {
+        key: str
+      }, React__default.createElement("dt", null, str), React__default.createElement("dd", null, ColorSetMap[str]), React__default.createElement("dd", null, React__default.createElement(ColorBox, {
+        size: 40,
+        value: ColorSetMap[str] || str
+      })));
+    }), isGradient(themeName) && // is Gradient
+    React__default.createElement("dl", null, React__default.createElement("dt", null, key), React__default.createElement("dd", null, value), React__default.createElement("dd", null, React__default.createElement(ColorBox, {
+      size: 40,
+      value: ColorSetMap[value]
+    })))));
+  })));
+};
+ChartColorTheme.defaultProps = {};
+ChartColorTheme.propTypes = {
+  themeName: propTypes.string.isRequired
+};
+
+var ChartColor = function ChartColor() {
+  var ColorList = ['Primary-Sea', 'Secondary-Teal', 'Tertiary-Rose', 'Quaternary-Gold', 'Quinary-Berry', 'Total-Bluegrey', 'Chart-Hover'];
+
+  var ThemeList = lodash.values(Themes);
+
+  return React__default.createElement(React__default.Fragment, null, lodash.map(ColorList, function (themeName) {
+    return React__default.createElement(ChartColorSet, {
+      key: themeName,
+      themeName: themeName
+    });
+  }), lodash.map(ThemeList, function (themeName) {
+    return React__default.createElement(ChartColorTheme, {
+      key: themeName,
+      themeName: themeName
+    });
+  }));
+};
+
+var ChartColor$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  ColorSet: ColorSet,
+  toCamel: toCamel,
+  ColorSetMap: ColorSetMap,
+  Themes: Themes,
+  getColorsByTheme: getColorsByTheme,
+  ChartColorSet: ChartColorSet,
+  ChartColorTheme: ChartColorTheme,
+  'default': ChartColor
+});
+
+function _templateObject2$1() {
+  var data = _taggedTemplateLiteral(["\n  background-image: ", ";\n  height: 100%;\n  width: ", ";\n"]);
+
+  _templateObject2$1 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$1() {
+  var data = _taggedTemplateLiteral(["\n  background: #f2f2f2;\n  position: relative;\n  height: 6px;\n  width: 100px;\n  border-radius: 2px;\n  overflow: hidden;\n"]);
+
+  _templateObject$1 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Container = styled__default.div(_templateObject$1());
+var Fill = styled__default.div(_templateObject2$1(), function (props) {
+  return props.theme ? "linear-gradient(to right, ".concat(props.theme[0], ", ").concat(props.theme[2], " 100px)") : 'auto';
+}, function (props) {
+  return lodash.isNumber(props.score) ? "".concat(props.score, "%") : 'auto';
+});
+
+var BarGauge = function BarGauge(_ref) {
+  var score = _ref.score,
+      theme = _ref.theme;
+  var colors = getColorsByTheme(theme);
+
+  if (lodash.inRange(score, 0, 101)) {
+    return React__default.createElement(Container, null, React__default.createElement(Fill, {
+      score: score,
+      theme: colors
+    }));
+  }
+
+  return React__default.createElement("div", null, "Invalid Score");
+};
+
+BarGauge.defaultProps = {
+  theme: Themes.ThemeArrangeGradientPrimarySea
+};
+BarGauge.propTypes = {
+  score: propTypes.number.isRequired,
+  theme: propTypes.oneOf([Themes.ThemeArrangeGradientPrimarySea, Themes.ThemeArrangeGradientSecondaryTeal])
+};
+
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
@@ -18243,44 +18822,20 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".BarGauge-module_gauge_container__36KKv {\n  background: #f2f2f2;\n  position: relative;\n  height: 6px;\n  width: 100px;\n  border-radius: 2px;\n  overflow: hidden;\n}\n.BarGauge-module_bar_gauge_fill__mZzyq {\n  position: absolute;\n  background-image: linear-gradient(to right, #189bff , #002d4f 100px);\n  height: 100%;\n  width: auto;\n}";
-var styles = {"gauge_container":"BarGauge-module_gauge_container__36KKv","bar_gauge_fill":"BarGauge-module_bar_gauge_fill__mZzyq"};
+var css_248z = ".RadiusGauge-module_gauge_point__3WjGw {\n  text-anchor: middle;\n  opacity: 0.4;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 11px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  letter-spacing: -0.5px;\n  fill: '#000000';\n}\n\n.RadiusGauge-module_gauge_score__1yjco {\n  text-anchor: middle;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 32px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  letter-spacing: -0.5px;\n  fill: '#000000';\n}";
+var styles = {"gauge_point":"RadiusGauge-module_gauge_point__3WjGw","gauge_score":"RadiusGauge-module_gauge_score__1yjco"};
 styleInject(css_248z);
-
-var BarGauge = function BarGauge(_ref) {
-  var score = _ref.score;
-
-  if (lodash.inRange(score, 0, 101)) {
-    return React__default.createElement("div", {
-      className: styles.gauge_container
-    }, React__default.createElement("div", {
-      className: styles.bar_gauge_fill,
-      style: {
-        width: "".concat(score, "%")
-      }
-    }));
-  }
-
-  return React__default.createElement("div", null, "Invalid Score");
-};
-
-BarGauge.defaultProps = {};
-BarGauge.propTypes = {
-  score: propTypes.number.isRequired
-};
-
-var css_248z$1 = ".RadiusGauge-module_gauge_point__3WjGw {\n  text-anchor: middle;\n  opacity: 0.4;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 11px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  letter-spacing: -0.5px;\n  fill: '#000000';\n}\n\n.RadiusGauge-module_gauge_score__1yjco {\n  text-anchor: middle;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 32px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  letter-spacing: -0.5px;\n  fill: '#000000';\n}";
-var styles$1 = {"gauge_point":"RadiusGauge-module_gauge_point__3WjGw","gauge_score":"RadiusGauge-module_gauge_score__1yjco"};
-styleInject(css_248z$1);
 
 var RadiusGauge = function RadiusGauge(_ref) {
   var width = _ref.width,
       height = _ref.height,
-      score = _ref.score;
+      score = _ref.score,
+      theme = _ref.theme;
   var cx = 150;
   var cy = 103;
   var radius = 103;
   var angleScale = d3.scaleLinear().domain([0, 1]).range([0, 180]);
+  var colors = getColorsByTheme(theme);
 
   if (score >= 0 && score <= 1) {
     return React__default.createElement("svg", {
@@ -18296,11 +18851,11 @@ var RadiusGauge = function RadiusGauge(_ref) {
       spreadMethod: "pad"
     }, React__default.createElement("stop", {
       offset: "0%",
-      stopColor: "#189bff",
+      stopColor: colors[0],
       stopOpacity: 1
     }), React__default.createElement("stop", {
       offset: "100%",
-      stopColor: "#002d4f",
+      stopColor: colors[2],
       stopOpacity: 1
     }))), React__default.createElement("g", {
       transform: "translate(0, 20)"
@@ -18316,7 +18871,7 @@ var RadiusGauge = function RadiusGauge(_ref) {
       d: "M1.605 4.5l64.83 2.434A3.437 3.437 0 0 0 70 3.5 3.437 3.437 0 0 0 66.434.066L1.605 2.5a1 1 0 0 0 0 1.998z"
     }), React__default.createElement("g", {
       transform: "translate(0, 55)",
-      className: styles$1.gauge_point
+      className: styles.gauge_point
     }, React__default.createElement("text", {
       x: cx - Math.round(120 * Math.cos(0)),
       y: cy - Math.round(120 * Math.sin(0))
@@ -18334,7 +18889,7 @@ var RadiusGauge = function RadiusGauge(_ref) {
       y: cy - Math.round(120 * Math.sin(0))
     }, "1.0")), React__default.createElement("g", {
       transform: "translate(150, 200)",
-      className: styles$1.gauge_score
+      className: styles.gauge_score
     }, React__default.createElement("text", null, "".concat(score).slice(0, 4))));
   }
 
@@ -18344,237 +18899,15 @@ var RadiusGauge = function RadiusGauge(_ref) {
 RadiusGauge.defaultProps = {
   width: undefined,
   height: undefined,
-  score: undefined
+  score: undefined,
+  theme: Themes.ThemeArrangeGradientPrimarySea
 };
 RadiusGauge.propTypes = {
   width: propTypes.number,
   height: propTypes.number,
-  score: propTypes.number
+  score: propTypes.number,
+  theme: propTypes.oneOf([Themes.ThemeArrangeGradientPrimarySea, Themes.ThemeArrangeGradientSecondaryTeal])
 };
-
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function (obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function (obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    });
-    keys.push.apply(keys, symbols);
-  }
-
-  return keys;
-}
-
-function _objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-
-    if (i % 2) {
-      ownKeys(Object(source), true).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-
-  return target;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
-}
-
-function _objectWithoutProperties(source, excluded) {
-  if (source == null) return {};
-
-  var target = _objectWithoutPropertiesLoose(source, excluded);
-
-  var key, i;
-
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
-  }
-
-  return target;
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (typeof call === "object" || typeof call === "function")) {
-    return call;
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _taggedTemplateLiteral(strings, raw) {
-  if (!raw) {
-    raw = strings.slice(0);
-  }
-
-  return Object.freeze(Object.defineProperties(strings, {
-    raw: {
-      value: Object.freeze(raw)
-    }
-  }));
-}
-
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit(arr, i) {
-  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-    return;
-  }
-
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
-}
 
 function ascending(a, b) {
   return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
@@ -20867,12 +21200,12 @@ function fillHeight(graph, y0, y1) {
 }
 
 var sankeyCircular$1 = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	sankeyCircular: sankeyCircular,
-	sankeyCenter: center,
-	sankeyLeft: left,
-	sankeyRight: right,
-	sankeyJustify: justify
+  __proto__: null,
+  sankeyCircular: sankeyCircular,
+  sankeyCenter: center,
+  sankeyLeft: left,
+  sankeyRight: right,
+  sankeyJustify: justify
 });
 
 // Color Set START
@@ -20942,11 +21275,11 @@ var zIndex = {
 };
 
 var variables = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	color: color,
-	colorV1: colorV1,
-	size: size,
-	zIndex: zIndex
+  __proto__: null,
+  color: color,
+  colorV1: colorV1,
+  size: size,
+  zIndex: zIndex
 });
 
 var strIdConvert = function strIdConvert(id) {
@@ -21053,17 +21386,17 @@ var getTextStyleForHighcharts = function getTextStyleForHighcharts(color) {
 };
 
 var chartUtility = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	strIdConvert: strIdConvert,
-	renderSVG: renderSVG,
-	generateGroup: generateGroup,
-	getStartAndEndTime: getStartAndEndTime,
-	circleDataFilter: circleDataFilter,
-	rectDataFilter: rectDataFilter,
-	labelList: labelList,
-	lineDataFormatConvert: lineDataFormatConvert,
-	errorMessage: errorMessage,
-	getTextStyleForHighcharts: getTextStyleForHighcharts
+  __proto__: null,
+  strIdConvert: strIdConvert,
+  renderSVG: renderSVG,
+  generateGroup: generateGroup,
+  getStartAndEndTime: getStartAndEndTime,
+  circleDataFilter: circleDataFilter,
+  rectDataFilter: rectDataFilter,
+  labelList: labelList,
+  lineDataFormatConvert: lineDataFormatConvert,
+  errorMessage: errorMessage,
+  getTextStyleForHighcharts: getTextStyleForHighcharts
 });
 
 var SankeyChart = /*#__PURE__*/function (_React$Component) {
@@ -21432,20 +21765,20 @@ var hexToRGB = function hexToRGB(hex, alpha) {
   return "rgb(".concat(rgb.join(','), ")");
 };
 
-function _templateObject2() {
+function _templateObject2$2() {
   var data = _taggedTemplateLiteral(["\n  display: block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  width: ", ";\n"]);
 
-  _templateObject2 = function _templateObject2() {
+  _templateObject2$2 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject() {
+function _templateObject$2() {
   var data = _taggedTemplateLiteral(["\n  ", "\n"]);
 
-  _templateObject = function _templateObject() {
+  _templateObject$2 = function _templateObject() {
     return data;
   };
 
@@ -21459,16 +21792,16 @@ var font = {
 var Text = function Text(props) {
   return "\n  font-size: ".concat(props.size ? "".concat(props.size, "px") : "".concat(font.base.size, "px"), ";\n\n  font-weight: ").concat(props.bold ? 'bold' : 'normal', ";\n  letter-spacing: -0.5px;\n  color: ").concat(hexToRGB(props.color ? props.color : color.$black, props.opacity ? (props.opacity * 0.1).toFixed(2) : 1), ";\n");
 };
-var TextTag = styled__default.span(_templateObject(), Text);
-var TextOverflow = styled__default.p(_templateObject2(), function (props) {
+var TextTag = styled__default.span(_templateObject$2(), Text);
+var TextOverflow = styled__default.p(_templateObject2$2(), function (props) {
   return props.width ? props.width : '100%';
 });
 
 var font$1 = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	Text: Text,
-	TextTag: TextTag,
-	TextOverflow: TextOverflow
+  __proto__: null,
+  Text: Text,
+  TextTag: TextTag,
+  TextOverflow: TextOverflow
 });
 
 function _templateObject4() {
@@ -21481,40 +21814,40 @@ function _templateObject4() {
   return data;
 }
 
-function _templateObject3() {
+function _templateObject3$1() {
   var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  border-radius: 25px;\n  box-shadow: 0 4px 10px 0 ", ";\n  background-color: #002b4f;\n  padding: 11px 24px 10px;\n"]);
 
-  _templateObject3 = function _templateObject3() {
+  _templateObject3$1 = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$1() {
+function _templateObject2$3() {
   var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  background-repeat: no-repeat;\n  background-position-x: 100%;\n  background-position-y: center;\n  padding-right: 18px;\n  margin-right: 8px;\n\n  &:last-child div {\n    background-color: ", ";\n  }\n"]);
 
-  _templateObject2$1 = function _templateObject2() {
+  _templateObject2$3 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$1() {
+function _templateObject$3() {
   var data = _taggedTemplateLiteral(["\n  max-width: 1200px;\n  width: 1200px;\n  margin: 0 auto\n"]);
 
-  _templateObject$1 = function _templateObject() {
+  _templateObject$3 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Wrap1200 = styled__default.div(_templateObject$1());
-var Arrow = styled__default.article(_templateObject2$1(), function (props) {
+var Wrap1200 = styled__default.div(_templateObject$3());
+var Arrow = styled__default.article(_templateObject2$3(), function (props) {
   return props.isLastHighlighted ? '#ff4757' : '#002b4f';
 });
-var CardContatiner = styled__default.div(_templateObject3(), hexToRGB(color.$primary_navy, 0.16));
+var CardContatiner = styled__default.div(_templateObject3$1(), hexToRGB(color.$primary_navy, 0.16));
 var Card = styled__default(TextTag).attrs({
   size: '20',
   bold: true,
@@ -21547,9 +21880,9 @@ SelectedCard.propTypes = {
   isLastHighlighted: propTypes.bool
 };
 
-var css_248z$2 = ".font-module_font__1pbr7, .font-module_summary_b_42__npbYY, .font-module_search_b_32__3-265, .font-module_header_b_22__9B2mM, .font-module_body_b_20__edw-k, .font-module_body_b_18__3DIfb, .font-module_body_b_16__2lhMQ, .font-module_body_b_14__y0YSD, .font-module_body_r_20__102C5, .font-module_body_r_18__1Dp65, .font-module_body_r_16__3i8HZ, .font-module_body_r_14__3nMvr, .font-module_body_r_12__1YE9s, .font-module_fs12__31_tz, .font-module_fs14__2C1ub, .font-module_fs16__iEzao, .font-module_fs18__1oCD8, .font-module_fs20__3DzbI, .font-module_fs22__1HMrv, .font-module_fs32__23a17, .font-module_fs40__2qwJI, .font-module_fs42__1Htbb, .font-module_fs12_black_opacity2__xRZHC, .font-module_fs12_black_opacity3__2SSyI, .font-module_fs12_black_opacity4__25OxM, .font-module_fs12_black_opacity5__QGJvM, .font-module_fs12_black_opacity6__2G5yW, .font-module_fs12_black_opacity7__355qH, .font-module_fs12_black_opacity8__Z4HlX, .font-module_fs14_black_opacity2__3Iwt3, .font-module_fs14_black_opacity3__3zLOK, .font-module_fs14_black_opacity4__1rsnm, .font-module_fs14_black_opacity5__3X0qA, .font-module_fs14_black_opacity6__2g_-G, .font-module_fs14_black_opacity7__xWkoF, .font-module_fs14_black_opacity8__2xl0H, .font-module_fs16_black_opacity2__1pVmQ, .font-module_fs16_black_opacity3__kfKjQ, .font-module_fs16_black_opacity4__MHlM8, .font-module_fs16_black_opacity5__hib5n, .font-module_fs16_black_opacity6__1Vntl, .font-module_fs16_black_opacity7__XyTNF, .font-module_fs16_black_opacity8__33fA6, .font-module_fs18_black_opacity2__1kXFl, .font-module_fs18_black_opacity3__2It1I, .font-module_fs18_black_opacity4__2V5EB, .font-module_fs18_black_opacity5__1I_PD, .font-module_fs18_black_opacity6__3Cr46, .font-module_fs18_black_opacity7__2CjKk, .font-module_fs18_black_opacity8__3GsBZ, .font-module_fs20_black_opacity2__3V1SX, .font-module_fs20_black_opacity3__rvYr7, .font-module_fs20_black_opacity4__2r4uI, .font-module_fs20_black_opacity5__25hQI, .font-module_fs20_black_opacity6__2Ku8M, .font-module_fs20_black_opacity7__WJ73P, .font-module_fs20_black_opacity8__1n5dW, .font-module_fs22_black_opacity2__2NwCy, .font-module_fs22_black_opacity3__3Cqry, .font-module_fs22_black_opacity4__2VtxV, .font-module_fs22_black_opacity5__29WTq, .font-module_fs22_black_opacity6__3MIO_, .font-module_fs22_black_opacity7__1BAgl, .font-module_fs22_black_opacity8__1Iyb3, .font-module_fs32_black_opacity2__2KWq6, .font-module_fs32_black_opacity3__2hLsO, .font-module_fs32_black_opacity4__HELf5, .font-module_fs32_black_opacity5__x53_a, .font-module_fs32_black_opacity6__v6U6_, .font-module_fs32_black_opacity7__2JTxu, .font-module_fs32_black_opacity8__1Bzu6, .font-module_fs40_black_opacity2__tvtj3, .font-module_fs40_black_opacity3__aPau4, .font-module_fs40_black_opacity4__1U64R, .font-module_fs40_black_opacity5__1ImUH, .font-module_fs40_black_opacity6__8E7aU, .font-module_fs40_black_opacity7__KxQCO, .font-module_fs40_black_opacity8__2-FIH, .font-module_fs42_black_opacity2__1rtJi, .font-module_fs42_black_opacity3__1X4_L, .font-module_fs42_black_opacity4__3e4qW, .font-module_fs42_black_opacity5__2j3GU, .font-module_fs42_black_opacity6__1HI_o, .font-module_fs42_black_opacity7__1zT_l, .font-module_fs42_black_opacity8__2wOXJ {\n  letter-spacing: -0.5px; }\n\n.font-module_summary_b_42__npbYY, .font-module_search_b_32__3-265, .font-module_header_b_22__9B2mM, .font-module_body_b_20__edw-k, .font-module_body_b_18__3DIfb, .font-module_body_b_16__2lhMQ, .font-module_body_b_14__y0YSD {\n  font-weight: bold;\n  color: #000000; }\n\n.font-module_summary_b_42__npbYY {\n  font-size: 42px; }\n\n.font-module_search_b_32__3-265 {\n  font-size: 32px; }\n\n.font-module_header_b_22__9B2mM {\n  font-size: 22px; }\n\n.font-module_body_b_20__edw-k, .font-module_body_r_20__102C5 {\n  font-size: 20px; }\n\n.font-module_body_b_18__3DIfb, .font-module_body_r_18__1Dp65 {\n  font-size: 18px; }\n\n.font-module_body_r_20__102C5, .font-module_body_r_18__1Dp65, .font-module_body_r_16__3i8HZ, .font-module_body_r_14__3nMvr, .font-module_body_r_12__1YE9s {\n  font-weight: normal;\n  color: #000000; }\n\n.font-module_body_b_16__2lhMQ, .font-module_body_r_16__3i8HZ {\n  font-size: 16px; }\n\n.font-module_body_b_14__y0YSD, .font-module_body_r_14__3nMvr {\n  font-size: 14px; }\n\n.font-module_body_r_12__1YE9s {\n  font-size: 12px; }\n\n.font-module_black_opacity_2__icR8L {\n  color: rgba(0, 0, 0, 0.2); }\n\n.font-module_black_opacity_3__3F8Hv {\n  color: rgba(0, 0, 0, 0.3); }\n\n.font-module_black_opacity_4__39p6b {\n  color: rgba(0, 0, 0, 0.4); }\n\n.font-module_black_opacity_5__2sq4k {\n  color: rgba(0, 0, 0, 0.5); }\n\n.font-module_black_opacity_6__2IZKi {\n  color: rgba(0, 0, 0, 0.6); }\n\n.font-module_black_opacity_7__3m9k3 {\n  color: rgba(0, 0, 0, 0.7); }\n\n.font-module_black_opacity_8__1gUbG {\n  color: rgba(0, 0, 0, 0.8); }\n\n.font-module_fs12__31_tz {\n  color: #000000;\n  font-size: 12px; }\n\n.font-module_fs14__2C1ub {\n  color: #000000;\n  font-size: 14px; }\n\n.font-module_fs16__iEzao {\n  color: #000000;\n  font-size: 16px; }\n\n.font-module_fs18__1oCD8 {\n  color: #000000;\n  font-size: 18px; }\n\n.font-module_fs20__3DzbI {\n  color: #000000;\n  font-size: 20px; }\n\n.font-module_fs22__1HMrv {\n  color: #000000;\n  font-size: 22px; }\n\n.font-module_fs32__23a17 {\n  color: #000000;\n  font-size: 32px; }\n\n.font-module_fs40__2qwJI {\n  color: #000000;\n  font-size: 40px; }\n\n.font-module_fs42__1Htbb {\n  color: #000000;\n  font-size: 42px; }\n\n.font-module_fs12_black_opacity2__xRZHC {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity3__2SSyI {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity4__25OxM {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity5__QGJvM {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity6__2G5yW {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity7__355qH {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity8__Z4HlX {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 12px; }\n\n.font-module_fs14_black_opacity2__3Iwt3 {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity3__3zLOK {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity4__1rsnm {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity5__3X0qA {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity6__2g_-G {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity7__xWkoF {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity8__2xl0H {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 14px; }\n\n.font-module_fs16_black_opacity2__1pVmQ {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity3__kfKjQ {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity4__MHlM8 {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity5__hib5n {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity6__1Vntl {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity7__XyTNF {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity8__33fA6 {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 16px; }\n\n.font-module_fs18_black_opacity2__1kXFl {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity3__2It1I {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity4__2V5EB {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity5__1I_PD {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity6__3Cr46 {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity7__2CjKk {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity8__3GsBZ {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 18px; }\n\n.font-module_fs20_black_opacity2__3V1SX {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity3__rvYr7 {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity4__2r4uI {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity5__25hQI {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity6__2Ku8M {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity7__WJ73P {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity8__1n5dW {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 20px; }\n\n.font-module_fs22_black_opacity2__2NwCy {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity3__3Cqry {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity4__2VtxV {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity5__29WTq {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity6__3MIO_ {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity7__1BAgl {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity8__1Iyb3 {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 22px; }\n\n.font-module_fs32_black_opacity2__2KWq6 {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity3__2hLsO {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity4__HELf5 {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity5__x53_a {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity6__v6U6_ {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity7__2JTxu {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity8__1Bzu6 {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 32px; }\n\n.font-module_fs40_black_opacity2__tvtj3 {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity3__aPau4 {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity4__1U64R {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity5__1ImUH {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity6__8E7aU {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity7__KxQCO {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity8__2-FIH {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 40px; }\n\n.font-module_fs42_black_opacity2__1rtJi {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity3__1X4_L {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity4__3e4qW {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity5__2j3GU {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity6__1HI_o {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity7__1zT_l {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity8__2wOXJ {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 42px; }\n\n.font-module_fc_pmblue01__IQ3O4 {\n  color: #f7fbff; }\n\n.font-module_fc_pmblue02__2ZUKT {\n  color: #eef7ff; }\n\n.font-module_fc_pmblue__1rWPx {\n  color: #189bff; }\n\n.font-module_fc_pmnavy__2l531 {\n  color: #132a4a; }\n\n.font-module_fc_grey01__2F47K {\n  color: #f8f9fa; }\n\n.font-module_fc_grey02__2n_Kc {\n  color: #f3f6f8; }\n\n.font-module_fc_grey03__3-GTx {\n  color: #edf1f5; }\n\n.font-module_fc_grey04__1Ka-- {\n  color: #e7ebee; }\n\n.font-module_fc_grey05__1zRQ5 {\n  color: #d3d9de; }\n\n.font-module_fc_grey06__1znlE {\n  color: #b0b8c1; }\n\n.font-module_fc_grey07__1985b {\n  color: #8b96a3; }\n\n.font-module_fc_grey08__1xFmM {\n  color: #6d7884; }\n\n.font-module_fc_grey09__1na4g {\n  color: #4d5661; }\n\n.font-module_fc_grey10__1NL86 {\n  color: #303841; }\n\n.font-module_fc_red01__2UWsV {\n  color: #ff5d46; }\n\n.font-module_fc_red02__1JjCE {\n  color: #c70901; }\n\n.font-module_bold__1aMQB {\n  font-weight: bold; }\n";
+var css_248z$1 = ".font-module_font__1pbr7, .font-module_summary_b_42__npbYY, .font-module_search_b_32__3-265, .font-module_header_b_22__9B2mM, .font-module_body_b_20__edw-k, .font-module_body_b_18__3DIfb, .font-module_body_b_16__2lhMQ, .font-module_body_b_14__y0YSD, .font-module_body_r_20__102C5, .font-module_body_r_18__1Dp65, .font-module_body_r_16__3i8HZ, .font-module_body_r_14__3nMvr, .font-module_body_r_12__1YE9s, .font-module_fs12__31_tz, .font-module_fs14__2C1ub, .font-module_fs16__iEzao, .font-module_fs18__1oCD8, .font-module_fs20__3DzbI, .font-module_fs22__1HMrv, .font-module_fs32__23a17, .font-module_fs40__2qwJI, .font-module_fs42__1Htbb, .font-module_fs12_black_opacity2__xRZHC, .font-module_fs12_black_opacity3__2SSyI, .font-module_fs12_black_opacity4__25OxM, .font-module_fs12_black_opacity5__QGJvM, .font-module_fs12_black_opacity6__2G5yW, .font-module_fs12_black_opacity7__355qH, .font-module_fs12_black_opacity8__Z4HlX, .font-module_fs14_black_opacity2__3Iwt3, .font-module_fs14_black_opacity3__3zLOK, .font-module_fs14_black_opacity4__1rsnm, .font-module_fs14_black_opacity5__3X0qA, .font-module_fs14_black_opacity6__2g_-G, .font-module_fs14_black_opacity7__xWkoF, .font-module_fs14_black_opacity8__2xl0H, .font-module_fs16_black_opacity2__1pVmQ, .font-module_fs16_black_opacity3__kfKjQ, .font-module_fs16_black_opacity4__MHlM8, .font-module_fs16_black_opacity5__hib5n, .font-module_fs16_black_opacity6__1Vntl, .font-module_fs16_black_opacity7__XyTNF, .font-module_fs16_black_opacity8__33fA6, .font-module_fs18_black_opacity2__1kXFl, .font-module_fs18_black_opacity3__2It1I, .font-module_fs18_black_opacity4__2V5EB, .font-module_fs18_black_opacity5__1I_PD, .font-module_fs18_black_opacity6__3Cr46, .font-module_fs18_black_opacity7__2CjKk, .font-module_fs18_black_opacity8__3GsBZ, .font-module_fs20_black_opacity2__3V1SX, .font-module_fs20_black_opacity3__rvYr7, .font-module_fs20_black_opacity4__2r4uI, .font-module_fs20_black_opacity5__25hQI, .font-module_fs20_black_opacity6__2Ku8M, .font-module_fs20_black_opacity7__WJ73P, .font-module_fs20_black_opacity8__1n5dW, .font-module_fs22_black_opacity2__2NwCy, .font-module_fs22_black_opacity3__3Cqry, .font-module_fs22_black_opacity4__2VtxV, .font-module_fs22_black_opacity5__29WTq, .font-module_fs22_black_opacity6__3MIO_, .font-module_fs22_black_opacity7__1BAgl, .font-module_fs22_black_opacity8__1Iyb3, .font-module_fs32_black_opacity2__2KWq6, .font-module_fs32_black_opacity3__2hLsO, .font-module_fs32_black_opacity4__HELf5, .font-module_fs32_black_opacity5__x53_a, .font-module_fs32_black_opacity6__v6U6_, .font-module_fs32_black_opacity7__2JTxu, .font-module_fs32_black_opacity8__1Bzu6, .font-module_fs40_black_opacity2__tvtj3, .font-module_fs40_black_opacity3__aPau4, .font-module_fs40_black_opacity4__1U64R, .font-module_fs40_black_opacity5__1ImUH, .font-module_fs40_black_opacity6__8E7aU, .font-module_fs40_black_opacity7__KxQCO, .font-module_fs40_black_opacity8__2-FIH, .font-module_fs42_black_opacity2__1rtJi, .font-module_fs42_black_opacity3__1X4_L, .font-module_fs42_black_opacity4__3e4qW, .font-module_fs42_black_opacity5__2j3GU, .font-module_fs42_black_opacity6__1HI_o, .font-module_fs42_black_opacity7__1zT_l, .font-module_fs42_black_opacity8__2wOXJ {\n  letter-spacing: -0.5px; }\n\n.font-module_summary_b_42__npbYY, .font-module_search_b_32__3-265, .font-module_header_b_22__9B2mM, .font-module_body_b_20__edw-k, .font-module_body_b_18__3DIfb, .font-module_body_b_16__2lhMQ, .font-module_body_b_14__y0YSD {\n  font-weight: bold;\n  color: #000000; }\n\n.font-module_summary_b_42__npbYY {\n  font-size: 42px; }\n\n.font-module_search_b_32__3-265 {\n  font-size: 32px; }\n\n.font-module_header_b_22__9B2mM {\n  font-size: 22px; }\n\n.font-module_body_b_20__edw-k, .font-module_body_r_20__102C5 {\n  font-size: 20px; }\n\n.font-module_body_b_18__3DIfb, .font-module_body_r_18__1Dp65 {\n  font-size: 18px; }\n\n.font-module_body_r_20__102C5, .font-module_body_r_18__1Dp65, .font-module_body_r_16__3i8HZ, .font-module_body_r_14__3nMvr, .font-module_body_r_12__1YE9s {\n  font-weight: normal;\n  color: #000000; }\n\n.font-module_body_b_16__2lhMQ, .font-module_body_r_16__3i8HZ {\n  font-size: 16px; }\n\n.font-module_body_b_14__y0YSD, .font-module_body_r_14__3nMvr {\n  font-size: 14px; }\n\n.font-module_body_r_12__1YE9s {\n  font-size: 12px; }\n\n.font-module_black_opacity_2__icR8L {\n  color: rgba(0, 0, 0, 0.2); }\n\n.font-module_black_opacity_3__3F8Hv {\n  color: rgba(0, 0, 0, 0.3); }\n\n.font-module_black_opacity_4__39p6b {\n  color: rgba(0, 0, 0, 0.4); }\n\n.font-module_black_opacity_5__2sq4k {\n  color: rgba(0, 0, 0, 0.5); }\n\n.font-module_black_opacity_6__2IZKi {\n  color: rgba(0, 0, 0, 0.6); }\n\n.font-module_black_opacity_7__3m9k3 {\n  color: rgba(0, 0, 0, 0.7); }\n\n.font-module_black_opacity_8__1gUbG {\n  color: rgba(0, 0, 0, 0.8); }\n\n.font-module_fs12__31_tz {\n  color: #000000;\n  font-size: 12px; }\n\n.font-module_fs14__2C1ub {\n  color: #000000;\n  font-size: 14px; }\n\n.font-module_fs16__iEzao {\n  color: #000000;\n  font-size: 16px; }\n\n.font-module_fs18__1oCD8 {\n  color: #000000;\n  font-size: 18px; }\n\n.font-module_fs20__3DzbI {\n  color: #000000;\n  font-size: 20px; }\n\n.font-module_fs22__1HMrv {\n  color: #000000;\n  font-size: 22px; }\n\n.font-module_fs32__23a17 {\n  color: #000000;\n  font-size: 32px; }\n\n.font-module_fs40__2qwJI {\n  color: #000000;\n  font-size: 40px; }\n\n.font-module_fs42__1Htbb {\n  color: #000000;\n  font-size: 42px; }\n\n.font-module_fs12_black_opacity2__xRZHC {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity3__2SSyI {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity4__25OxM {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity5__QGJvM {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity6__2G5yW {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity7__355qH {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity8__Z4HlX {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 12px; }\n\n.font-module_fs14_black_opacity2__3Iwt3 {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity3__3zLOK {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity4__1rsnm {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity5__3X0qA {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity6__2g_-G {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity7__xWkoF {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity8__2xl0H {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 14px; }\n\n.font-module_fs16_black_opacity2__1pVmQ {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity3__kfKjQ {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity4__MHlM8 {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity5__hib5n {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity6__1Vntl {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity7__XyTNF {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity8__33fA6 {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 16px; }\n\n.font-module_fs18_black_opacity2__1kXFl {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity3__2It1I {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity4__2V5EB {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity5__1I_PD {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity6__3Cr46 {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity7__2CjKk {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity8__3GsBZ {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 18px; }\n\n.font-module_fs20_black_opacity2__3V1SX {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity3__rvYr7 {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity4__2r4uI {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity5__25hQI {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity6__2Ku8M {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity7__WJ73P {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity8__1n5dW {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 20px; }\n\n.font-module_fs22_black_opacity2__2NwCy {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity3__3Cqry {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity4__2VtxV {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity5__29WTq {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity6__3MIO_ {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity7__1BAgl {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity8__1Iyb3 {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 22px; }\n\n.font-module_fs32_black_opacity2__2KWq6 {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity3__2hLsO {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity4__HELf5 {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity5__x53_a {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity6__v6U6_ {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity7__2JTxu {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity8__1Bzu6 {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 32px; }\n\n.font-module_fs40_black_opacity2__tvtj3 {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity3__aPau4 {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity4__1U64R {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity5__1ImUH {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity6__8E7aU {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity7__KxQCO {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity8__2-FIH {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 40px; }\n\n.font-module_fs42_black_opacity2__1rtJi {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity3__1X4_L {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity4__3e4qW {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity5__2j3GU {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity6__1HI_o {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity7__1zT_l {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity8__2wOXJ {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 42px; }\n\n.font-module_fc_pmblue01__IQ3O4 {\n  color: #f7fbff; }\n\n.font-module_fc_pmblue02__2ZUKT {\n  color: #eef7ff; }\n\n.font-module_fc_pmblue__1rWPx {\n  color: #189bff; }\n\n.font-module_fc_pmnavy__2l531 {\n  color: #132a4a; }\n\n.font-module_fc_grey01__2F47K {\n  color: #f8f9fa; }\n\n.font-module_fc_grey02__2n_Kc {\n  color: #f3f6f8; }\n\n.font-module_fc_grey03__3-GTx {\n  color: #edf1f5; }\n\n.font-module_fc_grey04__1Ka-- {\n  color: #e7ebee; }\n\n.font-module_fc_grey05__1zRQ5 {\n  color: #d3d9de; }\n\n.font-module_fc_grey06__1znlE {\n  color: #b0b8c1; }\n\n.font-module_fc_grey07__1985b {\n  color: #8b96a3; }\n\n.font-module_fc_grey08__1xFmM {\n  color: #6d7884; }\n\n.font-module_fc_grey09__1na4g {\n  color: #4d5661; }\n\n.font-module_fc_grey10__1NL86 {\n  color: #303841; }\n\n.font-module_fc_red01__2UWsV {\n  color: #ff5d46; }\n\n.font-module_fc_red02__1JjCE {\n  color: #c70901; }\n\n.font-module_bold__1aMQB {\n  font-weight: bold; }\n";
 var fontStyle = {"font":"font-module_font__1pbr7","summary_b_42":"font-module_summary_b_42__npbYY","search_b_32":"font-module_search_b_32__3-265","header_b_22":"font-module_header_b_22__9B2mM","body_b_20":"font-module_body_b_20__edw-k","body_b_18":"font-module_body_b_18__3DIfb","body_b_16":"font-module_body_b_16__2lhMQ","body_b_14":"font-module_body_b_14__y0YSD","body_r_20":"font-module_body_r_20__102C5","body_r_18":"font-module_body_r_18__1Dp65","body_r_16":"font-module_body_r_16__3i8HZ","body_r_14":"font-module_body_r_14__3nMvr","body_r_12":"font-module_body_r_12__1YE9s","fs12":"font-module_fs12__31_tz","fs14":"font-module_fs14__2C1ub","fs16":"font-module_fs16__iEzao","fs18":"font-module_fs18__1oCD8","fs20":"font-module_fs20__3DzbI","fs22":"font-module_fs22__1HMrv","fs32":"font-module_fs32__23a17","fs40":"font-module_fs40__2qwJI","fs42":"font-module_fs42__1Htbb","fs12_black_opacity2":"font-module_fs12_black_opacity2__xRZHC","fs12_black_opacity3":"font-module_fs12_black_opacity3__2SSyI","fs12_black_opacity4":"font-module_fs12_black_opacity4__25OxM","fs12_black_opacity5":"font-module_fs12_black_opacity5__QGJvM","fs12_black_opacity6":"font-module_fs12_black_opacity6__2G5yW","fs12_black_opacity7":"font-module_fs12_black_opacity7__355qH","fs12_black_opacity8":"font-module_fs12_black_opacity8__Z4HlX","fs14_black_opacity2":"font-module_fs14_black_opacity2__3Iwt3","fs14_black_opacity3":"font-module_fs14_black_opacity3__3zLOK","fs14_black_opacity4":"font-module_fs14_black_opacity4__1rsnm","fs14_black_opacity5":"font-module_fs14_black_opacity5__3X0qA","fs14_black_opacity6":"font-module_fs14_black_opacity6__2g_-G","fs14_black_opacity7":"font-module_fs14_black_opacity7__xWkoF","fs14_black_opacity8":"font-module_fs14_black_opacity8__2xl0H","fs16_black_opacity2":"font-module_fs16_black_opacity2__1pVmQ","fs16_black_opacity3":"font-module_fs16_black_opacity3__kfKjQ","fs16_black_opacity4":"font-module_fs16_black_opacity4__MHlM8","fs16_black_opacity5":"font-module_fs16_black_opacity5__hib5n","fs16_black_opacity6":"font-module_fs16_black_opacity6__1Vntl","fs16_black_opacity7":"font-module_fs16_black_opacity7__XyTNF","fs16_black_opacity8":"font-module_fs16_black_opacity8__33fA6","fs18_black_opacity2":"font-module_fs18_black_opacity2__1kXFl","fs18_black_opacity3":"font-module_fs18_black_opacity3__2It1I","fs18_black_opacity4":"font-module_fs18_black_opacity4__2V5EB","fs18_black_opacity5":"font-module_fs18_black_opacity5__1I_PD","fs18_black_opacity6":"font-module_fs18_black_opacity6__3Cr46","fs18_black_opacity7":"font-module_fs18_black_opacity7__2CjKk","fs18_black_opacity8":"font-module_fs18_black_opacity8__3GsBZ","fs20_black_opacity2":"font-module_fs20_black_opacity2__3V1SX","fs20_black_opacity3":"font-module_fs20_black_opacity3__rvYr7","fs20_black_opacity4":"font-module_fs20_black_opacity4__2r4uI","fs20_black_opacity5":"font-module_fs20_black_opacity5__25hQI","fs20_black_opacity6":"font-module_fs20_black_opacity6__2Ku8M","fs20_black_opacity7":"font-module_fs20_black_opacity7__WJ73P","fs20_black_opacity8":"font-module_fs20_black_opacity8__1n5dW","fs22_black_opacity2":"font-module_fs22_black_opacity2__2NwCy","fs22_black_opacity3":"font-module_fs22_black_opacity3__3Cqry","fs22_black_opacity4":"font-module_fs22_black_opacity4__2VtxV","fs22_black_opacity5":"font-module_fs22_black_opacity5__29WTq","fs22_black_opacity6":"font-module_fs22_black_opacity6__3MIO_","fs22_black_opacity7":"font-module_fs22_black_opacity7__1BAgl","fs22_black_opacity8":"font-module_fs22_black_opacity8__1Iyb3","fs32_black_opacity2":"font-module_fs32_black_opacity2__2KWq6","fs32_black_opacity3":"font-module_fs32_black_opacity3__2hLsO","fs32_black_opacity4":"font-module_fs32_black_opacity4__HELf5","fs32_black_opacity5":"font-module_fs32_black_opacity5__x53_a","fs32_black_opacity6":"font-module_fs32_black_opacity6__v6U6_","fs32_black_opacity7":"font-module_fs32_black_opacity7__2JTxu","fs32_black_opacity8":"font-module_fs32_black_opacity8__1Bzu6","fs40_black_opacity2":"font-module_fs40_black_opacity2__tvtj3","fs40_black_opacity3":"font-module_fs40_black_opacity3__aPau4","fs40_black_opacity4":"font-module_fs40_black_opacity4__1U64R","fs40_black_opacity5":"font-module_fs40_black_opacity5__1ImUH","fs40_black_opacity6":"font-module_fs40_black_opacity6__8E7aU","fs40_black_opacity7":"font-module_fs40_black_opacity7__KxQCO","fs40_black_opacity8":"font-module_fs40_black_opacity8__2-FIH","fs42_black_opacity2":"font-module_fs42_black_opacity2__1rtJi","fs42_black_opacity3":"font-module_fs42_black_opacity3__1X4_L","fs42_black_opacity4":"font-module_fs42_black_opacity4__3e4qW","fs42_black_opacity5":"font-module_fs42_black_opacity5__2j3GU","fs42_black_opacity6":"font-module_fs42_black_opacity6__1HI_o","fs42_black_opacity7":"font-module_fs42_black_opacity7__1zT_l","fs42_black_opacity8":"font-module_fs42_black_opacity8__2wOXJ","black_opacity_2":"font-module_black_opacity_2__icR8L","black_opacity_3":"font-module_black_opacity_3__3F8Hv","black_opacity_4":"font-module_black_opacity_4__39p6b","black_opacity_5":"font-module_black_opacity_5__2sq4k","black_opacity_6":"font-module_black_opacity_6__2IZKi","black_opacity_7":"font-module_black_opacity_7__3m9k3","black_opacity_8":"font-module_black_opacity_8__1gUbG","fc_pmblue01":"font-module_fc_pmblue01__IQ3O4","fc_pmblue02":"font-module_fc_pmblue02__2ZUKT","fc_pmblue":"font-module_fc_pmblue__1rWPx","fc_pmnavy":"font-module_fc_pmnavy__2l531","fc_grey01":"font-module_fc_grey01__2F47K","fc_grey02":"font-module_fc_grey02__2n_Kc","fc_grey03":"font-module_fc_grey03__3-GTx","fc_grey04":"font-module_fc_grey04__1Ka--","fc_grey05":"font-module_fc_grey05__1zRQ5","fc_grey06":"font-module_fc_grey06__1znlE","fc_grey07":"font-module_fc_grey07__1985b","fc_grey08":"font-module_fc_grey08__1xFmM","fc_grey09":"font-module_fc_grey09__1na4g","fc_grey10":"font-module_fc_grey10__1NL86","fc_red01":"font-module_fc_red01__2UWsV","fc_red02":"font-module_fc_red02__1JjCE","bold":"font-module_bold__1aMQB"};
-styleInject(css_248z$2);
+styleInject(css_248z$1);
 
 var icnMoreModalMdDefault = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNCIgaGVpZ2h0PSIzNCIgdmlld0JveD0iMCAwIDM0IDM0Ij4KICAgIDxwYXRoIGZpbGw9IiM3NTdGOEIiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTIzIDEwYy41NTIgMCAxIC40NDggMSAxdjEyYzAgLjU1Mi0uNDQ4IDEtMSAxcy0xLS40NDgtMS0xdi05LjUxNkwxMS43MDcgMjMuNzc4Yy0uMzkuMzktMS4wMjQuMzktMS40MTQgMC0uMzktLjM5LS4zOS0xLjAyNCAwLTEuNDE0TDIwLjY1NiAxMkgxMWMtLjU1MiAwLTEtLjQ0OC0xLTFzLjQ0OC0xIDEtMWgxMnoiLz4KPC9zdmc+';
 
@@ -21583,38 +21916,38 @@ function _templateObject4$1() {
   return data;
 }
 
-function _templateObject3$1() {
+function _templateObject3$2() {
   var data = _taggedTemplateLiteral(["\n  position: relative;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  cursor: ", ";\n"]);
 
-  _templateObject3$1 = function _templateObject3() {
+  _templateObject3$2 = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$2() {
+function _templateObject2$4() {
   var data = _taggedTemplateLiteral(["\n  width: 282px;\n  height: 160px;\n  border-radius: 8px;\n  box-shadow: 0 1px 8px 0 rgb(117, 127, 139);\n  background-color: #ffffff;\n  font-size: 0;\n  display: inline-block;\n  text-align: center;\n  margin-right: 24px;\n\n  &:last-child {\n    margin-right: 0;\n  }\n\n  dl {\n    width: 100%;\n    text-align: right;\n    padding-right: 44px;\n\n    margin: 0;\n  }\n"]);
 
-  _templateObject2$2 = function _templateObject2() {
+  _templateObject2$4 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$2() {
+function _templateObject$4() {
   var data = _taggedTemplateLiteral(["\n  max-width: 1200px;\n  width: 1200px;\n  margin: 0 auto\n"]);
 
-  _templateObject$2 = function _templateObject() {
+  _templateObject$4 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Wrap1200$1 = styled__default.div(_templateObject$2());
-var Article = styled__default.article(_templateObject2$2());
-var EventElement = styled__default.div(_templateObject3$1(), function (props) {
+var Wrap1200$1 = styled__default.div(_templateObject$4());
+var Article = styled__default.article(_templateObject2$4());
+var EventElement = styled__default.div(_templateObject3$2(), function (props) {
   return props.onClick ? 'pointer' : '';
 });
 var DT = styled__default.dt.attrs(function () {
@@ -22561,30 +22894,30 @@ function _templateObject4$2() {
   return data;
 }
 
-function _templateObject3$2() {
+function _templateObject3$3() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 28px 24px;\n  > span {\n    position: relative;\n    width: 16px;\n    height: 100%;\n    margin-left: 8px;\n  }\n  img {\n    position: absolute;\n  }\n\n  img:first-child {\n    top: 50%;\n    margin-top: -8px;\n  }\n\n  img:last-child {\n    bottom: 50%;\n    margin-bottom: -8px;\n  }\n\n  width: 100%;\n  cursor: ", ";\n"]);
 
-  _templateObject3$2 = function _templateObject3() {
+  _templateObject3$3 = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$3() {
+function _templateObject2$5() {
   var data = _taggedTemplateLiteral(["\n  ", "\n\n  ", ";\n\n  text-align: center;\n  background: ", ";\n\n  &:first-child {\n    border-radius: 10px 0 0 0;\n  }\n\n  &:last-child {\n    border-radius: 0 10px 0 0;\n  }\n"]);
 
-  _templateObject2$3 = function _templateObject2() {
+  _templateObject2$5 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$3() {
+function _templateObject$5() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 12px 22px;\n  text-align: center;\n  background: ", ";\n"]);
 
-  _templateObject$3 = function _templateObject() {
+  _templateObject$5 = function _templateObject() {
     return data;
   };
 
@@ -22596,14 +22929,14 @@ var Td = styled__default.td.attrs(function () {
     bold: true,
     opacity: 6
   };
-})(_templateObject$3(), Text, color.$table_grey);
+})(_templateObject$5(), Text, color.$table_grey);
 var Th = styled__default.th.attrs(function () {
   return {
     size: 16,
     bold: true,
     opacity: 6
   };
-})(_templateObject2$3(), Text, function (props) {
+})(_templateObject2$5(), Text, function (props) {
   return props.sort ? "" : "padding: 28px 24px";
 }, color.$table_grey);
 var SortButton = styled__default.button.attrs(function () {
@@ -22612,7 +22945,7 @@ var SortButton = styled__default.button.attrs(function () {
     bold: true,
     opacity: 6
   };
-})(_templateObject3$2(), Text, function (props) {
+})(_templateObject3$3(), Text, function (props) {
   return props.disabled ? 'not-allowed' : 'pointer';
 });
 var Thead = styled__default.thead(_templateObject4$2(), color.$line_dashboard_edge_grey);
@@ -22810,66 +23143,88 @@ THead.propTypes = {
   loading: propTypes.bool
 };
 
-var visualAlert = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjkwIiBoZWlnaHQ9IjIzMCIgdmlld0JveD0iMCAwIDI5MCAyMzAiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9ImEiIGQ9Ik0yOTAgMjA1LjYxNEMyNjAuODI2IDE4NC4zMDYgMjA2LjgxMSAxNzAgMTQ1IDE3MGMtNjEuODExIDAtMTE1LjgyNiAxNC4zMDYtMTQ1IDM1LjYxNFYwaDI5MHYyMDUuNjE0eiIvPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYyIgeDE9IjM0LjcyNiUiIHgyPSIzNC43MjYlIiB5MT0iMCUiIHkyPSI4Ni44MDglIj4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzE4OUJGRiIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNCMkRFRkYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPHBhdGggaWQ9ImQiIGQ9Ik0yOSAwaDc2LjM3YTQgNCAwIDAgMSAyLjg3IDEuMjE1bDI1LjYzMSAyNi40MjJBNCA0IDAgMCAxIDEzNSAzMC40MjJWMTMxYTQgNCAwIDAgMS00IDRIMjlhNCA0IDAgMCAxLTQtNFY0YTQgNCAwIDAgMSA0LTR6Ii8+CiAgICAgICAgPGxpbmVhckdyYWRpZW50IGlkPSJmIiB4MT0iNDIuMTI5JSIgeDI9IjQyLjEyOSUiIHkxPSIwJSIgeTI9IjEwMCUiPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMTg5QkZGIi8+CiAgICAgICAgICAgIDxzdG9wIG9mZnNldD0iMTMuMzY4JSIgc3RvcC1jb2xvcj0iIzE4OUJGRiIvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxODlCRkYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICAgICAgPHBhdGggaWQ9ImUiIGQ9Ik0zMSAwaDczLjUyM2E2IDYgMCAwIDEgNC4zMDcgMS44MjJsMjQuNDc3IDI1LjIzM0E2IDYgMCAwIDEgMTM1IDMxLjIzM1YxMjlhNiA2IDAgMCAxLTYgNkgzMWE2IDYgMCAwIDEtNi02VjZhNiA2IDAgMCAxIDYtNnoiLz4KICAgICAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSI0My40OCUiIHgyPSI0My40OCUiIHkxPSI1MCUiIHkyPSIyMDQuMzA4JSI+CiAgICAgICAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNFQUY2RkYiLz4KICAgICAgICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTg5QkZGIi8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgICA8cGF0aCBpZD0iaiIgZD0iTTE1NyAxMzZjLTE1LjQ2NCAwLTI4LTEyLjUzNi0yOC0yOHMxMi41MzYtMjggMjgtMjggMjggMTIuNTM2IDI4IDI4LTEyLjUzNiAyOC0yOCAyOHptMC0yYzE0LjM2IDAgMjYtMTEuNjQgMjYtMjZzLTExLjY0LTI2LTI2LTI2LTI2IDExLjY0LTI2IDI2IDExLjY0IDI2IDI2IDI2em0wLTI3LjQxNGw4LjQ4NS04LjQ4NSAxLjQxNCAxLjQxNC04LjQ4NSA4LjQ4NSA4LjQ4NSA4LjQ4NS0xLjQxNCAxLjQxNC04LjQ4NS04LjQ4NS04LjQ4NSA4LjQ4NS0xLjQxNC0xLjQxNCA4LjQ4NS04LjQ4NS04LjQ4NS04LjQ4NSAxLjQxNC0xLjQxNCA4LjQ4NSA4LjQ4NXoiLz4KICAgICAgICA8ZmlsdGVyIGlkPSJpIiB3aWR0aD0iMTQ0LjYlIiBoZWlnaHQ9IjE0NC42JSIgeD0iLTIyLjMlIiB5PSItMjAuNSUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+CiAgICAgICAgICAgIDxmZU9mZnNldCBkeT0iMSIgaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9InNoYWRvd09mZnNldE91dGVyMSIvPgogICAgICAgICAgICA8ZmVHYXVzc2lhbkJsdXIgaW49InNoYWRvd09mZnNldE91dGVyMSIgcmVzdWx0PSJzaGFkb3dCbHVyT3V0ZXIxIiBzdGREZXZpYXRpb249IjQiLz4KICAgICAgICAgICAgPGZlQ29sb3JNYXRyaXggaW49InNoYWRvd0JsdXJPdXRlcjEiIHZhbHVlcz0iMCAwIDAgMCAwIDAgMCAwIDAgMC41Njk2MjAyNTMgMCAwIDAgMCAxIDAgMCAwIDAuMzk5MDExMTQ1IDAiLz4KICAgICAgICA8L2ZpbHRlcj4KICAgICAgICA8ZWxsaXBzZSBpZD0ibCIgY3g9IjE0NiIgY3k9IjI0MyIgcng9IjE0NSIgcnk9IjcyIi8+CiAgICAgICAgPGZpbHRlciBpZD0iayIgd2lkdGg9IjExNS45JSIgaGVpZ2h0PSIxMzEuOSUiIHg9Ii03LjklIiB5PSItMTguOCUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+CiAgICAgICAgICAgIDxmZU9mZnNldCBkeT0iLTQiIGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJzaGFkb3dPZmZzZXRPdXRlcjEiLz4KICAgICAgICAgICAgPGZlR2F1c3NpYW5CbHVyIGluPSJzaGFkb3dPZmZzZXRPdXRlcjEiIHJlc3VsdD0ic2hhZG93Qmx1ck91dGVyMSIgc3RkRGV2aWF0aW9uPSI3Ii8+CiAgICAgICAgICAgIDxmZUNvbG9yTWF0cml4IGluPSJzaGFkb3dCbHVyT3V0ZXIxIiB2YWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAuNDcxOTA4NzcxIDAgMCAwIDAgMC44MzIxNDQ0NzUgMCAwIDAgMC43MDEyNDAxNjYgMCIvPgogICAgICAgIDwvZmlsdGVyPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDI0KSI+CiAgICAgICAgICAgIDxtYXNrIGlkPSJiIiBmaWxsPSIjZmZmIj4KICAgICAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICA8ZyBtYXNrPSJ1cmwoI2IpIiBvcGFjaXR5PSIuNiI+CiAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3NyA0MCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9InVybCgjYykiIGQ9Ik02IDI1aDczLjUyM2E2IDYgMCAwIDEgNC4zMDcgMS44MjJsMjQuNDc3IDI1LjIzM0E2IDYgMCAwIDEgMTEwIDU2LjIzM1YxNTRhNiA2IDAgMCAxLTYgNkg2YTYgNiAwIDAgMS02LTZWMzFhNiA2IDAgMCAxIDYtNnoiIG9wYWNpdHk9Ii41NTEiLz4KICAgICAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNkIi8+CiAgICAgICAgICAgICAgICAgICAgPG1hc2sgaWQ9ImgiIGZpbGw9IiNmZmYiPgogICAgICAgICAgICAgICAgICAgICAgICA8dXNlIHhsaW5rOmhyZWY9IiNlIi8+CiAgICAgICAgICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICAgICAgICAgIDx1c2UgZmlsbD0idXJsKCNmKSIgb3BhY2l0eT0iLjcyMiIgeGxpbms6aHJlZj0iI2UiLz4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSJ1cmwoI2cpIiBkPSJNMTA2LjcyOC0xLjE2NGwyOC42ODYgMzAuNDc5YTEgMSAwIDAgMS0uNzI4IDEuNjg1SDEwOWE0IDQgMCAwIDEtNC00Vi0uNDc4YTEgMSAwIDAgMSAxLjcyOC0uNjg2eiIgbWFzaz0idXJsKCNoKSIvPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDxnIG1hc2s9InVybCgjYikiPgogICAgICAgICAgICAgICAgPHVzZSBmaWxsPSIjMDAwIiBmaWx0ZXI9InVybCgjaSkiIHhsaW5rOmhyZWY9IiNqIi8+CiAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNqIi8+CiAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPGcgbWFzaz0idXJsKCNiKSIgb3BhY2l0eT0iLjIiPgogICAgICAgICAgICAgICAgPHVzZSBmaWxsPSIjMDAwIiBmaWx0ZXI9InVybCgjaykiIHhsaW5rOmhyZWY9IiNsIi8+CiAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiMxODlCRkYiIHhsaW5rOmhyZWY9IiNsIi8+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPGNpcmNsZSBjeD0iMjM5IiBjeT0iMTUzIiByPSIxOCIgZmlsbD0iIzE4OUJGRiIgb3BhY2l0eT0iLjEwNyIvPgogICAgICAgIDxjaXJjbGUgY3g9Ijc4LjUiIGN5PSI1NC41IiByPSIxMC41IiBmaWxsPSIjMTg5QkZGIiBvcGFjaXR5PSIuMyIvPgogICAgICAgIDxjaXJjbGUgY3g9IjU4IiBjeT0iMjkiIHI9IjI5IiBmaWxsPSIjMTg5QkZGIiBvcGFjaXR5PSIuMTA3Ii8+CiAgICAgICAgPGNpcmNsZSBjeD0iMjU3IiBjeT0iMTI2IiByPSI3IiBmaWxsPSIjMTg5QkZGIiBvcGFjaXR5PSIuMjk5Ii8+CiAgICA8L2c+Cjwvc3ZnPg==';
+var icnNoData = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE5OCAxNDAiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9InByZWZpeF9fYSIgZD0iTTE4OCAwbC4wMDIgMTIxLjg0MUMxNjguMDM2IDEwOS45IDEzMy4zOTMgMTAyIDk0IDEwMmMtMzkuMzk0IDAtNzQuMDM3IDcuOS05NC4wMDMgMTkuODQyTDAgMGgxODh6Ii8+CiAgICAgICAgPHBhdGggaWQ9InByZWZpeF9fZSIgZD0iTTI2IDBoNjIuMzc2YzEuMTE2IDAgMi4xOC40NjUgMi45MzcgMS4yODRsMjEuNjI0IDIzLjM4Yy42ODMuNzQgMS4wNjMgMS43MSAxLjA2MyAyLjcxNlYxMTdjMCAyLjIxLTEuNzkgNC00IDRIMjRjLTIuMjEgMC00LTEuNzktNC00VjZjMC0zLjMxNCAyLjY4Ni02IDYtNnoiLz4KICAgICAgICA8cGF0aCBpZD0icHJlZml4X19mIiBkPSJNMjYgMGg2MS41NzdjMS42MjkgMCAzLjE4Ny42NjIgNC4zMTggMS44MzRsMjAuNDIzIDIxLjE3YzEuMDggMS4xMTkgMS42ODIgMi42MTIgMS42ODIgNC4xNjZWMTEwYzAgMy4zMTQtMi42ODYgNi02IDZIMjZjLTMuMzE0IDAtNi0yLjY4Ni02LTZWNmMwLTMuMzE0IDIuNjg2LTYgNi02eiIvPgogICAgICAgIDxwYXRoIGlkPSJwcmVmaXhfX2kiIGQ9Ik0xMDIgMzVjMTIuNzAzIDAgMjMgMTAuMjk3IDIzIDIzcy0xMC4yOTcgMjMtMjMgMjMtMjMtMTAuMjk3LTIzLTIzIDEwLjI5Ny0yMyAyMy0yM3ptMCAyYy0xMS41OTggMC0yMSA5LjQwMi0yMSAyMXM5LjQwMiAyMSAyMSAyMSAyMS05LjQwMiAyMS0yMS05LjQwMi0yMS0yMS0yMXptLTUuNjU3IDEzLjkyOUwxMDIgNTYuNTg2bDUuNjU4LTUuNjU3Yy4zOS0uMzkgMS4wMjQtLjM5IDEuNDE0IDAgLjM5LjM5LjM5IDEuMDI0IDAgMS40MTRsLTUuNjU3IDUuNjU4IDUuNjU3IDUuNjU2Yy4zOS4zOS4zOSAxLjAyNCAwIDEuNDE0LS4zOS4zOS0xLjAyNC4zOS0xLjQxNCAwbC01LjY1OC01LjY1Ni01LjY1NiA1LjY1NmMtLjM5LjM5LTEuMDI0LjM5LTEuNDE0IDAtLjM5LS4zOS0uMzktMS4wMjQgMC0xLjQxNEwxMDAuNTg1IDU4bC01LjY1Ni01LjY1OGMtLjM5LS4zOS0uMzktMS4wMjQgMC0xLjQxNC4zOS0uMzkgMS4wMjQtLjM5IDEuNDE0IDB6Ii8+CiAgICAgICAgPGZpbHRlciBpZD0icHJlZml4X19jIiB3aWR0aD0iMTE3LjMlIiBoZWlnaHQ9IjEyNi40JSIgeD0iLTguNiUiIHk9Ii0xNC42JSIgZmlsdGVyVW5pdHM9Im9iamVjdEJvdW5kaW5nQm94Ij4KICAgICAgICAgICAgPGZlT2Zmc2V0IGR5PSItMiIgaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9InNoYWRvd09mZnNldE91dGVyMSIvPgogICAgICAgICAgICA8ZmVHYXVzc2lhbkJsdXIgaW49InNoYWRvd09mZnNldE91dGVyMSIgcmVzdWx0PSJzaGFkb3dCbHVyT3V0ZXIxIiBzdGREZXZpYXRpb249IjYiLz4KICAgICAgICAgICAgPGZlQ29sb3JNYXRyaXggaW49InNoYWRvd0JsdXJPdXRlcjEiIHZhbHVlcz0iMCAwIDAgMCAwLjM5MjE1Njg2MyAwIDAgMCAwIDAuNjQzMTM3MjU1IDAgMCAwIDAgMC45NTI5NDExNzYgMCAwIDAgMC41NjM4NjU4MjIgMCIvPgogICAgICAgIDwvZmlsdGVyPgogICAgICAgIDxmaWx0ZXIgaWQ9InByZWZpeF9faCIgd2lkdGg9IjE1NC4zJSIgaGVpZ2h0PSIxNTQuMyUiIHg9Ii0yNy4yJSIgeT0iLTI1JSIgZmlsdGVyVW5pdHM9Im9iamVjdEJvdW5kaW5nQm94Ij4KICAgICAgICAgICAgPGZlT2Zmc2V0IGR5PSIxIiBpbj0iU291cmNlQWxwaGEiIHJlc3VsdD0ic2hhZG93T2Zmc2V0T3V0ZXIxIi8+CiAgICAgICAgICAgIDxmZUdhdXNzaWFuQmx1ciBpbj0ic2hhZG93T2Zmc2V0T3V0ZXIxIiByZXN1bHQ9InNoYWRvd0JsdXJPdXRlcjEiIHN0ZERldmlhdGlvbj0iNCIvPgogICAgICAgICAgICA8ZmVDb2xvck1hdHJpeCBpbj0ic2hhZG93Qmx1ck91dGVyMSIgdmFsdWVzPSIwIDAgMCAwIDAuMzg4MjM1Mjk0IDAgMCAwIDAgMC42MzkyMTU2ODYgMCAwIDAgMCAwLjk1Mjk0MTE3NiAwIDAgMCAxIDAiLz4KICAgICAgICA8L2ZpbHRlcj4KICAgICAgICA8ZWxsaXBzZSBpZD0icHJlZml4X19kIiBjeD0iOTUiIGN5PSIxNzQiIHJ4PSIxMTAiIHJ5PSI3MiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1IDEwKSI+CiAgICAgICAgPG1hc2sgaWQ9InByZWZpeF9fYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI3ByZWZpeF9fYSIvPgogICAgICAgIDwvbWFzaz4KICAgICAgICA8ZyBmaWxsPSIjMDAwIiBtYXNrPSJ1cmwoI3ByZWZpeF9fYikiPgogICAgICAgICAgICA8dXNlIGZpbHRlcj0idXJsKCNwcmVmaXhfX2MpIiB4bGluazpocmVmPSIjcHJlZml4X19kIi8+CiAgICAgICAgPC9nPgogICAgICAgIDxnIG1hc2s9InVybCgjcHJlZml4X19iKSI+CiAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM1KSI+CiAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjQzBEN0ZDIiBkPSJNNiAyM2g2Ny41NDNjMS42MyAwIDMuMTkuNjYzIDQuMzIgMS44MzZsMjIuNDU3IDIzLjMwMmMxLjA3OCAxLjExOCAxLjY4IDIuNjEgMS42OCA0LjE2NFYxNDNjMCAzLjMxNC0yLjY4NiA2LTYgNkg2Yy0zLjMxNCAwLTYtMi42ODYtNi02VjI5YzAtMy4zMTQgMi42ODYtNiA2LTZ6Ii8+CiAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNwcmVmaXhfX2UiLz4KICAgICAgICAgICAgICAgIDxtYXNrIGlkPSJwcmVmaXhfX2ciIGZpbGw9IiNmZmYiPgogICAgICAgICAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI3ByZWZpeF9fZiIvPgogICAgICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICAgICAgPHVzZSBmaWxsPSIjODZBRkY0IiB4bGluazpocmVmPSIjcHJlZml4X19mIi8+CiAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjQzBEN0ZDIiBkPSJNOTAuNzI4LTYuMTY0bDI4LjY4NiAzMC40NzljLjM3OC40MDIuMzYgMS4wMzUtLjA0MyAxLjQxMy0uMTg2LjE3NS0uNDMuMjcyLS42ODUuMjcySDkzYy0yLjIxIDAtNC0xLjc5LTQtNFYtNS40NzhjMC0uNTUzLjQ0OC0xIDEtMSAuMjc2IDAgLjU0LjExMy43MjguMzE0eiIgbWFzaz0idXJsKCNwcmVmaXhfX2cpIi8+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPGcgbWFzaz0idXJsKCNwcmVmaXhfX2IpIj4KICAgICAgICAgICAgPHVzZSBmaWxsPSIjMDAwIiBmaWx0ZXI9InVybCgjcHJlZml4X19oKSIgeGxpbms6aHJlZj0iI3ByZWZpeF9faSIvPgogICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNwcmVmaXhfX2kiLz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==';
 
-function _templateObject3$3() {
-  var data = _taggedTemplateLiteral(["\n  margin: auto;\n  display: block;\n"]);
+function _templateObject4$3() {
+  var data = _taggedTemplateLiteral(["\n"]);
 
-  _templateObject3$3 = function _templateObject3() {
+  _templateObject4$3 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$4() {
-  var data = _taggedTemplateLiteral(["\n  display: block;\n  width: 290px;\n  height: 230px;\n  margin: 0 auto;\n"]);
+function _templateObject3$4() {
+  var data = _taggedTemplateLiteral(["\n  width: 198px;\n  height: 140px;\n  margin-bottom: 8px;\n  font-size: 0;\n"]);
 
-  _templateObject2$4 = function _templateObject2() {
+  _templateObject3$4 = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$4() {
-  var data = _taggedTemplateLiteral(["\n  text-align: center;\n"]);
+function _templateObject2$6() {
+  var data = _taggedTemplateLiteral(["\n  text-align: center;\n  padding: 8px;\n  margin: auto;\n"]);
 
-  _templateObject$4 = function _templateObject() {
+  _templateObject2$6 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
-var EmptyContainer = styled__default.section(_templateObject$4());
-var EmptyDescription = styled__default.img.attrs({
-  src: "".concat(visualAlert)
-})(_templateObject2$4());
-var EmptyText = styled__default.span.attrs(function () {
-  return {
-    className: fontStyle.fs16_black_opacity6
+
+function _templateObject$6() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n  height: ", ";\n"]);
+
+  _templateObject$6 = function _templateObject() {
+    return data;
   };
-})(_templateObject3$3());
-var EmptyPlaceHolder = (function () {
-  return React__default.createElement(EmptyContainer, null, React__default.createElement(EmptyDescription, null), React__default.createElement(EmptyText, {
-    as: "span"
-  }, "There is no data", React__default.createElement("br", null), "Please search again"));
+
+  return data;
+}
+var EmptyContainer = styled__default.section(_templateObject$6(), function (props) {
+  return props.height ? "".concat(props.height, "px") : 'auto';
 });
+var EmptyInner = styled__default.div(_templateObject2$6());
+var EmptyDescription = styled__default.img.attrs({
+  src: "".concat(icnNoData)
+})(_templateObject3$4());
+var EmptyText = styled__default.p.attrs(function () {
+  return {
+    className: [fontStyle.fs18, fontStyle.fc_grey08].join(' ')
+  };
+})(_templateObject4$3());
 
-function _templateObject2$5() {
+var EmptyPlaceHolder = function EmptyPlaceHolder(_ref) {
+  var height = _ref.height;
+  return React__default.createElement(EmptyContainer, {
+    height: height
+  }, React__default.createElement(EmptyInner, null, React__default.createElement(EmptyDescription, null), React__default.createElement(EmptyText, null, "There is no data")));
+};
+
+EmptyPlaceHolder.defaultProps = {
+  height: undefined
+};
+EmptyPlaceHolder.propTypes = {
+  height: propTypes.number
+};
+
+function _templateObject2$7() {
   var data = _taggedTemplateLiteral(["\n  td {\n    padding: 68px;\n    text-align: center;\n  }\n"]);
 
-  _templateObject2$5 = function _templateObject2() {
+  _templateObject2$7 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$5() {
+function _templateObject$7() {
   var data = _taggedTemplateLiteral(["\n  .tr:nth-child(even) .td {\n    background: ", ";\n  }\n\n  .tr:nth-child(odd) .td {\n    background: ", ";\n  }\n\n  .tr .td.even {\n    background: ", ";\n  }\n\n  .tr .td.odd {\n    background: ", ";\n  }\n\n  /* after the first non-.parent, toggle colors */\n  tr:not(.tr) ~ .tr:nth-child(odd) td {\n      background-color: ", ";\n  }\n  tr:not(.tr) ~ .tr:nth-child(even) td {\n      background-color: ", ";\n  }\n\n  /* after the second non-.parent, toggle again */\n  tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(odd) td {\n      background-color: ", ";\n  }\n  tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(even) td {\n      background-color: ", ";\n  }\n\n  .td {\n    ", "\n    text-align: center;\n  }\n\n  .td > a > div, .td > div {\n    padding: 24px;\n  }\n"]);
 
-  _templateObject$5 = function _templateObject() {
+  _templateObject$7 = function _templateObject() {
     return data;
   };
 
@@ -22879,8 +23234,8 @@ function _templateObject$5() {
 var ListTBody = styled__default.tbody.attrs({
   size: 18,
   opacity: 8
-})(_templateObject$5(), color.$table_cell_grey, color.$primary_white, color.$table_cell_grey, color.$primary_white, color.$table_cell_grey, color.$primary_white, color.$primary_white, color.$table_cell_grey, Text);
-var EmptyTbody = styled__default.tbody(_templateObject2$5());
+})(_templateObject$7(), color.$table_cell_grey, color.$primary_white, color.$table_cell_grey, color.$primary_white, color.$table_cell_grey, color.$primary_white, color.$primary_white, color.$table_cell_grey, Text);
+var EmptyTbody = styled__default.tbody(_templateObject2$7());
 
 var TBody = function TBody(_ref) {
   var headers = _ref.headers,
@@ -22962,16 +23317,16 @@ TBody.propTypes = {
   appendRow: propTypes.func
 };
 
-function _templateObject$6() {
+function _templateObject$8() {
   var data = _taggedTemplateLiteral(["\n  td {\n    background-color: ", ";\n    padding: 24px;\n\n    text-align: center;\n    font-size: 18px;\n    font-family: \"Spoqa Han Sans\";\n  }\n\n  border-top: 2px solid ", ";\n"]);
 
-  _templateObject$6 = function _templateObject() {
+  _templateObject$8 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var TFootTag = styled__default.tfoot(_templateObject$6(), color.$table_grey, color.$line_dashboard_edge_grey);
+var TFootTag = styled__default.tfoot(_templateObject$8(), color.$table_grey, color.$line_dashboard_edge_grey);
 
 var TFoot = function TFoot(_ref) {
   var footData = _ref.footData;
@@ -23460,7 +23815,7 @@ function getInnerHeight(el) {
 
 unwrapExports(getInnerHeight_1);
 
-var styles$2 = createCommonjsModule(function (module, exports) {
+var styles$1 = createCommonjsModule(function (module, exports) {
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -23533,18 +23888,18 @@ var disableSelectStyleReset = exports.disableSelectStyleReset = {
 };
 });
 
-unwrapExports(styles$2);
-var styles_1 = styles$2.containerStyleDefault;
-var styles_2 = styles$2.containerStyleAutoHeight;
-var styles_3 = styles$2.viewStyleDefault;
-var styles_4 = styles$2.viewStyleAutoHeight;
-var styles_5 = styles$2.viewStyleUniversalInitial;
-var styles_6 = styles$2.trackHorizontalStyleDefault;
-var styles_7 = styles$2.trackVerticalStyleDefault;
-var styles_8 = styles$2.thumbHorizontalStyleDefault;
-var styles_9 = styles$2.thumbVerticalStyleDefault;
-var styles_10 = styles$2.disableSelectStyle;
-var styles_11 = styles$2.disableSelectStyleReset;
+unwrapExports(styles$1);
+var styles_1 = styles$1.containerStyleDefault;
+var styles_2 = styles$1.containerStyleAutoHeight;
+var styles_3 = styles$1.viewStyleDefault;
+var styles_4 = styles$1.viewStyleAutoHeight;
+var styles_5 = styles$1.viewStyleUniversalInitial;
+var styles_6 = styles$1.trackHorizontalStyleDefault;
+var styles_7 = styles$1.trackVerticalStyleDefault;
+var styles_8 = styles$1.thumbHorizontalStyleDefault;
+var styles_9 = styles$1.thumbVerticalStyleDefault;
+var styles_10 = styles$1.disableSelectStyle;
+var styles_11 = styles$1.disableSelectStyleReset;
 
 var defaultRenderElements = createCommonjsModule(function (module, exports) {
 
@@ -24091,7 +24446,7 @@ var Scrollbars = function (_Component) {
     }, {
         key: 'setupDragging',
         value: function setupDragging() {
-            (0, _domCss2["default"])(document.body, styles$2.disableSelectStyle);
+            (0, _domCss2["default"])(document.body, styles$1.disableSelectStyle);
             document.addEventListener('mousemove', this.handleDrag);
             document.addEventListener('mouseup', this.handleDragEnd);
             document.onselectstart = _returnFalse2["default"];
@@ -24099,7 +24454,7 @@ var Scrollbars = function (_Component) {
     }, {
         key: 'teardownDragging',
         value: function teardownDragging() {
-            (0, _domCss2["default"])(document.body, styles$2.disableSelectStyleReset);
+            (0, _domCss2["default"])(document.body, styles$1.disableSelectStyleReset);
             document.removeEventListener('mousemove', this.handleDrag);
             document.removeEventListener('mouseup', this.handleDragEnd);
             document.onselectstart = undefined;
@@ -24329,34 +24684,34 @@ var Scrollbars = function (_Component) {
             var didMountUniversal = this.state.didMountUniversal;
 
 
-            var containerStyle = _extends({}, styles$2.containerStyleDefault, autoHeight && _extends({}, styles$2.containerStyleAutoHeight, {
+            var containerStyle = _extends({}, styles$1.containerStyleDefault, autoHeight && _extends({}, styles$1.containerStyleAutoHeight, {
                 minHeight: autoHeightMin,
                 maxHeight: autoHeightMax
             }), style);
 
-            var viewStyle = _extends({}, styles$2.viewStyleDefault, {
+            var viewStyle = _extends({}, styles$1.viewStyleDefault, {
                 // Hide scrollbars by setting a negative margin
                 marginRight: scrollbarWidth ? -scrollbarWidth : 0,
                 marginBottom: scrollbarWidth ? -scrollbarWidth : 0
-            }, autoHeight && _extends({}, styles$2.viewStyleAutoHeight, {
+            }, autoHeight && _extends({}, styles$1.viewStyleAutoHeight, {
                 // Add scrollbarWidth to autoHeight in order to compensate negative margins
                 minHeight: (0, _isString2["default"])(autoHeightMin) ? 'calc(' + autoHeightMin + ' + ' + scrollbarWidth + 'px)' : autoHeightMin + scrollbarWidth,
                 maxHeight: (0, _isString2["default"])(autoHeightMax) ? 'calc(' + autoHeightMax + ' + ' + scrollbarWidth + 'px)' : autoHeightMax + scrollbarWidth
             }), autoHeight && universal && !didMountUniversal && {
                 minHeight: autoHeightMin,
                 maxHeight: autoHeightMax
-            }, universal && !didMountUniversal && styles$2.viewStyleUniversalInitial);
+            }, universal && !didMountUniversal && styles$1.viewStyleUniversalInitial);
 
             var trackAutoHeightStyle = {
                 transition: 'opacity ' + autoHideDuration + 'ms',
                 opacity: 0
             };
 
-            var trackHorizontalStyle = _extends({}, styles$2.trackHorizontalStyleDefault, autoHide && trackAutoHeightStyle, (!scrollbarWidth || universal && !didMountUniversal) && {
+            var trackHorizontalStyle = _extends({}, styles$1.trackHorizontalStyleDefault, autoHide && trackAutoHeightStyle, (!scrollbarWidth || universal && !didMountUniversal) && {
                 display: 'none'
             });
 
-            var trackVerticalStyle = _extends({}, styles$2.trackVerticalStyleDefault, autoHide && trackAutoHeightStyle, (!scrollbarWidth || universal && !didMountUniversal) && {
+            var trackVerticalStyle = _extends({}, styles$1.trackVerticalStyleDefault, autoHide && trackAutoHeightStyle, (!scrollbarWidth || universal && !didMountUniversal) && {
                 display: 'none'
             });
 
@@ -24366,11 +24721,11 @@ var Scrollbars = function (_Component) {
                     _this7.view = _ref4;
                 } }, children), (0, React__default.cloneElement)(renderTrackHorizontal({ style: trackHorizontalStyle }), { key: 'trackHorizontal', ref: function ref(_ref5) {
                     _this7.trackHorizontal = _ref5;
-                } }, (0, React__default.cloneElement)(renderThumbHorizontal({ style: styles$2.thumbHorizontalStyleDefault }), { ref: function ref(_ref6) {
+                } }, (0, React__default.cloneElement)(renderThumbHorizontal({ style: styles$1.thumbHorizontalStyleDefault }), { ref: function ref(_ref6) {
                     _this7.thumbHorizontal = _ref6;
                 } })), (0, React__default.cloneElement)(renderTrackVertical({ style: trackVerticalStyle }), { key: 'trackVertical', ref: function ref(_ref7) {
                     _this7.trackVertical = _ref7;
-                } }, (0, React__default.cloneElement)(renderThumbVertical({ style: styles$2.thumbVerticalStyleDefault }), { ref: function ref(_ref8) {
+                } }, (0, React__default.cloneElement)(renderThumbVertical({ style: styles$1.thumbVerticalStyleDefault }), { ref: function ref(_ref8) {
                     _this7.thumbVertical = _ref8;
                 } }))]);
         }
@@ -24449,6 +24804,16 @@ exports.Scrollbars = _Scrollbars2["default"];
 unwrapExports(lib);
 var lib_1 = lib.Scrollbars;
 
+function _templateObject6$1() {
+  var data = _taggedTemplateLiteral(["\n  margin-bottom: 30px;\n"]);
+
+  _templateObject6$1 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject5$1() {
   var data = _taggedTemplateLiteral(["\n  margin-bottom: 30px;\n  > span:not(:last-child) {\n    margin-right: 24px;\n  }\n  font-size: 14px;\n  color: rgba(0, 0, 0, 0.4);\n"]);
 
@@ -24459,49 +24824,49 @@ function _templateObject5$1() {
   return data;
 }
 
-function _templateObject4$3() {
+function _templateObject4$4() {
   var data = _taggedTemplateLiteral(["\n  background-color: ", ";\n  display: inline-block;\n  width: 10px;\n  height: 10px;\n  border-radius: 5px;\n"]);
 
-  _templateObject4$3 = function _templateObject4() {
+  _templateObject4$4 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$4() {
+function _templateObject3$5() {
   var data = _taggedTemplateLiteral(["\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.2);\n\n  background-color: ", ";\n  padding: 30px;\n"]);
 
-  _templateObject3$4 = function _templateObject3() {
+  _templateObject3$5 = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$6() {
+function _templateObject2$8() {
   var data = _taggedTemplateLiteral(["\n  display: block;\n  padding: 0 0px 10px;\n\n  &:first-child:not(:only-child) {\n    padding-right: 20px;\n  }\n\n  &:last-child:not(:only-child) {\n    padding-left: 20px;\n  }\n"]);
 
-  _templateObject2$6 = function _templateObject2() {
+  _templateObject2$8 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$7() {
+function _templateObject$9() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  > article:not(:last-child) {\n    margin-right: 24px;\n  }\n"]);
 
-  _templateObject$7 = function _templateObject() {
+  _templateObject$9 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var LegendWrap = styled__default.section(_templateObject$7());
-var BoxShadow = styled__default.article(_templateObject2$6());
-var BoxShadowInner = styled__default.div(_templateObject3$4(), color.$primary_white);
-var Dot = styled__default.span(_templateObject4$3(), function (props) {
+var LegendWrap = styled__default.section(_templateObject$9());
+var BoxShadow = styled__default.article(_templateObject2$8());
+var BoxShadowInner = styled__default.div(_templateObject3$5(), color.$primary_white);
+var Dot = styled__default.span(_templateObject4$4(), function (props) {
   return props.color;
 });
 var Legend = styled__default.article(_templateObject5$1());
@@ -24554,38 +24919,44 @@ WrapperScrollBars.propTypes = {
     y: propTypes.number
   })
 };
+var chartTitle = styled__default.header.attrs(function () {
+  return {
+    className: [fontStyle.fs18, fontStyle.fc_grey09, fontStyle.bold].join(' ')
+  };
+})(_templateObject6$1());
 
 var cdmCommon = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	BoxShadow: BoxShadow,
-	BoxShadowInner: BoxShadowInner,
-	Dot: Dot,
-	Legend: Legend,
-	LegendList: LegendList,
-	WrapperScrollBars: WrapperScrollBars
+  __proto__: null,
+  BoxShadow: BoxShadow,
+  BoxShadowInner: BoxShadowInner,
+  Dot: Dot,
+  Legend: Legend,
+  LegendList: LegendList,
+  WrapperScrollBars: WrapperScrollBars,
+  chartTitle: chartTitle
 });
 
-function _templateObject2$7() {
+function _templateObject2$9() {
   var data = _taggedTemplateLiteral(["\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%;\n\n  border-bottom: 1px solid ", ";\n\n  ", ";\n\n  ", "\n"]);
 
-  _templateObject2$7 = function _templateObject2() {
+  _templateObject2$9 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$8() {
+function _templateObject$a() {
   var data = _taggedTemplateLiteral(["\n  tbody {\n    .td:first-child, .td:last-child {\n      white-space: nowrap;\n      width: 1%;\n    }\n\n    .td:first-child > a > div,\n    .td:first-child > div {\n      padding-left: 0\n    }\n\n    .td:last-child > a > div,\n    .td:last-child > div {\n      padding-right: 0\n    }\n\n    .td:first-child {\n      padding-left: 50px;\n    }\n\n    .td:last-child {\n      padding-right: 50px;\n    }\n  }\n\n  thead td {\n    &:last-child {\n      padding-right: 50px;\n    }\n  }\n  thead th {\n    &:first-child, &:last-child {\n      white-space: nowrap;\n      width: 1%;\n    }\n\n    &:first-child {\n      padding-left: 50px;\n    }\n\n    &:last-child {\n      padding-right: 50px;\n    }\n  }\n"]);
 
-  _templateObject$8 = function _templateObject() {
+  _templateObject$a = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var sideFit = styled.css(_templateObject$8());
-var TableBox = styled__default.table(_templateObject2$7(), color.$line_search_grey, function (props) {
+var sideFit = styled.css(_templateObject$a());
+var TableBox = styled__default.table(_templateObject2$9(), color.$line_search_grey, function (props) {
   return props.notBottom ? 'border-bottom: none' : '';
 }, function (props) {
   return props.className.split(' ').includes('sideFit') ? sideFit : null;
@@ -24721,49 +25092,49 @@ function _templateObject5$2() {
   return data;
 }
 
-function _templateObject4$4() {
+function _templateObject4$5() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-right: 1px solid ", "\n  }\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 16px;\n  font-family: \"Spoqa Han Sans\";\n  background: #f2f2f2;\n  font-weight: bold;\n  text-align: left;\n  padding: 24px;\n"]);
 
-  _templateObject4$4 = function _templateObject4() {
+  _templateObject4$5 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$5() {
+function _templateObject3$6() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-bottom: 1px solid ", "\n  }\n"]);
 
-  _templateObject3$5 = function _templateObject3() {
+  _templateObject3$6 = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$8() {
+function _templateObject2$a() {
   var data = _taggedTemplateLiteral(["\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%;\n"]);
 
-  _templateObject2$8 = function _templateObject2() {
+  _templateObject2$a = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$9() {
+function _templateObject$b() {
   var data = _taggedTemplateLiteral(["\n  border: 1px solid ", "\n  border-radius: 10px\n  overflow: hidden\n"]);
 
-  _templateObject$9 = function _templateObject() {
+  _templateObject$b = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var TableWrap = styled__default.div(_templateObject$9(), color.$line_search_grey);
-var Table$1 = styled__default.table(_templateObject2$8());
-var Tr = styled__default.tr(_templateObject3$5(), color.$line_search_grey);
-var Th$1 = styled__default.th(_templateObject4$4(), color.$line_search_grey);
+var TableWrap = styled__default.div(_templateObject$b(), color.$line_search_grey);
+var Table$1 = styled__default.table(_templateObject2$a());
+var Tr = styled__default.tr(_templateObject3$6(), color.$line_search_grey);
+var Th$1 = styled__default.th(_templateObject4$5(), color.$line_search_grey);
 var Td$1 = styled__default.td(_templateObject5$2(), color.$line_search_grey);
 var isLastCell = function isLastCell(_ref2) {
   var cellTotal = _ref2.cellTotal,
@@ -24852,49 +25223,20 @@ Descriptions.propTypes = {
   colWidths: propTypes.arrayOf(propTypes.number)
 };
 
-function _templateObject$a() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
-
-  _templateObject$a = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var Text$1 = styled__default.header(_templateObject$a(), Text);
-
-var Heading = function Heading(_ref) {
-  var size = _ref.size,
-      children = _ref.children,
-      style = _ref.style;
-  return React__default.createElement(Text$1, {
-    size: size,
-    bold: true,
-    style: style
-  }, children);
-};
-
-Heading.defaultProps = {
-  size: '22'
-};
-Heading.propTypes = {
-  size: propTypes.string
-};
-
-function _templateObject2$9() {
+function _templateObject2$b() {
   var data = _taggedTemplateLiteral(["\n  width: 250px;\n  border-radius: 4px;\n  box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.2);\n  border: solid 1px ", ";\n  background-color: rgba(255, 255, 255, 1);\n\n  padding: 12px 14px;\n\n  li {\n    padding-left: 16px;\n    position: relative;\n    display: flex;\n    align-items: top;\n\n    span:last-child {\n      margin-left: auto;\n      padding-left: 16px;\n    }\n  }\n\n  li:not(:last-child) {\n    margin-bottom: 8px;\n  }\n"]);
 
-  _templateObject2$9 = function _templateObject2() {
+  _templateObject2$b = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$b() {
+function _templateObject$c() {
   var data = _taggedTemplateLiteral(["\n  position: absolute;\n  top: 3px;\n  left: 0;\n"]);
 
-  _templateObject$b = function _templateObject() {
+  _templateObject$c = function _templateObject() {
     return data;
   };
 
@@ -24902,8 +25244,8 @@ function _templateObject$b() {
 }
 var Dot$1 = styled__default(Dot).attrs(function () {
   return {};
-})(_templateObject$b());
-var TooltipBoxTag = styled__default.div(_templateObject2$9(), color.$menu_grey);
+})(_templateObject$c());
+var TooltipBoxTag = styled__default.div(_templateObject2$b(), color.$menu_grey);
 var valueConvertText = function valueConvertText(value, _ref) {
   var isPercent = _ref.isPercent,
       convert = _ref.convert;
@@ -25034,263 +25376,12 @@ TooltipCompareContent.propTypes = {
   colorKeyMap: propTypes.arrayOf(propTypes.string)
 };
 
-var _ThemeMap;
-
-function _templateObject3$6() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  width: ", ";\n  height: ", ";\n  background-color: ", "\n"]);
-
-  _templateObject3$6 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2$a() {
-  var data = _taggedTemplateLiteral(["\n  dl {\n    position: relative;\n    padding-left: calc(40px + 5px);\n    min-height: 40px;\n  }\n  dd:last-child {\n    position: absolute;\n    left: 0; top: 0;\n  }\n\n  > article {\n    display: grid;\n    grid-template-rows: repeat(1, 350px);\n    grid-template-columns: repeat(8, 1fr);\n  }\n"]);
-
-  _templateObject2$a = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject$c() {
-  var data = _taggedTemplateLiteral(["\n  dl {\n    text-align: center;\n    display: inline-block;\n    padding: 5px;\n  }\n\n  &:not(:last-child) {\n    margin-bottom: 20px;\n  }\n"]);
-
-  _templateObject$c = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var ColorSet = {
-  'Primary-Sea': {
-    sea50: '#c0d7fc',
-    sea100: '#92b9fc',
-    sea200: '#5892fc',
-    sea300: '#2c6ff5',
-    sea400: '#1952cf',
-    sea500: '#0f3ca6',
-    sea600: '#0e2769',
-    sea700: '#091840'
-  },
-  'Secondary-Teal': {
-    teal100: '#ade0da',
-    teal200: '#84d1c8',
-    teal300: '#5cbfb4',
-    teal400: '#3bada0',
-    teal500: '#1f948a',
-    teal600: '#06706d',
-    teal700: '#004545',
-    teal800: '#012b2b'
-  },
-  'Tertiary-Rose': {
-    rose50: '#fac8c3',
-    rose100: '#ff9e91',
-    rose200: '#fc6c5c',
-    rose300: '#e34b3d',
-    rose400: '#ba2f33',
-    rose500: '#922228',
-    rose600: '#661216',
-    rose700: '#3d080b'
-  },
-  'Quaternary-Gold': {
-    gold50: '#fae0c3',
-    gold100: '#fccc90',
-    gold200: '#ffb157',
-    gold300: '#f7a223',
-    gold400: '#d9840d',
-    gold500: '#ad6507',
-    gold600: '#69400f',
-    gold700: '#3d2408'
-  },
-  'Quinary-Berry': {
-    berry50: '#f5c9e0',
-    berry100: '#eda1cb',
-    berry200: '#e374b1',
-    berry300: '#cf5194',
-    berry400: '#b03775',
-    berry500: '#8c2659',
-    berry600: '#61133a',
-    berry700: '#3d0923'
-  },
-  'Total-Bluegrey': {
-    bluegrey50: '#d8dde8',
-    bluegrey80: '#c7cdd9',
-    bluegrey120: '#bac0cc',
-    bluegrey170: '#aab0bd',
-    bluegrey230: '#9aa1ad',
-    bluegrey300: '#888e99'
-  },
-  'Chart-Hover': {
-    'red-hover': 'rgba(255, 41, 10, 0.08)',
-    'grey-hover': 'rgba(48, 56, 65, 0.06)',
-    'highlight-hover': 'rgba(255, 240, 0, 0.14)'
-  }
+/* eslint-disable max-len */
+var LabelStyle = {
+  fill: colorV1.$grey08,
+  fontWeight: 'bold',
+  fontSize: '14px'
 };
-var ColorSetMap = lodash.chain(ColorSet).values().reduce(function (sum, obj) {
-  return lodash.extend(sum, obj);
-}, {}).value();
-var Themes = {
-  V1: 'v1',
-  ThemeComparePrimarySea: 'theme-compare-primary-sea',
-  ThemeCompareSecondaryTeal: 'theme-compare-secondary-teal',
-  ThemeArrangePrimarySea: 'theme-arrange-primary-sea',
-  ThemeArrangeSecondaryTeal: 'theme-arrange-secondary-teal',
-  ThemeArrangeTertiaryRose: 'theme-arrange-tertiary-rose',
-  ThemeArrangeQuaternaryGold: 'theme-arrange-quaternary-gold',
-  ThemeArrangeQuinaryBerry: 'theme-arrange-quinary-berry',
-  ThemeArrangeGradient: 'theme-arrange-gradient'
-};
-var ThemeMap = (_ThemeMap = {}, _defineProperty(_ThemeMap, Themes.V1, {
-  blue: ['#d5e7fd', '#a5d2ff', '#63a3f3', '#3788ed', '#2f60c3', '#224b9f', '#1e3476', '#142352'],
-  green: ['#ceede7', '#97d9ce', '#24b7a3', '#0c8d84', '#006f75', '#00555a', '#043e4b', '#002340'],
-  compare: ['#63a3f3', '#d686c8']
-}), _defineProperty(_ThemeMap, Themes.ThemeComparePrimarySea, {
-  2: ['sea300', 'rose200'],
-  '2-1': ['sea300', 'bluegrey80'],
-  '2-2': ['sea300', 'bluegrey120'],
-  '2-3': ['sea300', 'sea600'],
-  3: ['sea300', 'rose200', 'gold100'],
-  '3-1': ['sea300', 'bluegrey120', 'sea600'],
-  4: ['sea300', 'rose200', 'gold100', 'teal400']
-}), _defineProperty(_ThemeMap, Themes.ThemeCompareSecondaryTeal, {
-  2: ['teal400', 'gold200'],
-  '2-1': ['teal400', 'bluegrey80'],
-  '2-2': ['teal400', 'bluegrey120'],
-  '2-3': ['teal400', 'teal700'],
-  3: ['teal400', 'gold200', 'berry300'],
-  '3-1': ['teal400', 'bluegrey120', 'teal700'],
-  4: ['teal400', 'gold200', 'berry300', 'sea200']
-}), _defineProperty(_ThemeMap, Themes.ThemeArrangePrimarySea, {
-  2: ['sea300', 'sea500'],
-  3: ['sea100', 'sea300', 'sea500'],
-  4: ['sea100', 'sea300', 'sea500', 'sea600'],
-  5: ['sea50', 'sea100', 'sea300', 'sea500', 'sea600'],
-  6: ['sea50', 'sea100', 'sea300', 'sea500', 'sea600', 'sea700']
-}), _defineProperty(_ThemeMap, Themes.ThemeArrangeSecondaryTeal, {
-  2: ['teal400', 'teal600'],
-  3: ['teal200', 'teal400', 'teal600'],
-  4: ['teal200', 'teal400', 'teal600', 'teal700'],
-  5: ['teal100', 'teal200', 'teal400', 'teal600', 'teal700'],
-  6: ['teal100', 'teal200', 'teal400', 'teal600', 'teal700', 'teal800']
-}), _defineProperty(_ThemeMap, Themes.ThemeArrangeTertiaryRose, {
-  2: ['rose200', 'rose400'],
-  3: ['rose100', 'rose200', 'rose400'],
-  4: ['rose100', 'rose200', 'rose400', 'rose600'],
-  5: ['rose50', 'rose100', 'rose200', 'rose400', 'rose600'],
-  6: ['rose50', 'rose100', 'rose200', 'rose400', 'rose600', 'rose700']
-}), _defineProperty(_ThemeMap, Themes.ThemeArrangeQuaternaryGold, {
-  2: ['gold200', 'gold400'],
-  3: ['gold100', 'gold200', 'gold400'],
-  4: ['gold100', 'gold200', 'gold400', 'gold600'],
-  5: ['gold50', 'gold100', 'gold200', 'gold400', 'gold600'],
-  6: ['gold50', 'gold100', 'gold200', 'gold400', 'gold600', 'gold700']
-}), _defineProperty(_ThemeMap, Themes.ThemeArrangeQuinaryBerry, {
-  2: ['berry200', 'berry400'],
-  3: ['berry100', 'berry200', 'berry400'],
-  4: ['berry100', 'berry200', 'berry400', 'berry600'],
-  5: ['berry50', 'berry100', 'berry200', 'berry400', 'berry600'],
-  6: ['berry50', 'berry100', 'berry200', 'berry400', 'berry600', 'berry700']
-}), _defineProperty(_ThemeMap, Themes.ThemeArrangeGradient, {
-  'Primary-Sea': {
-    0: 'sea100',
-    50: 'sea300',
-    100: 'sea500'
-  },
-  'Secondary-Teal': {
-    0: 'teal200',
-    50: 'teal400',
-    100: 'teal600'
-  }
-}), _ThemeMap);
-var getColorsByTheme = function getColorsByTheme(theme, size) {
-  if (['blue', 'green', 'compare'].includes(theme)) {
-    return ThemeMap.v1[theme];
-  }
-
-  var dataSize = Math.max(2, size);
-  var list = ThemeMap[theme || Themes.ThemeArrangePrimarySea][dataSize];
-  return lodash.map(list, function (name) {
-    return ColorSetMap[name];
-  });
-};
-var Box = styled__default.div(_templateObject$c());
-var ThemeBox = styled__default.div(_templateObject2$a());
-var ColorBox = styled__default.section(_templateObject3$6(), function (props) {
-  return props.size ? "".concat(props.size, "px") : '100px';
-}, function (props) {
-  return props.size ? "".concat(props.size, "px") : '100px';
-}, function (props) {
-  return props.value;
-});
-
-var ChartColorSet = function ChartColorSet(_ref) {
-  var themeName = _ref.themeName;
-  return React__default.createElement(Box, null, React__default.createElement("h3", null, themeName), lodash.map(ColorSet[themeName], function (value, key) {
-    return React__default.createElement("dl", {
-      key: key
-    }, React__default.createElement("dt", null, key), React__default.createElement("dd", null, value), React__default.createElement("dd", null, React__default.createElement(ColorBox, {
-      value: value
-    })));
-  }));
-};
-
-ChartColorSet.defaultProps = {};
-ChartColorSet.propTypes = {
-  themeName: propTypes.string.isRequired
-};
-
-var ChartColorTheme = function ChartColorTheme(_ref2) {
-  var themeName = _ref2.themeName;
-  return React__default.createElement(ThemeBox, null, React__default.createElement("h3", null, themeName), React__default.createElement("article", null, lodash.map(ThemeMap[themeName], function (value, key) {
-    return React__default.createElement("div", {
-      key: key
-    }, React__default.createElement("h4", null, key), React__default.createElement("div", null, lodash.map(value, function (str) {
-      return React__default.createElement("dl", {
-        key: str
-      }, React__default.createElement("dt", null, str), React__default.createElement("dd", null, ColorSetMap[str]), React__default.createElement("dd", null, React__default.createElement(ColorBox, {
-        size: 40,
-        value: ColorSetMap[str] || str
-      })));
-    })));
-  })));
-};
-
-ChartColorTheme.defaultProps = {};
-ChartColorTheme.propTypes = {
-  themeName: propTypes.string.isRequired
-};
-
-var ChartColor = function ChartColor() {
-  var ColorList = ['Primary-Sea', 'Secondary-Teal', 'Tertiary-Rose', 'Quaternary-Gold', 'Quinary-Berry', 'Total-Bluegrey', 'Chart-Hover'];
-
-  var ThemeList = lodash.values(Themes);
-
-  return React__default.createElement(React__default.Fragment, null, lodash.map(ColorList, function (themeName) {
-    return React__default.createElement(ChartColorSet, {
-      key: themeName,
-      themeName: themeName
-    });
-  }), lodash.map(ThemeList, function (themeName) {
-    return React__default.createElement(ChartColorTheme, {
-      key: themeName,
-      themeName: themeName
-    });
-  }));
-};
-
-var ChartColor$1 = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	ColorSet: ColorSet,
-	ColorSetMap: ColorSetMap,
-	Themes: Themes,
-	getColorsByTheme: getColorsByTheme,
-	'default': ChartColor
-});
-
 var tickFormatterCustom = function tickFormatterCustom(value, isPercent) {
   if (isPercent) {
     return "".concat((Number(value) * 100).toFixed(0), " %");
@@ -25362,55 +25453,100 @@ var BarChart = function BarChart(_ref) {
     scrollChartMargin.bottom = 0;
   }
 
-  return React__default.createElement("div", null, React__default.createElement(Heading, {
-    size: "18",
-    style: {
-      marginBottom: '30px'
+  var barCount = lodash.size(newYDataKey);
+
+  var barSize;
+
+  if (stackId) {
+    barCount = 1;
+  }
+
+  if (layout === 'horizontal') {
+    barSize = {
+      1: 48,
+      2: 40,
+      3: 40,
+      4: 40
+    }[barCount] || 32;
+  }
+
+  if (layout === 'vertical') {
+    barSize = {
+      1: 34
+    }[barCount] || 16;
+  }
+
+  var barGap = 1;
+  var height;
+
+  if (layout === 'horizontal') {
+    height = 263;
+  }
+
+  if (layout === 'vertical') {
+    var space = 35; // 35 를 세부적으로 계산해야 하겠다 // margin.top + margin.bottom
+
+    var barCagetoryGap = 34;
+    height = barCount * barSize * lodash.size(data) + (lodash.size(data) - 1) * barCagetoryGap;
+
+    if (barCount > 1) {
+      height += (barCount - 1) * barGap * lodash.size(data);
     }
-  }, title), React__default.createElement(LegendList, {
+
+    height = Math.max(298, height);
+    height += space;
+  }
+
+  return React__default.createElement("div", null, React__default.createElement(chartTitle, null, title), React__default.createElement(LegendList, {
     data: legendData
-  }), isEmpty(data) ? React__default.createElement(EmptyPlaceHolder, null) : React__default.createElement("div", null, React__default.createElement(WrapperScrollBars, {
+  }), isEmpty(data) ? React__default.createElement(EmptyPlaceHolder, {
+    height: height
+  }) : React__default.createElement("div", null, React__default.createElement(WrapperScrollBars, {
     scroll: scroll
   }, React__default.createElement(Rechart.ResponsiveContainer, {
-    height: 415
+    height: height
   }, React__default.createElement(Rechart.BarChart, {
     data: data,
-    height: 415,
+    height: height,
     layout: layout,
-    margin: scrollChartMargin
+    margin: scrollChartMargin,
+    barGap: barGap
   }, React__default.createElement(Rechart.CartesianGrid, {
-    vertical: false,
-    stroke: color.$line_graph_xy_grey
+    vertical: layout !== 'horizontal',
+    horizontal: layout === 'horizontal',
+    stroke: colorV1.$grey04
   }), React__default.createElement(Rechart.XAxis, {
     hide: isScroll,
+    axisLine: {
+      stroke: colorV1.$grey06
+    },
     tickLine: false,
     tickMargin: 10,
-    stroke: "rgba(0, 0, 0, 0.6)",
+    stroke: colorV1.$grey08,
     dataKey: XAxisDataKey,
     tickFormatter: XAxisTicFormatter,
-    type: XAxisType
+    type: XAxisType,
+    height: 20,
+    dy: -10 + 8
   }, xData.label && React__default.createElement(Rechart.Label, {
     value: xData.label.value,
     offset: 10,
     position: "bottom",
-    style: {
-      fill: 'rgba(0, 0, 0, 0.6)'
-    }
+    style: LabelStyle.style
   })), React__default.createElement(Rechart.YAxis, {
     axisLine: false,
     tickMargin: 10,
-    stroke: "rgba(0, 0, 0, 0.4)",
+    stroke: colorV1.$grey08,
     tickLine: false,
     dataKey: YAxisDataKey,
     tickFormatter: YAxisTicFormatter,
-    type: YAxisType
+    type: YAxisType,
+    dx: 15 - 16
   }, yData.label && React__default.createElement(Rechart.Label, {
     value: yData.label.value,
     offset: 0,
     position: "left",
-    style: {
-      fill: 'rgba(0, 0, 0, 0.4)'
-    }
+    style: LabelStyle.style
   })), !lodash.isUndefined(themes) && React__default.createElement(Rechart.Tooltip, {
     isPercent: isPercent,
     content: TooltipCompareContent,
@@ -25418,7 +25554,10 @@ var BarChart = function BarChart(_ref) {
       var name = _ref2[xDataKey];
       return name;
     }),
-    colorObject: colors
+    colorObject: colors,
+    cursor: {
+      fill: ColorSet['Chart-Hover']['grey-hover']
+    }
   }), !lodash.isUndefined(themes) && newYDataKey.map(function (entry, index) {
     return React__default.createElement(Rechart.Bar, {
       key: "bar".concat(entry),
@@ -25434,13 +25573,17 @@ var BarChart = function BarChart(_ref) {
     }));
   }), lodash.isUndefined(themes) && React__default.createElement(Rechart.Tooltip, {
     isPercent: isPercent,
-    content: TooltipBox
+    content: TooltipBox,
+    cursor: {
+      fill: ColorSet['Chart-Hover']['grey-hover']
+    }
   }), lodash.isUndefined(themes) && newYDataKey.map(function (entry, index) {
     return React__default.createElement(Rechart.Bar, {
       key: "bar".concat(entry),
       dataKey: entry,
       fill: colors[index],
-      stackId: stackId
+      stackId: stackId,
+      barSize: barSize
     });
   })))), isScroll && React__default.createElement(Rechart.ResponsiveContainer, {
     height: 31 + margin.bottom
@@ -25450,11 +25593,15 @@ var BarChart = function BarChart(_ref) {
     layout: layout,
     margin: lodash.extend({}, margin, {
       top: 5
-    })
+    }),
+    barGap: barGap
   }, React__default.createElement(Rechart.XAxis, {
+    axisLine: {
+      stroke: colorV1.$grey06
+    },
     tickLine: false,
     tickMargin: 10,
-    stroke: "rgba(0, 0, 0, 0.6)",
+    stroke: colorV1.$grey08,
     dataKey: XAxisDataKey,
     tickFormatter: XAxisTicFormatter,
     type: XAxisType
@@ -25462,13 +25609,11 @@ var BarChart = function BarChart(_ref) {
     value: xData.label.value,
     offset: 10,
     position: "bottom",
-    style: {
-      fill: 'rgba(0, 0, 0, 0.6)'
-    }
+    style: LabelStyle.style
   })), React__default.createElement(Rechart.YAxis, {
     axisLine: false,
     tickMargin: 10,
-    stroke: "rgba(0, 0, 0, 0.4)",
+    stroke: colorV1.$grey08,
     tickLine: false,
     dataKey: YAxisDataKey,
     tickFormatter: YAxisTicFormatter,
@@ -25481,7 +25626,8 @@ var BarChart = function BarChart(_ref) {
       key: "bar".concat(entry),
       dataKey: entry,
       fill: colors[index],
-      stackId: stackId
+      stackId: stackId,
+      barSize: barSize
     });
   })))));
 };
@@ -25493,11 +25639,11 @@ BarChart.defaultProps = {
   stackId: undefined,
   xDataKey: 'name',
   yDataKey: ['value', []],
-  theme: 'theme-arrange-primary-sea',
+  theme: Themes.ThemeArrangePrimarySea,
   themes: undefined,
   isPercent: false,
   margin: {
-    top: 5,
+    top: 10,
     right: 5,
     bottom: 5,
     left: 5
@@ -25514,7 +25660,7 @@ BarChart.propTypes = {
   xDataKey: propTypes.string,
   yDataKey: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
   themes: propTypes.oneOfType([propTypes.arrayOf(propTypes.string)]),
-  theme: propTypes.oneOf(['blue', 'green', 'compare', 'theme-arrange-primary-sea', 'theme-arrange-secondary-teal', 'theme-arrange-tertiary-rose', 'theme-arrange-quaternary-gold', 'theme-arrange-quinary-berry', 'theme-compare-primary-sea', 'theme-compare-secondary-teal']),
+  theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal, Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold, Themes.ThemeArrangeQuinaryBerry, Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3]),
   isPercent: propTypes.bool,
   margin: propTypes.shape({
     top: propTypes.number,
@@ -25538,7 +25684,7 @@ BarChart.propTypes = {
 };
 
 function _templateObject$d() {
-  var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-right: 1px dashed rgba(0, 45, 79, 0.2)\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
 
   _templateObject$d = function _templateObject() {
     return data;
@@ -25546,7 +25692,36 @@ function _templateObject$d() {
 
   return data;
 }
-var Box$1 = styled__default.article(_templateObject$d());
+var Text$1 = styled__default.header(_templateObject$d(), Text);
+
+var Heading = function Heading(_ref) {
+  var size = _ref.size,
+      children = _ref.children,
+      style = _ref.style;
+  return React__default.createElement(Text$1, {
+    size: size,
+    bold: true,
+    style: style
+  }, children);
+};
+
+Heading.defaultProps = {
+  size: '22'
+};
+Heading.propTypes = {
+  size: propTypes.string
+};
+
+function _templateObject$e() {
+  var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-right: 1px dashed rgba(0, 45, 79, 0.2)\n  }\n"]);
+
+  _templateObject$e = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Box$1 = styled__default.article(_templateObject$e());
 
 var BarChartMulti = function BarChartMulti(_ref) {
   var title = _ref.title,
@@ -25767,7 +25942,7 @@ LineChart.defaultProps = {
   data: [],
   xDataKey: 'name',
   yDataKey: ['value', []],
-  theme: 'blue',
+  theme: Themes.ThemeArrangePrimarySea,
   isPercent: false,
   margin: {
     top: 10,
@@ -25783,7 +25958,7 @@ LineChart.propTypes = {
   data: propTypes.arrayOf(propTypes.shape({})),
   xDataKey: propTypes.string,
   yDataKey: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
-  theme: propTypes.oneOf(['blue', 'green', 'compare', 'theme-arrange-primary-sea', 'theme-arrange-secondary-teal', 'theme-arrange-tertiary-rose', 'theme-arrange-quaternary-gold', 'theme-arrange-quinary-berry']),
+  theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal, Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold, Themes.ThemeArrangeQuinaryBerry]),
   isPercent: propTypes.bool,
   margin: propTypes.shape({
     top: propTypes.number,
@@ -25803,9 +25978,9 @@ LineChart.propTypes = {
   })
 };
 
-var css_248z$3 = ".Timeline-module_timelineChart__6imxY {\n  position: relative;\n}\n\n/* xAxis */\n.Timeline-module_xAxis__2yeDE, .Timeline-module_overViewXAxis__3PeKr {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text:nth-child(n + 4) {\n  fill: rgba(0, 0, 0, 0.3);\n}\n.Timeline-module_verticalLineText__2adr2 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.Timeline-module_overViewXAxisGrid__1I727 path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.Timeline-module_tooltip__2A0o2 {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipDay__1lg2e {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipLabel__1aVan {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.Timeline-module_dot__3N3de {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
-var styles$3 = {"timelineChart":"Timeline-module_timelineChart__6imxY","xAxis":"Timeline-module_xAxis__2yeDE","overViewXAxis":"Timeline-module_overViewXAxis__3PeKr","labels":"Timeline-module_labels__8btAK","verticalLineText":"Timeline-module_verticalLineText__2adr2","overViewXAxisGrid":"Timeline-module_overViewXAxisGrid__1I727","tooltip":"Timeline-module_tooltip__2A0o2","tooltipDay":"Timeline-module_tooltipDay__1lg2e","tooltipLabel":"Timeline-module_tooltipLabel__1aVan","dot":"Timeline-module_dot__3N3de"};
-styleInject(css_248z$3);
+var css_248z$2 = ".Timeline-module_timelineChart__6imxY {\n  position: relative;\n}\n\n/* xAxis */\n.Timeline-module_xAxis__2yeDE, .Timeline-module_overViewXAxis__3PeKr {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text:nth-child(n + 4) {\n  fill: rgba(0, 0, 0, 0.3);\n}\n.Timeline-module_verticalLineText__2adr2 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.Timeline-module_overViewXAxisGrid__1I727 path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.Timeline-module_tooltip__2A0o2 {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipDay__1lg2e {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipLabel__1aVan {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.Timeline-module_dot__3N3de {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
+var styles$2 = {"timelineChart":"Timeline-module_timelineChart__6imxY","xAxis":"Timeline-module_xAxis__2yeDE","overViewXAxis":"Timeline-module_overViewXAxis__3PeKr","labels":"Timeline-module_labels__8btAK","verticalLineText":"Timeline-module_verticalLineText__2adr2","overViewXAxisGrid":"Timeline-module_overViewXAxisGrid__1I727","tooltip":"Timeline-module_tooltip__2A0o2","tooltipDay":"Timeline-module_tooltipDay__1lg2e","tooltipLabel":"Timeline-module_tooltipLabel__1aVan","dot":"Timeline-module_dot__3N3de"};
+styleInject(css_248z$2);
 
 var Timeline = /*#__PURE__*/function (_Component) {
   _inherits(Timeline, _Component);
@@ -25859,13 +26034,13 @@ var Timeline = /*#__PURE__*/function (_Component) {
       }); // 2. xAxis group
 
       var gXAxis = generateGroup(gTimeline, {
-        className: styles$3.xAxis,
+        className: styles$2.xAxis,
         xOffset: yAxisWidth + defaultPadding + 25,
         yOffset: xAxisHeight
       }); //  3. labels group
 
       var gLabels = generateGroup(gTimeline, {
-        className: styles$3.labels,
+        className: styles$2.labels,
         xOffset: 25,
         yOffset: 60
       });
@@ -25906,7 +26081,7 @@ var Timeline = /*#__PURE__*/function (_Component) {
       gXAxisGrid.select('.domain').remove(); // add vertical line
 
       var lineScale = d3.scaleTime().domain([startTime, endTime]).range([yAxisWidth + defaultPadding + 25 - 1, width]);
-      var verticalLineText = svg.append('text').attr('class', styles$3.verticalLineText).attr('y', 42);
+      var verticalLineText = svg.append('text').attr('class', styles$2.verticalLineText).attr('y', 42);
 
       var mouseover = function mouseover() {
         focus.style('opacity', 1);
@@ -25931,7 +26106,7 @@ var Timeline = /*#__PURE__*/function (_Component) {
       var rectColorScale = d3.scaleOrdinal().domain(labelList(timelineData)).range(['#27b097', '#fa6b57', '#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec']);
       d3.scaleOrdinal(d3.schemePaired); // Add tooltip
 
-      var tooltip = d3.select(".".concat(styles$3.timelineChart)).append('div').attr('class', styles$3.tooltip).style('opacity', 0); //  Create Data Group
+      var tooltip = d3.select(".".concat(styles$2.timelineChart)).append('div').attr('class', styles$2.tooltip).style('opacity', 0); //  Create Data Group
 
       var gData = generateGroup(gTimeline, {
         className: 'data',
@@ -25953,7 +26128,7 @@ var Timeline = /*#__PURE__*/function (_Component) {
               y = _d3$mouse2[1];
 
           var drawLabel = label[label.length - 1];
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$3.tooltipLabel, "><span class=").concat(styles$3.dot, "></span> ").concat(drawLabel, "</div>\n              <div class=").concat(styles$3.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, "></span> ").concat(drawLabel, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + 200, "px")).style('top', "".concat(y - 20, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function () {
@@ -25975,7 +26150,7 @@ var Timeline = /*#__PURE__*/function (_Component) {
               y = _d3$mouse4[1];
 
           var drawLabel = label[label.length - 1];
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$3.tooltipLabel, "><span class=").concat(styles$3.dot, "></span> ").concat(drawLabel, "</div>\n              <div class=").concat(styles$3.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, "></span> ").concat(drawLabel, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + 200, "px")).style('top', "".concat(y - 20, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function () {
@@ -25991,14 +26166,14 @@ var Timeline = /*#__PURE__*/function (_Component) {
         yOffset: height - overViewAxisHeight - xAxisHeight
       });
       var overViewGrid = generateGroup(gOverViewAxis, {
-        className: styles$3.overViewXAxisGrid,
+        className: styles$2.overViewXAxisGrid,
         xOffset: 0,
         yOffset: 0
       }).call(d3.axisTop(xAxisScale).tickSize(-overViewAxisHeight).tickFormat(''));
       overViewGrid.selectAll('.domain').attr('stroke', '#003964');
       overViewGrid.selectAll('.tick line').attr('stroke', 'none');
       var overViewXAxis = generateGroup(gOverViewAxis, {
-        className: styles$3.overViewXAxis,
+        className: styles$2.overViewXAxis,
         xOffset: 0,
         yOffset: overViewAxisHeight + 10
       }).call(d3.axisBottom(xAxisScale).tickPadding(0));
@@ -26116,7 +26291,7 @@ var Timeline = /*#__PURE__*/function (_Component) {
 
       return React__default.createElement("div", {
         ref: this.rootElement,
-        className: styles$3.timelineChart
+        className: styles$2.timelineChart
       });
     }
   }]);
@@ -26136,9 +26311,9 @@ Timeline.propTypes = {
   })).isRequired
 };
 
-var css_248z$4 = ".LineMergeTimeline-module_timelineChart__fPLk5 {\n  position: relative;\n}\n\n.LineMergeTimeline-module_title__3WWUl {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: #000000;\n  opacity: 0.6;      \n}\n\n/* xAxis */\n.LineMergeTimeline-module_xAxis__k99X0, .LineMergeTimeline-module_overViewXAxis__wNJ-S {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.LineMergeTimeline-module_timelineLabels__134WI text, .LineMergeTimeline-module_gLineYAxis__21s70 {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.3);\n  color: rgba(0, 0, 0, 0.3);\n}\n\n.LineMergeTimeline-module_verticalLineText__jLQi7 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.LineMergeTimeline-module_overViewXAxisGrid__3TiBI path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.LineMergeTimeline-module_tooltip__2Pb8F {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.LineMergeTimeline-module_tooltip__2Pb8F .LineMergeTimeline-module_tooltipDay__1z4eb {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.LineMergeTimeline-module_tooltip__2Pb8F .LineMergeTimeline-module_tooltipLabel__3tt0o {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.LineMergeTimeline-module_dot__3RKc6 {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}\n\n.LineMergeTimeline-module_lineDot__3JOC_ {\n  cursor: pointer;\n}";
-var styles$4 = {"timelineChart":"LineMergeTimeline-module_timelineChart__fPLk5","title":"LineMergeTimeline-module_title__3WWUl","xAxis":"LineMergeTimeline-module_xAxis__k99X0","overViewXAxis":"LineMergeTimeline-module_overViewXAxis__wNJ-S","timelineLabels":"LineMergeTimeline-module_timelineLabels__134WI","gLineYAxis":"LineMergeTimeline-module_gLineYAxis__21s70","verticalLineText":"LineMergeTimeline-module_verticalLineText__jLQi7","overViewXAxisGrid":"LineMergeTimeline-module_overViewXAxisGrid__3TiBI","tooltip":"LineMergeTimeline-module_tooltip__2Pb8F","tooltipDay":"LineMergeTimeline-module_tooltipDay__1z4eb","tooltipLabel":"LineMergeTimeline-module_tooltipLabel__3tt0o","dot":"LineMergeTimeline-module_dot__3RKc6","lineDot":"LineMergeTimeline-module_lineDot__3JOC_"};
-styleInject(css_248z$4);
+var css_248z$3 = ".LineMergeTimeline-module_timelineChart__fPLk5 {\n  position: relative;\n}\n\n.LineMergeTimeline-module_title__3WWUl {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: #000000;\n  opacity: 0.6;      \n}\n\n/* xAxis */\n.LineMergeTimeline-module_xAxis__k99X0, .LineMergeTimeline-module_overViewXAxis__wNJ-S {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.LineMergeTimeline-module_timelineLabels__134WI text, .LineMergeTimeline-module_gLineYAxis__21s70 {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.3);\n  color: rgba(0, 0, 0, 0.3);\n}\n\n.LineMergeTimeline-module_verticalLineText__jLQi7 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.LineMergeTimeline-module_overViewXAxisGrid__3TiBI path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.LineMergeTimeline-module_tooltip__2Pb8F {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.LineMergeTimeline-module_tooltip__2Pb8F .LineMergeTimeline-module_tooltipDay__1z4eb {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.LineMergeTimeline-module_tooltip__2Pb8F .LineMergeTimeline-module_tooltipLabel__3tt0o {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.LineMergeTimeline-module_dot__3RKc6 {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}\n\n.LineMergeTimeline-module_lineDot__3JOC_ {\n  cursor: pointer;\n}";
+var styles$3 = {"timelineChart":"LineMergeTimeline-module_timelineChart__fPLk5","title":"LineMergeTimeline-module_title__3WWUl","xAxis":"LineMergeTimeline-module_xAxis__k99X0","overViewXAxis":"LineMergeTimeline-module_overViewXAxis__wNJ-S","timelineLabels":"LineMergeTimeline-module_timelineLabels__134WI","gLineYAxis":"LineMergeTimeline-module_gLineYAxis__21s70","verticalLineText":"LineMergeTimeline-module_verticalLineText__jLQi7","overViewXAxisGrid":"LineMergeTimeline-module_overViewXAxisGrid__3TiBI","tooltip":"LineMergeTimeline-module_tooltip__2Pb8F","tooltipDay":"LineMergeTimeline-module_tooltipDay__1z4eb","tooltipLabel":"LineMergeTimeline-module_tooltipLabel__3tt0o","dot":"LineMergeTimeline-module_dot__3RKc6","lineDot":"LineMergeTimeline-module_lineDot__3JOC_"};
+styleInject(css_248z$3);
 
 var LineMergeTimeline = /*#__PURE__*/function (_Component) {
   _inherits(LineMergeTimeline, _Component);
@@ -26159,7 +26334,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
       // 1. Create xAxis group
 
       var gXAxis = generateGroup(_this.getRootElement().select('.timeline'), {
-        className: styles$4.xAxis,
+        className: styles$3.xAxis,
         xOffset: yAxisWidth,
         yOffset: xAxisHeight
       }); // 2. Render xAxis
@@ -26175,7 +26350,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
           xAxisHeight = _this$options2.xAxisHeight; // 1. Create Line YAxis group
 
       var gLineYAxis = generateGroup(_this.getRootElement().select('.timeline'), {
-        className: styles$4.gLineYAxis,
+        className: styles$3.gLineYAxis,
         xOffset: yAxisWidth,
         yOffset: xAxisHeight
       }); // 2. Create Line YAxis
@@ -26185,7 +26360,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
       }).tickPadding(17); // 3. Add LineTitle
       // const lineTitle =
 
-      _this.getRootElement().select('.timeline').append('text').text('MACE Risk by Visit').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + 6).attr('class', styles$4.title); // 4. Render Line YAxis
+      _this.getRootElement().select('.timeline').append('text').text('MACE Risk by Visit').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + 6).attr('class', styles$3.title); // 4. Render Line YAxis
 
 
       gLineYAxis.call(lineYAxis);
@@ -26232,7 +26407,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
       var focus = _this.getRootElement().select('.timeline').append('line').attr('class', 'focus').attr('fill', 'none').style('pointer-events', 'none'); // 1. Create vertical line text
 
 
-      var verticalLineText = svg.append('text').attr('class', styles$4.verticalLineText).attr('y', xAxisHeight); // 2. Create vertical line mouse event
+      var verticalLineText = svg.append('text').attr('class', styles$3.verticalLineText).attr('y', xAxisHeight); // 2. Create vertical line mouse event
 
       var mouseover = function mouseover() {
         focus.style('opacity', 1);
@@ -26285,7 +26460,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
         }) ? colorScale(lineYAxisScale(lineChartFirstYValue)) : 'url(#svgGradient)';
       }).attr('stroke-width', 2).attr('d', line); // 3. Render Line Point
 
-      gLine.append('g').selectAll("".concat(styles$4.lineDot)).data(lineChartData).enter().append('circle').attr('class', "".concat(styles$4.lineDot)).attr('fill', function (d) {
+      gLine.append('g').selectAll("".concat(styles$3.lineDot)).data(lineChartData).enter().append('circle').attr('class', "".concat(styles$3.lineDot)).attr('fill', function (d) {
         return colorScale(lineYAxisScale(d.y));
       }).attr('cx', function (d) {
         return xAxisScale(Date.parse(d.x));
@@ -26296,13 +26471,13 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
         var y = lineYAxisScale(d.y);
         var label = d.y;
 
-        var tooltip = _this.getRootElement().select(".".concat(styles$4.tooltip));
+        var tooltip = _this.getRootElement().select(".".concat(styles$3.tooltip));
 
-        var tooltipDescription = "\n          <div>\n            <div><span class=".concat(styles$4.tooltipLabel, ">").concat(label, "</span></div>\n          </div>\n          ");
+        var tooltipDescription = "\n          <div>\n            <div><span class=".concat(styles$3.tooltipLabel, ">").concat(label, "</span></div>\n          </div>\n          ");
         tooltip.transition().duration(200).style('opacity', 1);
         tooltip.style('left', "".concat(x, "px")).style('top', "".concat(y, "px")).style('pointer-events', 'none').html(tooltipDescription);
       }).on('mouseout', function () {
-        return _this.getRootElement().select(".".concat(styles$4.tooltip)).transition().duration(200).style('opacity', 0);
+        return _this.getRootElement().select(".".concat(styles$3.tooltip)).transition().duration(200).style('opacity', 0);
       }).on('click', function (d, i) {
         if (lodash.isFunction(scoreClickEvent)) {
           scoreClickEvent(d, i);
@@ -26319,13 +26494,13 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
           yAxisWidth = _this$options6.yAxisWidth; // 1. Create Timeline Label Group
 
       var gTimelineLabels = generateGroup(_this.getRootElement().select('.timeline'), {
-        className: styles$4.timelineLabels,
+        className: styles$3.timelineLabels,
         xOffset: -defaultPadding.left,
         yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.top
       }); // 2. Render Timeline Label
       // const timelineTitle =
 
-      _this.getRootElement().select('.timeline').append('text').text('Clinical Timeline').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + lineYAxisHeight + defaultMargin.top + 6).attr('class', styles$4.title);
+      _this.getRootElement().select('.timeline').append('text').text('Clinical Timeline').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + lineYAxisHeight + defaultMargin.top + 6).attr('class', styles$3.title);
 
       gTimelineLabels.selectAll('.timelineLabel').data(timelineData).enter().append('text').text(function (d) {
         return d.label[d.label.length - 1];
@@ -26412,13 +26587,13 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
 
           var label = data.label[data.label.length - 1];
 
-          var tooltip = _this.getRootElement().select(".".concat(styles$4.tooltip));
+          var tooltip = _this.getRootElement().select(".".concat(styles$3.tooltip));
 
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$4.tooltipLabel, "><span class=").concat(styles$4.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$4.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$3.tooltipLabel, "><span class=").concat(styles$3.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$3.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + yAxisWidth, "px")).style('top', "".concat(y + xAxisHeight + lineYAxisHeight + 7.5, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function () {
-          return _this.getRootElement().select(".".concat(styles$4.tooltip)).transition().duration(200).style('opacity', 0);
+          return _this.getRootElement().select(".".concat(styles$3.tooltip)).transition().duration(200).style('opacity', 0);
         });
       }); // Add Rect Group
 
@@ -26435,13 +26610,13 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
 
           var label = data.label[data.label.length - 1];
 
-          var tooltip = _this.getRootElement().select(".".concat(styles$4.tooltip));
+          var tooltip = _this.getRootElement().select(".".concat(styles$3.tooltip));
 
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$4.tooltipLabel, "><span class=").concat(styles$4.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$4.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$3.tooltipLabel, "><span class=").concat(styles$3.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$3.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + yAxisWidth, "px")).style('top', "".concat(y + xAxisHeight + lineYAxisHeight + 7.5, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function () {
-          return _this.getRootElement().select(".".concat(styles$4.tooltip)).transition().duration(200).style('opacity', 0);
+          return _this.getRootElement().select(".".concat(styles$3.tooltip)).transition().duration(200).style('opacity', 0);
         });
       });
     });
@@ -26462,7 +26637,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
       }); // 2. Render OverViewAxis Grid
 
       var overViewGrid = generateGroup(gOverViewAxis, {
-        className: styles$4.overViewXAxisGrid,
+        className: styles$3.overViewXAxisGrid,
         xOffset: 0,
         yOffset: 0
       }).call(d3.axisTop(xAxisScale).tickSize(-overViewAxisHeight).tickFormat(''));
@@ -26470,7 +26645,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
       overViewGrid.selectAll('.tick line').attr('stroke', 'none'); // 3. Render OverViewXAxis
 
       var overViewXAxis = generateGroup(gOverViewAxis, {
-        className: styles$4.overViewXAxis,
+        className: styles$3.overViewXAxis,
         xOffset: 0,
         yOffset: overViewAxisHeight
       }).call(d3.axisBottom(xAxisScale).tickPadding(17));
@@ -26520,11 +26695,11 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
         xAxisScale.domain([Date.parse(start), Date.parse(end)]);
         lineScale.domain([Date.parse(start), Date.parse(end)]);
 
-        _this.getRootElement().select(".".concat(styles$4.xAxis)).transition().duration(500).call(xAxis);
+        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).call(xAxis);
 
-        _this.getRootElement().select(".".concat(styles$4.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5V0.5');
+        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5V0.5');
 
-        _this.getRootElement().select(".".concat(styles$4.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Line Chart Grid
+        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Line Chart Grid
 
 
         _this.getRootElement().select('.lineYAxisGrid').selectAll('tick').remove();
@@ -26552,7 +26727,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
 
         _this.getRootElement().select('.gLine').selectAll('path').transition().duration(500).attr('d', line).attr('clip-path', 'url(#clip)');
 
-        _this.getRootElement().select('.gLine').selectAll(".".concat(styles$4.lineDot)).transition().duration(500).attr('clip-path', 'url(#clip)').attr('cx', function (d) {
+        _this.getRootElement().select('.gLine').selectAll(".".concat(styles$3.lineDot)).transition().duration(500).attr('clip-path', 'url(#clip)').attr('cx', function (d) {
           return xAxisScale(Date.parse(d.x));
         }); // Timeline Data Render
 
@@ -26590,11 +26765,11 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
         xAxisScale.domain(overViewXAxisScale.domain());
         lineScale.domain(overViewXAxisScale.domain());
 
-        _this.getRootElement().select(".".concat(styles$4.xAxis)).transition().duration(500).call(xAxis);
+        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).call(xAxis);
 
-        _this.getRootElement().select(".".concat(styles$4.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5 V0.5');
+        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5 V0.5');
 
-        _this.getRootElement().select(".".concat(styles$4.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Initialize Line Chart Grid
+        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Initialize Line Chart Grid
 
 
         var lineYAxisGridLines = d3.axisTop(xAxisScale).tickSize(-lineYAxisHeight).tickFormat('');
@@ -26618,7 +26793,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
 
         _this.getRootElement().select('.gLine').selectAll('path').transition().duration(500).attr('d', line);
 
-        _this.getRootElement().select('.gLine').selectAll(".".concat(styles$4.lineDot)).transition().duration(500).attr('cx', function (d) {
+        _this.getRootElement().select('.gLine').selectAll(".".concat(styles$3.lineDot)).transition().duration(500).attr('cx', function (d) {
           return xAxisScale(Date.parse(d.x));
         }); // Initialize Timeline
 
@@ -26680,7 +26855,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
           endTime = _this$getScaleTime.endTime; // Create tooltip
 
 
-      _this.getRootElement().append('div').attr('class', styles$4.tooltip).style('opacity', 0);
+      _this.getRootElement().append('div').attr('class', styles$3.tooltip).style('opacity', 0);
 
       var svg = renderSVG(_this.getRootElement(), _this.options.width, _this.options.height); // Create Entire groups
       // 1. Entire timeline group
@@ -26826,7 +27001,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
 
       return React__default.createElement("div", {
         ref: this.rootElement,
-        className: styles$4.timelineChart
+        className: styles$3.timelineChart
       });
     }
   }]);
@@ -26868,16 +27043,16 @@ LineMergeTimeline.propTypes = {
   resetBtnId: propTypes.string
 };
 
-function _templateObject$e() {
+function _templateObject$f() {
   var data = _taggedTemplateLiteral(["\n  height: 70px\n  background-color: ", "\n  padding: 0 30px\n  display: flex\n  align-items: center\n  margin-bottom: 40px\n\n  a:active, a:hover {\n    text-decoration: none\n  }\n\n  border-bottom: 1px solid ", "\n"]);
 
-  _templateObject$e = function _templateObject() {
+  _templateObject$f = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var NavbarBox = styled__default.nav(_templateObject$e(), color.$primary_white, color.$line_search_grey);
+var NavbarBox = styled__default.nav(_templateObject$f(), color.$primary_white, color.$line_search_grey);
 
 var Navbar = function Navbar(_ref) {
   var style = _ref.style,
@@ -26887,27 +27062,27 @@ var Navbar = function Navbar(_ref) {
   }, children);
 };
 
-function _templateObject2$b() {
+function _templateObject2$c() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  border-top: 1px solid ", "\n  height: ", "\n\n  display: flex\n  align-items: center\n\n  p {\n    padding-left: 32px\n  }\n"]);
 
-  _templateObject2$b = function _templateObject2() {
+  _templateObject2$c = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$f() {
+function _templateObject$g() {
   var data = _taggedTemplateLiteral(["\n  position: absolute\n  bottom: 0\n  height: ", "\n  padding: 0\n  width: 100%\n  box-sizing: border-box\n"]);
 
-  _templateObject$f = function _templateObject() {
+  _templateObject$g = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var FooterWrap = styled__default.footer(_templateObject$f(), size.$footer_height);
-var FooterBox = styled__default.div(_templateObject2$b(), Text, color.$line_search_grey, size.$footer_height);
+var FooterWrap = styled__default.footer(_templateObject$g(), size.$footer_height);
+var FooterBox = styled__default.div(_templateObject2$c(), Text, color.$line_search_grey, size.$footer_height);
 
 var Footer = function Footer(props) {
   var style = props.style;
@@ -26957,10 +27132,10 @@ function _templateObject5$3() {
   return data;
 }
 
-function _templateObject4$5() {
+function _templateObject4$6() {
   var data = _taggedTemplateLiteral(["\n  height: 0;\n  padding: 0 !important;\n  overflow: hidden;\n  opacity: 0;\n  pointer-events: none;\n"]);
 
-  _templateObject4$5 = function _templateObject4() {
+  _templateObject4$6 = function _templateObject4() {
     return data;
   };
 
@@ -26977,26 +27152,26 @@ function _templateObject3$7() {
   return data;
 }
 
-function _templateObject2$c() {
+function _templateObject2$d() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 14px 10px ", "px;\n  &:not(:last-child) {\n    margin-right: 20px;\n  }\n\n  cursor: pointer;\n  display: inline-block;\n  text-align: center;\n\n  &:hover {\n    color: ", ";\n    transition: color 0.5s ease;\n  }\n\n  position: relative;\n"]);
 
-  _templateObject2$c = function _templateObject2() {
+  _templateObject2$d = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$g() {
+function _templateObject$h() {
   var data = _taggedTemplateLiteral(["\n  border-bottom: 1px solid #dce0e4;\n  margin-bottom: 24px;\n"]);
 
-  _templateObject$g = function _templateObject() {
+  _templateObject$h = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var TabBox = styled__default.section(_templateObject$g());
+var TabBox = styled__default.section(_templateObject$h());
 var UnderLineSize = 3;
 var Tab = styled__default.span.attrs(function (props) {
   var options = props['aria-selected'] ? {
@@ -27008,11 +27183,11 @@ var Tab = styled__default.span.attrs(function (props) {
     size: 16,
     bold: true
   }, options);
-})(_templateObject2$c(), Text, 13 + UnderLineSize, colorV1.$pmblue);
+})(_templateObject2$d(), Text, 13 + UnderLineSize, colorV1.$pmblue);
 var TabUnderLine = styled__default.div.attrs(function () {})(_templateObject3$7(), UnderLineSize, colorV1.$pmblue, function (props) {
   return props['aria-selected'] ? 'block' : 'none';
 });
-var Hidden = styled.css(_templateObject4$5());
+var Hidden = styled.css(_templateObject4$6());
 var TabPane = styled__default.div.attrs()(_templateObject5$3(), function (props) {
   return props['aria-hidden'] ? Hidden : '';
 });
@@ -27108,18 +27283,18 @@ Tabs.Tab = Tab;
 Tabs.TabPane = TabPane;
 Tabs.TabUnderLine = TabUnderLine;
 
-var css_248z$5 = "/* select box */\n.Histogram-module_gDropDown__3g6OC {\n  position: absolute;\n  top: -8px;\n  right: 0px\n}";
-var styles$5 = {"gDropDown":"Histogram-module_gDropDown__3g6OC"};
-styleInject(css_248z$5);
+var css_248z$4 = "/* select box */\n.Histogram-module_gDropDown__3g6OC {\n  position: absolute;\n  top: -8px;\n  right: 0px\n}";
+var styles$4 = {"gDropDown":"Histogram-module_gDropDown__3g6OC"};
+styleInject(css_248z$4);
 
 var icnSelectOpenSm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE3LjY1NyA4LjE3MmExIDEgMCAxIDEgMS40MTQgMS40MTRsLTYuMzUyIDYuMzUxYTEuMDIgMS4wMiAwIDAgMS0uMDEyLjAxM2wtLjAxMy4wMTEtLjY5NC42OTYtMS40MTQtMS40MTQtNS42NTctNS42NTdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDEyIDEzLjgyOGw1LjY1Ny01LjY1NnoiLz4KPC9zdmc+';
 
 var icnSelectOpenXs = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTExLjUzNiA1LjI5M2ExIDEgMCAxIDEgMS40MTQgMS40MTRsLTMuNTM2IDMuNTM2LS43MDcuNzA3LS43MDcuNzA3LTEuNDE0LTEuNDE0TDMuMDUgNi43MDdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDggOC44MjhIOGwzLjUzNi0zLjUzNXoiLz4KPC9zdmc+';
 
-function _templateObject$h() {
+function _templateObject$i() {
   var data = _taggedTemplateLiteral(["\n  select {\n    ", "\n    &:focus {\n      box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16);\n    }\n\n    &:disabled {\n      background-color: rgba(0, 0, 0, 0.04);\n      color: rgba(0, 0, 0, 0.2);\n    }\n\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n\n    -moz-appearance: textfield;\n\n    option[value=\"\"][hidden] {\n      display: none;\n    }\n  }\n\n  option {\n    ", "\n  }\n\n  select:invalid {\n    color: rgba(0, 0, 0, 0.3);\n  }\n\n  ", "\n"]);
 
-  _templateObject$h = function _templateObject() {
+  _templateObject$i = function _templateObject() {
     return data;
   };
 
@@ -27179,7 +27354,7 @@ var Box$2 = styled__default.div.attrs(function (_ref) {
     opacity: disabled ? 2 : 8,
     SizeObject: SizeObject
   };
-})(_templateObject$h(), Text, Text, setSelectSize);
+})(_templateObject$i(), Text, Text, setSelectSize);
 
 var SelectBox = function SelectBox(_ref2) {
   var style = _ref2.style,
@@ -27273,16 +27448,15 @@ var Histogram = /*#__PURE__*/function (_Component) {
         return d.length === 0 ? 0 : _this.yAxisHeight - _this.yAxisScale(d.length);
       }).style('fill', function (d, i) {
         if (i === patientRiskIndex) {
-          return '#2c6ff5';
+          return _this.colors[0];
         }
 
-        return '#c3d1da';
+        return _this.colors[1];
       }).transition().duration(500);
       gBar.exit().remove();
     });
 
     _defineProperty(_assertThisInitialized(_this), "createLegend", function () {
-      var legendColorSet = ['#3c5ee5', '#c3d1da'];
       var gLegend = generateGroup(_this.getRootElement().select('.histogram'), {
         className: 'gLegend',
         xOffset: 0,
@@ -27296,7 +27470,7 @@ var Histogram = /*#__PURE__*/function (_Component) {
       gLegend.selectAll('legendCircle').data(args).enter().append('circle').attr('cx', function (d, i) {
         return 5 + 86 * i;
       }).attr('cy', 10).attr('r', 5).style('fill', function (d, i) {
-        return legendColorSet[i];
+        return _this.colors[i];
       }); // add legend text
 
       gLegend.selectAll('legend').data(args).enter().append('text').attr('x', function (d, i) {
@@ -27453,7 +27627,8 @@ var Histogram = /*#__PURE__*/function (_Component) {
 
     var _this$props4 = _this.props,
         chartWidth = _this$props4.chartWidth,
-        chartHeight = _this$props4.chartHeight;
+        chartHeight = _this$props4.chartHeight,
+        theme = _this$props4.theme;
     _this.options = {
       width: chartWidth || 1140,
       height: chartHeight || 385,
@@ -27464,6 +27639,7 @@ var Histogram = /*#__PURE__*/function (_Component) {
         bottom: 34
       }
     };
+    _this.colors = getColorsByTheme(theme);
     _this.fakeData = {
       risks: d3.range(1000).map(d3.randomBates(10)),
       patientRisk: 0.42,
@@ -27497,7 +27673,7 @@ var Histogram = /*#__PURE__*/function (_Component) {
           position: 'relative'
         }
       }, React__default.createElement("div", {
-        className: styles$5.gDropDown
+        className: styles$4.gDropDown
       }, React__default.createElement("span", {
         className: "".concat(fontStyle.fs14, " ").concat(fontStyle.fc_grey10)
       }, "Bins :"), React__default.createElement(SelectBox, {
@@ -27524,7 +27700,8 @@ Histogram.defaultProps = {
   chartWidth: undefined,
   chartHeight: undefined,
   onChange: function onChange() {},
-  initOnChangeFlag: false
+  initOnChangeFlag: false,
+  theme: Themes.ThemeComparePrimarySea1
 };
 Histogram.propTypes = {
   data: propTypes.shape({
@@ -27535,15 +27712,16 @@ Histogram.propTypes = {
   chartWidth: propTypes.number,
   chartHeight: propTypes.number,
   onChange: propTypes.func,
-  initOnChangeFlag: propTypes.bool
+  initOnChangeFlag: propTypes.bool,
+  theme: propTypes.oneOf([Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3])
 };
 
 var icnPopupCloseMd = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzQiIGhlaWdodD0iMzQiIHZpZXdCb3g9IjAgMCAzNCAzNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgzNHYzNEgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzU2NUI1RiIgZD0iTTE3LjE0MiA0LjE0MmExIDEgMCAwIDEgMSAxdjExaDExYTEgMSAwIDEgMSAwIDJoLTExdjExYTEgMSAwIDEgMS0yIDB2LTExaC0xMWExIDEgMCAxIDEgMC0yaDExdi0xMWExIDEgMCAwIDEgMS0xeiIgbWFzaz0idXJsKCNiKSIgdHJhbnNmb3JtPSJyb3RhdGUoLTQ1IDE3LjE0MiAxNy4xNDIpIi8+CiAgICA8L2c+Cjwvc3ZnPg==';
 
-function _templateObject6$1() {
+function _templateObject6$2() {
   var data = _taggedTemplateLiteral(["\n  margin-top: ", ";\n  padding-top: ", ";\n  border-top: 1px solid ", ";\n  text-align: right;\n\n  margin-left: -", ";\n  margin-right: -", ";\n  padding-left: ", ";\n  padding-right: ", ";\n"]);
 
-  _templateObject6$1 = function _templateObject6() {
+  _templateObject6$2 = function _templateObject6() {
     return data;
   };
 
@@ -27560,10 +27738,10 @@ function _templateObject5$4() {
   return data;
 }
 
-function _templateObject4$6() {
+function _templateObject4$7() {
   var data = _taggedTemplateLiteral(["\n"]);
 
-  _templateObject4$6 = function _templateObject4() {
+  _templateObject4$7 = function _templateObject4() {
     return data;
   };
 
@@ -27580,20 +27758,20 @@ function _templateObject3$8() {
   return data;
 }
 
-function _templateObject2$d() {
+function _templateObject2$e() {
   var data = _taggedTemplateLiteral(["\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  min-width: ", ";\n  border-radius: ", ";\n  background-color: ", ";\n  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);\n  z-index: ", ";\n\n  padding: ", ";\n"]);
 
-  _templateObject2$d = function _templateObject2() {
+  _templateObject2$e = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$i() {
+function _templateObject$j() {
   var data = _taggedTemplateLiteral(["\n  position: fixed;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background-color: ", ";\n  z-index: ", ";\n"]);
 
-  _templateObject$i = function _templateObject() {
+  _templateObject$j = function _templateObject() {
     return data;
   };
 
@@ -27608,17 +27786,17 @@ var size$1 = {
   footerPaddingTop: '24px',
   minWidth: '480px'
 };
-var Overlay = styled__default.div(_templateObject$i(), hexToRGB(color.$black, 0.6), function (props) {
+var Overlay = styled__default.div(_templateObject$j(), hexToRGB(color.$black, 0.6), function (props) {
   return props.isLoading ? zIndex.$modalOverlayLoading : zIndex.$modalOverlay;
 });
-var ModalBox = styled__default.div(_templateObject2$d(), size$1.minWidth, size$1.borderRadius, color.$primary_white, zIndex.$modal, size$1.modalPadding);
+var ModalBox = styled__default.div(_templateObject2$e(), size$1.minWidth, size$1.borderRadius, color.$primary_white, zIndex.$modal, size$1.modalPadding);
 var Header = styled__default.header(_templateObject3$8());
 var Contents = styled__default(TextTag).attrs({
   size: '18',
   bold: false
-})(_templateObject4$6());
+})(_templateObject4$7());
 var Loading = styled__default.div(_templateObject5$4());
-var Footer$1 = styled__default.footer(_templateObject6$1(), size$1.footerMarginTop, size$1.footerPaddingTop, color.$line_graph_xy_grey, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding);
+var Footer$1 = styled__default.footer(_templateObject6$2(), size$1.footerMarginTop, size$1.footerPaddingTop, color.$line_graph_xy_grey, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding);
 
 var Modal = function Modal(_ref) {
   var title = _ref.title,
@@ -27686,27 +27864,27 @@ function _templateObject3$9() {
   return data;
 }
 
-function _templateObject2$e() {
+function _templateObject2$f() {
   var data = _taggedTemplateLiteral(["\n  img {\n    opacity: 0.4;\n  }\n"]);
 
-  _templateObject2$e = function _templateObject2() {
+  _templateObject2$f = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$j() {
+function _templateObject$k() {
   var data = _taggedTemplateLiteral(["\n  label {\n    cursor: pointer;\n  }\n  img:hover:not(:disabled) {\n    box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16);\n  }\n  &:hover {\n    background-color: ", ";\n  }\n"]);
 
-  _templateObject$j = function _templateObject() {
+  _templateObject$k = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var CssEnable = styled.css(_templateObject$j(), color.$secondary_blue);
-var CssDiable = styled.css(_templateObject2$e());
+var CssEnable = styled.css(_templateObject$k(), color.$secondary_blue);
+var CssDiable = styled.css(_templateObject2$f());
 var Item = styled__default(TextTag).attrs(function () {
   return {
     size: 16,
@@ -28010,10 +28188,10 @@ RadioList.propTypes = {
   formatter: propTypes.func
 };
 
-function _templateObject4$7() {
+function _templateObject4$8() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n\n  span {\n    position: relative;\n    font-size: 0;\n  }\n  input {\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    z-index: 1;\n    cursor: pointer;\n    opacity: 0;\n  }\n  img {\n    margin-right: 12px;\n  }\n  cursor: pointer;\n  ", "\n"]);
 
-  _templateObject4$7 = function _templateObject4() {
+  _templateObject4$8 = function _templateObject4() {
     return data;
   };
 
@@ -28030,27 +28208,27 @@ function _templateObject3$a() {
   return data;
 }
 
-function _templateObject2$f() {
+function _templateObject2$g() {
   var data = _taggedTemplateLiteral(["\n  display: inline-block;\n\n  ", "\n  ", "\n  ", "\n"]);
 
-  _templateObject2$f = function _templateObject2() {
+  _templateObject2$g = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$k() {
+function _templateObject$l() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n"]);
 
-  _templateObject$k = function _templateObject() {
+  _templateObject$l = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Outer = styled__default.section(_templateObject$k());
-var Inner = styled__default.div(_templateObject2$f(), function (props) {
+var Outer = styled__default.section(_templateObject$l());
+var Inner = styled__default.div(_templateObject2$g(), function (props) {
   return props.align === 'center' ? "margin: 0 auto" : '';
 }, function (props) {
   return props.align === 'left' ? "margin-right: auto" : '';
@@ -28062,7 +28240,7 @@ var Label = styled__default.label.attrs(function () {
   return {
     className: [fontStyle.fs16, fontStyle.fc_grey09, fontStyle.bold].join(' ')
   };
-})(_templateObject4$7(), function (props) {
+})(_templateObject4$8(), function (props) {
   return props.disabled ? 'cursor: not-allowed;' : '';
 });
 
@@ -28901,7 +29079,9 @@ var RadarChart = /*#__PURE__*/function (_Component) {
         radarCategory = _this$props2.radarCategory,
         _groupData = _this$props2.groupData,
         _patientData = _this$props2.patientData,
-        legendOpen = _this$props2.legendOpen;
+        legendOpen = _this$props2.legendOpen,
+        theme = _this$props2.theme;
+    _this.colors = getColorsByTheme(theme);
     _this.options = {
       chart: {
         polar: true,
@@ -28939,12 +29119,12 @@ var RadarChart = /*#__PURE__*/function (_Component) {
       },
       series: [{
         name: 'Group',
-        color: '#b3c1ca',
+        color: _this.colors[1],
         data: _groupData,
         pointPlacement: 'on'
       }, {
         name: 'Patient',
-        color: '#3c5ee5',
+        color: _this.colors[0],
         data: _patientData,
         pointPlacement: 'on'
       }],
@@ -29001,7 +29181,8 @@ RadarChart.defaultProps = {
   radarCategory: ['visit_info', 'visit_history', 'lab', 'echo', 'drug', 'spect', 'demo', 'comorbidity', 'cabgpci', 'vitalsign'],
   groupData: [],
   patientData: [],
-  legendOpen: true
+  legendOpen: true,
+  theme: Themes.ThemeComparePrimarySea2
 };
 RadarChart.propTypes = {
   title: propTypes.string,
@@ -29010,7 +29191,8 @@ RadarChart.propTypes = {
   radarCategory: propTypes.arrayOf(propTypes.string),
   groupData: propTypes.arrayOf(propTypes.number),
   patientData: propTypes.arrayOf(propTypes.number),
-  legendOpen: propTypes.bool
+  legendOpen: propTypes.bool,
+  theme: propTypes.oneOf([Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3])
 };
 
 var treemap = createCommonjsModule(function (module) {
@@ -29187,9 +29369,9 @@ TreeMap.propTypes = {
   title: propTypes.string
 };
 
-var css_248z$6 = ".TimeToEvent-module_gLegend__3k55w text, .TimeToEvent-module_xAxis__hL73d text, .TimeToEvent-module_timeToEventLabel__1-iB2 {\n  font-size: 14px;\n  font-family: 'Spoqa Han Sans';\n  font-weight: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n}\n\n.TimeToEvent-module_gLegend__3k55w text {\n  text-anchor: start;\n}\n\n.TimeToEvent-module_xAxis__hL73d text {\n  text-anchor: middle;\n  fill: #6d7884;\n}\n\n.TimeToEvent-module_timeToEventLabel__1-iB2, #TimeToEvent-module_xAxisTitle__2Suka {\n  font-weight: bold;\n}\n";
-var styles$6 = {"gLegend":"TimeToEvent-module_gLegend__3k55w","xAxis":"TimeToEvent-module_xAxis__hL73d","timeToEventLabel":"TimeToEvent-module_timeToEventLabel__1-iB2","xAxisTitle":"TimeToEvent-module_xAxisTitle__2Suka"};
-styleInject(css_248z$6);
+var css_248z$5 = ".TimeToEvent-module_gLegend__3k55w text, .TimeToEvent-module_xAxis__hL73d text, .TimeToEvent-module_timeToEventLabel__1-iB2 {\n  font-size: 14px;\n  font-family: 'Spoqa Han Sans';\n  font-weight: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n}\n\n.TimeToEvent-module_gLegend__3k55w text {\n  text-anchor: start;\n}\n\n.TimeToEvent-module_xAxis__hL73d text {\n  text-anchor: middle;\n  fill: #6d7884;\n}\n\n.TimeToEvent-module_timeToEventLabel__1-iB2, #TimeToEvent-module_xAxisTitle__2Suka {\n  font-weight: bold;\n}\n";
+var styles$5 = {"gLegend":"TimeToEvent-module_gLegend__3k55w","xAxis":"TimeToEvent-module_xAxis__hL73d","timeToEventLabel":"TimeToEvent-module_timeToEventLabel__1-iB2","xAxisTitle":"TimeToEvent-module_xAxisTitle__2Suka"};
+styleInject(css_248z$5);
 
 var TimeToEvent = /*#__PURE__*/function (_Component) {
   _inherits(TimeToEvent, _Component);
@@ -29206,7 +29388,7 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
           defaultMargin = _this$options.defaultMargin,
           height = _this$options.height;
       var gXAxis = generateGroup(_this.getRootElement().select('.timeToEvent'), {
-        className: styles$6.xAxis,
+        className: styles$5.xAxis,
         xOffset: defaultMargin.left,
         yOffset: height - defaultMargin.bottom
       });
@@ -29214,7 +29396,7 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
       gXAxis.selectAll('.domain').attr('stroke', colorV1.$grey06).attr('d', "M0.5,0.5H".concat(_this.xAxisWidth, ".5"));
       gXAxis.selectAll('.tick line').remove();
       gXAxis.append('line').attr('x1', 0).attr('x2', _this.xAxisWidth).attr('y1', -_this.yAxisHeight).attr('y2', -_this.yAxisHeight).attr('stroke', colorV1.$grey06);
-      gXAxis.append('text').text('Years').attr('x', _this.xAxisWidth - 15).attr('y', 26).attr('id', "".concat(styles$6.xAxisTitle)).style('fill', colorV1.$grey08);
+      gXAxis.append('text').text('Years').attr('x', _this.xAxisWidth - 15).attr('y', 26).attr('id', "".concat(styles$5.xAxisTitle)).style('fill', colorV1.$grey08);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createTimeToEventLabel", function (data) {
@@ -29222,7 +29404,7 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
           defaultMargin = _this$options2.defaultMargin,
           defaultPadding = _this$options2.defaultPadding;
       var gTimeToEventLabels = generateGroup(_this.getRootElement().select('.timeToEvent'), {
-        className: styles$6.timeToEventLabels,
+        className: styles$5.timeToEventLabels,
         xOffset: defaultMargin.left,
         yOffset: defaultMargin.top + defaultPadding.top
       });
@@ -29230,7 +29412,7 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
         return d.label[d.label.length - 1];
       }).attr('x', -16).attr('y', function (d) {
         return _this.yAxisScale(d.label[d.label.length - 1]) + 4;
-      }).attr('text-anchor', 'end').attr('class', "".concat(styles$6.timeToEventLabel)).style('fill', colorV1.$grey08);
+      }).attr('text-anchor', 'end').attr('class', "".concat(styles$5.timeToEventLabel)).style('fill', colorV1.$grey08);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createTimeToEventGrid", function () {
@@ -29260,7 +29442,6 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
           defaultPadding = _this$options4.defaultPadding,
           radius = _this$options4.radius;
       var data = _this.props.data;
-      var colorScale = ['#2c6ff5', '#b3c1ca'];
       var gTimeToEventData = generateGroup(_this.getRootElement().select('.timeToEvent'), {
         className: 'timelineData',
         xOffset: defaultMargin.left,
@@ -29272,7 +29453,7 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
           return _this.xAxisScale(Date.parse(d.startTime));
         }).attr('y', _this.yAxisScale(el.label[el.label.length - 1]) - 1).attr('height', 3).attr('width', function (d) {
           return _this.xAxisScale(Date.parse(d.endTime)) - _this.xAxisScale(Date.parse(d.startTime));
-        }).attr('fill', colorScale[idx]);
+        }).attr('fill', _this.colors[idx]);
       });
 
       lodash.each(data, function (el, idx) {
@@ -29280,14 +29461,13 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
           return "circles-".concat(idx);
         }).selectAll('circle').data(circleDataFilter(el.dataPoints)).enter().append('circle').attr('cx', function (d) {
           return _this.xAxisScale(Date.parse(d.startTime));
-        }).attr('cy', _this.yAxisScale(el.label[el.label.length - 1])).attr('r', radius).attr('fill', colorScale[idx]);
+        }).attr('cy', _this.yAxisScale(el.label[el.label.length - 1])).attr('r', radius).attr('fill', _this.colors[idx]);
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "createLegend", function () {
-      var legendColorSet = ['#3c5ee5', '#b3c1ca'];
       var gLegend = generateGroup(_this.getRootElement().select('.timeToEvent'), {
-        className: "".concat(styles$6.gLegend)
+        className: "".concat(styles$5.gLegend)
       });
 
       for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
@@ -29297,7 +29477,7 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
       gLegend.selectAll('legendCircle').data(args).enter().append('circle').attr('cx', function (d, i) {
         return 5 + i * 86;
       }).attr('cy', 5).attr('r', 5).style('fill', function (d, i) {
-        return legendColorSet[i];
+        return _this.colors[i];
       });
       gLegend.selectAll('legend').data(args).enter().append('text').text(function (d) {
         return d;
@@ -29350,7 +29530,8 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
     var _this$props = _this.props,
         _data = _this$props.data,
         chartWidth = _this$props.chartWidth,
-        chartHeight = _this$props.chartHeight;
+        chartHeight = _this$props.chartHeight,
+        theme = _this$props.theme;
 
     var _ref = !_this.checkDataValidation() && getStartAndEndTime(lodash.flatten(lodash.map(_data, function (d) {
       return d.dataPoints;
@@ -29358,6 +29539,7 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
         _startTime = _ref.startTime,
         endTime = _ref.endTime;
 
+    _this.colors = getColorsByTheme(theme);
     _this.options = {
       width: chartWidth || 776,
       // 차트가 그려지는 전체 영역 넓이
@@ -29403,7 +29585,7 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
 
       return React__default.createElement("div", {
         ref: this.rootElement,
-        className: styles$6.timeToEvent
+        className: styles$5.timeToEvent
       });
     }
   }]);
@@ -29415,8 +29597,9 @@ TimeToEvent.defaultProps = {
   data: [],
   chartWidth: 776,
   // 차트가 그려지는 전체 영역 넓이
-  chartHeight: 290 // 차트가 그려지는 전체 영영 높이
-
+  chartHeight: 290,
+  // 차트가 그려지는 전체 영영 높이
+  theme: Themes.ThemeComparePrimarySea2
 };
 TimeToEvent.propTypes = {
   data: propTypes.arrayOf(propTypes.shape({
@@ -29428,23 +29611,24 @@ TimeToEvent.propTypes = {
     order: propTypes.number
   })),
   chartWidth: propTypes.number,
-  chartHeight: propTypes.number
+  chartHeight: propTypes.number,
+  theme: propTypes.oneOf([Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3])
 };
 
-function _templateObject2$g() {
+function _templateObject2$h() {
   var data = _taggedTemplateLiteral(["\n  margin-left: ", "px;\n  width: 100%;\n  display: flex;\n  align-items: center;\n\n  ul {\n    width: 100%;\n  }\n\n  li {\n    padding-left: 16px;\n    position: relative;\n    display: flex;\n\n    span:last-child {\n      margin-left: auto;\n      padding-left: 16px;\n    }\n  }\n\n  li:not(:last-child) {\n    margin-bottom: 8px;\n  }\n"]);
 
-  _templateObject2$g = function _templateObject2() {
+  _templateObject2$h = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$l() {
+function _templateObject$m() {
   var data = _taggedTemplateLiteral(["\n  position: absolute;\n  top: 5px;\n  left: 0;\n"]);
 
-  _templateObject$l = function _templateObject() {
+  _templateObject$m = function _templateObject() {
     return data;
   };
 
@@ -29452,7 +29636,7 @@ function _templateObject$l() {
 }
 var Dot$2 = styled__default(Dot).attrs(function () {
   return {};
-})(_templateObject$l());
+})(_templateObject$m());
 var size$2 = {
   Legend: {
     marginLeft: 56
@@ -29462,7 +29646,7 @@ var size$2 = {
     outerRadius: 88
   }
 };
-var PieLegend = styled__default.div(_templateObject2$g(), size$2.Legend.marginLeft);
+var PieLegend = styled__default.div(_templateObject2$h(), size$2.Legend.marginLeft);
 
 var tooltipContent = function tooltipContent(_ref) {
   var active = _ref.active,
@@ -29596,7 +29780,7 @@ PieChart.defaultProps = {
   data: [],
   dataKey: 'value',
   nameKey: 'name',
-  theme: 'blue',
+  theme: Themes.ThemeComparePrimarySea,
   isPercent: false,
   colorList: null,
   legend: {}
@@ -29606,7 +29790,7 @@ PieChart.propTypes = {
   data: propTypes.arrayOf(propTypes.shape({})),
   dataKey: propTypes.string,
   nameKey: propTypes.string,
-  theme: propTypes.oneOf(['blue', 'green', 'compare', 'theme-compare-primary-sea', 'theme-compare-secondary-teal']),
+  theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3]),
   isPercent: propTypes.bool,
   colorList: propTypes.arrayOf(propTypes.string),
   legend: propTypes.shape({
@@ -29626,10 +29810,10 @@ function _templateObject7() {
   return data;
 }
 
-function _templateObject6$2() {
+function _templateObject6$3() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.3s\n"]);
 
-  _templateObject6$2 = function _templateObject6() {
+  _templateObject6$3 = function _templateObject6() {
     return data;
   };
 
@@ -29646,10 +29830,10 @@ function _templateObject5$5() {
   return data;
 }
 
-function _templateObject4$8() {
+function _templateObject4$9() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.0s\n"]);
 
-  _templateObject4$8 = function _templateObject4() {
+  _templateObject4$9 = function _templateObject4() {
     return data;
   };
 
@@ -29666,26 +29850,26 @@ function _templateObject3$b() {
   return data;
 }
 
-function _templateObject2$h() {
+function _templateObject2$i() {
   var data = _taggedTemplateLiteral(["\n  0% { opacity: 0; }\n  50% { opacity: 0; }\n  100% { opacity: 1; }\n"]);
 
-  _templateObject2$h = function _templateObject2() {
+  _templateObject2$i = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$m() {
+function _templateObject$n() {
   var data = _taggedTemplateLiteral(["\n  border:0 none;\n  background-color:transparent;\n  cursor:pointer;\n  transition: background-color 0.3s, color 0.3s ease, border-color 0.3s ease;\n  line-height: 1.34em;\n\n  img {\n    vertical-align: middle;\n  }\n\n  &:hover {\n    text-decoration: none;\n  }\n\n  &:disabled {\n    cursor: not-allowed;\n  }\n"]);
 
-  _templateObject$m = function _templateObject() {
+  _templateObject$n = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var BtnDefaultCss = styled.css(_templateObject$m());
+var BtnDefaultCss = styled.css(_templateObject$n());
 var BtnSize = {
   xLarge: {
     minWidth: '100%',
@@ -29806,11 +29990,11 @@ var setBtnColor = function setBtnColor(props) {
   return "\n  box-shadow: ".concat(props.BtnColorObject.boxShadow || 'none', ";\n  background-color: ").concat(props.BtnColorObject.backgroundColor, ";\n  color: ").concat(props.BtnColorObject.color, ";\n\n  border: ").concat(props.BtnColorObject.border || 'none', ";\n\n  &:hover:not(:disabled) {\n    box-shadow: ").concat(props.BtnColorObject.hover.boxShadow || 'none', ";\n    background-color: ").concat(props.BtnColorObject.hover.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.hover.color, ";\n    border: ").concat(props.BtnColorObject.hover.border || 'none', ";\n  }\n\n  &:disabled {\n    box-shadow: ").concat(props.BtnColorObject.disabled.boxShadow || 'none', ";\n    background-color: ").concat(props.BtnColorObject.disabled.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.disabled.color, ";\n    border: ").concat(props.BtnColorObject.disabled.border || 'none', ";\n  }\n");
 };
 
-var fade = styled.keyframes(_templateObject2$h());
+var fade = styled.keyframes(_templateObject2$i());
 var LoadingBase = styled.css(_templateObject3$b(), fade);
-var LoadingOne = styled__default.span(_templateObject4$8(), LoadingBase);
+var LoadingOne = styled__default.span(_templateObject4$9(), LoadingBase);
 var LoadingTwo = styled__default.span(_templateObject5$5(), LoadingBase);
-var LoadingThree = styled__default.span(_templateObject6$2(), LoadingBase);
+var LoadingThree = styled__default.span(_templateObject6$3(), LoadingBase);
 var ButtonTag = styled__default(TextTag).attrs(function () {
   var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var size = props.size || 'md';
@@ -29887,10 +30071,10 @@ Button.propTypes = {
   id: propTypes.string
 };
 
-function _templateObject$n() {
+function _templateObject$o() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  min-width: auto;\n  padding-left: 8px;\n  padding-right: 8px;\n  display: inline-block;\n  box-sizing: border-box;\n\n  color: ", ";\n  &:hover {\n    color: ", ";\n  }\n\n  &:first-child {\n    padding-left: 0;\n  }\n"]);
 
-  _templateObject$n = function _templateObject() {
+  _templateObject$o = function _templateObject() {
     return data;
   };
 
@@ -29907,7 +30091,7 @@ var ButtonLinkTag = styled__default(TextTag).attrs(function () {
     bold: bold || true,
     BtnSizeObject: BtnSizeObject
   };
-})(_templateObject$n(), BtnDefaultCss, setBtnSize, color.$solid_default, color.$solid_hover);
+})(_templateObject$o(), BtnDefaultCss, setBtnSize, color.$solid_default, color.$solid_hover);
 
 var ButtonLink = function ButtonLink(props) {
   var propsAs = props.as,
@@ -29940,10 +30124,10 @@ ButtonLink.propTypes = {
   id: propTypes.string
 };
 
-function _templateObject$o() {
+function _templateObject$p() {
   var data = _taggedTemplateLiteral(["\n  color: ", ";\n  text-decoration: underline;\n"]);
 
-  _templateObject$o = function _templateObject() {
+  _templateObject$p = function _templateObject() {
     return data;
   };
 
@@ -29954,7 +30138,7 @@ var ButtonTextLinkTag = styled__default(TextTag).attrs(function () {
     size: 16,
     bold: true
   };
-})(_templateObject$o(), hexToRGB(color.$black, 0.6));
+})(_templateObject$p(), hexToRGB(color.$black, 0.6));
 var ButtonTextLink = function ButtonTextLink(props) {
   var propsAs = props.as,
       children = props.children,
@@ -29991,20 +30175,20 @@ function _templateObject3$c() {
   return data;
 }
 
-function _templateObject2$i() {
+function _templateObject2$j() {
   var data = _taggedTemplateLiteral([""]);
 
-  _templateObject2$i = function _templateObject2() {
+  _templateObject2$j = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$p() {
+function _templateObject$q() {
   var data = _taggedTemplateLiteral(["\n  &, &:hover {\n    color: ", ";\n  }\n\n  &:hover {\n    text-decoration: underline;\n  }\n\n  ", ";\n  font-size: ", "px;\n  cursor: pointer;\n"]);
 
-  _templateObject$p = function _templateObject() {
+  _templateObject$q = function _templateObject() {
     return data;
   };
 
@@ -30018,14 +30202,14 @@ var TextLinkTag = styled__default(TextTag).attrs(function () {
   return {
     bold: true
   };
-})(_templateObject$p(), function (props) {
+})(_templateObject$q(), function (props) {
   return colorSet[props.variant];
 }, function (props) {
   return props.underline ? 'text-decoration: underline' : '';
 }, function (props) {
   return props.fontSize;
 });
-var Icon$1 = styled__default.img(_templateObject2$i());
+var Icon$1 = styled__default.img(_templateObject2$j());
 var TextLinkIconTag = styled__default(TextLinkTag)(_templateObject3$c(), Icon$1);
 
 var TextLink = function TextLink(props) {
@@ -30099,10 +30283,10 @@ var IcnMessageComplete = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3
 
 var IcnToastCompleteCloseDefault = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgxNnYxNkgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzE4OUJGRiIgZD0iTTgtMmExIDEgMCAwIDEgMSAxbC0uMDAxIDcuOTk5TDE3IDdhMSAxIDAgMCAxIDAgMmwtOC4wMDEtLjAwMUw5IDE3YTEgMSAwIDAgMS0yIDBsLS4wMDEtOC4wMDFMLTEgOWExIDEgMCAxIDEgMC0ybDcuOTk5LS4wMDFMNy0xYTEgMSAwIDAgMSAxLTF6IiBtYXNrPSJ1cmwoI2IpIiB0cmFuc2Zvcm09InJvdGF0ZSgtNDUgOCA4KSIvPgogICAgPC9nPgo8L3N2Zz4=';
 
-function _templateObject4$9() {
+function _templateObject4$a() {
   var data = _taggedTemplateLiteral(["\n  position: absolute;\n  line-height: 0;\n  right: 16px;\n  top: 16px;\n"]);
 
-  _templateObject4$9 = function _templateObject4() {
+  _templateObject4$a = function _templateObject4() {
     return data;
   };
 
@@ -30119,20 +30303,20 @@ function _templateObject3$d() {
   return data;
 }
 
-function _templateObject2$j() {
+function _templateObject2$k() {
   var data = _taggedTemplateLiteral(["\n  margin: 0 auto;\n  display: inline-block;\n"]);
 
-  _templateObject2$j = function _templateObject2() {
+  _templateObject2$k = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$q() {
+function _templateObject$r() {
   var data = _taggedTemplateLiteral(["\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.2);\n  border: 2px solid ", ";\n  background-color: ", ";\n  padding: 15px 56px 15px 24px;\n  max-width: 700px;\n  line-height: 1;\n  ", "\n  text-align: center;\n  position: relative;\n\n  &:not(:last-child) {\n    margin-bottom: 20px;\n  }\n"]);
 
-  _templateObject$q = function _templateObject() {
+  _templateObject$r = function _templateObject() {
     return data;
   };
 
@@ -30144,12 +30328,12 @@ var Box$4 = styled__default.section.attrs(function () {
     size: 16,
     opacity: 8
   };
-})(_templateObject$q(), function (props) {
+})(_templateObject$r(), function (props) {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
-var InnerBox = styled__default.article(_templateObject2$j());
+var InnerBox = styled__default.article(_templateObject2$k());
 var TextBox = styled__default.div(_templateObject3$d());
-var CloseButton = styled__default.button(_templateObject4$9());
+var CloseButton = styled__default.button(_templateObject4$a());
 
 var Toast = function Toast(_ref) {
   var children = _ref.children,
@@ -30180,16 +30364,16 @@ Toast.propTypes = {
   variant: propTypes.string
 };
 
-function _templateObject$r() {
+function _templateObject$s() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child):not(:empty) {\n    margin-bottom: 20px;\n  }\n"]);
 
-  _templateObject$r = function _templateObject() {
+  _templateObject$s = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Box$5 = styled__default.article(_templateObject$r());
+var Box$5 = styled__default.article(_templateObject$s());
 
 var ToastList = /*#__PURE__*/function (_React$Component) {
   _inherits(ToastList, _React$Component);
@@ -30323,16 +30507,16 @@ var btnNext = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmc
 
 var btnPre = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiIgdmlld0JveD0iMCAwIDQyIDQyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjQyIiBoZWlnaHQ9IjQyIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMDYiIHJ4PSI0Ii8+CiAgICAgICAgPHBhdGggZmlsbD0iIzg4OCIgZD0iTTEzLjk5IDIyLjA2bDMuODg5IDMuODlhMSAxIDAgMSAwIDEuNDE0LTEuNDE0TDE2Ljc1NyAyMkgyN2ExIDEgMCAxIDAgMC0ySDE2Ljc1N2wyLjUzNi0yLjUzNmExIDEgMCAwIDAtMS40MTQtMS40MTRsLTMuNTM2IDMuNTM2TDEyLjkzIDIxbDEuMDYgMS4wNnoiLz4KICAgIDwvZz4KPC9zdmc+';
 
-function _templateObject$s() {
+function _templateObject$t() {
   var data = _taggedTemplateLiteral(["\n  color: ", ";\n  letter-spacing: -0.5px;\n  text-align: center;\n  line-height: 1;\n\n  max-width: 100px;\n\n  padding: 7px 18px;\n  border-radius: 21px;\n  border: solid 1px #dce0e4;\n  background-color: ", ";\n"]);
 
-  _templateObject$s = function _templateObject() {
+  _templateObject$t = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var InputBox = styled__default.input(_templateObject$s(), colorV1.$grey10, color.primary_white); // 범위도 추가 되어야겟다
+var InputBox = styled__default.input(_templateObject$t(), colorV1.$grey10, color.primary_white); // 범위도 추가 되어야겟다
 
 var Input = function Input(_ref) {
   var initPage = _ref.initPage,
@@ -30417,10 +30601,10 @@ function _templateObject5$6() {
   return data;
 }
 
-function _templateObject4$a() {
+function _templateObject4$b() {
   var data = _taggedTemplateLiteral(["\n  border-radius: 4px;\n\n  ", ";\n  ", ";\n  ", ";\n"]);
 
-  _templateObject4$a = function _templateObject4() {
+  _templateObject4$b = function _templateObject4() {
     return data;
   };
 
@@ -30437,27 +30621,27 @@ function _templateObject3$e() {
   return data;
 }
 
-function _templateObject2$k() {
+function _templateObject2$l() {
   var data = _taggedTemplateLiteral(["\n  display: inline-block;\n\n  ", "\n  ", "\n  ", "\n"]);
 
-  _templateObject2$k = function _templateObject2() {
+  _templateObject2$l = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$t() {
+function _templateObject$u() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n"]);
 
-  _templateObject$t = function _templateObject() {
+  _templateObject$u = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var PaginationBox = styled__default.section(_templateObject$t());
-var PaginationInner = styled__default.div(_templateObject2$k(), function (props) {
+var PaginationBox = styled__default.section(_templateObject$u());
+var PaginationInner = styled__default.div(_templateObject2$l(), function (props) {
   return props.align === 'center' ? "margin: 0 auto" : '';
 }, function (props) {
   return props.align === 'left' ? "margin-right: auto" : '';
@@ -30467,7 +30651,7 @@ var PaginationInner = styled__default.div(_templateObject2$k(), function (props)
 var PageText = styled__default.span(_templateObject3$e(), colorV1.$grey10, function (props) {
   return props.size === 'sm' ? "font-size: 14px;" : "font-size: 16px;";
 });
-var ButtonPage = styled__default.button(_templateObject4$a(), function (props) {
+var ButtonPage = styled__default.button(_templateObject4$b(), function (props) {
   return props.selected ? "background-color: ".concat(colorV1.$grey08) : '';
 }, function (props) {
   return props.selected ? "color: ".concat(color.$primary_white) : "color: ".concat(colorV1.$grey8);
@@ -30698,20 +30882,20 @@ function _templateObject3$f() {
   return data;
 }
 
-function _templateObject2$l() {
+function _templateObject2$m() {
   var data = _taggedTemplateLiteral(["\n  height: ", "px;\n  background-color: ", ";\n  border-radius: ", "px;\n  padding: 2px;\n  display: table;\n"]);
 
-  _templateObject2$l = function _templateObject2() {
+  _templateObject2$m = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$u() {
+function _templateObject$v() {
   var data = _taggedTemplateLiteral(["\n  box-shadow: ", "\n"]);
 
-  _templateObject$u = function _templateObject() {
+  _templateObject$v = function _templateObject() {
     return data;
   };
 
@@ -30743,10 +30927,10 @@ var BtnSize$1 = {
     }
   }
 };
-var BoxShadow$1 = styled.css(_templateObject$u(), function (props) {
+var BoxShadow$1 = styled.css(_templateObject$v(), function (props) {
   return props.selected ? '0 1px 8px 0 rgba(117, 127, 139, 0.36);' : null;
 });
-var ButtonContainer = styled__default.section(_templateObject2$l(), function (props) {
+var ButtonContainer = styled__default.section(_templateObject2$m(), function (props) {
   return props.height;
 }, colorV1.$grey04, function (props) {
   return props.height / 2;
@@ -30921,12 +31105,12 @@ var getDateDiff = function getDateDiff(startTime, endTime) {
 };
 
 var DateUtility = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	timeFormatConvert: timeFormatConvert,
-	isDate: isDate,
-	isValidPeriod: isValidPeriod,
-	pathwayTableTimeFormatter: pathwayTableTimeFormatter,
-	getDateDiff: getDateDiff
+  __proto__: null,
+  timeFormatConvert: timeFormatConvert,
+  isDate: isDate,
+  isValidPeriod: isValidPeriod,
+  pathwayTableTimeFormatter: pathwayTableTimeFormatter,
+  getDateDiff: getDateDiff
 });
 
 function _extends() {
@@ -58945,10 +59129,10 @@ TransitionGroup.propTypes = process.env.NODE_ENV !== "production" ? {
 } : {};
 TransitionGroup.defaultProps = defaultProps;
 
-function _templateObject4$b() {
+function _templateObject4$c() {
   var data = _taggedTemplateLiteral(["\n  position: absolute;\n  line-height: 0;\n  right: 16px;\n  top: 16px;\n  font-size: 0;\n"]);
 
-  _templateObject4$b = function _templateObject4() {
+  _templateObject4$c = function _templateObject4() {
     return data;
   };
 
@@ -58965,20 +59149,20 @@ function _templateObject3$g() {
   return data;
 }
 
-function _templateObject2$m() {
+function _templateObject2$n() {
   var data = _taggedTemplateLiteral(["\n  margin: 0 auto;\n  display: inline-block;\n"]);
 
-  _templateObject2$m = function _templateObject2() {
+  _templateObject2$n = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$v() {
+function _templateObject$w() {
   var data = _taggedTemplateLiteral(["\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.2);\n  border: 2px solid ", ";\n  background-color: ", ";\n  padding: 15px 56px 15px 24px;\n  min-width: 700px;\n  ", "\n  text-align: center;\n  position: relative;\n\n  &:not(:last-child) {\n    margin-bottom: 20px;\n  }\n"]);
 
-  _templateObject$v = function _templateObject() {
+  _templateObject$w = function _templateObject() {
     return data;
   };
 
@@ -58990,12 +59174,12 @@ var Box$6 = styled__default.section.attrs(function () {
     size: 16,
     opacity: 8
   };
-})(_templateObject$v(), function (props) {
+})(_templateObject$w(), function (props) {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
-var InnerBox$1 = styled__default.article(_templateObject2$m());
+var InnerBox$1 = styled__default.article(_templateObject2$n());
 var TextBox$1 = styled__default.div(_templateObject3$g());
-var CloseButton$1 = styled__default.button(_templateObject4$b());
+var CloseButton$1 = styled__default.button(_templateObject4$c());
 
 var Notification = /*#__PURE__*/function (_React$Component) {
   _inherits(Notification, _React$Component);
@@ -59100,27 +59284,27 @@ function _templateObject3$h() {
   return data;
 }
 
-function _templateObject2$n() {
+function _templateObject2$o() {
   var data = _taggedTemplateLiteral(["\n  from {\n    opacity: 1;\n    transform: translateY(0);\n  }\n\n  to {\n    opacity: 0;\n    transform: translateY(-20px);\n  }\n"]);
 
-  _templateObject2$n = function _templateObject2() {
+  _templateObject2$o = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$w() {
+function _templateObject$x() {
   var data = _taggedTemplateLiteral(["\n  from {\n    opacity: 0;\n    transform: translateY(-20px);\n  }\n\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n"]);
 
-  _templateObject$w = function _templateObject() {
+  _templateObject$x = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var fadeInDown = styled.keyframes(_templateObject$w());
-var fadeOutUp = styled.keyframes(_templateObject2$n());
+var fadeInDown = styled.keyframes(_templateObject$x());
+var fadeOutUp = styled.keyframes(_templateObject2$o());
 var List = styled__default.section(_templateObject3$h(), fadeInDown, fadeOutUp);
 
 var Notifications = function Notifications(props) {
@@ -59369,7 +59553,7 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.21";
+var version$1 = "0.13.22";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;
