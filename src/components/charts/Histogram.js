@@ -8,10 +8,15 @@ import { color, colorV1 } from '@src/assets/styles/variables'
 import fontStyle from '@src/assets/styles/font.module.sass'
 import SelectBox from '@Components/form/SelectBox'
 
+import {
+  getColorsByTheme,
+  Themes,
+} from '@Components/ChartColor'
+
 class Histogram extends Component {
   constructor(props) {
     super(props);
-    const { chartWidth, chartHeight } = this.props
+    const { chartWidth, chartHeight, theme } = this.props
     this.options = {
       width: chartWidth || 1140,
       height: chartHeight || 385,
@@ -22,6 +27,8 @@ class Histogram extends Component {
         bottom: 34,
       },
     };
+
+    this.colors = getColorsByTheme(theme)
 
     this.fakeData = {
       risks: d3.range(1000).map(d3.randomBates(10)),
@@ -133,9 +140,9 @@ class Histogram extends Component {
       .attr('height', (d) => (d.length === 0 ? 0 : (this.yAxisHeight - this.yAxisScale(d.length))))
       .style('fill', (d, i) => {
         if (i === patientRiskIndex) {
-          return '#2c6ff5'
+          return this.colors[0]
         }
-        return '#c3d1da'
+        return this.colors[1]
       })
       .transition()
       .duration(500)
@@ -146,7 +153,6 @@ class Histogram extends Component {
   }
 
   createLegend = (...args) => {
-    const legendColorSet = ['#3c5ee5', '#c3d1da']
     const gLegend = generateGroup(this.getRootElement().select('.histogram'), {
       className: 'gLegend',
       xOffset: 0,
@@ -161,7 +167,7 @@ class Histogram extends Component {
       .attr('cx', (d, i) => 5 + (86 * i))
       .attr('cy', 10)
       .attr('r', 5)
-      .style('fill', (d, i) => legendColorSet[i])
+      .style('fill', (d, i) => this.colors[i])
 
 
     // add legend text
@@ -361,6 +367,7 @@ Histogram.defaultProps = {
   chartHeight: undefined,
   onChange: () => {},
   initOnChangeFlag: false,
+  theme: Themes.ThemeComparePrimarySea1,
 }
 
 Histogram.propTypes = {
@@ -373,6 +380,12 @@ Histogram.propTypes = {
   chartHeight: PropTypes.number,
   onChange: PropTypes.func,
   initOnChangeFlag: PropTypes.bool,
+  theme: PropTypes.oneOf([
+    Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
+    Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3,
+    Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
+    Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
+  ]),
 }
 
 export default Histogram

@@ -7,18 +7,26 @@ import {
   circleDataFilter, rectDataFilter, labelList, errorMessage,
 } from '@src/helper/chartUtility'
 import { colorV1 } from '@src/assets/styles/variables'
+
+import {
+  getColorsByTheme,
+  Themes,
+} from '@Components/ChartColor'
+
 import styles from './TimeToEvent.module.css'
 
 class TimeToEvent extends Component {
   constructor(props) {
     super(props);
     const {
-      data, chartWidth, chartHeight,
+      data, chartWidth, chartHeight, theme,
     } = this.props
 
     const { startTime, endTime } = !this.checkDataValidation() && getStartAndEndTime(
       _.flatten(_.map(data, (d) => d.dataPoints)),
     )
+
+    this.colors = getColorsByTheme(theme)
 
     this.options = {
       width: chartWidth || 776, // 차트가 그려지는 전체 영역 넓이
@@ -160,7 +168,6 @@ class TimeToEvent extends Component {
   renderTimeToEventData = () => {
     const { defaultMargin, defaultPadding, radius } = this.options
     const { data } = this.props
-    const colorScale = ['#2c6ff5', '#b3c1ca']
 
     const gTimeToEventData = generateGroup(this.getRootElement().select('.timeToEvent'), {
       className: 'timelineData',
@@ -180,7 +187,7 @@ class TimeToEvent extends Component {
         .attr('y', this.yAxisScale(el.label[el.label.length - 1]) - 1)
         .attr('height', 3)
         .attr('width', (d) => this.xAxisScale(Date.parse(d.endTime)) - this.xAxisScale(Date.parse(d.startTime)))
-        .attr('fill', colorScale[idx])
+        .attr('fill', this.colors[idx])
     })
 
     _.each(data, (el, idx) => {
@@ -194,12 +201,11 @@ class TimeToEvent extends Component {
         .attr('cx', (d) => this.xAxisScale(Date.parse(d.startTime)))
         .attr('cy', this.yAxisScale(el.label[el.label.length - 1]))
         .attr('r', radius)
-        .attr('fill', colorScale[idx])
+        .attr('fill', this.colors[idx])
     })
   }
 
   createLegend = (...args) => {
-    const legendColorSet = ['#3c5ee5', '#b3c1ca']
     const gLegend = generateGroup(this.getRootElement().select('.timeToEvent'), {
       className: `${styles.gLegend}`,
     })
@@ -212,7 +218,7 @@ class TimeToEvent extends Component {
       .attr('cx', (d, i) => 5 + (i * 86))
       .attr('cy', 5)
       .attr('r', 5)
-      .style('fill', (d, i) => legendColorSet[i])
+      .style('fill', (d, i) => this.colors[i])
 
     gLegend
       .selectAll('legend')
@@ -275,6 +281,7 @@ TimeToEvent.defaultProps = {
   data: [],
   chartWidth: 776, // 차트가 그려지는 전체 영역 넓이
   chartHeight: 290, // 차트가 그려지는 전체 영영 높이
+  theme: Themes.ThemeComparePrimarySea2,
 }
 
 TimeToEvent.propTypes = {
@@ -292,6 +299,12 @@ TimeToEvent.propTypes = {
   ),
   chartWidth: PropTypes.number,
   chartHeight: PropTypes.number,
+  theme: PropTypes.oneOf([
+    Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
+    Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3,
+    Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
+    Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
+  ]),
 }
 
 export default TimeToEvent;

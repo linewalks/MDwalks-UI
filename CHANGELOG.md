@@ -1,3 +1,12 @@
+## [0.13.22](https://github.com/linewalks/MDwalks-UI/compare/v0.13.21...v0.13.22) (2020-04-29)
+
+
+### Features
+
+* **ColorSet:** apply Charts ([da2c695](https://github.com/linewalks/MDwalks-UI/commit/da2c69506f2dd765b9919e3994420aa87ffff53f)), closes [#550](https://github.com/linewalks/MDwalks-UI/issues/550)
+
+
+
 ## [0.13.21](https://github.com/linewalks/MDwalks-UI/compare/v0.13.20...v0.13.21) (2020-04-24)
 
 

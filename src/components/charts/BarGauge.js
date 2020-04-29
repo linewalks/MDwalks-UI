@@ -1,15 +1,35 @@
 import React from 'react'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
-import styles from '@Charts/BarGauge.module.css'
+import {
+  getColorsByTheme,
+  Themes,
+} from '@Components/ChartColor'
 
-const BarGauge = ({ score }) => {
+const Container = styled.div`
+  background: #f2f2f2;
+  position: relative;
+  height: 6px;
+  width: 100px;
+  border-radius: 2px;
+  overflow: hidden;
+`
+
+const Fill = styled.div`
+  background-image: ${(props) => (props.theme ? `linear-gradient(to right, ${props.theme[0]}, ${props.theme[2]} 100px)` : 'auto')};
+  height: 100%;
+  width: ${(props) => (_.isNumber(props.score) ? `${props.score}%` : 'auto')};
+`
+
+const BarGauge = ({ score, theme }) => {
+  const colors = getColorsByTheme(theme)
   if (_.inRange(score, 0, 101)) {
     return (
-      <div className={styles.gauge_container}>
-        <div className={styles.bar_gauge_fill} style={{ width: `${score}%` }} />
-      </div>
+      <Container>
+        <Fill score={score} theme={colors} />
+      </Container>
     )
   }
 
@@ -19,10 +39,15 @@ const BarGauge = ({ score }) => {
 }
 
 BarGauge.defaultProps = {
+  theme: Themes.ThemeArrangeGradientPrimarySea,
 }
 
 BarGauge.propTypes = {
   score: PropTypes.number.isRequired,
+  theme: PropTypes.oneOf([
+    Themes.ThemeArrangeGradientPrimarySea,
+    Themes.ThemeArrangeGradientSecondaryTeal,
+  ]),
 }
 
 export default BarGauge
