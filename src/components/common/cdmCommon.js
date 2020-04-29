@@ -2,6 +2,7 @@ import React from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
 import _ from 'lodash'
 import { color } from '@src/assets/styles/variables'
+import fontStyle from '@src/assets/styles/font.module.sass'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -101,3 +102,9 @@ WrapperScrollBars.propTypes = {
     y: PropTypes.number,
   }),
 }
+
+export const chartTitle = styled.header.attrs(() => ({
+  className: [fontStyle.fs18, fontStyle.fc_grey09, fontStyle.bold].join(' '),
+}))`
+  margin-bottom: 30px;
+`
