@@ -10,6 +10,9 @@ import TooltipCompareContent from '@Components/tooltip/TooltipCompareContent'
 import * as commonTag from '@Components/common/cdmCommon'
 import { getColorsByTheme, Themes, ColorSet } from '@Components/ChartColor'
 
+import XAxis from '@Components/charts/cartesian/XAxis'
+import YAxis from '@Components/charts/cartesian/YAxis'
+
 const LabelStyle = {
   fill: colorV1.$grey08, fontWeight: 'bold', fontSize: '14px',
 }
@@ -143,20 +146,20 @@ const BarChart = ({
                     barGap={barGap}
                   >
                     <Rechart.CartesianGrid vertical={layout !== 'horizontal'} horizontal={layout === 'horizontal'} stroke={colorV1.$grey04} />
-                    <Rechart.XAxis hide={isScroll} axisLine={{ stroke: colorV1.$grey06 }} tickLine={false} tickMargin={10} stroke={colorV1.$grey08} dataKey={XAxisDataKey} tickFormatter={XAxisTicFormatter} type={XAxisType} height={20} dy={-10 + 8}>
+                    <XAxis hide={isScroll} dataKey={XAxisDataKey} tickFormatter={XAxisTicFormatter} type={XAxisType} height={20} dy={-10 + 8}>
                       {
                         xData.label && (
                           <Rechart.Label value={xData.label.value} offset={10} position="bottom" style={LabelStyle.style} />
                         )
                       }
-                    </Rechart.XAxis>
-                    <Rechart.YAxis axisLine={false} tickMargin={10} stroke={colorV1.$grey08} tickLine={false} dataKey={YAxisDataKey} tickFormatter={YAxisTicFormatter} type={YAxisType} dx={15 - 16}>
+                    </XAxis>
+                    <YAxis dataKey={YAxisDataKey} tickFormatter={YAxisTicFormatter} type={YAxisType} dx={15 - 16}>
                       {
                         yData.label && (
                           <Rechart.Label value={yData.label.value} offset={0} position="left" style={LabelStyle.style} />
                         )
                       }
-                    </Rechart.YAxis>
+                    </YAxis>
                     {
                       !_.isUndefined(themes) && (
                         <Rechart.Tooltip
@@ -206,14 +209,14 @@ const BarChart = ({
                       margin={_.extend({}, margin, { top: 5 })}
                       barGap={barGap}
                     >
-                      <Rechart.XAxis axisLine={{ stroke: colorV1.$grey06 }} tickLine={false} tickMargin={10} stroke={colorV1.$grey08} dataKey={XAxisDataKey} tickFormatter={XAxisTicFormatter} type={XAxisType}>
+                      <XAxis dataKey={XAxisDataKey} tickFormatter={XAxisTicFormatter} type={XAxisType}>
                         {
                           xData.label && (
                             <Rechart.Label value={xData.label.value} offset={10} position="bottom" style={LabelStyle.style} />
                           )
                         }
-                      </Rechart.XAxis>
-                      <Rechart.YAxis axisLine={false} tickMargin={10} stroke={colorV1.$grey08} tickLine={false} dataKey={YAxisDataKey} tickFormatter={YAxisTicFormatter} type={YAxisType} />
+                      </XAxis>
+                      <YAxis dataKey={YAxisDataKey} tickFormatter={YAxisTicFormatter} type={YAxisType} />
                       {
                         newYDataKey.map((entry, index) => (<Rechart.Bar style={{ visibility: 'hidden' }} key={`bar${entry}`} dataKey={entry} fill={colors[index]} stackId={stackId} barSize={barSize} />))
                       }
