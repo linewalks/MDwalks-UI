@@ -65,12 +65,17 @@ describe('default Component', () => {
         xDataKey="age"
         yDataKey="Persons"
         theme="blue"
+        width={100}
       />,
     )
 
     Bar = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Bar)
     XAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.XAxis)
     YAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.YAxis)
+  })
+
+  it('width 를 지정해 주어야 svg 를 접근 할 수 있다', () => {
+    expect(component.find('svg').length).toBe(1)
   })
 
   it('scroll 이 아닌 경우 BarChart 는 하나만 그려져야 한다', () => {
