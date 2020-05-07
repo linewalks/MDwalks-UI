@@ -179,6 +179,9 @@ import { Themes } from '@Components/ChartColor';
       weight: 5323,
     },
   ]}
+  margin={{
+    right: 25
+  }}
   xDataKey="age"
   yDataKey={["Persons", "weight"]}
   theme="compare"
@@ -264,7 +267,7 @@ import { Themes } from '@Components/ChartColor';
     },
   ]}
   margin={{
-    top: 5, right: 5, bottom: 22, left: 22,
+    top: 5, bottom: 20, left: 20,
   }}
   xDataKey="age"
   xData={{
@@ -320,7 +323,7 @@ import { Themes } from '@Components/ChartColor';
     },
   ]}
   margin={{
-    top: 5, right: 5, bottom: 20, left: 20,
+    top: 5, bottom: 20, left: 20,
   }}
   xDataKey="age"
   xData={{

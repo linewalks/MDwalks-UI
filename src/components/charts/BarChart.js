@@ -75,7 +75,7 @@ const BarChart = ({
 
   const isScroll = !_.isUndefined(scroll.y)
 
-  const scrollChartMargin = _.extend({}, margin)
+  const scrollChartMargin = _.extend({}, BarChart.defaultProps.margin, margin)
 
   if (isScroll) {
     scrollChartMargin.bottom = 0
@@ -230,7 +230,7 @@ BarChart.defaultProps = {
   themes: undefined,
   isPercent: false,
   margin: {
-    top: 10, right: 5, bottom: 5, left: 5,
+    top: 10, right: 20, bottom: 5, left: 5,
   },
   xData: {},
   yData: {},

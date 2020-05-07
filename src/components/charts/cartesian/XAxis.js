@@ -10,6 +10,7 @@ XAxis.defaultProps = {
   tickLine: false,
   tickMargin: 10,
   stroke: colorV1.$grey08,
+  fontSize: 14,
 }
 
 export default XAxis
