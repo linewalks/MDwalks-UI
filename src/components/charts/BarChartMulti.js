@@ -1,30 +1,29 @@
 import React from 'react'
-import {
-  BarChart,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Bar,
-  ResponsiveContainer,
-} from 'recharts'
+import * as Rechart from 'recharts'
 import _ from 'lodash'
 
 import styled from 'styled-components'
 
-import * as variables from '@src/assets/styles/variables'
+import { colorV1 } from '@src/assets/styles/variables'
+// import * as variables from '@src/assets/styles/variables'
 import Heading from '@Components/layout/Heading'
-import * as font from '@src/assets/styles/font'
+import fontStyle from '@src/assets/styles/font.module.sass'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as cdmCommon from '@Components/common/cdmCommon'
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 
 import PropTypes from 'prop-types'
-import { getColorsByTheme } from '@Components/ChartColor'
+// import { getColorsByTheme } from '@Components/ChartColor'
+import { getColorsByTheme, Themes, ColorSet } from '@Components/ChartColor'
+
+import { getBarSize } from '@src/helper/chartUtility'
+
+import XAxis from '@Components/charts/cartesian/XAxis'
+import YAxis from '@Components/charts/cartesian/YAxis'
 
 const Box = styled.article`
   &:not(:last-child) {
-    border-right: 1px dashed rgba(0, 45, 79, 0.2)
+    border-right: 1px dashed ${colorV1.$grey05};
   }
 `
 
@@ -61,6 +60,8 @@ const BarChartMulti = ({
 
   const isEmpty = (items) => _.isEmpty(items)
 
+  const barSize = getBarSize(_.size(newYDataKey), 'horizontal')
+
   return (
     <div>
       <Heading size="18" style={{ marginBottom: '30px' }}>{title}</Heading>
@@ -79,32 +80,36 @@ const BarChartMulti = ({
             const width = totalWidth * (value.length / size) + (i === 0 ? YAxisWidth : 0)
             return (
               <Box style={{ width: `${width}px` }} key={`${key}`}>
-                <ResponsiveContainer width="100%" height={415}>
-                  <BarChart
+                <Rechart.ResponsiveContainer width="100%" height={415}>
+                  <Rechart.BarChart
                     data={value}
                     height={415}
                     margin={{
                       top: 0, right: 0, bottom: 0, left: (i === 0 ? 0 : YAxisWidth * -1),
                     }}
                   >
-                    <CartesianGrid
+                    <Rechart.CartesianGrid
                       vertical={false}
-                      stroke={variables.color.$line_graph_xy_grey}
+                      stroke={colorV1.$grey04}
                     />
-
-                    <XAxis tickLine={false} tickMargin={10} dataKey={xDataKey} stroke="rgba(0, 0, 0, 0.6)" />
-                    <YAxis axisLine={false} tickLine={false} tickFormatter={tickFormatter} tickMargin={10} width={YAxisWidth} domain={domain} stroke="rgba(0, 0, 0, 0.4)" />
-                    <Tooltip
+                    <XAxis dataKey={xDataKey} />
+                    <YAxis tickFormatter={tickFormatter} width={YAxisWidth} domain={domain} />
+                    <Rechart.Tooltip
                       isPercent={isPercent}
                       content={TooltipBox}
+                      cursor={{ fill: ColorSet['Chart-Hover']['grey-hover'] }}
                     />
                     {
-                      newYDataKey.map((entry, index) => <Bar key={`bar${entry}`} dataKey={entry} fill={colors[index]} />)
+                      newYDataKey.map((entry, index) => <Rechart.Bar key={`bar${entry}`} dataKey={entry} fill={colors[index]} barSize={barSize} />)
                     }
-                  </BarChart>
-                </ResponsiveContainer>
+                  </Rechart.BarChart>
+                </Rechart.ResponsiveContainer>
                 <div style={{ textAlign: 'center', paddingLeft: i === 0 ? YAxisWidth : 0, paddingTop: '16px' }}>
-                  <font.TextTag opacity="4">{key}</font.TextTag>
+                  <span
+                    className={[fontStyle.fs14, fontStyle.fc_grey08].join(' ')}
+                  >
+                    {key}
+                  </span>
                 </div>
               </Box>
             )
@@ -122,7 +127,7 @@ BarChartMulti.defaultProps = {
   data: [],
   xDataKey: 'name',
   yDataKey: [],
-  theme: 'theme-arrange-primary-sea',
+  theme: Themes.ThemeArrangePrimarySea,
   isPercent: false,
 }
 
@@ -134,8 +139,13 @@ BarChartMulti.propTypes = {
   isPercent: PropTypes.bool,
   theme: PropTypes.oneOf([
     'blue', 'green', 'compare',
-    'theme-arrange-primary-sea', 'theme-arrange-secondary-teal', 'theme-arrange-tertiary-rose',
-    'theme-arrange-quaternary-gold', 'theme-arrange-quinary-berry',
+    Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal,
+    Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold,
+    Themes.ThemeArrangeQuinaryBerry,
+    Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
+    Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3,
+    Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
+    Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
   ]),
 }
 

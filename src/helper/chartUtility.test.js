@@ -157,3 +157,8 @@ it('getTextStyleForHighcharts', () => {
 
   expect(chartUtility.getTextStyleForHighcharts('#000000')).toEqual(expected)
 })
+
+it('getBarSize', () => {
+  expect(_.map(_.range(1, 7), (barCount) => chartUtility.getBarSize(barCount, 'horizontal'))).toEqual([48, 40, 40, 40, 32, 32])
+  expect(_.map(_.range(1, 4), (barCount) => chartUtility.getBarSize(barCount, 'vertical'))).toEqual([34, 16, 16])
+})

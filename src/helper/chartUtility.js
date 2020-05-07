@@ -93,3 +93,30 @@ export const getTextStyleForHighcharts = (color) => ({
   letterSpacing: '-0.5px',
   opacity: 0.6,
 })
+
+export const getBarSize = (barCount, layout) => {
+  // let barCount = _.size(newYDataKey)
+  let barSize
+
+  // if (stackId) {
+  //   barCount = 1
+  // }
+
+  if (layout === 'horizontal') {
+    barSize = ({
+      1: 48,
+      2: 40,
+      3: 40,
+      4: 40,
+    })[barCount] || 32
+  }
+
+  if (layout === 'vertical') {
+    barSize = (
+      {
+        1: 34,
+      }
+    )[barCount] || 16
+  }
+  return barSize
+}
