@@ -10,6 +10,8 @@ import TooltipCompareContent from '@Components/tooltip/TooltipCompareContent'
 import * as commonTag from '@Components/common/cdmCommon'
 import { getColorsByTheme, Themes, ColorSet } from '@Components/ChartColor'
 
+import { getBarSize } from '@src/helper/chartUtility'
+
 import XAxis from '@Components/charts/cartesian/XAxis'
 import YAxis from '@Components/charts/cartesian/YAxis'
 
@@ -80,29 +82,12 @@ const BarChart = ({
   }
 
   let barCount = _.size(newYDataKey)
-  let barSize
 
   if (stackId) {
     barCount = 1
   }
 
-  if (layout === 'horizontal') {
-    barSize = ({
-      1: 48,
-      2: 40,
-      3: 40,
-      4: 40,
-    })[barCount] || 32
-  }
-
-  if (layout === 'vertical') {
-    barSize = (
-      {
-        1: 34,
-      }
-    )[barCount] || 16
-  }
-
+  const barSize = getBarSize(barCount, layout)
   const barGap = 1
 
   let height
