@@ -30,6 +30,7 @@ module.exports = {
     'src/components/notifications/NotificationContainer.js',
     'src/components/notifications/NotificationManager.js',
     'src/components/notifications/Notifications.js',
+    'src/components/charts/cartesian/*.js',
   ]),
   template: {
     head: {
