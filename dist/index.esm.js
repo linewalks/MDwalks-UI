@@ -2,7 +2,7 @@ import React, { useState, Component, useEffect, Children, isValidElement, cloneE
 import styled, { css, keyframes } from 'styled-components';
 import * as d3 from 'd3';
 import { scaleLinear, selection, select, scaleTime, axisTop, scalePoint, axisRight, scaleOrdinal, schemePaired, mouse, timeFormat, axisBottom, brushX, event, axisLeft, line, histogram, scaleLog, range, randomBates, timeYear } from 'd3';
-import { ResponsiveContainer, BarChart as BarChart$1, CartesianGrid, XAxis, Label as Label$1, YAxis, Tooltip, Bar, Cell, LineChart as LineChart$1, Line, PieChart as PieChart$1, Pie } from 'recharts';
+import { XAxis as XAxis$1, YAxis as YAxis$1, ResponsiveContainer, BarChart as BarChart$1, CartesianGrid, Label as Label$1, Tooltip, Bar, Cell, LineChart as LineChart$1, Line, PieChart as PieChart$1, Pie } from 'recharts';
 import { EventEmitter } from 'events';
 
 function _typeof(obj) {
@@ -21377,6 +21377,29 @@ var getTextStyleForHighcharts = function getTextStyleForHighcharts(color) {
     opacity: 0.6
   };
 };
+var getBarSize = function getBarSize(barCount, layout) {
+  // let barCount = _.size(newYDataKey)
+  var barSize; // if (stackId) {
+  //   barCount = 1
+  // }
+
+  if (layout === 'horizontal') {
+    barSize = {
+      1: 48,
+      2: 40,
+      3: 40,
+      4: 40
+    }[barCount] || 32;
+  }
+
+  if (layout === 'vertical') {
+    barSize = {
+      1: 34
+    }[barCount] || 16;
+  }
+
+  return barSize;
+};
 
 var chartUtility = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -21389,7 +21412,8 @@ var chartUtility = /*#__PURE__*/Object.freeze({
   labelList: labelList,
   lineDataFormatConvert: lineDataFormatConvert,
   errorMessage: errorMessage,
-  getTextStyleForHighcharts: getTextStyleForHighcharts
+  getTextStyleForHighcharts: getTextStyleForHighcharts,
+  getBarSize: getBarSize
 });
 
 var SankeyChart = /*#__PURE__*/function (_React$Component) {
@@ -21879,8 +21903,18 @@ styleInject(css_248z$1);
 
 var icnMoreModalMdDefault = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNCIgaGVpZ2h0PSIzNCIgdmlld0JveD0iMCAwIDM0IDM0Ij4KICAgIDxwYXRoIGZpbGw9IiM3NTdGOEIiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTIzIDEwYy41NTIgMCAxIC40NDggMSAxdjEyYzAgLjU1Mi0uNDQ4IDEtMSAxcy0xLS40NDgtMS0xdi05LjUxNkwxMS43MDcgMjMuNzc4Yy0uMzkuMzktMS4wMjQuMzktMS40MTQgMC0uMzktLjM5LS4zOS0xLjAyNCAwLTEuNDE0TDIwLjY1NiAxMkgxMWMtLjU1MiAwLTEtLjQ0OC0xLTFzLjQ0OC0xIDEtMWgxMnoiLz4KPC9zdmc+';
 
-function _templateObject6() {
+function _templateObject7() {
   var data = _taggedTemplateLiteral(["\n  position: absolute;\n  right: 8px;\n  top: 8px;\n"]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n"]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -21900,7 +21934,7 @@ function _templateObject5() {
 }
 
 function _templateObject4$1() {
-  var data = _taggedTemplateLiteral(["\n"]);
+  var data = _taggedTemplateLiteral(["\n  position: relative;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  cursor: ", ";\n"]);
 
   _templateObject4$1 = function _templateObject4() {
     return data;
@@ -21910,7 +21944,7 @@ function _templateObject4$1() {
 }
 
 function _templateObject3$2() {
-  var data = _taggedTemplateLiteral(["\n  position: relative;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  cursor: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: 282px;\n  height: 160px;\n  border-radius: 8px;\n  box-shadow: 0 1px 8px 0 rgba(117, 127, 139, 0.36);\n  background-color: #ffffff;\n  font-size: 0;\n  display: inline-block;\n  text-align: center;\n  margin-right: 24px;\n\n  &:last-child {\n    margin-right: 0;\n  }\n\n  dl {\n    width: 100%;\n    text-align: right;\n    padding-right: 44px;\n\n    margin: 0;\n  }\n\n  ", "\n"]);
 
   _templateObject3$2 = function _templateObject3() {
     return data;
@@ -21920,7 +21954,7 @@ function _templateObject3$2() {
 }
 
 function _templateObject2$4() {
-  var data = _taggedTemplateLiteral(["\n  width: 282px;\n  height: 160px;\n  border-radius: 8px;\n  box-shadow: 0 1px 8px 0 rgb(117, 127, 139);\n  background-color: #ffffff;\n  font-size: 0;\n  display: inline-block;\n  text-align: center;\n  margin-right: 24px;\n\n  &:last-child {\n    margin-right: 0;\n  }\n\n  dl {\n    width: 100%;\n    text-align: right;\n    padding-right: 44px;\n\n    margin: 0;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  transition: transform 0.1s ease-in-out;\n  &:hover {\n    box-shadow: 0 8px 40px 0 rgba(117, 127, 139, 0.2);\n    transform: translateY(-4px);\n  }\n"]);
 
   _templateObject2$4 = function _templateObject2() {
     return data;
@@ -21939,21 +21973,25 @@ function _templateObject$4() {
   return data;
 }
 var Wrap1200$1 = styled.div(_templateObject$4());
-var Article = styled.article(_templateObject2$4());
-var EventElement = styled.div(_templateObject3$2(), function (props) {
+var hover = css(_templateObject2$4());
+var Article = styled.article(_templateObject3$2(), function (props) {
+  if (props.events) return hover;
+  return null;
+});
+var EventElement = styled.div(_templateObject4$1(), function (props) {
   return props.onClick ? 'pointer' : '';
 });
 var DT = styled.dt.attrs(function () {
   return {
     className: [fontStyle.fs16, fontStyle.fc_grey08, fontStyle.bold].join(' ')
   };
-})(_templateObject4$1());
+})(_templateObject5());
 var DD = styled.dd.attrs(function () {
   return {
     className: [fontStyle.fs40, fontStyle.fc_grey10, fontStyle.bold].join(' ')
   };
-})(_templateObject5());
-var Icon = styled.img(_templateObject6());
+})(_templateObject6());
+var Icon = styled.img(_templateObject7());
 
 var SummaryCard = function SummaryCard(_ref) {
   var className = _ref.className,
@@ -21968,7 +22006,8 @@ var SummaryCard = function SummaryCard(_ref) {
     var key = "SummaryCard".concat(idx);
     return React.createElement(Article, {
       key: key,
-      className: className
+      className: className,
+      events: events[name]
     }, React.createElement(EventElement, {
       onClick: events[name] ? function () {
         events[name]();
@@ -25369,6 +25408,47 @@ TooltipCompareContent.propTypes = {
   colorKeyMap: propTypes.arrayOf(propTypes.string)
 };
 
+var XAxis = /*#__PURE__*/function (_Rechart$XAxis) {
+  _inherits(XAxis, _Rechart$XAxis);
+
+  function XAxis() {
+    _classCallCheck(this, XAxis);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(XAxis).apply(this, arguments));
+  }
+
+  return XAxis;
+}(XAxis$1);
+
+XAxis.defaultProps = _objectSpread2({}, XAxis$1.defaultProps, {
+  axisLine: {
+    stroke: colorV1.$grey06
+  },
+  tickLine: false,
+  tickMargin: 10,
+  stroke: colorV1.$grey08,
+  fontSize: 14
+});
+
+var YAxis = /*#__PURE__*/function (_Rechart$YAxis) {
+  _inherits(YAxis, _Rechart$YAxis);
+
+  function YAxis() {
+    _classCallCheck(this, YAxis);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(YAxis).apply(this, arguments));
+  }
+
+  return YAxis;
+}(YAxis$1);
+
+YAxis.defaultProps = _objectSpread2({}, YAxis$1.defaultProps, {
+  axisLine: false,
+  tickLine: false,
+  tickMargin: 10,
+  stroke: colorV1.$grey08
+});
+
 /* eslint-disable max-len */
 var LabelStyle = {
   fill: colorV1.$grey08,
@@ -25397,7 +25477,8 @@ var BarChart = function BarChart(_ref) {
       margin = _ref.margin,
       xData = _ref.xData,
       yData = _ref.yData,
-      scroll = _ref.scroll;
+      scroll = _ref.scroll,
+      width = _ref.width;
   var newYDataKey = [].concat(yDataKey);
   var colors = '';
   var legendData;
@@ -25440,7 +25521,7 @@ var BarChart = function BarChart(_ref) {
   var YAxisTicFormatter = layout === 'horizontal' ? tickFormatter : undefined;
   var isScroll = !lodash.isUndefined(scroll.y);
 
-  var scrollChartMargin = lodash.extend({}, margin);
+  var scrollChartMargin = lodash.extend({}, BarChart.defaultProps.margin, margin);
 
   if (isScroll) {
     scrollChartMargin.bottom = 0;
@@ -25448,27 +25529,11 @@ var BarChart = function BarChart(_ref) {
 
   var barCount = lodash.size(newYDataKey);
 
-  var barSize;
-
   if (stackId) {
     barCount = 1;
   }
 
-  if (layout === 'horizontal') {
-    barSize = {
-      1: 48,
-      2: 40,
-      3: 40,
-      4: 40
-    }[barCount] || 32;
-  }
-
-  if (layout === 'vertical') {
-    barSize = {
-      1: 34
-    }[barCount] || 16;
-  }
-
+  var barSize = getBarSize(barCount, layout);
   var barGap = 1;
   var height;
 
@@ -25497,8 +25562,10 @@ var BarChart = function BarChart(_ref) {
   }) : React.createElement("div", null, React.createElement(WrapperScrollBars, {
     scroll: scroll
   }, React.createElement(ResponsiveContainer, {
+    width: width,
     height: height
   }, React.createElement(BarChart$1, {
+    width: width,
     data: data,
     height: height,
     layout: layout,
@@ -25510,12 +25577,6 @@ var BarChart = function BarChart(_ref) {
     stroke: colorV1.$grey04
   }), React.createElement(XAxis, {
     hide: isScroll,
-    axisLine: {
-      stroke: colorV1.$grey06
-    },
-    tickLine: false,
-    tickMargin: 10,
-    stroke: colorV1.$grey08,
     dataKey: XAxisDataKey,
     tickFormatter: XAxisTicFormatter,
     type: XAxisType,
@@ -25527,10 +25588,6 @@ var BarChart = function BarChart(_ref) {
     position: "bottom",
     style: LabelStyle.style
   })), React.createElement(YAxis, {
-    axisLine: false,
-    tickMargin: 10,
-    stroke: colorV1.$grey08,
-    tickLine: false,
     dataKey: YAxisDataKey,
     tickFormatter: YAxisTicFormatter,
     type: YAxisType,
@@ -25579,8 +25636,10 @@ var BarChart = function BarChart(_ref) {
       barSize: barSize
     });
   })))), isScroll && React.createElement(ResponsiveContainer, {
+    width: width,
     height: 31 + margin.bottom
   }, React.createElement(BarChart$1, {
+    width: width,
     data: data,
     height: 36,
     layout: layout,
@@ -25589,12 +25648,6 @@ var BarChart = function BarChart(_ref) {
     }),
     barGap: barGap
   }, React.createElement(XAxis, {
-    axisLine: {
-      stroke: colorV1.$grey06
-    },
-    tickLine: false,
-    tickMargin: 10,
-    stroke: colorV1.$grey08,
     dataKey: XAxisDataKey,
     tickFormatter: XAxisTicFormatter,
     type: XAxisType
@@ -25604,10 +25657,6 @@ var BarChart = function BarChart(_ref) {
     position: "bottom",
     style: LabelStyle.style
   })), React.createElement(YAxis, {
-    axisLine: false,
-    tickMargin: 10,
-    stroke: colorV1.$grey08,
-    tickLine: false,
     dataKey: YAxisDataKey,
     tickFormatter: YAxisTicFormatter,
     type: YAxisType
@@ -25637,13 +25686,14 @@ BarChart.defaultProps = {
   isPercent: false,
   margin: {
     top: 10,
-    right: 5,
+    right: 20,
     bottom: 5,
     left: 5
   },
   xData: {},
   yData: {},
-  scroll: {}
+  scroll: {},
+  width: BarChart$1.defaultProps.width
 };
 BarChart.propTypes = {
   title: propTypes.oneOfType([propTypes.shape({}), propTypes.string]),
@@ -25673,7 +25723,8 @@ BarChart.propTypes = {
   }),
   scroll: propTypes.shape({
     y: propTypes.number
-  })
+  }),
+  width: propTypes.number
 };
 
 function _templateObject$d() {
@@ -25706,7 +25757,7 @@ Heading.propTypes = {
 };
 
 function _templateObject$e() {
-  var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-right: 1px dashed rgba(0, 45, 79, 0.2)\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-right: 1px dashed ", ";\n  }\n"]);
 
   _templateObject$e = function _templateObject() {
     return data;
@@ -25714,7 +25765,7 @@ function _templateObject$e() {
 
   return data;
 }
-var Box$1 = styled.article(_templateObject$e());
+var Box$1 = styled.article(_templateObject$e(), colorV1.$grey05);
 
 var BarChartMulti = function BarChartMulti(_ref) {
   var title = _ref.title,
@@ -25759,6 +25810,7 @@ var BarChartMulti = function BarChartMulti(_ref) {
     return lodash.isEmpty(items);
   };
 
+  var barSize = getBarSize(lodash.size(newYDataKey), 'horizontal');
   return React.createElement("div", null, React.createElement(Heading, {
     size: "18",
     style: {
@@ -25796,28 +25848,25 @@ var BarChartMulti = function BarChartMulti(_ref) {
       }
     }, React.createElement(CartesianGrid, {
       vertical: false,
-      stroke: color.$line_graph_xy_grey
+      stroke: colorV1.$grey04
     }), React.createElement(XAxis, {
-      tickLine: false,
-      tickMargin: 10,
-      dataKey: xDataKey,
-      stroke: "rgba(0, 0, 0, 0.6)"
+      dataKey: xDataKey
     }), React.createElement(YAxis, {
-      axisLine: false,
-      tickLine: false,
       tickFormatter: tickFormatter,
-      tickMargin: 10,
       width: YAxisWidth,
-      domain: domain,
-      stroke: "rgba(0, 0, 0, 0.4)"
+      domain: domain
     }), React.createElement(Tooltip, {
       isPercent: isPercent,
-      content: TooltipBox
+      content: TooltipBox,
+      cursor: {
+        fill: ColorSet['Chart-Hover']['grey-hover']
+      }
     }), newYDataKey.map(function (entry, index) {
       return React.createElement(Bar, {
         key: "bar".concat(entry),
         dataKey: entry,
-        fill: colors[index]
+        fill: colors[index],
+        barSize: barSize
       });
     }))), React.createElement("div", {
       style: {
@@ -25825,8 +25874,8 @@ var BarChartMulti = function BarChartMulti(_ref) {
         paddingLeft: i === 0 ? YAxisWidth : 0,
         paddingTop: '16px'
       }
-    }, React.createElement(TextTag, {
-      opacity: "4"
+    }, React.createElement("span", {
+      className: [fontStyle.fs14, fontStyle.fc_grey08].join(' ')
     }, key)));
   })));
 };
@@ -25836,7 +25885,7 @@ BarChartMulti.defaultProps = {
   data: [],
   xDataKey: 'name',
   yDataKey: [],
-  theme: 'theme-arrange-primary-sea',
+  theme: Themes.ThemeArrangePrimarySea,
   isPercent: false
 };
 BarChartMulti.propTypes = {
@@ -25845,7 +25894,7 @@ BarChartMulti.propTypes = {
   xDataKey: propTypes.string,
   yDataKey: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
   isPercent: propTypes.bool,
-  theme: propTypes.oneOf(['blue', 'green', 'compare', 'theme-arrange-primary-sea', 'theme-arrange-secondary-teal', 'theme-arrange-tertiary-rose', 'theme-arrange-quaternary-gold', 'theme-arrange-quinary-berry'])
+  theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal, Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold, Themes.ThemeArrangeQuinaryBerry, Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3])
 };
 
 var LineChart = function LineChart(_ref) {
@@ -25893,7 +25942,7 @@ var LineChart = function LineChart(_ref) {
   }, React.createElement(CartesianGrid, {
     vertical: false,
     stroke: color.$line_graph_xy_grey
-  }), React.createElement(XAxis, {
+  }), React.createElement(XAxis$1, {
     tickLine: false,
     tickMargin: 10,
     dataKey: xDataKey,
@@ -25905,7 +25954,7 @@ var LineChart = function LineChart(_ref) {
     style: {
       fill: 'rgba(0, 0, 0, 0.6)'
     }
-  })), React.createElement(YAxis, {
+  })), React.createElement(YAxis$1, {
     axisLine: false,
     tickLine: false,
     tickFormatter: tickFormatter,
@@ -29793,10 +29842,10 @@ PieChart.propTypes = {
   })
 };
 
-function _templateObject7() {
+function _templateObject7$1() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  ", "\n"]);
 
-  _templateObject7 = function _templateObject7() {
+  _templateObject7$1 = function _templateObject7() {
     return data;
   };
 
@@ -30014,7 +30063,7 @@ var ButtonTag = styled(TextTag).attrs(function () {
     BtnSizeObject: BtnSizeObject,
     BtnColorObject: BtnColorObject
   };
-})(_templateObject7(), BtnDefaultCss, setBtnSize, setBtnColor);
+})(_templateObject7$1(), BtnDefaultCss, setBtnSize, setBtnColor);
 
 var Button = function Button(props) {
   var isLoading = props.isLoading,
@@ -59546,6 +59595,6 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.22";
+var version$1 = "0.13.23";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, RadarChart, RadioBox, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, Timeline, ToastCtr, ToggleButton, TooltipBox, TreeMap, chartUtility, cdmCommon as commonTag, font$1 as font, Notifications as notifications, variables, version$1 as version };
