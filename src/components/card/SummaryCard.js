@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
 import fontStyle from '@src/assets/styles/font.module.sass'
 
@@ -11,11 +11,19 @@ const Wrap1200 = styled.div`
   margin: 0 auto
 `
 
+const hover = css`
+  transition: transform 0.1s ease-in-out;
+  &:hover {
+    box-shadow: 0 8px 40px 0 rgba(117, 127, 139, 0.2);
+    transform: translateY(-4px);
+  }
+`
+
 export const Article = styled.article`
   width: 282px;
   height: 160px;
   border-radius: 8px;
-  box-shadow: 0 1px 8px 0 rgb(117, 127, 139);
+  box-shadow: 0 1px 8px 0 rgba(117, 127, 139, 0.36);
   background-color: #ffffff;
   font-size: 0;
   display: inline-block;
@@ -33,6 +41,11 @@ export const Article = styled.article`
 
     margin: 0;
   }
+
+  ${(props) => {
+    if (props.events) return hover
+    return null
+  }}
 `
 
 export const EventElement = styled.div`
@@ -66,7 +79,7 @@ const SummaryCard = ({ className, data, events }) => {
       {summaryData.map(([name, value], idx) => {
         const key = `SummaryCard${idx}`
         return (
-          <Article key={key} className={className}>
+          <Article key={key} className={className} events={events[name]}>
             <EventElement onClick={events[name] ? () => { events[name]() } : null}>
               <dl>
                 <DD>{value}</DD>
