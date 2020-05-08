@@ -12,3 +12,8 @@
 ### PieChart 의 colorList property 삭졔 예정
 
 - colorList 대신 theme 를 사용
+
+
+# to v0.13.23
+
+### barChart 의 fontSize 가 증가 됨에 따라, XAxix 의 domain 범위가 큰 경우, margin-right 를 지정해주어야 함

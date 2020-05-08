@@ -41,6 +41,7 @@ const BarChart = ({
   xData,
   yData,
   scroll,
+  width,
 }) => {
   const newYDataKey = [].concat(yDataKey);
 
@@ -74,7 +75,7 @@ const BarChart = ({
 
   const isScroll = !_.isUndefined(scroll.y)
 
-  const scrollChartMargin = _.extend({}, margin)
+  const scrollChartMargin = _.extend({}, BarChart.defaultProps.margin, margin)
 
   if (isScroll) {
     scrollChartMargin.bottom = 0
@@ -122,8 +123,9 @@ const BarChart = ({
           : (
             <div>
               <commonTag.WrapperScrollBars scroll={scroll}>
-                <Rechart.ResponsiveContainer height={height}>
+                <Rechart.ResponsiveContainer width={width} height={height}>
                   <Rechart.BarChart
+                    width={width}
                     data={data}
                     height={height}
                     layout={layout}
@@ -186,8 +188,9 @@ const BarChart = ({
               </commonTag.WrapperScrollBars>
               {
                 isScroll && (
-                  <Rechart.ResponsiveContainer height={(31 + margin.bottom)}>
+                  <Rechart.ResponsiveContainer width={width} height={(31 + margin.bottom)}>
                     <Rechart.BarChart
+                      width={width}
                       data={data}
                       height={36}
                       layout={layout}
@@ -227,11 +230,12 @@ BarChart.defaultProps = {
   themes: undefined,
   isPercent: false,
   margin: {
-    top: 10, right: 5, bottom: 5, left: 5,
+    top: 10, right: 20, bottom: 5, left: 5,
   },
   xData: {},
   yData: {},
   scroll: {},
+  width: Rechart.BarChart.defaultProps.width,
 }
 
 BarChart.propTypes = {
@@ -274,6 +278,7 @@ BarChart.propTypes = {
   scroll: PropTypes.shape({
     y: PropTypes.number,
   }),
+  width: PropTypes.number,
 }
 
 export default BarChart
