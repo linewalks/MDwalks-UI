@@ -12,12 +12,10 @@ const Wrap1200 = styled.div`
 `
 
 const hover = css`
-  bottom: 0;
-  transition: bottom 0.1s ease-in-out;
+  transition: transform 0.1s ease-in-out;
   &:hover {
-    position: relative;
     box-shadow: 0 8px 40px 0 rgba(117, 127, 139, 0.2);
-    bottom: 4px;
+    transform: translateY(-4px);
   }
 `
 
