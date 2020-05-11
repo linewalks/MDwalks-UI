@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import { hexToRGB } from '@Components/button/utility'
 import { color } from '@src/assets/styles/variables'
 
@@ -25,5 +26,31 @@ export const TextOverflow = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: ${(props) => (props.width ? props.width : '100%')};
+  width: ${(props) => (props.width)};
 `
+
+TextOverflow.defaultProps = {
+  width: '100%',
+}
+
+TextOverflow.propTypes = {
+  width: PropTypes.string,
+}
+
+export const TextOverflowMulti = styled.p`
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: ${(props) => (props.line)};
+  width: ${(props) => (props.width)};
+  overflow: hidden;
+`
+
+TextOverflowMulti.defaultProps = {
+  width: '100%',
+  line: 2,
+}
+
+TextOverflowMulti.propTypes = {
+  width: PropTypes.string,
+  line: PropTypes.number,
+}
