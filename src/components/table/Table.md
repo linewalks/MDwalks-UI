@@ -150,7 +150,7 @@ import React, { useState, useEffect } from 'react'
       [13, 14, 15],
     ],
     footData: [
-      ['t1', 't2', 't3'],
+      ['t1',  {colSpan: 2, text: 't3'}],
     ]
   }}
 />
