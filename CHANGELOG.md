@@ -1,3 +1,13 @@
+## [0.13.24](https://github.com/linewalks/MDwalks-UI/compare/v0.13.23...v0.13.24) (2020-05-13)
+
+
+### Features
+
+* **BarChart:** support unit of XAxis, YAxis ([1420c05](https://github.com/linewalks/MDwalks-UI/commit/1420c058aa851f2eafbc0ee0350b664b0b422ec4)), closes [#561](https://github.com/linewalks/MDwalks-UI/issues/561)
+* **TFoot:** support colSpan ([d75857b](https://github.com/linewalks/MDwalks-UI/commit/d75857b229905d9e36b47712e6b3ec77b5ee3c90)), closes [#531](https://github.com/linewalks/MDwalks-UI/issues/531)
+
+
+
 ## [0.13.23](https://github.com/linewalks/MDwalks-UI/compare/v0.13.22...v0.13.23) (2020-05-08)
 
 
