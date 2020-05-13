@@ -25491,7 +25491,8 @@ YAxis.defaultProps = _objectSpread2({}, Rechart.YAxis.defaultProps, {
   axisLine: false,
   tickLine: false,
   tickMargin: 10,
-  stroke: colorV1.$grey08
+  stroke: colorV1.$grey08,
+  fontSize: 14
 });
 
 /* eslint-disable max-len */
@@ -59648,7 +59649,7 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.24";
+var version$1 = "0.13.25";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;

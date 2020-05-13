@@ -1,3 +1,19 @@
+## [0.13.25](https://github.com/linewalks/MDwalks-UI/compare/v0.13.23...v0.13.25) (2020-05-13)
+
+
+### Bug Fixes
+
+* **YAxis:** set fontSize ([6f74993](https://github.com/linewalks/MDwalks-UI/commit/6f7499378d1bf6bd52d85c67db26224e260798f5)), closes [#588](https://github.com/linewalks/MDwalks-UI/issues/588)
+
+
+### Features
+
+* **BarChart:** support unit of XAxis, YAxis ([1420c05](https://github.com/linewalks/MDwalks-UI/commit/1420c058aa851f2eafbc0ee0350b664b0b422ec4)), closes [#561](https://github.com/linewalks/MDwalks-UI/issues/561)
+* **package:** add script of clear:branch ([f646d7e](https://github.com/linewalks/MDwalks-UI/commit/f646d7e00b98d59815dc439d4c9059a63695ebd9)), closes [#587](https://github.com/linewalks/MDwalks-UI/issues/587)
+* **TFoot:** support colSpan ([d75857b](https://github.com/linewalks/MDwalks-UI/commit/d75857b229905d9e36b47712e6b3ec77b5ee3c90)), closes [#531](https://github.com/linewalks/MDwalks-UI/issues/531)
+
+
+
 ## [0.13.24](https://github.com/linewalks/MDwalks-UI/compare/v0.13.23...v0.13.24) (2020-05-13)
 
 
