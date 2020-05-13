@@ -116,3 +116,45 @@ describe('LineChart Component', () => {
     expect(findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.Line)).toHaveLength(1)
   })
 })
+
+describe('unit', () => {
+  let component
+  let XAxis
+  let YAxis
+  beforeEach(() => {
+    component = mount(
+      <LineChart
+        title="Example"
+        data={data}
+        xDataKey="age"
+        yDataKey="Persons"
+        theme="blue"
+      />,
+    )
+  })
+
+  it('default', () => {
+    XAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.XAxis)
+    YAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.YAxis)
+
+    expect(XAxis[0].props.unit).toBe(undefined)
+    expect(YAxis[0].props.unit).toBe(undefined)
+  })
+
+  it('set unit', () => {
+    component.setProps({
+      xData: {
+        unit: 'x unit',
+      },
+      yData: {
+        unit: 'y unit',
+      },
+    })
+
+    XAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.XAxis)
+    YAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.YAxis)
+
+    expect(XAxis[0].props.unit).toBe('x unit')
+    expect(YAxis[0].props.unit).toBe('y unit')
+  })
+})

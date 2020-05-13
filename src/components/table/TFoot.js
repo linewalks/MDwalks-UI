@@ -24,10 +24,17 @@ const TFoot = ({ footData }) => {
       return (
         <tr key={trKey}>
           {
-            _.map(data, (d, j) => {
-              const tdKey = `footeritem${d}${j}`
+            _.map(data, (row, j) => {
+              let colSpan
+              const text = _.isObject(row) ? row.text : row
+              const tdKey = `footeritem${text}${j}`
+
+              if (row.colSpan) {
+                colSpan = row.colSpan
+              }
+
               return (
-                <td key={tdKey}>{d}</td>
+                <td key={tdKey} colSpan={colSpan}>{text}</td>
               )
             })
           }
@@ -50,7 +57,10 @@ TFoot.defaultProps = {
 TFoot.propTypes = {
   footData: PropTypes.arrayOf(
     PropTypes.arrayOf(
-      PropTypes.string,
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.shape(),
+      ]),
     ),
   ),
 }

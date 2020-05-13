@@ -112,6 +112,9 @@ const BarChart = ({
     height += space
   }
 
+  XAxis.defaultProps.unit = xData.unit
+  YAxis.defaultProps.unit = yData.unit
+
   return (
     <div>
       <commonTag.chartTitle>{title}</commonTag.chartTitle>
@@ -269,11 +272,13 @@ BarChart.propTypes = {
     label: PropTypes.shape({
       value: PropTypes.string.isRequired,
     }),
+    unit: PropTypes.string,
   }),
   yData: PropTypes.shape({
     label: PropTypes.shape({
       value: PropTypes.string.isRequired,
     }),
+    unit: PropTypes.string,
   }),
   scroll: PropTypes.shape({
     y: PropTypes.number,

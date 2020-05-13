@@ -34,6 +34,9 @@ const LineChart = ({
     return newValue
   }
 
+  Rechart.XAxis.defaultProps.unit = xData.unit
+  Rechart.YAxis.defaultProps.unit = yData.unit
+
   return (
     <div>
       <Heading size="18" style={{ marginBottom: '30px' }}>{title}</Heading>
@@ -114,11 +117,13 @@ LineChart.propTypes = {
     label: PropTypes.shape({
       value: PropTypes.string.isRequired,
     }),
+    unit: PropTypes.string,
   }),
   yData: PropTypes.shape({
     label: PropTypes.shape({
       value: PropTypes.string.isRequired,
     }),
+    unit: PropTypes.string,
   }),
 }
 

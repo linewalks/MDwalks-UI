@@ -4,9 +4,14 @@ const { version } = require('./package');
 const ignore = ['**/__tests__/**', '**/*.test.{js,jsx,ts,tsx}', '**/*.spec.{js,jsx,ts,tsx}', '**/*.d.ts']
 
 module.exports = {
+  title: 'MDwalks-UI Style Guide',
   require: [
     path.resolve(__dirname, 'src/assets/styles/reset.css'),
     path.resolve(__dirname, 'src/assets/styles/spoqaHansans.css'),
+  ],
+  components: [
+    'src/assets/styles/font.js',
+    'src/components/**/*.{js,jsx,ts,tsx}',
   ],
   moduleAliases: {
     '@src': path.resolve(__dirname, 'src'),
