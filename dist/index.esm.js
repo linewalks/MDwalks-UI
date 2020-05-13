@@ -25484,7 +25484,8 @@ YAxis.defaultProps = _objectSpread2({}, YAxis$1.defaultProps, {
   axisLine: false,
   tickLine: false,
   tickMargin: 10,
-  stroke: colorV1.$grey08
+  stroke: colorV1.$grey08,
+  fontSize: 14
 });
 
 /* eslint-disable max-len */
@@ -59641,6 +59642,6 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.24";
+var version$1 = "0.13.25";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, RadarChart, RadioBox, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, Timeline, ToastCtr, ToggleButton, TooltipBox, TreeMap, chartUtility, cdmCommon as commonTag, font$1 as font, Notifications as notifications, variables, version$1 as version };
