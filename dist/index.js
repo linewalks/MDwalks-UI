@@ -21789,6 +21789,16 @@ var hexToRGB = function hexToRGB(hex, alpha) {
   return "rgb(".concat(rgb.join(','), ")");
 };
 
+function _templateObject3$1() {
+  var data = _taggedTemplateLiteral(["\n  display: -webkit-box;\n  -webkit-box-orient: vertical;\n  -webkit-line-clamp: ", ";\n  width: ", ";\n  overflow: hidden;\n"]);
+
+  _templateObject3$1 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject2$2() {
   var data = _taggedTemplateLiteral(["\n  display: block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  width: ", ";\n"]);
 
@@ -21818,14 +21828,34 @@ var Text = function Text(props) {
 };
 var TextTag = styled__default.span(_templateObject$2(), Text);
 var TextOverflow = styled__default.p(_templateObject2$2(), function (props) {
-  return props.width ? props.width : '100%';
+  return props.width;
 });
+TextOverflow.defaultProps = {
+  width: '100%'
+};
+TextOverflow.propTypes = {
+  width: propTypes.string
+};
+var TextOverflowMulti = styled__default.p(_templateObject3$1(), function (props) {
+  return props.line;
+}, function (props) {
+  return props.width;
+});
+TextOverflowMulti.defaultProps = {
+  width: '100%',
+  line: 2
+};
+TextOverflowMulti.propTypes = {
+  width: propTypes.string,
+  line: propTypes.number
+};
 
 var font$1 = /*#__PURE__*/Object.freeze({
   __proto__: null,
   Text: Text,
   TextTag: TextTag,
-  TextOverflow: TextOverflow
+  TextOverflow: TextOverflow,
+  TextOverflowMulti: TextOverflowMulti
 });
 
 function _templateObject4() {
@@ -21838,10 +21868,10 @@ function _templateObject4() {
   return data;
 }
 
-function _templateObject3$1() {
+function _templateObject3$2() {
   var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  border-radius: 25px;\n  box-shadow: 0 4px 10px 0 ", ";\n  background-color: #002b4f;\n  padding: 11px 24px 10px;\n"]);
 
-  _templateObject3$1 = function _templateObject3() {
+  _templateObject3$2 = function _templateObject3() {
     return data;
   };
 
@@ -21871,7 +21901,7 @@ var Wrap1200 = styled__default.div(_templateObject$3());
 var Arrow = styled__default.article(_templateObject2$3(), function (props) {
   return props.isLastHighlighted ? '#ff4757' : '#002b4f';
 });
-var CardContatiner = styled__default.div(_templateObject3$1(), hexToRGB(color.$primary_navy, 0.16));
+var CardContatiner = styled__default.div(_templateObject3$2(), hexToRGB(color.$primary_navy, 0.16));
 var Card = styled__default(TextTag).attrs({
   size: '20',
   bold: true,
@@ -21950,10 +21980,10 @@ function _templateObject4$1() {
   return data;
 }
 
-function _templateObject3$2() {
+function _templateObject3$3() {
   var data = _taggedTemplateLiteral(["\n  width: 282px;\n  height: 160px;\n  border-radius: 8px;\n  box-shadow: 0 1px 8px 0 rgba(117, 127, 139, 0.36);\n  background-color: #ffffff;\n  font-size: 0;\n  display: inline-block;\n  text-align: center;\n  margin-right: 24px;\n\n  &:last-child {\n    margin-right: 0;\n  }\n\n  dl {\n    width: 100%;\n    text-align: right;\n    padding-right: 44px;\n\n    margin: 0;\n  }\n\n  ", "\n"]);
 
-  _templateObject3$2 = function _templateObject3() {
+  _templateObject3$3 = function _templateObject3() {
     return data;
   };
 
@@ -21981,7 +22011,7 @@ function _templateObject$4() {
 }
 var Wrap1200$1 = styled__default.div(_templateObject$4());
 var hover = styled.css(_templateObject2$4());
-var Article = styled__default.article(_templateObject3$2(), function (props) {
+var Article = styled__default.article(_templateObject3$3(), function (props) {
   if (props.events) return hover;
   return null;
 });
@@ -22933,10 +22963,10 @@ function _templateObject4$2() {
   return data;
 }
 
-function _templateObject3$3() {
+function _templateObject3$4() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 28px 24px;\n  > span {\n    position: relative;\n    width: 16px;\n    height: 100%;\n    margin-left: 8px;\n  }\n  img {\n    position: absolute;\n  }\n\n  img:first-child {\n    top: 50%;\n    margin-top: -8px;\n  }\n\n  img:last-child {\n    bottom: 50%;\n    margin-bottom: -8px;\n  }\n\n  width: 100%;\n  cursor: ", ";\n"]);
 
-  _templateObject3$3 = function _templateObject3() {
+  _templateObject3$4 = function _templateObject3() {
     return data;
   };
 
@@ -22984,7 +23014,7 @@ var SortButton = styled__default.button.attrs(function () {
     bold: true,
     opacity: 6
   };
-})(_templateObject3$3(), Text, function (props) {
+})(_templateObject3$4(), Text, function (props) {
   return props.disabled ? 'not-allowed' : 'pointer';
 });
 var Thead = styled__default.thead(_templateObject4$2(), color.$line_dashboard_edge_grey);
@@ -23194,10 +23224,10 @@ function _templateObject4$3() {
   return data;
 }
 
-function _templateObject3$4() {
+function _templateObject3$5() {
   var data = _taggedTemplateLiteral(["\n  width: 198px;\n  height: 140px;\n  margin-bottom: 8px;\n  font-size: 0;\n"]);
 
-  _templateObject3$4 = function _templateObject3() {
+  _templateObject3$5 = function _templateObject3() {
     return data;
   };
 
@@ -23229,7 +23259,7 @@ var EmptyContainer = styled__default.section(_templateObject$6(), function (prop
 var EmptyInner = styled__default.div(_templateObject2$6());
 var EmptyDescription = styled__default.img.attrs({
   src: "".concat(icnNoData)
-})(_templateObject3$4());
+})(_templateObject3$5());
 var EmptyText = styled__default.p.attrs(function () {
   return {
     className: [fontStyle.fs18, fontStyle.fc_grey08].join(' ')
@@ -23375,11 +23405,19 @@ var TFoot = function TFoot(_ref) {
       var trKey = "footer".concat(data.join(' ')).concat(i);
       return React__default.createElement("tr", {
         key: trKey
-      }, lodash.map(data, function (d, j) {
-        var tdKey = "footeritem".concat(d).concat(j);
+      }, lodash.map(data, function (row, j) {
+        var colSpan;
+        var text = lodash.isObject(row) ? row.text : row;
+        var tdKey = "footeritem".concat(text).concat(j);
+
+        if (row.colSpan) {
+          colSpan = row.colSpan;
+        }
+
         return React__default.createElement("td", {
-          key: tdKey
-        }, d);
+          key: tdKey,
+          colSpan: colSpan
+        }, text);
       }));
     });
   };
@@ -23391,7 +23429,7 @@ TFoot.defaultProps = {
   footData: undefined
 };
 TFoot.propTypes = {
-  footData: propTypes.arrayOf(propTypes.arrayOf(propTypes.string))
+  footData: propTypes.arrayOf(propTypes.arrayOf(propTypes.oneOfType([propTypes.string, propTypes.shape()])))
 };
 
 var performanceNow = createCommonjsModule(function (module) {
@@ -24873,10 +24911,10 @@ function _templateObject4$4() {
   return data;
 }
 
-function _templateObject3$5() {
+function _templateObject3$6() {
   var data = _taggedTemplateLiteral(["\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.2);\n\n  background-color: ", ";\n  padding: 30px;\n"]);
 
-  _templateObject3$5 = function _templateObject3() {
+  _templateObject3$6 = function _templateObject3() {
     return data;
   };
 
@@ -24904,7 +24942,7 @@ function _templateObject$9() {
 }
 var LegendWrap = styled__default.section(_templateObject$9());
 var BoxShadow = styled__default.article(_templateObject2$8());
-var BoxShadowInner = styled__default.div(_templateObject3$5(), color.$primary_white);
+var BoxShadowInner = styled__default.div(_templateObject3$6(), color.$primary_white);
 var Dot = styled__default.span(_templateObject4$4(), function (props) {
   return props.color;
 });
@@ -25141,10 +25179,10 @@ function _templateObject4$5() {
   return data;
 }
 
-function _templateObject3$6() {
+function _templateObject3$7() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-bottom: 1px solid ", "\n  }\n"]);
 
-  _templateObject3$6 = function _templateObject3() {
+  _templateObject3$7 = function _templateObject3() {
     return data;
   };
 
@@ -25172,7 +25210,7 @@ function _templateObject$b() {
 }
 var TableWrap = styled__default.div(_templateObject$b(), color.$line_search_grey);
 var Table$1 = styled__default.table(_templateObject2$a());
-var Tr = styled__default.tr(_templateObject3$6(), color.$line_search_grey);
+var Tr = styled__default.tr(_templateObject3$7(), color.$line_search_grey);
 var Th$1 = styled__default.th(_templateObject4$5(), color.$line_search_grey);
 var Td$1 = styled__default.td(_templateObject5$2(), color.$line_search_grey);
 var isLastCell = function isLastCell(_ref2) {
@@ -25562,6 +25600,8 @@ var BarChart = function BarChart(_ref) {
     height += space;
   }
 
+  XAxis.defaultProps.unit = xData.unit;
+  YAxis.defaultProps.unit = yData.unit;
   return React__default.createElement("div", null, React__default.createElement(chartTitle, null, title), React__default.createElement(LegendList, {
     data: legendData
   }), isEmpty(data) ? React__default.createElement(EmptyPlaceHolder, {
@@ -25721,12 +25761,14 @@ BarChart.propTypes = {
   xData: propTypes.shape({
     label: propTypes.shape({
       value: propTypes.string.isRequired
-    })
+    }),
+    unit: propTypes.string
   }),
   yData: propTypes.shape({
     label: propTypes.shape({
       value: propTypes.string.isRequired
-    })
+    }),
+    unit: propTypes.string
   }),
   scroll: propTypes.shape({
     y: propTypes.number
@@ -25933,6 +25975,8 @@ var LineChart = function LineChart(_ref) {
     return newValue;
   };
 
+  Rechart.XAxis.defaultProps.unit = xData.unit;
+  Rechart.YAxis.defaultProps.unit = yData.unit;
   return React__default.createElement("div", null, React__default.createElement(Heading, {
     size: "18",
     style: {
@@ -26018,12 +26062,14 @@ LineChart.propTypes = {
   xData: propTypes.shape({
     label: propTypes.shape({
       value: propTypes.string.isRequired
-    })
+    }),
+    unit: propTypes.string
   }),
   yData: propTypes.shape({
     label: propTypes.shape({
       value: propTypes.string.isRequired
-    })
+    }),
+    unit: propTypes.string
   })
 };
 
@@ -27191,10 +27237,10 @@ function _templateObject4$6() {
   return data;
 }
 
-function _templateObject3$7() {
+function _templateObject3$8() {
   var data = _taggedTemplateLiteral(["\n  position: absolute;\n  height: ", "px;\n  background-color: ", ";\n  bottom: -1px;\n  width: 100%;\n  left: 0;\n\n  display: ", ";\n}\n"]);
 
-  _templateObject3$7 = function _templateObject3() {
+  _templateObject3$8 = function _templateObject3() {
     return data;
   };
 
@@ -27233,7 +27279,7 @@ var Tab = styled__default.span.attrs(function (props) {
     bold: true
   }, options);
 })(_templateObject2$d(), Text, 13 + UnderLineSize, colorV1.$pmblue);
-var TabUnderLine = styled__default.div.attrs(function () {})(_templateObject3$7(), UnderLineSize, colorV1.$pmblue, function (props) {
+var TabUnderLine = styled__default.div.attrs(function () {})(_templateObject3$8(), UnderLineSize, colorV1.$pmblue, function (props) {
   return props['aria-selected'] ? 'block' : 'none';
 });
 var Hidden = styled.css(_templateObject4$6());
@@ -27797,10 +27843,10 @@ function _templateObject4$7() {
   return data;
 }
 
-function _templateObject3$8() {
+function _templateObject3$9() {
   var data = _taggedTemplateLiteral(["\n  > div {\n    display: flex\n    alignItems: baseline;\n  }\n\n  margin-bottom: 30px\n  button {\n    line-height: 1\n  }\n"]);
 
-  _templateObject3$8 = function _templateObject3() {
+  _templateObject3$9 = function _templateObject3() {
     return data;
   };
 
@@ -27839,7 +27885,7 @@ var Overlay = styled__default.div(_templateObject$j(), hexToRGB(color.$black, 0.
   return props.isLoading ? zIndex.$modalOverlayLoading : zIndex.$modalOverlay;
 });
 var ModalBox = styled__default.div(_templateObject2$e(), size$1.minWidth, size$1.borderRadius, color.$primary_white, zIndex.$modal, size$1.modalPadding);
-var Header = styled__default.header(_templateObject3$8());
+var Header = styled__default.header(_templateObject3$9());
 var Contents = styled__default(TextTag).attrs({
   size: '18',
   bold: false
@@ -27903,10 +27949,10 @@ Modal.propTypes = {
   footer: propTypes.node
 };
 
-function _templateObject3$9() {
+function _templateObject3$a() {
   var data = _taggedTemplateLiteral(["\n  label {\n    display: block;\n    padding: 12px 24px;\n    display: flex;\n    align-items: center;\n    img {\n      margin-right: 12px;\n    }\n  }\n  input {\n    display: none;\n  }\n\n  ", "\n"]);
 
-  _templateObject3$9 = function _templateObject3() {
+  _templateObject3$a = function _templateObject3() {
     return data;
   };
 
@@ -27939,7 +27985,7 @@ var Item = styled__default(TextTag).attrs(function () {
     size: 16,
     opacity: 8
   };
-})(_templateObject3$9(), function (props) {
+})(_templateObject3$a(), function (props) {
   return props.disabled ? CssDiable : CssEnable;
 });
 
@@ -28247,10 +28293,10 @@ function _templateObject4$8() {
   return data;
 }
 
-function _templateObject3$a() {
+function _templateObject3$b() {
   var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  &:not(:last-child) {\n    margin-right: 24px;\n  }\n"]);
 
-  _templateObject3$a = function _templateObject3() {
+  _templateObject3$b = function _templateObject3() {
     return data;
   };
 
@@ -28284,7 +28330,7 @@ var Inner = styled__default.div(_templateObject2$g(), function (props) {
 }, function (props) {
   return props.align === 'right' ? "margin-left: auto" : '';
 });
-var Box$3 = styled__default.div(_templateObject3$a());
+var Box$3 = styled__default.div(_templateObject3$b());
 var Label = styled__default.label.attrs(function () {
   return {
     className: [fontStyle.fs16, fontStyle.fc_grey09, fontStyle.bold].join(' ')
@@ -29889,10 +29935,10 @@ function _templateObject4$9() {
   return data;
 }
 
-function _templateObject3$b() {
+function _templateObject3$c() {
   var data = _taggedTemplateLiteral(["\n  opacity: 0;\n  animation: ", " 1.3s infinite;\n"]);
 
-  _templateObject3$b = function _templateObject3() {
+  _templateObject3$c = function _templateObject3() {
     return data;
   };
 
@@ -30040,7 +30086,7 @@ var setBtnColor = function setBtnColor(props) {
 };
 
 var fade = styled.keyframes(_templateObject2$i());
-var LoadingBase = styled.css(_templateObject3$b(), fade);
+var LoadingBase = styled.css(_templateObject3$c(), fade);
 var LoadingOne = styled__default.span(_templateObject4$9(), LoadingBase);
 var LoadingTwo = styled__default.span(_templateObject5$5(), LoadingBase);
 var LoadingThree = styled__default.span(_templateObject6$3(), LoadingBase);
@@ -30214,10 +30260,10 @@ ButtonTextLink.propTypes = {
   id: propTypes.string
 };
 
-function _templateObject3$c() {
+function _templateObject3$d() {
   var data = _taggedTemplateLiteral(["\n  display: inline-block;\n\n  vertical-align: middle;\n  > div {\n    display: flex;\n    align-items: center;\n  }\n\n  ", " {\n    &:first-child {\n      margin-right: 8px;\n    }\n    &:last-child {\n      margin-left: 8px;\n    }\n  }\n"]);
 
-  _templateObject3$c = function _templateObject3() {
+  _templateObject3$d = function _templateObject3() {
     return data;
   };
 
@@ -30259,7 +30305,7 @@ var TextLinkTag = styled__default(TextTag).attrs(function () {
   return props.fontSize;
 });
 var Icon$1 = styled__default.img(_templateObject2$j());
-var TextLinkIconTag = styled__default(TextLinkTag)(_templateObject3$c(), Icon$1);
+var TextLinkIconTag = styled__default(TextLinkTag)(_templateObject3$d(), Icon$1);
 
 var TextLink = function TextLink(props) {
   var href = props.href,
@@ -30342,10 +30388,10 @@ function _templateObject4$a() {
   return data;
 }
 
-function _templateObject3$d() {
+function _templateObject3$e() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n\n  p {\n    margin-left: 8px;\n    line-height: 1.34em;\n  }\n"]);
 
-  _templateObject3$d = function _templateObject3() {
+  _templateObject3$e = function _templateObject3() {
     return data;
   };
 
@@ -30381,7 +30427,7 @@ var Box$4 = styled__default.section.attrs(function () {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
 var InnerBox = styled__default.article(_templateObject2$k());
-var TextBox = styled__default.div(_templateObject3$d());
+var TextBox = styled__default.div(_templateObject3$e());
 var CloseButton = styled__default.button(_templateObject4$a());
 
 var Toast = function Toast(_ref) {
@@ -30660,10 +30706,10 @@ function _templateObject4$b() {
   return data;
 }
 
-function _templateObject3$e() {
+function _templateObject3$f() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    margin-left: 8px;\n  }\n  letter-spacing: -0.5px;\n  color: ", ";\n  ", ";\n"]);
 
-  _templateObject3$e = function _templateObject3() {
+  _templateObject3$f = function _templateObject3() {
     return data;
   };
 
@@ -30697,7 +30743,7 @@ var PaginationInner = styled__default.div(_templateObject2$l(), function (props)
 }, function (props) {
   return props.align === 'right' ? "margin-left: auto" : '';
 });
-var PageText = styled__default.span(_templateObject3$e(), colorV1.$grey10, function (props) {
+var PageText = styled__default.span(_templateObject3$f(), colorV1.$grey10, function (props) {
   return props.size === 'sm' ? "font-size: 14px;" : "font-size: 16px;";
 });
 var ButtonPage = styled__default.button(_templateObject4$b(), function (props) {
@@ -30921,10 +30967,10 @@ Pagination.propTypes = {
   align: propTypes.oneOf(['center', 'left', 'right'])
 };
 
-function _templateObject3$f() {
+function _templateObject3$g() {
   var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: ", "px;\n  min-width: ", "px;\n  height: ", "px;\n  padding: ", ";\n  border-radius: ", "px;\n  outline: none;\n  text-align: center;\n\n  &:not(:last-child) {\n    margin-right: 8px;\n  }\n  ", ";\n  background-color: ", ";\n  &:hover {\n    background-color: ", ";\n    ", ";\n  }\n"]);
 
-  _templateObject3$f = function _templateObject3() {
+  _templateObject3$g = function _templateObject3() {
     return data;
   };
 
@@ -30988,7 +31034,7 @@ var ToggleBtn = styled__default.button.attrs(function () {
   return {
     className: "".concat(fontStyle.font, " ").concat(fontStyle.bold)
   };
-})(_templateObject3$f(), colorV1.$grey10, function (props) {
+})(_templateObject3$g(), colorV1.$grey10, function (props) {
   return props.fontSize;
 }, function (props) {
   return props.minWidth;
@@ -59188,10 +59234,10 @@ function _templateObject4$c() {
   return data;
 }
 
-function _templateObject3$g() {
+function _templateObject3$h() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n\n  h4 {\n    margin-right: 8px;\n  }\n\n  img {\n    margin-right: 8px;\n  }\n\n  p {\n    line-height: 1.34em;\n  }\n"]);
 
-  _templateObject3$g = function _templateObject3() {
+  _templateObject3$h = function _templateObject3() {
     return data;
   };
 
@@ -59227,7 +59273,7 @@ var Box$6 = styled__default.section.attrs(function () {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
 var InnerBox$1 = styled__default.article(_templateObject2$n());
-var TextBox$1 = styled__default.div(_templateObject3$g());
+var TextBox$1 = styled__default.div(_templateObject3$h());
 var CloseButton$1 = styled__default.button(_templateObject4$c());
 
 var Notification = /*#__PURE__*/function (_React$Component) {
@@ -59323,10 +59369,10 @@ Notification.propTypes = {
   onRequestHide: propTypes.func
 };
 
-function _templateObject3$h() {
+function _templateObject3$i() {
   var data = _taggedTemplateLiteral(["\n  box-sizing: border-box;\n  position: fixed;\n  top: 99px;\n  left: 50%;\n  margin-left: -350px;\n  z-index: 999999;\n  max-height: calc(100% - 30px -99px);\n  overflow-x: hidden;\n  overflow-y: auto;\n\n  .item-enter {\n    animation: ", " 100ms linear;\n    animation-fill-mode: both;\n  }\n\n  .item-enter-active {\n  }\n\n  .item-exit {\n    animation: ", " 100ms linear;\n    animation-fill-mode: both;\n  }\n\n  .item-exit-active {\n  }\n"]);
 
-  _templateObject3$h = function _templateObject3() {
+  _templateObject3$i = function _templateObject3() {
     return data;
   };
 
@@ -59354,7 +59400,7 @@ function _templateObject$x() {
 }
 var fadeInDown = styled.keyframes(_templateObject$x());
 var fadeOutUp = styled.keyframes(_templateObject2$o());
-var List = styled__default.section(_templateObject3$h(), fadeInDown, fadeOutUp);
+var List = styled__default.section(_templateObject3$i(), fadeInDown, fadeOutUp);
 
 var Notifications = function Notifications(props) {
   var notifications = props.notifications,
@@ -59602,7 +59648,7 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.23";
+var version$1 = "0.13.24";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;
