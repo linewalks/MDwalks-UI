@@ -83,7 +83,7 @@ class LineMergeTimeline extends Component {
     // const lineTitle =
     this.getRootElement().select('.timeline')
       .append('text')
-      .text('MACE Risk by Visit')
+      .text('Risk per visiting')
       .attr('text-anchor', 'end')
       .attr('dx', -23)
       .attr('x', yAxisWidth)
