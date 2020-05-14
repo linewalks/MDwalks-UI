@@ -114,7 +114,7 @@ export const getBarSize = (barCount, layout) => {
   if (layout === 'vertical') {
     barSize = (
       {
-        1: 34,
+        1: 32,
       }
     )[barCount] || 16
   }
