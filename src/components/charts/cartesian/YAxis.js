@@ -11,6 +11,7 @@ YAxis.defaultProps = {
   tickMargin: 10,
   stroke: colorV1.$grey08,
   fontSize: 14,
+  custom: true,
 }
 
 export default YAxis

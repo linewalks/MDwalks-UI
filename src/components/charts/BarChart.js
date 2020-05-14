@@ -14,6 +14,7 @@ import { getBarSize } from '@src/helper/chartUtility'
 
 import XAxis from '@Components/charts/cartesian/XAxis'
 import YAxis from '@Components/charts/cartesian/YAxis'
+import CartesianGrid from '@Components/charts/cartesian/CartesianGrid'
 
 const LabelStyle = {
   fill: colorV1.$grey08, fontWeight: 'bold', fontSize: '14px',
@@ -135,7 +136,7 @@ const BarChart = ({
                     margin={scrollChartMargin}
                     barGap={barGap}
                   >
-                    <Rechart.CartesianGrid vertical={layout !== 'horizontal'} horizontal={layout === 'horizontal'} stroke={colorV1.$grey04} />
+                    <CartesianGrid vertical={layout !== 'horizontal'} horizontal={layout === 'horizontal'} />
                     <XAxis hide={isScroll} dataKey={XAxisDataKey} tickFormatter={XAxisTicFormatter} type={XAxisType} height={20} dy={-10 + 8}>
                       {
                         xData.label && (

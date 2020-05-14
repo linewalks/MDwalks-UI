@@ -57,6 +57,7 @@ describe('default Component', () => {
   let Bar
   let XAxis
   let YAxis
+
   beforeEach(() => {
     component = mount(
       <BarChart

@@ -20,6 +20,7 @@ import { getBarSize } from '@src/helper/chartUtility'
 
 import XAxis from '@Components/charts/cartesian/XAxis'
 import YAxis from '@Components/charts/cartesian/YAxis'
+import CartesianGrid from '@Components/charts/cartesian/CartesianGrid'
 
 const Box = styled.article`
   &:not(:last-child) {
@@ -88,10 +89,7 @@ const BarChartMulti = ({
                       top: 0, right: 0, bottom: 0, left: (i === 0 ? 0 : YAxisWidth * -1),
                     }}
                   >
-                    <Rechart.CartesianGrid
-                      vertical={false}
-                      stroke={colorV1.$grey04}
-                    />
+                    <CartesianGrid vertical={false} />
                     <XAxis dataKey={xDataKey} />
                     <YAxis tickFormatter={tickFormatter} width={YAxisWidth} domain={domain} />
                     <Rechart.Tooltip

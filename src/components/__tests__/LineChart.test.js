@@ -85,6 +85,9 @@ describe('LineChart Component', () => {
 
 describe('LineChart Component', () => {
   let component;
+  let XAxis
+  let YAxis
+
   beforeEach(() => {
     component = mount(
       <LineChart
@@ -105,13 +108,13 @@ describe('LineChart Component', () => {
         theme="blue"
       />,
     )
+
+    XAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.XAxis)
+    YAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.YAxis)
   })
 
   it('데이터가 있을 때, linechart를 렌더링 해야 한다.', () => {
-    const XAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.XAxis)
     expect(XAxis[0].props.children.type.displayName).toBe('Label')
-
-    const YAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.YAxis)
     expect(YAxis[0].props.children.type.displayName).toBe('Label')
     expect(findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.Line)).toHaveLength(1)
   })

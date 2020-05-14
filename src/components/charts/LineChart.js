@@ -4,10 +4,18 @@ import * as Rechart from 'recharts'
 import PropTypes from 'prop-types'
 import Heading from '@Components/layout/Heading'
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
-import { color } from '@src/assets/styles/variables'
+import { colorV1 } from '@src/assets/styles/variables'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as commonTag from '@Components/common/cdmCommon'
 import { getColorsByTheme, Themes } from '@Components/ChartColor'
+
+import XAxis from '@Components/charts/cartesian/XAxis'
+import YAxis from '@Components/charts/cartesian/YAxis'
+import CartesianGrid from '@Components/charts/cartesian/CartesianGrid'
+
+const LabelStyle = {
+  fill: colorV1.$grey08, fontWeight: 'bold', fontSize: '14px',
+}
 
 const LineChart = ({
   title,
@@ -34,8 +42,10 @@ const LineChart = ({
     return newValue
   }
 
-  Rechart.XAxis.defaultProps.unit = xData.unit
-  Rechart.YAxis.defaultProps.unit = yData.unit
+  XAxis.defaultProps.unit = xData.unit
+  YAxis.defaultProps.unit = yData.unit
+
+  const drawMargin = _.extend({}, LineChart.defaultProps.margin, margin)
 
   return (
     <div>
@@ -49,23 +59,23 @@ const LineChart = ({
               <Rechart.LineChart
                 data={data}
                 height={415}
-                margin={margin}
+                margin={drawMargin}
               >
-                <Rechart.CartesianGrid vertical={false} stroke={color.$line_graph_xy_grey} />
-                <Rechart.XAxis tickLine={false} tickMargin={10} dataKey={xDataKey} stroke="rgba(0, 0, 0, 0.6)">
+                <CartesianGrid vertical={false} />
+                <XAxis dataKey={xDataKey}>
                   {
                     xData.label && (
-                      <Rechart.Label value={xData.label.value} offset={10} position="bottom" style={{ fill: 'rgba(0, 0, 0, 0.6)' }} />
+                      <Rechart.Label value={xData.label.value} offset={10} position="bottom" style={LabelStyle.style} />
                     )
                   }
-                </Rechart.XAxis>
-                <Rechart.YAxis axisLine={false} tickLine={false} tickFormatter={tickFormatter} tickMargin={10} stroke="rgba(0, 0, 0, 0.4)">
+                </XAxis>
+                <YAxis tickFormatter={tickFormatter}>
                   {
                     yData.label && (
-                      <Rechart.Label value={yData.label.value} offset={0} position="left" style={{ fill: 'rgba(0, 0, 0, 0.4)' }} />
+                      <Rechart.Label value={yData.label.value} offset={0} position="left" style={LabelStyle.style} />
                     )
                   }
-                </Rechart.YAxis>
+                </YAxis>
                 <Rechart.Tooltip
                   isPercent={isPercent}
                   content={TooltipBox}
@@ -89,7 +99,7 @@ LineChart.defaultProps = {
   theme: Themes.ThemeArrangePrimarySea,
   isPercent: false,
   margin: {
-    top: 10, right: 5, bottom: 5, left: 5,
+    top: 10, right: 20, bottom: 5, left: 5,
   },
   xData: {},
   yData: {},
