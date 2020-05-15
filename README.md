@@ -144,7 +144,7 @@ describe('어떤 함수 또는 컴포런트의', () => {
 ## 4. 버전 업 순서
 - git flow feature start 'version.up.${버전}'
 - yarn version 
-  - 버전 입력
+  - 버전 입력 <-- 버전 tag 생성 됨
 - yarn build:docs
 - git add . && git commit -m '.'
 - `git rebase -i HEAD~2` 로 commit 2개 머지 
