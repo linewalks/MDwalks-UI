@@ -56,12 +56,7 @@ TFoot.defaultProps = {
 
 TFoot.propTypes = {
   footData: PropTypes.arrayOf(
-    PropTypes.arrayOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.shape(),
-      ]),
-    ),
+    PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string, PropTypes.number]),
   ),
 }
 
