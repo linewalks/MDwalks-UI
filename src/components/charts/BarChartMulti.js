@@ -35,6 +35,7 @@ const BarChartMulti = ({
   yDataKey,
   theme,
   isPercent,
+  textMap,
 }) => {
   const newYDataKey = [].concat(yDataKey)
   const colors = getColorsByTheme(theme, newYDataKey.length)
@@ -67,7 +68,7 @@ const BarChartMulti = ({
     <div>
       <Heading size="18" style={{ marginBottom: '30px' }}>{title}</Heading>
 
-      <cdmCommon.LegendList data={legendData} />
+      <cdmCommon.LegendList data={legendData} textMap={textMap} />
       {
         isEmpty(data)
           ? (
@@ -94,6 +95,7 @@ const BarChartMulti = ({
                     <YAxis tickFormatter={tickFormatter} width={YAxisWidth} domain={domain} />
                     <Rechart.Tooltip
                       isPercent={isPercent}
+                      textMap={textMap}
                       content={TooltipBox}
                       cursor={{ fill: ColorSet['Chart-Hover']['grey-hover'] }}
                     />
@@ -127,6 +129,7 @@ BarChartMulti.defaultProps = {
   yDataKey: [],
   theme: Themes.ThemeArrangePrimarySea,
   isPercent: false,
+  textMap: {},
 }
 
 BarChartMulti.propTypes = {
@@ -135,6 +138,7 @@ BarChartMulti.propTypes = {
   xDataKey: PropTypes.string,
   yDataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   isPercent: PropTypes.bool,
+  textMap: PropTypes.shape({}),
   theme: PropTypes.oneOf([
     'blue', 'green', 'compare',
     Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal,

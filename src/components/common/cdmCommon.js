@@ -51,9 +51,16 @@ export const Legend = styled.article`
   color: rgba(0, 0, 0, 0.4);
 `
 
-export const LegendList = ({ data }) => {
+export const LegendList = ({ data, textMap }) => {
   const legends = data && data.map(({ color: legendColor, text }, index) => {
     const lKey = `legend_${text}_${index}`
+
+    let drawText = text
+
+    if (textMap[drawText]) {
+      drawText = textMap[drawText]
+    }
+
     return (
       <Legend key={lKey}>
         <span>
@@ -66,7 +73,7 @@ export const LegendList = ({ data }) => {
           {
             !_.isArray(legendColor) && (<Dot color={legendColor} style={{ marginRight: '8px' }} />)
           }
-          <span>{text}</span>
+          <span>{drawText}</span>
         </span>
       </Legend>
     )
@@ -81,10 +88,12 @@ export const LegendList = ({ data }) => {
 
 LegendList.defaultProps = {
   data: [],
+  textMap: {},
 }
 
 LegendList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})),
+  textMap: PropTypes.shape({}),
 }
 
 export const WrapperScrollBars = ({ scroll, children }) => (

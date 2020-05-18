@@ -322,13 +322,6 @@ describe('Group', () => {
     expect(colorSet).toEqual(expected)
   })
 
-  it('call tooltip', () => {
-    const tooltip = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Tooltip)
-    expect(tooltip).toHaveLength(1)
-
-    expect(tooltip[0].props.content.displayName).toBe(TooltipCompareContent.displayName)
-  })
-
   it('call LegendList', () => {
     expect(component.find(commonTag.LegendList).at(0).prop('data')).toEqual([
       { color: ['#c0d7fc', '#fae0c3'], text: '1주이내' },
@@ -338,6 +331,73 @@ describe('Group', () => {
       { color: ['#0e2769', '#69400f'], text: '3달~반년' },
       { color: ['#091840', '#3d2408'], text: '반년 후' },
     ])
+  })
+})
+
+describe('tooltip', () => {
+  let component
+
+  const getTooltip = () => (
+    findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Tooltip)
+  )
+
+  beforeEach(() => {
+    component = mount(
+      <BarChart
+        title="group"
+        data={[
+          {
+            name: '유지',
+            '1주이내': 150,
+            '1주~2주': 131,
+            '2주~1달': 330,
+            '1달~3달': 680,
+            '3달~반년': 357,
+            '반년 후': 205,
+          },
+          {
+            name: '변경',
+            '1주이내': 663,
+            '1주~2주': 573,
+            '2주~1달': 1145,
+            '1달~3달': 2455,
+            '3달~반년': 1421,
+            '반년 후': 679,
+          },
+        ]}
+        xDataKey="name"
+        yDataKey={['1주이내', '1주~2주', '2주~1달', '1달~3달', '3달~반년', '반년 후']}
+        themes={[Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeQuaternaryGold]}
+      />,
+    )
+  })
+
+  it('default', () => {
+    const tooltip = getTooltip()
+    expect(tooltip).toHaveLength(1)
+
+    expect(tooltip[0].props.textMap).toEqual({})
+    expect(tooltip[0].props.content.displayName).toBe(TooltipCompareContent.displayName)
+  })
+
+  it('old theme', () => {
+    component.setProps({
+      themes: undefined,
+      theme: 'blue',
+    })
+    const tooltip = getTooltip()
+    expect(tooltip[0].props.content.displayName).toBe(undefined)
+  })
+
+  it('set textMap to tooltip', () => {
+    component.setProps({
+      textMap: {
+        '반년 후': 'AAA',
+      },
+    })
+
+    const tooltip = getTooltip()
+    expect(tooltip[0].props.textMap).toEqual({ '반년 후': 'AAA' })
   })
 })
 
