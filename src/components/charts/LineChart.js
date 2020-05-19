@@ -24,6 +24,7 @@ const LineChart = ({
   yDataKey,
   theme,
   isPercent,
+  textMap,
   margin,
   xData,
   yData,
@@ -50,7 +51,7 @@ const LineChart = ({
   return (
     <div>
       <Heading size="18" style={{ marginBottom: '30px' }}>{title}</Heading>
-      <commonTag.LegendList data={legendData} />
+      <commonTag.LegendList data={legendData} textMap={textMap} />
       {
         _.isEmpty(data)
           ? <EmptyPlaceHolder />
@@ -78,6 +79,7 @@ const LineChart = ({
                 </YAxis>
                 <Rechart.Tooltip
                   isPercent={isPercent}
+                  textMap={textMap}
                   content={TooltipBox}
                 />
                 {
@@ -98,6 +100,7 @@ LineChart.defaultProps = {
   yDataKey: ['value', []],
   theme: Themes.ThemeArrangePrimarySea,
   isPercent: false,
+  textMap: {},
   margin: {
     top: 10, right: 20, bottom: 5, left: 5,
   },
@@ -117,6 +120,7 @@ LineChart.propTypes = {
     Themes.ThemeArrangeQuinaryBerry,
   ]),
   isPercent: PropTypes.bool,
+  textMap: PropTypes.shape({}),
   margin: PropTypes.shape({
     top: PropTypes.number,
     right: PropTypes.number,

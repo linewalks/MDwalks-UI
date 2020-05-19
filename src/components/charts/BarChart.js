@@ -38,6 +38,7 @@ const BarChart = ({
   theme,
   themes,
   isPercent,
+  textMap,
   margin,
   xData,
   yData,
@@ -119,7 +120,7 @@ const BarChart = ({
   return (
     <div>
       <commonTag.chartTitle>{title}</commonTag.chartTitle>
-      <commonTag.LegendList data={legendData} />
+      <commonTag.LegendList data={legendData} textMap={textMap} />
       {/* {`barCount: ${barCount} barCategory: ${_.size(data)} ${margin.top} ${margin.bottom}`} */}
       {
         isEmpty(data)
@@ -155,6 +156,7 @@ const BarChart = ({
                       !_.isUndefined(themes) && (
                         <Rechart.Tooltip
                           isPercent={isPercent}
+                          textMap={textMap}
                           content={TooltipCompareContent}
                           colorKeyMap={_.map(data, ({ [xDataKey]: name }) => (name))}
                           colorObject={colors}
@@ -179,6 +181,7 @@ const BarChart = ({
                       _.isUndefined(themes) && (
                         <Rechart.Tooltip
                           isPercent={isPercent}
+                          textMap={textMap}
                           content={TooltipBox}
                           cursor={{ fill: ColorSet['Chart-Hover']['grey-hover'] }}
                         />
@@ -233,6 +236,7 @@ BarChart.defaultProps = {
   theme: Themes.ThemeArrangePrimarySea,
   themes: undefined,
   isPercent: false,
+  textMap: {},
   margin: {
     top: 10, right: 20, bottom: 5, left: 5,
   },
@@ -263,6 +267,7 @@ BarChart.propTypes = {
     Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
   ]),
   isPercent: PropTypes.bool,
+  textMap: PropTypes.shape({}),
   margin: PropTypes.shape({
     top: PropTypes.number,
     right: PropTypes.number,
