@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import _ from 'lodash'
 
 import ChartColor,
 {
@@ -59,10 +60,23 @@ describe('', () => {
       [ColorSetMap.teal200, ColorSetMap.teal400, ColorSetMap.teal600],
     )
   })
+
+  it(`${Themes.ThemeBubble}`, () => {
+    const obj = getColorsByTheme(Themes.ThemeBubble)
+    expect(_.keys(obj)).toHaveLength(22)
+
+    expect(obj.A).toBe('#0e2769')
+    expect(obj.F).toBe('#004545')
+    expect(obj.K).toBe('#661216')
+    expect(obj.P).toBe('#69400f')
+    expect(obj.START_CIRCLE).toBe('#091840')
+    expect(obj.END_CIRCLE).toBe('#ff5d46')
+  })
 })
 
 describe('ChartColor', () => {
   it('default', () => {
+    // _.zip
     const wrapper = mount(<ChartColor />)
     expect(wrapper.find(ChartColorSet)).toHaveLength(7)
     expect(wrapper.find(ChartColorTheme)).toHaveLength(16)
