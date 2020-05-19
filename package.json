@@ -16,7 +16,8 @@
   },
   "jest": {
     "testPathIgnorePatterns": [
-      "<rootDir>/src/components/__tests__/__snapshots__/"
+      "<rootDir>/src/components/__tests__/__snapshots__/",
+      "<rootDir>/src/components/__tests__/utils.js"
     ],
     "setupFilesAfterEnv": [
       "./setupTest.js"

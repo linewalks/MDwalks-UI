@@ -9,6 +9,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import { Themes, getColorsByTheme } from '@Components/ChartColor'
 import _ from 'lodash'
 
+import { getChilds, findReChartTags } from '@Components/__tests__/utils'
 
 const data = [
   {
@@ -42,27 +43,6 @@ const data = [
     weight: 5323,
   },
 ]
-
-const match = (props, Tag) => props.type && props.type.displayName === Tag.displayName
-
-const findReChartTags = (root, Tag) => (
-  _.chain(root)
-    .flatMapDeep()
-    .filter((props) => match(props, Tag))
-    .value()
-)
-
-const getChilds = (component, parent) => {
-  const root = component.find(parent).prop('children')
-
-  return {
-    Bar: findReChartTags(root, Rechart.Bar),
-    Line: findReChartTags(root, Rechart.Line),
-    XAxis: findReChartTags(root, Rechart.XAxis),
-    YAxis: findReChartTags(root, Rechart.YAxis),
-    Tooltip: findReChartTags(root, Rechart.Tooltip),
-  }
-}
 
 describe('default Component', () => {
   let component;
