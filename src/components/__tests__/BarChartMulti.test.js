@@ -1,5 +1,4 @@
 import React from 'react'
-import _ from 'lodash'
 import { mount } from 'enzyme'
 
 import {
@@ -11,6 +10,8 @@ import * as Rechart from 'recharts'
 
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import BarChartMulti from '@Components/charts/BarChartMulti'
+
+import { findReChartTags, findReChartTag } from '@Components/__tests__/utils'
 
 const data = [
   [
@@ -73,21 +74,6 @@ const data = [
   ],
 ]
 
-const match = (props, Tag) => props.type && props.type.displayName === Tag.displayName
-
-const findReChartTags = (root, Tag) => (
-  _.chain(root)
-    .flatMapDeep()
-    .filter((props) => match(props, Tag))
-    .value()
-)
-
-const findReChartTag = (root, Tag) => (
-  _.chain(root)
-    .flatMapDeep()
-    .find((props) => match(props, Tag))
-    .value()
-)
 
 describe('BarChartMulti', () => {
   it('set Property', () => {

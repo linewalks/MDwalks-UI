@@ -3,7 +3,8 @@ import { mount } from 'enzyme';
 import LineChart from '@Charts/LineChart';
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import * as Rechart from 'recharts'
-import _ from 'lodash'
+
+import { getChilds } from '@Components/__tests__/utils'
 
 const data = [
   {
@@ -43,27 +44,6 @@ const data = [
     Persons: 58,
   },
 ]
-
-const match = (props, Tag) => props.type && props.type.displayName === Tag.displayName
-
-const findReChartTags = (root, Tag) => (
-  _.chain(root)
-    .flatMapDeep()
-    .filter((props) => match(props, Tag))
-    .value()
-)
-
-const getChilds = (component, parent) => {
-  const root = component.find(parent).prop('children')
-
-  return {
-    Bar: findReChartTags(root, Rechart.Bar),
-    Line: findReChartTags(root, Rechart.Line),
-    XAxis: findReChartTags(root, Rechart.XAxis),
-    YAxis: findReChartTags(root, Rechart.YAxis),
-    Tooltip: findReChartTags(root, Rechart.Tooltip),
-  }
-}
 
 describe('LineChart Component', () => {
   let component;
