@@ -2,6 +2,7 @@ import * as Rechart from 'recharts'
 
 // import PieChart from '@Components/charts/PieChart'
 import _ from 'lodash'
+// import * as commonTag from '@Components/common/cdmCommon'
 
 const match = (props, Tag) => props.type && props.type.displayName === Tag.displayName
 
@@ -28,5 +29,6 @@ export const getChilds = (component, parent) => {
     XAxis: findReChartTags(root, Rechart.XAxis),
     YAxis: findReChartTags(root, Rechart.YAxis),
     Tooltip: findReChartTags(root, Rechart.Tooltip),
+    Radar: findReChartTags(root, Rechart.Radar),
   }
 }

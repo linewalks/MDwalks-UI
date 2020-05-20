@@ -1,96 +1,63 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
+import * as Rechart from 'recharts'
 import RadarChart from '@Charts/RadarChart';
+import * as commonTag from '@Components/common/cdmCommon'
+import {
+  getColorsByTheme, Themes,
+} from '@Components/ChartColor'
+import { getChilds } from '@Components/__tests__/utils'
 
-const data = {
-  groupVariableWeights: {
-    variables: [
-      'a',
-      'b',
-      'c',
-      'd',
-      'e',
-    ],
-    weights: [
-      0.1,
-      0.2,
-      0.3,
-      0.4,
-      0.5,
-    ],
+const data = [
+  {
+    subject: 'Math', A: 120, B: 110, fullMark: 150,
   },
-  patientVariableWeights: {
-    variables: [
-      'a',
-      'b',
-      'c',
-      'd',
-      'e',
-    ],
-    weights: [
-      0.6,
-      0.7,
-      0.8,
-      0.9,
-      1,
-    ],
+  {
+    subject: 'Chinese', A: 98, B: 130, fullMark: 150,
   },
-}
+  {
+    subject: 'English', A: 86, B: 130, fullMark: 150,
+  },
+  {
+    subject: 'Geography', A: 99, B: 100, fullMark: 150,
+  },
+  {
+    subject: 'Physics', A: 85, B: 90, fullMark: 150,
+  },
+];
 
 describe('RadarChart Component', () => {
   let component;
+  const dataKey = ['A', 'B']
   beforeEach(() => {
     component = mount(
       <RadarChart
-        width={700}
-        height={650}
-        radarCategory={data.groupVariableWeights.variables}
-        groupData={data.groupVariableWeights.weights}
-        patientData={data.groupVariableWeights.weights}
+        data={data}
+        nameKey="subject"
+        dataKey={dataKey}
       />,
     )
   })
 
-  it('renders placeholder when there is no data', () => {
-    const wrapper = shallow(<RadarChart width={700} height={650} />)
-    expect(wrapper.html()).toEqual('<div>No data is provided</div>');
+  it('LegendList', () => {
+    const LegendList = component.find(commonTag.LegendList)
+    expect(LegendList.prop('data').map(({ color }) => (color))).toEqual(getColorsByTheme(Themes.ThemeComparePrimarySea2, 2))
+    expect(LegendList.prop('data').map(({ text }) => (text))).toEqual(dataKey)
+    expect(LegendList.prop('textMap')).toEqual({})
+
+    component.setProps({
+      textMap: { A: 'Mike', B: 'Lily' },
+    })
+
+    expect(component.find(commonTag.LegendList).prop('textMap')).toEqual({ A: 'Mike', B: 'Lily' })
   })
 
-  it('renders properly when there is data', () => {
-    expect(component.html().includes('highcharts-root')).toBeTruthy()
-  })
+  // 먼저 들어 온 것이 zIndex 위에 오기 위해서는
+  // 먼저 들어 온 것이 뒤에 그려 저야 한다
+  it('Radar', () => {
+    const { Radar } = getChilds(component, Rechart.RadarChart)
+    expect(Radar).toHaveLength(dataKey.length)
 
-  it('renders props when props is given', () => {
-    const expectedPropsObj = {
-      width: 700,
-      height: 650,
-      radarCategory: data.groupVariableWeights.variables,
-      groupData: data.groupVariableWeights.weights,
-      patientData: data.groupVariableWeights.weights,
-    }
-    expect(component.get(0).props).toMatchObject(expectedPropsObj)
-  })
-
-  it('renders default props when there is no data props', () => {
-    const wrapper = mount(<RadarChart />)
-    const expecteddefaultPropsObj = {
-      title: null,
-      width: 1200,
-      height: 1200,
-      radarCategory: [
-        'visit_info',
-        'visit_history',
-        'lab',
-        'echo',
-        'drug',
-        'spect',
-        'demo',
-        'comorbidity',
-        'cabgpci',
-        'vitalsign',
-      ],
-      legendOpen: true,
-    }
-    expect(wrapper.get(0).props).toMatchObject(expecteddefaultPropsObj)
+    expect(Radar.map((node) => (node.props.dataKey))).toEqual(dataKey.reverse())
   })
 })

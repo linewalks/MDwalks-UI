@@ -1,3 +1,7 @@
+# v0.13.25 to v0.13.26
+### RadarChart 을 Rechart 로 변경
+- RadarChart 의 Data 형태가 변경되어 기존 Data 형태로 이용 시 RadarChartOld 을 사용하면 된다
+
 # v0.13.20 to v0.13.21
 
 ### theme 에서 blue, green, compare, Themes.ThemeArrangeGradient 를 변경
