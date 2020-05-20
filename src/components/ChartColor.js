@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash'
 import styled from 'styled-components';
 import PropTypes from 'prop-types'
+import { colorV1 } from '@src/assets/styles/variables'
 
 export const ColorSet = {
   'Primary-Sea': {
@@ -103,6 +104,7 @@ export const Themes = {
   ThemeArrangeQuinaryBerry: 'theme-arrange-quinary-berry',
   ThemeArrangeGradientPrimarySea: 'theme-arrange-gradient-primary-sea',
   ThemeArrangeGradientSecondaryTeal: 'theme-arrange-gradient-secondary-teal',
+  ThemeBubble: 'theme-bubble',
 }
 
 const ThemeMap = {
@@ -192,6 +194,7 @@ const isV1 = (theme) => (['blue', 'green', 'compare', 'v1'].includes(theme))
 const isArrange = (theme) => (_.includes(theme, 'arrange') && !_.includes(theme, 'gradient'))
 const isCompare = (theme) => (_.includes(theme, 'compare'))
 const isGradient = (theme) => (_.includes(theme, 'gradient'))
+const isBubble = (theme) => (_.includes(theme, 'bubble'))
 
 export const getColorsByTheme = (theme, size) => {
   if (isV1(theme)) {
@@ -203,7 +206,15 @@ export const getColorsByTheme = (theme, size) => {
   let list = []
 
   const dataSize = Math.max(2, size || 0)
-  if (isArrange(themeName)) {
+  if (isBubble(themeName)) {
+    // theme-arrange 범례5개 컬러의 역순으로 조합된 형태
+    list = [
+      ...ThemeMap[Themes.ThemeArrangePrimarySea]['5'].reverse(),
+      ...ThemeMap[Themes.ThemeArrangeSecondaryTeal]['5'].reverse(),
+      ...ThemeMap[Themes.ThemeArrangeTertiaryRose]['5'].reverse(),
+      ...ThemeMap[Themes.ThemeArrangeQuaternaryGold]['5'].reverse(),
+    ]
+  } else if (isArrange(themeName)) {
     list = ThemeMap[themeName][dataSize]
   } else if (isCompare(themeName)) {
     list = ThemeMap[themeName][dataSize]
@@ -211,9 +222,22 @@ export const getColorsByTheme = (theme, size) => {
     list = ThemeMap[themeName]
   }
 
+  list = _.map(list, (name) => (ColorSetMap[name]))
+
+  if (isBubble(themeName)) {
+    return _
+      .extend(
+        _.fromPairs(_.zip('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.slice(0, list.length).split(''), list)),
+        {
+          START_CIRCLE: ColorSet['Primary-Sea'].sea700,
+          END_CIRCLE: colorV1.$red01,
+        },
+      )
+  }
+
   // Arrange 시 지원 개수 초과시 반복
   // compare 시 지원 개수 초과시 에러
-  return _.map(list, (name) => (ColorSetMap[name]))
+  return list
 }
 
 const Box = styled.div`
@@ -334,7 +358,7 @@ const ChartColor = () => {
     'Total-Bluegrey', 'Chart-Hover',
   ]
 
-  const ThemeList = _.values(Themes)
+  const ThemeList = _.without(_.values(Themes), Themes.ThemeBubble)
 
   return (
     <>
