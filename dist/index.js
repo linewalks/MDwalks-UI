@@ -198,8 +198,24 @@ function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
 }
 
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  }
+}
+
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArray(iter) {
+  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
 }
 
 function _iterableToArrayLimit(arr, i) {
@@ -230,6 +246,10 @@ function _iterableToArrayLimit(arr, i) {
   }
 
   return _arr;
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
 }
 
 function _nonIterableRest() {
@@ -18440,6 +18460,80 @@ if (process.env.NODE_ENV !== 'production') {
 }
 });
 
+// Color Set START
+var color = {
+  $black: '#000000',
+  $primary_white: '#ffffff',
+  $primary_navy: '#002d4f',
+  $secondary_blue: '#eff8ff',
+  $secondary_bg_blue: '#f7fafb',
+  $menu_grey: '#565b5f',
+  $icn_grey: '#979797',
+  $line_btn_grey: '#c4c4c4',
+  $line_dashboard_edge_grey: '#d4d4d4',
+  $line_search_grey: '#e2e2e2',
+  $line_graph_xy_grey: '#e8e8e8',
+  $table_grey: '#f2f2f2',
+  $bg_grey: '#f8f8f8',
+  $table_cell_grey: '#fafafa',
+  $legend_timeline_green_01: '#a5e2d7',
+  $legend_timeline_green_02: '#27b097',
+  $legend_timeline_green_03: '#00745e',
+  $legend_timeline_red_01: '#fa6b57',
+  $legend_timeline_red_02: '#faafa5',
+  // $pathway_link_blue: '#189bff',
+  // $pathway_link_red: '#ff3a1f',
+  $alert_red: '#ff3c3c',
+  $azure: '#189bff',
+  $pathway_link_blue: 'rgba(24, 155, 255, 0.4)',
+  // solid_default
+  $pathway_link_red: 'rgba(255, 58, 31, 0.4)',
+  // alert_red
+  $solid_default: '#189bff',
+  $solid_hover: '#0070c6',
+  $btn_solid_disable: '#d1e7f7',
+  $btn_lightshaded_disable: '#efefef',
+  $btn_lightshaded_hover: '#d1d1d1',
+  $btn_lightshaded_default: '#e5e5e5',
+  $txt_solid_disable: '#ebf6fe',
+  $txt_solid_disable_02: '#b7ddf9'
+};
+var colorV1 = {
+  $pmblue01: '#f7fbff',
+  $pmblue02: '#eef7ff',
+  $pmblue: '#189bff',
+  $pmnavy: '#132a4a',
+  $grey01: '#f8f9fa',
+  $grey02: '#f3f6f8',
+  $grey03: '#edf1f5',
+  $grey04: '#e7ebee',
+  $grey05: '#d3d9de',
+  $grey06: '#b0b8c1',
+  $grey07: '#8b96a3',
+  $grey08: '#6d7884',
+  $grey09: '#4d5661',
+  $grey10: '#303841',
+  $red01: '#ff5d46',
+  $red02: '#c70901'
+};
+var size = {
+  $footer_height: '60px',
+  $footer_margin_top: '80px'
+};
+var zIndex = {
+  $modalOverlay: 1000,
+  $modal: 1001,
+  $modalOverlayLoading: 1002
+};
+
+var variables = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  color: color,
+  colorV1: colorV1,
+  size: size,
+  zIndex: zIndex
+});
+
 var _ThemeMap;
 
 function _templateObject3() {
@@ -18562,7 +18656,8 @@ var Themes = {
   ThemeArrangeQuaternaryGold: 'theme-arrange-quaternary-gold',
   ThemeArrangeQuinaryBerry: 'theme-arrange-quinary-berry',
   ThemeArrangeGradientPrimarySea: 'theme-arrange-gradient-primary-sea',
-  ThemeArrangeGradientSecondaryTeal: 'theme-arrange-gradient-secondary-teal'
+  ThemeArrangeGradientSecondaryTeal: 'theme-arrange-gradient-secondary-teal',
+  ThemeBubble: 'theme-bubble'
 };
 var ThemeMap = (_ThemeMap = {}, _defineProperty(_ThemeMap, Themes.V1, {
   blue: ['#d5e7fd', '#a5d2ff', '#63a3f3', '#3788ed', '#2f60c3', '#224b9f', '#1e3476', '#142352'],
@@ -18646,6 +18741,10 @@ var isGradient = function isGradient(theme) {
   return lodash.includes(theme, 'gradient');
 };
 
+var isBubble = function isBubble(theme) {
+  return lodash.includes(theme, 'bubble');
+};
+
 var getColorsByTheme = function getColorsByTheme(theme, size) {
   if (isV1(theme)) {
     return ThemeMap.v1[theme];
@@ -18655,19 +18754,31 @@ var getColorsByTheme = function getColorsByTheme(theme, size) {
   var list = [];
   var dataSize = Math.max(2, size || 0);
 
-  if (isArrange(themeName)) {
+  if (isBubble(themeName)) {
+    // theme-arrange 범례5개 컬러의 역순으로 조합된 형태
+    list = [].concat(_toConsumableArray(ThemeMap[Themes.ThemeArrangePrimarySea]['5'].reverse()), _toConsumableArray(ThemeMap[Themes.ThemeArrangeSecondaryTeal]['5'].reverse()), _toConsumableArray(ThemeMap[Themes.ThemeArrangeTertiaryRose]['5'].reverse()), _toConsumableArray(ThemeMap[Themes.ThemeArrangeQuaternaryGold]['5'].reverse()));
+  } else if (isArrange(themeName)) {
     list = ThemeMap[themeName][dataSize];
   } else if (isCompare(themeName)) {
     list = ThemeMap[themeName][dataSize];
   } else if (isGradient(themeName)) {
     list = ThemeMap[themeName];
+  }
+
+  list = lodash.map(list, function (name) {
+    return ColorSetMap[name];
+  });
+
+  if (isBubble(themeName)) {
+    return lodash.extend(lodash.fromPairs(lodash.zip('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.slice(0, list.length).split(''), list)), {
+      START_CIRCLE: ColorSet['Primary-Sea'].sea700,
+      END_CIRCLE: colorV1.$red01
+    });
   } // Arrange 시 지원 개수 초과시 반복
   // compare 시 지원 개수 초과시 에러
 
 
-  return lodash.map(list, function (name) {
-    return ColorSetMap[name];
-  });
+  return list;
 };
 var Box = styled__default.div(_templateObject());
 var ThemeBox = styled__default.div(_templateObject2());
@@ -18719,7 +18830,7 @@ ChartColorTheme.propTypes = {
 var ChartColor = function ChartColor() {
   var ColorList = ['Primary-Sea', 'Secondary-Teal', 'Tertiary-Rose', 'Quaternary-Gold', 'Quinary-Berry', 'Total-Bluegrey', 'Chart-Hover'];
 
-  var ThemeList = lodash.values(Themes);
+  var ThemeList = lodash.without(lodash.values(Themes), Themes.ThemeBubble);
 
   return React__default.createElement(React__default.Fragment, null, lodash.map(ColorList, function (themeName) {
     return React__default.createElement(ChartColorSet, {
@@ -21208,80 +21319,6 @@ var sankeyCircular$1 = /*#__PURE__*/Object.freeze({
   sankeyJustify: justify
 });
 
-// Color Set START
-var color = {
-  $black: '#000000',
-  $primary_white: '#ffffff',
-  $primary_navy: '#002d4f',
-  $secondary_blue: '#eff8ff',
-  $secondary_bg_blue: '#f7fafb',
-  $menu_grey: '#565b5f',
-  $icn_grey: '#979797',
-  $line_btn_grey: '#c4c4c4',
-  $line_dashboard_edge_grey: '#d4d4d4',
-  $line_search_grey: '#e2e2e2',
-  $line_graph_xy_grey: '#e8e8e8',
-  $table_grey: '#f2f2f2',
-  $bg_grey: '#f8f8f8',
-  $table_cell_grey: '#fafafa',
-  $legend_timeline_green_01: '#a5e2d7',
-  $legend_timeline_green_02: '#27b097',
-  $legend_timeline_green_03: '#00745e',
-  $legend_timeline_red_01: '#fa6b57',
-  $legend_timeline_red_02: '#faafa5',
-  // $pathway_link_blue: '#189bff',
-  // $pathway_link_red: '#ff3a1f',
-  $alert_red: '#ff3c3c',
-  $azure: '#189bff',
-  $pathway_link_blue: 'rgba(24, 155, 255, 0.4)',
-  // solid_default
-  $pathway_link_red: 'rgba(255, 58, 31, 0.4)',
-  // alert_red
-  $solid_default: '#189bff',
-  $solid_hover: '#0070c6',
-  $btn_solid_disable: '#d1e7f7',
-  $btn_lightshaded_disable: '#efefef',
-  $btn_lightshaded_hover: '#d1d1d1',
-  $btn_lightshaded_default: '#e5e5e5',
-  $txt_solid_disable: '#ebf6fe',
-  $txt_solid_disable_02: '#b7ddf9'
-};
-var colorV1 = {
-  $pmblue01: '#f7fbff',
-  $pmblue02: '#eef7ff',
-  $pmblue: '#189bff',
-  $pmnavy: '#132a4a',
-  $grey01: '#f8f9fa',
-  $grey02: '#f3f6f8',
-  $grey03: '#edf1f5',
-  $grey04: '#e7ebee',
-  $grey05: '#d3d9de',
-  $grey06: '#b0b8c1',
-  $grey07: '#8b96a3',
-  $grey08: '#6d7884',
-  $grey09: '#4d5661',
-  $grey10: '#303841',
-  $red01: '#ff5d46',
-  $red02: '#c70901'
-};
-var size = {
-  $footer_height: '60px',
-  $footer_margin_top: '80px'
-};
-var zIndex = {
-  $modalOverlay: 1000,
-  $modal: 1001,
-  $modalOverlayLoading: 1002
-};
-
-var variables = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  color: color,
-  colorV1: colorV1,
-  size: size,
-  zIndex: zIndex
-});
-
 var strIdConvert = function strIdConvert(id) {
   return [].concat(id).map(function (name) {
     return name.split(' ').join('_');
@@ -21401,7 +21438,7 @@ var getBarSize = function getBarSize(barCount, layout) {
 
   if (layout === 'vertical') {
     barSize = {
-      1: 34
+      1: 32
     }[barCount] || 16;
   }
 
@@ -23429,7 +23466,7 @@ TFoot.defaultProps = {
   footData: undefined
 };
 TFoot.propTypes = {
-  footData: propTypes.arrayOf(propTypes.arrayOf(propTypes.oneOfType([propTypes.string, propTypes.shape()])))
+  footData: propTypes.arrayOf(propTypes.oneOfType([propTypes.object, propTypes.array, propTypes.string, propTypes.number]))
 };
 
 var performanceNow = createCommonjsModule(function (module) {
@@ -24948,11 +24985,18 @@ var Dot = styled__default.span(_templateObject4$4(), function (props) {
 });
 var Legend = styled__default.article(_templateObject5$1());
 var LegendList = function LegendList(_ref) {
-  var data = _ref.data;
+  var data = _ref.data,
+      textMap = _ref.textMap;
   var legends = data && data.map(function (_ref2, index) {
     var legendColor = _ref2.color,
         text = _ref2.text;
     var lKey = "legend_".concat(text, "_").concat(index);
+    var drawText = text;
+
+    if (textMap[drawText]) {
+      drawText = textMap[drawText];
+    }
+
     return React__default.createElement(Legend, {
       key: lKey
     }, React__default.createElement("span", null, lodash.isArray(legendColor) && lodash.map(legendColor, function (c, i) {
@@ -24969,15 +25013,17 @@ var LegendList = function LegendList(_ref) {
       style: {
         marginRight: '8px'
       }
-    }), React__default.createElement("span", null, text)));
+    }), React__default.createElement("span", null, drawText)));
   });
   return React__default.createElement(LegendWrap, null, legends);
 };
 LegendList.defaultProps = {
-  data: []
+  data: [],
+  textMap: {}
 };
 LegendList.propTypes = {
-  data: propTypes.arrayOf(propTypes.shape({}))
+  data: propTypes.arrayOf(propTypes.shape({})),
+  textMap: propTypes.shape({})
 };
 var WrapperScrollBars = function WrapperScrollBars(_ref3) {
   var scroll = _ref3.scroll,
@@ -25146,7 +25192,7 @@ Table.propTypes = {
     headers: propTypes.arrayOf(propTypes.oneOfType([propTypes.string, propTypes.shape()])),
     subHeaders: propTypes.shape({}),
     rowData: propTypes.arrayOf(propTypes.oneOfType([propTypes.object, propTypes.array, propTypes.string, propTypes.number])),
-    footData: propTypes.arrayOf(propTypes.arrayOf(propTypes.string))
+    footData: propTypes.arrayOf(propTypes.oneOfType([propTypes.object, propTypes.array, propTypes.string, propTypes.number]))
   }),
   rowSpanCount: propTypes.number,
   wrapTh: propTypes.func,
@@ -25353,13 +25399,14 @@ valueConvertText.propTypes = {
 
 var TooltipBox = function TooltipBox(_ref2) {
   var payload = _ref2.payload,
-      _ref2$isPercent = _ref2.isPercent,
-      isPercent = _ref2$isPercent === void 0 ? false : _ref2$isPercent,
       _ref2$dataKey = _ref2.dataKey,
       dataKey = _ref2$dataKey === void 0 ? 'value' : _ref2$dataKey,
       _ref2$nameKey = _ref2.nameKey,
       nameKey = _ref2$nameKey === void 0 ? 'name' : _ref2$nameKey,
-      width = _ref2.width;
+      width = _ref2.width,
+      _ref2$isPercent = _ref2.isPercent,
+      isPercent = _ref2$isPercent === void 0 ? false : _ref2$isPercent,
+      textMap = _ref2.textMap;
   if (!lodash.isArray(payload)) return null;
   return React__default.createElement(TooltipBoxTag, {
     style: {
@@ -25371,11 +25418,17 @@ var TooltipBox = function TooltipBox(_ref2) {
         props = _objectWithoutProperties(_ref3, ["fill", "convert"]);
 
     var key = "tooltip".concat(i);
+    var label = props[nameKey];
+
+    if (textMap[label]) {
+      label = textMap[label];
+    }
+
     return React__default.createElement("li", {
       key: key
     }, React__default.createElement(Dot$1, {
       color: fill
-    }), React__default.createElement("span", null, props[nameKey]), React__default.createElement("span", {
+    }), React__default.createElement("span", null, label), React__default.createElement("span", {
       className: fontStyle.bold
     }, valueConvertText(props[dataKey], {
       isPercent: isPercent,
@@ -25386,18 +25439,19 @@ var TooltipBox = function TooltipBox(_ref2) {
 
 TooltipBox.defaultProps = {
   payload: {},
-  isPercent: false,
   dataKey: 'value',
   nameKey: 'name',
-  width: 250 // convert: null,
-
+  width: 250,
+  isPercent: false,
+  textMap: {}
 };
 TooltipBox.propTypes = {
   payload: propTypes.arrayOf(propTypes.shape({})),
-  isPercent: propTypes.bool,
   dataKey: propTypes.string,
   nameKey: propTypes.string,
-  width: propTypes.oneOfType([propTypes.string, propTypes.number]) // convert: PropTypes.func,
+  width: propTypes.oneOfType([propTypes.string, propTypes.number]),
+  isPercent: propTypes.bool,
+  textMap: propTypes.shape({}) // convert: PropTypes.func,
 
 };
 
@@ -25407,6 +25461,7 @@ var TooltipCompareContent = function TooltipCompareContent(_ref) {
       dataKey = _ref.dataKey,
       nameKey = _ref.nameKey,
       isPercent = _ref.isPercent,
+      textMap = _ref.textMap,
       colorObject = _ref.colorObject,
       colorKeyMap = _ref.colorKeyMap;
 
@@ -25426,7 +25481,8 @@ var TooltipCompareContent = function TooltipCompareContent(_ref) {
       payload: converted,
       isPercent: isPercent,
       dataKey: dataKey,
-      nameKey: nameKey
+      nameKey: nameKey,
+      textMap: textMap
     });
   }
 
@@ -25438,6 +25494,7 @@ TooltipCompareContent.defaultProps = {
   active: false,
   payload: [],
   isPercent: false,
+  textMap: {},
   dataKey: 'value',
   nameKey: 'name',
   colorObject: [],
@@ -25447,6 +25504,7 @@ TooltipCompareContent.propTypes = {
   active: propTypes.bool,
   payload: propTypes.arrayOf(propTypes.shape({})),
   isPercent: propTypes.bool,
+  textMap: propTypes.shape({}),
   dataKey: propTypes.string,
   nameKey: propTypes.string,
   colorObject: propTypes.arrayOf(propTypes.arrayOf(propTypes.string)),
@@ -25472,7 +25530,8 @@ XAxis.defaultProps = _objectSpread2({}, Rechart.XAxis.defaultProps, {
   tickLine: false,
   tickMargin: 10,
   stroke: colorV1.$grey08,
-  fontSize: 14
+  fontSize: 14,
+  custom: true
 });
 
 var YAxis = /*#__PURE__*/function (_Rechart$YAxis) {
@@ -25492,7 +25551,25 @@ YAxis.defaultProps = _objectSpread2({}, Rechart.YAxis.defaultProps, {
   tickLine: false,
   tickMargin: 10,
   stroke: colorV1.$grey08,
-  fontSize: 14
+  fontSize: 14,
+  custom: true
+});
+
+var CartesianGrid = /*#__PURE__*/function (_Rechart$CartesianGri) {
+  _inherits(CartesianGrid, _Rechart$CartesianGri);
+
+  function CartesianGrid() {
+    _classCallCheck(this, CartesianGrid);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(CartesianGrid).apply(this, arguments));
+  }
+
+  return CartesianGrid;
+}(Rechart.CartesianGrid);
+
+CartesianGrid.defaultProps = _objectSpread2({}, Rechart.CartesianGrid.defaultProps, {
+  stroke: colorV1.$grey04,
+  custom: true
 });
 
 /* eslint-disable max-len */
@@ -25520,6 +25597,7 @@ var BarChart = function BarChart(_ref) {
       theme = _ref.theme,
       themes = _ref.themes,
       isPercent = _ref.isPercent,
+      textMap = _ref.textMap,
       margin = _ref.margin,
       xData = _ref.xData,
       yData = _ref.yData,
@@ -25604,7 +25682,8 @@ var BarChart = function BarChart(_ref) {
   XAxis.defaultProps.unit = xData.unit;
   YAxis.defaultProps.unit = yData.unit;
   return React__default.createElement("div", null, React__default.createElement(chartTitle, null, title), React__default.createElement(LegendList, {
-    data: legendData
+    data: legendData,
+    textMap: textMap
   }), isEmpty(data) ? React__default.createElement(EmptyPlaceHolder, {
     height: height
   }) : React__default.createElement("div", null, React__default.createElement(WrapperScrollBars, {
@@ -25619,10 +25698,9 @@ var BarChart = function BarChart(_ref) {
     layout: layout,
     margin: scrollChartMargin,
     barGap: barGap
-  }, React__default.createElement(Rechart.CartesianGrid, {
+  }, React__default.createElement(CartesianGrid, {
     vertical: layout !== 'horizontal',
-    horizontal: layout === 'horizontal',
-    stroke: colorV1.$grey04
+    horizontal: layout === 'horizontal'
   }), React__default.createElement(XAxis, {
     hide: isScroll,
     dataKey: XAxisDataKey,
@@ -25647,6 +25725,7 @@ var BarChart = function BarChart(_ref) {
     style: LabelStyle.style
   })), !lodash.isUndefined(themes) && React__default.createElement(Rechart.Tooltip, {
     isPercent: isPercent,
+    textMap: textMap,
     content: TooltipCompareContent,
     colorKeyMap: lodash.map(data, function (_ref2) {
       var name = _ref2[xDataKey];
@@ -25671,6 +25750,7 @@ var BarChart = function BarChart(_ref) {
     }));
   }), lodash.isUndefined(themes) && React__default.createElement(Rechart.Tooltip, {
     isPercent: isPercent,
+    textMap: textMap,
     content: TooltipBox,
     cursor: {
       fill: ColorSet['Chart-Hover']['grey-hover']
@@ -25732,6 +25812,7 @@ BarChart.defaultProps = {
   theme: Themes.ThemeArrangePrimarySea,
   themes: undefined,
   isPercent: false,
+  textMap: {},
   margin: {
     top: 10,
     right: 20,
@@ -25753,6 +25834,7 @@ BarChart.propTypes = {
   themes: propTypes.oneOfType([propTypes.arrayOf(propTypes.string)]),
   theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal, Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold, Themes.ThemeArrangeQuinaryBerry, Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3]),
   isPercent: propTypes.bool,
+  textMap: propTypes.shape({}),
   margin: propTypes.shape({
     top: propTypes.number,
     right: propTypes.number,
@@ -25823,7 +25905,8 @@ var BarChartMulti = function BarChartMulti(_ref) {
       xDataKey = _ref.xDataKey,
       yDataKey = _ref.yDataKey,
       theme = _ref.theme,
-      isPercent = _ref.isPercent;
+      isPercent = _ref.isPercent,
+      textMap = _ref.textMap;
   var newYDataKey = [].concat(yDataKey);
   var colors = getColorsByTheme(theme, newYDataKey.length);
 
@@ -25867,7 +25950,8 @@ var BarChartMulti = function BarChartMulti(_ref) {
       marginBottom: '30px'
     }
   }, title), React__default.createElement(LegendList, {
-    data: legendData
+    data: legendData,
+    textMap: textMap
   }), isEmpty(data) ? React__default.createElement(EmptyPlaceHolder, null) : React__default.createElement("section", {
     style: {
       display: 'flex'
@@ -25896,9 +25980,8 @@ var BarChartMulti = function BarChartMulti(_ref) {
         bottom: 0,
         left: i === 0 ? 0 : YAxisWidth * -1
       }
-    }, React__default.createElement(Rechart.CartesianGrid, {
-      vertical: false,
-      stroke: colorV1.$grey04
+    }, React__default.createElement(CartesianGrid, {
+      vertical: false
     }), React__default.createElement(XAxis, {
       dataKey: xDataKey
     }), React__default.createElement(YAxis, {
@@ -25907,6 +25990,7 @@ var BarChartMulti = function BarChartMulti(_ref) {
       domain: domain
     }), React__default.createElement(Rechart.Tooltip, {
       isPercent: isPercent,
+      textMap: textMap,
       content: TooltipBox,
       cursor: {
         fill: ColorSet['Chart-Hover']['grey-hover']
@@ -25936,7 +26020,8 @@ BarChartMulti.defaultProps = {
   xDataKey: 'name',
   yDataKey: [],
   theme: Themes.ThemeArrangePrimarySea,
-  isPercent: false
+  isPercent: false,
+  textMap: {}
 };
 BarChartMulti.propTypes = {
   title: propTypes.oneOfType([propTypes.shape({}), propTypes.string]),
@@ -25944,7 +26029,14 @@ BarChartMulti.propTypes = {
   xDataKey: propTypes.string,
   yDataKey: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
   isPercent: propTypes.bool,
+  textMap: propTypes.shape({}),
   theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal, Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold, Themes.ThemeArrangeQuinaryBerry, Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3])
+};
+
+var LabelStyle$1 = {
+  fill: colorV1.$grey08,
+  fontWeight: 'bold',
+  fontSize: '14px'
 };
 
 var LineChart = function LineChart(_ref) {
@@ -25954,6 +26046,7 @@ var LineChart = function LineChart(_ref) {
       yDataKey = _ref.yDataKey,
       theme = _ref.theme,
       isPercent = _ref.isPercent,
+      textMap = _ref.textMap,
       margin = _ref.margin,
       xData = _ref.xData,
       yData = _ref.yData;
@@ -25976,51 +26069,44 @@ var LineChart = function LineChart(_ref) {
     return newValue;
   };
 
-  Rechart.XAxis.defaultProps.unit = xData.unit;
-  Rechart.YAxis.defaultProps.unit = yData.unit;
+  XAxis.defaultProps.unit = xData.unit;
+  YAxis.defaultProps.unit = yData.unit;
+
+  var drawMargin = lodash.extend({}, LineChart.defaultProps.margin, margin);
+
   return React__default.createElement("div", null, React__default.createElement(Heading, {
     size: "18",
     style: {
       marginBottom: '30px'
     }
   }, title), React__default.createElement(LegendList, {
-    data: legendData
+    data: legendData,
+    textMap: textMap
   }), lodash.isEmpty(data) ? React__default.createElement(EmptyPlaceHolder, null) : React__default.createElement(Rechart.ResponsiveContainer, {
     height: 415
   }, React__default.createElement(Rechart.LineChart, {
     data: data,
     height: 415,
-    margin: margin
-  }, React__default.createElement(Rechart.CartesianGrid, {
-    vertical: false,
-    stroke: color.$line_graph_xy_grey
-  }), React__default.createElement(Rechart.XAxis, {
-    tickLine: false,
-    tickMargin: 10,
-    dataKey: xDataKey,
-    stroke: "rgba(0, 0, 0, 0.6)"
+    margin: drawMargin
+  }, React__default.createElement(CartesianGrid, {
+    vertical: false
+  }), React__default.createElement(XAxis, {
+    dataKey: xDataKey
   }, xData.label && React__default.createElement(Rechart.Label, {
     value: xData.label.value,
     offset: 10,
     position: "bottom",
-    style: {
-      fill: 'rgba(0, 0, 0, 0.6)'
-    }
-  })), React__default.createElement(Rechart.YAxis, {
-    axisLine: false,
-    tickLine: false,
-    tickFormatter: tickFormatter,
-    tickMargin: 10,
-    stroke: "rgba(0, 0, 0, 0.4)"
+    style: LabelStyle$1.style
+  })), React__default.createElement(YAxis, {
+    tickFormatter: tickFormatter
   }, yData.label && React__default.createElement(Rechart.Label, {
     value: yData.label.value,
     offset: 0,
     position: "left",
-    style: {
-      fill: 'rgba(0, 0, 0, 0.4)'
-    }
+    style: LabelStyle$1.style
   })), React__default.createElement(Rechart.Tooltip, {
     isPercent: isPercent,
+    textMap: textMap,
     content: TooltipBox
   }), newYDataKey.map(function (entry, index) {
     return React__default.createElement(Rechart.Line, {
@@ -26038,9 +26124,10 @@ LineChart.defaultProps = {
   yDataKey: ['value', []],
   theme: Themes.ThemeArrangePrimarySea,
   isPercent: false,
+  textMap: {},
   margin: {
     top: 10,
-    right: 5,
+    right: 20,
     bottom: 5,
     left: 5
   },
@@ -26054,6 +26141,7 @@ LineChart.propTypes = {
   yDataKey: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
   theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal, Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold, Themes.ThemeArrangeQuinaryBerry]),
   isPercent: propTypes.bool,
+  textMap: propTypes.shape({}),
   margin: propTypes.shape({
     top: propTypes.number,
     right: propTypes.number,
@@ -26456,7 +26544,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
       }).tickPadding(17); // 3. Add LineTitle
       // const lineTitle =
 
-      _this.getRootElement().select('.timeline').append('text').text('MACE Risk by Visit').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + 6).attr('class', styles$3.title); // 4. Render Line YAxis
+      _this.getRootElement().select('.timeline').append('text').text('Risk per visiting').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + 6).attr('class', styles$3.title); // 4. Render Line YAxis
 
 
       gLineYAxis.call(lineYAxis);
@@ -28493,6 +28581,129 @@ RadioBox.propTypes = {
   align: propTypes.oneOf(['center', 'left', 'right'])
 };
 
+var PolarAngleAxis = /*#__PURE__*/function (_Rechart$PolarAngleAx) {
+  _inherits(PolarAngleAxis, _Rechart$PolarAngleAx);
+
+  function PolarAngleAxis() {
+    _classCallCheck(this, PolarAngleAxis);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(PolarAngleAxis).apply(this, arguments));
+  }
+
+  return PolarAngleAxis;
+}(Rechart.PolarAngleAxis);
+
+PolarAngleAxis.defaultProps = _objectSpread2({}, Rechart.PolarAngleAxis.defaultProps, {
+  axisLine: {
+    stroke: colorV1.$grey06
+  },
+  tickLine: false,
+  stroke: colorV1.$grey08,
+  fontSize: 14,
+  custom: true
+});
+
+var tooltipContent = function tooltipContent(_ref) {
+  var active = _ref.active,
+      payload = _ref.payload,
+      nameKey = _ref.nameKey,
+      textMap = _ref.textMap;
+
+  if (active) {
+    return React__default.createElement(TooltipBox, {
+      payload: payload.reverse(),
+      nameKey: nameKey,
+      textMap: textMap
+    });
+  }
+
+  return null;
+};
+
+tooltipContent.defaultProps = {
+  active: false,
+  payload: {},
+  textMap: {},
+  nameKey: 'name'
+};
+tooltipContent.propTypes = {
+  active: propTypes.bool,
+  payload: propTypes.arrayOf(propTypes.shape({})),
+  textMap: propTypes.shape({}),
+  nameKey: propTypes.string
+}; // Legend 클릭 시 Radar 를 toggle 하려면 Radar의 props 인 hide 을 사용하세요
+
+var RadarChart = function RadarChart(_ref2) {
+  var data = _ref2.data,
+      nameKey = _ref2.nameKey,
+      dataKey = _ref2.dataKey,
+      theme = _ref2.theme,
+      textMap = _ref2.textMap;
+  var newDataKey = [].concat(dataKey).reverse();
+  var colors = getColorsByTheme(theme, newDataKey.length).reverse();
+
+  var legendData = lodash.chain(newDataKey).map(function (entry, index) {
+    return {
+      color: colors[index],
+      text: entry
+    };
+  }).value().reverse();
+
+  return React__default.createElement("div", null, React__default.createElement(LegendList, {
+    data: legendData,
+    textMap: textMap
+  }), React__default.createElement(Rechart.RadarChart, {
+    data: data,
+    width: 700,
+    height: 520,
+    margin: {},
+    cx: 350,
+    cy: 270,
+    outerRadius: 250,
+    style: {
+      margin: '0 auto'
+    }
+  }, React__default.createElement(Rechart.Tooltip, {
+    content: tooltipContent
+  }), React__default.createElement(Rechart.PolarGrid, {
+    stroke: colorV1.$grey04
+  }), React__default.createElement(PolarAngleAxis, {
+    dataKey: nameKey
+  }), newDataKey.map(function (entry, index) {
+    return React__default.createElement(Rechart.Radar, {
+      key: "radar".concat(entry),
+      dataKey: entry,
+      stroke: colors[index],
+      fill: colors[index],
+      strokeWidth: 3,
+      fillOpacity: 0.3,
+      dot: true
+    });
+  })));
+};
+
+RadarChart.defaultProps = {
+  data: [],
+  nameKey: 'name',
+  dataKey: ['value', []],
+  theme: Themes.ThemeComparePrimarySea2,
+  textMap: {},
+  margin: {}
+};
+RadarChart.propTypes = {
+  data: propTypes.arrayOf(propTypes.shape({})),
+  nameKey: propTypes.string,
+  dataKey: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
+  theme: propTypes.oneOf([Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3]),
+  textMap: propTypes.shape({}),
+  margin: propTypes.shape({
+    top: propTypes.number,
+    right: propTypes.number,
+    bottom: propTypes.number,
+    left: propTypes.number
+  })
+};
+
 var highcharts = createCommonjsModule(function (module) {
 /*
  Highcharts JS v7.2.1 (2019-10-31)
@@ -29142,15 +29353,15 @@ if (_typeof(highcharts) === 'object') {
   highchartsMore(highcharts);
 }
 
-var RadarChart = /*#__PURE__*/function (_Component) {
-  _inherits(RadarChart, _Component);
+var RadarChartOld = /*#__PURE__*/function (_Component) {
+  _inherits(RadarChartOld, _Component);
 
-  function RadarChart(props) {
+  function RadarChartOld(props) {
     var _this;
 
-    _classCallCheck(this, RadarChart);
+    _classCallCheck(this, RadarChartOld);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(RadarChart).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(RadarChartOld).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "renderRadarChart", function (options) {
       return React__default.createElement(HighchartsReact, {
@@ -29254,7 +29465,7 @@ var RadarChart = /*#__PURE__*/function (_Component) {
     return _this;
   }
 
-  _createClass(RadarChart, [{
+  _createClass(RadarChartOld, [{
     key: "render",
     value: function render() {
       if (this.checkDataValidation()) {
@@ -29265,12 +29476,12 @@ var RadarChart = /*#__PURE__*/function (_Component) {
     }
   }]);
 
-  return RadarChart;
+  return RadarChartOld;
 }(React.Component); // title, width, height,
 // radarCategory, groupData, patientData, legendOpen,
 
 
-RadarChart.defaultProps = {
+RadarChartOld.defaultProps = {
   title: null,
   width: 1200,
   height: 1200,
@@ -29280,7 +29491,7 @@ RadarChart.defaultProps = {
   legendOpen: true,
   theme: Themes.ThemeComparePrimarySea2
 };
-RadarChart.propTypes = {
+RadarChartOld.propTypes = {
   title: propTypes.string,
   width: propTypes.number,
   height: propTypes.number,
@@ -29744,12 +29955,13 @@ var size$2 = {
 };
 var PieLegend = styled__default.div(_templateObject2$h(), size$2.Legend.marginLeft);
 
-var tooltipContent = function tooltipContent(_ref) {
+var tooltipContent$1 = function tooltipContent(_ref) {
   var active = _ref.active,
       payload = _ref.payload,
       dataKey = _ref.dataKey,
       nameKey = _ref.nameKey,
-      isPercent = _ref.isPercent;
+      isPercent = _ref.isPercent,
+      textMap = _ref.textMap;
 
   if (active) {
     var converted = lodash.map(payload, function (e) {
@@ -29760,24 +29972,27 @@ var tooltipContent = function tooltipContent(_ref) {
       payload: converted,
       isPercent: isPercent,
       dataKey: dataKey,
-      nameKey: nameKey
+      nameKey: nameKey,
+      textMap: textMap
     });
   }
 
   return null;
 };
 
-tooltipContent.defaultProps = {
+tooltipContent$1.defaultProps = {
   active: false,
   payload: {},
   isPercent: false,
+  textMap: {},
   dataKey: 'value',
   nameKey: 'name'
 };
-tooltipContent.propTypes = {
+tooltipContent$1.propTypes = {
   active: propTypes.bool,
   payload: propTypes.shape({}),
   isPercent: propTypes.bool,
+  textMap: propTypes.shape({}),
   dataKey: propTypes.string,
   nameKey: propTypes.string
 };
@@ -29790,6 +30005,7 @@ var PieChart = function PieChart(_ref2) {
       theme = _ref2.theme,
       colorList = _ref2.colorList,
       isPercent = _ref2.isPercent,
+      textMap = _ref2.textMap,
       _legend = _ref2.legend;
   // const colors = colorList || colorSet[theme] || colorSet.blue
   var colors = colorList || getColorsByTheme(theme, data.length); // console.log(data.length)
@@ -29852,8 +30068,9 @@ var PieChart = function PieChart(_ref2) {
       fill: colors[index]
     });
   })), React__default.createElement(Rechart.Tooltip, {
+    textMap: textMap,
     content: function content(props) {
-      return tooltipContent(lodash.extend(props, {
+      return tooltipContent$1(lodash.extend(props, {
         dataKey: dataKey,
         nameKey: nameKey,
         isPercent: isPercent
@@ -29861,11 +30078,17 @@ var PieChart = function PieChart(_ref2) {
     }
   }))), React__default.createElement(PieLegend, null, React__default.createElement("ul", null, data.map(function (entry, index) {
     var key = "label-".concat(index);
+    var label = entry[legend.nameKey];
+
+    if (textMap[label]) {
+      label = textMap[label];
+    }
+
     return React__default.createElement("li", {
       key: key
     }, React__default.createElement(Dot$2, {
       color: colors[index]
-    }), React__default.createElement("p", null, entry[legend.nameKey]), React__default.createElement(TextTag, {
+    }), React__default.createElement("p", null, label), React__default.createElement(TextTag, {
       bold: true
     }, valueConvertText(entry[legend.dataKey])));
   })))));
@@ -29878,6 +30101,7 @@ PieChart.defaultProps = {
   nameKey: 'name',
   theme: Themes.ThemeComparePrimarySea,
   isPercent: false,
+  textMap: {},
   colorList: null,
   legend: {}
 };
@@ -29888,6 +30112,7 @@ PieChart.propTypes = {
   nameKey: propTypes.string,
   theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3]),
   isPercent: propTypes.bool,
+  textMap: propTypes.shape({}),
   colorList: propTypes.arrayOf(propTypes.string),
   legend: propTypes.shape({
     isPercent: propTypes.bool,
@@ -59649,7 +59874,7 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.25";
+var version$1 = "0.13.26";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;
@@ -59673,6 +59898,7 @@ exports.Navbar = Navbar;
 exports.Pagination = Pagination;
 exports.PieChart = PieChart;
 exports.RadarChart = RadarChart;
+exports.RadarChartOld = RadarChartOld;
 exports.RadioBox = RadioBox;
 exports.RadioList = RadioList;
 exports.RadiusGauge = RadiusGauge;
