@@ -1,3 +1,26 @@
+## [0.13.26](https://github.com/linewalks/MDwalks-UI/compare/v0.13.23...v0.13.26) (2020-05-21)
+
+
+### Bug Fixes
+
+* LineMergedTimeline에서 MACE 용어 제거 ([84b42bb](https://github.com/linewalks/MDwalks-UI/commit/84b42bb1cd7787702b64e7750f98d59de7f58829)), closes [#594](https://github.com/linewalks/MDwalks-UI/issues/594)
+* set propTypes for TFoot ([02ae253](https://github.com/linewalks/MDwalks-UI/commit/02ae253a237cb0f9662c27cd4041c81819cf2695)), closes [#597](https://github.com/linewalks/MDwalks-UI/issues/597)
+* **YAxis:** set fontSize ([6f74993](https://github.com/linewalks/MDwalks-UI/commit/6f7499378d1bf6bd52d85c67db26224e260798f5)), closes [#588](https://github.com/linewalks/MDwalks-UI/issues/588)
+
+
+### Features
+
+* **ChartColor:** create ThemeBubble ([cd1437b](https://github.com/linewalks/MDwalks-UI/commit/cd1437bdbbe5ab17f85f5e0199169cf1561534cd)), closes [#584](https://github.com/linewalks/MDwalks-UI/issues/584)
+* **RadarChart:** change to rechart ([b5d94f3](https://github.com/linewalks/MDwalks-UI/commit/b5d94f3e1b1dce92d71eecbf30033a14e7c33379)), closes [#392](https://github.com/linewalks/MDwalks-UI/issues/392)
+* create CartesianGrid, apply XAixs to LineChart ([8b9f044](https://github.com/linewalks/MDwalks-UI/commit/8b9f044eee7b6039d119f2682c3376174a195211)), closes [#583](https://github.com/linewalks/MDwalks-UI/issues/583)
+* set textMap for Charts ([a9954f0](https://github.com/linewalks/MDwalks-UI/commit/a9954f04f8cd108594866ec387361c30e6a0e2d3)), closes [#527](https://github.com/linewalks/MDwalks-UI/issues/527)
+* **BarChart:** modify barsize ([0aa1397](https://github.com/linewalks/MDwalks-UI/commit/0aa1397d4e47ad5da867a954e46a49d60dff880e)), closes [#582](https://github.com/linewalks/MDwalks-UI/issues/582)
+* **BarChart:** support unit of XAxis, YAxis ([1420c05](https://github.com/linewalks/MDwalks-UI/commit/1420c058aa851f2eafbc0ee0350b664b0b422ec4)), closes [#561](https://github.com/linewalks/MDwalks-UI/issues/561)
+* **package:** add script of clear:branch ([f646d7e](https://github.com/linewalks/MDwalks-UI/commit/f646d7e00b98d59815dc439d4c9059a63695ebd9)), closes [#587](https://github.com/linewalks/MDwalks-UI/issues/587)
+* **TFoot:** support colSpan ([d75857b](https://github.com/linewalks/MDwalks-UI/commit/d75857b229905d9e36b47712e6b3ec77b5ee3c90)), closes [#531](https://github.com/linewalks/MDwalks-UI/issues/531)
+
+
+
 ## [0.13.25](https://github.com/linewalks/MDwalks-UI/compare/v0.13.23...v0.13.25) (2020-05-13)
 
 
