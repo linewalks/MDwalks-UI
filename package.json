@@ -1,6 +1,6 @@
 {
   "name": "MDwalks-UI",
-  "version": "0.13.25",
+  "version": "0.13.26",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
@@ -16,7 +16,8 @@
   },
   "jest": {
     "testPathIgnorePatterns": [
-      "<rootDir>/src/components/__tests__/__snapshots__/"
+      "<rootDir>/src/components/__tests__/__snapshots__/",
+      "<rootDir>/src/components/__tests__/utils.js"
     ],
     "setupFilesAfterEnv": [
       "./setupTest.js"

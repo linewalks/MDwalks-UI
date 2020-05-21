@@ -63,7 +63,8 @@ valueConvertText.propTypes = {
 }
 
 const TooltipBox = ({
-  payload, isPercent = false, dataKey = 'value', nameKey = 'name', width,
+  payload, dataKey = 'value', nameKey = 'name',
+  width, isPercent = false, textMap,
 }) => {
   if (!_.isArray(payload)) return null
 
@@ -73,10 +74,15 @@ const TooltipBox = ({
         {
           payload.map(({ fill, convert, ...props }, i) => {
             const key = `tooltip${i}`
+            let label = props[nameKey]
+
+            if (textMap[label]) {
+              label = textMap[label]
+            }
             return (
               <li key={key}>
                 <Dot color={fill} />
-                <span>{props[nameKey]}</span>
+                <span>{label}</span>
                 <span className={fontStyle.bold}>
                   {valueConvertText(props[dataKey], { isPercent, convert })}
                 </span>
@@ -91,22 +97,23 @@ const TooltipBox = ({
 
 TooltipBox.defaultProps = {
   payload: {},
-  isPercent: false,
   dataKey: 'value',
   nameKey: 'name',
   width: 250,
-  // convert: null,
+  isPercent: false,
+  textMap: {},
 }
 
 TooltipBox.propTypes = {
   payload: PropTypes.arrayOf(PropTypes.shape({})),
-  isPercent: PropTypes.bool,
   dataKey: PropTypes.string,
   nameKey: PropTypes.string,
   width: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ]),
+  isPercent: PropTypes.bool,
+  textMap: PropTypes.shape({}),
   // convert: PropTypes.func,
 }
 

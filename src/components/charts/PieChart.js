@@ -54,12 +54,19 @@ const PieLegend = styled.div`
 `
 
 const tooltipContent = ({
-  active, payload, dataKey, nameKey, isPercent,
+  active, payload, dataKey, nameKey,
+  isPercent, textMap,
 }) => {
   if (active) {
     const converted = _.map(payload, (e) => e.payload)
     return (
-      <TooltipBox payload={converted} isPercent={isPercent} dataKey={dataKey} nameKey={nameKey} />
+      <TooltipBox
+        payload={converted}
+        isPercent={isPercent}
+        dataKey={dataKey}
+        nameKey={nameKey}
+        textMap={textMap}
+      />
     )
   }
   return null
@@ -69,6 +76,7 @@ tooltipContent.defaultProps = {
   active: false,
   payload: {},
   isPercent: false,
+  textMap: {},
   dataKey: 'value',
   nameKey: 'name',
 }
@@ -77,6 +85,7 @@ tooltipContent.propTypes = {
   active: PropTypes.bool,
   payload: PropTypes.shape({}),
   isPercent: PropTypes.bool,
+  textMap: PropTypes.shape({}),
   dataKey: PropTypes.string,
   nameKey: PropTypes.string,
 }
@@ -89,6 +98,7 @@ const PieChart = ({
   theme,
   colorList,
   isPercent,
+  textMap,
   legend: _legend,
 }) => {
   // const colors = colorList || colorSet[theme] || colorSet.blue
@@ -143,6 +153,7 @@ const PieChart = ({
               })}
             </Rechart.Pie>
             <Rechart.Tooltip
+              textMap={textMap}
               content={
                 (props) => tooltipContent(_.extend(props, { dataKey, nameKey, isPercent }))
               }
@@ -153,10 +164,14 @@ const PieChart = ({
           <ul>
             {data.map((entry, index) => {
               const key = `label-${index}`
+              let label = entry[legend.nameKey]
+              if (textMap[label]) {
+                label = textMap[label]
+              }
               return (
                 <li key={key}>
                   <Dot color={colors[index]} />
-                  <p>{entry[legend.nameKey]}</p>
+                  <p>{label}</p>
                   <font.TextTag bold>
                     {valueConvertText(entry[legend.dataKey])}
                   </font.TextTag>
@@ -177,6 +192,7 @@ PieChart.defaultProps = {
   nameKey: 'name',
   theme: Themes.ThemeComparePrimarySea,
   isPercent: false,
+  textMap: {},
   colorList: null,
   legend: {},
 }
@@ -194,6 +210,7 @@ PieChart.propTypes = {
     Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
   ]),
   isPercent: PropTypes.bool,
+  textMap: PropTypes.shape({}),
   colorList: PropTypes.arrayOf(PropTypes.string),
   legend: PropTypes.shape({
     isPercent: PropTypes.bool,

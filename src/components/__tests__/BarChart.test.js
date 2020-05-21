@@ -9,6 +9,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import { Themes, getColorsByTheme } from '@Components/ChartColor'
 import _ from 'lodash'
 
+import { getChilds, findReChartTags } from '@Components/__tests__/utils'
 
 const data = [
   {
@@ -43,20 +44,9 @@ const data = [
   },
 ]
 
-const match = (props, Tag) => props.type && props.type.displayName === Tag.displayName
-
-const findReChartTags = (root, Tag) => (
-  _.chain(root)
-    .flatMapDeep()
-    .filter((props) => match(props, Tag))
-    .value()
-)
-
 describe('default Component', () => {
   let component;
-  let Bar
-  let XAxis
-  let YAxis
+
   beforeEach(() => {
     component = mount(
       <BarChart
@@ -68,10 +58,6 @@ describe('default Component', () => {
         width={100}
       />,
     )
-
-    Bar = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Bar)
-    XAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.XAxis)
-    YAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.YAxis)
   })
 
   it('width 를 지정해 주어야 svg 를 접근 할 수 있다', () => {
@@ -89,16 +75,19 @@ describe('default Component', () => {
   })
 
   it('데이터가 있을 때, barchart를 렌더링 해야 한다.', () => {
+    const { Bar } = getChilds(component, Rechart.BarChart)
     expect(Bar).toHaveLength(1)
   })
 
   it('XAxis props', () => {
+    const { XAxis } = getChilds(component, Rechart.BarChart)
     expect(XAxis[0].props.dataKey).toBe('age')
     expect(XAxis[0].props.type).toBe('category')
     expect(XAxis[0].props.tickFormatter).toBe(undefined)
   })
 
   it('YAxis props', () => {
+    const { YAxis } = getChilds(component, Rechart.BarChart)
     expect(YAxis[0].props.dataKey).toBe(undefined)
     expect(YAxis[0].props.type).toBe('number')
     expect(YAxis[0].props.tickFormatter.name).toBe('tickFormatter')
@@ -107,9 +96,6 @@ describe('default Component', () => {
 
 describe('vertical Component', () => {
   let component;
-  let Bar
-  let XAxis
-  let YAxis
   beforeEach(() => {
     component = mount(
       <BarChart
@@ -121,10 +107,6 @@ describe('vertical Component', () => {
         theme="blue"
       />,
     )
-
-    Bar = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Bar)
-    XAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.XAxis)
-    YAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.YAxis)
   })
 
   it('데이터가 없을 때, placeholder를 렌더링 해야 한다.', () => {
@@ -133,16 +115,19 @@ describe('vertical Component', () => {
   })
 
   it('데이터가 있을 때, barchart를 렌더링 해야 한다.', () => {
+    const { Bar } = getChilds(component, Rechart.BarChart)
     expect(Bar).toHaveLength(1)
   })
 
   it('XAxis props', () => {
+    const { XAxis } = getChilds(component, Rechart.BarChart)
     expect(XAxis[0].props.dataKey).toBe(undefined)
     expect(XAxis[0].props.type).toBe('number')
     expect(XAxis[0].props.tickFormatter.name).toBe('tickFormatter')
   })
 
   it('YAxis props', () => {
+    const { YAxis } = getChilds(component, Rechart.BarChart)
     expect(YAxis[0].props.dataKey).toBe('age')
     expect(YAxis[0].props.type).toBe('category')
     expect(YAxis[0].props.tickFormatter).toBe(undefined)
@@ -151,7 +136,7 @@ describe('vertical Component', () => {
 
 describe('stackId Component', () => {
   let component;
-  let Bar
+  // let Bar
   const stackId = 'a'
   beforeEach(() => {
     component = mount(
@@ -164,11 +149,10 @@ describe('stackId Component', () => {
         theme="blue"
       />,
     )
-
-    Bar = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Bar)
   })
 
   it('set stackId', () => {
+    const { Bar } = getChilds(component, Rechart.BarChart)
     expect(Bar).not.toHaveLength(1)
     expect(_.every(Bar, (bar) => (bar.props.stackId === stackId))).toBe(true)
   })
@@ -241,11 +225,10 @@ describe('Label Component', () => {
   })
 
   it('check label', () => {
-    const XAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.XAxis)
+    const { XAxis, YAxis } = getChilds(component, Rechart.BarChart)
     expect(XAxis[0].props.children.type.displayName).toBe('Label')
     expect(XAxis[0].props.children.props.value).toBe('건수')
 
-    const YAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.YAxis)
     expect(YAxis[0].props.children.type.displayName).toBe('Label')
     expect(YAxis[0].props.children.props.value).toBe('축1')
   })
@@ -274,7 +257,6 @@ describe('Label Component', () => {
 
 describe('Group', () => {
   let component;
-  let Bar
   beforeEach(() => {
     component = mount(
       <BarChart
@@ -304,11 +286,10 @@ describe('Group', () => {
         themes={[Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeQuaternaryGold]}
       />,
     )
-
-    Bar = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Bar)
   })
 
   it('set bar color', () => {
+    const { Bar } = getChilds(component, Rechart.BarChart)
     const colorSet = _.map(Bar, (bar) => (
       _.map(bar.props.children, ({ props }) => (props.fill))
     ))
@@ -319,13 +300,6 @@ describe('Group', () => {
     ]))
 
     expect(colorSet).toEqual(expected)
-  })
-
-  it('call tooltip', () => {
-    const tooltip = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.Tooltip)
-    expect(tooltip).toHaveLength(1)
-
-    expect(tooltip[0].props.content.displayName).toBe(TooltipCompareContent.displayName)
   })
 
   it('call LegendList', () => {
@@ -340,10 +314,62 @@ describe('Group', () => {
   })
 })
 
+describe('tooltip', () => {
+  let component
+
+  beforeEach(() => {
+    component = mount(
+      <BarChart
+        title="group"
+        data={[
+          {
+            name: '유지',
+            '1주이내': 150,
+          },
+          {
+            name: '변경',
+            '1주이내': 663,
+          },
+        ]}
+        xDataKey="name"
+        yDataKey={['반년 후']}
+        themes={[Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeQuaternaryGold]}
+      />,
+    )
+  })
+
+  it('default', () => {
+    const { Tooltip } = getChilds(component, Rechart.BarChart)
+    expect(Tooltip).toHaveLength(1)
+
+    expect(Tooltip[0].props.textMap).toEqual({})
+    expect(Tooltip[0].props.content.displayName).toBe(TooltipCompareContent.displayName)
+  })
+
+  it('old theme', () => {
+    component.setProps({
+      themes: undefined,
+      theme: 'blue',
+    })
+    const { Tooltip } = getChilds(component, Rechart.BarChart)
+    expect(Tooltip[0].props.content.displayName).toBe(undefined)
+  })
+
+  it('set textMap to tooltip', () => {
+    component.setProps({
+      textMap: {
+        '1주이내': 'AAA',
+      },
+    })
+
+    const { Tooltip } = getChilds(component, Rechart.BarChart)
+    expect(Tooltip[0].props.textMap).toEqual({ '1주이내': 'AAA' })
+  })
+})
+
 describe('unit', () => {
   let component
-  let XAxis
-  let YAxis
+
   beforeEach(() => {
     component = mount(
       <BarChart
@@ -357,8 +383,7 @@ describe('unit', () => {
   })
 
   it('default', () => {
-    XAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.XAxis)
-    YAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.YAxis)
+    const { XAxis, YAxis } = getChilds(component, Rechart.BarChart)
 
     expect(XAxis[0].props.unit).toBe(undefined)
     expect(YAxis[0].props.unit).toBe(undefined)
@@ -374,8 +399,7 @@ describe('unit', () => {
       },
     })
 
-    XAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.XAxis)
-    YAxis = findReChartTags(component.find(Rechart.BarChart).prop('children'), Rechart.YAxis)
+    const { XAxis, YAxis } = getChilds(component, Rechart.BarChart)
 
     expect(XAxis[0].props.unit).toBe('x unit')
     expect(YAxis[0].props.unit).toBe('y unit')

@@ -1,5 +1,4 @@
 import React from 'react'
-import _ from 'lodash'
 import { mount } from 'enzyme'
 
 import {
@@ -7,9 +6,12 @@ import {
   YAxis,
   Bar,
 } from 'recharts'
+import * as Rechart from 'recharts'
 
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import BarChartMulti from '@Components/charts/BarChartMulti'
+
+import { findReChartTags, findReChartTag } from '@Components/__tests__/utils'
 
 const data = [
   [
@@ -72,21 +74,6 @@ const data = [
   ],
 ]
 
-const match = (props, Tag) => props.type && props.type.displayName === Tag.displayName
-
-const findReChartTags = (root, Tag) => (
-  _.chain(root)
-    .flatMapDeep()
-    .filter((props) => match(props, Tag))
-    .value()
-)
-
-const findReChartTag = (root, Tag) => (
-  _.chain(root)
-    .flatMapDeep()
-    .find((props) => match(props, Tag))
-    .value()
-)
 
 describe('BarChartMulti', () => {
   it('set Property', () => {
@@ -125,5 +112,54 @@ describe('BarChartMulti', () => {
     />)
 
     expect(wrapper.find(EmptyPlaceHolder)).toHaveLength(1)
+  })
+})
+
+describe('tooltip', () => {
+  let component
+  let firstBarChart
+  let LastBarChart
+
+  const getTooltip = () => {
+    firstBarChart = component.find(BarChart).at(0)
+    LastBarChart = component.find(BarChart).at(1)
+
+    return [
+      ...findReChartTags(firstBarChart.prop('children'), Rechart.Tooltip),
+      ...findReChartTags(LastBarChart.prop('children'), Rechart.Tooltip),
+    ]
+  }
+
+  beforeEach(() => {
+    component = mount(
+      <BarChartMulti
+        title={(<div />)}
+        data={data}
+        yDataKey={['2008년', '2009년', '2010년']}
+      />,
+    )
+
+    firstBarChart = component.find(BarChart).at(0)
+    LastBarChart = component.find(BarChart).at(1)
+  })
+
+  it('default', () => {
+    const tooltip = getTooltip()
+    expect(tooltip).toHaveLength(2)
+    expect(tooltip[0].props.textMap).toEqual({})
+    expect(tooltip[1].props.textMap).toEqual({})
+  })
+
+  it('set textMap to tooltip', () => {
+    component.setProps({
+      textMap: {
+        '2008년': 'AAA',
+      },
+    })
+
+    const tooltip = getTooltip()
+
+    expect(tooltip[0].props.textMap).toEqual({ '2008년': 'AAA' })
+    expect(tooltip[1].props.textMap).toEqual({ '2008년': 'AAA' })
   })
 })

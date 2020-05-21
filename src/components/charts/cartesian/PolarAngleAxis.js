@@ -1,17 +1,16 @@
 import * as Rechart from 'recharts'
 import { colorV1 } from '@src/assets/styles/variables'
 
-class XAxis extends Rechart.XAxis {
+class PolarAngleAxis extends Rechart.PolarAngleAxis {
 }
 
-XAxis.defaultProps = {
-  ...Rechart.XAxis.defaultProps,
+PolarAngleAxis.defaultProps = {
+  ...Rechart.PolarAngleAxis.defaultProps,
   axisLine: { stroke: colorV1.$grey06 },
   tickLine: false,
-  tickMargin: 10,
   stroke: colorV1.$grey08,
   fontSize: 14,
   custom: true,
 }
 
-export default XAxis
+export default PolarAngleAxis

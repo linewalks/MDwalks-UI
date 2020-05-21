@@ -14,6 +14,7 @@ import { getBarSize } from '@src/helper/chartUtility'
 
 import XAxis from '@Components/charts/cartesian/XAxis'
 import YAxis from '@Components/charts/cartesian/YAxis'
+import CartesianGrid from '@Components/charts/cartesian/CartesianGrid'
 
 const LabelStyle = {
   fill: colorV1.$grey08, fontWeight: 'bold', fontSize: '14px',
@@ -37,6 +38,7 @@ const BarChart = ({
   theme,
   themes,
   isPercent,
+  textMap,
   margin,
   xData,
   yData,
@@ -118,7 +120,7 @@ const BarChart = ({
   return (
     <div>
       <commonTag.chartTitle>{title}</commonTag.chartTitle>
-      <commonTag.LegendList data={legendData} />
+      <commonTag.LegendList data={legendData} textMap={textMap} />
       {/* {`barCount: ${barCount} barCategory: ${_.size(data)} ${margin.top} ${margin.bottom}`} */}
       {
         isEmpty(data)
@@ -135,7 +137,7 @@ const BarChart = ({
                     margin={scrollChartMargin}
                     barGap={barGap}
                   >
-                    <Rechart.CartesianGrid vertical={layout !== 'horizontal'} horizontal={layout === 'horizontal'} stroke={colorV1.$grey04} />
+                    <CartesianGrid vertical={layout !== 'horizontal'} horizontal={layout === 'horizontal'} />
                     <XAxis hide={isScroll} dataKey={XAxisDataKey} tickFormatter={XAxisTicFormatter} type={XAxisType} height={20} dy={-10 + 8}>
                       {
                         xData.label && (
@@ -154,6 +156,7 @@ const BarChart = ({
                       !_.isUndefined(themes) && (
                         <Rechart.Tooltip
                           isPercent={isPercent}
+                          textMap={textMap}
                           content={TooltipCompareContent}
                           colorKeyMap={_.map(data, ({ [xDataKey]: name }) => (name))}
                           colorObject={colors}
@@ -178,6 +181,7 @@ const BarChart = ({
                       _.isUndefined(themes) && (
                         <Rechart.Tooltip
                           isPercent={isPercent}
+                          textMap={textMap}
                           content={TooltipBox}
                           cursor={{ fill: ColorSet['Chart-Hover']['grey-hover'] }}
                         />
@@ -232,6 +236,7 @@ BarChart.defaultProps = {
   theme: Themes.ThemeArrangePrimarySea,
   themes: undefined,
   isPercent: false,
+  textMap: {},
   margin: {
     top: 10, right: 20, bottom: 5, left: 5,
   },
@@ -262,6 +267,7 @@ BarChart.propTypes = {
     Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
   ]),
   isPercent: PropTypes.bool,
+  textMap: PropTypes.shape({}),
   margin: PropTypes.shape({
     top: PropTypes.number,
     right: PropTypes.number,

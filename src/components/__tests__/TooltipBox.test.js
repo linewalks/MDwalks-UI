@@ -111,4 +111,19 @@ describe('TooltipBox Component', () => {
 
     expect(payloadConvert.convert).toBeCalledTimes(1)
   })
+
+  it('payload 안 요소들에 convert 함수 호출 여부', () => {
+    expectedObj = {
+      name: 'AAA',
+    }
+
+    component.setProps({
+      textMap: {
+        'T-Value': 'AAA',
+      },
+    })
+
+    expect(getDataByWraper(component).name).not.toBe('T-Value')
+    expect(getDataByWraper(component).name).toBe('AAA')
+  })
 })

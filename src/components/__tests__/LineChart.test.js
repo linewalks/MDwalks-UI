@@ -3,7 +3,8 @@ import { mount } from 'enzyme';
 import LineChart from '@Charts/LineChart';
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import * as Rechart from 'recharts'
-import _ from 'lodash'
+
+import { getChilds } from '@Components/__tests__/utils'
 
 const data = [
   {
@@ -44,15 +45,6 @@ const data = [
   },
 ]
 
-const match = (props, Tag) => props.type && props.type.displayName === Tag.displayName
-
-const findReChartTags = (root, Tag) => (
-  _.chain(root)
-    .flatMapDeep()
-    .filter((props) => match(props, Tag))
-    .value()
-)
-
 describe('LineChart Component', () => {
   let component;
   beforeEach(() => {
@@ -73,18 +65,16 @@ describe('LineChart Component', () => {
   })
 
   it('데이터가 있을 때, linechart를 렌더링 해야 한다.', () => {
-    expect(findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.Line)).toHaveLength(1)
-
-    const XAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.XAxis)
+    const { Line, XAxis, YAxis } = getChilds(component, Rechart.LineChart)
+    expect(Line).toHaveLength(1)
     expect(XAxis[0].props.children).toBe(undefined)
-
-    const YAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.YAxis)
     expect(YAxis[0].props.children).toBe(undefined)
   })
 })
 
 describe('LineChart Component', () => {
   let component;
+
   beforeEach(() => {
     component = mount(
       <LineChart
@@ -108,19 +98,17 @@ describe('LineChart Component', () => {
   })
 
   it('데이터가 있을 때, linechart를 렌더링 해야 한다.', () => {
-    const XAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.XAxis)
-    expect(XAxis[0].props.children.type.displayName).toBe('Label')
+    const { Line, XAxis, YAxis } = getChilds(component, Rechart.LineChart)
 
-    const YAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.YAxis)
+    expect(XAxis[0].props.children.type.displayName).toBe('Label')
     expect(YAxis[0].props.children.type.displayName).toBe('Label')
-    expect(findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.Line)).toHaveLength(1)
+    expect(Line).toHaveLength(1)
   })
 })
 
 describe('unit', () => {
   let component
-  let XAxis
-  let YAxis
+
   beforeEach(() => {
     component = mount(
       <LineChart
@@ -134,8 +122,7 @@ describe('unit', () => {
   })
 
   it('default', () => {
-    XAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.XAxis)
-    YAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.YAxis)
+    const { XAxis, YAxis } = getChilds(component, Rechart.LineChart)
 
     expect(XAxis[0].props.unit).toBe(undefined)
     expect(YAxis[0].props.unit).toBe(undefined)
@@ -151,8 +138,7 @@ describe('unit', () => {
       },
     })
 
-    XAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.XAxis)
-    YAxis = findReChartTags(component.find(Rechart.LineChart).prop('children'), Rechart.YAxis)
+    const { XAxis, YAxis } = getChilds(component, Rechart.LineChart)
 
     expect(XAxis[0].props.unit).toBe('x unit')
     expect(YAxis[0].props.unit).toBe('y unit')

@@ -54,7 +54,7 @@ LineChart example:
       }
     }}
     margin={{
-      top: 10, right: 5, bottom: 20, left: 20,
+      bottom: 20, left: 20,
     }}
     data={[
       {

@@ -22,6 +22,7 @@ import CheckList from '@Components/list/CheckList'
 import RadioList from '@Components/list/RadioList'
 import RadioBox from '@Components/form/RadioBox'
 import RadarChart from '@Components/charts/RadarChart'
+import RadarChartOld from '@Components/charts/RadarChartOld'
 import TreeMap from '@Components/charts/TreeMap'
 import TimeToEvent from '@Components/charts/TimeToEvent'
 import PieChart from '@Components/charts/PieChart'
@@ -84,6 +85,7 @@ export {
   commonTag,
   Histogram,
   RadarChart,
+  RadarChartOld,
   SelectBox,
   TreeMap,
   TimeToEvent,

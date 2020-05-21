@@ -1,3 +1,15 @@
+## [0.13.26](https://github.com/linewalks/MDwalks-UI/compare/v0.13.25...v0.13.26) (2020-05-21)
+
+### Features
+
+* **ChartColor:** create ThemeBubble ([cd1437b](https://github.com/linewalks/MDwalks-UI/commit/cd1437bdbbe5ab17f85f5e0199169cf1561534cd)), closes [#584](https://github.com/linewalks/MDwalks-UI/issues/584)
+* **RadarChart:** change to rechart ([b5d94f3](https://github.com/linewalks/MDwalks-UI/commit/b5d94f3e1b1dce92d71eecbf30033a14e7c33379)), closes [#392](https://github.com/linewalks/MDwalks-UI/issues/392)
+* create CartesianGrid, apply XAixs to LineChart ([8b9f044](https://github.com/linewalks/MDwalks-UI/commit/8b9f044eee7b6039d119f2682c3376174a195211)), closes [#583](https://github.com/linewalks/MDwalks-UI/issues/583)
+* set textMap for Charts ([a9954f0](https://github.com/linewalks/MDwalks-UI/commit/a9954f04f8cd108594866ec387361c30e6a0e2d3)), closes [#527](https://github.com/linewalks/MDwalks-UI/issues/527)
+* **BarChart:** modify barsize ([0aa1397](https://github.com/linewalks/MDwalks-UI/commit/0aa1397d4e47ad5da867a954e46a49d60dff880e)), closes [#582](https://github.com/linewalks/MDwalks-UI/issues/582)
+
+
+
 ## [0.13.25](https://github.com/linewalks/MDwalks-UI/compare/v0.13.23...v0.13.25) (2020-05-13)
 
 

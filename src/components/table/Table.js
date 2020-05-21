@@ -188,9 +188,7 @@ Table.propTypes = {
       PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string, PropTypes.number]),
     ),
     footData: PropTypes.arrayOf(
-      PropTypes.arrayOf(
-        PropTypes.string,
-      ),
+      PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string, PropTypes.number]),
     ),
   }),
   rowSpanCount: PropTypes.number,

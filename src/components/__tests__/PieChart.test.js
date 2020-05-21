@@ -1,8 +1,10 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import { Pie } from 'recharts'
+import * as Rechart from 'recharts'
 
 import PieChart from '@Components/charts/PieChart'
+
+import { getChilds } from '@Components/__tests__/utils'
 
 const mockData = {
   pieChart: [
@@ -29,7 +31,7 @@ describe('PieChart', () => {
       />,
     )
 
-    const pieData = wrapper.find(Pie).prop('data')
+    const pieData = wrapper.find(Rechart.Pie).prop('data')
     expect(pieData[0][nameKey]).toBe(mockData.pieChart[0][nameKey])
     expect(pieData[1][nameKey]).toBe(mockData.pieChart[1][nameKey])
     expect(pieData[0][dataKey]).toBe(mockData.pieChart[0][dataKey])
@@ -73,5 +75,39 @@ describe('PieChart', () => {
     const expected = '42.23 %'
     const legends = wrapper.find('li')
     expect(legends.find('span').at(1).text()).toBe(expected)
+  })
+})
+
+describe('PieChart', () => {
+  let component
+  const nameKey = 'gender_name'
+  const dataKey = 'count'
+
+  beforeEach(() => {
+    component = mount(
+      <PieChart
+        title="Gender Distribution"
+        data={mockData.pieChart}
+        nameKey={nameKey}
+        dataKey={dataKey}
+      />,
+    )
+  })
+
+  it('default', () => {
+    const { Tooltip } = getChilds(component, Rechart.PieChart)
+    expect(Tooltip).toHaveLength(1)
+    expect(Tooltip[0].props.textMap).toEqual({})
+  })
+
+  it('set textMap to tooltip', () => {
+    component.setProps({
+      textMap: {
+        '1주이내': 'AAA',
+      },
+    })
+
+    const { Tooltip } = getChilds(component, Rechart.PieChart)
+    expect(Tooltip[0].props.textMap).toEqual({ '1주이내': 'AAA' })
   })
 })
