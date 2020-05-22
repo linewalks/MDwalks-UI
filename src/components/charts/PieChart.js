@@ -18,9 +18,6 @@ const Dot = styled(cdmCommon.Dot).attrs(() => ({}))`
 `
 
 const size = {
-  Legend: {
-    marginLeft: 56,
-  },
   pie: {
     OffsetX: 18,
     outerRadius: 88,
@@ -28,7 +25,7 @@ const size = {
 }
 
 const PieLegend = styled.div`
-  margin-left: ${size.Legend.marginLeft}px;
+  ${(props) => (props.layout === 'horizontal' ? 'margin-left: 56px;' : 'margin-top: 26px;')}
   width: 100%;
   display: flex;
   align-items: center;
@@ -51,6 +48,17 @@ const PieLegend = styled.div`
   li:not(:last-child) {
     margin-bottom: 8px;
   }
+`
+
+const Layout = styled.section`
+  ${(props) => (props.layout === 'horizontal' ? `
+    display: flex;
+  ` : '')}
+  ${(props) => (props.layout === 'vertical' ? `
+    .recharts-responsive-container {
+      margin: 0 auto;
+    };
+  ` : '')}
 `
 
 const tooltipContent = ({
@@ -95,6 +103,7 @@ const PieChart = ({
   data,
   dataKey,
   nameKey,
+  layout,
   theme,
   colorList,
   isPercent,
@@ -127,7 +136,7 @@ const PieChart = ({
   return (
     <div>
       <Heading size="18" style={{ marginBottom: '30px' }}>{title}</Heading>
-      <section style={{ display: 'flex' }}>
+      <Layout layout={layout}>
         <Rechart.ResponsiveContainer
           width={size.pie.outerRadius * 2 + size.pie.OffsetX}
           height={size.pie.outerRadius * 2}
@@ -160,7 +169,7 @@ const PieChart = ({
             />
           </Rechart.PieChart>
         </Rechart.ResponsiveContainer>
-        <PieLegend>
+        <PieLegend layout={layout}>
           <ul>
             {data.map((entry, index) => {
               const key = `label-${index}`
@@ -180,7 +189,7 @@ const PieChart = ({
             })}
           </ul>
         </PieLegend>
-      </section>
+      </Layout>
     </div>
   )
 }
@@ -190,6 +199,7 @@ PieChart.defaultProps = {
   data: [],
   dataKey: 'value',
   nameKey: 'name',
+  layout: 'horizontal',
   theme: Themes.ThemeComparePrimarySea,
   isPercent: false,
   textMap: {},
@@ -202,6 +212,7 @@ PieChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})),
   dataKey: PropTypes.string,
   nameKey: PropTypes.string,
+  layout: PropTypes.oneOf(['horizontal', 'vertical']),
   theme: PropTypes.oneOf([
     'blue', 'green', 'compare',
     Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
