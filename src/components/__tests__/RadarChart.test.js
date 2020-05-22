@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import * as Rechart from 'recharts'
 import RadarChart from '@Charts/RadarChart';
-import * as commonTag from '@Components/common/cdmCommon'
+import * as commonTag from '@Components/common/commonTag'
 import {
   getColorsByTheme, Themes,
 } from '@Components/ChartColor'

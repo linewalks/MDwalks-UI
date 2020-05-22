@@ -2,11 +2,10 @@ import React from 'react'
 import _ from 'lodash'
 import * as Rechart from 'recharts'
 import PropTypes from 'prop-types'
-import Heading from '@Components/layout/Heading'
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import { colorV1 } from '@src/assets/styles/variables'
 import TooltipBox from '@Components/tooltip/TooltipBox'
-import * as commonTag from '@Components/common/cdmCommon'
+import * as commonTag from '@Components/common/commonTag'
 import { getColorsByTheme, Themes } from '@Components/ChartColor'
 
 import XAxis from '@Components/charts/cartesian/XAxis'
@@ -50,7 +49,7 @@ const LineChart = ({
 
   return (
     <div>
-      <Heading size="18" style={{ marginBottom: '30px' }}>{title}</Heading>
+      <commonTag.chartTitle>{title}</commonTag.chartTitle>
       <commonTag.LegendList data={legendData} textMap={textMap} />
       {
         _.isEmpty(data)
@@ -94,7 +93,7 @@ const LineChart = ({
 }
 
 LineChart.defaultProps = {
-  title: [{}, null],
+  title: null,
   data: [],
   xDataKey: 'name',
   yDataKey: ['value', []],
@@ -109,7 +108,7 @@ LineChart.defaultProps = {
 }
 
 LineChart.propTypes = {
-  title: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
+  title: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.shape({})),
   xDataKey: PropTypes.string,
   yDataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
