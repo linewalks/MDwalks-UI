@@ -2,7 +2,7 @@ import * as Rechart from 'recharts'
 
 // import PieChart from '@Components/charts/PieChart'
 import _ from 'lodash'
-// import * as commonTag from '@Components/common/cdmCommon'
+// import * as commonTag from '@Components/common/commonTag'
 
 const match = (props, Tag) => props.type && props.type.displayName === Tag.displayName
 

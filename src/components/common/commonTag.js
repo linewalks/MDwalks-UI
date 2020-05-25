@@ -112,8 +112,15 @@ WrapperScrollBars.propTypes = {
   }),
 }
 
-export const chartTitle = styled.header.attrs(() => ({
+const ChartTitleTag = styled.header.attrs(() => ({
   className: [fontStyle.fs18, fontStyle.fc_grey09, fontStyle.bold].join(' '),
 }))`
   margin-bottom: 30px;
 `
+
+export const chartTitle = ({ children }) => {
+  if (!children) {
+    return null
+  }
+  return <ChartTitleTag>{children}</ChartTitleTag>
+}

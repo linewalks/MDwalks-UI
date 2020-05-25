@@ -4,7 +4,7 @@ import fontStyle from '@src/assets/styles/font.module.sass'
 import { color } from '@src/assets/styles/variables'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
-import * as commonTag from '@Components/common/cdmCommon'
+import * as commonTag from '@Components/common/commonTag'
 
 const Dot = styled(commonTag.Dot).attrs(() => ({
 }))`

@@ -5,13 +5,12 @@ import _ from 'lodash'
 import PropTypes from 'prop-types'
 
 import styled from 'styled-components'
-import Heading from '@Components/layout/Heading'
 import * as font from '@src/assets/styles/font'
 import TooltipBox from '@Components/tooltip/TooltipBox'
-import * as cdmCommon from '@Components/common/cdmCommon'
+import * as commonTag from '@Components/common/commonTag'
 import { getColorsByTheme, Themes } from '@Components/ChartColor'
 
-const Dot = styled(cdmCommon.Dot).attrs(() => ({}))`
+const Dot = styled(commonTag.Dot).attrs(() => ({}))`
   position: absolute;
   top: 5px;
   left: 0;
@@ -135,7 +134,7 @@ const PieChart = ({
 
   return (
     <div>
-      <Heading size="18" style={{ marginBottom: '30px' }}>{title}</Heading>
+      <commonTag.chartTitle>{title}</commonTag.chartTitle>
       <Layout layout={layout}>
         <Rechart.ResponsiveContainer
           width={size.pie.outerRadius * 2 + size.pie.OffsetX}
