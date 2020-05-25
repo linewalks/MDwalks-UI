@@ -42,13 +42,13 @@ export const Dot = styled.span`
   border-radius: 5px;
 `
 
-export const Legend = styled.article`
+export const Legend = styled.article.attrs({
+  className: [fontStyle.fs14, fontStyle.fc_grey08],
+})`
   margin-bottom: 30px;
   > span:not(:last-child) {
     margin-right: 24px;
   }
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.4);
 `
 
 export const LegendList = ({ data, textMap }) => {
@@ -61,20 +61,21 @@ export const LegendList = ({ data, textMap }) => {
       drawText = textMap[drawText]
     }
 
+    const drawLegendColor = _.concat([], legendColor)
+
     return (
       <Legend key={lKey}>
-        <span>
+        <div>
           {
-            _.isArray(legendColor) && (_.map(legendColor, (c, i) => {
+            _.map(drawLegendColor, (c, i) => {
               const key = `${index}${c}${i}`
-              return (<Dot key={key} color={c} style={{ marginRight: '8px' }} />)
-            }))
-          }
-          {
-            !_.isArray(legendColor) && (<Dot color={legendColor} style={{ marginRight: '8px' }} />)
+              const isLast = drawLegendColor.length === i + 1
+              const marginRight = isLast ? '8px' : '4px'
+              return (<Dot key={key} color={c} style={{ marginRight }} />)
+            })
           }
           <span>{drawText}</span>
-        </span>
+        </div>
       </Legend>
     )
   })

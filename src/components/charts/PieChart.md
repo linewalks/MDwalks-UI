@@ -21,7 +21,7 @@ const mockData = {
 
 ```js
 import { Themes } from '@Components/ChartColor'
-import * as commonTag from '@Components/common/cdmCommon'
+import * as commonTag from '@Components/common/commonTag'
 
 const mockData = {
   pieChart: [
