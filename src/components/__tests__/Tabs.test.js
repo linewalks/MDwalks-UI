@@ -3,21 +3,44 @@ import { mount } from 'enzyme';
 import renderer from 'react-test-renderer'
 import 'jest-styled-components'
 
-import Tabs from '@Components/layout/Tabs';
+import Tabs, { TYPE } from '@Components/layout/Tabs';
 import { colorV1 } from '@src/assets/styles/variables'
-import { hexToRGB } from '@Components/button/utility'
 
-const { Tab, TabPane, TabUnderLine } = Tabs
+const {
+  Tab, TabPane, TabUnderLine, TabBox,
+} = Tabs
 
 describe('Style', () => {
   it('Tab 이 selected 된 경우 color 값이 지정된다', () => {
-    const tab = renderer.create(<Tab aria-selected />).toJSON()
-    expect(tab).toHaveStyleRule('color', hexToRGB(colorV1.$pmblue, 1))
+    const tab = renderer.create(<Tab aria-selected type={TYPE.CATEGORY} />).toJSON()
+    expect(tab).toHaveStyleRule('color', `${colorV1.$pmblue} !important`)
+    expect(tab).toHaveStyleRule('color', `${colorV1.$pmblue} !important`, {
+      modifier: ':hover',
+    })
   })
 
   it('Tab 이 selected 되지 않는 경우', () => {
-    const tab = renderer.create(<Tab aria-selected={false} />).toJSON()
-    expect(tab).not.toHaveStyleRule('color', colorV1.$grey08)
+    const tab = renderer.create(<Tab aria-selected={false} type={TYPE.CATEGORY} />).toJSON()
+    expect(tab).toHaveStyleRule('color', `${colorV1.$grey08} !important`)
+    expect(tab).toHaveStyleRule('color', `${colorV1.$pmblue} !important`, {
+      modifier: ':hover',
+    })
+  })
+
+  it('Tab 이 selected 된 경우 color 값이 지정된다', () => {
+    const tab = renderer.create(<Tab aria-selected type={TYPE.TITLE} />).toJSON()
+    expect(tab).toHaveStyleRule('color', `${colorV1.$grey10} !important`)
+    expect(tab).toHaveStyleRule('color', `${colorV1.$grey10} !important`, {
+      modifier: ':hover',
+    })
+  })
+
+  it('Tab 이 selected 되지 않는 경우', () => {
+    const tab = renderer.create(<Tab aria-selected={false} type={TYPE.TITLE} />).toJSON()
+    expect(tab).toHaveStyleRule('color', `${colorV1.$grey07} !important`)
+    expect(tab).toHaveStyleRule('color', `${colorV1.$grey10} !important`, {
+      modifier: ':hover',
+    })
   })
 
   it('tabUnderLine 이 selected 된 경우 backgorund-color, display 값이 지정 된다', () => {
@@ -41,6 +64,17 @@ describe('Style', () => {
     const tabpane = renderer.create(<TabPane aria-hidden={false} />).toJSON()
     expect(tabpane).not.toHaveStyleRule('height', '0')
   })
+
+  describe('TabBox style', () => {
+    it(`type ${TYPE.TITLE}`, () => {
+      const tabBox = renderer.create(<TabBox type={TYPE.TITLE} />).toJSON()
+      expect(tabBox).toHaveStyleRule('border-bottom', undefined)
+    })
+    it(`type ${TYPE.CATEGORY}`, () => {
+      const tabBox = renderer.create(<TabBox type={TYPE.CATEGORY} />).toJSON()
+      expect(tabBox).toHaveStyleRule('border-bottom', `1px solid ${colorV1.$grey05}`)
+    })
+  })
 })
 
 describe('Tabs', () => {
@@ -60,6 +94,7 @@ describe('Tabs', () => {
   })
 
   it('render active 된 것의 TabPane 만 render 된다', () => {
+    expect(wrapper.props().type).toBe(TYPE.CATEGORY)
     expect(wrapper.find(Tab).map((el) => el.props()['aria-selected'])).toEqual([true, false])
     expect(wrapper.find(Tab)).toHaveLength(2)
     expect(wrapper.find(TabPane)).toHaveLength(1)

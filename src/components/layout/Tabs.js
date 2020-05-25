@@ -3,41 +3,63 @@ import styled, { css } from 'styled-components'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 
-import * as font from '@src/assets/styles/font'
+import fontStyle from '@src/assets/styles/font.module.sass'
 import { colorV1 } from '@src/assets/styles/variables'
 
+export const TYPE = {
+  CATEGORY: 'catogory',
+  TITLE: 'title',
+}
+
 const TabBox = styled.section`
-  border-bottom: 1px solid #dce0e4;
+  ${(props) => (props.type === TYPE.CATEGORY ? `border-bottom: 1px solid ${colorV1.$grey05};` : '')}
   margin-bottom: 24px;
 `
 
 const UnderLineSize = 3
 
-const Tab = styled.span.attrs((props) => {
-  const options = props['aria-selected'] ? {
-    color: colorV1.$pmblue,
-  } : {
-    color: colorV1.$grey08,
-  }
+const typeCategory = css`
+  color: ${(props) => (props['aria-selected'] ? colorV1.$pmblue : colorV1.$grey08)} !important;
 
-  return { size: 16, bold: true, ...options }
-})`
-  ${font.Text}
   padding: 14px 10px ${13 + UnderLineSize}px;
   &:not(:last-child) {
     margin-right: 20px;
   }
 
-  cursor: pointer;
-  display: inline-block;
-  text-align: center;
-
+  transition: color 0.5s ease;
   &:hover {
-    color: ${colorV1.$pmblue};
-    transition: color 0.5s ease;
+    color: ${colorV1.$pmblue} !important;
   }
 
   position: relative;
+`
+
+const typeTitle = css`
+  color: ${(props) => (props['aria-selected'] ? colorV1.$grey10 : colorV1.$grey07)} !important;
+
+  &:not(:last-child) {
+    margin-right: 40px;
+  }
+
+  transition: color 0.5s ease;
+  &:hover {
+    color: ${colorV1.$grey10} !important;
+  }
+`
+
+const Tab = styled.span.attrs((props) => {
+  const className = [
+    (props.type === TYPE.CATEGORY ? fontStyle.fs16 : fontStyle.fs22),
+    fontStyle.bold,
+  ]
+
+  return { className }
+})`
+  ${(props) => (props.type === TYPE.CATEGORY ? typeCategory : typeTitle)};
+
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
 `
 
 const TabUnderLine = styled.div.attrs(() => {})`
@@ -70,7 +92,7 @@ class Tabs extends React.Component {
 
     const { defaultactivekey } = this.props
 
-    const activeKey = defaultactivekey || 0
+    const activeKey = defaultactivekey
 
     this.state = {
       activeKey,
@@ -93,9 +115,7 @@ class Tabs extends React.Component {
       renderObj,
     })
 
-    if (_.isFunction(onChange)) {
-      onChange(selectKey)
-    }
+    onChange(selectKey)
   }
 
   render() {
@@ -103,12 +123,14 @@ class Tabs extends React.Component {
 
     const tabs = []
     const contents = []
-    const { children } = this.props
+    const { children, type } = this.props
+
     React.Children.forEach(children, (child, index) => {
       const key = child.key || String(index)
       tabs.push(
         React.cloneElement(
           <Tab
+            type={type}
             aria-selected={activeKey === key}
             onClick={() => this.changeTab(key)}
           >
@@ -131,7 +153,7 @@ class Tabs extends React.Component {
 
     return (
       <article>
-        <TabBox>
+        <TabBox type={type}>
           {tabs}
         </TabBox>
         {_.filter(contents, (obj) => obj.props.isReander)}
@@ -142,16 +164,19 @@ class Tabs extends React.Component {
 
 Tabs.defaultProps = {
   defaultactivekey: String(0),
-  onChange: () => ({}),
+  type: TYPE.CATEGORY,
+  onChange: () => {},
 }
 
 Tabs.propTypes = {
   defaultactivekey: PropTypes.string,
+  type: PropTypes.oneOf([TYPE.CATEGORY, TYPE.TITLE]),
   onChange: PropTypes.func,
 }
 
 Tabs.Tab = Tab
 Tabs.TabPane = TabPane
 Tabs.TabUnderLine = TabUnderLine
+Tabs.TabBox = TabBox
 
 export default Tabs
