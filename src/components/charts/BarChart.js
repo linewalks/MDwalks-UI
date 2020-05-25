@@ -7,7 +7,7 @@ import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import { colorV1 } from '@src/assets/styles/variables'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import TooltipCompareContent from '@Components/tooltip/TooltipCompareContent'
-import * as commonTag from '@Components/common/cdmCommon'
+import * as commonTag from '@Components/common/commonTag'
 import { getColorsByTheme, Themes, ColorSet } from '@Components/ChartColor'
 
 import { getBarSize } from '@src/helper/chartUtility'
@@ -227,7 +227,7 @@ const BarChart = ({
 }
 
 BarChart.defaultProps = {
-  title: [{}, null],
+  title: null,
   data: [],
   layout: 'horizontal',
   stackId: undefined,
@@ -247,7 +247,7 @@ BarChart.defaultProps = {
 }
 
 BarChart.propTypes = {
-  title: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
+  title: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.shape({})),
   layout: PropTypes.oneOf(['horizontal', 'vertical']),
   stackId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

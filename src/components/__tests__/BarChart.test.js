@@ -4,7 +4,7 @@ import BarChart, { tickFormatterCustom } from '@Charts/BarChart';
 import TooltipCompareContent from '@Components/tooltip/TooltipCompareContent'
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import * as Rechart from 'recharts'
-import * as commonTag from '@Components/common/cdmCommon'
+import * as commonTag from '@Components/common/commonTag'
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Themes, getColorsByTheme } from '@Components/ChartColor'
 import _ from 'lodash'

@@ -34,7 +34,7 @@ import ToastCtr from '@Components/toast/ToastCtr'
 import Pagination from '@Components/pagination/Pagination'
 import ToggleButton from '@Components/button/ToggleButton'
 import TooltipBox from '@Components/tooltip/TooltipBox'
-import * as commonTag from '@Components/common/cdmCommon'
+import * as commonTag from '@Components/common/commonTag'
 
 import SelectBox from '@Components/form/SelectBox'
 import * as font from '@src/assets/styles/font'

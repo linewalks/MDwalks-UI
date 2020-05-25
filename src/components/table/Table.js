@@ -7,7 +7,7 @@ import TBody from '@Components/table/TBody';
 import TFoot from '@Components/table/TFoot';
 import styled, { css } from 'styled-components'
 import * as variables from '@src/assets/styles/variables'
-import * as commonTag from '@Components/common/cdmCommon'
+import * as commonTag from '@Components/common/commonTag'
 
 const sideFit = css`
   tbody {

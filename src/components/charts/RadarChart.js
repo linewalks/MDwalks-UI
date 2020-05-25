@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Rechart from 'recharts'
 import { colorV1 } from '@src/assets/styles/variables'
-import * as commonTag from '@Components/common/cdmCommon'
+import * as commonTag from '@Components/common/commonTag'
 import {
   getColorsByTheme, Themes,
 } from '@Components/ChartColor'
