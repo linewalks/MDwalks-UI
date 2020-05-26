@@ -1,310 +1,232 @@
-import React, { Component } from 'react';
+import React from 'react'
+import * as Rechart from 'recharts'
 import PropTypes from 'prop-types'
-import * as d3 from 'd3'
-import _ from 'lodash'
-import {
-  renderSVG, generateGroup, getStartAndEndTime,
-  circleDataFilter, rectDataFilter, labelList, errorMessage,
-} from '@src/helper/chartUtility'
 import { colorV1 } from '@src/assets/styles/variables'
-
+import * as commonTag from '@Components/common/commonTag'
+import TooltipBox from '@Components/tooltip/TooltipBox'
 import {
-  getColorsByTheme,
-  Themes,
+  getColorsByTheme, Themes,
 } from '@Components/ChartColor'
 
-import styles from './TimeToEvent.module.css'
+import _ from 'lodash'
 
-class TimeToEvent extends Component {
-  constructor(props) {
-    super(props);
-    const {
-      data, chartWidth, chartHeight, theme,
-    } = this.props
+import XAxis from '@Components/charts/cartesian/XAxis'
+import YAxis from '@Components/charts/cartesian/YAxis'
+import CartesianGrid from '@Components/charts/cartesian/CartesianGrid'
+import fontStyle from '@src/assets/styles/font.module.sass'
 
-    const { startTime, endTime } = !this.checkDataValidation() && getStartAndEndTime(
-      _.flatten(_.map(data, (d) => d.dataPoints)),
-    )
+export const dateFormat = (date) => (
+  // new Date(date)
+  // .toLocaleString('ko-KR', {
+  //   year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit',
+  // })
+  // .replace(/(\d+)\.\s(\d+)\.\s(\d+)/, '$1-$2-$3')
+  // .replace(/\.\s/, ' ')
 
-    this.colors = getColorsByTheme(theme)
-
-    this.options = {
-      width: chartWidth || 776, // 차트가 그려지는 전체 영역 넓이
-      height: chartHeight || 290, // 차트가 그려지는 전체 영영 높이
-      defaultMargin: {
-        top: 55,
-        right: 24,
-        left: 96,
-        bottom: 28,
-      },
-      defaultPadding: {
-        top: 85,
-        right: 24,
-        left: 63,
-        bottom: 50,
-      },
-      radius: 7.5,
-      labelStartYPosition: 0,
-      labelLastYPosition: 92,
-      startTime,
-      endTime,
-    }
-
-    this.xAxisWidth = this.options.width
-      - this.options.defaultMargin.left - this.options.defaultMargin.right
-    this.yAxisHeight = this.options.height
-      - this.options.defaultMargin.top - this.options.defaultMargin.bottom
-    this.rootElement = React.createRef()
-    this.xAxisScale = d3
-      .scaleTime()
-      .domain([startTime, endTime])
-      .range([4, this.xAxisWidth - 59])
-      .nice()
-
-    this.yAxisScale = d3
-      .scalePoint()
-      .domain(!this.checkDataValidation() && labelList(data))
-      .range([this.options.labelStartYPosition, this.options.labelLastYPosition])
-  }
-
-  getRootElement() {
-    return d3.select(this.rootElement.current)
-  }
-
-  createXAxis = (xAxis) => {
-    const { defaultMargin, height } = this.options
-
-    const gXAxis = generateGroup(this.getRootElement().select('.timeToEvent'), {
-      className: styles.xAxis,
-      xOffset: defaultMargin.left,
-      yOffset: height - defaultMargin.bottom,
+  new Date(date)
+    .toLocaleString('en-us', {
+      year: 'numeric', month: '2-digit', day: '2-digit',
     })
+    .replace(/(\d+)\/(\d+)\/(\d+)/, '$3-$1-$2') // for travis-ci
+    .replace(/,\s/, ' ')
+)
 
-    gXAxis.call(xAxis)
-    gXAxis.selectAll('.domain').attr('stroke', colorV1.$grey06).attr('d', `M0.5,0.5H${this.xAxisWidth}.5`)
-    gXAxis.selectAll('.tick line').remove()
-
-    gXAxis
-      .append('line')
-      .attr('x1', 0)
-      .attr('x2', this.xAxisWidth)
-      .attr('y1', -this.yAxisHeight)
-      .attr('y2', -this.yAxisHeight)
-      .attr('stroke', colorV1.$grey06)
-
-    gXAxis
-      .append('text')
-      .text('Years')
-      .attr('x', this.xAxisWidth - 15)
-      .attr('y', 26)
-      .attr('id', `${styles.xAxisTitle}`)
-      .style('fill', colorV1.$grey08)
-  }
-
-  createTimeToEventLabel = (data) => {
-    const { defaultMargin, defaultPadding } = this.options
-
-    const gTimeToEventLabels = generateGroup(this.getRootElement().select('.timeToEvent'), {
-      className: styles.timeToEventLabels,
-      xOffset: defaultMargin.left,
-      yOffset: defaultMargin.top + defaultPadding.top,
+const tooltipContent = ({
+  active, payload, dataKey, nameKey,
+  isPercent, textMap,
+}) => {
+  if (active) {
+    const converted = _.map(payload, (e) => {
+      const value = dateFormat(e.payload.value)
+      return { ...e.payload, value, fill: e.fill }
     })
-
-    gTimeToEventLabels
-      .selectAll('.timeToEventLabel')
-      .data(data)
-      .enter()
-      .append('text')
-      .text((d) => d.label[d.label.length - 1])
-      .attr('x', -16)
-      .attr('y', (d) => this.yAxisScale(d.label[d.label.length - 1]) + 4)
-      .attr('text-anchor', 'end')
-      .attr('class', `${styles.timeToEventLabel}`)
-      .style('fill', colorV1.$grey08)
-  }
-
-  createTimeToEventGrid = () => {
-    const { height, defaultMargin, defaultPadding } = this.options
-
-    const gTimelToEventGrid = generateGroup(this.getRootElement().select('.timeToEvent'), {
-      className: 'gTimeToEventGrid',
-      xOffset: defaultMargin.left,
-      yOffset: defaultMargin.top,
-    })
-
-    const timeToEventYAxisGridHeight = height - defaultMargin.top - defaultMargin.bottom
-    const timeToEventYAxisGridLines = d3
-      .axisTop(this.xAxisScale)
-      .tickSize(-timeToEventYAxisGridHeight)
-      .tickFormat('')
-
-    const gTimeToEventYAxisGrid = gTimelToEventGrid
-      .append('g')
-      .attr('class', 'timeToEventYAxisGrid')
-      .call(timeToEventYAxisGridLines)
-
-    gTimeToEventYAxisGrid
-      .selectAll('.tick line')
-      .attr('stroke', '#dce0e4')
-      .attr('stroke-dasharray', '2')
-
-    gTimeToEventYAxisGrid.select('.domain').remove()
-
-    const timeToEventXAxisGridLines = d3
-      .axisRight(this.yAxisScale)
-      .tickSize(this.xAxisWidth)
-      .tickFormat('')
-
-    const gTimeToEventXAxisGrid = gTimelToEventGrid
-      .append('g')
-      .attr('class', 'timeToEventXAxisGrid')
-      .attr('transform', `translate(0, ${defaultPadding.top})`)
-      .call(timeToEventXAxisGridLines)
-
-    gTimeToEventXAxisGrid.selectAll('.tick line').attr('stroke', '#dce0e4')
-    gTimeToEventXAxisGrid.select('.domain').remove()
-  }
-
-  renderTimeToEventData = () => {
-    const { defaultMargin, defaultPadding, radius } = this.options
-    const { data } = this.props
-
-    const gTimeToEventData = generateGroup(this.getRootElement().select('.timeToEvent'), {
-      className: 'timelineData',
-      xOffset: defaultMargin.left,
-      yOffset: defaultMargin.top + defaultPadding.top,
-    })
-
-    _.each(data, (el, idx) => {
-      gTimeToEventData
-        .append('g')
-        .attr('class', `rects-${idx}`)
-        .selectAll('rect')
-        .data(rectDataFilter(el.dataPoints))
-        .enter()
-        .append('rect')
-        .attr('x', (d) => this.xAxisScale(Date.parse(d.startTime)))
-        .attr('y', this.yAxisScale(el.label[el.label.length - 1]) - 1)
-        .attr('height', 3)
-        .attr('width', (d) => this.xAxisScale(Date.parse(d.endTime)) - this.xAxisScale(Date.parse(d.startTime)))
-        .attr('fill', this.colors[idx])
-    })
-
-    _.each(data, (el, idx) => {
-      gTimeToEventData
-        .append('g')
-        .attr('class', () => `circles-${idx}`)
-        .selectAll('circle')
-        .data(circleDataFilter(el.dataPoints))
-        .enter()
-        .append('circle')
-        .attr('cx', (d) => this.xAxisScale(Date.parse(d.startTime)))
-        .attr('cy', this.yAxisScale(el.label[el.label.length - 1]))
-        .attr('r', radius)
-        .attr('fill', this.colors[idx])
-    })
-  }
-
-  createLegend = (...args) => {
-    const gLegend = generateGroup(this.getRootElement().select('.timeToEvent'), {
-      className: `${styles.gLegend}`,
-    })
-
-    gLegend
-      .selectAll('legendCircle')
-      .data(args)
-      .enter()
-      .append('circle')
-      .attr('cx', (d, i) => 5 + (i * 86))
-      .attr('cy', 5)
-      .attr('r', 5)
-      .style('fill', (d, i) => this.colors[i])
-
-    gLegend
-      .selectAll('legend')
-      .data(args)
-      .enter()
-      .append('text')
-      .text((d) => d)
-      .attr('x', (d, i) => 18 + (86 * i))
-      .attr('y', 10.5)
-      .text((d) => d)
-      .style('fill', colorV1.$grey08)
-  }
-
-  renderTimeToEvent = (data) => {
-    const { width, height, startTime } = this.options
-    const svg = renderSVG(d3.select(this.rootElement.current), width, height)
-
-    generateGroup(svg, { className: 'timeToEvent' })
-
-    const xAxis = d3
-      .axisBottom(this.xAxisScale)
-      .tickPadding(16)
-      .tickSize(0)
-      .tickArguments([d3.timeYear.every(1)])
-      .tickFormat((d) => d3.timeFormat('%Y')(d) - d3.timeFormat('%Y')(new Date(startTime)))
-
-    this.createLegend('Patient', 'Group')
-    this.createXAxis(xAxis)
-    this.createTimeToEventLabel(data)
-    this.createTimeToEventGrid()
-    this.renderTimeToEventData()
-  }
-
-  componentDidMount = () => {
-    const { data } = this.props
-    if (!this.checkDataValidation()) {
-      this.renderTimeToEvent(data)
-    }
-  }
-
-  checkDataValidation = () => {
-    const { data } = this.props
-    if (_.isEmpty(data)) return 'haveData'
-    if (!Array.isArray(data)) return 'typeOfVariable'
-    return null
-  }
-
-  render() {
-    if (this.checkDataValidation()) {
-      return <div>{errorMessage(this.checkDataValidation())}</div>
-    }
 
     return (
-      <div ref={this.rootElement} className={styles.timeToEvent} />
-    );
+      <TooltipBox
+        payload={converted}
+        isPercent={isPercent}
+        dataKey={dataKey}
+        nameKey={nameKey}
+        textMap={textMap}
+      />
+    )
   }
+  return null
+}
+
+tooltipContent.defaultProps = {
+  active: false,
+  payload: {},
+  isPercent: false,
+  textMap: {},
+  dataKey: 'value',
+  nameKey: 'name',
+}
+
+tooltipContent.propTypes = {
+  active: PropTypes.bool,
+  payload: PropTypes.shape({}),
+  isPercent: PropTypes.bool,
+  textMap: PropTypes.shape({}),
+  dataKey: PropTypes.string,
+  nameKey: PropTypes.string,
+}
+
+export const yTickFormatterCustom = ({ order }, textMap = {}) => (
+  textMap[`order${order}`] || ''
+)
+
+export const xTickFormatterCustom = (value, start = 0) => (
+  new Date(value).getFullYear() - start
+)
+
+export const TYPE = {
+  YEAR: 'year',
+  MONTH: 'month',
+  DAY: 'day',
+}
+
+export const convertData = (arr) => (
+  _.chain(arr)
+    .map(({
+      start, end, name, order,
+    }) => (
+      [
+        { value: start, name, [`order${order}`]: order },
+        { value: end, name, [`order${order}`]: order },
+      ]
+    ))
+    .flattenDeep()
+    .value()
+)
+
+export const appendOrder = (arr) => (
+  _.map(arr, (o, index) => ({ ...o, order: arr.length - index }))
+)
+
+const TimeToEvent = ({
+  data, theme, margin, xData,
+}) => {
+  let startDate = _.minBy(data, 'start').start
+  startDate = new Date(startDate)
+  startDate.setDate(1)
+  startDate.setMonth(0)
+  let endDate = _.maxBy(data, 'end').end
+  endDate = new Date(endDate)
+  endDate.setDate(31)
+  endDate.setMonth(11)
+
+  const addOrderData = appendOrder(data)
+
+  const newDataKey = _.map(addOrderData, ({ order }) => (`order${order}`))
+  const yTicks = _.range(0, data.length + 2)
+  const yDomain = [_.head(yTicks), _.last(yTicks)]
+
+  const xDomain = [startDate.getTime(), endDate.getTime()]
+
+  const rang = new Date(endDate).getFullYear() - new Date(startDate).getFullYear() + 2
+
+  const xTicks = _.map(_.range(0, rang + 1), (num) => {
+    const date = new Date(startDate)
+    return date.setFullYear(date.getFullYear() + num)
+  })
+
+  const colors = getColorsByTheme(theme, newDataKey.length).reverse()
+
+  const legendData = _.chain(newDataKey)
+    .map((entry, index) => ({ color: colors[index], text: entry }))
+    .value()
+
+  const drawMargin = _.extend({}, TimeToEvent.defaultProps.margin, margin)
+  const customData = _.map(convertData(addOrderData), (obj) => _.extend(obj, { z: 100 }))
+
+  const textMap = _.chain(addOrderData)
+    .reduce((sum, obj) => ({ ...sum, [`order${obj.order}`]: obj.name }), {})
+    .value()
+
+  const xTickFormatter = (value) => (xTickFormatterCustom(value, startDate.getFullYear()))
+  const yTickFormatter = (value) => (yTickFormatterCustom({ order: value }, textMap))
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <commonTag.LegendList data={legendData} textMap={textMap} />
+      <Rechart.ResponsiveContainer height={263}>
+        <Rechart.ComposedChart
+          height={263}
+          data={customData}
+          margin={drawMargin}
+        >
+          <CartesianGrid strokeDasharray="2 2" horizontal={false} />
+          <Rechart.Tooltip
+            content={tooltipContent}
+          />
+          {
+            _.map(yTicks, (tick) => (<Rechart.ReferenceLine key={`ReferenceLine${tick}`} y={tick} stroke={colorV1.$grey04} />))
+          }
+          <Rechart.ReferenceLine y={_.last(yTicks)} stroke={colorV1.$grey06} />
+          <XAxis dataKey="value" type="number" tickFormatter={xTickFormatter} ticks={xTicks} domain={xDomain} />
+          <YAxis type="number" tickFormatter={yTickFormatter} ticks={yTicks} domain={yDomain} />
+          <Rechart.ZAxis dataKey="z" range={[0, 300]} />
+          {
+            newDataKey.map((entry, index) => (
+              <Rechart.Scatter
+                key={`scatter${entry}`}
+                dataKey={entry}
+                fill={colors[index]}
+                line={{ strokeWidth: 3 }}
+              />
+            ))
+          }
+        </Rechart.ComposedChart>
+      </Rechart.ResponsiveContainer>
+      <span
+        className={[fontStyle.fs14, fontStyle.bold].join(' ')}
+        style={{
+          position: 'absolute',
+          right: 0,
+          bottom: 8,
+          color: XAxis.defaultProps.stroke,
+          lineHeight: 1,
+        }}
+      >
+        {xData.unit}
+      </span>
+    </div>
+  )
 }
 
 TimeToEvent.defaultProps = {
   data: [],
-  chartWidth: 776, // 차트가 그려지는 전체 영역 넓이
-  chartHeight: 290, // 차트가 그려지는 전체 영영 높이
   theme: Themes.ThemeComparePrimarySea2,
+  margin: {
+    top: 10, right: 20, bottom: 5, left: 5,
+  },
+  xData: {},
 }
 
 TimeToEvent.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      dataPoints: PropTypes.arrayOf(
-        PropTypes.shape({
-          startTime: PropTypes.string,
-          endTime: PropTypes.string,
-        }),
-      ),
-      label: PropTypes.arrayOf(PropTypes.string),
-      order: PropTypes.number,
-    }),
-  ),
-  chartWidth: PropTypes.number,
-  chartHeight: PropTypes.number,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    start: PropTypes.number,
+    end: PropTypes.number,
+    name: PropTypes.string,
+  })),
   theme: PropTypes.oneOf([
-    Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
-    Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3,
-    Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
-    Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
+    Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal,
+    Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold,
+    Themes.ThemeArrangeQuinaryBerry,
   ]),
+  margin: PropTypes.shape({
+    top: PropTypes.number,
+    right: PropTypes.number,
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+  }),
+  xData: PropTypes.shape({
+    label: PropTypes.shape({
+      value: PropTypes.string.isRequired,
+    }),
+    unit: PropTypes.string,
+  }),
 }
 
-export default TimeToEvent;
+export default TimeToEvent

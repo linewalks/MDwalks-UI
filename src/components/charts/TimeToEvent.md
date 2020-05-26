@@ -1,45 +1,24 @@
 TimeToEvent example:
 
 ```js
+import { Themes } from '@Components/ChartColor';
+const data = [
+  {
+    start: new Date('2000-12-17T09:00:00').getTime(), end: new Date('2005-03-09T13:51:00').getTime(), name: 'Patient',
+  },
+  {
+    start: new Date('2003-01-17T09:00:00').getTime(), end: new Date('2010-03-09T13:51:00').getTime(), name: 'Group',
+  },
+];
+
 <TimeToEvent
-  chartHeight={340}
-  data={[
-    {
-      dataPoints: [
-        {
-          startTime: '2000-01-17T09:00:00',
-          endTime: '2000-01-17T09:00:00',
-        },
-        {
-          startTime: '2000-01-17T09:00:00',
-          endTime: '2005-03-09T13:51:00',
-        },
-        {
-          startTime: '2005-03-09T13:51:00',
-          endTime: '2005-03-09T13:51:00',
-        }
-      ],
-      label: ['Patient'],
-      order: 0,
-    },
-    {
-      dataPoints: [
-        {
-          startTime: '2000-01-17T09:00:00',
-          endTime: '2000-01-17T09:00:00',
-        },
-        {
-          startTime: '2000-01-17T09:00:00',
-          endTime: '2009-03-09T13:51:00',
-        },
-        {
-          startTime: '2009-03-09T13:51:00',
-          endTime: '2009-03-09T13:51:00',
-        }
-      ],
-      label: ['Group'],
-      order: 1,
-    },
-  ]}
+  data={data}
+  theme={Themes.ThemeArrangePrimarySea}
+  xData={{
+    unit: "Years"
+  }}
+  margin={{
+    right: 50,
+  }}
 />
 ```

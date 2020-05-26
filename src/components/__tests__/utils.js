@@ -30,5 +30,6 @@ export const getChilds = (component, parent) => {
     YAxis: findReChartTags(root, Rechart.YAxis),
     Tooltip: findReChartTags(root, Rechart.Tooltip),
     Radar: findReChartTags(root, Rechart.Radar),
+    ReferenceLine: findReChartTags(root, Rechart.ReferenceLine),
   }
 }
