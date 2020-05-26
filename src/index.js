@@ -25,6 +25,7 @@ import RadarChart from '@Components/charts/RadarChart'
 import RadarChartOld from '@Components/charts/RadarChartOld'
 import TreeMap from '@Components/charts/TreeMap'
 import TimeToEvent from '@Components/charts/TimeToEvent'
+import TimeToEventOld from '@Components/charts/TimeToEventOld'
 import PieChart from '@Components/charts/PieChart'
 import Button from '@Components/button/Button'
 import ButtonLink from '@Components/button/ButtonLink'
@@ -89,6 +90,7 @@ export {
   SelectBox,
   TreeMap,
   TimeToEvent,
+  TimeToEventOld,
   PieChart,
   Pagination,
   DateUtility,

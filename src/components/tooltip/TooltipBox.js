@@ -48,6 +48,10 @@ export const valueConvertText = (value, { isPercent, convert }) => {
     return <span style={{ whiteSpace: 'nowrap' }}>{`${(Number(value) * 100).toFixed(2)} %`}</span>
   }
 
+  if (_.isString(value)) {
+    return value
+  }
+
   return Number(value).toLocaleString()
 }
 

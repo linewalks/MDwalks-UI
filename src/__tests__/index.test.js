@@ -19,7 +19,7 @@ const includeModule = [
   'RadiusGauge', 'SankeyChart',
   'SelectBox', 'SelectedCard',
   'SummaryCard', 'Table',
-  'Tabs', 'TimeToEvent', 'PieChart',
+  'Tabs', 'TimeToEvent', 'TimeToEventOld', 'PieChart',
   'Timeline', 'ToastCtr',
   'ToggleButton', 'TooltipBox',
   'TreeMap', 'chartUtility',
