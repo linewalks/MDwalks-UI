@@ -117,6 +117,7 @@ const ThemeMap = {
     2: ['sea300', 'rose200'],
     3: ['sea300', 'rose200', 'gold100'],
     4: ['sea300', 'rose200', 'gold100', 'teal400'],
+    11: ['sea100', 'sea300', 'gold500', 'rose100', 'rose200', 'gold100', 'gold200', 'teal200', 'teal400', 'berry100', 'berry300'],
   },
   [Themes.ThemeComparePrimarySea1]: {
     2: ['sea300', 'bluegrey80'],
