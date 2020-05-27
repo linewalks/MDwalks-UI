@@ -1,17 +1,17 @@
 BarChart example:
 
 ```js
-import * as cdmCommon from '@Components/common/cdmCommon';
+import * as commonTag from '@Components/common/commonTag';
 
-<cdmCommon.BoxShadow>
-  <cdmCommon.BoxShadowInner>
+<commonTag.BoxShadow>
+  <commonTag.BoxShadowInner>
     <BarChart
       title="Empty and BoxShadow"
       data={[]}
       yDataKey="Persons"
     />
-  </cdmCommon.BoxShadowInner>
-</cdmCommon.BoxShadow>
+  </commonTag.BoxShadowInner>
+</commonTag.BoxShadow>
 ```
 
 ```js

@@ -6,10 +6,9 @@ import styled from 'styled-components'
 
 import { colorV1 } from '@src/assets/styles/variables'
 // import * as variables from '@src/assets/styles/variables'
-import Heading from '@Components/layout/Heading'
 import fontStyle from '@src/assets/styles/font.module.sass'
 import TooltipBox from '@Components/tooltip/TooltipBox'
-import * as cdmCommon from '@Components/common/cdmCommon'
+import * as commonTag from '@Components/common/commonTag'
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 
 import PropTypes from 'prop-types'
@@ -66,9 +65,9 @@ const BarChartMulti = ({
 
   return (
     <div>
-      <Heading size="18" style={{ marginBottom: '30px' }}>{title}</Heading>
+      <commonTag.chartTitle>{title}</commonTag.chartTitle>
 
-      <cdmCommon.LegendList data={legendData} textMap={textMap} />
+      <commonTag.LegendList data={legendData} textMap={textMap} />
       {
         isEmpty(data)
           ? (
@@ -82,10 +81,10 @@ const BarChartMulti = ({
             const width = totalWidth * (value.length / size) + (i === 0 ? YAxisWidth : 0)
             return (
               <Box style={{ width: `${width}px` }} key={`${key}`}>
-                <Rechart.ResponsiveContainer width="100%" height={415}>
+                <Rechart.ResponsiveContainer width="100%" height={263}>
                   <Rechart.BarChart
                     data={value}
-                    height={415}
+                    height={263}
                     margin={{
                       top: 0, right: 0, bottom: 0, left: (i === 0 ? 0 : YAxisWidth * -1),
                     }}
@@ -123,7 +122,7 @@ const BarChartMulti = ({
 }
 
 BarChartMulti.defaultProps = {
-  title: [{}, null],
+  title: null,
   data: [],
   xDataKey: 'name',
   yDataKey: [],
@@ -133,7 +132,7 @@ BarChartMulti.defaultProps = {
 }
 
 BarChartMulti.propTypes = {
-  title: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
+  title: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.any),
   xDataKey: PropTypes.string,
   yDataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),

@@ -79,7 +79,6 @@ describe('BarChartMulti', () => {
   it('set Property', () => {
     const YAxisWidth = 60
     const wrapper = mount(<BarChartMulti
-      title={(<div />)}
       data={data}
       yDataKey={['2008년', '2009년', '2010년']}
     />)
@@ -106,7 +105,6 @@ describe('BarChartMulti', () => {
 
   it('data가 비어있는 경우', () => {
     const wrapper = mount(<BarChartMulti
-      title={(<div />)}
       data={[]}
       yDataKey={['2008년', '2009년', '2010년']}
     />)
@@ -133,7 +131,6 @@ describe('tooltip', () => {
   beforeEach(() => {
     component = mount(
       <BarChartMulti
-        title={(<div />)}
         data={data}
         yDataKey={['2008년', '2009년', '2010년']}
       />,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import TimeToEvent from '@Charts/TimeToEvent';
+import TimeToEventOld from '@Charts/TimeToEventOld';
 
 const data = [
   {
@@ -43,12 +43,12 @@ const data = [
 
 let component;
 beforeEach(() => {
-  component = mount(<TimeToEvent data={data} />)
+  component = mount(<TimeToEventOld data={data} />)
 })
 
 describe('TimeToEvent Component', () => {
   it('데이터가 없을때, 에러메세지를 출력해야 한다.', () => {
-    component = shallow(<TimeToEvent />)
+    component = shallow(<TimeToEventOld />)
     expect(component.html()).toEqual('<div>No data is provided</div>')
   })
 

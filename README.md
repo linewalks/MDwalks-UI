@@ -4,6 +4,8 @@
 
 **[History / Changes](CHANGELOG.md)**
 
+**[Migration](migration.md)**
+
 ## 1. How to
 * install
   ```bash

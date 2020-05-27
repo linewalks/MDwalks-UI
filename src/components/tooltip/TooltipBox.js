@@ -4,7 +4,7 @@ import fontStyle from '@src/assets/styles/font.module.sass'
 import { color } from '@src/assets/styles/variables'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
-import * as commonTag from '@Components/common/cdmCommon'
+import * as commonTag from '@Components/common/commonTag'
 
 const Dot = styled(commonTag.Dot).attrs(() => ({
 }))`
@@ -46,6 +46,10 @@ export const valueConvertText = (value, { isPercent, convert }) => {
 
   if (isPercent) {
     return <span style={{ whiteSpace: 'nowrap' }}>{`${(Number(value) * 100).toFixed(2)} %`}</span>
+  }
+
+  if (_.isString(value)) {
+    return value
   }
 
   return Number(value).toLocaleString()

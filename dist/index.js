@@ -24929,7 +24929,7 @@ function _templateObject6$1() {
 }
 
 function _templateObject5$1() {
-  var data = _taggedTemplateLiteral(["\n  margin-bottom: 30px;\n  > span:not(:last-child) {\n    margin-right: 24px;\n  }\n  font-size: 14px;\n  color: rgba(0, 0, 0, 0.4);\n"]);
+  var data = _taggedTemplateLiteral(["\n  margin-bottom: 30px;\n  > span:not(:last-child) {\n    margin-right: 24px;\n  }\n"]);
 
   _templateObject5$1 = function _templateObject5() {
     return data;
@@ -24983,7 +24983,9 @@ var BoxShadowInner = styled__default.div(_templateObject3$6(), color.$primary_wh
 var Dot = styled__default.span(_templateObject4$4(), function (props) {
   return props.color;
 });
-var Legend = styled__default.article(_templateObject5$1());
+var Legend = styled__default.article.attrs({
+  className: [fontStyle.fs14, fontStyle.fc_grey08]
+})(_templateObject5$1());
 var LegendList = function LegendList(_ref) {
   var data = _ref.data,
       textMap = _ref.textMap;
@@ -24997,22 +24999,21 @@ var LegendList = function LegendList(_ref) {
       drawText = textMap[drawText];
     }
 
+    var drawLegendColor = lodash.concat([], legendColor);
+
     return React__default.createElement(Legend, {
       key: lKey
-    }, React__default.createElement("span", null, lodash.isArray(legendColor) && lodash.map(legendColor, function (c, i) {
+    }, React__default.createElement("div", null, lodash.map(drawLegendColor, function (c, i) {
       var key = "".concat(index).concat(c).concat(i);
+      var isLast = drawLegendColor.length === i + 1;
+      var marginRight = isLast ? '8px' : '4px';
       return React__default.createElement(Dot, {
         key: key,
         color: c,
         style: {
-          marginRight: '8px'
+          marginRight: marginRight
         }
       });
-    }), !lodash.isArray(legendColor) && React__default.createElement(Dot, {
-      color: legendColor,
-      style: {
-        marginRight: '8px'
-      }
     }), React__default.createElement("span", null, drawText)));
   });
   return React__default.createElement(LegendWrap, null, legends);
@@ -25042,13 +25043,22 @@ WrapperScrollBars.propTypes = {
     y: propTypes.number
   })
 };
-var chartTitle = styled__default.header.attrs(function () {
+var ChartTitleTag = styled__default.header.attrs(function () {
   return {
     className: [fontStyle.fs18, fontStyle.fc_grey09, fontStyle.bold].join(' ')
   };
 })(_templateObject6$1());
+var chartTitle = function chartTitle(_ref4) {
+  var children = _ref4.children;
 
-var cdmCommon = /*#__PURE__*/Object.freeze({
+  if (!children) {
+    return null;
+  }
+
+  return React__default.createElement(ChartTitleTag, null, children);
+};
+
+var commonTag = /*#__PURE__*/Object.freeze({
   __proto__: null,
   BoxShadow: BoxShadow,
   BoxShadowInner: BoxShadowInner,
@@ -25385,6 +25395,10 @@ var valueConvertText = function valueConvertText(value, _ref) {
     }, "".concat((Number(value) * 100).toFixed(2), " %"));
   }
 
+  if (lodash.isString(value)) {
+    return value;
+  }
+
   return Number(value).toLocaleString();
 };
 valueConvertText.defaultProps = {
@@ -25681,6 +25695,8 @@ var BarChart = function BarChart(_ref) {
 
   XAxis.defaultProps.unit = xData.unit;
   YAxis.defaultProps.unit = yData.unit;
+  Rechart.Bar.defaultProps.stackId = stackId;
+  Rechart.Bar.defaultProps.barSize = barSize;
   return React__default.createElement("div", null, React__default.createElement(chartTitle, null, title), React__default.createElement(LegendList, {
     data: legendData,
     textMap: textMap
@@ -25759,9 +25775,7 @@ var BarChart = function BarChart(_ref) {
     return React__default.createElement(Rechart.Bar, {
       key: "bar".concat(entry),
       dataKey: entry,
-      fill: colors[index],
-      stackId: stackId,
-      barSize: barSize
+      fill: colors[index]
     });
   })))), isScroll && React__default.createElement(Rechart.ResponsiveContainer, {
     width: width,
@@ -25795,15 +25809,13 @@ var BarChart = function BarChart(_ref) {
       },
       key: "bar".concat(entry),
       dataKey: entry,
-      fill: colors[index],
-      stackId: stackId,
-      barSize: barSize
+      fill: colors[index]
     });
   })))));
 };
 
 BarChart.defaultProps = {
-  title: [{}, null],
+  title: null,
   data: [],
   layout: 'horizontal',
   stackId: undefined,
@@ -25825,7 +25837,7 @@ BarChart.defaultProps = {
   width: Rechart.BarChart.defaultProps.width
 };
 BarChart.propTypes = {
-  title: propTypes.oneOfType([propTypes.shape({}), propTypes.string]),
+  title: propTypes.string,
   data: propTypes.arrayOf(propTypes.shape({})),
   layout: propTypes.oneOf(['horizontal', 'vertical']),
   stackId: propTypes.oneOfType([propTypes.string, propTypes.number]),
@@ -25860,7 +25872,7 @@ BarChart.propTypes = {
 };
 
 function _templateObject$d() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-right: 1px dashed ", ";\n  }\n"]);
 
   _templateObject$d = function _templateObject() {
     return data;
@@ -25868,36 +25880,7 @@ function _templateObject$d() {
 
   return data;
 }
-var Text$1 = styled__default.header(_templateObject$d(), Text);
-
-var Heading = function Heading(_ref) {
-  var size = _ref.size,
-      children = _ref.children,
-      style = _ref.style;
-  return React__default.createElement(Text$1, {
-    size: size,
-    bold: true,
-    style: style
-  }, children);
-};
-
-Heading.defaultProps = {
-  size: '22'
-};
-Heading.propTypes = {
-  size: propTypes.string
-};
-
-function _templateObject$e() {
-  var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-right: 1px dashed ", ";\n  }\n"]);
-
-  _templateObject$e = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var Box$1 = styled__default.article(_templateObject$e(), colorV1.$grey05);
+var Box$1 = styled__default.article(_templateObject$d(), colorV1.$grey05);
 
 var BarChartMulti = function BarChartMulti(_ref) {
   var title = _ref.title,
@@ -25944,12 +25927,7 @@ var BarChartMulti = function BarChartMulti(_ref) {
   };
 
   var barSize = getBarSize(lodash.size(newYDataKey), 'horizontal');
-  return React__default.createElement("div", null, React__default.createElement(Heading, {
-    size: "18",
-    style: {
-      marginBottom: '30px'
-    }
-  }, title), React__default.createElement(LegendList, {
+  return React__default.createElement("div", null, React__default.createElement(chartTitle, null, title), React__default.createElement(LegendList, {
     data: legendData,
     textMap: textMap
   }), isEmpty(data) ? React__default.createElement(EmptyPlaceHolder, null) : React__default.createElement("section", {
@@ -25970,10 +25948,10 @@ var BarChartMulti = function BarChartMulti(_ref) {
       key: "".concat(key)
     }, React__default.createElement(Rechart.ResponsiveContainer, {
       width: "100%",
-      height: 415
+      height: 263
     }, React__default.createElement(Rechart.BarChart, {
       data: value,
-      height: 415,
+      height: 263,
       margin: {
         top: 0,
         right: 0,
@@ -26015,7 +25993,7 @@ var BarChartMulti = function BarChartMulti(_ref) {
 };
 
 BarChartMulti.defaultProps = {
-  title: [{}, null],
+  title: null,
   data: [],
   xDataKey: 'name',
   yDataKey: [],
@@ -26024,7 +26002,7 @@ BarChartMulti.defaultProps = {
   textMap: {}
 };
 BarChartMulti.propTypes = {
-  title: propTypes.oneOfType([propTypes.shape({}), propTypes.string]),
+  title: propTypes.string,
   data: propTypes.arrayOf(propTypes.any),
   xDataKey: propTypes.string,
   yDataKey: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
@@ -26074,12 +26052,7 @@ var LineChart = function LineChart(_ref) {
 
   var drawMargin = lodash.extend({}, LineChart.defaultProps.margin, margin);
 
-  return React__default.createElement("div", null, React__default.createElement(Heading, {
-    size: "18",
-    style: {
-      marginBottom: '30px'
-    }
-  }, title), React__default.createElement(LegendList, {
+  return React__default.createElement("div", null, React__default.createElement(chartTitle, null, title), React__default.createElement(LegendList, {
     data: legendData,
     textMap: textMap
   }), lodash.isEmpty(data) ? React__default.createElement(EmptyPlaceHolder, null) : React__default.createElement(Rechart.ResponsiveContainer, {
@@ -26118,7 +26091,7 @@ var LineChart = function LineChart(_ref) {
 };
 
 LineChart.defaultProps = {
-  title: [{}, null],
+  title: null,
   data: [],
   xDataKey: 'name',
   yDataKey: ['value', []],
@@ -26135,7 +26108,7 @@ LineChart.defaultProps = {
   yData: {}
 };
 LineChart.propTypes = {
-  title: propTypes.oneOfType([propTypes.shape({}), propTypes.string]),
+  title: propTypes.string,
   data: propTypes.arrayOf(propTypes.shape({})),
   xDataKey: propTypes.string,
   yDataKey: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
@@ -27227,16 +27200,16 @@ LineMergeTimeline.propTypes = {
   resetBtnId: propTypes.string
 };
 
-function _templateObject$f() {
+function _templateObject$e() {
   var data = _taggedTemplateLiteral(["\n  height: 70px\n  background-color: ", "\n  padding: 0 30px\n  display: flex\n  align-items: center\n  margin-bottom: 40px\n\n  a:active, a:hover {\n    text-decoration: none\n  }\n\n  border-bottom: 1px solid ", "\n"]);
 
-  _templateObject$f = function _templateObject() {
+  _templateObject$e = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var NavbarBox = styled__default.nav(_templateObject$f(), color.$primary_white, color.$line_search_grey);
+var NavbarBox = styled__default.nav(_templateObject$e(), color.$primary_white, color.$line_search_grey);
 
 var Navbar = function Navbar(_ref) {
   var style = _ref.style,
@@ -27256,16 +27229,16 @@ function _templateObject2$c() {
   return data;
 }
 
-function _templateObject$g() {
+function _templateObject$f() {
   var data = _taggedTemplateLiteral(["\n  position: absolute\n  bottom: 0\n  height: ", "\n  padding: 0\n  width: 100%\n  box-sizing: border-box\n"]);
 
-  _templateObject$g = function _templateObject() {
+  _templateObject$f = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var FooterWrap = styled__default.footer(_templateObject$g(), size.$footer_height);
+var FooterWrap = styled__default.footer(_templateObject$f(), size.$footer_height);
 var FooterBox = styled__default.div(_templateObject2$c(), Text, color.$line_search_grey, size.$footer_height);
 
 var Footer = function Footer(props) {
@@ -27306,8 +27279,57 @@ Image.propTypes = {
   }).isRequired
 };
 
-function _templateObject5$3() {
+function _templateObject$g() {
   var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject$g = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Text$1 = styled__default.header(_templateObject$g(), Text);
+
+var Heading = function Heading(_ref) {
+  var size = _ref.size,
+      children = _ref.children,
+      style = _ref.style;
+  return React__default.createElement(Text$1, {
+    size: size,
+    bold: true,
+    style: style
+  }, children);
+};
+
+Heading.defaultProps = {
+  size: '22'
+};
+Heading.propTypes = {
+  size: propTypes.string
+};
+
+function _templateObject7$1() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n"]);
+
+  _templateObject7$1 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6$2() {
+  var data = _taggedTemplateLiteral(["\n  height: 0;\n  padding: 0 !important;\n  overflow: hidden;\n  opacity: 0;\n  pointer-events: none;\n"]);
+
+  _templateObject6$2 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5$3() {
+  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  height: ", "px;\n  background-color: ", ";\n  bottom: -1px;\n  width: 100%;\n  left: 0;\n\n  display: ", ";\n}\n"]);
 
   _templateObject5$3 = function _templateObject5() {
     return data;
@@ -27317,7 +27339,7 @@ function _templateObject5$3() {
 }
 
 function _templateObject4$6() {
-  var data = _taggedTemplateLiteral(["\n  height: 0;\n  padding: 0 !important;\n  overflow: hidden;\n  opacity: 0;\n  pointer-events: none;\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", ";\n\n  cursor: pointer;\n  display: inline-block;\n  text-align: center;\n"]);
 
   _templateObject4$6 = function _templateObject4() {
     return data;
@@ -27327,7 +27349,7 @@ function _templateObject4$6() {
 }
 
 function _templateObject3$8() {
-  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  height: ", "px;\n  background-color: ", ";\n  bottom: -1px;\n  width: 100%;\n  left: 0;\n\n  display: ", ";\n}\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: ", " !important;\n\n  &:not(:last-child) {\n    margin-right: 40px;\n  }\n\n  transition: color 0.5s ease;\n  &:hover {\n    color: ", " !important;\n  }\n"]);
 
   _templateObject3$8 = function _templateObject3() {
     return data;
@@ -27337,7 +27359,7 @@ function _templateObject3$8() {
 }
 
 function _templateObject2$d() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 14px 10px ", "px;\n  &:not(:last-child) {\n    margin-right: 20px;\n  }\n\n  cursor: pointer;\n  display: inline-block;\n  text-align: center;\n\n  &:hover {\n    color: ", ";\n    transition: color 0.5s ease;\n  }\n\n  position: relative;\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: ", " !important;\n\n  padding: 14px 10px ", "px;\n  &:not(:last-child) {\n    margin-right: 20px;\n  }\n\n  transition: color 0.5s ease;\n  &:hover {\n    color: ", " !important;\n  }\n\n  position: relative;\n"]);
 
   _templateObject2$d = function _templateObject2() {
     return data;
@@ -27347,7 +27369,7 @@ function _templateObject2$d() {
 }
 
 function _templateObject$h() {
-  var data = _taggedTemplateLiteral(["\n  border-bottom: 1px solid #dce0e4;\n  margin-bottom: 24px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  margin-bottom: 24px;\n"]);
 
   _templateObject$h = function _templateObject() {
     return data;
@@ -27355,24 +27377,33 @@ function _templateObject$h() {
 
   return data;
 }
-var TabBox = styled__default.section(_templateObject$h());
+var TYPE = {
+  CATEGORY: 'catogory',
+  TITLE: 'title'
+};
+var TabBox = styled__default.section(_templateObject$h(), function (props) {
+  return props.type === TYPE.CATEGORY ? "border-bottom: 1px solid ".concat(colorV1.$grey05, ";") : '';
+});
 var UnderLineSize = 3;
+var typeCategory = styled.css(_templateObject2$d(), function (props) {
+  return props['aria-selected'] ? colorV1.$pmblue : colorV1.$grey08;
+}, 13 + UnderLineSize, colorV1.$pmblue);
+var typeTitle = styled.css(_templateObject3$8(), function (props) {
+  return props['aria-selected'] ? colorV1.$grey10 : colorV1.$grey07;
+}, colorV1.$grey10);
 var Tab = styled__default.span.attrs(function (props) {
-  var options = props['aria-selected'] ? {
-    color: colorV1.$pmblue
-  } : {
-    color: colorV1.$grey08
+  var className = [props.type === TYPE.CATEGORY ? fontStyle.fs16 : fontStyle.fs22, fontStyle.bold];
+  return {
+    className: className
   };
-  return _objectSpread2({
-    size: 16,
-    bold: true
-  }, options);
-})(_templateObject2$d(), Text, 13 + UnderLineSize, colorV1.$pmblue);
-var TabUnderLine = styled__default.div.attrs(function () {})(_templateObject3$8(), UnderLineSize, colorV1.$pmblue, function (props) {
+})(_templateObject4$6(), function (props) {
+  return props.type === TYPE.CATEGORY ? typeCategory : typeTitle;
+});
+var TabUnderLine = styled__default.div.attrs(function () {})(_templateObject5$3(), UnderLineSize, colorV1.$pmblue, function (props) {
   return props['aria-selected'] ? 'block' : 'none';
 });
-var Hidden = styled.css(_templateObject4$6());
-var TabPane = styled__default.div.attrs()(_templateObject5$3(), function (props) {
+var Hidden = styled.css(_templateObject6$2());
+var TabPane = styled__default.div.attrs()(_templateObject7$1(), function (props) {
   return props['aria-hidden'] ? Hidden : '';
 });
 
@@ -27386,7 +27417,7 @@ var Tabs = /*#__PURE__*/function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Tabs).call(this, props));
     var defaultactivekey = _this.props.defaultactivekey;
-    var activeKey = defaultactivekey || 0;
+    var activeKey = defaultactivekey;
     _this.state = {
       activeKey: activeKey,
       renderObj: new Set().add(activeKey)
@@ -27407,10 +27438,7 @@ var Tabs = /*#__PURE__*/function (_React$Component) {
         activeKey: selectKey,
         renderObj: renderObj
       });
-
-      if (lodash.isFunction(onChange)) {
-        onChange(selectKey);
-      }
+      onChange(selectKey);
     }
   }, {
     key: "render",
@@ -27422,10 +27450,13 @@ var Tabs = /*#__PURE__*/function (_React$Component) {
           renderObj = _this$state.renderObj;
       var tabs = [];
       var contents = [];
-      var children = this.props.children;
+      var _this$props = this.props,
+          children = _this$props.children,
+          type = _this$props.type;
       React__default.Children.forEach(children, function (child, index) {
         var key = child.key || String(index);
         tabs.push(React__default.cloneElement(React__default.createElement(Tab, {
+          type: type,
           "aria-selected": activeKey === key,
           onClick: function onClick() {
             return _this2.changeTab(key);
@@ -27444,7 +27475,9 @@ var Tabs = /*#__PURE__*/function (_React$Component) {
           key: key
         }));
       });
-      return React__default.createElement("article", null, React__default.createElement(TabBox, null, tabs), lodash.filter(contents, function (obj) {
+      return React__default.createElement("article", null, React__default.createElement(TabBox, {
+        type: type
+      }, tabs), lodash.filter(contents, function (obj) {
         return obj.props.isReander;
       }));
     }
@@ -27455,17 +27488,18 @@ var Tabs = /*#__PURE__*/function (_React$Component) {
 
 Tabs.defaultProps = {
   defaultactivekey: String(0),
-  onChange: function onChange() {
-    return {};
-  }
+  type: TYPE.CATEGORY,
+  onChange: function onChange() {}
 };
 Tabs.propTypes = {
   defaultactivekey: propTypes.string,
+  type: propTypes.oneOf([TYPE.CATEGORY, TYPE.TITLE]),
   onChange: propTypes.func
 };
 Tabs.Tab = Tab;
 Tabs.TabPane = TabPane;
 Tabs.TabUnderLine = TabUnderLine;
+Tabs.TabBox = TabBox;
 
 var css_248z$4 = "/* select box */\n.Histogram-module_gDropDown__3g6OC {\n  position: absolute;\n  top: -8px;\n  right: 0px\n}";
 var styles$4 = {"gDropDown":"Histogram-module_gDropDown__3g6OC"};
@@ -27902,10 +27936,10 @@ Histogram.propTypes = {
 
 var icnPopupCloseMd = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzQiIGhlaWdodD0iMzQiIHZpZXdCb3g9IjAgMCAzNCAzNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgzNHYzNEgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzU2NUI1RiIgZD0iTTE3LjE0MiA0LjE0MmExIDEgMCAwIDEgMSAxdjExaDExYTEgMSAwIDEgMSAwIDJoLTExdjExYTEgMSAwIDEgMS0yIDB2LTExaC0xMWExIDEgMCAxIDEgMC0yaDExdi0xMWExIDEgMCAwIDEgMS0xeiIgbWFzaz0idXJsKCNiKSIgdHJhbnNmb3JtPSJyb3RhdGUoLTQ1IDE3LjE0MiAxNy4xNDIpIi8+CiAgICA8L2c+Cjwvc3ZnPg==';
 
-function _templateObject6$2() {
+function _templateObject6$3() {
   var data = _taggedTemplateLiteral(["\n  margin-top: ", ";\n  padding-top: ", ";\n  border-top: 1px solid ", ";\n  text-align: right;\n\n  margin-left: -", ";\n  margin-right: -", ";\n  padding-left: ", ";\n  padding-right: ", ";\n"]);
 
-  _templateObject6$2 = function _templateObject6() {
+  _templateObject6$3 = function _templateObject6() {
     return data;
   };
 
@@ -27980,7 +28014,7 @@ var Contents = styled__default(TextTag).attrs({
   bold: false
 })(_templateObject4$7());
 var Loading = styled__default.div(_templateObject5$4());
-var Footer$1 = styled__default.footer(_templateObject6$2(), size$1.footerMarginTop, size$1.footerPaddingTop, color.$line_graph_xy_grey, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding);
+var Footer$1 = styled__default.footer(_templateObject6$3(), size$1.footerMarginTop, size$1.footerPaddingTop, color.$line_graph_xy_grey, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding);
 
 var Modal = function Modal(_ref) {
   var title = _ref.title,
@@ -29676,19 +29710,272 @@ TreeMap.propTypes = {
   title: propTypes.string
 };
 
+var dateFormat = function dateFormat(date) {
+  return (// new Date(date)
+    // .toLocaleString('ko-KR', {
+    //   year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit',
+    // })
+    // .replace(/(\d+)\.\s(\d+)\.\s(\d+)/, '$1-$2-$3')
+    // .replace(/\.\s/, ' ')
+    new Date(date).toLocaleString('en-us', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).replace(/(\d+)\/(\d+)\/(\d+)/, '$3-$1-$2') // for travis-ci
+    .replace(/,\s/, ' ')
+  );
+};
+
+var tooltipContent$1 = function tooltipContent(_ref) {
+  var active = _ref.active,
+      payload = _ref.payload,
+      dataKey = _ref.dataKey,
+      nameKey = _ref.nameKey,
+      isPercent = _ref.isPercent,
+      textMap = _ref.textMap;
+
+  if (active) {
+    var converted = lodash.map(payload, function (e) {
+      var value = dateFormat(e.payload.value);
+      return _objectSpread2({}, e.payload, {
+        value: value,
+        fill: e.fill
+      });
+    });
+
+    return React__default.createElement(TooltipBox, {
+      payload: converted,
+      isPercent: isPercent,
+      dataKey: dataKey,
+      nameKey: nameKey,
+      textMap: textMap
+    });
+  }
+
+  return null;
+};
+
+tooltipContent$1.defaultProps = {
+  active: false,
+  payload: {},
+  isPercent: false,
+  textMap: {},
+  dataKey: 'value',
+  nameKey: 'name'
+};
+tooltipContent$1.propTypes = {
+  active: propTypes.bool,
+  payload: propTypes.shape({}),
+  isPercent: propTypes.bool,
+  textMap: propTypes.shape({}),
+  dataKey: propTypes.string,
+  nameKey: propTypes.string
+};
+var yTickFormatterCustom = function yTickFormatterCustom(_ref2) {
+  var order = _ref2.order;
+  var textMap = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return textMap["order".concat(order)] || '';
+};
+var xTickFormatterCustom = function xTickFormatterCustom(value) {
+  var start = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  return new Date(value).getFullYear() - start;
+};
+var convertData = function convertData(arr) {
+  return lodash.chain(arr).map(function (_ref3) {
+    var start = _ref3.start,
+        end = _ref3.end,
+        name = _ref3.name,
+        order = _ref3.order;
+    return [_defineProperty({
+      value: start,
+      name: name
+    }, "order".concat(order), order), _defineProperty({
+      value: end,
+      name: name
+    }, "order".concat(order), order)];
+  }).flattenDeep().value();
+};
+var appendOrder = function appendOrder(arr) {
+  return lodash.map(arr, function (o, index) {
+    return _objectSpread2({}, o, {
+      order: arr.length - index
+    });
+  });
+};
+
+var TimeToEvent = function TimeToEvent(_ref6) {
+  var data = _ref6.data,
+      theme = _ref6.theme,
+      margin = _ref6.margin,
+      xData = _ref6.xData;
+
+  var startDate = lodash.minBy(data, 'start').start;
+
+  startDate = new Date(startDate);
+  startDate.setDate(1);
+  startDate.setMonth(0);
+
+  var endDate = lodash.maxBy(data, 'end').end;
+
+  endDate = new Date(endDate);
+  endDate.setDate(31);
+  endDate.setMonth(11);
+  var addOrderData = appendOrder(data);
+
+  var newDataKey = lodash.map(addOrderData, function (_ref7) {
+    var order = _ref7.order;
+    return "order".concat(order);
+  });
+
+  var yTicks = lodash.range(0, data.length + 2);
+
+  var yDomain = [lodash.head(yTicks), lodash.last(yTicks)];
+  var xDomain = [startDate.getTime(), endDate.getTime()];
+  var rang = new Date(endDate).getFullYear() - new Date(startDate).getFullYear() + 2;
+
+  var xTicks = lodash.map(lodash.range(0, rang + 1), function (num) {
+    var date = new Date(startDate);
+    return date.setFullYear(date.getFullYear() + num);
+  });
+
+  var colors = getColorsByTheme(theme, newDataKey.length).reverse();
+
+  var legendData = lodash.chain(newDataKey).map(function (entry, index) {
+    return {
+      color: colors[index],
+      text: entry
+    };
+  }).value();
+
+  var drawMargin = lodash.extend({}, TimeToEvent.defaultProps.margin, margin);
+
+  var customData = lodash.map(convertData(addOrderData), function (obj) {
+    return lodash.extend(obj, {
+      z: 100
+    });
+  });
+
+  var textMap = lodash.chain(addOrderData).reduce(function (sum, obj) {
+    return _objectSpread2({}, sum, _defineProperty({}, "order".concat(obj.order), obj.name));
+  }, {}).value();
+
+  var xTickFormatter = function xTickFormatter(value) {
+    return xTickFormatterCustom(value, startDate.getFullYear());
+  };
+
+  var yTickFormatter = function yTickFormatter(value) {
+    return yTickFormatterCustom({
+      order: value
+    }, textMap);
+  };
+
+  return React__default.createElement("div", {
+    style: {
+      position: 'relative'
+    }
+  }, React__default.createElement(LegendList, {
+    data: legendData,
+    textMap: textMap
+  }), React__default.createElement(Rechart.ResponsiveContainer, {
+    height: 263
+  }, React__default.createElement(Rechart.ComposedChart, {
+    height: 263,
+    data: customData,
+    margin: drawMargin
+  }, React__default.createElement(CartesianGrid, {
+    strokeDasharray: "2 2",
+    horizontal: false
+  }), React__default.createElement(Rechart.Tooltip, {
+    content: tooltipContent$1
+  }), lodash.map(yTicks, function (tick) {
+    return React__default.createElement(Rechart.ReferenceLine, {
+      key: "ReferenceLine".concat(tick),
+      y: tick,
+      stroke: colorV1.$grey04
+    });
+  }), React__default.createElement(Rechart.ReferenceLine, {
+    y: lodash.last(yTicks),
+    stroke: colorV1.$grey06
+  }), React__default.createElement(XAxis, {
+    dataKey: "value",
+    type: "number",
+    tickFormatter: xTickFormatter,
+    ticks: xTicks,
+    domain: xDomain
+  }), React__default.createElement(YAxis, {
+    type: "number",
+    tickFormatter: yTickFormatter,
+    ticks: yTicks,
+    domain: yDomain
+  }), React__default.createElement(Rechart.ZAxis, {
+    dataKey: "z",
+    range: [0, 300]
+  }), newDataKey.map(function (entry, index) {
+    return React__default.createElement(Rechart.Scatter, {
+      key: "scatter".concat(entry),
+      dataKey: entry,
+      fill: colors[index],
+      line: {
+        strokeWidth: 3
+      }
+    });
+  }))), React__default.createElement("span", {
+    className: [fontStyle.fs14, fontStyle.bold].join(' '),
+    style: {
+      position: 'absolute',
+      right: 0,
+      bottom: 8,
+      color: XAxis.defaultProps.stroke,
+      lineHeight: 1
+    }
+  }, xData.unit));
+};
+
+TimeToEvent.defaultProps = {
+  data: [],
+  theme: Themes.ThemeComparePrimarySea2,
+  margin: {
+    top: 10,
+    right: 20,
+    bottom: 5,
+    left: 5
+  },
+  xData: {}
+};
+TimeToEvent.propTypes = {
+  data: propTypes.arrayOf(propTypes.shape({
+    start: propTypes.number,
+    end: propTypes.number,
+    name: propTypes.string
+  })),
+  theme: propTypes.oneOf([Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal, Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold, Themes.ThemeArrangeQuinaryBerry]),
+  margin: propTypes.shape({
+    top: propTypes.number,
+    right: propTypes.number,
+    bottom: propTypes.number,
+    left: propTypes.number
+  }),
+  xData: propTypes.shape({
+    label: propTypes.shape({
+      value: propTypes.string.isRequired
+    }),
+    unit: propTypes.string
+  })
+};
+
 var css_248z$5 = ".TimeToEvent-module_gLegend__3k55w text, .TimeToEvent-module_xAxis__hL73d text, .TimeToEvent-module_timeToEventLabel__1-iB2 {\n  font-size: 14px;\n  font-family: 'Spoqa Han Sans';\n  font-weight: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n}\n\n.TimeToEvent-module_gLegend__3k55w text {\n  text-anchor: start;\n}\n\n.TimeToEvent-module_xAxis__hL73d text {\n  text-anchor: middle;\n  fill: #6d7884;\n}\n\n.TimeToEvent-module_timeToEventLabel__1-iB2, #TimeToEvent-module_xAxisTitle__2Suka {\n  font-weight: bold;\n}\n";
 var styles$5 = {"gLegend":"TimeToEvent-module_gLegend__3k55w","xAxis":"TimeToEvent-module_xAxis__hL73d","timeToEventLabel":"TimeToEvent-module_timeToEventLabel__1-iB2","xAxisTitle":"TimeToEvent-module_xAxisTitle__2Suka"};
 styleInject(css_248z$5);
 
-var TimeToEvent = /*#__PURE__*/function (_Component) {
-  _inherits(TimeToEvent, _Component);
+var TimeToEventOld = /*#__PURE__*/function (_Component) {
+  _inherits(TimeToEventOld, _Component);
 
-  function TimeToEvent(props) {
+  function TimeToEventOld(props) {
     var _this;
 
-    _classCallCheck(this, TimeToEvent);
+    _classCallCheck(this, TimeToEventOld);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(TimeToEvent).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(TimeToEventOld).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "createXAxis", function (xAxis) {
       var _this$options = _this.options,
@@ -29878,7 +30165,7 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
     return _this;
   }
 
-  _createClass(TimeToEvent, [{
+  _createClass(TimeToEventOld, [{
     key: "getRootElement",
     value: function getRootElement() {
       return d3.select(this.rootElement.current);
@@ -29897,10 +30184,10 @@ var TimeToEvent = /*#__PURE__*/function (_Component) {
     }
   }]);
 
-  return TimeToEvent;
+  return TimeToEventOld;
 }(React.Component);
 
-TimeToEvent.defaultProps = {
+TimeToEventOld.defaultProps = {
   data: [],
   chartWidth: 776,
   // 차트가 그려지는 전체 영역 넓이
@@ -29908,7 +30195,7 @@ TimeToEvent.defaultProps = {
   // 차트가 그려지는 전체 영영 높이
   theme: Themes.ThemeComparePrimarySea2
 };
-TimeToEvent.propTypes = {
+TimeToEventOld.propTypes = {
   data: propTypes.arrayOf(propTypes.shape({
     dataPoints: propTypes.arrayOf(propTypes.shape({
       startTime: propTypes.string,
@@ -29922,8 +30209,18 @@ TimeToEvent.propTypes = {
   theme: propTypes.oneOf([Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3])
 };
 
+function _templateObject3$c() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n"]);
+
+  _templateObject3$c = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject2$h() {
-  var data = _taggedTemplateLiteral(["\n  margin-left: ", "px;\n  width: 100%;\n  display: flex;\n  align-items: center;\n\n  ul {\n    width: 100%;\n  }\n\n  li {\n    padding-left: 16px;\n    position: relative;\n    display: flex;\n\n    span:last-child {\n      margin-left: auto;\n      padding-left: 16px;\n    }\n  }\n\n  li:not(:last-child) {\n    margin-bottom: 8px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  width: 100%;\n  display: flex;\n  align-items: center;\n\n  ul {\n    width: 100%;\n  }\n\n  li {\n    padding-left: 16px;\n    position: relative;\n    display: flex;\n\n    span:last-child {\n      margin-left: auto;\n      padding-left: 16px;\n    }\n  }\n\n  li:not(:last-child) {\n    margin-bottom: 8px;\n  }\n"]);
 
   _templateObject2$h = function _templateObject2() {
     return data;
@@ -29945,17 +30242,21 @@ var Dot$2 = styled__default(Dot).attrs(function () {
   return {};
 })(_templateObject$m());
 var size$2 = {
-  Legend: {
-    marginLeft: 56
-  },
   pie: {
     OffsetX: 18,
     outerRadius: 88
   }
 };
-var PieLegend = styled__default.div(_templateObject2$h(), size$2.Legend.marginLeft);
+var PieLegend = styled__default.div(_templateObject2$h(), function (props) {
+  return props.layout === 'horizontal' ? 'margin-left: 56px;' : 'margin-top: 26px;';
+});
+var Layout = styled__default.section(_templateObject3$c(), function (props) {
+  return props.layout === 'horizontal' ? "\n    display: flex;\n  " : '';
+}, function (props) {
+  return props.layout === 'vertical' ? "\n    .recharts-responsive-container {\n      margin: 0 auto;\n    };\n  " : '';
+});
 
-var tooltipContent$1 = function tooltipContent(_ref) {
+var tooltipContent$2 = function tooltipContent(_ref) {
   var active = _ref.active,
       payload = _ref.payload,
       dataKey = _ref.dataKey,
@@ -29980,7 +30281,7 @@ var tooltipContent$1 = function tooltipContent(_ref) {
   return null;
 };
 
-tooltipContent$1.defaultProps = {
+tooltipContent$2.defaultProps = {
   active: false,
   payload: {},
   isPercent: false,
@@ -29988,7 +30289,7 @@ tooltipContent$1.defaultProps = {
   dataKey: 'value',
   nameKey: 'name'
 };
-tooltipContent$1.propTypes = {
+tooltipContent$2.propTypes = {
   active: propTypes.bool,
   payload: propTypes.shape({}),
   isPercent: propTypes.bool,
@@ -30002,6 +30303,7 @@ var PieChart = function PieChart(_ref2) {
       data = _ref2.data,
       dataKey = _ref2.dataKey,
       nameKey = _ref2.nameKey,
+      layout = _ref2.layout,
       theme = _ref2.theme,
       colorList = _ref2.colorList,
       isPercent = _ref2.isPercent,
@@ -30034,15 +30336,8 @@ var PieChart = function PieChart(_ref2) {
     return Number(value).toLocaleString();
   };
 
-  return React__default.createElement("div", null, React__default.createElement(Heading, {
-    size: "18",
-    style: {
-      marginBottom: '30px'
-    }
-  }, title), React__default.createElement("section", {
-    style: {
-      display: 'flex'
-    }
+  return React__default.createElement("div", null, React__default.createElement(chartTitle, null, title), React__default.createElement(Layout, {
+    layout: layout
   }, React__default.createElement(Rechart.ResponsiveContainer, {
     width: size$2.pie.outerRadius * 2 + size$2.pie.OffsetX,
     height: size$2.pie.outerRadius * 2
@@ -30070,13 +30365,15 @@ var PieChart = function PieChart(_ref2) {
   })), React__default.createElement(Rechart.Tooltip, {
     textMap: textMap,
     content: function content(props) {
-      return tooltipContent$1(lodash.extend(props, {
+      return tooltipContent$2(lodash.extend(props, {
         dataKey: dataKey,
         nameKey: nameKey,
         isPercent: isPercent
       }));
     }
-  }))), React__default.createElement(PieLegend, null, React__default.createElement("ul", null, data.map(function (entry, index) {
+  }))), React__default.createElement(PieLegend, {
+    layout: layout
+  }, React__default.createElement("ul", null, data.map(function (entry, index) {
     var key = "label-".concat(index);
     var label = entry[legend.nameKey];
 
@@ -30099,6 +30396,7 @@ PieChart.defaultProps = {
   data: [],
   dataKey: 'value',
   nameKey: 'name',
+  layout: 'horizontal',
   theme: Themes.ThemeComparePrimarySea,
   isPercent: false,
   textMap: {},
@@ -30110,6 +30408,7 @@ PieChart.propTypes = {
   data: propTypes.arrayOf(propTypes.shape({})),
   dataKey: propTypes.string,
   nameKey: propTypes.string,
+  layout: propTypes.oneOf(['horizontal', 'vertical']),
   theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3]),
   isPercent: propTypes.bool,
   textMap: propTypes.shape({}),
@@ -30121,20 +30420,20 @@ PieChart.propTypes = {
   })
 };
 
-function _templateObject7$1() {
+function _templateObject7$2() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  ", "\n"]);
 
-  _templateObject7$1 = function _templateObject7() {
+  _templateObject7$2 = function _templateObject7() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject6$3() {
+function _templateObject6$4() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.3s\n"]);
 
-  _templateObject6$3 = function _templateObject6() {
+  _templateObject6$4 = function _templateObject6() {
     return data;
   };
 
@@ -30161,10 +30460,10 @@ function _templateObject4$9() {
   return data;
 }
 
-function _templateObject3$c() {
+function _templateObject3$d() {
   var data = _taggedTemplateLiteral(["\n  opacity: 0;\n  animation: ", " 1.3s infinite;\n"]);
 
-  _templateObject3$c = function _templateObject3() {
+  _templateObject3$d = function _templateObject3() {
     return data;
   };
 
@@ -30312,10 +30611,10 @@ var setBtnColor = function setBtnColor(props) {
 };
 
 var fade = styled.keyframes(_templateObject2$i());
-var LoadingBase = styled.css(_templateObject3$c(), fade);
+var LoadingBase = styled.css(_templateObject3$d(), fade);
 var LoadingOne = styled__default.span(_templateObject4$9(), LoadingBase);
 var LoadingTwo = styled__default.span(_templateObject5$5(), LoadingBase);
-var LoadingThree = styled__default.span(_templateObject6$3(), LoadingBase);
+var LoadingThree = styled__default.span(_templateObject6$4(), LoadingBase);
 var ButtonTag = styled__default(TextTag).attrs(function () {
   var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var size = props.size || 'md';
@@ -30342,7 +30641,7 @@ var ButtonTag = styled__default(TextTag).attrs(function () {
     BtnSizeObject: BtnSizeObject,
     BtnColorObject: BtnColorObject
   };
-})(_templateObject7$1(), BtnDefaultCss, setBtnSize, setBtnColor);
+})(_templateObject7$2(), BtnDefaultCss, setBtnSize, setBtnColor);
 
 var Button = function Button(props) {
   var isLoading = props.isLoading,
@@ -30486,10 +30785,10 @@ ButtonTextLink.propTypes = {
   id: propTypes.string
 };
 
-function _templateObject3$d() {
+function _templateObject3$e() {
   var data = _taggedTemplateLiteral(["\n  display: inline-block;\n\n  vertical-align: middle;\n  > div {\n    display: flex;\n    align-items: center;\n  }\n\n  ", " {\n    &:first-child {\n      margin-right: 8px;\n    }\n    &:last-child {\n      margin-left: 8px;\n    }\n  }\n"]);
 
-  _templateObject3$d = function _templateObject3() {
+  _templateObject3$e = function _templateObject3() {
     return data;
   };
 
@@ -30531,7 +30830,7 @@ var TextLinkTag = styled__default(TextTag).attrs(function () {
   return props.fontSize;
 });
 var Icon$1 = styled__default.img(_templateObject2$j());
-var TextLinkIconTag = styled__default(TextLinkTag)(_templateObject3$d(), Icon$1);
+var TextLinkIconTag = styled__default(TextLinkTag)(_templateObject3$e(), Icon$1);
 
 var TextLink = function TextLink(props) {
   var href = props.href,
@@ -30614,10 +30913,10 @@ function _templateObject4$a() {
   return data;
 }
 
-function _templateObject3$e() {
+function _templateObject3$f() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n\n  p {\n    margin-left: 8px;\n    line-height: 1.34em;\n  }\n"]);
 
-  _templateObject3$e = function _templateObject3() {
+  _templateObject3$f = function _templateObject3() {
     return data;
   };
 
@@ -30653,7 +30952,7 @@ var Box$4 = styled__default.section.attrs(function () {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
 var InnerBox = styled__default.article(_templateObject2$k());
-var TextBox = styled__default.div(_templateObject3$e());
+var TextBox = styled__default.div(_templateObject3$f());
 var CloseButton = styled__default.button(_templateObject4$a());
 
 var Toast = function Toast(_ref) {
@@ -30932,10 +31231,10 @@ function _templateObject4$b() {
   return data;
 }
 
-function _templateObject3$f() {
+function _templateObject3$g() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    margin-left: 8px;\n  }\n  letter-spacing: -0.5px;\n  color: ", ";\n  ", ";\n"]);
 
-  _templateObject3$f = function _templateObject3() {
+  _templateObject3$g = function _templateObject3() {
     return data;
   };
 
@@ -30969,7 +31268,7 @@ var PaginationInner = styled__default.div(_templateObject2$l(), function (props)
 }, function (props) {
   return props.align === 'right' ? "margin-left: auto" : '';
 });
-var PageText = styled__default.span(_templateObject3$f(), colorV1.$grey10, function (props) {
+var PageText = styled__default.span(_templateObject3$g(), colorV1.$grey10, function (props) {
   return props.size === 'sm' ? "font-size: 14px;" : "font-size: 16px;";
 });
 var ButtonPage = styled__default.button(_templateObject4$b(), function (props) {
@@ -31193,10 +31492,10 @@ Pagination.propTypes = {
   align: propTypes.oneOf(['center', 'left', 'right'])
 };
 
-function _templateObject3$g() {
+function _templateObject3$h() {
   var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: ", "px;\n  min-width: ", "px;\n  height: ", "px;\n  padding: ", ";\n  border-radius: ", "px;\n  outline: none;\n  text-align: center;\n\n  &:not(:last-child) {\n    margin-right: 8px;\n  }\n  ", ";\n  background-color: ", ";\n  &:hover {\n    background-color: ", ";\n    ", ";\n  }\n"]);
 
-  _templateObject3$g = function _templateObject3() {
+  _templateObject3$h = function _templateObject3() {
     return data;
   };
 
@@ -31260,7 +31559,7 @@ var ToggleBtn = styled__default.button.attrs(function () {
   return {
     className: "".concat(fontStyle.font, " ").concat(fontStyle.bold)
   };
-})(_templateObject3$g(), colorV1.$grey10, function (props) {
+})(_templateObject3$h(), colorV1.$grey10, function (props) {
   return props.fontSize;
 }, function (props) {
   return props.minWidth;
@@ -59460,10 +59759,10 @@ function _templateObject4$c() {
   return data;
 }
 
-function _templateObject3$h() {
+function _templateObject3$i() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n\n  h4 {\n    margin-right: 8px;\n  }\n\n  img {\n    margin-right: 8px;\n  }\n\n  p {\n    line-height: 1.34em;\n  }\n"]);
 
-  _templateObject3$h = function _templateObject3() {
+  _templateObject3$i = function _templateObject3() {
     return data;
   };
 
@@ -59499,7 +59798,7 @@ var Box$6 = styled__default.section.attrs(function () {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
 var InnerBox$1 = styled__default.article(_templateObject2$n());
-var TextBox$1 = styled__default.div(_templateObject3$h());
+var TextBox$1 = styled__default.div(_templateObject3$i());
 var CloseButton$1 = styled__default.button(_templateObject4$c());
 
 var Notification = /*#__PURE__*/function (_React$Component) {
@@ -59595,10 +59894,10 @@ Notification.propTypes = {
   onRequestHide: propTypes.func
 };
 
-function _templateObject3$i() {
+function _templateObject3$j() {
   var data = _taggedTemplateLiteral(["\n  box-sizing: border-box;\n  position: fixed;\n  top: 99px;\n  left: 50%;\n  margin-left: -350px;\n  z-index: 999999;\n  max-height: calc(100% - 30px -99px);\n  overflow-x: hidden;\n  overflow-y: auto;\n\n  .item-enter {\n    animation: ", " 100ms linear;\n    animation-fill-mode: both;\n  }\n\n  .item-enter-active {\n  }\n\n  .item-exit {\n    animation: ", " 100ms linear;\n    animation-fill-mode: both;\n  }\n\n  .item-exit-active {\n  }\n"]);
 
-  _templateObject3$i = function _templateObject3() {
+  _templateObject3$j = function _templateObject3() {
     return data;
   };
 
@@ -59626,7 +59925,7 @@ function _templateObject$x() {
 }
 var fadeInDown = styled.keyframes(_templateObject$x());
 var fadeOutUp = styled.keyframes(_templateObject2$o());
-var List = styled__default.section(_templateObject3$i(), fadeInDown, fadeOutUp);
+var List = styled__default.section(_templateObject3$j(), fadeInDown, fadeOutUp);
 
 var Notifications = function Notifications(props) {
   var notifications = props.notifications,
@@ -59874,7 +60173,7 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.26";
+var version$1 = "0.13.27";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;
@@ -59910,13 +60209,14 @@ exports.Table = Table;
 exports.Tabs = Tabs;
 exports.TextLink = TextLink;
 exports.TimeToEvent = TimeToEvent;
+exports.TimeToEventOld = TimeToEventOld;
 exports.Timeline = Timeline;
 exports.ToastCtr = ToastCtr;
 exports.ToggleButton = ToggleButton;
 exports.TooltipBox = TooltipBox;
 exports.TreeMap = TreeMap;
 exports.chartUtility = chartUtility;
-exports.commonTag = cdmCommon;
+exports.commonTag = commonTag;
 exports.font = font$1;
 exports.notifications = Notifications;
 exports.variables = variables;

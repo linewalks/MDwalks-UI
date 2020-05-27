@@ -25,6 +25,7 @@ import RadarChart from '@Components/charts/RadarChart'
 import RadarChartOld from '@Components/charts/RadarChartOld'
 import TreeMap from '@Components/charts/TreeMap'
 import TimeToEvent from '@Components/charts/TimeToEvent'
+import TimeToEventOld from '@Components/charts/TimeToEventOld'
 import PieChart from '@Components/charts/PieChart'
 import Button from '@Components/button/Button'
 import ButtonLink from '@Components/button/ButtonLink'
@@ -34,7 +35,7 @@ import ToastCtr from '@Components/toast/ToastCtr'
 import Pagination from '@Components/pagination/Pagination'
 import ToggleButton from '@Components/button/ToggleButton'
 import TooltipBox from '@Components/tooltip/TooltipBox'
-import * as commonTag from '@Components/common/cdmCommon'
+import * as commonTag from '@Components/common/commonTag'
 
 import SelectBox from '@Components/form/SelectBox'
 import * as font from '@src/assets/styles/font'
@@ -89,6 +90,7 @@ export {
   SelectBox,
   TreeMap,
   TimeToEvent,
+  TimeToEventOld,
   PieChart,
   Pagination,
   DateUtility,

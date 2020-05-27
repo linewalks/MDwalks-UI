@@ -7,7 +7,7 @@ import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
 import { colorV1 } from '@src/assets/styles/variables'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import TooltipCompareContent from '@Components/tooltip/TooltipCompareContent'
-import * as commonTag from '@Components/common/cdmCommon'
+import * as commonTag from '@Components/common/commonTag'
 import { getColorsByTheme, Themes, ColorSet } from '@Components/ChartColor'
 
 import { getBarSize } from '@src/helper/chartUtility'
@@ -90,6 +90,7 @@ const BarChart = ({
   }
 
   const barSize = getBarSize(barCount, layout)
+
   const barGap = 1
 
   let height
@@ -116,6 +117,9 @@ const BarChart = ({
 
   XAxis.defaultProps.unit = xData.unit
   YAxis.defaultProps.unit = yData.unit
+
+  Rechart.Bar.defaultProps.stackId = stackId
+  Rechart.Bar.defaultProps.barSize = barSize
 
   return (
     <div>
@@ -188,7 +192,7 @@ const BarChart = ({
                       )
                     }
                     {
-                      _.isUndefined(themes) && (newYDataKey.map((entry, index) => (<Rechart.Bar key={`bar${entry}`} dataKey={entry} fill={colors[index]} stackId={stackId} barSize={barSize} />)))
+                      _.isUndefined(themes) && (newYDataKey.map((entry, index) => (<Rechart.Bar key={`bar${entry}`} dataKey={entry} fill={colors[index]} />)))
                     }
                   </Rechart.BarChart>
                 </Rechart.ResponsiveContainer>
@@ -213,7 +217,7 @@ const BarChart = ({
                       </XAxis>
                       <YAxis dataKey={YAxisDataKey} tickFormatter={YAxisTicFormatter} type={YAxisType} />
                       {
-                        newYDataKey.map((entry, index) => (<Rechart.Bar style={{ visibility: 'hidden' }} key={`bar${entry}`} dataKey={entry} fill={colors[index]} stackId={stackId} barSize={barSize} />))
+                        newYDataKey.map((entry, index) => (<Rechart.Bar style={{ visibility: 'hidden' }} key={`bar${entry}`} dataKey={entry} fill={colors[index]} />))
                       }
                     </Rechart.BarChart>
                   </Rechart.ResponsiveContainer>
@@ -227,7 +231,7 @@ const BarChart = ({
 }
 
 BarChart.defaultProps = {
-  title: [{}, null],
+  title: null,
   data: [],
   layout: 'horizontal',
   stackId: undefined,
@@ -247,7 +251,7 @@ BarChart.defaultProps = {
 }
 
 BarChart.propTypes = {
-  title: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
+  title: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.shape({})),
   layout: PropTypes.oneOf(['horizontal', 'vertical']),
   stackId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
