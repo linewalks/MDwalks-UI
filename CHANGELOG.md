@@ -1,3 +1,21 @@
+## [0.13.27](https://github.com/linewalks/MDwalks-UI/compare/v0.13.26...v0.13.27) (2020-05-27)
+
+
+### Bug Fixes
+
+* LineMergedTimeline에서 MACE 용어 제거 ([84b42bb](https://github.com/linewalks/MDwalks-UI/commit/84b42bb1cd7787702b64e7750f98d59de7f58829)), closes [#594](https://github.com/linewalks/MDwalks-UI/issues/594)
+* set propTypes for TFoot ([02ae253](https://github.com/linewalks/MDwalks-UI/commit/02ae253a237cb0f9662c27cd4041c81819cf2695)), closes [#597](https://github.com/linewalks/MDwalks-UI/issues/597)
+
+
+### Features
+
+* **Chart:** use chartTitle ([c1979b6](https://github.com/linewalks/MDwalks-UI/commit/c1979b684a980385b345ec0379c9e7c68e62057e)), closes [#610](https://github.com/linewalks/MDwalks-UI/issues/610)
+* **PieChart:** add layout ([96114a0](https://github.com/linewalks/MDwalks-UI/commit/96114a01fcd718c01a059ff14815ff57651093c9)), closes [#604](https://github.com/linewalks/MDwalks-UI/issues/604)
+* **Tabs:** add type of title ([267ec49](https://github.com/linewalks/MDwalks-UI/commit/267ec4928b471b8452bec3c3f01a7a01d6bbab62)), closes [#605](https://github.com/linewalks/MDwalks-UI/issues/605)
+* **TimeToEvent:** use Rechart ([52d9036](https://github.com/linewalks/MDwalks-UI/commit/52d903683121c5e2b4621d027c4e725ed1f572b7)), closes [#393](https://github.com/linewalks/MDwalks-UI/issues/393)
+
+
+
 ## [0.13.26](https://github.com/linewalks/MDwalks-UI/compare/v0.13.25...v0.13.26) (2020-05-21)
 
 ### Features
