@@ -7,6 +7,8 @@ import Item from '@Components/list/Item'
 import IcnChecked from '@Components/list/check-box-checked-default.svg'
 import IcnUnchecked from '@Components/list/check-box-unchecked-default.svg'
 
+import ChartConfig from '@src/helper/ChartConfig'
+
 class CheckList extends React.Component {
   constructor(props) {
     super(props)
@@ -107,8 +109,8 @@ class CheckList extends React.Component {
 }
 
 CheckList.defaultProps = {
-  layout: 'vertical',
-  // layout: 'horizontal',
+  layout: ChartConfig.Layout.VERTICAL,
+  // layout: ChartConfig.Layout.HORIZONTAL,
   limit: 5,
   disabled: false,
   checkVisible: true,
@@ -119,7 +121,7 @@ CheckList.defaultProps = {
 
 CheckList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  layout: PropTypes.oneOf(['horizontal', 'vertical']),
+  layout: ChartConfig.Layout.propTypes,
   disabled: PropTypes.bool,
   checkVisible: PropTypes.bool,
   limit: PropTypes.number,

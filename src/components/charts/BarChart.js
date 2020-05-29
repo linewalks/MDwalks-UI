@@ -11,6 +11,7 @@ import * as commonTag from '@Components/common/commonTag'
 import { getColorsByTheme, Themes, ColorSet } from '@Components/ChartColor'
 
 import { getBarSize } from '@src/helper/chartUtility'
+import ChartConfig from '@src/helper/ChartConfig'
 
 import XAxis from '@Components/charts/cartesian/XAxis'
 import YAxis from '@Components/charts/cartesian/YAxis'
@@ -67,14 +68,14 @@ const BarChart = ({
 
   const isEmpty = (items) => _.isEmpty(items)
 
-  const XAxisType = layout === 'horizontal' ? 'category' : 'number'
-  const YAxisType = layout === 'horizontal' ? 'number' : 'category'
+  const XAxisType = layout === ChartConfig.Layout.HORIZONTAL ? 'category' : 'number'
+  const YAxisType = layout === ChartConfig.Layout.HORIZONTAL ? 'number' : 'category'
 
-  const XAxisDataKey = layout === 'horizontal' ? xDataKey : undefined
-  const YAxisDataKey = layout === 'horizontal' ? undefined : xDataKey
+  const XAxisDataKey = layout === ChartConfig.Layout.HORIZONTAL ? xDataKey : undefined
+  const YAxisDataKey = layout === ChartConfig.Layout.HORIZONTAL ? undefined : xDataKey
 
-  const XAxisTicFormatter = layout === 'horizontal' ? undefined : tickFormatter
-  const YAxisTicFormatter = layout === 'horizontal' ? tickFormatter : undefined
+  const XAxisTicFormatter = layout === ChartConfig.Layout.HORIZONTAL ? undefined : tickFormatter
+  const YAxisTicFormatter = layout === ChartConfig.Layout.HORIZONTAL ? tickFormatter : undefined
 
   const isScroll = !_.isUndefined(scroll.y)
 
@@ -95,11 +96,11 @@ const BarChart = ({
   const barGap = 1
 
   let height
-  if (layout === 'horizontal') {
+  if (layout === ChartConfig.Layout.HORIZONTAL) {
     height = 263
   }
 
-  if (layout === 'vertical') {
+  if (layout === ChartConfig.Layout.VERTICAL) {
     const space = 35 // 35 를 세부적으로 계산해야 하겠다 // margin.top + margin.bottom
 
     const barCagetoryGap = 34
@@ -142,7 +143,7 @@ const BarChart = ({
                     margin={scrollChartMargin}
                     barGap={barGap}
                   >
-                    <CartesianGrid vertical={layout !== 'horizontal'} horizontal={layout === 'horizontal'} />
+                    <CartesianGrid vertical={layout !== ChartConfig.Layout.HORIZONTAL} horizontal={layout === ChartConfig.Layout.HORIZONTAL} />
                     <XAxis hide={isScroll} dataKey={XAxisDataKey} tickFormatter={XAxisTicFormatter} type={XAxisType} height={20} dy={-10 + 8}>
                       {
                         xData.label && (
@@ -236,7 +237,7 @@ const BarChart = ({
 BarChart.defaultProps = {
   title: null,
   data: [],
-  layout: 'horizontal',
+  layout: ChartConfig.Layout.HORIZONTAL,
   stackId: undefined,
   xDataKey: 'name',
   yDataKey: ['value', []],
@@ -259,7 +260,7 @@ BarChart.defaultProps = {
 BarChart.propTypes = {
   title: PropTypes.string,
   data: PropTypes.arrayOf(PropTypes.shape({})),
-  layout: PropTypes.oneOf(['horizontal', 'vertical']),
+  layout: ChartConfig.Layout.propTypes,
   stackId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   xDataKey: PropTypes.string,
   yDataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),

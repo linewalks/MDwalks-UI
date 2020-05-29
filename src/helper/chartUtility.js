@@ -1,5 +1,6 @@
 // TimelineChart Component Util
 import * as d3 from 'd3'
+import ChartConfig from '@src/helper/ChartConfig'
 
 // Sankey Component Util
 export const strIdConvert = (id) => [].concat(id).map((name) => name.split(' ').join('_')).join('X')
@@ -102,7 +103,7 @@ export const getBarSize = (barCount, layout) => {
   //   barCount = 1
   // }
 
-  if (layout === 'horizontal') {
+  if (layout === ChartConfig.Layout.HORIZONTAL) {
     barSize = ({
       1: 48,
       2: 40,
@@ -111,7 +112,7 @@ export const getBarSize = (barCount, layout) => {
     })[barCount] || 32
   }
 
-  if (layout === 'vertical') {
+  if (layout === ChartConfig.Layout.VERTICAL) {
     barSize = (
       {
         1: 32,

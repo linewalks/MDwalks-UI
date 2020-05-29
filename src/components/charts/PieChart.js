@@ -10,6 +10,8 @@ import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as commonTag from '@Components/common/commonTag'
 import { getColorsByTheme, Themes } from '@Components/ChartColor'
 
+import ChartConfig from '@src/helper/ChartConfig'
+
 const Dot = styled(commonTag.Dot).attrs(() => ({}))`
   position: absolute;
   top: 5px;
@@ -24,7 +26,7 @@ const size = {
 }
 
 const PieLegend = styled.div`
-  ${(props) => (props.layout === 'horizontal' ? 'margin-left: 56px;' : 'margin-top: 26px;')}
+  ${(props) => (props.layout === ChartConfig.Layout.HORIZONTAL ? 'margin-left: 56px;' : 'margin-top: 26px;')}
   width: 100%;
   display: flex;
   align-items: center;
@@ -50,10 +52,10 @@ const PieLegend = styled.div`
 `
 
 const Layout = styled.section`
-  ${(props) => (props.layout === 'horizontal' ? `
+  ${(props) => (props.layout === ChartConfig.Layout.HORIZONTAL ? `
     display: flex;
   ` : '')}
-  ${(props) => (props.layout === 'vertical' ? `
+  ${(props) => (props.layout === ChartConfig.Layout.VERTICAL ? `
     .recharts-responsive-container {
       margin: 0 auto;
     };
@@ -198,7 +200,7 @@ PieChart.defaultProps = {
   data: [],
   dataKey: 'value',
   nameKey: 'name',
-  layout: 'horizontal',
+  layout: ChartConfig.Layout.HORIZONTAL,
   theme: Themes.ThemeComparePrimarySea,
   isPercent: false,
   textMap: {},
@@ -213,7 +215,7 @@ PieChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})),
   dataKey: PropTypes.string,
   nameKey: PropTypes.string,
-  layout: PropTypes.oneOf(['horizontal', 'vertical']),
+  layout: ChartConfig.Layout.propTypes,
   theme: PropTypes.oneOf([
     'blue', 'green', 'compare',
     Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
