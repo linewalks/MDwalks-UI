@@ -40,6 +40,7 @@ const BarChart = ({
   isPercent,
   textMap,
   margin,
+  legend,
   xData,
   yData,
   scroll,
@@ -50,7 +51,7 @@ const BarChart = ({
   let colors = ''
   let legendData
 
-  if (!_.isUndefined(themes)) {
+  if (!_.isUndefined(themes)) { // group
     colors = _.map(themes, (t) => (getColorsByTheme(t, newYDataKey.length)))
     legendData = _.chain(newYDataKey)
       .map((entry, index) => ({ color: _.map(colors, (c) => c[index]), text: entry }))
@@ -124,7 +125,7 @@ const BarChart = ({
   return (
     <div>
       <commonTag.chartTitle>{title}</commonTag.chartTitle>
-      <commonTag.LegendList data={legendData} textMap={textMap} />
+      <commonTag.LegendList data={legendData} textMap={textMap} hide={legend.hide} />
       {/* {`barCount: ${barCount} barCategory: ${_.size(data)} ${margin.top} ${margin.bottom}`} */}
       {
         isEmpty(data)
@@ -192,7 +193,9 @@ const BarChart = ({
                       )
                     }
                     {
-                      _.isUndefined(themes) && (newYDataKey.map((entry, index) => (<Rechart.Bar key={`bar${entry}`} dataKey={entry} fill={colors[index]} />)))
+                      _.isUndefined(themes) && (newYDataKey.map((entry, index) => (
+                        <Rechart.Bar key={`bar${entry}`} dataKey={entry} fill={colors[index]} />
+                      )))
                     }
                   </Rechart.BarChart>
                 </Rechart.ResponsiveContainer>
@@ -244,6 +247,9 @@ BarChart.defaultProps = {
   margin: {
     top: 10, right: 20, bottom: 5, left: 5,
   },
+  legend: {
+    hide: false,
+  },
   xData: {},
   yData: {},
   scroll: {},
@@ -277,6 +283,9 @@ BarChart.propTypes = {
     right: PropTypes.number,
     bottom: PropTypes.number,
     left: PropTypes.number,
+  }),
+  legend: PropTypes.shape({
+    hide: PropTypes.bool,
   }),
   xData: PropTypes.shape({
     label: PropTypes.shape({

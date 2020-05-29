@@ -105,7 +105,7 @@ export const appendOrder = (arr) => (
 )
 
 const TimeToEvent = ({
-  data, theme, margin, xData,
+  data, theme, margin, xData, legend,
 }) => {
   let startDate = _.minBy(data, 'start').start
   startDate = new Date(startDate)
@@ -149,7 +149,7 @@ const TimeToEvent = ({
 
   return (
     <div style={{ position: 'relative' }}>
-      <commonTag.LegendList data={legendData} textMap={textMap} />
+      <commonTag.LegendList data={legendData} textMap={textMap} hide={legend.hide} />
       <Rechart.ResponsiveContainer height={263}>
         <Rechart.ComposedChart
           height={263}
@@ -201,6 +201,9 @@ TimeToEvent.defaultProps = {
   margin: {
     top: 10, right: 20, bottom: 5, left: 5,
   },
+  legend: {
+    hide: false,
+  },
   xData: {},
 }
 
@@ -220,6 +223,9 @@ TimeToEvent.propTypes = {
     right: PropTypes.number,
     bottom: PropTypes.number,
     left: PropTypes.number,
+  }),
+  legend: PropTypes.shape({
+    hide: PropTypes.bool,
   }),
   xData: PropTypes.shape({
     label: PropTypes.shape({

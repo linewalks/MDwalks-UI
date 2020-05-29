@@ -51,7 +51,11 @@ export const Legend = styled.article.attrs({
   }
 `
 
-export const LegendList = ({ data, textMap }) => {
+export const LegendList = ({ data, textMap, hide }) => {
+  if (hide) {
+    return null
+  }
+
   const legends = data && data.map(({ color: legendColor, text }, index) => {
     const lKey = `legend_${text}_${index}`
 
@@ -90,11 +94,13 @@ export const LegendList = ({ data, textMap }) => {
 LegendList.defaultProps = {
   data: [],
   textMap: {},
+  hide: false,
 }
 
 LegendList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})),
   textMap: PropTypes.shape({}),
+  hide: PropTypes.bool,
 }
 
 export const WrapperScrollBars = ({ scroll, children }) => (

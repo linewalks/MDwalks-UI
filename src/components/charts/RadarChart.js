@@ -48,6 +48,7 @@ const RadarChart = ({
   dataKey,
   theme,
   textMap,
+  legend,
 }) => {
   const newDataKey = [].concat(dataKey).reverse()
   const colors = getColorsByTheme(theme, newDataKey.length).reverse()
@@ -56,7 +57,7 @@ const RadarChart = ({
     .value().reverse()
   return (
     <div>
-      <commonTag.LegendList data={legendData} textMap={textMap} />
+      <commonTag.LegendList data={legendData} textMap={textMap} hide={legend.hide} />
       <Rechart.RadarChart
         data={data}
         width={700}
@@ -99,6 +100,9 @@ RadarChart.defaultProps = {
   theme: Themes.ThemeComparePrimarySea2,
   textMap: {},
   margin: {},
+  legend: {
+    hide: false,
+  },
 }
 
 RadarChart.propTypes = {
@@ -117,6 +121,9 @@ RadarChart.propTypes = {
     right: PropTypes.number,
     bottom: PropTypes.number,
     left: PropTypes.number,
+  }),
+  legend: PropTypes.shape({
+    hide: PropTypes.bool,
   }),
 }
 
