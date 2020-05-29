@@ -1,10 +1,18 @@
+## [0.13.28](https://github.com/linewalks/MDwalks-UI/compare/v0.13.27...v0.13.28) (2020-05-29)
+
+### Features
+
+* **ChartColor:** add case to ThemeComparePrimarySea ([e5aed9f](https://github.com/linewalks/MDwalks-UI/commit/e5aed9f09f15fb2db0317585b468f4f5475809af)), closes [#620](https://github.com/linewalks/MDwalks-UI/issues/620)
+* **CheckList:** add layout ([2f03ac4](https://github.com/linewalks/MDwalks-UI/commit/2f03ac45150602d8a7e21fcba0fc3fd628c13833)), closes [#614](https://github.com/linewalks/MDwalks-UI/issues/614)
+* **LegendList:** add hide option ([961ddaa](https://github.com/linewalks/MDwalks-UI/commit/961ddaaa9b83ad46013deae9ab1dd7f36fbab9c9)), closes [#617](https://github.com/linewalks/MDwalks-UI/issues/617)
+
+
 ## [0.13.27](https://github.com/linewalks/MDwalks-UI/compare/v0.13.26...v0.13.27) (2020-05-27)
 
 
 ### Bug Fixes
 
 * LineMergedTimeline에서 MACE 용어 제거 ([84b42bb](https://github.com/linewalks/MDwalks-UI/commit/84b42bb1cd7787702b64e7750f98d59de7f58829)), closes [#594](https://github.com/linewalks/MDwalks-UI/issues/594)
-* set propTypes for TFoot ([02ae253](https://github.com/linewalks/MDwalks-UI/commit/02ae253a237cb0f9662c27cd4041c81819cf2695)), closes [#597](https://github.com/linewalks/MDwalks-UI/issues/597)
 
 
 ### Features
