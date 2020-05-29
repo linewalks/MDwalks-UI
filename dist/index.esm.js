@@ -18659,7 +18659,8 @@ var ThemeMap = (_ThemeMap = {}, _defineProperty(_ThemeMap, Themes.V1, {
 }), _defineProperty(_ThemeMap, Themes.ThemeComparePrimarySea, {
   2: ['sea300', 'rose200'],
   3: ['sea300', 'rose200', 'gold100'],
-  4: ['sea300', 'rose200', 'gold100', 'teal400']
+  4: ['sea300', 'rose200', 'gold100', 'teal400'],
+  11: ['sea100', 'sea300', 'gold500', 'rose100', 'rose200', 'gold100', 'gold200', 'teal200', 'teal400', 'berry100', 'berry300']
 }), _defineProperty(_ThemeMap, Themes.ThemeComparePrimarySea1, {
   2: ['sea300', 'bluegrey80']
 }), _defineProperty(_ThemeMap, Themes.ThemeComparePrimarySea2, {
@@ -18731,14 +18732,62 @@ var isCompare = function isCompare(theme) {
 };
 
 var isGradient = function isGradient(theme) {
-  return lodash.includes(theme, 'gradient');
+  return lodash.includes(theme, 'gradient') && lodash.includes(theme, 'arrange');
 };
 
 var isBubble = function isBubble(theme) {
   return lodash.includes(theme, 'bubble');
 };
 
+var getColorsOfBubble = function getColorsOfBubble() {
+  var list = [].concat(_toConsumableArray(ThemeMap[Themes.ThemeArrangePrimarySea]['5'].reverse()), _toConsumableArray(ThemeMap[Themes.ThemeArrangeSecondaryTeal]['5'].reverse()), _toConsumableArray(ThemeMap[Themes.ThemeArrangeTertiaryRose]['5'].reverse()), _toConsumableArray(ThemeMap[Themes.ThemeArrangeQuaternaryGold]['5'].reverse()));
+  list = lodash.map(list, function (name) {
+    return ColorSetMap[name];
+  });
+  return lodash.extend(lodash.fromPairs(lodash.zip('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.slice(0, list.length).split(''), list)), {
+    START_CIRCLE: ColorSet['Primary-Sea'].sea700,
+    END_CIRCLE: colorV1.$red01
+  });
+};
+/*
+  dataSize 보다 작은 Theme.key 의 value 를 반복해서 사용한다
+  dataSize 보다 작은 Theme 의 key 가 없다면
+    -> dataSize 는 Theme 의 key 중 min 값으로 설정한다
+ */
+
+
+var getListWhenNotMatch = function getListWhenNotMatch(ThemeObj, dataSize) {
+  var themeKeys = lodash.map(lodash.keys(ThemeObj), lodash.toNumber);
+
+  var list = [];
+
+  if (dataSize < lodash.min(themeKeys)) {
+    list = ThemeObj[lodash.min(themeKeys)];
+  } else {
+    var validSize = lodash.chain(themeKeys).filter(function (num) {
+      return num < dataSize;
+    }).max().value();
+
+    var count;
+
+    if (dataSize % validSize === 0) {
+      count = dataSize / validSize;
+    } else {
+      count = parseInt(dataSize / validSize, 10) + 1;
+    }
+
+    list = lodash.chain(lodash.range(0, count)).map(function () {
+      return ThemeObj[validSize];
+    }).flattenDeep().value();
+  }
+
+  return list;
+};
 var getColorsByTheme = function getColorsByTheme(theme, size) {
+  if (isBubble(theme)) {
+    return getColorsOfBubble();
+  }
+
   if (isV1(theme)) {
     return ThemeMap.v1[theme];
   }
@@ -18747,29 +18796,23 @@ var getColorsByTheme = function getColorsByTheme(theme, size) {
   var list = [];
   var dataSize = Math.max(2, size || 0);
 
-  if (isBubble(themeName)) {
-    // theme-arrange 범례5개 컬러의 역순으로 조합된 형태
-    list = [].concat(_toConsumableArray(ThemeMap[Themes.ThemeArrangePrimarySea]['5'].reverse()), _toConsumableArray(ThemeMap[Themes.ThemeArrangeSecondaryTeal]['5'].reverse()), _toConsumableArray(ThemeMap[Themes.ThemeArrangeTertiaryRose]['5'].reverse()), _toConsumableArray(ThemeMap[Themes.ThemeArrangeQuaternaryGold]['5'].reverse()));
-  } else if (isArrange(themeName)) {
-    list = ThemeMap[themeName][dataSize];
-  } else if (isCompare(themeName)) {
-    list = ThemeMap[themeName][dataSize];
+  if (isArrange(themeName) || isCompare(themeName)) {
+    var ThemeObj = ThemeMap[themeName];
+
+    if (ThemeObj[dataSize]) {
+      list = ThemeObj[dataSize];
+    } else {
+      // 매칭 되는게 없다
+      list = getListWhenNotMatch(ThemeObj, dataSize);
+    }
   } else if (isGradient(themeName)) {
     list = ThemeMap[themeName];
   }
 
   list = lodash.map(list, function (name) {
     return ColorSetMap[name];
-  });
-
-  if (isBubble(themeName)) {
-    return lodash.extend(lodash.fromPairs(lodash.zip('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.slice(0, list.length).split(''), list)), {
-      START_CIRCLE: ColorSet['Primary-Sea'].sea700,
-      END_CIRCLE: colorV1.$red01
-    });
-  } // Arrange 시 지원 개수 초과시 반복
+  }); // Arrange 시 지원 개수 초과시 반복
   // compare 시 지원 개수 초과시 에러
-
 
   return list;
 };
@@ -18844,6 +18887,7 @@ var ChartColor$1 = /*#__PURE__*/Object.freeze({
   toCamel: toCamel,
   ColorSetMap: ColorSetMap,
   Themes: Themes,
+  getListWhenNotMatch: getListWhenNotMatch,
   getColorsByTheme: getColorsByTheme,
   ChartColorSet: ChartColorSet,
   ChartColorTheme: ChartColorTheme,
@@ -24981,7 +25025,13 @@ var Legend = styled.article.attrs({
 })(_templateObject5$1());
 var LegendList = function LegendList(_ref) {
   var data = _ref.data,
-      textMap = _ref.textMap;
+      textMap = _ref.textMap,
+      hide = _ref.hide;
+
+  if (hide) {
+    return null;
+  }
+
   var legends = data && data.map(function (_ref2, index) {
     var legendColor = _ref2.color,
         text = _ref2.text;
@@ -25013,11 +25063,13 @@ var LegendList = function LegendList(_ref) {
 };
 LegendList.defaultProps = {
   data: [],
-  textMap: {}
+  textMap: {},
+  hide: false
 };
 LegendList.propTypes = {
   data: propTypes.arrayOf(propTypes.shape({})),
-  textMap: propTypes.shape({})
+  textMap: propTypes.shape({}),
+  hide: propTypes.bool
 };
 var WrapperScrollBars = function WrapperScrollBars(_ref3) {
   var scroll = _ref3.scroll,
@@ -25606,6 +25658,7 @@ var BarChart = function BarChart(_ref) {
       isPercent = _ref.isPercent,
       textMap = _ref.textMap,
       margin = _ref.margin,
+      legend = _ref.legend,
       xData = _ref.xData,
       yData = _ref.yData,
       scroll = _ref.scroll,
@@ -25615,6 +25668,7 @@ var BarChart = function BarChart(_ref) {
   var legendData;
 
   if (!lodash.isUndefined(themes)) {
+    // group
     colors = lodash.map(themes, function (t) {
       return getColorsByTheme(t, newYDataKey.length);
     });
@@ -25692,7 +25746,8 @@ var BarChart = function BarChart(_ref) {
   Bar.defaultProps.barSize = barSize;
   return React.createElement("div", null, React.createElement(chartTitle, null, title), React.createElement(LegendList, {
     data: legendData,
-    textMap: textMap
+    textMap: textMap,
+    hide: legend.hide
   }), isEmpty(data) ? React.createElement(EmptyPlaceHolder, {
     height: height
   }) : React.createElement("div", null, React.createElement(WrapperScrollBars, {
@@ -25824,6 +25879,9 @@ BarChart.defaultProps = {
     bottom: 5,
     left: 5
   },
+  legend: {
+    hide: false
+  },
   xData: {},
   yData: {},
   scroll: {},
@@ -25845,6 +25903,9 @@ BarChart.propTypes = {
     right: propTypes.number,
     bottom: propTypes.number,
     left: propTypes.number
+  }),
+  legend: propTypes.shape({
+    hide: propTypes.bool
   }),
   xData: propTypes.shape({
     label: propTypes.shape({
@@ -25882,7 +25943,8 @@ var BarChartMulti = function BarChartMulti(_ref) {
       yDataKey = _ref.yDataKey,
       theme = _ref.theme,
       isPercent = _ref.isPercent,
-      textMap = _ref.textMap;
+      textMap = _ref.textMap,
+      legend = _ref.legend;
   var newYDataKey = [].concat(yDataKey);
   var colors = getColorsByTheme(theme, newYDataKey.length);
 
@@ -25922,7 +25984,8 @@ var BarChartMulti = function BarChartMulti(_ref) {
   var barSize = getBarSize(lodash.size(newYDataKey), 'horizontal');
   return React.createElement("div", null, React.createElement(chartTitle, null, title), React.createElement(LegendList, {
     data: legendData,
-    textMap: textMap
+    textMap: textMap,
+    hide: legend.hide
   }), isEmpty(data) ? React.createElement(EmptyPlaceHolder, null) : React.createElement("section", {
     style: {
       display: 'flex'
@@ -25992,7 +26055,10 @@ BarChartMulti.defaultProps = {
   yDataKey: [],
   theme: Themes.ThemeArrangePrimarySea,
   isPercent: false,
-  textMap: {}
+  textMap: {},
+  legend: {
+    hide: false
+  }
 };
 BarChartMulti.propTypes = {
   title: propTypes.string,
@@ -26001,7 +26067,10 @@ BarChartMulti.propTypes = {
   yDataKey: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
   isPercent: propTypes.bool,
   textMap: propTypes.shape({}),
-  theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal, Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold, Themes.ThemeArrangeQuinaryBerry, Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3])
+  theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal, Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold, Themes.ThemeArrangeQuinaryBerry, Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3]),
+  legend: propTypes.shape({
+    hide: propTypes.bool
+  })
 };
 
 var LabelStyle$1 = {
@@ -26019,6 +26088,7 @@ var LineChart = function LineChart(_ref) {
       isPercent = _ref.isPercent,
       textMap = _ref.textMap,
       margin = _ref.margin,
+      legend = _ref.legend,
       xData = _ref.xData,
       yData = _ref.yData;
   var newYDataKey = [].concat(yDataKey);
@@ -26047,7 +26117,8 @@ var LineChart = function LineChart(_ref) {
 
   return React.createElement("div", null, React.createElement(chartTitle, null, title), React.createElement(LegendList, {
     data: legendData,
-    textMap: textMap
+    textMap: textMap,
+    hide: legend.hide
   }), lodash.isEmpty(data) ? React.createElement(EmptyPlaceHolder, null) : React.createElement(ResponsiveContainer, {
     height: 415
   }, React.createElement(LineChart$1, {
@@ -26097,6 +26168,9 @@ LineChart.defaultProps = {
     bottom: 5,
     left: 5
   },
+  legend: {
+    hide: false
+  },
   xData: {},
   yData: {}
 };
@@ -26113,6 +26187,9 @@ LineChart.propTypes = {
     right: propTypes.number,
     bottom: propTypes.number,
     left: propTypes.number
+  }),
+  legend: propTypes.shape({
+    hide: propTypes.bool
   }),
   xData: propTypes.shape({
     label: propTypes.shape({
@@ -28066,7 +28143,7 @@ Modal.propTypes = {
 };
 
 function _templateObject3$a() {
-  var data = _taggedTemplateLiteral(["\n  label {\n    display: block;\n    padding: 12px 24px;\n    display: flex;\n    align-items: center;\n    img {\n      margin-right: 12px;\n    }\n  }\n  input {\n    display: none;\n  }\n\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  label {\n    display: block;\n    padding: 12px 24px;\n    display: flex;\n    align-items: center;\n    img {\n      margin-right: 12px;\n    }\n  }\n  input {\n    display: none;\n  }\n\n  ", ";\n  ", "\n"]);
 
   _templateObject3$a = function _templateObject3() {
     return data;
@@ -28094,14 +28171,18 @@ function _templateObject$k() {
 
   return data;
 }
-var CssEnable = css(_templateObject$k(), color.$secondary_blue);
+var CssEnable = css(_templateObject$k(), function (props) {
+  return props.layout === 'vertical' ? color.$secondary_blue : 'transparent';
+});
 var CssDiable = css(_templateObject2$f());
-var Item = styled(TextTag).attrs(function () {
+var Item = styled.div.attrs(function (props) {
+  var fontColorClassName = props.disabled ? fontStyle.fc_grey06 : fontStyle.fc_grey09;
   return {
-    size: 16,
-    opacity: 8
+    className: [fontStyle.fs16, fontColorClassName].join(' ')
   };
 })(_templateObject3$a(), function (props) {
+  return props.layout === 'horizontal' ? ' display: inline-block' : 'display: block';
+}, function (props) {
   return props.disabled ? CssDiable : CssEnable;
 });
 
@@ -28212,7 +28293,8 @@ var CheckList = /*#__PURE__*/function (_React$Component) {
           data = _this$props3.data,
           disabled = _this$props3.disabled,
           formatter = _this$props3.formatter,
-          checkVisible = _this$props3.checkVisible;
+          checkVisible = _this$props3.checkVisible,
+          layout = _this$props3.layout;
       var selectedList = this.state.selectedList;
       return React.createElement(React.Fragment, null, data.map(function (item) {
         var id = item.id,
@@ -28221,11 +28303,9 @@ var CheckList = /*#__PURE__*/function (_React$Component) {
         var text = formatter ? formatter(item) : name;
         if (!checkVisible && checked) return null;
         return React.createElement(Item, {
-          size: "16",
-          opacity: "6",
-          as: "div",
           key: "checkItem".concat(id),
-          disabled: disabled
+          disabled: disabled,
+          layout: layout
         }, React.createElement("label", null, React.createElement("img", {
           src: checked ? IcnChecked : IcnUnchecked,
           width: "24px",
@@ -28250,6 +28330,8 @@ var CheckList = /*#__PURE__*/function (_React$Component) {
 }(React.Component);
 
 CheckList.defaultProps = {
+  layout: 'vertical',
+  // layout: 'horizontal',
   limit: 5,
   disabled: false,
   checkVisible: true,
@@ -28259,6 +28341,7 @@ CheckList.defaultProps = {
 };
 CheckList.propTypes = {
   data: propTypes.arrayOf(propTypes.object).isRequired,
+  layout: propTypes.oneOf(['horizontal', 'vertical']),
   disabled: propTypes.bool,
   checkVisible: propTypes.bool,
   limit: propTypes.number,
@@ -28359,9 +28442,6 @@ var RadioList = /*#__PURE__*/function (_React$Component) {
         var checked = selectedList.includes("".concat(id));
         var text = formatter ? formatter(item) : name;
         return React.createElement(Item, {
-          size: "16",
-          opacity: "6",
-          as: "div",
           key: "checkItem".concat(id),
           disabled: disabled
         }, React.createElement("label", null, React.createElement("img", {
@@ -28665,7 +28745,8 @@ var RadarChart = function RadarChart(_ref2) {
       nameKey = _ref2.nameKey,
       dataKey = _ref2.dataKey,
       theme = _ref2.theme,
-      textMap = _ref2.textMap;
+      textMap = _ref2.textMap,
+      legend = _ref2.legend;
   var newDataKey = [].concat(dataKey).reverse();
   var colors = getColorsByTheme(theme, newDataKey.length).reverse();
 
@@ -28678,7 +28759,8 @@ var RadarChart = function RadarChart(_ref2) {
 
   return React.createElement("div", null, React.createElement(LegendList, {
     data: legendData,
-    textMap: textMap
+    textMap: textMap,
+    hide: legend.hide
   }), React.createElement(RadarChart$1, {
     data: data,
     width: 700,
@@ -28715,7 +28797,10 @@ RadarChart.defaultProps = {
   dataKey: ['value', []],
   theme: Themes.ThemeComparePrimarySea2,
   textMap: {},
-  margin: {}
+  margin: {},
+  legend: {
+    hide: false
+  }
 };
 RadarChart.propTypes = {
   data: propTypes.arrayOf(propTypes.shape({})),
@@ -28728,6 +28813,9 @@ RadarChart.propTypes = {
     right: propTypes.number,
     bottom: propTypes.number,
     left: propTypes.number
+  }),
+  legend: propTypes.shape({
+    hide: propTypes.bool
   })
 };
 
@@ -29800,7 +29888,8 @@ var TimeToEvent = function TimeToEvent(_ref6) {
   var data = _ref6.data,
       theme = _ref6.theme,
       margin = _ref6.margin,
-      xData = _ref6.xData;
+      xData = _ref6.xData,
+      legend = _ref6.legend;
 
   var startDate = lodash.minBy(data, 'start').start;
 
@@ -29868,7 +29957,8 @@ var TimeToEvent = function TimeToEvent(_ref6) {
     }
   }, React.createElement(LegendList, {
     data: legendData,
-    textMap: textMap
+    textMap: textMap,
+    hide: legend.hide
   }), React.createElement(ResponsiveContainer, {
     height: 263
   }, React.createElement(ComposedChart, {
@@ -29933,6 +30023,9 @@ TimeToEvent.defaultProps = {
     bottom: 5,
     left: 5
   },
+  legend: {
+    hide: false
+  },
   xData: {}
 };
 TimeToEvent.propTypes = {
@@ -29947,6 +30040,9 @@ TimeToEvent.propTypes = {
     right: propTypes.number,
     bottom: propTypes.number,
     left: propTypes.number
+  }),
+  legend: propTypes.shape({
+    hide: propTypes.bool
   }),
   xData: propTypes.shape({
     label: propTypes.shape({
@@ -30394,7 +30490,9 @@ PieChart.defaultProps = {
   isPercent: false,
   textMap: {},
   colorList: null,
-  legend: {}
+  legend: {
+    hide: false
+  }
 };
 PieChart.propTypes = {
   title: propTypes.string,
@@ -30409,7 +30507,8 @@ PieChart.propTypes = {
   legend: propTypes.shape({
     isPercent: propTypes.bool,
     dataKey: propTypes.string,
-    nameKey: propTypes.string
+    nameKey: propTypes.string,
+    hide: propTypes.bool
   })
 };
 
@@ -60166,6 +60265,6 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.27";
+var version$1 = "0.13.28";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, RadarChart, RadarChartOld, RadioBox, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, TimeToEventOld, Timeline, ToastCtr, ToggleButton, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, Notifications as notifications, variables, version$1 as version };
