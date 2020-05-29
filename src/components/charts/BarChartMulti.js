@@ -35,6 +35,7 @@ const BarChartMulti = ({
   theme,
   isPercent,
   textMap,
+  legend,
 }) => {
   const newYDataKey = [].concat(yDataKey)
   const colors = getColorsByTheme(theme, newYDataKey.length)
@@ -67,7 +68,7 @@ const BarChartMulti = ({
     <div>
       <commonTag.chartTitle>{title}</commonTag.chartTitle>
 
-      <commonTag.LegendList data={legendData} textMap={textMap} />
+      <commonTag.LegendList data={legendData} textMap={textMap} hide={legend.hide} />
       {
         isEmpty(data)
           ? (
@@ -129,6 +130,9 @@ BarChartMulti.defaultProps = {
   theme: Themes.ThemeArrangePrimarySea,
   isPercent: false,
   textMap: {},
+  legend: {
+    hide: false,
+  },
 }
 
 BarChartMulti.propTypes = {
@@ -148,6 +152,9 @@ BarChartMulti.propTypes = {
     Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
     Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
   ]),
+  legend: PropTypes.shape({
+    hide: PropTypes.bool,
+  }),
 }
 
 export default BarChartMulti

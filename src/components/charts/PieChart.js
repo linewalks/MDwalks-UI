@@ -203,7 +203,9 @@ PieChart.defaultProps = {
   isPercent: false,
   textMap: {},
   colorList: null,
-  legend: {},
+  legend: {
+    hide: false,
+  },
 }
 
 PieChart.propTypes = {
@@ -226,6 +228,7 @@ PieChart.propTypes = {
     isPercent: PropTypes.bool,
     dataKey: PropTypes.string,
     nameKey: PropTypes.string,
+    hide: PropTypes.bool,
   }),
 }
 
