@@ -25,6 +25,7 @@ const LineChart = ({
   isPercent,
   textMap,
   margin,
+  legend,
   xData,
   yData,
 }) => {
@@ -50,7 +51,7 @@ const LineChart = ({
   return (
     <div>
       <commonTag.chartTitle>{title}</commonTag.chartTitle>
-      <commonTag.LegendList data={legendData} textMap={textMap} />
+      <commonTag.LegendList data={legendData} textMap={textMap} hide={legend.hide} />
       {
         _.isEmpty(data)
           ? <EmptyPlaceHolder />
@@ -103,6 +104,9 @@ LineChart.defaultProps = {
   margin: {
     top: 10, right: 20, bottom: 5, left: 5,
   },
+  legend: {
+    hide: false,
+  },
   xData: {},
   yData: {},
 }
@@ -125,6 +129,9 @@ LineChart.propTypes = {
     right: PropTypes.number,
     bottom: PropTypes.number,
     left: PropTypes.number,
+  }),
+  legend: PropTypes.shape({
+    hide: PropTypes.bool,
   }),
   xData: PropTypes.shape({
     label: PropTypes.shape({

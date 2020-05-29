@@ -54,3 +54,25 @@ describe('Dot', () => {
     expect(LegendFirstDots.last().prop('style').marginRight).toEqual('8px')
   })
 })
+
+describe('chartTitle', () => {
+  it('default', () => {
+    const title = 'title of Chart'
+    const component = mount(
+      <commonTag.chartTitle>{title}</commonTag.chartTitle>,
+    )
+
+    expect(component.text()).toBe(title)
+  })
+
+  it('title 이 없는 경우', () => {
+    expect(commonTag.chartTitle({ children: '' })).toBe(null)
+  })
+})
+
+
+describe('LegendList', () => {
+  it('hide 인 경우', () => {
+    expect(commonTag.LegendList({ hide: true })).toBe(null)
+  })
+})

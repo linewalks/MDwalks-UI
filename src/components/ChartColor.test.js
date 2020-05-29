@@ -6,6 +6,7 @@ import ChartColor,
 {
   getColorsByTheme, Themes, ColorSetMap,
   ChartColorSet, ChartColorTheme, toCamel,
+  getListWhenNotMatch,
 } from '@Components/ChartColor'
 
 describe('toCamel', () => {
@@ -31,11 +32,34 @@ describe('', () => {
     expect(getColorsByTheme(Themes.ThemeComparePrimarySea, 2)).toEqual(
       [ColorSetMap.sea300, ColorSetMap.rose200],
     )
+
     expect(getColorsByTheme(Themes.ThemeComparePrimarySea, 3)).toEqual(
       [ColorSetMap.sea300, ColorSetMap.rose200, ColorSetMap.gold100],
     )
     expect(getColorsByTheme(Themes.ThemeComparePrimarySea, 4)).toEqual(
       [ColorSetMap.sea300, ColorSetMap.rose200, ColorSetMap.gold100, ColorSetMap.teal400],
+    )
+
+    expect(getColorsByTheme(Themes.ThemeComparePrimarySea, 5)).toEqual(
+      _.concat(
+        [ColorSetMap.sea300, ColorSetMap.rose200, ColorSetMap.gold100, ColorSetMap.teal400],
+        [ColorSetMap.sea300, ColorSetMap.rose200, ColorSetMap.gold100, ColorSetMap.teal400],
+      ),
+    )
+
+    expect(getColorsByTheme(Themes.ThemeComparePrimarySea, 8)).toEqual(
+      _.concat(
+        [ColorSetMap.sea300, ColorSetMap.rose200, ColorSetMap.gold100, ColorSetMap.teal400],
+        [ColorSetMap.sea300, ColorSetMap.rose200, ColorSetMap.gold100, ColorSetMap.teal400],
+      ),
+    )
+
+    expect(getColorsByTheme(Themes.ThemeComparePrimarySea, 9)).toEqual(
+      _.concat(
+        [ColorSetMap.sea300, ColorSetMap.rose200, ColorSetMap.gold100, ColorSetMap.teal400],
+        [ColorSetMap.sea300, ColorSetMap.rose200, ColorSetMap.gold100, ColorSetMap.teal400],
+        [ColorSetMap.sea300, ColorSetMap.rose200, ColorSetMap.gold100, ColorSetMap.teal400],
+      ),
     )
 
     expect(getColorsByTheme(Themes.ThemeComparePrimarySea1)).toEqual(
@@ -80,5 +104,17 @@ describe('ChartColor', () => {
     const wrapper = mount(<ChartColor />)
     expect(wrapper.find(ChartColorSet)).toHaveLength(7)
     expect(wrapper.find(ChartColorTheme)).toHaveLength(16)
+  })
+})
+
+describe('getListWhenNotMatch', () => {
+  it('', () => {
+    const ThemeObj = {
+      2: '2a 2b'.split(' '),
+      4: '4a 4b 4c 4d'.split(' '),
+    }
+    expect(getListWhenNotMatch(ThemeObj, 1)).toEqual(ThemeObj[2])
+    expect(getListWhenNotMatch(ThemeObj, 3)).toEqual(ThemeObj[2].concat(ThemeObj[2]))
+    expect(getListWhenNotMatch(ThemeObj, 5)).toEqual(ThemeObj[4].concat(ThemeObj[4]))
   })
 })

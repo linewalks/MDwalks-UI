@@ -77,7 +77,7 @@ class CheckList extends React.Component {
 
   render() {
     const {
-      data, disabled, formatter, checkVisible,
+      data, disabled, formatter, checkVisible, layout,
     } = this.props
     const { selectedList } = this.state
     return (
@@ -90,7 +90,7 @@ class CheckList extends React.Component {
 
             if (!checkVisible && checked) return null;
             return (
-              <Item size="16" opacity="6" as="div" key={`checkItem${id}`} disabled={disabled}>
+              <Item key={`checkItem${id}`} disabled={disabled} layout={layout}>
                 <label>
                   <img src={checked ? IcnChecked : IcnUnchecked} width="24px" height="24px" style={{ borderRadius: '4px' }} alt="" />
                   <font.TextOverflow>{text}</font.TextOverflow>
@@ -107,6 +107,8 @@ class CheckList extends React.Component {
 }
 
 CheckList.defaultProps = {
+  layout: 'vertical',
+  // layout: 'horizontal',
   limit: 5,
   disabled: false,
   checkVisible: true,
@@ -117,6 +119,7 @@ CheckList.defaultProps = {
 
 CheckList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  layout: PropTypes.oneOf(['horizontal', 'vertical']),
   disabled: PropTypes.bool,
   checkVisible: PropTypes.bool,
   limit: PropTypes.number,
