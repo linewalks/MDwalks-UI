@@ -194,10 +194,64 @@ const ThemeMap = {
 const isV1 = (theme) => (['blue', 'green', 'compare', 'v1'].includes(theme))
 const isArrange = (theme) => (_.includes(theme, 'arrange') && !_.includes(theme, 'gradient'))
 const isCompare = (theme) => (_.includes(theme, 'compare'))
-const isGradient = (theme) => (_.includes(theme, 'gradient'))
+const isGradient = (theme) => (_.includes(theme, 'gradient') && _.includes(theme, 'arrange'))
 const isBubble = (theme) => (_.includes(theme, 'bubble'))
 
+const getColorsOfBubble = () => {
+  let list = [
+    ...ThemeMap[Themes.ThemeArrangePrimarySea]['5'].reverse(),
+    ...ThemeMap[Themes.ThemeArrangeSecondaryTeal]['5'].reverse(),
+    ...ThemeMap[Themes.ThemeArrangeTertiaryRose]['5'].reverse(),
+    ...ThemeMap[Themes.ThemeArrangeQuaternaryGold]['5'].reverse(),
+  ]
+
+  list = _.map(list, (name) => (ColorSetMap[name]))
+
+  return _
+    .extend(
+      _.fromPairs(_.zip('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.slice(0, list.length).split(''), list)),
+      {
+        START_CIRCLE: ColorSet['Primary-Sea'].sea700,
+        END_CIRCLE: colorV1.$red01,
+      },
+    )
+}
+
+/*
+  dataSize 보다 작은 Theme.key 의 value 를 반복해서 사용한다
+  dataSize 보다 작은 Theme 의 key 가 없다면
+    -> dataSize 는 Theme 의 key 중 min 값으로 설정한다
+ */
+export const getListWhenNotMatch = (ThemeObj, dataSize) => {
+  const themeKeys = _.map(_.keys(ThemeObj), _.toNumber)
+
+  let list = []
+  if (dataSize < _.min(themeKeys)) {
+    list = ThemeObj[_.min(themeKeys)]
+  } else {
+    const validSize = _.chain(themeKeys).filter((num) => num < dataSize).max().value()
+
+    let count;
+    if (dataSize % validSize === 0) {
+      count = dataSize / validSize
+    } else {
+      count = parseInt(dataSize / validSize, 10) + 1
+    }
+
+    list = _.chain(_.range(0, count))
+      .map(() => (ThemeObj[validSize]))
+      .flattenDeep()
+      .value()
+  }
+
+  return list
+}
+
 export const getColorsByTheme = (theme, size) => {
+  if (isBubble(theme)) {
+    return getColorsOfBubble()
+  }
+
   if (isV1(theme)) {
     return ThemeMap.v1[theme]
   }
@@ -207,34 +261,20 @@ export const getColorsByTheme = (theme, size) => {
   let list = []
 
   const dataSize = Math.max(2, size || 0)
-  if (isBubble(themeName)) {
-    // theme-arrange 범례5개 컬러의 역순으로 조합된 형태
-    list = [
-      ...ThemeMap[Themes.ThemeArrangePrimarySea]['5'].reverse(),
-      ...ThemeMap[Themes.ThemeArrangeSecondaryTeal]['5'].reverse(),
-      ...ThemeMap[Themes.ThemeArrangeTertiaryRose]['5'].reverse(),
-      ...ThemeMap[Themes.ThemeArrangeQuaternaryGold]['5'].reverse(),
-    ]
-  } else if (isArrange(themeName)) {
-    list = ThemeMap[themeName][dataSize]
-  } else if (isCompare(themeName)) {
-    list = ThemeMap[themeName][dataSize]
+
+  if (isArrange(themeName) || isCompare(themeName)) {
+    const ThemeObj = ThemeMap[themeName]
+
+    if (ThemeObj[dataSize]) {
+      list = ThemeObj[dataSize]
+    } else { // 매칭 되는게 없다
+      list = getListWhenNotMatch(ThemeObj, dataSize)
+    }
   } else if (isGradient(themeName)) {
     list = ThemeMap[themeName]
   }
 
   list = _.map(list, (name) => (ColorSetMap[name]))
-
-  if (isBubble(themeName)) {
-    return _
-      .extend(
-        _.fromPairs(_.zip('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.slice(0, list.length).split(''), list)),
-        {
-          START_CIRCLE: ColorSet['Primary-Sea'].sea700,
-          END_CIRCLE: colorV1.$red01,
-        },
-      )
-  }
 
   // Arrange 시 지원 개수 초과시 반복
   // compare 시 지원 개수 초과시 에러
