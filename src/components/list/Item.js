@@ -1,5 +1,6 @@
+// import React from 'react';
 import styled, { css } from 'styled-components'
-import * as font from '@src/assets/styles/font'
+import fontStyle from '@src/assets/styles/font.module.sass'
 import { color } from '@src/assets/styles/variables'
 
 const CssEnable = css`
@@ -10,7 +11,7 @@ const CssEnable = css`
     box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16);
   }
   &:hover {
-    background-color: ${color.$secondary_blue};
+    background-color: ${(props) => (props.layout === 'vertical' ? color.$secondary_blue : 'transparent')};
   }
 `
 
@@ -19,11 +20,12 @@ const CssDiable = css`
     opacity: 0.4;
   }
 `
-
-const Item = styled(font.TextTag).attrs(() => ({
-  size: 16,
-  opacity: 8,
-}))`
+const Item = styled.div.attrs((props) => {
+  const fontColorClassName = props.disabled ? fontStyle.fc_grey06 : fontStyle.fc_grey09
+  return {
+    className: [fontStyle.fs16, fontColorClassName].join(' '),
+  }
+})`
   label {
     display: block;
     padding: 12px 24px;
@@ -37,6 +39,7 @@ const Item = styled(font.TextTag).attrs(() => ({
     display: none;
   }
 
+  ${(props) => (props.layout === 'horizontal' ? ' display: inline-block' : 'display: block')};
   ${(props) => (props.disabled ? CssDiable : CssEnable)}
 `
 
