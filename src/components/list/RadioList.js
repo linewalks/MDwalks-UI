@@ -74,7 +74,7 @@ class RadioList extends React.Component {
             const text = formatter ? formatter(item) : name
 
             return (
-              <Item size="16" opacity="6" as="div" key={`checkItem${id}`} disabled={disabled}>
+              <Item key={`checkItem${id}`} disabled={disabled}>
                 <label>
                   <img src={checked ? IcnChecked : IcnUnchecked} width="24px" height="24px" style={{ borderRadius: '12px' }} alt="" />
                   <font.TextOverflow>{text}</font.TextOverflow>

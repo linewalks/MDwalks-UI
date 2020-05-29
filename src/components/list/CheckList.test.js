@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import CheckList from '@Components/list/CheckList'
+import Item from '@Components/list/Item'
 import _ from 'lodash'
 
 const data = [
@@ -62,6 +63,8 @@ it('default', () => {
   expect(wrapper.text()).toBe(expected)
   expect(wrapper.prop('limit')).toBe(limit)
   expect(wrapper.prop('checkVisible')).toBe(true)
+  expect(wrapper.prop('layout')).toBe('vertical')
+  expect(wrapper.find(Item).at(0).prop('layout')).toBe('vertical')
 })
 
 it('check', () => {
