@@ -3,6 +3,8 @@ import styled, { css } from 'styled-components'
 import fontStyle from '@src/assets/styles/font.module.sass'
 import { color } from '@src/assets/styles/variables'
 
+import ChartConfig from '@src/helper/ChartConfig'
+
 const CssEnable = css`
   label {
     cursor: pointer;
@@ -11,7 +13,7 @@ const CssEnable = css`
     box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16);
   }
   &:hover {
-    background-color: ${(props) => (props.layout === 'vertical' ? color.$secondary_blue : 'transparent')};
+    background-color: ${(props) => (props.layout === ChartConfig.Layout.VERTICAL ? color.$secondary_blue : 'transparent')};
   }
 `
 
@@ -39,7 +41,7 @@ const Item = styled.div.attrs((props) => {
     display: none;
   }
 
-  ${(props) => (props.layout === 'horizontal' ? ' display: inline-block' : 'display: block')};
+  ${(props) => (props.layout === ChartConfig.Layout.HORIZONTAL ? ' display: inline-block' : 'display: block')};
   ${(props) => (props.disabled ? CssDiable : CssEnable)}
 `
 

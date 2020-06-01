@@ -7,11 +7,12 @@ import fontStyle from '@src/assets/styles/font.module.sass'
 import _ from 'lodash'
 import Item from '@Components/list/Item'
 import { color } from '@src/assets/styles/variables'
+import ChartConfig from '@src/helper/ChartConfig'
 
 describe('style', () => {
   it('default', () => {
     const disabled = false
-    const layout = 'vertical'
+    const layout = ChartConfig.Layout.VERTICAL
 
     const item = renderer.create(<Item disabled={disabled} layout={layout} />).toJSON()
     expect(item).toHaveStyleRule('display', 'block')
@@ -28,7 +29,7 @@ describe('style', () => {
 
   it('layout is horizontal', () => {
     const disabled = false
-    const layout = 'horizontal'
+    const layout = ChartConfig.Layout.HORIZONTAL
 
     const item = renderer.create(<Item disabled={disabled} layout={layout} />).toJSON()
     expect(item).toHaveStyleRule('display', 'inline-block')
@@ -39,7 +40,7 @@ describe('style', () => {
 
   it('disabled is true', () => {
     const disabled = true
-    const layout = 'vertical'
+    const layout = ChartConfig.Layout.VERTICAL
 
     const item = renderer.create(<Item disabled={disabled} layout={layout} />).toJSON()
 
