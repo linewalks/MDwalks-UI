@@ -6,8 +6,12 @@ import PropTypes from 'prop-types'
 import Item from '@Components/list/Item'
 import IcnChecked from '@Components/list/check-box-checked-default.svg'
 import IcnUnchecked from '@Components/list/check-box-unchecked-default.svg'
-
 import ChartConfig from '@src/helper/ChartConfig'
+
+const getSelectedListByChecked = (data) => _.chain(data)
+  .filter(({ checked }) => checked)
+  .map(({ id }) => `${id}`)
+  .value()
 
 class CheckList extends React.Component {
   constructor(props) {
@@ -15,14 +19,26 @@ class CheckList extends React.Component {
 
     const { data } = this.props
 
-    const selectedList = _.chain(data)
-      .filter(({ checked }) => checked)
-      .map(({ id }) => `${id}`)
-      .value()
+    const selectedList = getSelectedListByChecked(data)
 
     this.state = {
       selectedList,
     }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { data } = this.props
+    if (!_.isEqual(prevProps.data, data)) {
+      this.onUpdateSelectedList(data)
+    }
+  }
+
+  onUpdateSelectedList(data) {
+    const selectedList = getSelectedListByChecked(data)
+
+    this.setState({
+      selectedList,
+    })
   }
 
   onErrorTrigger() {
@@ -60,6 +76,22 @@ class CheckList extends React.Component {
   getCheckCount() {
     const { selectedList } = this.state
     return _.filter(selectedList).length
+  }
+
+  checkedAll() {
+    const { data } = this.props
+    const selectedList = _.map(data, ({ id }) => `${id}`)
+
+    this.setState({
+      selectedList,
+    })
+  }
+
+  unCheckedAll() {
+    const selectedList = []
+    this.setState({
+      selectedList,
+    })
   }
 
   unCheckedById(id) {

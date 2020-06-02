@@ -164,3 +164,45 @@ describe('checkVisible 가 false 인 경우', () => {
     expect(wrapper.text()).toBe(expected)
   })
 })
+
+describe('props.data에 변환에 따른 state.selectedList 변화 확인', () => {
+  it('default', () => {
+    const newData = [
+      {
+        id: 1,
+        name: 'name 1',
+      },
+      {
+        id: 2,
+        name: 'name 2',
+        checked: true,
+      },
+      {
+        id: 3,
+        name: 'name 3',
+        checked: true,
+      },
+      {
+        id: 4,
+        name: 'name 4',
+      },
+      {
+        id: 5,
+        name: 'name 5',
+        checked: true,
+      },
+      {
+        id: 6,
+        name: 'name 6',
+      },
+    ]
+    const expected = ['1']
+    expect(wrapper.state('selectedList')).toEqual(expected)
+
+    wrapper.setProps({ data: newData })
+    wrapper.update()
+
+    const newExpected = ['2', '3', '5']
+    expect(wrapper.state('selectedList')).toEqual(newExpected)
+  })
+})
