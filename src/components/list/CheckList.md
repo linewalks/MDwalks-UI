@@ -1,10 +1,10 @@
 CheckList example:
 
 ```js
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import Button from '@Components/button/Button';
 const CheckListExample = () => {
-  const data = [
+  const [data, setData] = useState([
     {
       id: 1,
       name: 'name 1',
@@ -30,16 +30,16 @@ const CheckListExample = () => {
       id: 6,
       name: 'name 6',
     },
-  ]
-
-  const ref = useRef(null)
+  ])
 
   const unCheckedAll = () => {
-    ref.current.unCheckedAll()
+    const newData = _.map(data, (item) => ({...item, checked: false}))
+    setData(newData)
   }
 
   const checkedAll = () => {
-    ref.current.checkedAll()
+    const newData = _.map(data, (item) => ({...item, checked: true}))
+    setData(newData)
   }
 
   const limit = 5
@@ -50,7 +50,7 @@ const CheckListExample = () => {
     <>
       <Button variant="primary" onClick={checkedAll}>checked All</Button>
       <Button variant="primary" onClick={unCheckedAll}>unChecked All</Button>
-      <CheckList ref={ref} data={data} limit={limit} onChange={onChange} onError={onError} />
+      <CheckList data={data} limit={limit} onChange={onChange} onError={onError} />
     </>
   )
 }

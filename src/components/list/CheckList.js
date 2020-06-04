@@ -78,22 +78,6 @@ class CheckList extends React.Component {
     return _.filter(selectedList).length
   }
 
-  checkedAll() {
-    const { data } = this.props
-    const selectedList = _.map(data, ({ id }) => `${id}`)
-
-    this.setState({
-      selectedList,
-    })
-  }
-
-  unCheckedAll() {
-    const selectedList = []
-    this.setState({
-      selectedList,
-    })
-  }
-
   unCheckedById(id) {
     const { onChange } = this.props
     let { selectedList } = this.state
