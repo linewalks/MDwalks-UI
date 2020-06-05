@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import * as d3 from 'd3'
+import ChartConfig from '@src/helper/ChartConfig'
 
 const chartUtility = require('@src/helper/chartUtility');
 
@@ -159,6 +160,10 @@ it('getTextStyleForHighcharts', () => {
 })
 
 it('getBarSize', () => {
-  expect(_.map(_.range(1, 7), (barCount) => chartUtility.getBarSize(barCount, 'horizontal'))).toEqual([48, 40, 40, 40, 32, 32])
-  expect(_.map(_.range(1, 4), (barCount) => chartUtility.getBarSize(barCount, 'vertical'))).toEqual([32, 16, 16])
+  expect(_.map(_.range(1, 7), (barCount) => (
+    chartUtility.getBarSize(barCount, ChartConfig.Layout.HORIZONTAL)
+  ))).toEqual([48, 40, 40, 40, 32, 32])
+  expect(_.map(_.range(1, 4), (barCount) => (
+    chartUtility.getBarSize(barCount, ChartConfig.Layout.VERTICAL)
+  ))).toEqual([32, 16, 16])
 })

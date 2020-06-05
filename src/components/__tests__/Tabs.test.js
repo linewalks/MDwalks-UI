@@ -55,6 +55,12 @@ describe('Style', () => {
     expect(tabUnderLine).toHaveStyleRule('background-color', colorV1.$pmblue)
   })
 
+  it('tabUnderLine 은 type 이 Title 인 경우 background 가 없다', () => {
+    const tabUnderLine = renderer.create(<TabUnderLine aria-selected type={TYPE.TITLE} />).toJSON()
+    expect(tabUnderLine).toHaveStyleRule('display', 'block')
+    expect(tabUnderLine).not.toHaveStyleRule('background-color', colorV1.$pmblue)
+  })
+
   it('TabPane 이 hidden 된 경우', () => {
     const tabpane = renderer.create(<TabPane aria-hidden />).toJSON()
     expect(tabpane).toHaveStyleRule('height', '0')

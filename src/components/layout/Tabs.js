@@ -65,7 +65,8 @@ const Tab = styled.span.attrs((props) => {
 const TabUnderLine = styled.div.attrs(() => {})`
   position: absolute;
   height: ${UnderLineSize}px;
-  background-color: ${colorV1.$pmblue};
+
+  ${(props) => (props.type === TYPE.TITLE ? `` : `background-color: ${colorV1.$pmblue}`)};
   bottom: -1px;
   width: 100%;
   left: 0;
@@ -135,7 +136,10 @@ class Tabs extends React.Component {
             onClick={() => this.changeTab(key)}
           >
             {child.props.tab}
-            <TabUnderLine aria-selected={activeKey === key} />
+            <TabUnderLine
+              type={type}
+              aria-selected={activeKey === key}
+            />
           </Tab>,
           { key },
         ),

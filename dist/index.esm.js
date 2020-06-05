@@ -18660,7 +18660,7 @@ var ThemeMap = (_ThemeMap = {}, _defineProperty(_ThemeMap, Themes.V1, {
   2: ['sea300', 'rose200'],
   3: ['sea300', 'rose200', 'gold100'],
   4: ['sea300', 'rose200', 'gold100', 'teal400'],
-  11: ['sea100', 'sea300', 'gold500', 'rose100', 'rose200', 'gold100', 'gold200', 'teal200', 'teal400', 'berry100', 'berry300']
+  11: ['sea100', 'sea300', 'sea500', 'rose100', 'rose200', 'gold100', 'gold200', 'teal200', 'teal400', 'berry100', 'berry300']
 }), _defineProperty(_ThemeMap, Themes.ThemeComparePrimarySea1, {
   2: ['sea300', 'bluegrey80']
 }), _defineProperty(_ThemeMap, Themes.ThemeComparePrimarySea2, {
@@ -21356,6 +21356,15 @@ var sankeyCircular$1 = /*#__PURE__*/Object.freeze({
   sankeyJustify: justify
 });
 
+var Layout = {
+  HORIZONTAL: 'horizontal',
+  VERTICAL: 'vertical'
+};
+Layout.propTypes = propTypes.oneOf([Layout.HORIZONTAL, Layout.VERTICAL]);
+var ChartConfig = {
+  Layout: Layout
+};
+
 var strIdConvert = function strIdConvert(id) {
   return [].concat(id).map(function (name) {
     return name.split(' ').join('_');
@@ -21464,7 +21473,7 @@ var getBarSize = function getBarSize(barCount, layout) {
   //   barCount = 1
   // }
 
-  if (layout === 'horizontal') {
+  if (layout === ChartConfig.Layout.HORIZONTAL) {
     barSize = {
       1: 48,
       2: 40,
@@ -21473,7 +21482,7 @@ var getBarSize = function getBarSize(barCount, layout) {
     }[barCount] || 32;
   }
 
-  if (layout === 'vertical') {
+  if (layout === ChartConfig.Layout.VERTICAL) {
     barSize = {
       1: 32
     }[barCount] || 16;
@@ -25698,12 +25707,12 @@ var BarChart = function BarChart(_ref) {
     return lodash.isEmpty(items);
   };
 
-  var XAxisType = layout === 'horizontal' ? 'category' : 'number';
-  var YAxisType = layout === 'horizontal' ? 'number' : 'category';
-  var XAxisDataKey = layout === 'horizontal' ? xDataKey : undefined;
-  var YAxisDataKey = layout === 'horizontal' ? undefined : xDataKey;
-  var XAxisTicFormatter = layout === 'horizontal' ? undefined : tickFormatter;
-  var YAxisTicFormatter = layout === 'horizontal' ? tickFormatter : undefined;
+  var XAxisType = layout === ChartConfig.Layout.HORIZONTAL ? 'category' : 'number';
+  var YAxisType = layout === ChartConfig.Layout.HORIZONTAL ? 'number' : 'category';
+  var XAxisDataKey = layout === ChartConfig.Layout.HORIZONTAL ? xDataKey : undefined;
+  var YAxisDataKey = layout === ChartConfig.Layout.HORIZONTAL ? undefined : xDataKey;
+  var XAxisTicFormatter = layout === ChartConfig.Layout.HORIZONTAL ? undefined : tickFormatter;
+  var YAxisTicFormatter = layout === ChartConfig.Layout.HORIZONTAL ? tickFormatter : undefined;
   var isScroll = !lodash.isUndefined(scroll.y);
 
   var scrollChartMargin = lodash.extend({}, BarChart.defaultProps.margin, margin);
@@ -25722,11 +25731,11 @@ var BarChart = function BarChart(_ref) {
   var barGap = 1;
   var height;
 
-  if (layout === 'horizontal') {
+  if (layout === ChartConfig.Layout.HORIZONTAL) {
     height = 263;
   }
 
-  if (layout === 'vertical') {
+  if (layout === ChartConfig.Layout.VERTICAL) {
     var space = 35; // 35 를 세부적으로 계산해야 하겠다 // margin.top + margin.bottom
 
     var barCagetoryGap = 34;
@@ -25763,8 +25772,8 @@ var BarChart = function BarChart(_ref) {
     margin: scrollChartMargin,
     barGap: barGap
   }, React.createElement(CartesianGrid, {
-    vertical: layout !== 'horizontal',
-    horizontal: layout === 'horizontal'
+    vertical: layout !== ChartConfig.Layout.HORIZONTAL,
+    horizontal: layout === ChartConfig.Layout.HORIZONTAL
   }), React.createElement(XAxis, {
     hide: isScroll,
     dataKey: XAxisDataKey,
@@ -25865,7 +25874,7 @@ var BarChart = function BarChart(_ref) {
 BarChart.defaultProps = {
   title: null,
   data: [],
-  layout: 'horizontal',
+  layout: ChartConfig.Layout.HORIZONTAL,
   stackId: undefined,
   xDataKey: 'name',
   yDataKey: ['value', []],
@@ -25890,7 +25899,7 @@ BarChart.defaultProps = {
 BarChart.propTypes = {
   title: propTypes.string,
   data: propTypes.arrayOf(propTypes.shape({})),
-  layout: propTypes.oneOf(['horizontal', 'vertical']),
+  layout: ChartConfig.Layout.propTypes,
   stackId: propTypes.oneOfType([propTypes.string, propTypes.number]),
   xDataKey: propTypes.string,
   yDataKey: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
@@ -27399,7 +27408,7 @@ function _templateObject6$2() {
 }
 
 function _templateObject5$3() {
-  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  height: ", "px;\n  background-color: ", ";\n  bottom: -1px;\n  width: 100%;\n  left: 0;\n\n  display: ", ";\n}\n"]);
+  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  height: ", "px;\n\n  ", ";\n  bottom: -1px;\n  width: 100%;\n  left: 0;\n\n  display: ", ";\n}\n"]);
 
   _templateObject5$3 = function _templateObject5() {
     return data;
@@ -27469,7 +27478,9 @@ var Tab = styled.span.attrs(function (props) {
 })(_templateObject4$6(), function (props) {
   return props.type === TYPE.CATEGORY ? typeCategory : typeTitle;
 });
-var TabUnderLine = styled.div.attrs(function () {})(_templateObject5$3(), UnderLineSize, colorV1.$pmblue, function (props) {
+var TabUnderLine = styled.div.attrs(function () {})(_templateObject5$3(), UnderLineSize, function (props) {
+  return props.type === TYPE.TITLE ? "" : "background-color: ".concat(colorV1.$pmblue);
+}, function (props) {
   return props['aria-selected'] ? 'block' : 'none';
 });
 var Hidden = css(_templateObject6$2());
@@ -27532,6 +27543,7 @@ var Tabs = /*#__PURE__*/function (_React$Component) {
             return _this2.changeTab(key);
           }
         }, child.props.tab, React.createElement(TabUnderLine, {
+          type: type,
           "aria-selected": activeKey === key
         })), {
           key: key
@@ -28172,7 +28184,7 @@ function _templateObject$k() {
   return data;
 }
 var CssEnable = css(_templateObject$k(), function (props) {
-  return props.layout === 'vertical' ? color.$secondary_blue : 'transparent';
+  return props.layout === ChartConfig.Layout.VERTICAL ? color.$secondary_blue : 'transparent';
 });
 var CssDiable = css(_templateObject2$f());
 var Item = styled.div.attrs(function (props) {
@@ -28181,7 +28193,7 @@ var Item = styled.div.attrs(function (props) {
     className: [fontStyle.fs16, fontColorClassName].join(' ')
   };
 })(_templateObject3$a(), function (props) {
-  return props.layout === 'horizontal' ? ' display: inline-block' : 'display: block';
+  return props.layout === ChartConfig.Layout.HORIZONTAL ? ' display: inline-block' : 'display: block';
 }, function (props) {
   return props.disabled ? CssDiable : CssEnable;
 });
@@ -28189,6 +28201,16 @@ var Item = styled.div.attrs(function (props) {
 var IcnChecked = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjMTg5QkZGIiByeD0iNCIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik01LjA3NSAxMy4zOWExLjUgMS41IDAgMCAxIDIuMTIyIDBsMS43NjcgMS43NjYgNy40MjUtNy40MjRhMS41IDEuNSAwIDAgMSAyLjEyMSAyLjEyMmwtOC40NyA4LjQ3YTEuNSAxLjUgMCAwIDEtMi4xMzYuMDE1TDUuMDc1IDE1LjUxYTEuNSAxLjUgMCAwIDEgMC0yLjEyeiIvPgogICAgPC9nPgo8L3N2Zz4=';
 
 var IcnUnchecked = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxyZWN0IHdpZHRoPSIyMiIgaGVpZ2h0PSIyMiIgeD0iMSIgeT0iMSIgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9IiNDNEM0QzQiIHN0cm9rZS13aWR0aD0iMiIgcng9IjQiLz4KPC9zdmc+';
+
+var getSelectedListByChecked = function getSelectedListByChecked(data) {
+  return lodash.chain(data).filter(function (_ref) {
+    var checked = _ref.checked;
+    return checked;
+  }).map(function (_ref2) {
+    var id = _ref2.id;
+    return "".concat(id);
+  }).value();
+};
 
 var CheckList = /*#__PURE__*/function (_React$Component) {
   _inherits(CheckList, _React$Component);
@@ -28200,15 +28222,7 @@ var CheckList = /*#__PURE__*/function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CheckList).call(this, props));
     var data = _this.props.data;
-
-    var selectedList = lodash.chain(data).filter(function (_ref) {
-      var checked = _ref.checked;
-      return checked;
-    }).map(function (_ref2) {
-      var id = _ref2.id;
-      return "".concat(id);
-    }).value();
-
+    var selectedList = getSelectedListByChecked(data);
     _this.state = {
       selectedList: selectedList
     };
@@ -28216,6 +28230,23 @@ var CheckList = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(CheckList, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      var data = this.props.data;
+
+      if (!lodash.isEqual(prevProps.data, data)) {
+        this.onUpdateSelectedList(data);
+      }
+    }
+  }, {
+    key: "onUpdateSelectedList",
+    value: function onUpdateSelectedList(data) {
+      var selectedList = getSelectedListByChecked(data);
+      this.setState({
+        selectedList: selectedList
+      });
+    }
+  }, {
     key: "onErrorTrigger",
     value: function onErrorTrigger() {
       var _this$props = this.props,
@@ -28330,8 +28361,8 @@ var CheckList = /*#__PURE__*/function (_React$Component) {
 }(React.Component);
 
 CheckList.defaultProps = {
-  layout: 'vertical',
-  // layout: 'horizontal',
+  layout: ChartConfig.Layout.VERTICAL,
+  // layout: ChartConfig.Layout.HORIZONTAL,
   limit: 5,
   disabled: false,
   checkVisible: true,
@@ -28341,7 +28372,7 @@ CheckList.defaultProps = {
 };
 CheckList.propTypes = {
   data: propTypes.arrayOf(propTypes.object).isRequired,
-  layout: propTypes.oneOf(['horizontal', 'vertical']),
+  layout: ChartConfig.Layout.propTypes,
   disabled: propTypes.bool,
   checkVisible: propTypes.bool,
   limit: propTypes.number,
@@ -30337,12 +30368,12 @@ var size$2 = {
   }
 };
 var PieLegend = styled.div(_templateObject2$h(), function (props) {
-  return props.layout === 'horizontal' ? 'margin-left: 56px;' : 'margin-top: 26px;';
+  return props.layout === ChartConfig.Layout.HORIZONTAL ? 'margin-left: 56px;' : 'margin-top: 26px;';
 });
-var Layout = styled.section(_templateObject3$c(), function (props) {
-  return props.layout === 'horizontal' ? "\n    display: flex;\n  " : '';
+var Layout$1 = styled.section(_templateObject3$c(), function (props) {
+  return props.layout === ChartConfig.Layout.HORIZONTAL ? "\n    display: flex;\n  " : '';
 }, function (props) {
-  return props.layout === 'vertical' ? "\n    .recharts-responsive-container {\n      margin: 0 auto;\n    };\n  " : '';
+  return props.layout === ChartConfig.Layout.VERTICAL ? "\n    .recharts-responsive-container {\n      margin: 0 auto;\n    };\n  " : '';
 });
 
 var tooltipContent$2 = function tooltipContent(_ref) {
@@ -30425,7 +30456,7 @@ var PieChart = function PieChart(_ref2) {
     return Number(value).toLocaleString();
   };
 
-  return React.createElement("div", null, React.createElement(chartTitle, null, title), React.createElement(Layout, {
+  return React.createElement("div", null, React.createElement(chartTitle, null, title), React.createElement(Layout$1, {
     layout: layout
   }, React.createElement(ResponsiveContainer, {
     width: size$2.pie.outerRadius * 2 + size$2.pie.OffsetX,
@@ -30485,7 +30516,7 @@ PieChart.defaultProps = {
   data: [],
   dataKey: 'value',
   nameKey: 'name',
-  layout: 'horizontal',
+  layout: ChartConfig.Layout.HORIZONTAL,
   theme: Themes.ThemeComparePrimarySea,
   isPercent: false,
   textMap: {},
@@ -30499,7 +30530,7 @@ PieChart.propTypes = {
   data: propTypes.arrayOf(propTypes.shape({})),
   dataKey: propTypes.string,
   nameKey: propTypes.string,
-  layout: propTypes.oneOf(['horizontal', 'vertical']),
+  layout: ChartConfig.Layout.propTypes,
   theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3]),
   isPercent: propTypes.bool,
   textMap: propTypes.shape({}),
@@ -60265,6 +60296,6 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.28";
+var version$1 = "0.13.29";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, RadarChart, RadarChartOld, RadioBox, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, TimeToEventOld, Timeline, ToastCtr, ToggleButton, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, Notifications as notifications, variables, version$1 as version };

@@ -4,6 +4,8 @@ import CheckList from '@Components/list/CheckList'
 import Item from '@Components/list/Item'
 import _ from 'lodash'
 
+import ChartConfig from '@src/helper/ChartConfig'
+
 const data = [
   {
     id: 1,
@@ -63,8 +65,8 @@ it('default', () => {
   expect(wrapper.text()).toBe(expected)
   expect(wrapper.prop('limit')).toBe(limit)
   expect(wrapper.prop('checkVisible')).toBe(true)
-  expect(wrapper.prop('layout')).toBe('vertical')
-  expect(wrapper.find(Item).at(0).prop('layout')).toBe('vertical')
+  expect(wrapper.prop('layout')).toBe(ChartConfig.Layout.VERTICAL)
+  expect(wrapper.find(Item).at(0).prop('layout')).toBe(ChartConfig.Layout.VERTICAL)
 })
 
 it('check', () => {
@@ -160,5 +162,47 @@ describe('checkVisible 가 false 인 경우', () => {
     wrapper.setProps({ checkVisible: false })
     const expected = data.map(({ name, checked }) => (checked ? '' : name)).join('')
     expect(wrapper.text()).toBe(expected)
+  })
+})
+
+describe('props.data에 변환에 따른 state.selectedList 변화 확인', () => {
+  it('default', () => {
+    const newData = [
+      {
+        id: 1,
+        name: 'name 1',
+      },
+      {
+        id: 2,
+        name: 'name 2',
+        checked: true,
+      },
+      {
+        id: 3,
+        name: 'name 3',
+        checked: true,
+      },
+      {
+        id: 4,
+        name: 'name 4',
+      },
+      {
+        id: 5,
+        name: 'name 5',
+        checked: true,
+      },
+      {
+        id: 6,
+        name: 'name 6',
+      },
+    ]
+    const expected = ['1']
+    expect(wrapper.state('selectedList')).toEqual(expected)
+
+    wrapper.setProps({ data: newData })
+    wrapper.update()
+
+    const newExpected = ['2', '3', '5']
+    expect(wrapper.state('selectedList')).toEqual(newExpected)
   })
 })
