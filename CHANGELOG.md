@@ -1,3 +1,10 @@
+## [0.13.30](https://github.com/linewalks/MDwalks-UI/compare/v0.13.22...v0.13.30) (2020-06-09)
+
+### Features
+
+* **LineChart:** 성능차트를 위한 LineChart props 추가 ([8bb95eb](https://github.com/linewalks/MDwalks-UI/commit/8bb95eb5b95291c3aa7a2727788d14f86016e762)), closes [#641](https://github.com/linewalks/MDwalks-UI/issues/641)
+
+
 ## [0.13.29](https://github.com/linewalks/MDwalks-UI/compare/v0.13.23...v0.13.29) (2020-06-04)
 
 
