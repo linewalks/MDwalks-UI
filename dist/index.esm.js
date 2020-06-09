@@ -24995,7 +24995,7 @@ function _templateObject4$4() {
 }
 
 function _templateObject3$6() {
-  var data = _taggedTemplateLiteral(["\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.2);\n\n  background-color: ", ";\n  padding: 30px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  border-radius: 10px;\n  box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);\n\n  background-color: ", ";\n  padding: 30px;\n"]);
 
   _templateObject3$6 = function _templateObject3() {
     return data;
@@ -26085,7 +26085,8 @@ BarChartMulti.propTypes = {
 var LabelStyle$1 = {
   fill: colorV1.$grey08,
   fontWeight: 'bold',
-  fontSize: '14px'
+  fontSize: '14px',
+  textAnchor: 'middle'
 };
 
 var LineChart = function LineChart(_ref) {
@@ -26099,7 +26100,12 @@ var LineChart = function LineChart(_ref) {
       margin = _ref.margin,
       legend = _ref.legend,
       xData = _ref.xData,
-      yData = _ref.yData;
+      yData = _ref.yData,
+      height = _ref.height,
+      xAxisType = _ref.xAxisType,
+      xAxisTicks = _ref.xAxisTicks,
+      yAxisTicks = _ref.yAxisTicks,
+      lineDot = _ref.lineDot;
   var newYDataKey = [].concat(yDataKey);
   var colors = getColorsByTheme(theme, newYDataKey.length);
 
@@ -26129,36 +26135,43 @@ var LineChart = function LineChart(_ref) {
     textMap: textMap,
     hide: legend.hide
   }), lodash.isEmpty(data) ? React.createElement(EmptyPlaceHolder, null) : React.createElement(ResponsiveContainer, {
-    height: 415
+    height: height
   }, React.createElement(LineChart$1, {
     data: data,
-    height: 415,
+    height: height,
     margin: drawMargin
   }, React.createElement(CartesianGrid, {
     vertical: false
   }), React.createElement(XAxis, {
-    dataKey: xDataKey
+    dataKey: xDataKey,
+    ticks: xAxisTicks,
+    type: xAxisType
   }, xData.label && React.createElement(Label$1, {
     value: xData.label.value,
-    offset: 10,
-    position: "bottom",
-    style: LabelStyle$1.style
+    offset: -20,
+    position: "insideBottom",
+    style: LabelStyle$1
   })), React.createElement(YAxis, {
-    tickFormatter: tickFormatter
+    tickFormatter: tickFormatter,
+    yAxisTicks: yAxisTicks
   }, yData.label && React.createElement(Label$1, {
     value: yData.label.value,
-    offset: 0,
-    position: "left",
-    style: LabelStyle$1.style
+    offset: -1,
+    angle: -90,
+    position: "insideLeft",
+    style: LabelStyle$1
   })), React.createElement(Tooltip, {
     isPercent: isPercent,
     textMap: textMap,
     content: TooltipBox
   }), newYDataKey.map(function (entry, index) {
     return React.createElement(Line, {
-      key: "bar".concat(entry),
+      key: "line".concat(entry),
+      dot: lineDot,
       dataKey: entry,
-      fill: colors[index]
+      stroke: colors[index],
+      fill: colors[index],
+      connectNulls: xAxisType === 'number'
     });
   }))));
 };
@@ -26181,14 +26194,19 @@ LineChart.defaultProps = {
     hide: false
   },
   xData: {},
-  yData: {}
+  yData: {},
+  height: 415,
+  xAxisType: 'category',
+  xAxisTicks: null,
+  yAxisTicks: null,
+  lineDot: true
 };
 LineChart.propTypes = {
   title: propTypes.string,
   data: propTypes.arrayOf(propTypes.shape({})),
   xDataKey: propTypes.string,
   yDataKey: propTypes.oneOfType([propTypes.string, propTypes.arrayOf(propTypes.string)]),
-  theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal, Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold, Themes.ThemeArrangeQuinaryBerry]),
+  theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal, Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold, Themes.ThemeArrangeQuinaryBerry, Themes.ThemeCompareSecondaryTeal]),
   isPercent: propTypes.bool,
   textMap: propTypes.shape({}),
   margin: propTypes.shape({
@@ -26211,7 +26229,12 @@ LineChart.propTypes = {
       value: propTypes.string.isRequired
     }),
     unit: propTypes.string
-  })
+  }),
+  height: propTypes.number,
+  xAxisType: propTypes.oneOf(['category', 'number']),
+  xAxisTicks: propTypes.arrayOf(propTypes.oneOfType([propTypes.number, propTypes.string])),
+  yAxisTicks: propTypes.arrayOf(propTypes.oneOfType([propTypes.number, propTypes.string])),
+  lineDot: propTypes.bool
 };
 
 var css_248z$2 = ".Timeline-module_timelineChart__6imxY {\n  position: relative;\n}\n\n/* xAxis */\n.Timeline-module_xAxis__2yeDE, .Timeline-module_overViewXAxis__3PeKr {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text:nth-child(n + 4) {\n  fill: rgba(0, 0, 0, 0.3);\n}\n.Timeline-module_verticalLineText__2adr2 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.Timeline-module_overViewXAxisGrid__1I727 path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.Timeline-module_tooltip__2A0o2 {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipDay__1lg2e {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipLabel__1aVan {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.Timeline-module_dot__3N3de {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
@@ -60296,6 +60319,6 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.29";
+var version$1 = "0.13.30";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, RadarChart, RadarChartOld, RadioBox, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, TimeToEventOld, Timeline, ToastCtr, ToggleButton, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, Notifications as notifications, variables, version$1 as version };
