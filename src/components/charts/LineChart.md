@@ -82,3 +82,77 @@ LineChart example:
   >
   </LineChart>
   ```
+
+#### lineDot Props - line chart의 점 표시 여부
+   
+```js
+  import { Themes } from '@Components/ChartColor';
+
+  <LineChart
+    data={[
+      {
+        age: 20,
+        Persons: 88
+      },
+      {
+        age: 30,
+        Persons: 272
+      },
+      {
+        age: 40,
+        Persons: 568
+      },
+      {
+        age: 50,
+        Persons: 932
+      },
+      {
+        age: 60,
+        Persons: 3319
+      },
+    ]}
+    xDataKey="age"
+    yDataKey="Persons"
+    theme={Themes.ThemeArrangePrimarySea}
+    lineDot={false}
+  >
+  </LineChart>
+  ```
+
+#### AxisTicks - 축의 Tick을 제어 합니다. x축의 tick이 숫자인 경우 xAxisType을 number로 옵션을 줘야합니다.
+   
+```js
+  import { Themes } from '@Components/ChartColor';
+
+  <LineChart
+    data={[
+      {
+        age: 20,
+        Persons: 88
+      },
+      {
+        age: 30,
+        Persons: 272
+      },
+      {
+        age: 40,
+        Persons: 568
+      },
+      {
+        age: 50,
+        Persons: 932
+      },
+      {
+        age: 60,
+        Persons: 3319
+      },
+    ]}
+    xDataKey="age"
+    yDataKey="Persons"
+    theme={Themes.ThemeArrangePrimarySea}
+    lineDot={false}
+    xAxisType="number"
+    xAxisTicks={[0, 20, 40, 60, 80, 100]}
+  >
+  </LineChart>
+  ```
