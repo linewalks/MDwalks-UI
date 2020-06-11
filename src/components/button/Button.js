@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
@@ -291,7 +291,7 @@ Button.defaultProps = {
   as: 'button',
   size: 'md',
   variant: 'basic_line',
-  styled: {},
+  style: {},
   onClick: () => {},
   id: undefined,
 }
@@ -305,7 +305,7 @@ Button.propTypes = {
   as: PropTypes.string,
   size: PropTypes.string,
   variant: PropTypes.string,
-  styled: PropTypes.shape({}),
+  style: PropTypes.shape({}),
   onClick: PropTypes.func,
   id: PropTypes.string,
 }
