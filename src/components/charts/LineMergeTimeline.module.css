@@ -2,63 +2,20 @@
   position: relative;
 }
 
-.title {
-  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
-  font-size: 14px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: -0.5px;
-  text-align: center;
-  color: #000000;
-  opacity: 0.6;      
-}
-
 /* xAxis */
 .xAxis, .overViewXAxis {
-  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: -0.5px;
   text-align: center;
-  color: rgba(0, 0, 0, 0.6);
-}
-/* labels */
-.timelineLabels text, .gLineYAxis {
-  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: -0.5px;
-  text-align: right;
-  fill: rgba(0, 0, 0, 0.3);
-  color: rgba(0, 0, 0, 0.3);
 }
 
 .verticalLineText {
   width: 61px;
   height: 18px;
-  opacity: 0.8;
-  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
-  font-size: 12px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
   letter-spacing: -0.4px;
   text-align: center;
-  fill: #000000;
 }
 /* overview axis style */
 .overViewXAxisGrid path {
-  fill: #003964;
-  opacity: 0.24;
+  fill: #e7ebee;
 }
 
 /* tooltip  */
