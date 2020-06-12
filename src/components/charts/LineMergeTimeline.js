@@ -553,7 +553,7 @@ class LineMergeTimeline extends Component {
         .tickSize(-overViewAxisHeight)
         .tickFormat(''),
     )
-    overViewGrid.selectAll('.domain').attr('stroke', '#8b96a3')
+    overViewGrid.selectAll('.domain').attr('stroke', colorV1.$grey07)
     overViewGrid.selectAll('.tick line').attr('stroke', 'none')
 
     // 3. Render OverViewXAxis
@@ -563,7 +563,7 @@ class LineMergeTimeline extends Component {
       yOffset: overViewAxisHeight,
     }).call(d3.axisBottom(xAxisScale).tickPadding(17))
 
-    overViewXAxis.selectAll('.domain').attr('stroke', '#8b96a3').attr('d', 'M0.5 0V0.5H942.5V0.5')
+    overViewXAxis.selectAll('.domain').attr('stroke', colorV1.$grey07).attr('d', 'M0.5 0V0.5H942.5V0.5')
     overViewXAxis.selectAll('.tick line').remove()
     overViewXAxis
       .selectAll('.tick text')
@@ -577,7 +577,7 @@ class LineMergeTimeline extends Component {
       .attr('x2', width - defaultPadding.right)
       .attr('y1', height - overViewAxisHeight - defaultPadding.bottom + 10)
       .attr('y2', height - overViewAxisHeight - defaultPadding.bottom + 10)
-      .attr('stroke', '#8b96a3')
+      .attr('stroke', colorV1.$grey07)
 
     this.getRootElement().select('.timeline')
       .append('line')
@@ -585,7 +585,7 @@ class LineMergeTimeline extends Component {
       .attr('x2', width - defaultPadding.right)
       .attr('y1', height - defaultPadding.bottom + 10)
       .attr('y2', height - defaultPadding.bottom + 10)
-      .attr('stroke', '#8b96a3')
+      .attr('stroke', colorV1.$grey07)
   }
 
   createBrush = (xAxisScale, lineScale, xAxis, line, overViewXAxisScale) => {
