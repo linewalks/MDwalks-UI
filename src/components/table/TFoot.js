@@ -2,22 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import _ from 'lodash';
 import styled from 'styled-components'
-import * as variables from '@src/assets/styles/variables'
+import * as font from '@src/assets/styles/font'
+import { colorV1 } from '@src/assets/styles/variables'
+import { tableSize } from '@src/assets/styles/tableProperties'
 
-const TFootTag = styled.tfoot`
+const TFootTag = styled.tfoot.attrs(({ size }) => ({
+  ...tableSize[size].tfoot,
+}))`
   td {
-    background-color: ${variables.color.$table_grey};
-    padding: 24px;
+    ${font.Text}
+    ${(({ padding }) => `padding: ${padding};`)}
 
     text-align: center;
-    font-size: 18px;
     font-family: "Spoqa Han Sans";
   }
-
-  border-top: 2px solid ${variables.color.$line_dashboard_edge_grey};
+  tr {
+    border-top: 1px solid ${colorV1.$grey04};
+  }
+  tr:first-child {
+    border-top: 1px solid ${colorV1.$grey06};
+  }
 `
 
-const TFoot = ({ footData }) => {
+const TFoot = ({ footData, size }) => {
   const createFooter = () => (
     _.map(footData, (data, i) => {
       const trKey = `footer${data.join(' ')}${i}`
@@ -45,19 +52,21 @@ const TFoot = ({ footData }) => {
 
   return (
     <>
-      {_.isEmpty(footData) ? null : <TFootTag>{createFooter()}</TFootTag>}
+      {_.isEmpty(footData) ? null : <TFootTag size={size}>{createFooter()}</TFootTag>}
     </>
   )
 };
 
 TFoot.defaultProps = {
   footData: undefined,
+  size: 'medium',
 }
 
 TFoot.propTypes = {
   footData: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string, PropTypes.number]),
   ),
+  size: PropTypes.string,
 }
 
 export default TFoot
