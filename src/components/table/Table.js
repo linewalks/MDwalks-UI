@@ -61,7 +61,7 @@ const TableBox = styled.table`
   border-spacing: 0;
   width: 100%;
 
-  border-bottom: 1px solid ${variables.color.$line_search_grey};
+  border-bottom: 1px solid ${variables.colorV1.$grey06};
 
   ${(props) => (props.notBottom ? 'border-bottom: none' : '')};
 
@@ -93,7 +93,7 @@ Columns.propTypes = {
 
 const Table = ({
   data, rowSpanCount, wrapTh, wrapTd, appendRow, className,
-  loading, scroll, columns,
+  loading, scroll, columns, size,
 }) => {
   if (_.isEmpty(data)) {
     return (
@@ -115,6 +115,7 @@ const Table = ({
             subHeaders={data.subHeaders}
             wrapTh={wrapTh}
             loading={loading}
+            size={size}
           />
         </TableBox>
         <commonTag.WrapperScrollBars scroll={scroll}>
@@ -127,12 +128,13 @@ const Table = ({
               wrapTd={wrapTd}
               appendRow={appendRow}
               rowSpanCount={rowSpanCount}
+              size={size}
             />
           </TableBox>
         </commonTag.WrapperScrollBars>
         <TableBox className={className}>
           <Columns columns={columns} />
-          <TFoot footData={data.footData} />
+          <TFoot footData={data.footData} size={size} />
         </TableBox>
       </div>
     )
@@ -146,6 +148,7 @@ const Table = ({
         subHeaders={data.subHeaders}
         wrapTh={wrapTh}
         loading={loading}
+        size={size}
       />
       <TBody
         headers={data.headers}
@@ -154,8 +157,9 @@ const Table = ({
         wrapTd={wrapTd}
         appendRow={appendRow}
         rowSpanCount={rowSpanCount}
+        size={size}
       />
-      <TFoot footData={data.footData} />
+      <TFoot footData={data.footData} size={size} />
     </TableBox>
   );
 };
@@ -170,6 +174,7 @@ Table.defaultProps = {
   loading: false,
   scroll: {},
   columns: [],
+  size: 'medium',
 }
 
 Table.propTypes = {
@@ -200,6 +205,7 @@ Table.propTypes = {
   scroll: PropTypes.shape({
     y: PropTypes.number,
   }),
+  size: PropTypes.string,
 }
 
 export default Table

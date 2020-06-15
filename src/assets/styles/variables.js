@@ -68,3 +68,46 @@ export const zIndex = {
   $modal: 1001,
   $modalOverlayLoading: 1002,
 }
+
+export const tableProperties = {
+  small: {
+    thead: {
+      size: 13,
+      color: colorV1.$grey08,
+      bold: true,
+      padding: '8px 16px',
+      subHeader: { size: 13, color: colorV1.$grey08, bold: true },
+    },
+    tbody: {
+      size: 14,
+      color: colorV1.$grey10,
+      padding: '8px 16px',
+    },
+    tfoot: {
+      size: 14,
+      color: colorV1.$grey10,
+      bold: true,
+      padding: '12px 16px',
+    },
+  },
+  medium: {
+    thead: {
+      size: 14,
+      color: colorV1.$grey08,
+      bold: true,
+      padding: '12px 24px',
+      subHeader: { size: 13, color: colorV1.$grey08, bold: true },
+    },
+    tbody: {
+      size: 16,
+      color: colorV1.$grey10,
+      padding: '12px 24px',
+    },
+    tfoot: {
+      size: 16,
+      color: colorV1.$grey10,
+      bold: true,
+      padding: '16px 24px',
+    },
+  },
+}

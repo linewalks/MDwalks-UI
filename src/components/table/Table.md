@@ -79,13 +79,13 @@ Table example:
 ```js
 <Table
   data={{
-    headers: ['a', 'b', 'c'],
+    headers: ['a', 'b', 'c', 'd', 'e'],
     rowData: [
-      [{rowSpan: 3, text: 'a1'}, 'b1', 'c1'],
-      ['b2', 'c2'],
-      ['b3', 'c3'],
-      [{rowSpan: 2, text: 'a2', className: 'odd'}, 'b4', 'c4'],
-      ['b5', 'c5'],
+      [{rowSpan: 3, text: 'a1'}, 'b1', {rowSpan: 2, text: 'c1'}, {rowSpan: 2, text: 'd1'}, 'e1'],
+      ['b2', 'e2'],
+      ['b3', 'c3', 'd3', 'e3'],
+      [{rowSpan: 2, text: 'a2', className: 'odd'}, 'b4', 'c4', 'd4', 'e4'],
+      ['b5', 'c5', 'd5', 'e5'],
     ]
   }}>
 </Table>
@@ -139,7 +139,7 @@ import React, { useState, useEffect } from 'react'
 ```js
 <Table
   columns={[100, 'auto', 300]}
-  scroll={{ y: 300 }}
+  scroll={{ y: 215 }}
   data={{
     headers: ['a', 'b', 'c'],
     rowData: [
@@ -153,5 +153,24 @@ import React, { useState, useEffect } from 'react'
       ['t1',  {colSpan: 2, text: 't3'}],
     ]
   }}
+/>
+```
+
+#### Table size small
+```js
+<Table
+  data={{
+    headers: ['a', 'b', 'c'],
+    rowData: [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9]
+    ],
+    footData: [
+      ['t1', 't2', 't3'],
+      ['t4', 't5', 't6']
+    ]
+  }}
+  size='small'  // default: medium
 />
 ```

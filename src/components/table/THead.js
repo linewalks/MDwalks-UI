@@ -5,7 +5,7 @@ import _ from 'lodash'
 import isEmpty from 'lodash/isEmpty';
 import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
+import { colorV1, tableProperties } from '@src/assets/styles/variables'
 
 import ICO_DOWN from '@src/assets/svg/table/icn_sort_down_default.svg'
 import ICO_UP from '@src/assets/svg/table/icn_sort_up_default.svg'
@@ -16,45 +16,38 @@ import ICO_UP_FOCUS from '@src/assets/svg/table/icn_sort_up_focus.svg'
 import ICO_DOWN_DISABLE from '@src/assets/svg/table/icn_sort_down_disable.svg'
 import ICO_UP_DISABLE from '@src/assets/svg/table/icn_sort_up_disable.svg'
 
-const Td = styled.td.attrs(() => ({
-  size: 16,
-  bold: true,
-  opacity: 6,
+const Td = styled.td.attrs(({ size }) => ({
+  ...tableProperties[size].thead.subHeader,
 }))`
   ${font.Text}
-  padding: 12px 22px;
+  padding: 6px 16px;
   text-align: center;
-  background: ${color.$table_grey};
+  background: ${colorV1.$grey02};
 `
 
-const Th = styled.th.attrs(() => ({
-  size: 16,
-  bold: true,
-  opacity: 6,
+const Th = styled.th.attrs(({ size }) => ({
+  ...tableProperties[size].thead,
 }))`
   ${font.Text}
 
-  ${(props) => (props.sort ? `` : `padding: 28px 24px`)};
-
+  ${({ padding }) => (`padding: ${padding}`)};
+  
   text-align: center;
-  background: ${color.$table_grey};
+  background: ${colorV1.$grey02};
 
   &:first-child {
-    border-radius: 10px 0 0 0;
+    border-radius: 8px 0 0 0;
   }
 
   &:last-child {
-    border-radius: 0 10px 0 0;
+    border-radius: 0 8px 0 0;
   }
 `
 
-const SortButton = styled.button.attrs(() => ({
-  size: 16,
-  bold: true,
-  opacity: 6,
+const SortButton = styled.button.attrs(({ size }) => ({
+  ...tableProperties[size].thead,
 }))`
   ${font.Text}
-  padding: 28px 24px;
   > span {
     position: relative;
     width: 16px;
@@ -80,7 +73,7 @@ const SortButton = styled.button.attrs(() => ({
 `
 
 const Thead = styled.thead`
-  border-bottom: 2px solid ${color.$line_dashboard_edge_grey};
+  border-bottom: 1px solid ${colorV1.$grey04};
 `
 
 const TrEmpty = () => (
@@ -88,18 +81,6 @@ const TrEmpty = () => (
     <th>&nbsp;</th>
   </tr>
 )
-
-const createSubHeader = (subHeaderData) => {
-  const subTitleGroup = Object.values(subHeaderData).join().split(',')
-  return (
-    <tr>
-      {subTitleGroup.map((subTitle, i) => {
-        const key = `subheader_${subTitle}${i}`
-        return <Td key={key}>{subTitle}</Td>
-      })}
-    </tr>
-  )
-}
 
 const HeaderText = ({ text, wrapTh }) => (
   wrapTh
@@ -163,12 +144,13 @@ HeaderSortIcon.propTypes = {
 }
 
 const HeaderTextSort = ({
-  text, sort, toggle, loading,
+  text, sort, toggle, loading, size,
 }) => (
   <SortButton
     disabled={loading}
     type="button"
     onClick={sort}
+    size={size}
   >
     {text}
     <HeaderSortIcon sort={toggle[text]} loading={loading} />
@@ -179,6 +161,7 @@ HeaderTextSort.defaultProps = {
   sort: '',
   toggle: {},
   loading: false,
+  size: 'medium',
 }
 
 HeaderTextSort.propTypes = {
@@ -186,10 +169,11 @@ HeaderTextSort.propTypes = {
   sort: PropTypes.func,
   toggle: PropTypes.shape({}),
   loading: PropTypes.bool,
+  size: PropTypes.string,
 }
 
 const THead = ({
-  headers, wrapTh, subHeaders, loading,
+  headers, wrapTh, subHeaders, loading, size,
 }) => {
   const [toggle, setToggle] = useState({})
 
@@ -207,6 +191,18 @@ const THead = ({
 
     setToggle(toggleDumy)
     sort(text, toggleDumy[text])
+  }
+
+  const createSubHeader = (subHeaderData) => {
+    const subTitleGroup = Object.values(subHeaderData).join().split(',')
+    return (
+      <tr>
+        {subTitleGroup.map((subTitle, i) => {
+          const key = `subheader_${subTitle}${i}`
+          return <Td key={key} size={size}>{subTitle}</Td>
+        })}
+      </tr>
+    )
   }
 
   const createHeader = (headerData) => (
@@ -229,11 +225,17 @@ const THead = ({
         }
 
         return (
-          <Th colSpan={colSpan} rowSpan={rowSpan} key={`header_${text}`} sort={_.isFunction(sort)}>
+          <Th
+            colSpan={colSpan}
+            rowSpan={rowSpan}
+            key={`header_${text}`}
+            sort={_.isFunction(sort)}
+            size={size}
+          >
             {
               sort
                 ? HeaderTextSort({
-                  text, sort, toggle, loading,
+                  text, sort, toggle, loading, size,
                 })
                 : HeaderText({ text, wrapTh })
             }
@@ -264,6 +266,7 @@ THead.defaultProps = {
   wrapTh: undefined,
   subHeaders: undefined,
   loading: false,
+  size: 'medium',
 }
 
 THead.propTypes = {
@@ -276,6 +279,7 @@ THead.propTypes = {
   wrapTh: PropTypes.func,
   subHeaders: PropTypes.shape({}),
   loading: PropTypes.bool,
+  size: PropTypes.string,
 }
 
 export default THead
