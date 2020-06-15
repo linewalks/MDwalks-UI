@@ -5,7 +5,8 @@ import _ from 'lodash'
 import isEmpty from 'lodash/isEmpty';
 import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
-import { colorV1, tableProperties } from '@src/assets/styles/variables'
+import { colorV1 } from '@src/assets/styles/variables'
+import { tableSize } from '@src/assets/styles/tableProperties'
 
 import ICO_DOWN from '@src/assets/svg/table/icn_sort_down_default.svg'
 import ICO_UP from '@src/assets/svg/table/icn_sort_up_default.svg'
@@ -17,7 +18,7 @@ import ICO_DOWN_DISABLE from '@src/assets/svg/table/icn_sort_down_disable.svg'
 import ICO_UP_DISABLE from '@src/assets/svg/table/icn_sort_up_disable.svg'
 
 const Td = styled.td.attrs(({ size }) => ({
-  ...tableProperties[size].thead.subHeader,
+  ...tableSize[size].thead.subHeader,
 }))`
   ${font.Text}
   padding: 6px 16px;
@@ -26,7 +27,7 @@ const Td = styled.td.attrs(({ size }) => ({
 `
 
 const Th = styled.th.attrs(({ size }) => ({
-  ...tableProperties[size].thead,
+  ...tableSize[size].thead,
 }))`
   ${font.Text}
 
@@ -45,7 +46,7 @@ const Th = styled.th.attrs(({ size }) => ({
 `
 
 const SortButton = styled.button.attrs(({ size }) => ({
-  ...tableProperties[size].thead,
+  ...tableSize[size].thead,
 }))`
   ${font.Text}
   > span {

@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import _ from 'lodash';
 import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
-import { colorV1, tableProperties } from '@src/assets/styles/variables'
+import { colorV1 } from '@src/assets/styles/variables'
+import { tableSize } from '@src/assets/styles/tableProperties'
 
 const TFootTag = styled.tfoot.attrs(({ size }) => ({
-  ...tableProperties[size].tfoot,
+  ...tableSize[size].tfoot,
 }))`
   td {
     ${font.Text}

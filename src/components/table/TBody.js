@@ -2,13 +2,14 @@ import React from 'react';
 import _ from 'lodash'
 import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
-import { colorV1, tableProperties } from '@src/assets/styles/variables'
+import { colorV1 } from '@src/assets/styles/variables'
+import { tableSize } from '@src/assets/styles/tableProperties'
 import PropTypes from 'prop-types'
 import EmptyPlaceHolder from './EmptyPlaceHolder'
 
 // .td 가 존재하는 이유는 appendRow 에 스타일을 적용하지 않기 위해서 이다
 const ListTBody = styled.tbody.attrs(({ size }) => ({
-  ...tableProperties[size].tbody,
+  ...tableSize[size].tbody,
 }))`
   .td[rowspan] {
     border-left: 1px solid ${colorV1.$grey04};
@@ -117,15 +118,7 @@ const TBody = ({
     return colSpan
   }
 
-  const isHaveRowSpan = (() => {
-    let rowSpanFlag = false
-    _.each(rowData, (item) => {
-      if (!_.isEmpty(_.filter(item, (i) => _.isObject(i) && _.has(i, 'rowSpan')))) {
-        rowSpanFlag = true
-      }
-    })
-    return rowSpanFlag
-  })()
+  const isHaveRowSpan = _.some(_.flattenDeep(rowData), (item) => _.has(item, 'rowSpan'))
 
   return (
     _.isEmpty(rowData)
