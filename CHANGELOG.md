@@ -1,3 +1,12 @@
+## [0.13.31](https://github.com/linewalks/MDwalks-UI/compare/v0.13.30...v0.13.31) (2020-06-16)
+
+
+### Bug Fixes
+
+* Button의 proptypes 오타 수정 ([7d6ab58](https://github.com/linewalks/MDwalks-UI/commit/7d6ab58e3aaac42c0058f5272c9f967f5ca81da4))
+
+
+
 ## [0.13.30](https://github.com/linewalks/MDwalks-UI/compare/v0.13.22...v0.13.30) (2020-06-09)
 
 ### Features
