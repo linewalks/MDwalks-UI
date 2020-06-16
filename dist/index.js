@@ -18525,13 +18525,64 @@ var zIndex = {
   $modal: 1001,
   $modalOverlayLoading: 1002
 };
+var tableProperties = {
+  small: {
+    thead: {
+      size: 13,
+      color: colorV1.$grey08,
+      bold: true,
+      padding: '8px 16px',
+      subHeader: {
+        size: 13,
+        color: colorV1.$grey08,
+        bold: true
+      }
+    },
+    tbody: {
+      size: 14,
+      color: colorV1.$grey10,
+      padding: '8px 16px'
+    },
+    tfoot: {
+      size: 14,
+      color: colorV1.$grey10,
+      bold: true,
+      padding: '12px 16px'
+    }
+  },
+  medium: {
+    thead: {
+      size: 14,
+      color: colorV1.$grey08,
+      bold: true,
+      padding: '12px 24px',
+      subHeader: {
+        size: 13,
+        color: colorV1.$grey08,
+        bold: true
+      }
+    },
+    tbody: {
+      size: 16,
+      color: colorV1.$grey10,
+      padding: '12px 24px'
+    },
+    tfoot: {
+      size: 16,
+      color: colorV1.$grey10,
+      bold: true,
+      padding: '16px 24px'
+    }
+  }
+};
 
 var variables = /*#__PURE__*/Object.freeze({
   __proto__: null,
   color: color,
   colorV1: colorV1,
   size: size,
-  zIndex: zIndex
+  zIndex: zIndex,
+  tableProperties: tableProperties
 });
 
 var _ThemeMap;
@@ -18977,8 +19028,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".RadiusGauge-module_gauge_point__3WjGw {\n  text-anchor: middle;\n  opacity: 0.4;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 11px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  letter-spacing: -0.5px;\n  fill: '#000000';\n}\n\n.RadiusGauge-module_gauge_score__1yjco {\n  text-anchor: middle;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 32px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  letter-spacing: -0.5px;\n  fill: '#000000';\n}";
-var styles = {"gauge_point":"RadiusGauge-module_gauge_point__3WjGw","gauge_score":"RadiusGauge-module_gauge_score__1yjco"};
+var css_248z = ".font-module_font__1pbr7, .font-module_summary_b_42__npbYY, .font-module_search_b_32__3-265, .font-module_header_b_22__9B2mM, .font-module_body_b_20__edw-k, .font-module_body_b_18__3DIfb, .font-module_body_b_16__2lhMQ, .font-module_body_b_14__y0YSD, .font-module_body_r_20__102C5, .font-module_body_r_18__1Dp65, .font-module_body_r_16__3i8HZ, .font-module_body_r_14__3nMvr, .font-module_body_r_12__1YE9s, .font-module_fs12__31_tz, .font-module_fs13__3_SbC, .font-module_fs14__2C1ub, .font-module_fs16__iEzao, .font-module_fs18__1oCD8, .font-module_fs20__3DzbI, .font-module_fs22__1HMrv, .font-module_fs32__23a17, .font-module_fs40__2qwJI, .font-module_fs42__1Htbb, .font-module_fs12_black_opacity2__xRZHC, .font-module_fs12_black_opacity3__2SSyI, .font-module_fs12_black_opacity4__25OxM, .font-module_fs12_black_opacity5__QGJvM, .font-module_fs12_black_opacity6__2G5yW, .font-module_fs12_black_opacity7__355qH, .font-module_fs12_black_opacity8__Z4HlX, .font-module_fs14_black_opacity2__3Iwt3, .font-module_fs14_black_opacity3__3zLOK, .font-module_fs14_black_opacity4__1rsnm, .font-module_fs14_black_opacity5__3X0qA, .font-module_fs14_black_opacity6__2g_-G, .font-module_fs14_black_opacity7__xWkoF, .font-module_fs14_black_opacity8__2xl0H, .font-module_fs16_black_opacity2__1pVmQ, .font-module_fs16_black_opacity3__kfKjQ, .font-module_fs16_black_opacity4__MHlM8, .font-module_fs16_black_opacity5__hib5n, .font-module_fs16_black_opacity6__1Vntl, .font-module_fs16_black_opacity7__XyTNF, .font-module_fs16_black_opacity8__33fA6, .font-module_fs18_black_opacity2__1kXFl, .font-module_fs18_black_opacity3__2It1I, .font-module_fs18_black_opacity4__2V5EB, .font-module_fs18_black_opacity5__1I_PD, .font-module_fs18_black_opacity6__3Cr46, .font-module_fs18_black_opacity7__2CjKk, .font-module_fs18_black_opacity8__3GsBZ, .font-module_fs20_black_opacity2__3V1SX, .font-module_fs20_black_opacity3__rvYr7, .font-module_fs20_black_opacity4__2r4uI, .font-module_fs20_black_opacity5__25hQI, .font-module_fs20_black_opacity6__2Ku8M, .font-module_fs20_black_opacity7__WJ73P, .font-module_fs20_black_opacity8__1n5dW, .font-module_fs22_black_opacity2__2NwCy, .font-module_fs22_black_opacity3__3Cqry, .font-module_fs22_black_opacity4__2VtxV, .font-module_fs22_black_opacity5__29WTq, .font-module_fs22_black_opacity6__3MIO_, .font-module_fs22_black_opacity7__1BAgl, .font-module_fs22_black_opacity8__1Iyb3, .font-module_fs32_black_opacity2__2KWq6, .font-module_fs32_black_opacity3__2hLsO, .font-module_fs32_black_opacity4__HELf5, .font-module_fs32_black_opacity5__x53_a, .font-module_fs32_black_opacity6__v6U6_, .font-module_fs32_black_opacity7__2JTxu, .font-module_fs32_black_opacity8__1Bzu6, .font-module_fs40_black_opacity2__tvtj3, .font-module_fs40_black_opacity3__aPau4, .font-module_fs40_black_opacity4__1U64R, .font-module_fs40_black_opacity5__1ImUH, .font-module_fs40_black_opacity6__8E7aU, .font-module_fs40_black_opacity7__KxQCO, .font-module_fs40_black_opacity8__2-FIH, .font-module_fs42_black_opacity2__1rtJi, .font-module_fs42_black_opacity3__1X4_L, .font-module_fs42_black_opacity4__3e4qW, .font-module_fs42_black_opacity5__2j3GU, .font-module_fs42_black_opacity6__1HI_o, .font-module_fs42_black_opacity7__1zT_l, .font-module_fs42_black_opacity8__2wOXJ {\n  letter-spacing: -0.5px; }\n\n.font-module_summary_b_42__npbYY, .font-module_search_b_32__3-265, .font-module_header_b_22__9B2mM, .font-module_body_b_20__edw-k, .font-module_body_b_18__3DIfb, .font-module_body_b_16__2lhMQ, .font-module_body_b_14__y0YSD {\n  font-weight: bold;\n  color: #000000; }\n\n.font-module_summary_b_42__npbYY {\n  font-size: 42px; }\n\n.font-module_search_b_32__3-265 {\n  font-size: 32px; }\n\n.font-module_header_b_22__9B2mM {\n  font-size: 22px; }\n\n.font-module_body_b_20__edw-k, .font-module_body_r_20__102C5 {\n  font-size: 20px; }\n\n.font-module_body_b_18__3DIfb, .font-module_body_r_18__1Dp65 {\n  font-size: 18px; }\n\n.font-module_body_r_20__102C5, .font-module_body_r_18__1Dp65, .font-module_body_r_16__3i8HZ, .font-module_body_r_14__3nMvr, .font-module_body_r_12__1YE9s {\n  font-weight: normal;\n  color: #000000; }\n\n.font-module_body_b_16__2lhMQ, .font-module_body_r_16__3i8HZ {\n  font-size: 16px; }\n\n.font-module_body_b_14__y0YSD, .font-module_body_r_14__3nMvr {\n  font-size: 14px; }\n\n.font-module_body_r_12__1YE9s {\n  font-size: 12px; }\n\n.font-module_black_opacity_2__icR8L {\n  color: rgba(0, 0, 0, 0.2); }\n\n.font-module_black_opacity_3__3F8Hv {\n  color: rgba(0, 0, 0, 0.3); }\n\n.font-module_black_opacity_4__39p6b {\n  color: rgba(0, 0, 0, 0.4); }\n\n.font-module_black_opacity_5__2sq4k {\n  color: rgba(0, 0, 0, 0.5); }\n\n.font-module_black_opacity_6__2IZKi {\n  color: rgba(0, 0, 0, 0.6); }\n\n.font-module_black_opacity_7__3m9k3 {\n  color: rgba(0, 0, 0, 0.7); }\n\n.font-module_black_opacity_8__1gUbG {\n  color: rgba(0, 0, 0, 0.8); }\n\n.font-module_fs12__31_tz {\n  color: #000000;\n  font-size: 12px; }\n\n.font-module_fs13__3_SbC {\n  color: #000000;\n  font-size: 13px; }\n\n.font-module_fs14__2C1ub {\n  color: #000000;\n  font-size: 14px; }\n\n.font-module_fs16__iEzao {\n  color: #000000;\n  font-size: 16px; }\n\n.font-module_fs18__1oCD8 {\n  color: #000000;\n  font-size: 18px; }\n\n.font-module_fs20__3DzbI {\n  color: #000000;\n  font-size: 20px; }\n\n.font-module_fs22__1HMrv {\n  color: #000000;\n  font-size: 22px; }\n\n.font-module_fs32__23a17 {\n  color: #000000;\n  font-size: 32px; }\n\n.font-module_fs40__2qwJI {\n  color: #000000;\n  font-size: 40px; }\n\n.font-module_fs42__1Htbb {\n  color: #000000;\n  font-size: 42px; }\n\n.font-module_fs12_black_opacity2__xRZHC {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity3__2SSyI {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity4__25OxM {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity5__QGJvM {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity6__2G5yW {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity7__355qH {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity8__Z4HlX {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 12px; }\n\n.font-module_fs14_black_opacity2__3Iwt3 {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity3__3zLOK {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity4__1rsnm {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity5__3X0qA {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity6__2g_-G {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity7__xWkoF {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity8__2xl0H {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 14px; }\n\n.font-module_fs16_black_opacity2__1pVmQ {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity3__kfKjQ {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity4__MHlM8 {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity5__hib5n {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity6__1Vntl {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity7__XyTNF {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity8__33fA6 {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 16px; }\n\n.font-module_fs18_black_opacity2__1kXFl {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity3__2It1I {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity4__2V5EB {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity5__1I_PD {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity6__3Cr46 {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity7__2CjKk {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity8__3GsBZ {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 18px; }\n\n.font-module_fs20_black_opacity2__3V1SX {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity3__rvYr7 {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity4__2r4uI {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity5__25hQI {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity6__2Ku8M {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity7__WJ73P {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity8__1n5dW {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 20px; }\n\n.font-module_fs22_black_opacity2__2NwCy {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity3__3Cqry {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity4__2VtxV {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity5__29WTq {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity6__3MIO_ {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity7__1BAgl {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity8__1Iyb3 {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 22px; }\n\n.font-module_fs32_black_opacity2__2KWq6 {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity3__2hLsO {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity4__HELf5 {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity5__x53_a {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity6__v6U6_ {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity7__2JTxu {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity8__1Bzu6 {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 32px; }\n\n.font-module_fs40_black_opacity2__tvtj3 {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity3__aPau4 {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity4__1U64R {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity5__1ImUH {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity6__8E7aU {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity7__KxQCO {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity8__2-FIH {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 40px; }\n\n.font-module_fs42_black_opacity2__1rtJi {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity3__1X4_L {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity4__3e4qW {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity5__2j3GU {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity6__1HI_o {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity7__1zT_l {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity8__2wOXJ {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 42px; }\n\n.font-module_fc_pmblue01__IQ3O4 {\n  color: #f7fbff; }\n\n.font-module_fc_pmblue02__2ZUKT {\n  color: #eef7ff; }\n\n.font-module_fc_pmblue__1rWPx {\n  color: #189bff; }\n\n.font-module_fc_pmnavy__2l531 {\n  color: #132a4a; }\n\n.font-module_fc_grey01__2F47K {\n  color: #f8f9fa; }\n\n.font-module_fc_grey02__2n_Kc {\n  color: #f3f6f8; }\n\n.font-module_fc_grey03__3-GTx {\n  color: #edf1f5; }\n\n.font-module_fc_grey04__1Ka-- {\n  color: #e7ebee; }\n\n.font-module_fc_grey05__1zRQ5 {\n  color: #d3d9de; }\n\n.font-module_fc_grey06__1znlE {\n  color: #b0b8c1; }\n\n.font-module_fc_grey07__1985b {\n  color: #8b96a3; }\n\n.font-module_fc_grey08__1xFmM {\n  color: #6d7884; }\n\n.font-module_fc_grey09__1na4g {\n  color: #4d5661; }\n\n.font-module_fc_grey10__1NL86 {\n  color: #303841; }\n\n.font-module_fc_red01__2UWsV {\n  color: #ff5d46; }\n\n.font-module_fc_red02__1JjCE {\n  color: #c70901; }\n\n.font-module_bold__1aMQB {\n  font-weight: bold; }\n";
+var fontStyle = {"font":"font-module_font__1pbr7","summary_b_42":"font-module_summary_b_42__npbYY","search_b_32":"font-module_search_b_32__3-265","header_b_22":"font-module_header_b_22__9B2mM","body_b_20":"font-module_body_b_20__edw-k","body_b_18":"font-module_body_b_18__3DIfb","body_b_16":"font-module_body_b_16__2lhMQ","body_b_14":"font-module_body_b_14__y0YSD","body_r_20":"font-module_body_r_20__102C5","body_r_18":"font-module_body_r_18__1Dp65","body_r_16":"font-module_body_r_16__3i8HZ","body_r_14":"font-module_body_r_14__3nMvr","body_r_12":"font-module_body_r_12__1YE9s","fs12":"font-module_fs12__31_tz","fs13":"font-module_fs13__3_SbC","fs14":"font-module_fs14__2C1ub","fs16":"font-module_fs16__iEzao","fs18":"font-module_fs18__1oCD8","fs20":"font-module_fs20__3DzbI","fs22":"font-module_fs22__1HMrv","fs32":"font-module_fs32__23a17","fs40":"font-module_fs40__2qwJI","fs42":"font-module_fs42__1Htbb","fs12_black_opacity2":"font-module_fs12_black_opacity2__xRZHC","fs12_black_opacity3":"font-module_fs12_black_opacity3__2SSyI","fs12_black_opacity4":"font-module_fs12_black_opacity4__25OxM","fs12_black_opacity5":"font-module_fs12_black_opacity5__QGJvM","fs12_black_opacity6":"font-module_fs12_black_opacity6__2G5yW","fs12_black_opacity7":"font-module_fs12_black_opacity7__355qH","fs12_black_opacity8":"font-module_fs12_black_opacity8__Z4HlX","fs14_black_opacity2":"font-module_fs14_black_opacity2__3Iwt3","fs14_black_opacity3":"font-module_fs14_black_opacity3__3zLOK","fs14_black_opacity4":"font-module_fs14_black_opacity4__1rsnm","fs14_black_opacity5":"font-module_fs14_black_opacity5__3X0qA","fs14_black_opacity6":"font-module_fs14_black_opacity6__2g_-G","fs14_black_opacity7":"font-module_fs14_black_opacity7__xWkoF","fs14_black_opacity8":"font-module_fs14_black_opacity8__2xl0H","fs16_black_opacity2":"font-module_fs16_black_opacity2__1pVmQ","fs16_black_opacity3":"font-module_fs16_black_opacity3__kfKjQ","fs16_black_opacity4":"font-module_fs16_black_opacity4__MHlM8","fs16_black_opacity5":"font-module_fs16_black_opacity5__hib5n","fs16_black_opacity6":"font-module_fs16_black_opacity6__1Vntl","fs16_black_opacity7":"font-module_fs16_black_opacity7__XyTNF","fs16_black_opacity8":"font-module_fs16_black_opacity8__33fA6","fs18_black_opacity2":"font-module_fs18_black_opacity2__1kXFl","fs18_black_opacity3":"font-module_fs18_black_opacity3__2It1I","fs18_black_opacity4":"font-module_fs18_black_opacity4__2V5EB","fs18_black_opacity5":"font-module_fs18_black_opacity5__1I_PD","fs18_black_opacity6":"font-module_fs18_black_opacity6__3Cr46","fs18_black_opacity7":"font-module_fs18_black_opacity7__2CjKk","fs18_black_opacity8":"font-module_fs18_black_opacity8__3GsBZ","fs20_black_opacity2":"font-module_fs20_black_opacity2__3V1SX","fs20_black_opacity3":"font-module_fs20_black_opacity3__rvYr7","fs20_black_opacity4":"font-module_fs20_black_opacity4__2r4uI","fs20_black_opacity5":"font-module_fs20_black_opacity5__25hQI","fs20_black_opacity6":"font-module_fs20_black_opacity6__2Ku8M","fs20_black_opacity7":"font-module_fs20_black_opacity7__WJ73P","fs20_black_opacity8":"font-module_fs20_black_opacity8__1n5dW","fs22_black_opacity2":"font-module_fs22_black_opacity2__2NwCy","fs22_black_opacity3":"font-module_fs22_black_opacity3__3Cqry","fs22_black_opacity4":"font-module_fs22_black_opacity4__2VtxV","fs22_black_opacity5":"font-module_fs22_black_opacity5__29WTq","fs22_black_opacity6":"font-module_fs22_black_opacity6__3MIO_","fs22_black_opacity7":"font-module_fs22_black_opacity7__1BAgl","fs22_black_opacity8":"font-module_fs22_black_opacity8__1Iyb3","fs32_black_opacity2":"font-module_fs32_black_opacity2__2KWq6","fs32_black_opacity3":"font-module_fs32_black_opacity3__2hLsO","fs32_black_opacity4":"font-module_fs32_black_opacity4__HELf5","fs32_black_opacity5":"font-module_fs32_black_opacity5__x53_a","fs32_black_opacity6":"font-module_fs32_black_opacity6__v6U6_","fs32_black_opacity7":"font-module_fs32_black_opacity7__2JTxu","fs32_black_opacity8":"font-module_fs32_black_opacity8__1Bzu6","fs40_black_opacity2":"font-module_fs40_black_opacity2__tvtj3","fs40_black_opacity3":"font-module_fs40_black_opacity3__aPau4","fs40_black_opacity4":"font-module_fs40_black_opacity4__1U64R","fs40_black_opacity5":"font-module_fs40_black_opacity5__1ImUH","fs40_black_opacity6":"font-module_fs40_black_opacity6__8E7aU","fs40_black_opacity7":"font-module_fs40_black_opacity7__KxQCO","fs40_black_opacity8":"font-module_fs40_black_opacity8__2-FIH","fs42_black_opacity2":"font-module_fs42_black_opacity2__1rtJi","fs42_black_opacity3":"font-module_fs42_black_opacity3__1X4_L","fs42_black_opacity4":"font-module_fs42_black_opacity4__3e4qW","fs42_black_opacity5":"font-module_fs42_black_opacity5__2j3GU","fs42_black_opacity6":"font-module_fs42_black_opacity6__1HI_o","fs42_black_opacity7":"font-module_fs42_black_opacity7__1zT_l","fs42_black_opacity8":"font-module_fs42_black_opacity8__2wOXJ","black_opacity_2":"font-module_black_opacity_2__icR8L","black_opacity_3":"font-module_black_opacity_3__3F8Hv","black_opacity_4":"font-module_black_opacity_4__39p6b","black_opacity_5":"font-module_black_opacity_5__2sq4k","black_opacity_6":"font-module_black_opacity_6__2IZKi","black_opacity_7":"font-module_black_opacity_7__3m9k3","black_opacity_8":"font-module_black_opacity_8__1gUbG","fc_pmblue01":"font-module_fc_pmblue01__IQ3O4","fc_pmblue02":"font-module_fc_pmblue02__2ZUKT","fc_pmblue":"font-module_fc_pmblue__1rWPx","fc_pmnavy":"font-module_fc_pmnavy__2l531","fc_grey01":"font-module_fc_grey01__2F47K","fc_grey02":"font-module_fc_grey02__2n_Kc","fc_grey03":"font-module_fc_grey03__3-GTx","fc_grey04":"font-module_fc_grey04__1Ka--","fc_grey05":"font-module_fc_grey05__1zRQ5","fc_grey06":"font-module_fc_grey06__1znlE","fc_grey07":"font-module_fc_grey07__1985b","fc_grey08":"font-module_fc_grey08__1xFmM","fc_grey09":"font-module_fc_grey09__1na4g","fc_grey10":"font-module_fc_grey10__1NL86","fc_red01":"font-module_fc_red01__2UWsV","fc_red02":"font-module_fc_red02__1JjCE","bold":"font-module_bold__1aMQB"};
 styleInject(css_248z);
 
 var RadiusGauge = function RadiusGauge(_ref) {
@@ -18991,6 +19042,7 @@ var RadiusGauge = function RadiusGauge(_ref) {
   var radius = 103;
   var angleScale = d3.scaleLinear().domain([0, 1]).range([0, 180]);
   var colors = getColorsByTheme(theme);
+  var pinColor = ColorSetMap.sea200;
 
   if (score >= 0 && score <= 1) {
     return React__default.createElement("svg", {
@@ -19018,33 +19070,45 @@ var RadiusGauge = function RadiusGauge(_ref) {
       d: "M 50,160 A ".concat(radius, " ").concat(radius, " 0 1 1 250 160"),
       fill: "none",
       stroke: "url(#gaugeGradient)",
-      strokeWidth: "10"
+      strokeWidth: "12"
     })), React__default.createElement("path", {
       transform: "translate(75, 150) rotate(".concat(angleScale(score), ", 75, 3.1)"),
-      fill: "#189BFF",
+      fill: pinColor,
       fillRule: "evenodd",
       d: "M1.605 4.5l64.83 2.434A3.437 3.437 0 0 0 70 3.5 3.437 3.437 0 0 0 66.434.066L1.605 2.5a1 1 0 0 0 0 1.998z"
     }), React__default.createElement("g", {
       transform: "translate(0, 55)",
-      className: styles.gauge_point
+      className: fontStyle.fs13,
+      style: {
+        textAnchor: 'middle',
+        fill: colorV1.$grey08
+      }
     }, React__default.createElement("text", {
       x: cx - Math.round(120 * Math.cos(0)),
-      y: cy - Math.round(120 * Math.sin(0))
+      y: cy - Math.round(120 * Math.sin(0)),
+      dx: 0
     }, "0"), React__default.createElement("text", {
       x: cx - Math.round(120 * Math.cos(Math.PI / 4)),
-      y: cy - Math.round(120 * Math.sin(Math.PI / 4))
+      y: cy - Math.round(120 * Math.sin(Math.PI / 4)),
+      dx: -6
     }, "0.25"), React__default.createElement("text", {
       x: cx + Math.round(120 * Math.cos(Math.PI / 2)),
       y: cy - Math.round(120 * Math.sin(Math.PI / 2))
     }, "0.5"), React__default.createElement("text", {
       x: cx + Math.round(120 * Math.cos(Math.PI / 4)),
-      y: cy - Math.round(120 * Math.sin(Math.PI / 4))
+      y: cy - Math.round(120 * Math.sin(Math.PI / 4)),
+      dx: 6
     }, "0.75"), React__default.createElement("text", {
       x: cx + Math.round(120 * Math.cos(0)),
-      y: cy - Math.round(120 * Math.sin(0))
+      y: cy - Math.round(120 * Math.sin(0)),
+      dx: 6
     }, "1.0")), React__default.createElement("g", {
       transform: "translate(150, 200)",
-      className: styles.gauge_score
+      className: "".concat(fontStyle.fs32, " ").concat(fontStyle.bold),
+      style: {
+        textAnchor: 'middle',
+        fill: colorV1.$grey10
+      }
     }, React__default.createElement("text", null, "".concat(score).slice(0, 4))));
   }
 
@@ -22024,10 +22088,6 @@ SelectedCard.propTypes = {
   isLastHighlighted: propTypes.bool
 };
 
-var css_248z$1 = ".font-module_font__1pbr7, .font-module_summary_b_42__npbYY, .font-module_search_b_32__3-265, .font-module_header_b_22__9B2mM, .font-module_body_b_20__edw-k, .font-module_body_b_18__3DIfb, .font-module_body_b_16__2lhMQ, .font-module_body_b_14__y0YSD, .font-module_body_r_20__102C5, .font-module_body_r_18__1Dp65, .font-module_body_r_16__3i8HZ, .font-module_body_r_14__3nMvr, .font-module_body_r_12__1YE9s, .font-module_fs12__31_tz, .font-module_fs14__2C1ub, .font-module_fs16__iEzao, .font-module_fs18__1oCD8, .font-module_fs20__3DzbI, .font-module_fs22__1HMrv, .font-module_fs32__23a17, .font-module_fs40__2qwJI, .font-module_fs42__1Htbb, .font-module_fs12_black_opacity2__xRZHC, .font-module_fs12_black_opacity3__2SSyI, .font-module_fs12_black_opacity4__25OxM, .font-module_fs12_black_opacity5__QGJvM, .font-module_fs12_black_opacity6__2G5yW, .font-module_fs12_black_opacity7__355qH, .font-module_fs12_black_opacity8__Z4HlX, .font-module_fs14_black_opacity2__3Iwt3, .font-module_fs14_black_opacity3__3zLOK, .font-module_fs14_black_opacity4__1rsnm, .font-module_fs14_black_opacity5__3X0qA, .font-module_fs14_black_opacity6__2g_-G, .font-module_fs14_black_opacity7__xWkoF, .font-module_fs14_black_opacity8__2xl0H, .font-module_fs16_black_opacity2__1pVmQ, .font-module_fs16_black_opacity3__kfKjQ, .font-module_fs16_black_opacity4__MHlM8, .font-module_fs16_black_opacity5__hib5n, .font-module_fs16_black_opacity6__1Vntl, .font-module_fs16_black_opacity7__XyTNF, .font-module_fs16_black_opacity8__33fA6, .font-module_fs18_black_opacity2__1kXFl, .font-module_fs18_black_opacity3__2It1I, .font-module_fs18_black_opacity4__2V5EB, .font-module_fs18_black_opacity5__1I_PD, .font-module_fs18_black_opacity6__3Cr46, .font-module_fs18_black_opacity7__2CjKk, .font-module_fs18_black_opacity8__3GsBZ, .font-module_fs20_black_opacity2__3V1SX, .font-module_fs20_black_opacity3__rvYr7, .font-module_fs20_black_opacity4__2r4uI, .font-module_fs20_black_opacity5__25hQI, .font-module_fs20_black_opacity6__2Ku8M, .font-module_fs20_black_opacity7__WJ73P, .font-module_fs20_black_opacity8__1n5dW, .font-module_fs22_black_opacity2__2NwCy, .font-module_fs22_black_opacity3__3Cqry, .font-module_fs22_black_opacity4__2VtxV, .font-module_fs22_black_opacity5__29WTq, .font-module_fs22_black_opacity6__3MIO_, .font-module_fs22_black_opacity7__1BAgl, .font-module_fs22_black_opacity8__1Iyb3, .font-module_fs32_black_opacity2__2KWq6, .font-module_fs32_black_opacity3__2hLsO, .font-module_fs32_black_opacity4__HELf5, .font-module_fs32_black_opacity5__x53_a, .font-module_fs32_black_opacity6__v6U6_, .font-module_fs32_black_opacity7__2JTxu, .font-module_fs32_black_opacity8__1Bzu6, .font-module_fs40_black_opacity2__tvtj3, .font-module_fs40_black_opacity3__aPau4, .font-module_fs40_black_opacity4__1U64R, .font-module_fs40_black_opacity5__1ImUH, .font-module_fs40_black_opacity6__8E7aU, .font-module_fs40_black_opacity7__KxQCO, .font-module_fs40_black_opacity8__2-FIH, .font-module_fs42_black_opacity2__1rtJi, .font-module_fs42_black_opacity3__1X4_L, .font-module_fs42_black_opacity4__3e4qW, .font-module_fs42_black_opacity5__2j3GU, .font-module_fs42_black_opacity6__1HI_o, .font-module_fs42_black_opacity7__1zT_l, .font-module_fs42_black_opacity8__2wOXJ {\n  letter-spacing: -0.5px; }\n\n.font-module_summary_b_42__npbYY, .font-module_search_b_32__3-265, .font-module_header_b_22__9B2mM, .font-module_body_b_20__edw-k, .font-module_body_b_18__3DIfb, .font-module_body_b_16__2lhMQ, .font-module_body_b_14__y0YSD {\n  font-weight: bold;\n  color: #000000; }\n\n.font-module_summary_b_42__npbYY {\n  font-size: 42px; }\n\n.font-module_search_b_32__3-265 {\n  font-size: 32px; }\n\n.font-module_header_b_22__9B2mM {\n  font-size: 22px; }\n\n.font-module_body_b_20__edw-k, .font-module_body_r_20__102C5 {\n  font-size: 20px; }\n\n.font-module_body_b_18__3DIfb, .font-module_body_r_18__1Dp65 {\n  font-size: 18px; }\n\n.font-module_body_r_20__102C5, .font-module_body_r_18__1Dp65, .font-module_body_r_16__3i8HZ, .font-module_body_r_14__3nMvr, .font-module_body_r_12__1YE9s {\n  font-weight: normal;\n  color: #000000; }\n\n.font-module_body_b_16__2lhMQ, .font-module_body_r_16__3i8HZ {\n  font-size: 16px; }\n\n.font-module_body_b_14__y0YSD, .font-module_body_r_14__3nMvr {\n  font-size: 14px; }\n\n.font-module_body_r_12__1YE9s {\n  font-size: 12px; }\n\n.font-module_black_opacity_2__icR8L {\n  color: rgba(0, 0, 0, 0.2); }\n\n.font-module_black_opacity_3__3F8Hv {\n  color: rgba(0, 0, 0, 0.3); }\n\n.font-module_black_opacity_4__39p6b {\n  color: rgba(0, 0, 0, 0.4); }\n\n.font-module_black_opacity_5__2sq4k {\n  color: rgba(0, 0, 0, 0.5); }\n\n.font-module_black_opacity_6__2IZKi {\n  color: rgba(0, 0, 0, 0.6); }\n\n.font-module_black_opacity_7__3m9k3 {\n  color: rgba(0, 0, 0, 0.7); }\n\n.font-module_black_opacity_8__1gUbG {\n  color: rgba(0, 0, 0, 0.8); }\n\n.font-module_fs12__31_tz {\n  color: #000000;\n  font-size: 12px; }\n\n.font-module_fs14__2C1ub {\n  color: #000000;\n  font-size: 14px; }\n\n.font-module_fs16__iEzao {\n  color: #000000;\n  font-size: 16px; }\n\n.font-module_fs18__1oCD8 {\n  color: #000000;\n  font-size: 18px; }\n\n.font-module_fs20__3DzbI {\n  color: #000000;\n  font-size: 20px; }\n\n.font-module_fs22__1HMrv {\n  color: #000000;\n  font-size: 22px; }\n\n.font-module_fs32__23a17 {\n  color: #000000;\n  font-size: 32px; }\n\n.font-module_fs40__2qwJI {\n  color: #000000;\n  font-size: 40px; }\n\n.font-module_fs42__1Htbb {\n  color: #000000;\n  font-size: 42px; }\n\n.font-module_fs12_black_opacity2__xRZHC {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity3__2SSyI {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity4__25OxM {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity5__QGJvM {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity6__2G5yW {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity7__355qH {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 12px; }\n\n.font-module_fs12_black_opacity8__Z4HlX {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 12px; }\n\n.font-module_fs14_black_opacity2__3Iwt3 {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity3__3zLOK {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity4__1rsnm {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity5__3X0qA {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity6__2g_-G {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity7__xWkoF {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 14px; }\n\n.font-module_fs14_black_opacity8__2xl0H {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 14px; }\n\n.font-module_fs16_black_opacity2__1pVmQ {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity3__kfKjQ {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity4__MHlM8 {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity5__hib5n {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity6__1Vntl {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity7__XyTNF {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 16px; }\n\n.font-module_fs16_black_opacity8__33fA6 {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 16px; }\n\n.font-module_fs18_black_opacity2__1kXFl {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity3__2It1I {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity4__2V5EB {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity5__1I_PD {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity6__3Cr46 {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity7__2CjKk {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 18px; }\n\n.font-module_fs18_black_opacity8__3GsBZ {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 18px; }\n\n.font-module_fs20_black_opacity2__3V1SX {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity3__rvYr7 {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity4__2r4uI {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity5__25hQI {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity6__2Ku8M {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity7__WJ73P {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 20px; }\n\n.font-module_fs20_black_opacity8__1n5dW {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 20px; }\n\n.font-module_fs22_black_opacity2__2NwCy {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity3__3Cqry {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity4__2VtxV {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity5__29WTq {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity6__3MIO_ {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity7__1BAgl {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 22px; }\n\n.font-module_fs22_black_opacity8__1Iyb3 {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 22px; }\n\n.font-module_fs32_black_opacity2__2KWq6 {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity3__2hLsO {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity4__HELf5 {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity5__x53_a {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity6__v6U6_ {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity7__2JTxu {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 32px; }\n\n.font-module_fs32_black_opacity8__1Bzu6 {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 32px; }\n\n.font-module_fs40_black_opacity2__tvtj3 {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity3__aPau4 {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity4__1U64R {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity5__1ImUH {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity6__8E7aU {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity7__KxQCO {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 40px; }\n\n.font-module_fs40_black_opacity8__2-FIH {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 40px; }\n\n.font-module_fs42_black_opacity2__1rtJi {\n  color: rgba(0, 0, 0, 0.2);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity3__1X4_L {\n  color: rgba(0, 0, 0, 0.3);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity4__3e4qW {\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity5__2j3GU {\n  color: rgba(0, 0, 0, 0.5);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity6__1HI_o {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity7__1zT_l {\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 42px; }\n\n.font-module_fs42_black_opacity8__2wOXJ {\n  color: rgba(0, 0, 0, 0.8);\n  font-size: 42px; }\n\n.font-module_fc_pmblue01__IQ3O4 {\n  color: #f7fbff; }\n\n.font-module_fc_pmblue02__2ZUKT {\n  color: #eef7ff; }\n\n.font-module_fc_pmblue__1rWPx {\n  color: #189bff; }\n\n.font-module_fc_pmnavy__2l531 {\n  color: #132a4a; }\n\n.font-module_fc_grey01__2F47K {\n  color: #f8f9fa; }\n\n.font-module_fc_grey02__2n_Kc {\n  color: #f3f6f8; }\n\n.font-module_fc_grey03__3-GTx {\n  color: #edf1f5; }\n\n.font-module_fc_grey04__1Ka-- {\n  color: #e7ebee; }\n\n.font-module_fc_grey05__1zRQ5 {\n  color: #d3d9de; }\n\n.font-module_fc_grey06__1znlE {\n  color: #b0b8c1; }\n\n.font-module_fc_grey07__1985b {\n  color: #8b96a3; }\n\n.font-module_fc_grey08__1xFmM {\n  color: #6d7884; }\n\n.font-module_fc_grey09__1na4g {\n  color: #4d5661; }\n\n.font-module_fc_grey10__1NL86 {\n  color: #303841; }\n\n.font-module_fc_red01__2UWsV {\n  color: #ff5d46; }\n\n.font-module_fc_red02__1JjCE {\n  color: #c70901; }\n\n.font-module_bold__1aMQB {\n  font-weight: bold; }\n";
-var fontStyle = {"font":"font-module_font__1pbr7","summary_b_42":"font-module_summary_b_42__npbYY","search_b_32":"font-module_search_b_32__3-265","header_b_22":"font-module_header_b_22__9B2mM","body_b_20":"font-module_body_b_20__edw-k","body_b_18":"font-module_body_b_18__3DIfb","body_b_16":"font-module_body_b_16__2lhMQ","body_b_14":"font-module_body_b_14__y0YSD","body_r_20":"font-module_body_r_20__102C5","body_r_18":"font-module_body_r_18__1Dp65","body_r_16":"font-module_body_r_16__3i8HZ","body_r_14":"font-module_body_r_14__3nMvr","body_r_12":"font-module_body_r_12__1YE9s","fs12":"font-module_fs12__31_tz","fs14":"font-module_fs14__2C1ub","fs16":"font-module_fs16__iEzao","fs18":"font-module_fs18__1oCD8","fs20":"font-module_fs20__3DzbI","fs22":"font-module_fs22__1HMrv","fs32":"font-module_fs32__23a17","fs40":"font-module_fs40__2qwJI","fs42":"font-module_fs42__1Htbb","fs12_black_opacity2":"font-module_fs12_black_opacity2__xRZHC","fs12_black_opacity3":"font-module_fs12_black_opacity3__2SSyI","fs12_black_opacity4":"font-module_fs12_black_opacity4__25OxM","fs12_black_opacity5":"font-module_fs12_black_opacity5__QGJvM","fs12_black_opacity6":"font-module_fs12_black_opacity6__2G5yW","fs12_black_opacity7":"font-module_fs12_black_opacity7__355qH","fs12_black_opacity8":"font-module_fs12_black_opacity8__Z4HlX","fs14_black_opacity2":"font-module_fs14_black_opacity2__3Iwt3","fs14_black_opacity3":"font-module_fs14_black_opacity3__3zLOK","fs14_black_opacity4":"font-module_fs14_black_opacity4__1rsnm","fs14_black_opacity5":"font-module_fs14_black_opacity5__3X0qA","fs14_black_opacity6":"font-module_fs14_black_opacity6__2g_-G","fs14_black_opacity7":"font-module_fs14_black_opacity7__xWkoF","fs14_black_opacity8":"font-module_fs14_black_opacity8__2xl0H","fs16_black_opacity2":"font-module_fs16_black_opacity2__1pVmQ","fs16_black_opacity3":"font-module_fs16_black_opacity3__kfKjQ","fs16_black_opacity4":"font-module_fs16_black_opacity4__MHlM8","fs16_black_opacity5":"font-module_fs16_black_opacity5__hib5n","fs16_black_opacity6":"font-module_fs16_black_opacity6__1Vntl","fs16_black_opacity7":"font-module_fs16_black_opacity7__XyTNF","fs16_black_opacity8":"font-module_fs16_black_opacity8__33fA6","fs18_black_opacity2":"font-module_fs18_black_opacity2__1kXFl","fs18_black_opacity3":"font-module_fs18_black_opacity3__2It1I","fs18_black_opacity4":"font-module_fs18_black_opacity4__2V5EB","fs18_black_opacity5":"font-module_fs18_black_opacity5__1I_PD","fs18_black_opacity6":"font-module_fs18_black_opacity6__3Cr46","fs18_black_opacity7":"font-module_fs18_black_opacity7__2CjKk","fs18_black_opacity8":"font-module_fs18_black_opacity8__3GsBZ","fs20_black_opacity2":"font-module_fs20_black_opacity2__3V1SX","fs20_black_opacity3":"font-module_fs20_black_opacity3__rvYr7","fs20_black_opacity4":"font-module_fs20_black_opacity4__2r4uI","fs20_black_opacity5":"font-module_fs20_black_opacity5__25hQI","fs20_black_opacity6":"font-module_fs20_black_opacity6__2Ku8M","fs20_black_opacity7":"font-module_fs20_black_opacity7__WJ73P","fs20_black_opacity8":"font-module_fs20_black_opacity8__1n5dW","fs22_black_opacity2":"font-module_fs22_black_opacity2__2NwCy","fs22_black_opacity3":"font-module_fs22_black_opacity3__3Cqry","fs22_black_opacity4":"font-module_fs22_black_opacity4__2VtxV","fs22_black_opacity5":"font-module_fs22_black_opacity5__29WTq","fs22_black_opacity6":"font-module_fs22_black_opacity6__3MIO_","fs22_black_opacity7":"font-module_fs22_black_opacity7__1BAgl","fs22_black_opacity8":"font-module_fs22_black_opacity8__1Iyb3","fs32_black_opacity2":"font-module_fs32_black_opacity2__2KWq6","fs32_black_opacity3":"font-module_fs32_black_opacity3__2hLsO","fs32_black_opacity4":"font-module_fs32_black_opacity4__HELf5","fs32_black_opacity5":"font-module_fs32_black_opacity5__x53_a","fs32_black_opacity6":"font-module_fs32_black_opacity6__v6U6_","fs32_black_opacity7":"font-module_fs32_black_opacity7__2JTxu","fs32_black_opacity8":"font-module_fs32_black_opacity8__1Bzu6","fs40_black_opacity2":"font-module_fs40_black_opacity2__tvtj3","fs40_black_opacity3":"font-module_fs40_black_opacity3__aPau4","fs40_black_opacity4":"font-module_fs40_black_opacity4__1U64R","fs40_black_opacity5":"font-module_fs40_black_opacity5__1ImUH","fs40_black_opacity6":"font-module_fs40_black_opacity6__8E7aU","fs40_black_opacity7":"font-module_fs40_black_opacity7__KxQCO","fs40_black_opacity8":"font-module_fs40_black_opacity8__2-FIH","fs42_black_opacity2":"font-module_fs42_black_opacity2__1rtJi","fs42_black_opacity3":"font-module_fs42_black_opacity3__1X4_L","fs42_black_opacity4":"font-module_fs42_black_opacity4__3e4qW","fs42_black_opacity5":"font-module_fs42_black_opacity5__2j3GU","fs42_black_opacity6":"font-module_fs42_black_opacity6__1HI_o","fs42_black_opacity7":"font-module_fs42_black_opacity7__1zT_l","fs42_black_opacity8":"font-module_fs42_black_opacity8__2wOXJ","black_opacity_2":"font-module_black_opacity_2__icR8L","black_opacity_3":"font-module_black_opacity_3__3F8Hv","black_opacity_4":"font-module_black_opacity_4__39p6b","black_opacity_5":"font-module_black_opacity_5__2sq4k","black_opacity_6":"font-module_black_opacity_6__2IZKi","black_opacity_7":"font-module_black_opacity_7__3m9k3","black_opacity_8":"font-module_black_opacity_8__1gUbG","fc_pmblue01":"font-module_fc_pmblue01__IQ3O4","fc_pmblue02":"font-module_fc_pmblue02__2ZUKT","fc_pmblue":"font-module_fc_pmblue__1rWPx","fc_pmnavy":"font-module_fc_pmnavy__2l531","fc_grey01":"font-module_fc_grey01__2F47K","fc_grey02":"font-module_fc_grey02__2n_Kc","fc_grey03":"font-module_fc_grey03__3-GTx","fc_grey04":"font-module_fc_grey04__1Ka--","fc_grey05":"font-module_fc_grey05__1zRQ5","fc_grey06":"font-module_fc_grey06__1znlE","fc_grey07":"font-module_fc_grey07__1985b","fc_grey08":"font-module_fc_grey08__1xFmM","fc_grey09":"font-module_fc_grey09__1na4g","fc_grey10":"font-module_fc_grey10__1NL86","fc_red01":"font-module_fc_red01__2UWsV","fc_red02":"font-module_fc_red02__1JjCE","bold":"font-module_bold__1aMQB"};
-styleInject(css_248z$1);
-
 var icnMoreModalMdDefault = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNCIgaGVpZ2h0PSIzNCIgdmlld0JveD0iMCAwIDM0IDM0Ij4KICAgIDxwYXRoIGZpbGw9IiM3NTdGOEIiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTIzIDEwYy41NTIgMCAxIC40NDggMSAxdjEyYzAgLjU1Mi0uNDQ4IDEtMSAxcy0xLS40NDgtMS0xdi05LjUxNkwxMS43MDcgMjMuNzc4Yy0uMzkuMzktMS4wMjQuMzktMS40MTQgMC0uMzktLjM5LS4zOS0xLjAyNCAwLTEuNDE0TDIwLjY1NiAxMkgxMWMtLjU1MiAwLTEtLjQ0OC0xLTFzLjQ0OC0xIDEtMWgxMnoiLz4KPC9zdmc+';
 
 function _templateObject7() {
@@ -23031,6 +23091,63 @@ function isEmpty(value) {
 
 var isEmpty_1 = isEmpty;
 
+/* eslint-disable import/prefer-default-export */
+var tableSize = {
+  small: {
+    thead: {
+      size: 13,
+      color: colorV1.$grey08,
+      bold: true,
+      padding: '8px 16px',
+      subHeader: {
+        size: 13,
+        color: colorV1.$grey08,
+        bold: true
+      }
+    },
+    tbody: {
+      size: 14,
+      color: colorV1.$grey10,
+      padding: '8px 16px'
+    },
+    tfoot: {
+      size: 14,
+      color: colorV1.$grey10,
+      bold: true,
+      padding: '12px 16px'
+    }
+  },
+  medium: {
+    thead: {
+      size: 14,
+      color: colorV1.$grey08,
+      bold: true,
+      padding: '12px 24px',
+      subHeader: {
+        size: 13,
+        color: colorV1.$grey08,
+        bold: true
+      }
+    },
+    tbody: {
+      size: 16,
+      color: colorV1.$grey10,
+      padding: '12px 24px'
+    },
+    tfoot: {
+      size: 16,
+      color: colorV1.$grey10,
+      bold: true,
+      padding: '16px 24px'
+    }
+  }
+};
+
+var tableProperties$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  tableSize: tableSize
+});
+
 var ICO_DOWN = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgMTYgOCI+CiAgICA8cGF0aCBmaWxsPSIjOTc5Nzk3IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMS42OTUgMy4yMDRMOC43MSA2LjIxNGExIDEgMCAwIDEtMS40MiAwbC0yLjk4NS0zLjAxYTEgMSAwIDAgMSAuNzEtMS43MDRoNS45N2ExIDEgMCAwIDEgLjcxIDEuNzA0eiIvPgo8L3N2Zz4=';
 
 var ICO_UP = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgMTYgOCI+CiAgICA8cGF0aCBmaWxsPSIjOTc5Nzk3IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00LjMwNSA0Ljc5NmwyLjk4NS0zLjAxYTEgMSAwIDAgMSAxLjQyIDBsMi45ODUgMy4wMWExIDEgMCAwIDEtLjcxIDEuNzA0aC01Ljk3YTEgMSAwIDAgMS0uNzEtMS43MDR6Ii8+Cjwvc3ZnPg==';
@@ -23044,7 +23161,7 @@ var ICO_DOWN_DISABLE = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy
 var ICO_UP_DISABLE = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgMTYgOCI+CiAgICA8cGF0aCBmaWxsPSIjOTc5Nzk3IiBmaWxsLW9wYWNpdHk9Ii40IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00LjMwNSA0Ljc5NmwyLjk4NS0zLjAxYTEgMSAwIDAgMSAxLjQyIDBsMi45ODUgMy4wMWExIDEgMCAwIDEtLjcxIDEuNzA0aC01Ljk3YTEgMSAwIDAgMS0uNzEtMS43MDR6Ii8+Cjwvc3ZnPg==';
 
 function _templateObject4$2() {
-  var data = _taggedTemplateLiteral(["\n  border-bottom: 2px solid ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  border-bottom: 1px solid ", ";\n"]);
 
   _templateObject4$2 = function _templateObject4() {
     return data;
@@ -23054,7 +23171,7 @@ function _templateObject4$2() {
 }
 
 function _templateObject3$4() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 28px 24px;\n  > span {\n    position: relative;\n    width: 16px;\n    height: 100%;\n    margin-left: 8px;\n  }\n  img {\n    position: absolute;\n  }\n\n  img:first-child {\n    top: 50%;\n    margin-top: -8px;\n  }\n\n  img:last-child {\n    bottom: 50%;\n    margin-bottom: -8px;\n  }\n\n  width: 100%;\n  cursor: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  > span {\n    position: relative;\n    width: 16px;\n    height: 100%;\n    margin-left: 8px;\n  }\n  img {\n    position: absolute;\n  }\n\n  img:first-child {\n    top: 50%;\n    margin-top: -8px;\n  }\n\n  img:last-child {\n    bottom: 50%;\n    margin-bottom: -8px;\n  }\n\n  width: 100%;\n  cursor: ", ";\n"]);
 
   _templateObject3$4 = function _templateObject3() {
     return data;
@@ -23064,7 +23181,7 @@ function _templateObject3$4() {
 }
 
 function _templateObject2$5() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n\n  ", ";\n\n  text-align: center;\n  background: ", ";\n\n  &:first-child {\n    border-radius: 10px 0 0 0;\n  }\n\n  &:last-child {\n    border-radius: 0 10px 0 0;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n\n  ", ";\n  \n  text-align: center;\n  background: ", ";\n\n  &:first-child {\n    border-radius: 8px 0 0 0;\n  }\n\n  &:last-child {\n    border-radius: 0 8px 0 0;\n  }\n"]);
 
   _templateObject2$5 = function _templateObject2() {
     return data;
@@ -23074,7 +23191,7 @@ function _templateObject2$5() {
 }
 
 function _templateObject$5() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 12px 22px;\n  text-align: center;\n  background: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 6px 16px;\n  text-align: center;\n  background: ", ";\n"]);
 
   _templateObject$5 = function _templateObject() {
     return data;
@@ -23082,50 +23199,32 @@ function _templateObject$5() {
 
   return data;
 }
-var Td = styled__default.td.attrs(function () {
-  return {
-    size: 16,
-    bold: true,
-    opacity: 6
-  };
-})(_templateObject$5(), Text, color.$table_grey);
-var Th = styled__default.th.attrs(function () {
-  return {
-    size: 16,
-    bold: true,
-    opacity: 6
-  };
-})(_templateObject2$5(), Text, function (props) {
-  return props.sort ? "" : "padding: 28px 24px";
-}, color.$table_grey);
-var SortButton = styled__default.button.attrs(function () {
-  return {
-    size: 16,
-    bold: true,
-    opacity: 6
-  };
+var Td = styled__default.td.attrs(function (_ref) {
+  var size = _ref.size;
+  return _objectSpread2({}, tableSize[size].thead.subHeader);
+})(_templateObject$5(), Text, colorV1.$grey02);
+var Th = styled__default.th.attrs(function (_ref2) {
+  var size = _ref2.size;
+  return _objectSpread2({}, tableSize[size].thead);
+})(_templateObject2$5(), Text, function (_ref3) {
+  var padding = _ref3.padding;
+  return "padding: ".concat(padding);
+}, colorV1.$grey02);
+var SortButton = styled__default.button.attrs(function (_ref4) {
+  var size = _ref4.size;
+  return _objectSpread2({}, tableSize[size].thead);
 })(_templateObject3$4(), Text, function (props) {
   return props.disabled ? 'not-allowed' : 'pointer';
 });
-var Thead = styled__default.thead(_templateObject4$2(), color.$line_dashboard_edge_grey);
+var Thead = styled__default.thead(_templateObject4$2(), colorV1.$grey04);
 
 var TrEmpty = function TrEmpty() {
   return React__default.createElement("tr", null, React__default.createElement("th", null, "\xA0"));
 };
 
-var createSubHeader = function createSubHeader(subHeaderData) {
-  var subTitleGroup = Object.values(subHeaderData).join().split(',');
-  return React__default.createElement("tr", null, subTitleGroup.map(function (subTitle, i) {
-    var key = "subheader_".concat(subTitle).concat(i);
-    return React__default.createElement(Td, {
-      key: key
-    }, subTitle);
-  }));
-};
-
-var HeaderText = function HeaderText(_ref) {
-  var text = _ref.text,
-      wrapTh = _ref.wrapTh;
+var HeaderText = function HeaderText(_ref5) {
+  var text = _ref5.text,
+      wrapTh = _ref5.wrapTh;
   return wrapTh ? wrapTh({
     text: text
   }) : React__default.createElement("div", null, text);
@@ -23138,9 +23237,9 @@ HeaderText.propTypes = {
   text: propTypes.string.isRequired,
   wrapTh: propTypes.func
 };
-var HeaderSortIcon = function HeaderSortIcon(_ref2) {
-  var sort = _ref2.sort,
-      loading = _ref2.loading;
+var HeaderSortIcon = function HeaderSortIcon(_ref6) {
+  var sort = _ref6.sort,
+      loading = _ref6.loading;
 
   if (loading) {
     return React__default.createElement("span", null, React__default.createElement("img", {
@@ -23189,15 +23288,17 @@ HeaderSortIcon.propTypes = {
   sort: propTypes.string
 };
 
-var HeaderTextSort = function HeaderTextSort(_ref3) {
-  var text = _ref3.text,
-      sort = _ref3.sort,
-      toggle = _ref3.toggle,
-      loading = _ref3.loading;
+var HeaderTextSort = function HeaderTextSort(_ref7) {
+  var text = _ref7.text,
+      sort = _ref7.sort,
+      toggle = _ref7.toggle,
+      loading = _ref7.loading,
+      size = _ref7.size;
   return React__default.createElement(SortButton, {
     disabled: loading,
     type: "button",
-    onClick: sort
+    onClick: sort,
+    size: size
   }, text, React__default.createElement(HeaderSortIcon, {
     sort: toggle[text],
     loading: loading
@@ -23207,20 +23308,23 @@ var HeaderTextSort = function HeaderTextSort(_ref3) {
 HeaderTextSort.defaultProps = {
   sort: '',
   toggle: {},
-  loading: false
+  loading: false,
+  size: 'medium'
 };
 HeaderTextSort.propTypes = {
   text: propTypes.string.isRequired,
   sort: propTypes.func,
   toggle: propTypes.shape({}),
-  loading: propTypes.bool
+  loading: propTypes.bool,
+  size: propTypes.string
 };
 
-var THead = function THead(_ref4) {
-  var headers = _ref4.headers,
-      wrapTh = _ref4.wrapTh,
-      subHeaders = _ref4.subHeaders,
-      loading = _ref4.loading;
+var THead = function THead(_ref8) {
+  var headers = _ref8.headers,
+      wrapTh = _ref8.wrapTh,
+      subHeaders = _ref8.subHeaders,
+      loading = _ref8.loading,
+      size = _ref8.size;
 
   var _useState = React.useState({}),
       _useState2 = _slicedToArray(_useState, 2),
@@ -23246,6 +23350,17 @@ var THead = function THead(_ref4) {
     sort(text, toggleDumy[text]);
   };
 
+  var createSubHeader = function createSubHeader(subHeaderData) {
+    var subTitleGroup = Object.values(subHeaderData).join().split(',');
+    return React__default.createElement("tr", null, subTitleGroup.map(function (subTitle, i) {
+      var key = "subheader_".concat(subTitle).concat(i);
+      return React__default.createElement(Td, {
+        key: key,
+        size: size
+      }, subTitle);
+    }));
+  };
+
   var createHeader = function createHeader(headerData) {
     return React__default.createElement("tr", null, headerData.map(function (row) {
       var rowSpan;
@@ -23269,12 +23384,14 @@ var THead = function THead(_ref4) {
         colSpan: colSpan,
         rowSpan: rowSpan,
         key: "header_".concat(text),
-        sort: lodash.isFunction(sort)
+        sort: lodash.isFunction(sort),
+        size: size
       }, sort ? HeaderTextSort({
         text: text,
         sort: sort,
         toggle: toggle,
-        loading: loading
+        loading: loading,
+        size: size
       }) : HeaderText({
         text: text,
         wrapTh: wrapTh
@@ -23293,13 +23410,15 @@ THead.defaultProps = {
   headers: undefined,
   wrapTh: undefined,
   subHeaders: undefined,
-  loading: false
+  loading: false,
+  size: 'medium'
 };
 THead.propTypes = {
   headers: propTypes.arrayOf(propTypes.oneOfType([propTypes.string, propTypes.shape()])),
   wrapTh: propTypes.func,
   subHeaders: propTypes.shape({}),
-  loading: propTypes.bool
+  loading: propTypes.bool,
+  size: propTypes.string
 };
 
 var icnNoData = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE5OCAxNDAiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9InByZWZpeF9fYSIgZD0iTTE4OCAwbC4wMDIgMTIxLjg0MUMxNjguMDM2IDEwOS45IDEzMy4zOTMgMTAyIDk0IDEwMmMtMzkuMzk0IDAtNzQuMDM3IDcuOS05NC4wMDMgMTkuODQyTDAgMGgxODh6Ii8+CiAgICAgICAgPHBhdGggaWQ9InByZWZpeF9fZSIgZD0iTTI2IDBoNjIuMzc2YzEuMTE2IDAgMi4xOC40NjUgMi45MzcgMS4yODRsMjEuNjI0IDIzLjM4Yy42ODMuNzQgMS4wNjMgMS43MSAxLjA2MyAyLjcxNlYxMTdjMCAyLjIxLTEuNzkgNC00IDRIMjRjLTIuMjEgMC00LTEuNzktNC00VjZjMC0zLjMxNCAyLjY4Ni02IDYtNnoiLz4KICAgICAgICA8cGF0aCBpZD0icHJlZml4X19mIiBkPSJNMjYgMGg2MS41NzdjMS42MjkgMCAzLjE4Ny42NjIgNC4zMTggMS44MzRsMjAuNDIzIDIxLjE3YzEuMDggMS4xMTkgMS42ODIgMi42MTIgMS42ODIgNC4xNjZWMTEwYzAgMy4zMTQtMi42ODYgNi02IDZIMjZjLTMuMzE0IDAtNi0yLjY4Ni02LTZWNmMwLTMuMzE0IDIuNjg2LTYgNi02eiIvPgogICAgICAgIDxwYXRoIGlkPSJwcmVmaXhfX2kiIGQ9Ik0xMDIgMzVjMTIuNzAzIDAgMjMgMTAuMjk3IDIzIDIzcy0xMC4yOTcgMjMtMjMgMjMtMjMtMTAuMjk3LTIzLTIzIDEwLjI5Ny0yMyAyMy0yM3ptMCAyYy0xMS41OTggMC0yMSA5LjQwMi0yMSAyMXM5LjQwMiAyMSAyMSAyMSAyMS05LjQwMiAyMS0yMS05LjQwMi0yMS0yMS0yMXptLTUuNjU3IDEzLjkyOUwxMDIgNTYuNTg2bDUuNjU4LTUuNjU3Yy4zOS0uMzkgMS4wMjQtLjM5IDEuNDE0IDAgLjM5LjM5LjM5IDEuMDI0IDAgMS40MTRsLTUuNjU3IDUuNjU4IDUuNjU3IDUuNjU2Yy4zOS4zOS4zOSAxLjAyNCAwIDEuNDE0LS4zOS4zOS0xLjAyNC4zOS0xLjQxNCAwbC01LjY1OC01LjY1Ni01LjY1NiA1LjY1NmMtLjM5LjM5LTEuMDI0LjM5LTEuNDE0IDAtLjM5LS4zOS0uMzktMS4wMjQgMC0xLjQxNEwxMDAuNTg1IDU4bC01LjY1Ni01LjY1OGMtLjM5LS4zOS0uMzktMS4wMjQgMC0xLjQxNC4zOS0uMzkgMS4wMjQtLjM5IDEuNDE0IDB6Ii8+CiAgICAgICAgPGZpbHRlciBpZD0icHJlZml4X19jIiB3aWR0aD0iMTE3LjMlIiBoZWlnaHQ9IjEyNi40JSIgeD0iLTguNiUiIHk9Ii0xNC42JSIgZmlsdGVyVW5pdHM9Im9iamVjdEJvdW5kaW5nQm94Ij4KICAgICAgICAgICAgPGZlT2Zmc2V0IGR5PSItMiIgaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9InNoYWRvd09mZnNldE91dGVyMSIvPgogICAgICAgICAgICA8ZmVHYXVzc2lhbkJsdXIgaW49InNoYWRvd09mZnNldE91dGVyMSIgcmVzdWx0PSJzaGFkb3dCbHVyT3V0ZXIxIiBzdGREZXZpYXRpb249IjYiLz4KICAgICAgICAgICAgPGZlQ29sb3JNYXRyaXggaW49InNoYWRvd0JsdXJPdXRlcjEiIHZhbHVlcz0iMCAwIDAgMCAwLjM5MjE1Njg2MyAwIDAgMCAwIDAuNjQzMTM3MjU1IDAgMCAwIDAgMC45NTI5NDExNzYgMCAwIDAgMC41NjM4NjU4MjIgMCIvPgogICAgICAgIDwvZmlsdGVyPgogICAgICAgIDxmaWx0ZXIgaWQ9InByZWZpeF9faCIgd2lkdGg9IjE1NC4zJSIgaGVpZ2h0PSIxNTQuMyUiIHg9Ii0yNy4yJSIgeT0iLTI1JSIgZmlsdGVyVW5pdHM9Im9iamVjdEJvdW5kaW5nQm94Ij4KICAgICAgICAgICAgPGZlT2Zmc2V0IGR5PSIxIiBpbj0iU291cmNlQWxwaGEiIHJlc3VsdD0ic2hhZG93T2Zmc2V0T3V0ZXIxIi8+CiAgICAgICAgICAgIDxmZUdhdXNzaWFuQmx1ciBpbj0ic2hhZG93T2Zmc2V0T3V0ZXIxIiByZXN1bHQ9InNoYWRvd0JsdXJPdXRlcjEiIHN0ZERldmlhdGlvbj0iNCIvPgogICAgICAgICAgICA8ZmVDb2xvck1hdHJpeCBpbj0ic2hhZG93Qmx1ck91dGVyMSIgdmFsdWVzPSIwIDAgMCAwIDAuMzg4MjM1Mjk0IDAgMCAwIDAgMC42MzkyMTU2ODYgMCAwIDAgMCAwLjk1Mjk0MTE3NiAwIDAgMCAxIDAiLz4KICAgICAgICA8L2ZpbHRlcj4KICAgICAgICA8ZWxsaXBzZSBpZD0icHJlZml4X19kIiBjeD0iOTUiIGN5PSIxNzQiIHJ4PSIxMTAiIHJ5PSI3MiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1IDEwKSI+CiAgICAgICAgPG1hc2sgaWQ9InByZWZpeF9fYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI3ByZWZpeF9fYSIvPgogICAgICAgIDwvbWFzaz4KICAgICAgICA8ZyBmaWxsPSIjMDAwIiBtYXNrPSJ1cmwoI3ByZWZpeF9fYikiPgogICAgICAgICAgICA8dXNlIGZpbHRlcj0idXJsKCNwcmVmaXhfX2MpIiB4bGluazpocmVmPSIjcHJlZml4X19kIi8+CiAgICAgICAgPC9nPgogICAgICAgIDxnIG1hc2s9InVybCgjcHJlZml4X19iKSI+CiAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM1KSI+CiAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjQzBEN0ZDIiBkPSJNNiAyM2g2Ny41NDNjMS42MyAwIDMuMTkuNjYzIDQuMzIgMS44MzZsMjIuNDU3IDIzLjMwMmMxLjA3OCAxLjExOCAxLjY4IDIuNjEgMS42OCA0LjE2NFYxNDNjMCAzLjMxNC0yLjY4NiA2LTYgNkg2Yy0zLjMxNCAwLTYtMi42ODYtNi02VjI5YzAtMy4zMTQgMi42ODYtNiA2LTZ6Ii8+CiAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNwcmVmaXhfX2UiLz4KICAgICAgICAgICAgICAgIDxtYXNrIGlkPSJwcmVmaXhfX2ciIGZpbGw9IiNmZmYiPgogICAgICAgICAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI3ByZWZpeF9fZiIvPgogICAgICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICAgICAgPHVzZSBmaWxsPSIjODZBRkY0IiB4bGluazpocmVmPSIjcHJlZml4X19mIi8+CiAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjQzBEN0ZDIiBkPSJNOTAuNzI4LTYuMTY0bDI4LjY4NiAzMC40NzljLjM3OC40MDIuMzYgMS4wMzUtLjA0MyAxLjQxMy0uMTg2LjE3NS0uNDMuMjcyLS42ODUuMjcySDkzYy0yLjIxIDAtNC0xLjc5LTQtNFYtNS40NzhjMC0uNTUzLjQ0OC0xIDEtMSAuMjc2IDAgLjU0LjExMy43MjguMzE0eiIgbWFzaz0idXJsKCNwcmVmaXhfX2cpIi8+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPGcgbWFzaz0idXJsKCNwcmVmaXhfX2IpIj4KICAgICAgICAgICAgPHVzZSBmaWxsPSIjMDAwIiBmaWx0ZXI9InVybCgjcHJlZml4X19oKSIgeGxpbms6aHJlZj0iI3ByZWZpeF9faSIvPgogICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNwcmVmaXhfX2kiLz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==';
@@ -23371,7 +23490,7 @@ EmptyPlaceHolder.propTypes = {
 };
 
 function _templateObject2$7() {
-  var data = _taggedTemplateLiteral(["\n  td {\n    padding: 68px;\n    text-align: center;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  td {\n    padding: 34px;\n    text-align: center;\n  }\n"]);
 
   _templateObject2$7 = function _templateObject2() {
     return data;
@@ -23381,7 +23500,7 @@ function _templateObject2$7() {
 }
 
 function _templateObject$7() {
-  var data = _taggedTemplateLiteral(["\n  .tr:nth-child(even) .td {\n    background: ", ";\n  }\n\n  .tr:nth-child(odd) .td {\n    background: ", ";\n  }\n\n  .tr .td.even {\n    background: ", ";\n  }\n\n  .tr .td.odd {\n    background: ", ";\n  }\n\n  /* after the first non-.parent, toggle colors */\n  tr:not(.tr) ~ .tr:nth-child(odd) td {\n      background-color: ", ";\n  }\n  tr:not(.tr) ~ .tr:nth-child(even) td {\n      background-color: ", ";\n  }\n\n  /* after the second non-.parent, toggle again */\n  tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(odd) td {\n      background-color: ", ";\n  }\n  tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(even) td {\n      background-color: ", ";\n  }\n\n  .td {\n    ", "\n    text-align: center;\n  }\n\n  .td > a > div, .td > div {\n    padding: 24px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  .td[rowspan] {\n    border-left: 1px solid ", ";\n    border-right: 1px solid ", ";\n  }\n\n  .td[rowspan]:first-child {\n    border-left: none;\n  }\n\n  .td[rowspan]:last-child {\n    border-right: none;\n  }\n\n  ", "\n  \n  .tr:not(:first-child) {\n    border-top: 1px solid ", ";\n  }\n\n  .td {\n    ", "\n    text-align: center;\n  }\n\n  .td > a > div, .td > div {\n    ", "\n  }\n"]);
 
   _templateObject$7 = function _templateObject() {
     return data;
@@ -23390,18 +23509,25 @@ function _templateObject$7() {
   return data;
 }
 
-var ListTBody = styled__default.tbody.attrs({
-  size: 18,
-  opacity: 8
-})(_templateObject$7(), color.$table_cell_grey, color.$primary_white, color.$table_cell_grey, color.$primary_white, color.$table_cell_grey, color.$primary_white, color.$primary_white, color.$table_cell_grey, Text);
+var ListTBody = styled__default.tbody.attrs(function (_ref) {
+  var size = _ref.size;
+  return _objectSpread2({}, tableSize[size].tbody);
+})(_templateObject$7(), colorV1.$grey04, colorV1.$grey04, function (_ref2) {
+  var isHaveRowSpan = _ref2.isHaveRowSpan;
+  return isHaveRowSpan ? "" : ".tr:hover { background: ".concat(colorV1.$grey01, "; }");
+}, colorV1.$grey04, Text, function (_ref3) {
+  var padding = _ref3.padding;
+  return "padding: ".concat(padding, ";");
+});
 var EmptyTbody = styled__default.tbody(_templateObject2$7());
 
-var TBody = function TBody(_ref) {
-  var headers = _ref.headers,
-      subHeaders = _ref.subHeaders,
-      rowData = _ref.rowData,
-      wrapTd = _ref.wrapTd,
-      appendRow = _ref.appendRow;
+var TBody = function TBody(_ref4) {
+  var headers = _ref4.headers,
+      subHeaders = _ref4.subHeaders,
+      rowData = _ref4.rowData,
+      wrapTd = _ref4.wrapTd,
+      appendRow = _ref4.appendRow,
+      size = _ref4.size;
   var singlevelHeader = headers;
 
   if (subHeaders && wrapTd) {
@@ -23423,10 +23549,10 @@ var TBody = function TBody(_ref) {
         key: data,
         className: "tr"
       }, lodash.chain(Object.values(data)).reverse().map(function (row, i) {
-        var _ref2 = row || '',
-            rowSpan = _ref2.rowSpan,
-            _ref2$className = _ref2.className,
-            className = _ref2$className === void 0 ? '' : _ref2$className;
+        var _ref5 = row || '',
+            rowSpan = _ref5.rowSpan,
+            _ref5$className = _ref5.className,
+            className = _ref5$className === void 0 ? '' : _ref5$className;
 
         var drawIdx = singlevelHeader.length - i - 1;
         var text = !lodash.isUndefined(rowSpan) ? row.text : row;
@@ -23456,9 +23582,16 @@ var TBody = function TBody(_ref) {
     return colSpan;
   };
 
+  var isHaveRowSpan = lodash.some(lodash.flattenDeep(rowData), function (item) {
+    return lodash.has(item, 'rowSpan');
+  });
+
   return lodash.isEmpty(rowData) ? React__default.createElement(EmptyTbody, null, React__default.createElement("tr", null, React__default.createElement("td", {
     colSpan: EmptyPlaceHolderGetColSpan()
-  }, React__default.createElement(EmptyPlaceHolder, null)))) : React__default.createElement(ListTBody, null, createBody(rowData));
+  }, React__default.createElement(EmptyPlaceHolder, null)))) : React__default.createElement(ListTBody, {
+    isHaveRowSpan: isHaveRowSpan,
+    size: size
+  }, createBody(rowData));
 };
 
 TBody.defaultProps = {
@@ -23466,18 +23599,20 @@ TBody.defaultProps = {
   subHeaders: {},
   rowData: [],
   wrapTd: null,
-  appendRow: null
+  appendRow: null,
+  size: 'medium'
 };
 TBody.propTypes = {
   headers: propTypes.arrayOf(propTypes.oneOfType([propTypes.number, propTypes.string, propTypes.object])),
   subHeaders: propTypes.objectOf(propTypes.oneOfType([propTypes.array, propTypes.string])),
   rowData: propTypes.arrayOf(propTypes.oneOfType([propTypes.object, propTypes.array, propTypes.string, propTypes.number])),
   wrapTd: propTypes.func,
-  appendRow: propTypes.func
+  appendRow: propTypes.func,
+  size: propTypes.string
 };
 
 function _templateObject$8() {
-  var data = _taggedTemplateLiteral(["\n  td {\n    background-color: ", ";\n    padding: 24px;\n\n    text-align: center;\n    font-size: 18px;\n    font-family: \"Spoqa Han Sans\";\n  }\n\n  border-top: 2px solid ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  td {\n    ", "\n    ", "\n\n    text-align: center;\n    font-family: \"Spoqa Han Sans\";\n  }\n  tr {\n    border-top: 1px solid ", ";\n  }\n  tr:first-child {\n    border-top: 1px solid ", ";\n  }\n"]);
 
   _templateObject$8 = function _templateObject() {
     return data;
@@ -23485,10 +23620,17 @@ function _templateObject$8() {
 
   return data;
 }
-var TFootTag = styled__default.tfoot(_templateObject$8(), color.$table_grey, color.$line_dashboard_edge_grey);
+var TFootTag = styled__default.tfoot.attrs(function (_ref) {
+  var size = _ref.size;
+  return _objectSpread2({}, tableSize[size].tfoot);
+})(_templateObject$8(), Text, function (_ref2) {
+  var padding = _ref2.padding;
+  return "padding: ".concat(padding, ";");
+}, colorV1.$grey04, colorV1.$grey06);
 
-var TFoot = function TFoot(_ref) {
-  var footData = _ref.footData;
+var TFoot = function TFoot(_ref3) {
+  var footData = _ref3.footData,
+      size = _ref3.size;
 
   var createFooter = function createFooter() {
     return lodash.map(footData, function (data, i) {
@@ -23512,14 +23654,18 @@ var TFoot = function TFoot(_ref) {
     });
   };
 
-  return React__default.createElement(React__default.Fragment, null, lodash.isEmpty(footData) ? null : React__default.createElement(TFootTag, null, createFooter()));
+  return React__default.createElement(React__default.Fragment, null, lodash.isEmpty(footData) ? null : React__default.createElement(TFootTag, {
+    size: size
+  }, createFooter()));
 };
 
 TFoot.defaultProps = {
-  footData: undefined
+  footData: undefined,
+  size: 'medium'
 };
 TFoot.propTypes = {
-  footData: propTypes.arrayOf(propTypes.oneOfType([propTypes.object, propTypes.array, propTypes.string, propTypes.number]))
+  footData: propTypes.arrayOf(propTypes.oneOfType([propTypes.object, propTypes.array, propTypes.string, propTypes.number])),
+  size: propTypes.string
 };
 
 var performanceNow = createCommonjsModule(function (module) {
@@ -23982,7 +24128,7 @@ function getInnerHeight(el) {
 
 unwrapExports(getInnerHeight_1);
 
-var styles$1 = createCommonjsModule(function (module, exports) {
+var styles = createCommonjsModule(function (module, exports) {
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -24055,18 +24201,18 @@ var disableSelectStyleReset = exports.disableSelectStyleReset = {
 };
 });
 
-unwrapExports(styles$1);
-var styles_1 = styles$1.containerStyleDefault;
-var styles_2 = styles$1.containerStyleAutoHeight;
-var styles_3 = styles$1.viewStyleDefault;
-var styles_4 = styles$1.viewStyleAutoHeight;
-var styles_5 = styles$1.viewStyleUniversalInitial;
-var styles_6 = styles$1.trackHorizontalStyleDefault;
-var styles_7 = styles$1.trackVerticalStyleDefault;
-var styles_8 = styles$1.thumbHorizontalStyleDefault;
-var styles_9 = styles$1.thumbVerticalStyleDefault;
-var styles_10 = styles$1.disableSelectStyle;
-var styles_11 = styles$1.disableSelectStyleReset;
+unwrapExports(styles);
+var styles_1 = styles.containerStyleDefault;
+var styles_2 = styles.containerStyleAutoHeight;
+var styles_3 = styles.viewStyleDefault;
+var styles_4 = styles.viewStyleAutoHeight;
+var styles_5 = styles.viewStyleUniversalInitial;
+var styles_6 = styles.trackHorizontalStyleDefault;
+var styles_7 = styles.trackVerticalStyleDefault;
+var styles_8 = styles.thumbHorizontalStyleDefault;
+var styles_9 = styles.thumbVerticalStyleDefault;
+var styles_10 = styles.disableSelectStyle;
+var styles_11 = styles.disableSelectStyleReset;
 
 var defaultRenderElements = createCommonjsModule(function (module, exports) {
 
@@ -24613,7 +24759,7 @@ var Scrollbars = function (_Component) {
     }, {
         key: 'setupDragging',
         value: function setupDragging() {
-            (0, _domCss2["default"])(document.body, styles$1.disableSelectStyle);
+            (0, _domCss2["default"])(document.body, styles.disableSelectStyle);
             document.addEventListener('mousemove', this.handleDrag);
             document.addEventListener('mouseup', this.handleDragEnd);
             document.onselectstart = _returnFalse2["default"];
@@ -24621,7 +24767,7 @@ var Scrollbars = function (_Component) {
     }, {
         key: 'teardownDragging',
         value: function teardownDragging() {
-            (0, _domCss2["default"])(document.body, styles$1.disableSelectStyleReset);
+            (0, _domCss2["default"])(document.body, styles.disableSelectStyleReset);
             document.removeEventListener('mousemove', this.handleDrag);
             document.removeEventListener('mouseup', this.handleDragEnd);
             document.onselectstart = undefined;
@@ -24851,34 +24997,34 @@ var Scrollbars = function (_Component) {
             var didMountUniversal = this.state.didMountUniversal;
 
 
-            var containerStyle = _extends({}, styles$1.containerStyleDefault, autoHeight && _extends({}, styles$1.containerStyleAutoHeight, {
+            var containerStyle = _extends({}, styles.containerStyleDefault, autoHeight && _extends({}, styles.containerStyleAutoHeight, {
                 minHeight: autoHeightMin,
                 maxHeight: autoHeightMax
             }), style);
 
-            var viewStyle = _extends({}, styles$1.viewStyleDefault, {
+            var viewStyle = _extends({}, styles.viewStyleDefault, {
                 // Hide scrollbars by setting a negative margin
                 marginRight: scrollbarWidth ? -scrollbarWidth : 0,
                 marginBottom: scrollbarWidth ? -scrollbarWidth : 0
-            }, autoHeight && _extends({}, styles$1.viewStyleAutoHeight, {
+            }, autoHeight && _extends({}, styles.viewStyleAutoHeight, {
                 // Add scrollbarWidth to autoHeight in order to compensate negative margins
                 minHeight: (0, _isString2["default"])(autoHeightMin) ? 'calc(' + autoHeightMin + ' + ' + scrollbarWidth + 'px)' : autoHeightMin + scrollbarWidth,
                 maxHeight: (0, _isString2["default"])(autoHeightMax) ? 'calc(' + autoHeightMax + ' + ' + scrollbarWidth + 'px)' : autoHeightMax + scrollbarWidth
             }), autoHeight && universal && !didMountUniversal && {
                 minHeight: autoHeightMin,
                 maxHeight: autoHeightMax
-            }, universal && !didMountUniversal && styles$1.viewStyleUniversalInitial);
+            }, universal && !didMountUniversal && styles.viewStyleUniversalInitial);
 
             var trackAutoHeightStyle = {
                 transition: 'opacity ' + autoHideDuration + 'ms',
                 opacity: 0
             };
 
-            var trackHorizontalStyle = _extends({}, styles$1.trackHorizontalStyleDefault, autoHide && trackAutoHeightStyle, (!scrollbarWidth || universal && !didMountUniversal) && {
+            var trackHorizontalStyle = _extends({}, styles.trackHorizontalStyleDefault, autoHide && trackAutoHeightStyle, (!scrollbarWidth || universal && !didMountUniversal) && {
                 display: 'none'
             });
 
-            var trackVerticalStyle = _extends({}, styles$1.trackVerticalStyleDefault, autoHide && trackAutoHeightStyle, (!scrollbarWidth || universal && !didMountUniversal) && {
+            var trackVerticalStyle = _extends({}, styles.trackVerticalStyleDefault, autoHide && trackAutoHeightStyle, (!scrollbarWidth || universal && !didMountUniversal) && {
                 display: 'none'
             });
 
@@ -24888,11 +25034,11 @@ var Scrollbars = function (_Component) {
                     _this7.view = _ref4;
                 } }, children), (0, React__default.cloneElement)(renderTrackHorizontal({ style: trackHorizontalStyle }), { key: 'trackHorizontal', ref: function ref(_ref5) {
                     _this7.trackHorizontal = _ref5;
-                } }, (0, React__default.cloneElement)(renderThumbHorizontal({ style: styles$1.thumbHorizontalStyleDefault }), { ref: function ref(_ref6) {
+                } }, (0, React__default.cloneElement)(renderThumbHorizontal({ style: styles.thumbHorizontalStyleDefault }), { ref: function ref(_ref6) {
                     _this7.thumbHorizontal = _ref6;
                 } })), (0, React__default.cloneElement)(renderTrackVertical({ style: trackVerticalStyle }), { key: 'trackVertical', ref: function ref(_ref7) {
                     _this7.trackVertical = _ref7;
-                } }, (0, React__default.cloneElement)(renderThumbVertical({ style: styles$1.thumbVerticalStyleDefault }), { ref: function ref(_ref8) {
+                } }, (0, React__default.cloneElement)(renderThumbVertical({ style: styles.thumbVerticalStyleDefault }), { ref: function ref(_ref8) {
                     _this7.thumbVertical = _ref8;
                 } }))]);
         }
@@ -25150,7 +25296,7 @@ function _templateObject$a() {
   return data;
 }
 var sideFit = styled.css(_templateObject$a());
-var TableBox = styled__default.table(_templateObject2$9(), color.$line_search_grey, function (props) {
+var TableBox = styled__default.table(_templateObject2$9(), colorV1.$grey06, function (props) {
   return props.notBottom ? 'border-bottom: none' : '';
 }, function (props) {
   return props.className.split(' ').includes('sideFit') ? sideFit : null;
@@ -25185,7 +25331,8 @@ var Table = function Table(_ref2) {
       className = _ref2.className,
       loading = _ref2.loading,
       scroll = _ref2.scroll,
-      columns = _ref2.columns;
+      columns = _ref2.columns,
+      size = _ref2.size;
 
   if (lodash.isEmpty(data)) {
     return React__default.createElement("div", null, "There is no data", React__default.createElement("br", null), "Please search agains");
@@ -25201,7 +25348,8 @@ var Table = function Table(_ref2) {
       headers: data.headers,
       subHeaders: data.subHeaders,
       wrapTh: wrapTh,
-      loading: loading
+      loading: loading,
+      size: size
     })), React__default.createElement(WrapperScrollBars, {
       scroll: scroll
     }, React__default.createElement(TableBox, {
@@ -25215,13 +25363,15 @@ var Table = function Table(_ref2) {
       rowData: data.rowData,
       wrapTd: wrapTd,
       appendRow: appendRow,
-      rowSpanCount: rowSpanCount
+      rowSpanCount: rowSpanCount,
+      size: size
     }))), React__default.createElement(TableBox, {
       className: className
     }, React__default.createElement(Columns, {
       columns: columns
     }), React__default.createElement(TFoot, {
-      footData: data.footData
+      footData: data.footData,
+      size: size
     })));
   }
 
@@ -25233,16 +25383,19 @@ var Table = function Table(_ref2) {
     headers: data.headers,
     subHeaders: data.subHeaders,
     wrapTh: wrapTh,
-    loading: loading
+    loading: loading,
+    size: size
   }), React__default.createElement(TBody, {
     headers: data.headers,
     subHeaders: data.subHeaders,
     rowData: data.rowData,
     wrapTd: wrapTd,
     appendRow: appendRow,
-    rowSpanCount: rowSpanCount
+    rowSpanCount: rowSpanCount,
+    size: size
   }), React__default.createElement(TFoot, {
-    footData: data.footData
+    footData: data.footData,
+    size: size
   }));
 };
 
@@ -25255,7 +25408,8 @@ Table.defaultProps = {
   className: '',
   loading: false,
   scroll: {},
-  columns: []
+  columns: [],
+  size: 'medium'
 };
 Table.propTypes = {
   columns: propTypes.arrayOf(propTypes.oneOfType([propTypes.string, propTypes.number])),
@@ -25273,7 +25427,8 @@ Table.propTypes = {
   loading: propTypes.bool,
   scroll: propTypes.shape({
     y: propTypes.number
-  })
+  }),
+  size: propTypes.string
 };
 
 function _templateObject5$2() {
@@ -26244,9 +26399,9 @@ LineChart.propTypes = {
   lineDot: propTypes.bool
 };
 
-var css_248z$2 = ".Timeline-module_timelineChart__6imxY {\n  position: relative;\n}\n\n/* xAxis */\n.Timeline-module_xAxis__2yeDE, .Timeline-module_overViewXAxis__3PeKr {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text:nth-child(n + 4) {\n  fill: rgba(0, 0, 0, 0.3);\n}\n.Timeline-module_verticalLineText__2adr2 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.Timeline-module_overViewXAxisGrid__1I727 path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.Timeline-module_tooltip__2A0o2 {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipDay__1lg2e {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipLabel__1aVan {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.Timeline-module_dot__3N3de {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
-var styles$2 = {"timelineChart":"Timeline-module_timelineChart__6imxY","xAxis":"Timeline-module_xAxis__2yeDE","overViewXAxis":"Timeline-module_overViewXAxis__3PeKr","labels":"Timeline-module_labels__8btAK","verticalLineText":"Timeline-module_verticalLineText__2adr2","overViewXAxisGrid":"Timeline-module_overViewXAxisGrid__1I727","tooltip":"Timeline-module_tooltip__2A0o2","tooltipDay":"Timeline-module_tooltipDay__1lg2e","tooltipLabel":"Timeline-module_tooltipLabel__1aVan","dot":"Timeline-module_dot__3N3de"};
-styleInject(css_248z$2);
+var css_248z$1 = ".Timeline-module_timelineChart__6imxY {\n  position: relative;\n}\n\n/* xAxis */\n.Timeline-module_xAxis__2yeDE, .Timeline-module_overViewXAxis__3PeKr {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text:nth-child(n + 4) {\n  fill: rgba(0, 0, 0, 0.3);\n}\n.Timeline-module_verticalLineText__2adr2 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.Timeline-module_overViewXAxisGrid__1I727 path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.Timeline-module_tooltip__2A0o2 {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipDay__1lg2e {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipLabel__1aVan {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.Timeline-module_dot__3N3de {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
+var styles$1 = {"timelineChart":"Timeline-module_timelineChart__6imxY","xAxis":"Timeline-module_xAxis__2yeDE","overViewXAxis":"Timeline-module_overViewXAxis__3PeKr","labels":"Timeline-module_labels__8btAK","verticalLineText":"Timeline-module_verticalLineText__2adr2","overViewXAxisGrid":"Timeline-module_overViewXAxisGrid__1I727","tooltip":"Timeline-module_tooltip__2A0o2","tooltipDay":"Timeline-module_tooltipDay__1lg2e","tooltipLabel":"Timeline-module_tooltipLabel__1aVan","dot":"Timeline-module_dot__3N3de"};
+styleInject(css_248z$1);
 
 var Timeline = /*#__PURE__*/function (_Component) {
   _inherits(Timeline, _Component);
@@ -26300,13 +26455,13 @@ var Timeline = /*#__PURE__*/function (_Component) {
       }); // 2. xAxis group
 
       var gXAxis = generateGroup(gTimeline, {
-        className: styles$2.xAxis,
+        className: styles$1.xAxis,
         xOffset: yAxisWidth + defaultPadding + 25,
         yOffset: xAxisHeight
       }); //  3. labels group
 
       var gLabels = generateGroup(gTimeline, {
-        className: styles$2.labels,
+        className: styles$1.labels,
         xOffset: 25,
         yOffset: 60
       });
@@ -26347,7 +26502,7 @@ var Timeline = /*#__PURE__*/function (_Component) {
       gXAxisGrid.select('.domain').remove(); // add vertical line
 
       var lineScale = d3.scaleTime().domain([startTime, endTime]).range([yAxisWidth + defaultPadding + 25 - 1, width]);
-      var verticalLineText = svg.append('text').attr('class', styles$2.verticalLineText).attr('y', 42);
+      var verticalLineText = svg.append('text').attr('class', styles$1.verticalLineText).attr('y', 42);
 
       var mouseover = function mouseover() {
         focus.style('opacity', 1);
@@ -26372,7 +26527,7 @@ var Timeline = /*#__PURE__*/function (_Component) {
       var rectColorScale = d3.scaleOrdinal().domain(labelList(timelineData)).range(['#27b097', '#fa6b57', '#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec']);
       d3.scaleOrdinal(d3.schemePaired); // Add tooltip
 
-      var tooltip = d3.select(".".concat(styles$2.timelineChart)).append('div').attr('class', styles$2.tooltip).style('opacity', 0); //  Create Data Group
+      var tooltip = d3.select(".".concat(styles$1.timelineChart)).append('div').attr('class', styles$1.tooltip).style('opacity', 0); //  Create Data Group
 
       var gData = generateGroup(gTimeline, {
         className: 'data',
@@ -26394,7 +26549,7 @@ var Timeline = /*#__PURE__*/function (_Component) {
               y = _d3$mouse2[1];
 
           var drawLabel = label[label.length - 1];
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, "></span> ").concat(drawLabel, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$1.tooltipLabel, "><span class=").concat(styles$1.dot, "></span> ").concat(drawLabel, "</div>\n              <div class=").concat(styles$1.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + 200, "px")).style('top', "".concat(y - 20, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function () {
@@ -26416,7 +26571,7 @@ var Timeline = /*#__PURE__*/function (_Component) {
               y = _d3$mouse4[1];
 
           var drawLabel = label[label.length - 1];
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, "></span> ").concat(drawLabel, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$1.tooltipLabel, "><span class=").concat(styles$1.dot, "></span> ").concat(drawLabel, "</div>\n              <div class=").concat(styles$1.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + 200, "px")).style('top', "".concat(y - 20, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function () {
@@ -26432,14 +26587,14 @@ var Timeline = /*#__PURE__*/function (_Component) {
         yOffset: height - overViewAxisHeight - xAxisHeight
       });
       var overViewGrid = generateGroup(gOverViewAxis, {
-        className: styles$2.overViewXAxisGrid,
+        className: styles$1.overViewXAxisGrid,
         xOffset: 0,
         yOffset: 0
       }).call(d3.axisTop(xAxisScale).tickSize(-overViewAxisHeight).tickFormat(''));
       overViewGrid.selectAll('.domain').attr('stroke', '#003964');
       overViewGrid.selectAll('.tick line').attr('stroke', 'none');
       var overViewXAxis = generateGroup(gOverViewAxis, {
-        className: styles$2.overViewXAxis,
+        className: styles$1.overViewXAxis,
         xOffset: 0,
         yOffset: overViewAxisHeight + 10
       }).call(d3.axisBottom(xAxisScale).tickPadding(0));
@@ -26557,7 +26712,7 @@ var Timeline = /*#__PURE__*/function (_Component) {
 
       return React__default.createElement("div", {
         ref: this.rootElement,
-        className: styles$2.timelineChart
+        className: styles$1.timelineChart
       });
     }
   }]);
@@ -26577,9 +26732,9 @@ Timeline.propTypes = {
   })).isRequired
 };
 
-var css_248z$3 = ".LineMergeTimeline-module_timelineChart__fPLk5 {\n  position: relative;\n}\n\n.LineMergeTimeline-module_title__3WWUl {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: #000000;\n  opacity: 0.6;      \n}\n\n/* xAxis */\n.LineMergeTimeline-module_xAxis__k99X0, .LineMergeTimeline-module_overViewXAxis__wNJ-S {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.LineMergeTimeline-module_timelineLabels__134WI text, .LineMergeTimeline-module_gLineYAxis__21s70 {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.3);\n  color: rgba(0, 0, 0, 0.3);\n}\n\n.LineMergeTimeline-module_verticalLineText__jLQi7 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.LineMergeTimeline-module_overViewXAxisGrid__3TiBI path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.LineMergeTimeline-module_tooltip__2Pb8F {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.LineMergeTimeline-module_tooltip__2Pb8F .LineMergeTimeline-module_tooltipDay__1z4eb {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.LineMergeTimeline-module_tooltip__2Pb8F .LineMergeTimeline-module_tooltipLabel__3tt0o {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.LineMergeTimeline-module_dot__3RKc6 {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}\n\n.LineMergeTimeline-module_lineDot__3JOC_ {\n  cursor: pointer;\n}";
-var styles$3 = {"timelineChart":"LineMergeTimeline-module_timelineChart__fPLk5","title":"LineMergeTimeline-module_title__3WWUl","xAxis":"LineMergeTimeline-module_xAxis__k99X0","overViewXAxis":"LineMergeTimeline-module_overViewXAxis__wNJ-S","timelineLabels":"LineMergeTimeline-module_timelineLabels__134WI","gLineYAxis":"LineMergeTimeline-module_gLineYAxis__21s70","verticalLineText":"LineMergeTimeline-module_verticalLineText__jLQi7","overViewXAxisGrid":"LineMergeTimeline-module_overViewXAxisGrid__3TiBI","tooltip":"LineMergeTimeline-module_tooltip__2Pb8F","tooltipDay":"LineMergeTimeline-module_tooltipDay__1z4eb","tooltipLabel":"LineMergeTimeline-module_tooltipLabel__3tt0o","dot":"LineMergeTimeline-module_dot__3RKc6","lineDot":"LineMergeTimeline-module_lineDot__3JOC_"};
-styleInject(css_248z$3);
+var css_248z$2 = ".LineMergeTimeline-module_timelineChart__fPLk5 {\n  position: relative;\n}\n\n/* xAxis */\n.LineMergeTimeline-module_xAxis__k99X0, .LineMergeTimeline-module_overViewXAxis__wNJ-S {\n  text-align: center;\n}\n\n.LineMergeTimeline-module_verticalLineText__jLQi7 {\n  width: 61px;\n  height: 18px;\n  letter-spacing: -0.4px;\n  text-align: center;\n}\n/* overview axis style */\n.LineMergeTimeline-module_overViewXAxisGrid__3TiBI path {\n  fill: #e7ebee;\n}\n\n/* tooltip  */\n.LineMergeTimeline-module_tooltip__2Pb8F {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.LineMergeTimeline-module_tooltip__2Pb8F .LineMergeTimeline-module_tooltipDay__1z4eb {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.LineMergeTimeline-module_tooltip__2Pb8F .LineMergeTimeline-module_tooltipLabel__3tt0o {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.LineMergeTimeline-module_dot__3RKc6 {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}\n\n.LineMergeTimeline-module_lineDot__3JOC_ {\n  cursor: pointer;\n}";
+var styles$2 = {"timelineChart":"LineMergeTimeline-module_timelineChart__fPLk5","xAxis":"LineMergeTimeline-module_xAxis__k99X0","overViewXAxis":"LineMergeTimeline-module_overViewXAxis__wNJ-S","verticalLineText":"LineMergeTimeline-module_verticalLineText__jLQi7","overViewXAxisGrid":"LineMergeTimeline-module_overViewXAxisGrid__3TiBI","tooltip":"LineMergeTimeline-module_tooltip__2Pb8F","tooltipDay":"LineMergeTimeline-module_tooltipDay__1z4eb","tooltipLabel":"LineMergeTimeline-module_tooltipLabel__3tt0o","dot":"LineMergeTimeline-module_dot__3RKc6","lineDot":"LineMergeTimeline-module_lineDot__3JOC_"};
+styleInject(css_248z$2);
 
 var LineMergeTimeline = /*#__PURE__*/function (_Component) {
   _inherits(LineMergeTimeline, _Component);
@@ -26600,14 +26755,15 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
       // 1. Create xAxis group
 
       var gXAxis = generateGroup(_this.getRootElement().select('.timeline'), {
-        className: styles$3.xAxis,
+        className: styles$2.xAxis,
         xOffset: yAxisWidth,
         yOffset: xAxisHeight
       }); // 2. Render xAxis
 
       gXAxis.call(xAxis);
-      gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5 V0.5');
+      gXAxis.selectAll('.domain').attr('stroke', colorV1.$grey06).attr('d', 'M0.5 0V0.5H942.5 V0.5');
       gXAxis.selectAll('.tick line').remove();
+      gXAxis.selectAll('.tick text').attr('class', fontStyle.fs14).style('fill', colorV1.$grey08);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createLineYAxis", function (lineYAxisScale) {
@@ -26616,7 +26772,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
           xAxisHeight = _this$options2.xAxisHeight; // 1. Create Line YAxis group
 
       var gLineYAxis = generateGroup(_this.getRootElement().select('.timeline'), {
-        className: styles$3.gLineYAxis,
+        className: styles$2.gLineYAxis,
         xOffset: yAxisWidth,
         yOffset: xAxisHeight
       }); // 2. Create Line YAxis
@@ -26626,12 +26782,13 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
       }).tickPadding(17); // 3. Add LineTitle
       // const lineTitle =
 
-      _this.getRootElement().select('.timeline').append('text').text('Risk per visiting').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + 6).attr('class', styles$3.title); // 4. Render Line YAxis
+      _this.getRootElement().select('.timeline').append('text').text('Risk per visiting').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + 6).attr('class', "".concat(fontStyle.fs14, " ").concat(fontStyle.bold)).style('fill', colorV1.$grey09); // 4. Render Line YAxis
 
 
       gLineYAxis.call(lineYAxis);
       gLineYAxis.selectAll('.domain').remove();
       gLineYAxis.selectAll('.tick line').remove();
+      gLineYAxis.selectAll('.tick text').attr('class', fontStyle.fs14).style('fill', colorV1.$grey08);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createLineGrid", function (xAxisScale, lineYAxisScale) {
@@ -26647,18 +26804,18 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
         yOffset: xAxisHeight
       }); // 2. Create Line YAxis GridLines
 
-      var lineYAxisGridLines = d3.axisTop(xAxisScale).tickSize(-lineYAxisHeight).tickFormat(''); // 3. Render Line YAxis Gridlines
+      var lineYAxisGridLines = d3.axisTop(xAxisScale).tickSize(-lineYAxisHeight).tickFormat(''); // 3. Render LicircleColorList YAxis Gridlines
 
       var gLineYAxisGrid = gLineGrid.append('g').attr('class', 'lineYAxisGrid').call(lineYAxisGridLines); // 4. CSS Line YAxis
 
-      gLineYAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+      gLineYAxisGrid.selectAll('.tick line').attr('stroke', colorV1.$grey04).attr('stroke-dasharray', '2');
       gLineYAxisGrid.select('.domain').remove(); // 1. Creat Line XAxis GridLines
 
       var lineXAxisGridLines = d3.axisRight(lineYAxisScale).tickValues([0, 0.25, 0.5, 0.75, 1]).tickSize(_this.xAxisWidth + defaultPadding.right).tickFormat(''); // 2. Render Line XAxis Gridlines
 
       var gLineXAxisGrid = gLineGrid.append('g').attr('class', 'lineXAxisGrid').call(lineXAxisGridLines); // 3. CSS Line XAxis
 
-      gLineXAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('x2', _this.xAxisWidth);
+      gLineXAxisGrid.selectAll('.tick line').attr('stroke', colorV1.$grey04).attr('x2', _this.xAxisWidth);
       gLineXAxisGrid.select('.domain').remove();
     });
 
@@ -26670,10 +26827,10 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
           height = _this$options4.height,
           overViewAxisHeight = _this$options4.overViewAxisHeight; // Create Entire Vertical Line
 
-      var focus = _this.getRootElement().select('.timeline').append('line').attr('class', 'focus').attr('fill', 'none').style('pointer-events', 'none'); // 1. Create vertical line text
+      var focus = _this.getRootElement().select('.timeline').append('line').attr('class', 'focus').attr('fill', 'none').attr('stroke-width', 1).style('pointer-events', 'none'); // 1. Create vertical line text
 
 
-      var verticalLineText = svg.append('text').attr('class', styles$3.verticalLineText).attr('y', xAxisHeight); // 2. Create vertical line mouse event
+      var verticalLineText = svg.append('text').attr('class', "".concat(styles$2.verticalLineText, " ").concat(fontStyle.fs12, " ").concat(fontStyle.bold)).attr('y', xAxisHeight).attr('fill', colorV1.$grey09); // 2. Create vertical line mouse event
 
       var mouseover = function mouseover() {
         focus.style('opacity', 1);
@@ -26683,7 +26840,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
       var mousemove = function mousemove(d, i, nodes) {
         var date = xAxisScale.invert(d3.mouse(nodes[i])[0]);
         var linePositionX = Date.parse(date);
-        focus.attr('x1', xAxisScale(linePositionX)).attr('x2', xAxisScale(linePositionX)).attr('y1', xAxisHeight).attr('y2', height - xAxisHeight - overViewAxisHeight).attr('stroke', '#58595a');
+        focus.attr('x1', xAxisScale(linePositionX)).attr('x2', xAxisScale(linePositionX)).attr('y1', xAxisHeight).attr('y2', height - xAxisHeight - overViewAxisHeight).attr('stroke', colorV1.$grey09);
         verticalLineText.text(d3.timeFormat('%Y.%m.%d')(lineScale.invert(d3.mouse(nodes[i])[0]))).attr('x', xAxisScale(linePositionX));
       };
 
@@ -26708,10 +26865,10 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
 
       var defs = svg.append('defs');
       var gradient = defs.append('linearGradient').attr('id', 'svgGradient').attr('x1', '0%').attr('x2', '0%').attr('y1', '0%').attr('y2', '100%');
-      gradient.append('stop').attr('class', 'start').attr('offset', '0%').attr('stop-color', '#002d4f').attr('stop-opacity', 1);
-      gradient.append('stop').attr('class', 'end').attr('offset', '100%').attr('stop-color', '#189bff').attr('stop-opacity', 1); //  Create Line Point Gradient
+      gradient.append('stop').attr('class', 'start').attr('offset', '0%').attr('stop-color', lodash.nth(getColorsByTheme(Themes.ThemeArrangeGradientPrimarySea), 2)).attr('stop-opacity', 1);
+      gradient.append('stop').attr('class', 'end').attr('offset', '100%').attr('stop-color', lodash.nth(getColorsByTheme(Themes.ThemeArrangeGradientPrimarySea), 0)).attr('stop-opacity', 1); //  Create Line Point Gradient
 
-      var colorScale = d3.scaleLinear().domain([defaultPadding.top, lineYAxisHeight]).range(['#002d4f', '#189bff']); // 1. Create Line Chart group
+      var colorScale = d3.scaleLinear().domain([defaultPadding.top, lineYAxisHeight]).range([lodash.nth(getColorsByTheme(Themes.ThemeArrangeGradientPrimarySea), 2), lodash.nth(getColorsByTheme(Themes.ThemeArrangeGradientPrimarySea), 0)]); // 1. Create Line Chart group
 
       var gLine = generateGroup(_this.getRootElement().select('.timeline'), {
         className: 'gLine',
@@ -26726,7 +26883,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
         }) ? colorScale(lineYAxisScale(lineChartFirstYValue)) : 'url(#svgGradient)';
       }).attr('stroke-width', 2).attr('d', line); // 3. Render Line Point
 
-      gLine.append('g').selectAll("".concat(styles$3.lineDot)).data(lineChartData).enter().append('circle').attr('class', "".concat(styles$3.lineDot)).attr('fill', function (d) {
+      gLine.append('g').selectAll("".concat(styles$2.lineDot)).data(lineChartData).enter().append('circle').attr('class', "".concat(styles$2.lineDot)).attr('fill', function (d) {
         return colorScale(lineYAxisScale(d.y));
       }).attr('cx', function (d) {
         return xAxisScale(Date.parse(d.x));
@@ -26737,13 +26894,13 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
         var y = lineYAxisScale(d.y);
         var label = d.y;
 
-        var tooltip = _this.getRootElement().select(".".concat(styles$3.tooltip));
+        var tooltip = _this.getRootElement().select(".".concat(styles$2.tooltip));
 
-        var tooltipDescription = "\n          <div>\n            <div><span class=".concat(styles$3.tooltipLabel, ">").concat(label, "</span></div>\n          </div>\n          ");
+        var tooltipDescription = "\n          <div>\n            <div><span class=".concat(styles$2.tooltipLabel, ">").concat(label, "</span></div>\n          </div>\n          ");
         tooltip.transition().duration(200).style('opacity', 1);
         tooltip.style('left', "".concat(x, "px")).style('top', "".concat(y, "px")).style('pointer-events', 'none').html(tooltipDescription);
       }).on('mouseout', function () {
-        return _this.getRootElement().select(".".concat(styles$3.tooltip)).transition().duration(200).style('opacity', 0);
+        return _this.getRootElement().select(".".concat(styles$2.tooltip)).transition().duration(200).style('opacity', 0);
       }).on('click', function (d, i) {
         if (lodash.isFunction(scoreClickEvent)) {
           scoreClickEvent(d, i);
@@ -26760,19 +26917,19 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
           yAxisWidth = _this$options6.yAxisWidth; // 1. Create Timeline Label Group
 
       var gTimelineLabels = generateGroup(_this.getRootElement().select('.timeline'), {
-        className: styles$3.timelineLabels,
+        className: styles$2.timelineLabels,
         xOffset: -defaultPadding.left,
         yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top + defaultPadding.top
       }); // 2. Render Timeline Label
       // const timelineTitle =
 
-      _this.getRootElement().select('.timeline').append('text').text('Clinical Timeline').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + lineYAxisHeight + defaultMargin.top + 6).attr('class', styles$3.title);
+      _this.getRootElement().select('.timeline').append('text').text('Clinical Timeline').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + lineYAxisHeight + defaultMargin.top + 6).attr('class', "".concat(fontStyle.fs14, " ").concat(fontStyle.bold)).style('fill', colorV1.$grey09);
 
       gTimelineLabels.selectAll('.timelineLabel').data(timelineData).enter().append('text').text(function (d) {
         return d.label[d.label.length - 1];
       }).attr('x', yAxisWidth).attr('y', function (d) {
         return timelineYAxisScale(d.label[d.label.length - 1]);
-      }).attr('text-anchor', 'end').attr('class', 'timelineLabel');
+      }).attr('text-anchor', 'end').attr('class', fontStyle.fs14).style('fill', colorV1.$grey08);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createTimelineXAxis", function (xAxis) {
@@ -26789,7 +26946,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
       }); // 2. Render Timeline XAxis
 
       gTimelineXAxis.call(xAxis);
-      gTimelineXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5V0.5');
+      gTimelineXAxis.selectAll('.domain').attr('stroke', colorV1.$grey06).attr('d', 'M0.5 0V0.5H942.5V0.5');
       gTimelineXAxis.selectAll('.tick').remove();
     });
 
@@ -26814,13 +26971,13 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
       var timelineYAxisGridLines = d3.axisTop(xAxisScale).tickSize(-timelineYAxisGridHeight).tickFormat(''); // 3. Render Timeline YAxis Gridlines
 
       var gTimelineYAxisGrid = gTimelineGrid.append('g').attr('class', 'timelineYAxisGrid').call(timelineYAxisGridLines);
-      gTimelineYAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+      gTimelineYAxisGrid.selectAll('.tick line').attr('stroke', colorV1.$grey04).attr('stroke-dasharray', '2');
       gTimelineYAxisGrid.select('.domain').remove(); // 4.Creat Timeline XAxis GridLines
 
       var timelineXAxisGridLines = d3.axisRight(timelineYAxisScale).tickSize(_this.xAxisWidth).tickFormat(''); // 5. Render Timeline XAxis Gridlines
 
       var gTimelineXAxisGrid = gTimelineGrid.append('g').attr('class', 'timelineXAxisGrid').attr('transform', "translate(0, ".concat(defaultPadding.top - 5, ")")).call(timelineXAxisGridLines);
-      gTimelineXAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8');
+      gTimelineXAxisGrid.selectAll('.tick line').attr('stroke', colorV1.$grey04);
       gTimelineXAxisGrid.select('.domain').remove();
     });
 
@@ -26829,39 +26986,25 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
           yAxisWidth = _this$options9.yAxisWidth,
           xAxisHeight = _this$options9.xAxisHeight,
           lineYAxisHeight = _this$options9.lineYAxisHeight,
-          defaultMargin = _this$options9.defaultMargin; // Create Timeline Chart
+          defaultMargin = _this$options9.defaultMargin;
 
-      var circleColorScale = d3.scaleOrdinal().domain(labelList(timelineData)).range(['#00745e', '#faafa5', '#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec']);
-      var rectColorScale = d3.scaleOrdinal().domain(labelList(timelineData)).range(['#27b097', '#fa6b57', '#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec']); // 1. Create Timeline Data Group
+      var rectColorList = lodash.map(['teal400', 'rose200', 'sea600', 'bluegrey300', 'bluegrey230', 'bluegrey170', 'bluegrey120', 'bluegrey80', 'bluegrey50'], function (name) {
+        return ColorSetMap[name];
+      });
+
+      var circleColorList = lodash.map(['teal600', 'rose200', 'sea600'], function (name) {
+        return ColorSetMap[name];
+      }); // Create Timeline Chart
+
+
+      var circleColorScale = d3.scaleOrdinal().domain(lodash.slice(labelList(timelineData), 0, 3)).range(circleColorList);
+      var rectColorScale = d3.scaleOrdinal().domain(labelList(timelineData)).range(rectColorList); // 1. Create Timeline Data Group
 
       var gTimelineData = generateGroup(_this.getRootElement().select('.timeline'), {
         className: 'timelineData',
         xOffset: yAxisWidth,
         yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top * 2 - 2.5
-      }); // 2. Render Timeline Circle
-
-      timelineData.forEach(function (data, idx) {
-        gTimelineData.append('g').attr('class', function () {
-          return "circles-".concat(idx);
-        }).selectAll('circle').data(circleDataFilter(data.dataPoints)).enter().append('circle').attr('cx', function (d) {
-          return xAxisScale(Date.parse(d.startTime));
-        }).attr('cy', timelineYAxisScale(data.label[data.label.length - 1])).attr('r', 7.5).attr('fill', circleColorScale(data.label[data.label.length - 1])).attr('clip-path', 'url(#clip)').on('mouseover', function (d, i, nodes) {
-          var _d3$mouse = d3.mouse(nodes[i]),
-              _d3$mouse2 = _slicedToArray(_d3$mouse, 2),
-              x = _d3$mouse2[0],
-              y = _d3$mouse2[1];
-
-          var label = data.label[data.label.length - 1];
-
-          var tooltip = _this.getRootElement().select(".".concat(styles$3.tooltip));
-
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$3.tooltipLabel, "><span class=").concat(styles$3.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$3.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
-          tooltip.transition().duration(200).style('opacity', 1);
-          tooltip.style('left', "".concat(x + yAxisWidth, "px")).style('top', "".concat(y + xAxisHeight + lineYAxisHeight + 7.5, "px")).style('pointer-events', 'none').html(tooltipDescription);
-        }).on('mouseout', function () {
-          return _this.getRootElement().select(".".concat(styles$3.tooltip)).transition().duration(200).style('opacity', 0);
-        });
-      }); // Add Rect Group
+      }); // 2. Add Rect Group
 
       timelineData.forEach(function (data, idx) {
         gTimelineData.append('g').attr('class', "rects-".concat(idx)).selectAll('rect').data(rectDataFilter(data.dataPoints)).enter().append('rect').attr('x', function (d) {
@@ -26869,6 +27012,29 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
         }).attr('y', timelineYAxisScale(data.label[data.label.length - 1]) - 7.5).attr('height', 15).attr('width', function (d) {
           return xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime));
         }).attr('fill', rectColorScale(data.label[data.label.length - 1])).attr('clip-path', 'url(#clip)').on('mouseover', function (d, i, nodes) {
+          var _d3$mouse = d3.mouse(nodes[i]),
+              _d3$mouse2 = _slicedToArray(_d3$mouse, 2),
+              x = _d3$mouse2[0],
+              y = _d3$mouse2[1];
+
+          var label = data.label[data.label.length - 1];
+
+          var tooltip = _this.getRootElement().select(".".concat(styles$2.tooltip));
+
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          tooltip.transition().duration(200).style('opacity', 1);
+          tooltip.style('left', "".concat(x + yAxisWidth, "px")).style('top', "".concat(y + xAxisHeight + lineYAxisHeight + 7.5, "px")).style('pointer-events', 'none').html(tooltipDescription);
+        }).on('mouseout', function () {
+          return _this.getRootElement().select(".".concat(styles$2.tooltip)).transition().duration(200).style('opacity', 0);
+        });
+      }); // 3. Render Timeline Circle
+
+      timelineData.forEach(function (data, idx) {
+        gTimelineData.append('g').attr('class', function () {
+          return "circles-".concat(idx);
+        }).selectAll('circle').data(circleDataFilter(data.dataPoints)).enter().append('circle').attr('cx', function (d) {
+          return xAxisScale(Date.parse(d.startTime));
+        }).attr('cy', timelineYAxisScale(data.label[data.label.length - 1])).attr('r', 7.5).attr('fill', circleColorScale(data.label[data.label.length - 1])).attr('clip-path', 'url(#clip)').on('mouseover', function (d, i, nodes) {
           var _d3$mouse3 = d3.mouse(nodes[i]),
               _d3$mouse4 = _slicedToArray(_d3$mouse3, 2),
               x = _d3$mouse4[0],
@@ -26876,13 +27042,13 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
 
           var label = data.label[data.label.length - 1];
 
-          var tooltip = _this.getRootElement().select(".".concat(styles$3.tooltip));
+          var tooltip = _this.getRootElement().select(".".concat(styles$2.tooltip));
 
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$3.tooltipLabel, "><span class=").concat(styles$3.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$3.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(d3.timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + yAxisWidth, "px")).style('top', "".concat(y + xAxisHeight + lineYAxisHeight + 7.5, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function () {
-          return _this.getRootElement().select(".".concat(styles$3.tooltip)).transition().duration(200).style('opacity', 0);
+          return _this.getRootElement().select(".".concat(styles$2.tooltip)).transition().duration(200).style('opacity', 0);
         });
       });
     });
@@ -26903,24 +27069,25 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
       }); // 2. Render OverViewAxis Grid
 
       var overViewGrid = generateGroup(gOverViewAxis, {
-        className: styles$3.overViewXAxisGrid,
+        className: styles$2.overViewXAxisGrid,
         xOffset: 0,
         yOffset: 0
       }).call(d3.axisTop(xAxisScale).tickSize(-overViewAxisHeight).tickFormat(''));
-      overViewGrid.selectAll('.domain').attr('stroke', '#003964');
+      overViewGrid.selectAll('.domain').attr('stroke', colorV1.$grey07);
       overViewGrid.selectAll('.tick line').attr('stroke', 'none'); // 3. Render OverViewXAxis
 
       var overViewXAxis = generateGroup(gOverViewAxis, {
-        className: styles$3.overViewXAxis,
+        className: styles$2.overViewXAxis,
         xOffset: 0,
         yOffset: overViewAxisHeight
       }).call(d3.axisBottom(xAxisScale).tickPadding(17));
-      overViewXAxis.selectAll('.domain').attr('stroke', '#003964').attr('d', 'M0.5 0V0.5H942.5V0.5');
-      overViewXAxis.selectAll('.tick line').remove(); // 4. Render OverView Cover Line
+      overViewXAxis.selectAll('.domain').attr('stroke', colorV1.$grey07).attr('d', 'M0.5 0V0.5H942.5V0.5');
+      overViewXAxis.selectAll('.tick line').remove();
+      overViewXAxis.selectAll('.tick text').attr('class', fontStyle.fs14).style('fill', colorV1.$grey08); // 4. Render OverView Cover Line
 
-      _this.getRootElement().select('.timeline').append('line').attr('x1', yAxisWidth).attr('x2', width - defaultPadding.right).attr('y1', height - overViewAxisHeight - defaultPadding.bottom + 10).attr('y2', height - overViewAxisHeight - defaultPadding.bottom + 10).attr('stroke', '#003964');
+      _this.getRootElement().select('.timeline').append('line').attr('x1', yAxisWidth).attr('x2', width - defaultPadding.right).attr('y1', height - overViewAxisHeight - defaultPadding.bottom + 10).attr('y2', height - overViewAxisHeight - defaultPadding.bottom + 10).attr('stroke', colorV1.$grey07);
 
-      _this.getRootElement().select('.timeline').append('line').attr('x1', yAxisWidth).attr('x2', width - defaultPadding.right).attr('y1', height - defaultPadding.bottom + 10).attr('y2', height - defaultPadding.bottom + 10).attr('stroke', '#003964');
+      _this.getRootElement().select('.timeline').append('line').attr('x1', yAxisWidth).attr('x2', width - defaultPadding.right).attr('y1', height - defaultPadding.bottom + 10).attr('y2', height - defaultPadding.bottom + 10).attr('stroke', colorV1.$grey07);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createBrush", function (xAxisScale, lineScale, xAxis, line, overViewXAxisScale) {
@@ -26961,11 +27128,11 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
         xAxisScale.domain([Date.parse(start), Date.parse(end)]);
         lineScale.domain([Date.parse(start), Date.parse(end)]);
 
-        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).call(xAxis);
+        _this.getRootElement().select(".".concat(styles$2.xAxis)).transition().duration(500).call(xAxis).selectAll('.tick text').attr('class', fontStyle.fs14).style('fill', colorV1.$grey08);
 
-        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5V0.5');
+        _this.getRootElement().select(".".concat(styles$2.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', colorV1.$grey06).attr('d', 'M0.5 0V0.5H942.5V0.5');
 
-        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Line Chart Grid
+        _this.getRootElement().select(".".concat(styles$2.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Line Chart Grid
 
 
         _this.getRootElement().select('.lineYAxisGrid').selectAll('tick').remove();
@@ -26974,7 +27141,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
 
         _this.getRootElement().select('.lineYAxisGrid').transition().duration(500).call(lineYAxisGridLines);
 
-        _this.getRootElement().select('.lineYAxisGrid').selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+        _this.getRootElement().select('.lineYAxisGrid').selectAll('.tick line').attr('stroke', colorV1.$grey04).attr('stroke-dasharray', '2');
 
         _this.getRootElement().select('.lineYAxisGrid').select('.domain').remove(); // Timeline Chart Grid
 
@@ -26986,14 +27153,14 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
 
         _this.getRootElement().select('.timelineYAxisGrid').transition().duration(500).call(timelineYAxisGridLines);
 
-        _this.getRootElement().select('.timelineYAxisGrid').selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+        _this.getRootElement().select('.timelineYAxisGrid').selectAll('.tick line').attr('stroke', colorV1.$grey04).attr('stroke-dasharray', '2');
 
         _this.getRootElement().select('.timelineYAxisGrid').select('.domain').remove(); // Line Chart Data Render
 
 
         _this.getRootElement().select('.gLine').selectAll('path').transition().duration(500).attr('d', line).attr('clip-path', 'url(#clip)');
 
-        _this.getRootElement().select('.gLine').selectAll(".".concat(styles$3.lineDot)).transition().duration(500).attr('clip-path', 'url(#clip)').attr('cx', function (d) {
+        _this.getRootElement().select('.gLine').selectAll(".".concat(styles$2.lineDot)).transition().duration(500).attr('clip-path', 'url(#clip)').attr('cx', function (d) {
           return xAxisScale(Date.parse(d.x));
         }); // Timeline Data Render
 
@@ -27031,18 +27198,18 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
         xAxisScale.domain(overViewXAxisScale.domain());
         lineScale.domain(overViewXAxisScale.domain());
 
-        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).call(xAxis);
+        _this.getRootElement().select(".".concat(styles$2.xAxis)).transition().duration(500).call(xAxis).selectAll('.tick text').attr('class', fontStyle.fs14).style('fill', colorV1.$grey08);
 
-        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5 V0.5');
+        _this.getRootElement().select(".".concat(styles$2.xAxis)).transition().duration(500).selectAll('.domain').attr('stroke', colorV1.$grey06).attr('d', 'M0.5 0V0.5H942.5 V0.5');
 
-        _this.getRootElement().select(".".concat(styles$3.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Initialize Line Chart Grid
+        _this.getRootElement().select(".".concat(styles$2.xAxis)).transition().duration(500).selectAll('.tick line').remove(); // Initialize Line Chart Grid
 
 
         var lineYAxisGridLines = d3.axisTop(xAxisScale).tickSize(-lineYAxisHeight).tickFormat('');
 
         _this.getRootElement().select('.lineYAxisGrid').transition().duration(500).call(lineYAxisGridLines);
 
-        _this.getRootElement().select('.lineYAxisGrid').selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+        _this.getRootElement().select('.lineYAxisGrid').selectAll('.tick line').attr('stroke', colorV1.$grey04).attr('stroke-dasharray', '2');
 
         _this.getRootElement().select('.lineYAxisGrid').select('.domain').remove();
 
@@ -27052,14 +27219,14 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
 
         _this.getRootElement().select('.timelineYAxisGrid').transition().duration(500).call(timelineYAxisGridLines);
 
-        _this.getRootElement().select('.timelineYAxisGrid').selectAll('.tick line').attr('stroke', '#e8e8e8').attr('stroke-dasharray', '2');
+        _this.getRootElement().select('.timelineYAxisGrid').selectAll('.tick line').attr('stroke', colorV1.$grey04).attr('stroke-dasharray', '2');
 
         _this.getRootElement().select('.timelineYAxisGrid').select('.domain').remove(); // Initialize Line Chart Data
 
 
         _this.getRootElement().select('.gLine').selectAll('path').transition().duration(500).attr('d', line);
 
-        _this.getRootElement().select('.gLine').selectAll(".".concat(styles$3.lineDot)).transition().duration(500).attr('cx', function (d) {
+        _this.getRootElement().select('.gLine').selectAll(".".concat(styles$2.lineDot)).transition().duration(500).attr('cx', function (d) {
           return xAxisScale(Date.parse(d.x));
         }); // Initialize Timeline
 
@@ -27121,7 +27288,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
           endTime = _this$getScaleTime.endTime; // Create tooltip
 
 
-      _this.getRootElement().append('div').attr('class', styles$3.tooltip).style('opacity', 0);
+      _this.getRootElement().append('div').attr('class', styles$2.tooltip).style('opacity', 0);
 
       var svg = renderSVG(_this.getRootElement(), _this.options.width, _this.options.height); // Create Entire groups
       // 1. Entire timeline group
@@ -27267,7 +27434,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
 
       return React__default.createElement("div", {
         ref: this.rootElement,
-        className: styles$3.timelineChart
+        className: styles$2.timelineChart
       });
     }
   }]);
@@ -27613,9 +27780,9 @@ Tabs.TabPane = TabPane;
 Tabs.TabUnderLine = TabUnderLine;
 Tabs.TabBox = TabBox;
 
-var css_248z$4 = "/* select box */\n.Histogram-module_gDropDown__3g6OC {\n  position: absolute;\n  top: -8px;\n  right: 0px\n}";
-var styles$4 = {"gDropDown":"Histogram-module_gDropDown__3g6OC"};
-styleInject(css_248z$4);
+var css_248z$3 = "/* select box */\n.Histogram-module_gDropDown__3g6OC {\n  position: absolute;\n  top: -8px;\n  right: 0px\n}";
+var styles$3 = {"gDropDown":"Histogram-module_gDropDown__3g6OC"};
+styleInject(css_248z$3);
 
 var icnSelectOpenSm = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM5Nzk3OTciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE3LjY1NyA4LjE3MmExIDEgMCAxIDEgMS40MTQgMS40MTRsLTYuMzUyIDYuMzUxYTEuMDIgMS4wMiAwIDAgMS0uMDEyLjAxM2wtLjAxMy4wMTEtLjY5NC42OTYtMS40MTQtMS40MTQtNS42NTctNS42NTdhMSAxIDAgMSAxIDEuNDE0LTEuNDE0TDEyIDEzLjgyOGw1LjY1Ny01LjY1NnoiLz4KPC9zdmc+';
 
@@ -28003,7 +28170,7 @@ var Histogram = /*#__PURE__*/function (_Component) {
           position: 'relative'
         }
       }, React__default.createElement("div", {
-        className: styles$4.gDropDown
+        className: styles$3.gDropDown
       }, React__default.createElement("span", {
         className: "".concat(fontStyle.fs14, " ").concat(fontStyle.fc_grey10)
       }, "Bins :"), React__default.createElement(SelectBox, {
@@ -30113,9 +30280,9 @@ TimeToEvent.propTypes = {
   })
 };
 
-var css_248z$5 = ".TimeToEvent-module_gLegend__3k55w text, .TimeToEvent-module_xAxis__hL73d text, .TimeToEvent-module_timeToEventLabel__1-iB2 {\n  font-size: 14px;\n  font-family: 'Spoqa Han Sans';\n  font-weight: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n}\n\n.TimeToEvent-module_gLegend__3k55w text {\n  text-anchor: start;\n}\n\n.TimeToEvent-module_xAxis__hL73d text {\n  text-anchor: middle;\n  fill: #6d7884;\n}\n\n.TimeToEvent-module_timeToEventLabel__1-iB2, #TimeToEvent-module_xAxisTitle__2Suka {\n  font-weight: bold;\n}\n";
-var styles$5 = {"gLegend":"TimeToEvent-module_gLegend__3k55w","xAxis":"TimeToEvent-module_xAxis__hL73d","timeToEventLabel":"TimeToEvent-module_timeToEventLabel__1-iB2","xAxisTitle":"TimeToEvent-module_xAxisTitle__2Suka"};
-styleInject(css_248z$5);
+var css_248z$4 = ".TimeToEvent-module_gLegend__3k55w text, .TimeToEvent-module_xAxis__hL73d text, .TimeToEvent-module_timeToEventLabel__1-iB2 {\n  font-size: 14px;\n  font-family: 'Spoqa Han Sans';\n  font-weight: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n}\n\n.TimeToEvent-module_gLegend__3k55w text {\n  text-anchor: start;\n}\n\n.TimeToEvent-module_xAxis__hL73d text {\n  text-anchor: middle;\n  fill: #6d7884;\n}\n\n.TimeToEvent-module_timeToEventLabel__1-iB2, #TimeToEvent-module_xAxisTitle__2Suka {\n  font-weight: bold;\n}\n";
+var styles$4 = {"gLegend":"TimeToEvent-module_gLegend__3k55w","xAxis":"TimeToEvent-module_xAxis__hL73d","timeToEventLabel":"TimeToEvent-module_timeToEventLabel__1-iB2","xAxisTitle":"TimeToEvent-module_xAxisTitle__2Suka"};
+styleInject(css_248z$4);
 
 var TimeToEventOld = /*#__PURE__*/function (_Component) {
   _inherits(TimeToEventOld, _Component);
@@ -30132,7 +30299,7 @@ var TimeToEventOld = /*#__PURE__*/function (_Component) {
           defaultMargin = _this$options.defaultMargin,
           height = _this$options.height;
       var gXAxis = generateGroup(_this.getRootElement().select('.timeToEvent'), {
-        className: styles$5.xAxis,
+        className: styles$4.xAxis,
         xOffset: defaultMargin.left,
         yOffset: height - defaultMargin.bottom
       });
@@ -30140,7 +30307,7 @@ var TimeToEventOld = /*#__PURE__*/function (_Component) {
       gXAxis.selectAll('.domain').attr('stroke', colorV1.$grey06).attr('d', "M0.5,0.5H".concat(_this.xAxisWidth, ".5"));
       gXAxis.selectAll('.tick line').remove();
       gXAxis.append('line').attr('x1', 0).attr('x2', _this.xAxisWidth).attr('y1', -_this.yAxisHeight).attr('y2', -_this.yAxisHeight).attr('stroke', colorV1.$grey06);
-      gXAxis.append('text').text('Years').attr('x', _this.xAxisWidth - 15).attr('y', 26).attr('id', "".concat(styles$5.xAxisTitle)).style('fill', colorV1.$grey08);
+      gXAxis.append('text').text('Years').attr('x', _this.xAxisWidth - 15).attr('y', 26).attr('id', "".concat(styles$4.xAxisTitle)).style('fill', colorV1.$grey08);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createTimeToEventLabel", function (data) {
@@ -30148,7 +30315,7 @@ var TimeToEventOld = /*#__PURE__*/function (_Component) {
           defaultMargin = _this$options2.defaultMargin,
           defaultPadding = _this$options2.defaultPadding;
       var gTimeToEventLabels = generateGroup(_this.getRootElement().select('.timeToEvent'), {
-        className: styles$5.timeToEventLabels,
+        className: styles$4.timeToEventLabels,
         xOffset: defaultMargin.left,
         yOffset: defaultMargin.top + defaultPadding.top
       });
@@ -30156,7 +30323,7 @@ var TimeToEventOld = /*#__PURE__*/function (_Component) {
         return d.label[d.label.length - 1];
       }).attr('x', -16).attr('y', function (d) {
         return _this.yAxisScale(d.label[d.label.length - 1]) + 4;
-      }).attr('text-anchor', 'end').attr('class', "".concat(styles$5.timeToEventLabel)).style('fill', colorV1.$grey08);
+      }).attr('text-anchor', 'end').attr('class', "".concat(styles$4.timeToEventLabel)).style('fill', colorV1.$grey08);
     });
 
     _defineProperty(_assertThisInitialized(_this), "createTimeToEventGrid", function () {
@@ -30211,7 +30378,7 @@ var TimeToEventOld = /*#__PURE__*/function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "createLegend", function () {
       var gLegend = generateGroup(_this.getRootElement().select('.timeToEvent'), {
-        className: "".concat(styles$5.gLegend)
+        className: "".concat(styles$4.gLegend)
       });
 
       for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
@@ -30329,7 +30496,7 @@ var TimeToEventOld = /*#__PURE__*/function (_Component) {
 
       return React__default.createElement("div", {
         ref: this.rootElement,
-        className: styles$5.timeToEvent
+        className: styles$4.timeToEvent
       });
     }
   }]);
@@ -30829,7 +30996,7 @@ Button.defaultProps = {
   as: 'button',
   size: 'md',
   variant: 'basic_line',
-  styled: {},
+  style: {},
   onClick: function onClick() {},
   id: undefined
 };
@@ -30839,7 +31006,7 @@ Button.propTypes = {
   as: propTypes.string,
   size: propTypes.string,
   variant: propTypes.string,
-  styled: propTypes.shape({}),
+  style: propTypes.shape({}),
   onClick: propTypes.func,
   id: propTypes.string
 };
@@ -60326,7 +60493,7 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.30";
+var version$1 = "0.13.31";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;
@@ -60372,5 +60539,6 @@ exports.chartUtility = chartUtility;
 exports.commonTag = commonTag;
 exports.font = font$1;
 exports.notifications = Notifications;
+exports.tableProperties = tableProperties$1;
 exports.variables = variables;
 exports.version = version$1;
