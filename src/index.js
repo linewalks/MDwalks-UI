@@ -40,6 +40,7 @@ import * as commonTag from '@Components/common/commonTag'
 import SelectBox from '@Components/form/SelectBox'
 import * as font from '@src/assets/styles/font'
 import * as variables from '@src/assets/styles/variables'
+import * as tableProperties from '@src/assets/styles/tableProperties'
 import * as chartUtility from '@src/helper/chartUtility'
 
 import * as DateUtility from '@src/helper/DateUtility'
@@ -75,6 +76,7 @@ export {
   RadioBox,
   font,
   variables,
+  tableProperties,
   chartUtility,
   Button,
   ButtonLink,

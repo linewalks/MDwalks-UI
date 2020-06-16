@@ -2,45 +2,32 @@ import React from 'react';
 import _ from 'lodash'
 import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
+import { colorV1 } from '@src/assets/styles/variables'
+import { tableSize } from '@src/assets/styles/tableProperties'
 import PropTypes from 'prop-types'
 import EmptyPlaceHolder from './EmptyPlaceHolder'
 
 // .td 가 존재하는 이유는 appendRow 에 스타일을 적용하지 않기 위해서 이다
-const ListTBody = styled.tbody.attrs({
-  size: 18,
-  opacity: 8,
-})`
-  .tr:nth-child(even) .td {
-    background: ${color.$table_cell_grey};
+const ListTBody = styled.tbody.attrs(({ size }) => ({
+  ...tableSize[size].tbody,
+}))`
+  .td[rowspan] {
+    border-left: 1px solid ${colorV1.$grey04};
+    border-right: 1px solid ${colorV1.$grey04};
   }
 
-  .tr:nth-child(odd) .td {
-    background: ${color.$primary_white};
+  .td[rowspan]:first-child {
+    border-left: none;
   }
 
-  .tr .td.even {
-    background: ${color.$table_cell_grey};
+  .td[rowspan]:last-child {
+    border-right: none;
   }
 
-  .tr .td.odd {
-    background: ${color.$primary_white};
-  }
-
-  /* after the first non-.parent, toggle colors */
-  tr:not(.tr) ~ .tr:nth-child(odd) td {
-      background-color: ${color.$table_cell_grey};
-  }
-  tr:not(.tr) ~ .tr:nth-child(even) td {
-      background-color: ${color.$primary_white};
-  }
-
-  /* after the second non-.parent, toggle again */
-  tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(odd) td {
-      background-color: ${color.$primary_white};
-  }
-  tr:not(.tr) ~ tr:not(.tr) ~ .tr:nth-child(even) td {
-      background-color: ${color.$table_cell_grey};
+  ${({ isHaveRowSpan }) => (isHaveRowSpan ? `` : `.tr:hover { background: ${colorV1.$grey01}; }`)}
+  
+  .tr:not(:first-child) {
+    border-top: 1px solid ${colorV1.$grey04};
   }
 
   .td {
@@ -49,13 +36,13 @@ const ListTBody = styled.tbody.attrs({
   }
 
   .td > a > div, .td > div {
-    padding: 24px;
+    ${(({ padding }) => `padding: ${padding};`)}
   }
 `
 
 const EmptyTbody = styled.tbody`
   td {
-    padding: 68px;
+    padding: 34px;
     text-align: center;
   }
 `
@@ -66,6 +53,7 @@ const TBody = ({
   rowData,
   wrapTd,
   appendRow,
+  size,
 }) => {
   let singlevelHeader = headers
 
@@ -130,6 +118,8 @@ const TBody = ({
     return colSpan
   }
 
+  const isHaveRowSpan = _.some(_.flattenDeep(rowData), (item) => _.has(item, 'rowSpan'))
+
   return (
     _.isEmpty(rowData)
       ? (
@@ -140,7 +130,7 @@ const TBody = ({
             </td>
           </tr>
         </EmptyTbody>
-      ) : <ListTBody>{ createBody(rowData) }</ListTBody>
+      ) : <ListTBody isHaveRowSpan={isHaveRowSpan} size={size}>{ createBody(rowData) }</ListTBody>
   )
 };
 
@@ -150,6 +140,7 @@ TBody.defaultProps = {
   rowData: [],
   wrapTd: null,
   appendRow: null,
+  size: 'medium',
 }
 
 TBody.propTypes = {
@@ -162,6 +153,7 @@ TBody.propTypes = {
   ),
   wrapTd: PropTypes.func,
   appendRow: PropTypes.func,
+  size: PropTypes.string,
 }
 
 export default TBody;

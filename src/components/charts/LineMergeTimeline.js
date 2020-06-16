@@ -8,6 +8,9 @@ import {
   circleDataFilter, rectDataFilter, labelList,
   lineDataFormatConvert, errorMessage,
 } from '@src/helper/chartUtility'
+import { getColorsByTheme, Themes, ColorSetMap } from '@Components/ChartColor'
+import fontStyle from '@src/assets/styles/font.module.sass'
+import { colorV1 } from '@src/assets/styles/variables'
 
 class LineMergeTimeline extends Component {
   rootElement = React.createRef()
@@ -59,8 +62,12 @@ class LineMergeTimeline extends Component {
 
     // 2. Render xAxis
     gXAxis.call(xAxis)
-    gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5 V0.5')
+    gXAxis.selectAll('.domain').attr('stroke', colorV1.$grey06).attr('d', 'M0.5 0V0.5H942.5 V0.5')
     gXAxis.selectAll('.tick line').remove()
+    gXAxis
+      .selectAll('.tick text')
+      .attr('class', fontStyle.fs14)
+      .style('fill', colorV1.$grey08)
   }
 
   createLineYAxis = (lineYAxisScale) => {
@@ -88,12 +95,17 @@ class LineMergeTimeline extends Component {
       .attr('dx', -23)
       .attr('x', yAxisWidth)
       .attr('y', xAxisHeight + 6)
-      .attr('class', styles.title)
+      .attr('class', `${fontStyle.fs14} ${fontStyle.bold}`)
+      .style('fill', colorV1.$grey09)
 
     // 4. Render Line YAxis
     gLineYAxis.call(lineYAxis)
     gLineYAxis.selectAll('.domain').remove()
     gLineYAxis.selectAll('.tick line').remove()
+    gLineYAxis
+      .selectAll('.tick text')
+      .attr('class', fontStyle.fs14)
+      .style('fill', colorV1.$grey08)
   }
 
   createLineGrid = (xAxisScale, lineYAxisScale) => {
@@ -113,7 +125,7 @@ class LineMergeTimeline extends Component {
       .tickSize(-lineYAxisHeight)
       .tickFormat('')
 
-    // 3. Render Line YAxis Gridlines
+    // 3. Render LicircleColorList YAxis Gridlines
     const gLineYAxisGrid = gLineGrid
       .append('g')
       .attr('class', 'lineYAxisGrid')
@@ -122,7 +134,7 @@ class LineMergeTimeline extends Component {
     // 4. CSS Line YAxis
     gLineYAxisGrid
       .selectAll('.tick line')
-      .attr('stroke', '#e8e8e8')
+      .attr('stroke', colorV1.$grey04)
       .attr('stroke-dasharray', '2')
 
     gLineYAxisGrid.select('.domain').remove()
@@ -142,7 +154,7 @@ class LineMergeTimeline extends Component {
       .call(lineXAxisGridLines)
 
     // 3. CSS Line XAxis
-    gLineXAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8').attr('x2', this.xAxisWidth)
+    gLineXAxisGrid.selectAll('.tick line').attr('stroke', colorV1.$grey04).attr('x2', this.xAxisWidth)
     gLineXAxisGrid.select('.domain').remove()
   }
 
@@ -156,14 +168,16 @@ class LineMergeTimeline extends Component {
       .append('line')
       .attr('class', 'focus')
       .attr('fill', 'none')
+      .attr('stroke-width', 1)
       .style('pointer-events', 'none')
 
 
     // 1. Create vertical line text
     const verticalLineText = svg
       .append('text')
-      .attr('class', styles.verticalLineText)
+      .attr('class', `${styles.verticalLineText} ${fontStyle.fs12} ${fontStyle.bold}`)
       .attr('y', xAxisHeight)
+      .attr('fill', colorV1.$grey09)
 
 
     // 2. Create vertical line mouse event
@@ -181,7 +195,7 @@ class LineMergeTimeline extends Component {
         .attr('x2', xAxisScale(linePositionX))
         .attr('y1', xAxisHeight)
         .attr('y2', height - xAxisHeight - overViewAxisHeight)
-        .attr('stroke', '#58595a')
+        .attr('stroke', colorV1.$grey09)
 
       verticalLineText
         .text(d3.timeFormat('%Y.%m.%d')(lineScale.invert(d3.mouse(nodes[i])[0])))
@@ -227,20 +241,22 @@ class LineMergeTimeline extends Component {
     gradient.append('stop')
       .attr('class', 'start')
       .attr('offset', '0%')
-      .attr('stop-color', '#002d4f')
+      .attr('stop-color', _.nth(getColorsByTheme(Themes.ThemeArrangeGradientPrimarySea), 2))
       .attr('stop-opacity', 1);
 
     gradient.append('stop')
       .attr('class', 'end')
       .attr('offset', '100%')
-      .attr('stop-color', '#189bff')
+      .attr('stop-color', _.nth(getColorsByTheme(Themes.ThemeArrangeGradientPrimarySea), 0))
       .attr('stop-opacity', 1)
 
     //  Create Line Point Gradient
     const colorScale = d3.scaleLinear()
       .domain([defaultPadding.top, lineYAxisHeight])
-      .range(['#002d4f', '#189bff'])
-
+      .range([
+        _.nth(getColorsByTheme(Themes.ThemeArrangeGradientPrimarySea), 2),
+        _.nth(getColorsByTheme(Themes.ThemeArrangeGradientPrimarySea), 0),
+      ])
 
     // 1. Create Line Chart group
     const gLine = generateGroup(this.getRootElement().select('.timeline'), {
@@ -323,7 +339,8 @@ class LineMergeTimeline extends Component {
       .attr('dx', -23)
       .attr('x', yAxisWidth)
       .attr('y', xAxisHeight + lineYAxisHeight + defaultMargin.top + 6)
-      .attr('class', styles.title)
+      .attr('class', `${fontStyle.fs14} ${fontStyle.bold}`)
+      .style('fill', colorV1.$grey09)
 
     gTimelineLabels
       .selectAll('.timelineLabel')
@@ -334,7 +351,8 @@ class LineMergeTimeline extends Component {
       .attr('x', yAxisWidth)
       .attr('y', (d) => timelineYAxisScale(d.label[d.label.length - 1]))
       .attr('text-anchor', 'end')
-      .attr('class', 'timelineLabel')
+      .attr('class', fontStyle.fs14)
+      .style('fill', colorV1.$grey08)
   }
 
   createTimelineXAxis = (xAxis) => {
@@ -351,7 +369,7 @@ class LineMergeTimeline extends Component {
 
     // 2. Render Timeline XAxis
     gTimelineXAxis.call(xAxis)
-    gTimelineXAxis.selectAll('.domain').attr('stroke', '#c4c4c4').attr('d', 'M0.5 0V0.5H942.5V0.5')
+    gTimelineXAxis.selectAll('.domain').attr('stroke', colorV1.$grey06).attr('d', 'M0.5 0V0.5H942.5V0.5')
     gTimelineXAxis.selectAll('.tick').remove()
   }
 
@@ -389,7 +407,7 @@ class LineMergeTimeline extends Component {
 
     gTimelineYAxisGrid
       .selectAll('.tick line')
-      .attr('stroke', '#e8e8e8')
+      .attr('stroke', colorV1.$grey04)
       .attr('stroke-dasharray', '2')
 
     gTimelineYAxisGrid.select('.domain').remove()
@@ -407,7 +425,7 @@ class LineMergeTimeline extends Component {
       .attr('transform', `translate(0, ${defaultPadding.top - 5})`)
       .call(timelineXAxisGridLines)
 
-    gTimelineXAxisGrid.selectAll('.tick line').attr('stroke', '#e8e8e8')
+    gTimelineXAxisGrid.selectAll('.tick line').attr('stroke', colorV1.$grey04)
     gTimelineXAxisGrid.select('.domain').remove()
   }
 
@@ -415,9 +433,20 @@ class LineMergeTimeline extends Component {
     const {
       yAxisWidth, xAxisHeight, lineYAxisHeight, defaultMargin,
     } = this.options
+
+    const rectColorList = _.map(
+      ['teal400', 'rose200', 'sea600', 'bluegrey300', 'bluegrey230', 'bluegrey170', 'bluegrey120', 'bluegrey80', 'bluegrey50'],
+      (name) => ColorSetMap[name],
+    )
+
+    const circleColorList = _.map(['teal600', 'rose200', 'sea600'], (name) => ColorSetMap[name])
+
     // Create Timeline Chart
-    const circleColorScale = d3.scaleOrdinal().domain(labelList(timelineData)).range(['#00745e', '#faafa5', '#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec'])
-    const rectColorScale = d3.scaleOrdinal().domain(labelList(timelineData)).range(['#27b097', '#fa6b57', '#002d4f', '#a5a9ac', '#b5bbc0', '#c2cad0', '#cbd4da', '#d3dee6', '#dee6ec'])
+    const circleColorScale = d3.scaleOrdinal()
+      .domain(_.slice(labelList(timelineData), 0, 3))
+      .range(circleColorList)
+
+    const rectColorScale = d3.scaleOrdinal().domain(labelList(timelineData)).range(rectColorList)
 
     // 1. Create Timeline Data Group
     const gTimelineData = generateGroup(this.getRootElement().select('.timeline'), {
@@ -426,19 +455,20 @@ class LineMergeTimeline extends Component {
       yOffset: xAxisHeight + lineYAxisHeight + defaultMargin.top * 2 - 2.5,
     })
 
-    // 2. Render Timeline Circle
+    // 2. Add Rect Group
     timelineData.forEach((data, idx) => {
       gTimelineData
         .append('g')
-        .attr('class', () => `circles-${idx}`)
-        .selectAll('circle')
-        .data(circleDataFilter(data.dataPoints))
+        .attr('class', `rects-${idx}`)
+        .selectAll('rect')
+        .data(rectDataFilter(data.dataPoints))
         .enter()
-        .append('circle')
-        .attr('cx', (d) => xAxisScale(Date.parse(d.startTime)))
-        .attr('cy', timelineYAxisScale(data.label[data.label.length - 1]))
-        .attr('r', 7.5)
-        .attr('fill', circleColorScale(data.label[data.label.length - 1]))
+        .append('rect')
+        .attr('x', (d) => xAxisScale(Date.parse(d.startTime)))
+        .attr('y', timelineYAxisScale(data.label[data.label.length - 1]) - 7.5)
+        .attr('height', 15)
+        .attr('width', (d) => xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime)))
+        .attr('fill', rectColorScale(data.label[data.label.length - 1]))
         .attr('clip-path', 'url(#clip)')
         .on('mouseover', (d, i, nodes) => {
           const [x, y] = d3.mouse(nodes[i])
@@ -462,20 +492,20 @@ class LineMergeTimeline extends Component {
           .style('opacity', 0))
     })
 
-    // Add Rect Group
+
+    // 3. Render Timeline Circle
     timelineData.forEach((data, idx) => {
       gTimelineData
         .append('g')
-        .attr('class', `rects-${idx}`)
-        .selectAll('rect')
-        .data(rectDataFilter(data.dataPoints))
+        .attr('class', () => `circles-${idx}`)
+        .selectAll('circle')
+        .data(circleDataFilter(data.dataPoints))
         .enter()
-        .append('rect')
-        .attr('x', (d) => xAxisScale(Date.parse(d.startTime)))
-        .attr('y', timelineYAxisScale(data.label[data.label.length - 1]) - 7.5)
-        .attr('height', 15)
-        .attr('width', (d) => xAxisScale(Date.parse(d.endTime)) - xAxisScale(Date.parse(d.startTime)))
-        .attr('fill', rectColorScale(data.label[data.label.length - 1]))
+        .append('circle')
+        .attr('cx', (d) => xAxisScale(Date.parse(d.startTime)))
+        .attr('cy', timelineYAxisScale(data.label[data.label.length - 1]))
+        .attr('r', 7.5)
+        .attr('fill', circleColorScale(data.label[data.label.length - 1]))
         .attr('clip-path', 'url(#clip)')
         .on('mouseover', (d, i, nodes) => {
           const [x, y] = d3.mouse(nodes[i])
@@ -523,7 +553,7 @@ class LineMergeTimeline extends Component {
         .tickSize(-overViewAxisHeight)
         .tickFormat(''),
     )
-    overViewGrid.selectAll('.domain').attr('stroke', '#003964')
+    overViewGrid.selectAll('.domain').attr('stroke', colorV1.$grey07)
     overViewGrid.selectAll('.tick line').attr('stroke', 'none')
 
     // 3. Render OverViewXAxis
@@ -533,8 +563,12 @@ class LineMergeTimeline extends Component {
       yOffset: overViewAxisHeight,
     }).call(d3.axisBottom(xAxisScale).tickPadding(17))
 
-    overViewXAxis.selectAll('.domain').attr('stroke', '#003964').attr('d', 'M0.5 0V0.5H942.5V0.5')
+    overViewXAxis.selectAll('.domain').attr('stroke', colorV1.$grey07).attr('d', 'M0.5 0V0.5H942.5V0.5')
     overViewXAxis.selectAll('.tick line').remove()
+    overViewXAxis
+      .selectAll('.tick text')
+      .attr('class', fontStyle.fs14)
+      .style('fill', colorV1.$grey08)
 
     // 4. Render OverView Cover Line
     this.getRootElement().select('.timeline')
@@ -543,7 +577,7 @@ class LineMergeTimeline extends Component {
       .attr('x2', width - defaultPadding.right)
       .attr('y1', height - overViewAxisHeight - defaultPadding.bottom + 10)
       .attr('y2', height - overViewAxisHeight - defaultPadding.bottom + 10)
-      .attr('stroke', '#003964')
+      .attr('stroke', colorV1.$grey07)
 
     this.getRootElement().select('.timeline')
       .append('line')
@@ -551,7 +585,7 @@ class LineMergeTimeline extends Component {
       .attr('x2', width - defaultPadding.right)
       .attr('y1', height - defaultPadding.bottom + 10)
       .attr('y2', height - defaultPadding.bottom + 10)
-      .attr('stroke', '#003964')
+      .attr('stroke', colorV1.$grey07)
   }
 
   createBrush = (xAxisScale, lineScale, xAxis, line, overViewXAxisScale) => {
@@ -588,12 +622,15 @@ class LineMergeTimeline extends Component {
         .transition()
         .duration(500)
         .call(xAxis)
+        .selectAll('.tick text')
+        .attr('class', fontStyle.fs14)
+        .style('fill', colorV1.$grey08)
 
       this.getRootElement().select(`.${styles.xAxis}`)
         .transition()
         .duration(500)
         .selectAll('.domain')
-        .attr('stroke', '#c4c4c4')
+        .attr('stroke', colorV1.$grey06)
         .attr('d', 'M0.5 0V0.5H942.5V0.5')
 
       this.getRootElement().select(`.${styles.xAxis}`)
@@ -619,7 +656,7 @@ class LineMergeTimeline extends Component {
 
       this.getRootElement().select('.lineYAxisGrid')
         .selectAll('.tick line')
-        .attr('stroke', '#e8e8e8')
+        .attr('stroke', colorV1.$grey04)
         .attr('stroke-dasharray', '2')
 
       this.getRootElement().select('.lineYAxisGrid').select('.domain').remove()
@@ -643,7 +680,7 @@ class LineMergeTimeline extends Component {
 
       this.getRootElement().select('.timelineYAxisGrid')
         .selectAll('.tick line')
-        .attr('stroke', '#e8e8e8')
+        .attr('stroke', colorV1.$grey04)
         .attr('stroke-dasharray', '2')
 
       this.getRootElement().select('.timelineYAxisGrid').select('.domain').remove()
@@ -709,12 +746,15 @@ class LineMergeTimeline extends Component {
         .transition()
         .duration(500)
         .call(xAxis)
+        .selectAll('.tick text')
+        .attr('class', fontStyle.fs14)
+        .style('fill', colorV1.$grey08)
 
       this.getRootElement().select(`.${styles.xAxis}`)
         .transition()
         .duration(500)
         .selectAll('.domain')
-        .attr('stroke', '#c4c4c4')
+        .attr('stroke', colorV1.$grey06)
         .attr('d', 'M0.5 0V0.5H942.5 V0.5')
 
       this.getRootElement().select(`.${styles.xAxis}`)
@@ -738,7 +778,7 @@ class LineMergeTimeline extends Component {
 
       this.getRootElement().select('.lineYAxisGrid')
         .selectAll('.tick line')
-        .attr('stroke', '#e8e8e8')
+        .attr('stroke', colorV1.$grey04)
         .attr('stroke-dasharray', '2')
 
       this.getRootElement().select('.lineYAxisGrid').select('.domain').remove()
@@ -759,7 +799,7 @@ class LineMergeTimeline extends Component {
 
       this.getRootElement().select('.timelineYAxisGrid')
         .selectAll('.tick line')
-        .attr('stroke', '#e8e8e8')
+        .attr('stroke', colorV1.$grey04)
         .attr('stroke-dasharray', '2')
 
       this.getRootElement().select('.timelineYAxisGrid').select('.domain').remove()

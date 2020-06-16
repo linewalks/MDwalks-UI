@@ -5,9 +5,10 @@ import PropTypes from 'prop-types'
 import {
   getColorsByTheme,
   Themes,
+  ColorSetMap,
 } from '@Components/ChartColor'
-
-import styles from '@Charts/RadiusGauge.module.css'
+import fontStyle from '@src/assets/styles/font.module.sass'
+import { colorV1 } from '@src/assets/styles/variables'
 
 const RadiusGauge = ({
   width, height, score, theme,
@@ -18,6 +19,7 @@ const RadiusGauge = ({
   const angleScale = d3.scaleLinear().domain([0, 1]).range([0, 180])
 
   const colors = getColorsByTheme(theme)
+  const pinColor = ColorSetMap.sea200
 
   if (score >= 0 && score <= 1) {
     return (
@@ -48,20 +50,26 @@ const RadiusGauge = ({
             d={`M 50,160 A ${radius} ${radius} 0 1 1 250 160`}
             fill="none"
             stroke="url(#gaugeGradient)"
-            strokeWidth="10"
+            strokeWidth="12"
           />
         </g>
-        <path transform={`translate(75, 150) rotate(${angleScale(score)}, 75, 3.1)`} fill="#189BFF" fillRule="evenodd" d="M1.605 4.5l64.83 2.434A3.437 3.437 0 0 0 70 3.5 3.437 3.437 0 0 0 66.434.066L1.605 2.5a1 1 0 0 0 0 1.998z" />
-        <g transform="translate(0, 55)" className={styles.gauge_point}>
+        <path transform={`translate(75, 150) rotate(${angleScale(score)}, 75, 3.1)`} fill={pinColor} fillRule="evenodd" d="M1.605 4.5l64.83 2.434A3.437 3.437 0 0 0 70 3.5 3.437 3.437 0 0 0 66.434.066L1.605 2.5a1 1 0 0 0 0 1.998z" />
+        <g
+          transform="translate(0, 55)"
+          className={fontStyle.fs13}
+          style={{ textAnchor: 'middle', fill: colorV1.$grey08 }}
+        >
           <text
             x={cx - Math.round(120 * Math.cos(0))}
             y={cy - Math.round(120 * Math.sin(0))}
+            dx={0}
           >
             0
           </text>
           <text
             x={cx - Math.round(120 * Math.cos(Math.PI / 4))}
             y={cy - Math.round(120 * Math.sin(Math.PI / 4))}
+            dx={-6}
           >
             0.25
           </text>
@@ -74,17 +82,23 @@ const RadiusGauge = ({
           <text
             x={cx + Math.round(120 * Math.cos(Math.PI / 4))}
             y={cy - Math.round(120 * Math.sin(Math.PI / 4))}
+            dx={6}
           >
             0.75
           </text>
           <text
             x={cx + Math.round(120 * Math.cos(0))}
             y={cy - Math.round(120 * Math.sin(0))}
+            dx={6}
           >
             1.0
           </text>
         </g>
-        <g transform="translate(150, 200)" className={styles.gauge_score}>
+        <g
+          transform="translate(150, 200)"
+          className={`${fontStyle.fs32} ${fontStyle.bold}`}
+          style={{ textAnchor: 'middle', fill: colorV1.$grey10 }}
+        >
           <text>{`${score}`.slice(0, 4)}</text>
         </g>
       </svg>
