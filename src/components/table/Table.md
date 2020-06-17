@@ -104,7 +104,7 @@ Table example:
 ```js
 import React, { useState, useEffect } from 'react'
 
-;(() => {
+(() => {
   const [loading, setLoading] = useState(false)
   const onChange = (e) => {
     setLoading(e.target.checked)
@@ -114,6 +114,7 @@ import React, { useState, useEffect } from 'react'
     <>
       <input type="checkbox" onChange={onChange} /><span>loading</span>
       <Table
+        size="small"
         loading={loading}
         data={{
           headers: ['a', 'b', { text: 'c', sort: function(a, b) { console.log(a, b) } }],
@@ -173,4 +174,91 @@ import React, { useState, useEffect } from 'react'
   }}
   size='small'  // default: medium
 />
+```
+
+#### Row Header Table(Custom)
+```js
+import styled from 'styled-components'
+
+const WrapTable = styled.section`
+  table {
+    tr td:first-child {
+      background: #f3f6f8;
+      border-right: 1px solid #e7ebee;
+    }
+  }
+`
+
+const showTable = () => (
+  <WrapTable>
+    <Table
+      data={{
+        headers: [' ', 'b', 'c'],
+        rowData: [
+          [1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9]
+        ],
+      }}
+    />
+  </WrapTable>
+)
+
+showTable()
+```
+
+
+#### Vertical Scroll Table(Cutom)
+```js
+import styled from 'styled-components'
+
+const WrapTable = styled.section`
+  display: flex;
+`
+
+const WrapFixedTable = styled.section`
+  width: 200px;
+  thead th:last-child {
+    border-radius: 0;
+  }
+  table {
+    border-right: 1px solid #e7ebee;
+  }
+`
+
+const WrapScrollingTable = styled.section`
+  overflow-x: scroll;
+  thead th:first-child {
+    border-radius: 0;
+  }
+`
+
+const showTable = () => (
+  <WrapTable>
+    <WrapFixedTable>
+      <Table
+        data={{
+          headers: ['A', 'B'],
+          rowData: [
+            [{ rowSpan: 2, text: 'A1'}, 'B1'],
+            ['B2'],
+          ],
+        }}
+      />
+    </WrapFixedTable>
+    <WrapScrollingTable>
+      <Table
+        data={{
+          headers: ['a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c'],
+          rowData: [
+            [1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3],
+            [4, 5, 6, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3],
+          ],
+        }}
+      />
+    </WrapScrollingTable>
+  </WrapTable>
+)
+
+showTable()
 ```
