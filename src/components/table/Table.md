@@ -2,32 +2,45 @@ Table example:
 
 #### List Sub Head Table
 ```js
-<Table
-  data={{
-    headers: ['스위칭 의약품', '2013년', '2014년', '성장률'],
-    subHeaders: {
-      "2013년": ['처방건수', '비율'],
-      "2014년": ['처방건수', '비율'],
-      "성장률": ['CAGR', 'YOY'],
-    },
-    group: {
-      '유지': ['A'],
-      '추가': ['AB', 'AC'],
-      '변경': ['B']
-    },
-    rowData: [
-      {
-        'a1': 'A',
-        'b1': '3,112',
-        'b2': '64.7%',
-        'c1': '3,474',
-        'c2': '66.3%',
-        'd1': '12.6%',
-        'd2': '33.2%',
-      },
-    ]
-  }}
-/>
+import styled from 'styled-components'
+
+const WrapTable = styled.section`
+  td, td div { text-align: right; }
+  tr td:first-child div { text-align: center; }
+`
+
+const show = () => (
+  <WrapTable>
+    <Table
+      data={{
+        headers: ['스위칭 의약품', '2013년', '2014년', '성장률'],
+        subHeaders: {
+          "2013년": ['처방건수', '비율'],
+          "2014년": ['처방건수', '비율'],
+          "성장률": ['CAGR', 'YOY'],
+        },
+        group: {
+          '유지': ['A'],
+          '추가': ['AB', 'AC'],
+          '변경': ['B']
+        },
+        rowData: [
+          {
+            'a1': 'A',
+            'b1': '3,112',
+            'b2': '64.7%',
+            'c1': '3,474',
+            'c2': '66.3%',
+            'd1': '12.6%',
+            'd2': '33.2%',
+          },
+        ]
+      }}
+    />
+  </WrapTable>
+)
+
+show()
 ```
 
 #### List Table

@@ -21,7 +21,7 @@ const Td = styled.td.attrs(({ size }) => ({
   ...tableSize[size].thead.subHeader,
 }))`
   ${font.Text}
-  padding: 6px 16px;
+  ${({ padding }) => (`padding: ${padding}`)};
   text-align: center;
   background: ${colorV1.$grey02};
 `
@@ -30,9 +30,7 @@ const Th = styled.th.attrs(({ size }) => ({
   ...tableSize[size].thead,
 }))`
   ${font.Text}
-
   ${({ padding }) => (`padding: ${padding}`)};
-  
   text-align: center;
   background: ${colorV1.$grey02};
 
