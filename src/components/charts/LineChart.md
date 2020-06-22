@@ -35,7 +35,7 @@ LineChart example:
   </LineChart>
   ```
 
-#### add Label
+#### add Label - yLabelAngle props로 y축 라벨을 회전 시킬 수 있습니다.
 
 ```js
   import { Themes } from '@Components/ChartColor';
@@ -79,6 +79,7 @@ LineChart example:
       },
     ]}
     theme={Themes.ThemeArrangePrimarySea}
+    yLabelAngle={-90}
   >
   </LineChart>
   ```
