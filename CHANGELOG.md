@@ -1,3 +1,14 @@
+## [0.13.32](https://github.com/linewalks/MDwalks-UI/compare/v0.13.30...v0.13.32) (2020-06-23)
+
+
+### Bug Fixes
+
+* border-bottom 미적용 버그 픽스 ([745e049](https://github.com/linewalks/MDwalks-UI/commit/745e0492b73c78ebbb5c1df39e5c6e77db381e6c))
+* Button의 proptypes 오타 수정 ([7d6ab58](https://github.com/linewalks/MDwalks-UI/commit/7d6ab58e3aaac42c0058f5272c9f967f5ca81da4))
+* subHeader와 tbody td의 padding 불일치 문제 수정 ([5a4cd3b](https://github.com/linewalks/MDwalks-UI/commit/5a4cd3b7d79c089dc7ff1cf110b9fef9357619b3))
+
+
+
 ## [0.13.31](https://github.com/linewalks/MDwalks-UI/compare/v0.13.30...v0.13.31) (2020-06-16)
 
 
