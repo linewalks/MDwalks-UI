@@ -3,12 +3,14 @@ import PropTypes from 'prop-types'
 
 import styled from 'styled-components'
 
-import { color } from '@src/assets/styles/variables'
+import { colorV1 } from '@src/assets/styles/variables'
+import { tableSize } from '@src/assets/styles/tableProperties'
+
 
 const TableWrap = styled.div`
-  border: 1px solid ${color.$line_search_grey}
-  border-radius: 10px
-  overflow: hidden
+  border: 1px solid ${colorV1.$grey05};
+  border-radius: 8px;
+  overflow: hidden;
 `
 
 const Table = styled.table`
@@ -18,35 +20,28 @@ const Table = styled.table`
 `
 const Tr = styled.tr`
   &:not(:last-child) {
-    border-bottom: 1px solid ${color.$line_search_grey}
+    border-bottom: 1px solid ${colorV1.$grey04};
   }
 `
 
 const Th = styled.th`
-  &:not(:last-child) {
-    border-right: 1px solid ${color.$line_search_grey}
-  }
-  color: rgba(0, 0, 0, 0.7);
-  font-size: 16px;
+  color: ${colorV1.$grey08};
+  ${`font-size: ${tableSize.medium.thead.size}px`};
   font-family: "Spoqa Han Sans";
-  background: #f2f2f2;
+  background: ${colorV1.$grey03};
   font-weight: bold;
   text-align: left;
-  padding: 24px;
+  padding: ${tableSize.medium.thead.padding};
 `
 
 const Td = styled.td`
-  &:not(:last-child) {
-    border-right: 1px solid ${color.$line_search_grey}
-  }
-
-  color: #161616;
-  font-size: 18px;
+  color: ${colorV1.$grey10};
+  ${`font-size: ${tableSize.medium.tbody.size}px`};
   font-family: "Spoqa Han Sans";
   background: #ffffff;
   font-weight: normal;
   text-align: left;
-  padding: 24px;
+  padding: ${tableSize.medium.tbody.padding};
 `
 
 /**
@@ -90,8 +85,8 @@ const Descriptions = ({ data, cellCount = 2, colWidths = [] }) => {
   const createTable = () => {
     const table = []
     let props = {}
-    let thWidth; let
-      tdWidth
+    let thWidth
+    let tdWidth
 
     for (let i = 0; i < data.length; i += cellCount) {
       const children = []

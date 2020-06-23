@@ -3,7 +3,7 @@ import _ from 'lodash'
 import * as Rechart from 'recharts'
 import PropTypes from 'prop-types'
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color, colorV1 } from '@src/assets/styles/variables'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as commonTag from '@Components/common/commonTag'
 import { getColorsByTheme, Themes } from '@Components/ChartColor'
@@ -13,7 +13,22 @@ import YAxis from '@Components/charts/cartesian/YAxis'
 import CartesianGrid from '@Components/charts/cartesian/CartesianGrid'
 
 const LabelStyle = {
-  fill: colorV1.$grey08, fontWeight: 'bold', fontSize: '14px', textAnchor: 'middle',
+  fill: colorV1.$grey08,
+  fontWeight: 'bold',
+  fontSize: '14px',
+  textAnchor: 'middle',
+  letterSpacing: -0.5,
+}
+
+const DefaultDotStyle = {
+  r: 5,
+  stroke: 'none',
+}
+
+const HoverDotStyle = {
+  r: 8,
+  stroke: color.$primary_white,
+  strokeWidth: 3,
 }
 
 const LineChart = ({
@@ -33,6 +48,7 @@ const LineChart = ({
   xAxisTicks,
   yAxisTicks,
   lineDot,
+  yLabelAngle,
 }) => {
   const newYDataKey = [].concat(yDataKey)
   const colors = getColorsByTheme(theme, newYDataKey.length)
@@ -61,24 +77,33 @@ const LineChart = ({
         _.isEmpty(data)
           ? <EmptyPlaceHolder />
           : (
-            <Rechart.ResponsiveContainer height={height}>
+            <Rechart.ResponsiveContainer height={xData.label ? height + 28 : height}>
               <Rechart.LineChart
                 data={data}
-                height={height}
+                height={xData.label ? height + 28 : height}
                 margin={drawMargin}
               >
                 <CartesianGrid vertical={false} />
-                <XAxis dataKey={xDataKey} ticks={xAxisTicks} type={xAxisType}>
+                <XAxis
+                  tickMargin={8}
+                  dataKey={xDataKey}
+                  ticks={xAxisTicks}
+                  type={xAxisType}
+                >
                   {
                     xData.label && (
-                      <Rechart.Label value={xData.label.value} offset={-20} position="insideBottom" style={LabelStyle} />
+                      <Rechart.Label value={xData.label.value} offset={-16} position="insideBottom" style={LabelStyle} />
                     )
                   }
                 </XAxis>
-                <YAxis tickFormatter={tickFormatter} yAxisTicks={yAxisTicks}>
+                <YAxis
+                  tickMargin={16}
+                  tickFormatter={tickFormatter}
+                  yAxisTicks={yAxisTicks}
+                >
                   {
                     yData.label && (
-                      <Rechart.Label value={yData.label.value} offset={-1} angle={-90} position="insideLeft" style={LabelStyle} />
+                      <Rechart.Label value={yData.label.value} offset={-10} angle={yLabelAngle} position="insideLeft" style={LabelStyle} />
                     )
                   }
                 </YAxis>
@@ -86,9 +111,24 @@ const LineChart = ({
                   isPercent={isPercent}
                   textMap={textMap}
                   content={TooltipBox}
+                  cursor={{
+                    stroke: colorV1.$grey06,
+                    strokeDasharray: 3,
+                  }}
                 />
                 {
-                  newYDataKey.map((entry, index) => (<Rechart.Line key={`line${entry}`} dot={lineDot} dataKey={entry} stroke={colors[index]} fill={colors[index]} connectNulls={xAxisType === 'number'} />))
+                  newYDataKey.map((entry, index) => (
+                    <Rechart.Line
+                      key={`line${entry}`}
+                      dot={lineDot && DefaultDotStyle}
+                      activeDot={lineDot && HoverDotStyle}
+                      dataKey={entry}
+                      stroke={colors[index]}
+                      strokeWidth={4}
+                      fill={colors[index]}
+                      connectNulls={xAxisType === 'number'}
+                    />
+                  ))
                 }
               </Rechart.LineChart>
             </Rechart.ResponsiveContainer>
@@ -107,18 +147,19 @@ LineChart.defaultProps = {
   isPercent: false,
   textMap: {},
   margin: {
-    top: 10, right: 20, bottom: 5, left: 5,
+    top: 10, right: 41, bottom: 0, left: 5,
   },
   legend: {
     hide: false,
   },
   xData: {},
   yData: {},
-  height: 415,
+  height: 303,
   xAxisType: 'category',
   xAxisTicks: null,
   yAxisTicks: null,
   lineDot: true,
+  yLabelAngle: 0,
 }
 
 LineChart.propTypes = {
@@ -160,6 +201,7 @@ LineChart.propTypes = {
   xAxisTicks: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
   yAxisTicks: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
   lineDot: PropTypes.bool,
+  yLabelAngle: PropTypes.number,
 }
 
 export default LineChart

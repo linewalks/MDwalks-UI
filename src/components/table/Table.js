@@ -68,6 +68,10 @@ const TableBox = styled.table`
   ${(props) => (props.className.split(' ').includes('sideFit') ? sideFit : null)}
 `
 
+const WrapScrollTables = styled.div`
+  border-bottom: 1px solid ${variables.colorV1.$grey06};
+`
+
 const Columns = ({ columns }) => (
   !_.isEmpty(columns) && (
     <colgroup>
@@ -107,7 +111,7 @@ const Table = ({
 
   if (!_.isEmpty(scroll)) {
     return (
-      <div>
+      <WrapScrollTables>
         <TableBox className={className} notBottom>
           <Columns columns={columns} />
           <THead
@@ -132,11 +136,11 @@ const Table = ({
             />
           </TableBox>
         </commonTag.WrapperScrollBars>
-        <TableBox className={className}>
+        <TableBox className={className} notBottom>
           <Columns columns={columns} />
           <TFoot footData={data.footData} size={size} />
         </TableBox>
-      </div>
+      </WrapScrollTables>
     )
   }
 

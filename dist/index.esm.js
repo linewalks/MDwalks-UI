@@ -23095,7 +23095,8 @@ var tableSize = {
       subHeader: {
         size: 13,
         color: colorV1.$grey08,
-        bold: true
+        bold: true,
+        padding: '6px 16px'
       }
     },
     tbody: {
@@ -23119,7 +23120,8 @@ var tableSize = {
       subHeader: {
         size: 13,
         color: colorV1.$grey08,
-        bold: true
+        bold: true,
+        padding: '6px 24px'
       }
     },
     tbody: {
@@ -23174,7 +23176,7 @@ function _templateObject3$4() {
 }
 
 function _templateObject2$5() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n\n  ", ";\n  \n  text-align: center;\n  background: ", ";\n\n  &:first-child {\n    border-radius: 8px 0 0 0;\n  }\n\n  &:last-child {\n    border-radius: 0 8px 0 0;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  ", ";\n  text-align: center;\n  background: ", ";\n\n  &:first-child {\n    border-radius: 8px 0 0 0;\n  }\n\n  &:last-child {\n    border-radius: 0 8px 0 0;\n  }\n"]);
 
   _templateObject2$5 = function _templateObject2() {
     return data;
@@ -23184,7 +23186,7 @@ function _templateObject2$5() {
 }
 
 function _templateObject$5() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  padding: 6px 16px;\n  text-align: center;\n  background: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  ", ";\n  text-align: center;\n  background: ", ";\n"]);
 
   _templateObject$5 = function _templateObject() {
     return data;
@@ -23195,16 +23197,19 @@ function _templateObject$5() {
 var Td = styled.td.attrs(function (_ref) {
   var size = _ref.size;
   return _objectSpread2({}, tableSize[size].thead.subHeader);
-})(_templateObject$5(), Text, colorV1.$grey02);
-var Th = styled.th.attrs(function (_ref2) {
-  var size = _ref2.size;
-  return _objectSpread2({}, tableSize[size].thead);
-})(_templateObject2$5(), Text, function (_ref3) {
-  var padding = _ref3.padding;
+})(_templateObject$5(), Text, function (_ref2) {
+  var padding = _ref2.padding;
   return "padding: ".concat(padding);
 }, colorV1.$grey02);
-var SortButton = styled.button.attrs(function (_ref4) {
-  var size = _ref4.size;
+var Th = styled.th.attrs(function (_ref3) {
+  var size = _ref3.size;
+  return _objectSpread2({}, tableSize[size].thead);
+})(_templateObject2$5(), Text, function (_ref4) {
+  var padding = _ref4.padding;
+  return "padding: ".concat(padding);
+}, colorV1.$grey02);
+var SortButton = styled.button.attrs(function (_ref5) {
+  var size = _ref5.size;
   return _objectSpread2({}, tableSize[size].thead);
 })(_templateObject3$4(), Text, function (props) {
   return props.disabled ? 'not-allowed' : 'pointer';
@@ -23215,9 +23220,9 @@ var TrEmpty = function TrEmpty() {
   return React.createElement("tr", null, React.createElement("th", null, "\xA0"));
 };
 
-var HeaderText = function HeaderText(_ref5) {
-  var text = _ref5.text,
-      wrapTh = _ref5.wrapTh;
+var HeaderText = function HeaderText(_ref6) {
+  var text = _ref6.text,
+      wrapTh = _ref6.wrapTh;
   return wrapTh ? wrapTh({
     text: text
   }) : React.createElement("div", null, text);
@@ -23230,9 +23235,9 @@ HeaderText.propTypes = {
   text: propTypes.string.isRequired,
   wrapTh: propTypes.func
 };
-var HeaderSortIcon = function HeaderSortIcon(_ref6) {
-  var sort = _ref6.sort,
-      loading = _ref6.loading;
+var HeaderSortIcon = function HeaderSortIcon(_ref7) {
+  var sort = _ref7.sort,
+      loading = _ref7.loading;
 
   if (loading) {
     return React.createElement("span", null, React.createElement("img", {
@@ -23281,12 +23286,12 @@ HeaderSortIcon.propTypes = {
   sort: propTypes.string
 };
 
-var HeaderTextSort = function HeaderTextSort(_ref7) {
-  var text = _ref7.text,
-      sort = _ref7.sort,
-      toggle = _ref7.toggle,
-      loading = _ref7.loading,
-      size = _ref7.size;
+var HeaderTextSort = function HeaderTextSort(_ref8) {
+  var text = _ref8.text,
+      sort = _ref8.sort,
+      toggle = _ref8.toggle,
+      loading = _ref8.loading,
+      size = _ref8.size;
   return React.createElement(SortButton, {
     disabled: loading,
     type: "button",
@@ -23312,12 +23317,12 @@ HeaderTextSort.propTypes = {
   size: propTypes.string
 };
 
-var THead = function THead(_ref8) {
-  var headers = _ref8.headers,
-      wrapTh = _ref8.wrapTh,
-      subHeaders = _ref8.subHeaders,
-      loading = _ref8.loading,
-      size = _ref8.size;
+var THead = function THead(_ref9) {
+  var headers = _ref9.headers,
+      wrapTh = _ref9.wrapTh,
+      subHeaders = _ref9.subHeaders,
+      loading = _ref9.loading,
+      size = _ref9.size;
 
   var _useState = useState({}),
       _useState2 = _slicedToArray(_useState, 2),
@@ -25181,15 +25186,46 @@ var Legend = styled.article.attrs({
 var LegendList = function LegendList(_ref) {
   var data = _ref.data,
       textMap = _ref.textMap,
-      hide = _ref.hide;
+      hide = _ref.hide,
+      theme = _ref.theme,
+      themes = _ref.themes;
 
   if (hide) {
     return null;
   }
 
-  var legends = data && data.map(function (_ref2, index) {
-    var legendColor = _ref2.color,
-        text = _ref2.text;
+  var colors = '';
+  var newLegendData;
+
+  if (!lodash.isUndefined(themes)) {
+    colors = lodash.map(themes, function (t) {
+      return getColorsByTheme(t, data.length);
+    });
+    newLegendData = lodash.chain(data).map(function (_ref2, index) {
+      var text = _ref2.text,
+          innerColor = _ref2.color;
+      return {
+        color: innerColor || lodash.map(colors, function (c) {
+          return c[index];
+        }),
+        text: text
+      };
+    }).value();
+  } else {
+    colors = getColorsByTheme(theme, data.length);
+    newLegendData = lodash.chain(data).map(function (_ref3, index) {
+      var text = _ref3.text,
+          innerColor = _ref3.color;
+      return {
+        color: innerColor || colors[index],
+        text: text
+      };
+    }).value();
+  }
+
+  var legends = newLegendData && newLegendData.map(function (_ref4, index) {
+    var innerColor = _ref4.color,
+        text = _ref4.text;
     var lKey = "legend_".concat(text, "_").concat(index);
     var drawText = text;
 
@@ -25197,7 +25233,7 @@ var LegendList = function LegendList(_ref) {
       drawText = textMap[drawText];
     }
 
-    var drawLegendColor = lodash.concat([], legendColor);
+    var drawLegendColor = lodash.concat([], innerColor);
 
     return React.createElement(Legend, {
       key: lKey
@@ -25219,16 +25255,23 @@ var LegendList = function LegendList(_ref) {
 LegendList.defaultProps = {
   data: [],
   textMap: {},
-  hide: false
+  hide: false,
+  theme: Themes.ThemeArrangePrimarySea,
+  themes: undefined
 };
 LegendList.propTypes = {
-  data: propTypes.arrayOf(propTypes.shape({})),
+  data: propTypes.arrayOf(propTypes.shape({
+    text: propTypes.string.isRequired,
+    color: propTypes.string
+  })),
   textMap: propTypes.shape({}),
-  hide: propTypes.bool
+  hide: propTypes.bool,
+  themes: propTypes.oneOfType([propTypes.arrayOf(propTypes.string)]),
+  theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal, Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold, Themes.ThemeArrangeQuinaryBerry, Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3])
 };
-var WrapperScrollBars = function WrapperScrollBars(_ref3) {
-  var scroll = _ref3.scroll,
-      children = _ref3.children;
+var WrapperScrollBars = function WrapperScrollBars(_ref5) {
+  var scroll = _ref5.scroll,
+      children = _ref5.children;
   return !lodash.isUndefined(scroll.y) ? React.createElement(lib_1, {
     style: {
       height: scroll.y
@@ -25248,8 +25291,8 @@ var ChartTitleTag = styled.header.attrs(function () {
     className: [fontStyle.fs18, fontStyle.fc_grey09, fontStyle.bold].join(' ')
   };
 })(_templateObject6$1());
-var chartTitle = function chartTitle(_ref4) {
-  var children = _ref4.children;
+var chartTitle = function chartTitle(_ref6) {
+  var children = _ref6.children;
 
   if (!children) {
     return null;
@@ -25268,6 +25311,16 @@ var commonTag = /*#__PURE__*/Object.freeze({
   WrapperScrollBars: WrapperScrollBars,
   chartTitle: chartTitle
 });
+
+function _templateObject3$7() {
+  var data = _taggedTemplateLiteral(["\n  border-bottom: 1px solid ", ";\n"]);
+
+  _templateObject3$7 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
 
 function _templateObject2$9() {
   var data = _taggedTemplateLiteral(["\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%;\n\n  border-bottom: 1px solid ", ";\n\n  ", ";\n\n  ", "\n"]);
@@ -25294,6 +25347,7 @@ var TableBox = styled.table(_templateObject2$9(), colorV1.$grey06, function (pro
 }, function (props) {
   return props.className.split(' ').includes('sideFit') ? sideFit : null;
 });
+var WrapScrollTables = styled.div(_templateObject3$7(), colorV1.$grey06);
 
 var Columns = function Columns(_ref) {
   var columns = _ref.columns;
@@ -25332,7 +25386,7 @@ var Table = function Table(_ref2) {
   }
 
   if (!lodash.isEmpty(scroll)) {
-    return React.createElement("div", null, React.createElement(TableBox, {
+    return React.createElement(WrapScrollTables, null, React.createElement(TableBox, {
       className: className,
       notBottom: true
     }, React.createElement(Columns, {
@@ -25359,7 +25413,8 @@ var Table = function Table(_ref2) {
       rowSpanCount: rowSpanCount,
       size: size
     }))), React.createElement(TableBox, {
-      className: className
+      className: className,
+      notBottom: true
     }, React.createElement(Columns, {
       columns: columns
     }), React.createElement(TFoot, {
@@ -25425,7 +25480,7 @@ Table.propTypes = {
 };
 
 function _templateObject5$2() {
-  var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-right: 1px solid ", "\n  }\n\n  color: #161616;\n  font-size: 18px;\n  font-family: \"Spoqa Han Sans\";\n  background: #ffffff;\n  font-weight: normal;\n  text-align: left;\n  padding: 24px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  ", ";\n  font-family: \"Spoqa Han Sans\";\n  background: #ffffff;\n  font-weight: normal;\n  text-align: left;\n  padding: ", ";\n"]);
 
   _templateObject5$2 = function _templateObject5() {
     return data;
@@ -25435,7 +25490,7 @@ function _templateObject5$2() {
 }
 
 function _templateObject4$5() {
-  var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-right: 1px solid ", "\n  }\n  color: rgba(0, 0, 0, 0.7);\n  font-size: 16px;\n  font-family: \"Spoqa Han Sans\";\n  background: #f2f2f2;\n  font-weight: bold;\n  text-align: left;\n  padding: 24px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  color: ", ";\n  ", ";\n  font-family: \"Spoqa Han Sans\";\n  background: ", ";\n  font-weight: bold;\n  text-align: left;\n  padding: ", ";\n"]);
 
   _templateObject4$5 = function _templateObject4() {
     return data;
@@ -25444,10 +25499,10 @@ function _templateObject4$5() {
   return data;
 }
 
-function _templateObject3$7() {
-  var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-bottom: 1px solid ", "\n  }\n"]);
+function _templateObject3$8() {
+  var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-bottom: 1px solid ", ";\n  }\n"]);
 
-  _templateObject3$7 = function _templateObject3() {
+  _templateObject3$8 = function _templateObject3() {
     return data;
   };
 
@@ -25465,7 +25520,7 @@ function _templateObject2$a() {
 }
 
 function _templateObject$b() {
-  var data = _taggedTemplateLiteral(["\n  border: 1px solid ", "\n  border-radius: 10px\n  overflow: hidden\n"]);
+  var data = _taggedTemplateLiteral(["\n  border: 1px solid ", ";\n  border-radius: 8px;\n  overflow: hidden;\n"]);
 
   _templateObject$b = function _templateObject() {
     return data;
@@ -25473,11 +25528,11 @@ function _templateObject$b() {
 
   return data;
 }
-var TableWrap = styled.div(_templateObject$b(), color.$line_search_grey);
+var TableWrap = styled.div(_templateObject$b(), colorV1.$grey05);
 var Table$1 = styled.table(_templateObject2$a());
-var Tr = styled.tr(_templateObject3$7(), color.$line_search_grey);
-var Th$1 = styled.th(_templateObject4$5(), color.$line_search_grey);
-var Td$1 = styled.td(_templateObject5$2(), color.$line_search_grey);
+var Tr = styled.tr(_templateObject3$8(), colorV1.$grey04);
+var Th$1 = styled.th(_templateObject4$5(), colorV1.$grey08, "font-size: ".concat(tableSize.medium.thead.size, "px"), colorV1.$grey03, tableSize.medium.thead.padding);
+var Td$1 = styled.td(_templateObject5$2(), colorV1.$grey10, "font-size: ".concat(tableSize.medium.tbody.size, "px"), tableSize.medium.tbody.padding);
 var isLastCell = function isLastCell(_ref2) {
   var cellTotal = _ref2.cellTotal,
       cellCurrent = _ref2.cellCurrent;
@@ -26241,7 +26296,17 @@ var LabelStyle$1 = {
   fill: colorV1.$grey08,
   fontWeight: 'bold',
   fontSize: '14px',
-  textAnchor: 'middle'
+  textAnchor: 'middle',
+  letterSpacing: -0.5
+};
+var DefaultDotStyle = {
+  r: 5,
+  stroke: 'none'
+};
+var HoverDotStyle = {
+  r: 8,
+  stroke: color.$primary_white,
+  strokeWidth: 3
 };
 
 var LineChart = function LineChart(_ref) {
@@ -26260,7 +26325,8 @@ var LineChart = function LineChart(_ref) {
       xAxisType = _ref.xAxisType,
       xAxisTicks = _ref.xAxisTicks,
       yAxisTicks = _ref.yAxisTicks,
-      lineDot = _ref.lineDot;
+      lineDot = _ref.lineDot,
+      yLabelAngle = _ref.yLabelAngle;
   var newYDataKey = [].concat(yDataKey);
   var colors = getColorsByTheme(theme, newYDataKey.length);
 
@@ -26290,41 +26356,49 @@ var LineChart = function LineChart(_ref) {
     textMap: textMap,
     hide: legend.hide
   }), lodash.isEmpty(data) ? React.createElement(EmptyPlaceHolder, null) : React.createElement(ResponsiveContainer, {
-    height: height
+    height: xData.label ? height + 28 : height
   }, React.createElement(LineChart$1, {
     data: data,
-    height: height,
+    height: xData.label ? height + 28 : height,
     margin: drawMargin
   }, React.createElement(CartesianGrid, {
     vertical: false
   }), React.createElement(XAxis, {
+    tickMargin: 8,
     dataKey: xDataKey,
     ticks: xAxisTicks,
     type: xAxisType
   }, xData.label && React.createElement(Label$1, {
     value: xData.label.value,
-    offset: -20,
+    offset: -16,
     position: "insideBottom",
     style: LabelStyle$1
   })), React.createElement(YAxis, {
+    tickMargin: 16,
     tickFormatter: tickFormatter,
     yAxisTicks: yAxisTicks
   }, yData.label && React.createElement(Label$1, {
     value: yData.label.value,
-    offset: -1,
-    angle: -90,
+    offset: -10,
+    angle: yLabelAngle,
     position: "insideLeft",
     style: LabelStyle$1
   })), React.createElement(Tooltip, {
     isPercent: isPercent,
     textMap: textMap,
-    content: TooltipBox
+    content: TooltipBox,
+    cursor: {
+      stroke: colorV1.$grey06,
+      strokeDasharray: 3
+    }
   }), newYDataKey.map(function (entry, index) {
     return React.createElement(Line, {
       key: "line".concat(entry),
-      dot: lineDot,
+      dot: lineDot && DefaultDotStyle,
+      activeDot: lineDot && HoverDotStyle,
       dataKey: entry,
       stroke: colors[index],
+      strokeWidth: 4,
       fill: colors[index],
       connectNulls: xAxisType === 'number'
     });
@@ -26341,8 +26415,8 @@ LineChart.defaultProps = {
   textMap: {},
   margin: {
     top: 10,
-    right: 20,
-    bottom: 5,
+    right: 41,
+    bottom: 0,
     left: 5
   },
   legend: {
@@ -26350,11 +26424,12 @@ LineChart.defaultProps = {
   },
   xData: {},
   yData: {},
-  height: 415,
+  height: 303,
   xAxisType: 'category',
   xAxisTicks: null,
   yAxisTicks: null,
-  lineDot: true
+  lineDot: true,
+  yLabelAngle: 0
 };
 LineChart.propTypes = {
   title: propTypes.string,
@@ -26389,7 +26464,8 @@ LineChart.propTypes = {
   xAxisType: propTypes.oneOf(['category', 'number']),
   xAxisTicks: propTypes.arrayOf(propTypes.oneOfType([propTypes.number, propTypes.string])),
   yAxisTicks: propTypes.arrayOf(propTypes.oneOfType([propTypes.number, propTypes.string])),
-  lineDot: propTypes.bool
+  lineDot: propTypes.bool,
+  yLabelAngle: propTypes.number
 };
 
 var css_248z$1 = ".Timeline-module_timelineChart__6imxY {\n  position: relative;\n}\n\n/* xAxis */\n.Timeline-module_xAxis__2yeDE, .Timeline-module_overViewXAxis__3PeKr {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: center;\n  color: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text {\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  text-align: right;\n  fill: rgba(0, 0, 0, 0.6);\n}\n/* labels */\n.Timeline-module_labels__8btAK text:nth-child(n + 4) {\n  fill: rgba(0, 0, 0, 0.3);\n}\n.Timeline-module_verticalLineText__2adr2 {\n  width: 61px;\n  height: 18px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 12px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.4px;\n  text-align: center;\n  fill: #000000;\n}\n/* overview axis style */\n.Timeline-module_overViewXAxisGrid__1I727 path {\n  fill: #003964;\n  opacity: 0.24;\n}\n\n/* tooltip  */\n.Timeline-module_tooltip__2A0o2 {\n  position: absolute;\n  width: 184px;\n  height: 73.2px;\n  border-radius: 5px;\n  box-shadow: 0 6px 18px 0 rgba(0, 0, 0, 0.1);\n  border: solid 1px #505050;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipDay__1lg2e {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: normal;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n}\n\n.Timeline-module_tooltip__2A0o2 .Timeline-module_tooltipLabel__1aVan {\n  /* width: 152px; */\n  height: 20px;\n  opacity: 0.8;\n  font-family: 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';\n  font-size: 14px;\n  font-weight: bold;\n  font-style: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n  color: #000000;\n  margin-bottom: 5px\n}\n\n.Timeline-module_dot__3N3de {\n  height: 10px;\n  width: 10px;\n  background-color: #a5e2d7;\n  border-radius: 5px;\n  display: inline-block;\n}";
@@ -27617,10 +27693,10 @@ function _templateObject4$6() {
   return data;
 }
 
-function _templateObject3$8() {
+function _templateObject3$9() {
   var data = _taggedTemplateLiteral(["\n  color: ", " !important;\n\n  &:not(:last-child) {\n    margin-right: 40px;\n  }\n\n  transition: color 0.5s ease;\n  &:hover {\n    color: ", " !important;\n  }\n"]);
 
-  _templateObject3$8 = function _templateObject3() {
+  _templateObject3$9 = function _templateObject3() {
     return data;
   };
 
@@ -27657,7 +27733,7 @@ var UnderLineSize = 3;
 var typeCategory = css(_templateObject2$d(), function (props) {
   return props['aria-selected'] ? colorV1.$pmblue : colorV1.$grey08;
 }, 13 + UnderLineSize, colorV1.$pmblue);
-var typeTitle = css(_templateObject3$8(), function (props) {
+var typeTitle = css(_templateObject3$9(), function (props) {
   return props['aria-selected'] ? colorV1.$grey10 : colorV1.$grey07;
 }, colorV1.$grey10);
 var Tab = styled.span.attrs(function (props) {
@@ -28238,10 +28314,10 @@ function _templateObject4$7() {
   return data;
 }
 
-function _templateObject3$9() {
+function _templateObject3$a() {
   var data = _taggedTemplateLiteral(["\n  > div {\n    display: flex\n    alignItems: baseline;\n  }\n\n  margin-bottom: 30px\n  button {\n    line-height: 1\n  }\n"]);
 
-  _templateObject3$9 = function _templateObject3() {
+  _templateObject3$a = function _templateObject3() {
     return data;
   };
 
@@ -28280,7 +28356,7 @@ var Overlay = styled.div(_templateObject$j(), hexToRGB(color.$black, 0.6), funct
   return props.isLoading ? zIndex.$modalOverlayLoading : zIndex.$modalOverlay;
 });
 var ModalBox = styled.div(_templateObject2$e(), size$1.minWidth, size$1.borderRadius, color.$primary_white, zIndex.$modal, size$1.modalPadding);
-var Header = styled.header(_templateObject3$9());
+var Header = styled.header(_templateObject3$a());
 var Contents = styled(TextTag).attrs({
   size: '18',
   bold: false
@@ -28344,10 +28420,10 @@ Modal.propTypes = {
   footer: propTypes.node
 };
 
-function _templateObject3$a() {
+function _templateObject3$b() {
   var data = _taggedTemplateLiteral(["\n  label {\n    display: block;\n    padding: 12px 24px;\n    display: flex;\n    align-items: center;\n    img {\n      margin-right: 12px;\n    }\n  }\n  input {\n    display: none;\n  }\n\n  ", ";\n  ", "\n"]);
 
-  _templateObject3$a = function _templateObject3() {
+  _templateObject3$b = function _templateObject3() {
     return data;
   };
 
@@ -28382,7 +28458,7 @@ var Item = styled.div.attrs(function (props) {
   return {
     className: [fontStyle.fs16, fontColorClassName].join(' ')
   };
-})(_templateObject3$a(), function (props) {
+})(_templateObject3$b(), function (props) {
   return props.layout === ChartConfig.Layout.HORIZONTAL ? ' display: inline-block' : 'display: block';
 }, function (props) {
   return props.disabled ? CssDiable : CssEnable;
@@ -28710,10 +28786,10 @@ function _templateObject4$8() {
   return data;
 }
 
-function _templateObject3$b() {
+function _templateObject3$c() {
   var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  &:not(:last-child) {\n    margin-right: 24px;\n  }\n"]);
 
-  _templateObject3$b = function _templateObject3() {
+  _templateObject3$c = function _templateObject3() {
     return data;
   };
 
@@ -28747,7 +28823,7 @@ var Inner = styled.div(_templateObject2$g(), function (props) {
 }, function (props) {
   return props.align === 'right' ? "margin-left: auto" : '';
 });
-var Box$3 = styled.div(_templateObject3$b());
+var Box$3 = styled.div(_templateObject3$c());
 var Label = styled.label.attrs(function () {
   return {
     className: [fontStyle.fs16, fontStyle.fc_grey09, fontStyle.bold].join(' ')
@@ -30519,10 +30595,10 @@ TimeToEventOld.propTypes = {
   theme: propTypes.oneOf([Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3])
 };
 
-function _templateObject3$c() {
+function _templateObject3$d() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n"]);
 
-  _templateObject3$c = function _templateObject3() {
+  _templateObject3$d = function _templateObject3() {
     return data;
   };
 
@@ -30560,7 +30636,7 @@ var size$2 = {
 var PieLegend = styled.div(_templateObject2$h(), function (props) {
   return props.layout === ChartConfig.Layout.HORIZONTAL ? 'margin-left: 56px;' : 'margin-top: 26px;';
 });
-var Layout$1 = styled.section(_templateObject3$c(), function (props) {
+var Layout$1 = styled.section(_templateObject3$d(), function (props) {
   return props.layout === ChartConfig.Layout.HORIZONTAL ? "\n    display: flex;\n  " : '';
 }, function (props) {
   return props.layout === ChartConfig.Layout.VERTICAL ? "\n    .recharts-responsive-container {\n      margin: 0 auto;\n    };\n  " : '';
@@ -30773,10 +30849,10 @@ function _templateObject4$9() {
   return data;
 }
 
-function _templateObject3$d() {
+function _templateObject3$e() {
   var data = _taggedTemplateLiteral(["\n  opacity: 0;\n  animation: ", " 1.3s infinite;\n"]);
 
-  _templateObject3$d = function _templateObject3() {
+  _templateObject3$e = function _templateObject3() {
     return data;
   };
 
@@ -30924,7 +31000,7 @@ var setBtnColor = function setBtnColor(props) {
 };
 
 var fade = keyframes(_templateObject2$i());
-var LoadingBase = css(_templateObject3$d(), fade);
+var LoadingBase = css(_templateObject3$e(), fade);
 var LoadingOne = styled.span(_templateObject4$9(), LoadingBase);
 var LoadingTwo = styled.span(_templateObject5$5(), LoadingBase);
 var LoadingThree = styled.span(_templateObject6$4(), LoadingBase);
@@ -31098,10 +31174,10 @@ ButtonTextLink.propTypes = {
   id: propTypes.string
 };
 
-function _templateObject3$e() {
+function _templateObject3$f() {
   var data = _taggedTemplateLiteral(["\n  display: inline-block;\n\n  vertical-align: middle;\n  > div {\n    display: flex;\n    align-items: center;\n  }\n\n  ", " {\n    &:first-child {\n      margin-right: 8px;\n    }\n    &:last-child {\n      margin-left: 8px;\n    }\n  }\n"]);
 
-  _templateObject3$e = function _templateObject3() {
+  _templateObject3$f = function _templateObject3() {
     return data;
   };
 
@@ -31143,7 +31219,7 @@ var TextLinkTag = styled(TextTag).attrs(function () {
   return props.fontSize;
 });
 var Icon$1 = styled.img(_templateObject2$j());
-var TextLinkIconTag = styled(TextLinkTag)(_templateObject3$e(), Icon$1);
+var TextLinkIconTag = styled(TextLinkTag)(_templateObject3$f(), Icon$1);
 
 var TextLink = function TextLink(props) {
   var href = props.href,
@@ -31226,10 +31302,10 @@ function _templateObject4$a() {
   return data;
 }
 
-function _templateObject3$f() {
+function _templateObject3$g() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n\n  p {\n    margin-left: 8px;\n    line-height: 1.34em;\n  }\n"]);
 
-  _templateObject3$f = function _templateObject3() {
+  _templateObject3$g = function _templateObject3() {
     return data;
   };
 
@@ -31265,7 +31341,7 @@ var Box$4 = styled.section.attrs(function () {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
 var InnerBox = styled.article(_templateObject2$k());
-var TextBox = styled.div(_templateObject3$f());
+var TextBox = styled.div(_templateObject3$g());
 var CloseButton = styled.button(_templateObject4$a());
 
 var Toast = function Toast(_ref) {
@@ -31544,10 +31620,10 @@ function _templateObject4$b() {
   return data;
 }
 
-function _templateObject3$g() {
+function _templateObject3$h() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    margin-left: 8px;\n  }\n  letter-spacing: -0.5px;\n  color: ", ";\n  ", ";\n"]);
 
-  _templateObject3$g = function _templateObject3() {
+  _templateObject3$h = function _templateObject3() {
     return data;
   };
 
@@ -31581,7 +31657,7 @@ var PaginationInner = styled.div(_templateObject2$l(), function (props) {
 }, function (props) {
   return props.align === 'right' ? "margin-left: auto" : '';
 });
-var PageText = styled.span(_templateObject3$g(), colorV1.$grey10, function (props) {
+var PageText = styled.span(_templateObject3$h(), colorV1.$grey10, function (props) {
   return props.size === 'sm' ? "font-size: 14px;" : "font-size: 16px;";
 });
 var ButtonPage = styled.button(_templateObject4$b(), function (props) {
@@ -31805,10 +31881,10 @@ Pagination.propTypes = {
   align: propTypes.oneOf(['center', 'left', 'right'])
 };
 
-function _templateObject3$h() {
+function _templateObject3$i() {
   var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: ", "px;\n  min-width: ", "px;\n  height: ", "px;\n  padding: ", ";\n  border-radius: ", "px;\n  outline: none;\n  text-align: center;\n\n  &:not(:last-child) {\n    margin-right: 8px;\n  }\n  ", ";\n  background-color: ", ";\n  &:hover {\n    background-color: ", ";\n    ", ";\n  }\n"]);
 
-  _templateObject3$h = function _templateObject3() {
+  _templateObject3$i = function _templateObject3() {
     return data;
   };
 
@@ -31872,7 +31948,7 @@ var ToggleBtn = styled.button.attrs(function () {
   return {
     className: "".concat(fontStyle.font, " ").concat(fontStyle.bold)
   };
-})(_templateObject3$h(), colorV1.$grey10, function (props) {
+})(_templateObject3$i(), colorV1.$grey10, function (props) {
   return props.fontSize;
 }, function (props) {
   return props.minWidth;
@@ -60072,10 +60148,10 @@ function _templateObject4$c() {
   return data;
 }
 
-function _templateObject3$i() {
+function _templateObject3$j() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n\n  h4 {\n    margin-right: 8px;\n  }\n\n  img {\n    margin-right: 8px;\n  }\n\n  p {\n    line-height: 1.34em;\n  }\n"]);
 
-  _templateObject3$i = function _templateObject3() {
+  _templateObject3$j = function _templateObject3() {
     return data;
   };
 
@@ -60111,7 +60187,7 @@ var Box$6 = styled.section.attrs(function () {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
 var InnerBox$1 = styled.article(_templateObject2$n());
-var TextBox$1 = styled.div(_templateObject3$i());
+var TextBox$1 = styled.div(_templateObject3$j());
 var CloseButton$1 = styled.button(_templateObject4$c());
 
 var Notification = /*#__PURE__*/function (_React$Component) {
@@ -60207,10 +60283,10 @@ Notification.propTypes = {
   onRequestHide: propTypes.func
 };
 
-function _templateObject3$j() {
+function _templateObject3$k() {
   var data = _taggedTemplateLiteral(["\n  box-sizing: border-box;\n  position: fixed;\n  top: 99px;\n  left: 50%;\n  margin-left: -350px;\n  z-index: 999999;\n  max-height: calc(100% - 30px -99px);\n  overflow-x: hidden;\n  overflow-y: auto;\n\n  .item-enter {\n    animation: ", " 100ms linear;\n    animation-fill-mode: both;\n  }\n\n  .item-enter-active {\n  }\n\n  .item-exit {\n    animation: ", " 100ms linear;\n    animation-fill-mode: both;\n  }\n\n  .item-exit-active {\n  }\n"]);
 
-  _templateObject3$j = function _templateObject3() {
+  _templateObject3$k = function _templateObject3() {
     return data;
   };
 
@@ -60238,7 +60314,7 @@ function _templateObject$x() {
 }
 var fadeInDown = keyframes(_templateObject$x());
 var fadeOutUp = keyframes(_templateObject2$o());
-var List = styled.section(_templateObject3$j(), fadeInDown, fadeOutUp);
+var List = styled.section(_templateObject3$k(), fadeInDown, fadeOutUp);
 
 var Notifications = function Notifications(props) {
   var notifications = props.notifications,
@@ -60486,6 +60562,6 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.31";
+var version$1 = "0.13.32";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, RadarChart, RadarChartOld, RadioBox, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, TimeToEventOld, Timeline, ToastCtr, ToggleButton, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, Notifications as notifications, tableProperties$1 as tableProperties, variables, version$1 as version };

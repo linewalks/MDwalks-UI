@@ -8,7 +8,9 @@ export const tableSize = {
       color: colorV1.$grey08,
       bold: true,
       padding: '8px 16px',
-      subHeader: { size: 13, color: colorV1.$grey08, bold: true },
+      subHeader: {
+        size: 13, color: colorV1.$grey08, bold: true, padding: '6px 16px',
+      },
     },
     tbody: {
       size: 14,
@@ -28,7 +30,9 @@ export const tableSize = {
       color: colorV1.$grey08,
       bold: true,
       padding: '12px 24px',
-      subHeader: { size: 13, color: colorV1.$grey08, bold: true },
+      subHeader: {
+        size: 13, color: colorV1.$grey08, bold: true, padding: '6px 24px',
+      },
     },
     tbody: {
       size: 16,
