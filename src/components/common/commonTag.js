@@ -6,7 +6,6 @@ import fontStyle from '@src/assets/styles/font.module.sass'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-// LegendList
 import { getColorsByTheme, Themes } from '@Components/ChartColor'
 
 const LegendWrap = styled.section`
@@ -64,7 +63,7 @@ export const LegendList = ({
   let colors = ''
   let newLegendData
 
-  if (!_.isUndefined(themes)) { // group
+  if (!_.isUndefined(themes)) {
     colors = _.map(themes, (t) => (getColorsByTheme(t, data.length)))
     newLegendData = _.chain(data)
       .map(
@@ -73,7 +72,7 @@ export const LegendList = ({
         ),
       )
       .value()
-  } else if (!_.is) {
+  } else {
     colors = getColorsByTheme(theme, data.length)
     newLegendData = _.chain(data)
       .map(({ text, color: innerColor }, index) => ({ color: innerColor || colors[index], text }))
