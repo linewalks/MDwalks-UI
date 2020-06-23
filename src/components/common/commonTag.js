@@ -6,6 +6,9 @@ import fontStyle from '@src/assets/styles/font.module.sass'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
+// LegendList
+import { getColorsByTheme, Themes } from '@Components/ChartColor'
+
 const LegendWrap = styled.section`
   display: flex;
   > article:not(:last-child) {
@@ -51,12 +54,33 @@ export const Legend = styled.article.attrs({
   }
 `
 
-export const LegendList = ({ data, textMap, hide }) => {
+export const LegendList = ({
+  data, textMap, hide, theme, themes,
+}) => {
   if (hide) {
     return null
   }
 
-  const legends = data && data.map(({ color: legendColor, text }, index) => {
+  let colors = ''
+  let newLegendData
+
+  if (!_.isUndefined(themes)) { // group
+    colors = _.map(themes, (t) => (getColorsByTheme(t, data.length)))
+    newLegendData = _.chain(data)
+      .map(
+        ({ text, color: innerColor }, index) => (
+          { color: innerColor || _.map(colors, (c) => c[index]), text }
+        ),
+      )
+      .value()
+  } else if (!_.is) {
+    colors = getColorsByTheme(theme, data.length)
+    newLegendData = _.chain(data)
+      .map(({ text, color: innerColor }, index) => ({ color: innerColor || colors[index], text }))
+      .value()
+  }
+
+  const legends = newLegendData && newLegendData.map(({ color: innerColor, text }, index) => {
     const lKey = `legend_${text}_${index}`
 
     let drawText = text
@@ -65,7 +89,7 @@ export const LegendList = ({ data, textMap, hide }) => {
       drawText = textMap[drawText]
     }
 
-    const drawLegendColor = _.concat([], legendColor)
+    const drawLegendColor = _.concat([], innerColor)
 
     return (
       <Legend key={lKey}>
@@ -95,12 +119,30 @@ LegendList.defaultProps = {
   data: [],
   textMap: {},
   hide: false,
+  theme: Themes.ThemeArrangePrimarySea,
+  themes: undefined,
 }
 
 LegendList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({})),
+  data: PropTypes.arrayOf(PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    color: PropTypes.string,
+  })),
   textMap: PropTypes.shape({}),
   hide: PropTypes.bool,
+  themes: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
+  theme: PropTypes.oneOf([
+    'blue', 'green', 'compare',
+    Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal,
+    Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold,
+    Themes.ThemeArrangeQuinaryBerry,
+    Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
+    Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3,
+    Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
+    Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
+  ]),
 }
 
 export const WrapperScrollBars = ({ scroll, children }) => (
