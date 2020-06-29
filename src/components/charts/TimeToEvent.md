@@ -13,7 +13,6 @@ const data = [
 
 <TimeToEvent
   data={data}
-  theme={Themes.ThemeArrangePrimarySea}
   xData={{
     unit: "Years"
   }}
