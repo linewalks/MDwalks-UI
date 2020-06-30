@@ -19,10 +19,14 @@ const Inner = styled.div`
   ${(props) => (props.align === 'center' ? `margin: 0 auto` : '')}
   ${(props) => (props.align === 'left' ? `margin-right: auto` : '')}
   ${(props) => (props.align === 'right' ? `margin-left: auto` : '')}
+
+  margin-bottom: -24px;
 `
 
 const Box = styled.div`
   display: inline-block;
+  margin-bottom: 24px;
+
   &:not(:last-child) {
     margin-right: 24px;
   }
@@ -109,18 +113,6 @@ class RadioBox extends React.Component {
 
     this.onChange({ selectedList })
   }
-
-  // unCheckedById(id) {
-  //   let { selectedList } = this.state
-  //   if (selectedList.includes(`${id}`)) {
-  //     selectedList = _.without(selectedList, `${id}`)
-  //     this.setState({
-  //       selectedList,
-  //     })
-
-  //     this.onChange({ selectedList })
-  //   }
-  // }
 
   render() {
     const {
