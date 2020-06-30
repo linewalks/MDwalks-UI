@@ -19,5 +19,6 @@ const data = [
   margin={{
     right: 50,
   }}
+  showTooltip={true}
 />
 ```
