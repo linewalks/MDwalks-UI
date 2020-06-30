@@ -1,3 +1,23 @@
+## [0.13.33](https://github.com/linewalks/MDwalks-UI/compare/v0.13.30...v0.13.33) (2020-06-30)
+
+
+### Bug Fixes
+
+* **LineMergedTimeline:** 차트 컬러셋 순서 변경 ([110aef2](https://github.com/linewalks/MDwalks-UI/commit/110aef2f0599beaf30168660ce3a753f36b6aa5f)), closes [#678](https://github.com/linewalks/MDwalks-UI/issues/678)
+* **TimeToEvent:** 컬러 렌더링 순서 변경 ([18c6a62](https://github.com/linewalks/MDwalks-UI/commit/18c6a622fba9d64771672a27f914fdd2c7a16485)), closes [#676](https://github.com/linewalks/MDwalks-UI/issues/676)
+* border-bottom 미적용 버그 픽스 ([745e049](https://github.com/linewalks/MDwalks-UI/commit/745e0492b73c78ebbb5c1df39e5c6e77db381e6c))
+* Button의 proptypes 오타 수정 ([7d6ab58](https://github.com/linewalks/MDwalks-UI/commit/7d6ab58e3aaac42c0058f5272c9f967f5ca81da4))
+* subHeader와 tbody td의 padding 불일치 문제 수정 ([5a4cd3b](https://github.com/linewalks/MDwalks-UI/commit/5a4cd3b7d79c089dc7ff1cf110b9fef9357619b3))
+
+
+### Features
+
+* **TimeToEvent:** Tooltip show,hide 옵션 추가 ([ebd7e95](https://github.com/linewalks/MDwalks-UI/commit/ebd7e95999217a1a0d03848dc689767b01687a70)), closes [#680](https://github.com/linewalks/MDwalks-UI/issues/680)
+* 멀티바 차트 스타일가이드 적용 ([c743761](https://github.com/linewalks/MDwalks-UI/commit/c743761f729c3fae9946718091551063ccd68a5b)), closes [#673](https://github.com/linewalks/MDwalks-UI/issues/673)
+* 바 차트 스타일가이드 적용 ([d0ed420](https://github.com/linewalks/MDwalks-UI/commit/d0ed4204424e855d5bdbfd5ef0cf3b21916a762e)), closes [#670](https://github.com/linewalks/MDwalks-UI/issues/670)
+
+
+
 ## [0.13.32](https://github.com/linewalks/MDwalks-UI/compare/v0.13.30...v0.13.32) (2020-06-23)
 
 
