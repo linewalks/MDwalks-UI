@@ -435,11 +435,11 @@ class LineMergeTimeline extends Component {
     } = this.options
 
     const rectColorList = _.map(
-      ['teal400', 'rose200', 'sea600', 'bluegrey300', 'bluegrey230', 'bluegrey170', 'bluegrey120', 'bluegrey80', 'bluegrey50'],
+      ['teal400', 'sea600', 'rose200', 'bluegrey300', 'bluegrey230', 'bluegrey170', 'bluegrey120', 'bluegrey80', 'bluegrey50'],
       (name) => ColorSetMap[name],
     )
 
-    const circleColorList = _.map(['teal600', 'rose200', 'sea600'], (name) => ColorSetMap[name])
+    const circleColorList = _.map(['teal600', 'sea600', 'rose200'], (name) => ColorSetMap[name])
 
     // Create Timeline Chart
     const circleColorScale = d3.scaleOrdinal()
@@ -476,7 +476,7 @@ class LineMergeTimeline extends Component {
           const tooltip = this.getRootElement().select(`.${styles.tooltip}`)
           const tooltipDescription = `
             <div>
-              <div class=${styles.tooltipLabel}><span class=${styles.dot}></span> ${label}</div>
+              <div class=${styles.tooltipLabel}><span class=${styles.dot} style="background-color: ${rectColorScale(data.label[data.label.length - 1])};"></span> ${label}</div>
               <div class=${styles.tooltipDay}>${d3.timeFormat('%Y.%m.%d')(new Date(d.startTime))} ~ ${d3.timeFormat('%Y.%m.%d')(new Date(d.endTime))}</div>
             </div>
             `
@@ -513,7 +513,7 @@ class LineMergeTimeline extends Component {
           const tooltip = this.getRootElement().select(`.${styles.tooltip}`)
           const tooltipDescription = `
             <div>
-              <div class=${styles.tooltipLabel}><span class=${styles.dot}></span> ${label}</div>
+              <div class=${styles.tooltipLabel}><span class=${styles.dot} style="background-color: ${circleColorScale(data.label[data.label.length - 1])};"></span> ${label}</div>
               <div class=${styles.tooltipDay}>${d3.timeFormat('%Y.%m.%d')(new Date(d.startTime))} ~ ${d3.timeFormat('%Y.%m.%d')(new Date(d.endTime))}</div>
             </div>
             `
