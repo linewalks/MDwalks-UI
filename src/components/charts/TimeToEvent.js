@@ -105,7 +105,7 @@ export const appendOrder = (arr) => (
 )
 
 const TimeToEvent = ({
-  data, theme, margin, xData, legend,
+  data, theme, margin, xData, legend, showTooltip,
 }) => {
   let startDate = _.minBy(data, 'start').start
   startDate = new Date(startDate)
@@ -157,9 +157,13 @@ const TimeToEvent = ({
           margin={drawMargin}
         >
           <CartesianGrid strokeDasharray="2 2" horizontal={false} />
-          <Rechart.Tooltip
-            content={tooltipContent}
-          />
+          {
+            showTooltip && (
+              <Rechart.Tooltip
+                content={tooltipContent}
+              />
+            )
+          }
           {
             _.map(yTicks, (tick) => (<Rechart.ReferenceLine key={`ReferenceLine${tick}`} y={tick} stroke={colorV1.$grey04} />))
           }
@@ -205,6 +209,7 @@ TimeToEvent.defaultProps = {
     hide: false,
   },
   xData: {},
+  showTooltip: true,
 }
 
 TimeToEvent.propTypes = {
@@ -233,6 +238,7 @@ TimeToEvent.propTypes = {
     }),
     unit: PropTypes.string,
   }),
+  showTooltip: PropTypes.bool,
 }
 
 export default TimeToEvent
