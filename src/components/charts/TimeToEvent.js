@@ -131,7 +131,7 @@ const TimeToEvent = ({
     return date.setFullYear(date.getFullYear() + num)
   })
 
-  const colors = getColorsByTheme(theme, newDataKey.length).reverse()
+  const colors = getColorsByTheme(theme, newDataKey.length)
 
   const legendData = _.chain(newDataKey)
     .map((entry, index) => ({ color: colors[index], text: entry }))
