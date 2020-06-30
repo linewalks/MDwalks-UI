@@ -79,6 +79,13 @@ class RadioBox extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const { data } = this.props
+    if (!_.isEqual(JSON.stringify(prevProps.data), JSON.stringify(data))) {
+      this.setSelectedList(data)
+    }
+  }
+
   onChange({ selectedList }) {
     const { data, onChange } = this.props
     const targetId = _.first(selectedList)
@@ -103,6 +110,18 @@ class RadioBox extends React.Component {
     })
 
     this.onChange({ selectedList })
+  }
+
+  setSelectedList(data) {
+    let selectedList = _.chain(data)
+      .filter(({ checked }) => checked)
+      .map(({ id }) => `${id}`)
+      .value()
+
+    if (selectedList.length > 1) {
+      selectedList = selectedList.slice(0, 1)
+    }
+    this.setState({ selectedList })
   }
 
   unCheckedAll() {
