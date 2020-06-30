@@ -46,6 +46,7 @@ const BarChart = ({
   yData,
   scroll,
   width,
+  chartHeight,
 }) => {
   const newYDataKey = [].concat(yDataKey);
 
@@ -95,9 +96,11 @@ const BarChart = ({
 
   const barGap = 1
 
+  const labelMarginBottom = 35
+
   let height
   if (layout === ChartConfig.Layout.HORIZONTAL) {
-    height = 263
+    height = chartHeight
   }
 
   if (layout === ChartConfig.Layout.VERTICAL) {
@@ -134,27 +137,44 @@ const BarChart = ({
           : (
             <div>
               <commonTag.WrapperScrollBars scroll={scroll}>
-                <Rechart.ResponsiveContainer width={width} height={height}>
+                <Rechart.ResponsiveContainer width={width} height={xData.label ? height + 28 : height}>
                   <Rechart.BarChart
                     width={width}
                     data={data}
                     height={height}
                     layout={layout}
-                    margin={scrollChartMargin}
+                    margin={
+                      xData.label ? { ...scrollChartMargin, left: 40, bottom: labelMarginBottom } : scrollChartMargin
+                    }
                     barGap={barGap}
                   >
-                    <CartesianGrid vertical={layout !== ChartConfig.Layout.HORIZONTAL} horizontal={layout === ChartConfig.Layout.HORIZONTAL} />
-                    <XAxis hide={isScroll} dataKey={XAxisDataKey} tickFormatter={XAxisTicFormatter} type={XAxisType} height={20} dy={-10 + 8}>
+                    <CartesianGrid
+                      vertical={layout !== ChartConfig.Layout.HORIZONTAL}
+                      horizontal={layout === ChartConfig.Layout.HORIZONTAL}
+                    />
+                    <XAxis
+                      hide={isScroll}
+                      dataKey={XAxisDataKey}
+                      tickFormatter={XAxisTicFormatter}
+                      type={XAxisType}
+                      height={20}
+                      tickMargin={8}
+                    >
                       {
                         xData.label && (
-                          <Rechart.Label value={xData.label.value} offset={10} position="bottom" style={LabelStyle.style} />
+                          <Rechart.Label value={xData.label.value} offset={22} position="bottom" style={LabelStyle} />
                         )
                       }
                     </XAxis>
-                    <YAxis dataKey={YAxisDataKey} tickFormatter={YAxisTicFormatter} type={YAxisType} dx={15 - 16}>
+                    <YAxis
+                      dataKey={YAxisDataKey}
+                      tickFormatter={YAxisTicFormatter}
+                      type={YAxisType}
+                      tickMargin={16}
+                    >
                       {
                         yData.label && (
-                          <Rechart.Label value={yData.label.value} offset={0} position="left" style={LabelStyle.style} />
+                          <Rechart.Label value={yData.label.value} offset={24} position="left" style={LabelStyle} />
                         )
                       }
                     </YAxis>
@@ -203,23 +223,33 @@ const BarChart = ({
               </commonTag.WrapperScrollBars>
               {
                 isScroll && (
-                  <Rechart.ResponsiveContainer width={width} height={(31 + margin.bottom)}>
+                  <Rechart.ResponsiveContainer width={width} height={xData.label ? (31 + labelMarginBottom) : (31 + margin.bottom)}>
                     <Rechart.BarChart
                       width={width}
                       data={data}
                       height={36}
                       layout={layout}
-                      margin={_.extend({}, margin, { top: 5 })}
+                      margin={_.extend({}, margin, { top: 5, bottom: xData.label ? labelMarginBottom : margin.bottom })}
                       barGap={barGap}
                     >
-                      <XAxis dataKey={XAxisDataKey} tickFormatter={XAxisTicFormatter} type={XAxisType}>
+                      <XAxis
+                        dataKey={XAxisDataKey}
+                        tickFormatter={XAxisTicFormatter}
+                        type={XAxisType}
+                        tickMargin={8}
+                      >
                         {
                           xData.label && (
-                            <Rechart.Label value={xData.label.value} offset={10} position="bottom" style={LabelStyle.style} />
+                            <Rechart.Label value={xData.label.value} offset={22} position="bottom" style={LabelStyle} />
                           )
                         }
                       </XAxis>
-                      <YAxis dataKey={YAxisDataKey} tickFormatter={YAxisTicFormatter} type={YAxisType} />
+                      <YAxis
+                        dataKey={YAxisDataKey}
+                        tickFormatter={YAxisTicFormatter}
+                        type={YAxisType}
+                        tickMargin={16}
+                      />
                       {
                         newYDataKey.map((entry, index) => (<Rechart.Bar style={{ visibility: 'hidden' }} key={`bar${entry}`} dataKey={entry} fill={colors[index]} />))
                       }
@@ -255,6 +285,7 @@ BarChart.defaultProps = {
   yData: {},
   scroll: {},
   width: Rechart.BarChart.defaultProps.width,
+  chartHeight: 303,
 }
 
 BarChart.propTypes = {
@@ -304,6 +335,7 @@ BarChart.propTypes = {
     y: PropTypes.number,
   }),
   width: PropTypes.number,
+  chartHeight: PropTypes.number,
 }
 
 export default BarChart

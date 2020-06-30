@@ -25850,7 +25850,6 @@ CartesianGrid.defaultProps = _objectSpread2({}, CartesianGrid$1.defaultProps, {
   custom: true
 });
 
-/* eslint-disable max-len */
 var LabelStyle = {
   fill: colorV1.$grey08,
   fontWeight: 'bold',
@@ -25881,7 +25880,8 @@ var BarChart = function BarChart(_ref) {
       xData = _ref.xData,
       yData = _ref.yData,
       scroll = _ref.scroll,
-      width = _ref.width;
+      width = _ref.width,
+      chartHeight = _ref.chartHeight;
   var newYDataKey = [].concat(yDataKey);
   var colors = '';
   var legendData;
@@ -25939,10 +25939,11 @@ var BarChart = function BarChart(_ref) {
 
   var barSize = getBarSize(barCount, layout);
   var barGap = 1;
+  var labelMarginBottom = 35;
   var height;
 
   if (layout === ChartConfig.Layout.HORIZONTAL) {
-    height = 263;
+    height = chartHeight;
   }
 
   if (layout === ChartConfig.Layout.VERTICAL) {
@@ -25973,13 +25974,16 @@ var BarChart = function BarChart(_ref) {
     scroll: scroll
   }, React.createElement(ResponsiveContainer, {
     width: width,
-    height: height
+    height: xData.label ? height + 28 : height
   }, React.createElement(BarChart$1, {
     width: width,
     data: data,
     height: height,
     layout: layout,
-    margin: scrollChartMargin,
+    margin: xData.label ? _objectSpread2({}, scrollChartMargin, {
+      left: 40,
+      bottom: labelMarginBottom
+    }) : scrollChartMargin,
     barGap: barGap
   }, React.createElement(CartesianGrid, {
     vertical: layout !== ChartConfig.Layout.HORIZONTAL,
@@ -25990,22 +25994,22 @@ var BarChart = function BarChart(_ref) {
     tickFormatter: XAxisTicFormatter,
     type: XAxisType,
     height: 20,
-    dy: -10 + 8
+    tickMargin: 8
   }, xData.label && React.createElement(Label$1, {
     value: xData.label.value,
-    offset: 10,
+    offset: 22,
     position: "bottom",
-    style: LabelStyle.style
+    style: LabelStyle
   })), React.createElement(YAxis, {
     dataKey: YAxisDataKey,
     tickFormatter: YAxisTicFormatter,
     type: YAxisType,
-    dx: 15 - 16
+    tickMargin: 16
   }, yData.label && React.createElement(Label$1, {
     value: yData.label.value,
-    offset: 0,
+    offset: 24,
     position: "left",
-    style: LabelStyle.style
+    style: LabelStyle
   })), !lodash.isUndefined(themes) && React.createElement(Tooltip, {
     isPercent: isPercent,
     textMap: textMap,
@@ -26046,29 +26050,32 @@ var BarChart = function BarChart(_ref) {
     });
   })))), isScroll && React.createElement(ResponsiveContainer, {
     width: width,
-    height: 31 + margin.bottom
+    height: xData.label ? 31 + labelMarginBottom : 31 + margin.bottom
   }, React.createElement(BarChart$1, {
     width: width,
     data: data,
     height: 36,
     layout: layout,
     margin: lodash.extend({}, margin, {
-      top: 5
+      top: 5,
+      bottom: xData.label ? labelMarginBottom : margin.bottom
     }),
     barGap: barGap
   }, React.createElement(XAxis, {
     dataKey: XAxisDataKey,
     tickFormatter: XAxisTicFormatter,
-    type: XAxisType
+    type: XAxisType,
+    tickMargin: 8
   }, xData.label && React.createElement(Label$1, {
     value: xData.label.value,
-    offset: 10,
+    offset: 22,
     position: "bottom",
-    style: LabelStyle.style
+    style: LabelStyle
   })), React.createElement(YAxis, {
     dataKey: YAxisDataKey,
     tickFormatter: YAxisTicFormatter,
-    type: YAxisType
+    type: YAxisType,
+    tickMargin: 16
   }), newYDataKey.map(function (entry, index) {
     return React.createElement(Bar, {
       style: {
@@ -26104,7 +26111,8 @@ BarChart.defaultProps = {
   xData: {},
   yData: {},
   scroll: {},
-  width: BarChart$1.defaultProps.width
+  width: BarChart$1.defaultProps.width,
+  chartHeight: 303
 };
 BarChart.propTypes = {
   title: propTypes.string,
@@ -26141,7 +26149,8 @@ BarChart.propTypes = {
   scroll: propTypes.shape({
     y: propTypes.number
   }),
-  width: propTypes.number
+  width: propTypes.number,
+  chartHeight: propTypes.number
 };
 
 function _templateObject$d() {
@@ -26163,7 +26172,8 @@ var BarChartMulti = function BarChartMulti(_ref) {
       theme = _ref.theme,
       isPercent = _ref.isPercent,
       textMap = _ref.textMap,
-      legend = _ref.legend;
+      legend = _ref.legend,
+      height = _ref.height;
   var newYDataKey = [].concat(yDataKey);
   var colors = getColorsByTheme(theme, newYDataKey.length);
 
@@ -26223,10 +26233,10 @@ var BarChartMulti = function BarChartMulti(_ref) {
       key: "".concat(key)
     }, React.createElement(ResponsiveContainer, {
       width: "100%",
-      height: 263
+      height: height
     }, React.createElement(BarChart$1, {
       data: value,
-      height: 263,
+      height: height,
       margin: {
         top: 0,
         right: 0,
@@ -26277,7 +26287,8 @@ BarChartMulti.defaultProps = {
   textMap: {},
   legend: {
     hide: false
-  }
+  },
+  height: 303
 };
 BarChartMulti.propTypes = {
   title: propTypes.string,
@@ -26289,7 +26300,8 @@ BarChartMulti.propTypes = {
   theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal, Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold, Themes.ThemeArrangeQuinaryBerry, Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3]),
   legend: propTypes.shape({
     hide: propTypes.bool
-  })
+  }),
+  height: propTypes.number
 };
 
 var LabelStyle$1 = {
@@ -27057,11 +27069,11 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
           lineYAxisHeight = _this$options9.lineYAxisHeight,
           defaultMargin = _this$options9.defaultMargin;
 
-      var rectColorList = lodash.map(['teal400', 'rose200', 'sea600', 'bluegrey300', 'bluegrey230', 'bluegrey170', 'bluegrey120', 'bluegrey80', 'bluegrey50'], function (name) {
+      var rectColorList = lodash.map(['teal400', 'sea600', 'rose200', 'bluegrey300', 'bluegrey230', 'bluegrey170', 'bluegrey120', 'bluegrey80', 'bluegrey50'], function (name) {
         return ColorSetMap[name];
       });
 
-      var circleColorList = lodash.map(['teal600', 'rose200', 'sea600'], function (name) {
+      var circleColorList = lodash.map(['teal600', 'sea600', 'rose200'], function (name) {
         return ColorSetMap[name];
       }); // Create Timeline Chart
 
@@ -27090,7 +27102,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
 
           var tooltip = _this.getRootElement().select(".".concat(styles$2.tooltip));
 
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, " style=\"background-color: ").concat(rectColorScale(data.label[data.label.length - 1]), ";\"></span> ").concat(label, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + yAxisWidth, "px")).style('top', "".concat(y + xAxisHeight + lineYAxisHeight + 7.5, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function () {
@@ -27113,7 +27125,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
 
           var tooltip = _this.getRootElement().select(".".concat(styles$2.tooltip));
 
-          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, "></span> ").concat(label, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
+          var tooltipDescription = "\n            <div>\n              <div class=".concat(styles$2.tooltipLabel, "><span class=").concat(styles$2.dot, " style=\"background-color: ").concat(circleColorScale(data.label[data.label.length - 1]), ";\"></span> ").concat(label, "</div>\n              <div class=").concat(styles$2.tooltipDay, ">").concat(timeFormat('%Y.%m.%d')(new Date(d.startTime)), " ~ ").concat(timeFormat('%Y.%m.%d')(new Date(d.endTime)), "</div>\n            </div>\n            ");
           tooltip.transition().duration(200).style('opacity', 1);
           tooltip.style('left', "".concat(x + yAxisWidth, "px")).style('top', "".concat(y + xAxisHeight + lineYAxisHeight + 7.5, "px")).style('pointer-events', 'none').html(tooltipDescription);
         }).on('mouseout', function () {
@@ -30186,7 +30198,8 @@ var TimeToEvent = function TimeToEvent(_ref6) {
       theme = _ref6.theme,
       margin = _ref6.margin,
       xData = _ref6.xData,
-      legend = _ref6.legend;
+      legend = _ref6.legend,
+      showTooltip = _ref6.showTooltip;
 
   var startDate = lodash.minBy(data, 'start').start;
 
@@ -30217,7 +30230,7 @@ var TimeToEvent = function TimeToEvent(_ref6) {
     return date.setFullYear(date.getFullYear() + num);
   });
 
-  var colors = getColorsByTheme(theme, newDataKey.length).reverse();
+  var colors = getColorsByTheme(theme, newDataKey.length);
 
   var legendData = lodash.chain(newDataKey).map(function (entry, index) {
     return {
@@ -30265,7 +30278,7 @@ var TimeToEvent = function TimeToEvent(_ref6) {
   }, React.createElement(CartesianGrid, {
     strokeDasharray: "2 2",
     horizontal: false
-  }), React.createElement(Tooltip, {
+  }), showTooltip && React.createElement(Tooltip, {
     content: tooltipContent$1
   }), lodash.map(yTicks, function (tick) {
     return React.createElement(ReferenceLine, {
@@ -30323,7 +30336,8 @@ TimeToEvent.defaultProps = {
   legend: {
     hide: false
   },
-  xData: {}
+  xData: {},
+  showTooltip: true
 };
 TimeToEvent.propTypes = {
   data: propTypes.arrayOf(propTypes.shape({
@@ -30346,7 +30360,8 @@ TimeToEvent.propTypes = {
       value: propTypes.string.isRequired
     }),
     unit: propTypes.string
-  })
+  }),
+  showTooltip: propTypes.bool
 };
 
 var css_248z$4 = ".TimeToEvent-module_gLegend__3k55w text, .TimeToEvent-module_xAxis__hL73d text, .TimeToEvent-module_timeToEventLabel__1-iB2 {\n  font-size: 14px;\n  font-family: 'Spoqa Han Sans';\n  font-weight: normal;\n  font-stretch: normal;\n  line-height: normal;\n  letter-spacing: -0.5px;\n}\n\n.TimeToEvent-module_gLegend__3k55w text {\n  text-anchor: start;\n}\n\n.TimeToEvent-module_xAxis__hL73d text {\n  text-anchor: middle;\n  fill: #6d7884;\n}\n\n.TimeToEvent-module_timeToEventLabel__1-iB2, #TimeToEvent-module_xAxisTitle__2Suka {\n  font-weight: bold;\n}\n";
@@ -60562,6 +60577,6 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.32";
+var version$1 = "0.13.33";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, RadarChart, RadarChartOld, RadioBox, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, TimeToEventOld, Timeline, ToastCtr, ToggleButton, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, Notifications as notifications, tableProperties$1 as tableProperties, variables, version$1 as version };

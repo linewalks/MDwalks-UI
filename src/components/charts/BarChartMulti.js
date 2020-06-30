@@ -5,7 +5,6 @@ import _ from 'lodash'
 import styled from 'styled-components'
 
 import { colorV1 } from '@src/assets/styles/variables'
-// import * as variables from '@src/assets/styles/variables'
 import fontStyle from '@src/assets/styles/font.module.sass'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as commonTag from '@Components/common/commonTag'
@@ -36,6 +35,7 @@ const BarChartMulti = ({
   isPercent,
   textMap,
   legend,
+  height,
 }) => {
   const newYDataKey = [].concat(yDataKey)
   const colors = getColorsByTheme(theme, newYDataKey.length)
@@ -82,10 +82,10 @@ const BarChartMulti = ({
             const width = totalWidth * (value.length / size) + (i === 0 ? YAxisWidth : 0)
             return (
               <Box style={{ width: `${width}px` }} key={`${key}`}>
-                <Rechart.ResponsiveContainer width="100%" height={263}>
+                <Rechart.ResponsiveContainer width="100%" height={height}>
                   <Rechart.BarChart
                     data={value}
-                    height={263}
+                    height={height}
                     margin={{
                       top: 0, right: 0, bottom: 0, left: (i === 0 ? 0 : YAxisWidth * -1),
                     }}
@@ -133,6 +133,7 @@ BarChartMulti.defaultProps = {
   legend: {
     hide: false,
   },
+  height: 303,
 }
 
 BarChartMulti.propTypes = {
@@ -155,6 +156,7 @@ BarChartMulti.propTypes = {
   legend: PropTypes.shape({
     hide: PropTypes.bool,
   }),
+  height: PropTypes.number,
 }
 
 export default BarChartMulti

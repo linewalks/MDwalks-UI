@@ -13,12 +13,12 @@ const data = [
 
 <TimeToEvent
   data={data}
-  theme={Themes.ThemeArrangePrimarySea}
   xData={{
     unit: "Years"
   }}
   margin={{
     right: 50,
   }}
+  showTooltip={true}
 />
 ```
