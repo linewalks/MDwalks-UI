@@ -19,10 +19,14 @@ const Inner = styled.div`
   ${(props) => (props.align === 'center' ? `margin: 0 auto` : '')}
   ${(props) => (props.align === 'left' ? `margin-right: auto` : '')}
   ${(props) => (props.align === 'right' ? `margin-left: auto` : '')}
+
+  margin-bottom: -24px;
 `
 
 const Box = styled.div`
   display: inline-block;
+  margin-bottom: 24px;
+
   &:not(:last-child) {
     margin-right: 24px;
   }
@@ -75,6 +79,13 @@ class RadioBox extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const { data } = this.props
+    if (!_.isEqual(JSON.stringify(prevProps.data), JSON.stringify(data))) {
+      this.setSelectedList(data)
+    }
+  }
+
   onChange({ selectedList }) {
     const { data, onChange } = this.props
     const targetId = _.first(selectedList)
@@ -101,6 +112,18 @@ class RadioBox extends React.Component {
     this.onChange({ selectedList })
   }
 
+  setSelectedList(data) {
+    let selectedList = _.chain(data)
+      .filter(({ checked }) => checked)
+      .map(({ id }) => `${id}`)
+      .value()
+
+    if (selectedList.length > 1) {
+      selectedList = selectedList.slice(0, 1)
+    }
+    this.setState({ selectedList })
+  }
+
   unCheckedAll() {
     const selectedList = []
     this.setState({
@@ -109,18 +132,6 @@ class RadioBox extends React.Component {
 
     this.onChange({ selectedList })
   }
-
-  // unCheckedById(id) {
-  //   let { selectedList } = this.state
-  //   if (selectedList.includes(`${id}`)) {
-  //     selectedList = _.without(selectedList, `${id}`)
-  //     this.setState({
-  //       selectedList,
-  //     })
-
-  //     this.onChange({ selectedList })
-  //   }
-  // }
 
   render() {
     const {
