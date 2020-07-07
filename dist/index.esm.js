@@ -28799,7 +28799,7 @@ function _templateObject4$8() {
 }
 
 function _templateObject3$c() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  &:not(:last-child) {\n    margin-right: 24px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  margin-bottom: 24px;\n\n  &:not(:last-child) {\n    margin-right: 24px;\n  }\n"]);
 
   _templateObject3$c = function _templateObject3() {
     return data;
@@ -28809,7 +28809,7 @@ function _templateObject3$c() {
 }
 
 function _templateObject2$g() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n\n  ", "\n  ", "\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n\n  ", "\n  ", "\n  ", "\n\n  margin-bottom: -24px;\n"]);
 
   _templateObject2$g = function _templateObject2() {
     return data;
@@ -28874,6 +28874,15 @@ var RadioBox = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(RadioBox, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      var data = this.props.data;
+
+      if (!lodash.isEqual(JSON.stringify(prevProps.data), JSON.stringify(data))) {
+        this.setSelectedList(data);
+      }
+    }
+  }, {
     key: "onChange",
     value: function onChange(_ref3) {
       var selectedList = _ref3.selectedList;
@@ -28912,6 +28921,25 @@ var RadioBox = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "setSelectedList",
+    value: function setSelectedList(data) {
+      var selectedList = lodash.chain(data).filter(function (_ref4) {
+        var checked = _ref4.checked;
+        return checked;
+      }).map(function (_ref5) {
+        var id = _ref5.id;
+        return "".concat(id);
+      }).value();
+
+      if (selectedList.length > 1) {
+        selectedList = selectedList.slice(0, 1);
+      }
+
+      this.setState({
+        selectedList: selectedList
+      });
+    }
+  }, {
     key: "unCheckedAll",
     value: function unCheckedAll() {
       var selectedList = [];
@@ -28921,17 +28949,7 @@ var RadioBox = /*#__PURE__*/function (_React$Component) {
       this.onChange({
         selectedList: selectedList
       });
-    } // unCheckedById(id) {
-    //   let { selectedList } = this.state
-    //   if (selectedList.includes(`${id}`)) {
-    //     selectedList = _.without(selectedList, `${id}`)
-    //     this.setState({
-    //       selectedList,
-    //     })
-    //     this.onChange({ selectedList })
-    //   }
-    // }
-
+    }
   }, {
     key: "render",
     value: function render() {
@@ -60577,6 +60595,6 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.33";
+var version$1 = "0.13.34";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, RadarChart, RadarChartOld, RadioBox, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, TimeToEventOld, Timeline, ToastCtr, ToggleButton, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, Notifications as notifications, tableProperties$1 as tableProperties, variables, version$1 as version };
