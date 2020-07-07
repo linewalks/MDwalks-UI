@@ -1,6 +1,6 @@
 {
   "name": "MDwalks-UI",
-  "version": "0.13.33",
+  "version": "0.13.34",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "eslint": "eslint ./src/**/*.js ./src/**/**/*.js",
     "eslint:fix": "eslint ./src/**/*.js ./src/**/**/*.js --fix",
     "clear:branch": "git branch --merged | grep -v \\* | xargs -n 1 git branch -d",
-    "version": "yarn build && git add . && conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && yarn build && yarn build:docs && git add ."
   },
   "jest": {
     "testPathIgnorePatterns": [

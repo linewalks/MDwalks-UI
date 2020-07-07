@@ -1,3 +1,20 @@
+## [0.13.34](https://github.com/linewalks/MDwalks-UI/compare/v0.13.30...v0.13.34) (2020-07-07)
+
+
+### Bug Fixes
+
+* **LineMergedTimeline:** 차트 컬러셋 순서 변경 ([110aef2](https://github.com/linewalks/MDwalks-UI/commit/110aef2f0599beaf30168660ce3a753f36b6aa5f)), closes [#678](https://github.com/linewalks/MDwalks-UI/issues/678)
+* **TimeToEvent:** 컬러 렌더링 순서 변경 ([18c6a62](https://github.com/linewalks/MDwalks-UI/commit/18c6a622fba9d64771672a27f914fdd2c7a16485)), closes [#676](https://github.com/linewalks/MDwalks-UI/issues/676)
+* border-bottom 미적용 버그 픽스 ([745e049](https://github.com/linewalks/MDwalks-UI/commit/745e0492b73c78ebbb5c1df39e5c6e77db381e6c))
+* Button의 proptypes 오타 수정 ([7d6ab58](https://github.com/linewalks/MDwalks-UI/commit/7d6ab58e3aaac42c0058f5272c9f967f5ca81da4))
+* subHeader와 tbody td의 padding 불일치 문제 수정 ([5a4cd3b](https://github.com/linewalks/MDwalks-UI/commit/5a4cd3b7d79c089dc7ff1cf110b9fef9357619b3))
+
+
+### Features
+
+* RadioBox가 디자인 시안과 동일하도록 수정 ([ac93b59](https://github.com/linewalks/MDwalks-UI/commit/ac93b59c57b7a7b620053cd882ee2282f99ad055))
+
+
 ## [0.13.33](https://github.com/linewalks/MDwalks-UI/compare/v0.13.30...v0.13.33) (2020-06-30)
 
 
