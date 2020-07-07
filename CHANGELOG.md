@@ -12,11 +12,7 @@
 
 ### Features
 
-* **TimeToEvent:** Tooltip show,hide 옵션 추가 ([ebd7e95](https://github.com/linewalks/MDwalks-UI/commit/ebd7e95999217a1a0d03848dc689767b01687a70)), closes [#680](https://github.com/linewalks/MDwalks-UI/issues/680)
 * RadioBox가 디자인 시안과 동일하도록 수정 ([ac93b59](https://github.com/linewalks/MDwalks-UI/commit/ac93b59c57b7a7b620053cd882ee2282f99ad055))
-* 멀티바 차트 스타일가이드 적용 ([c743761](https://github.com/linewalks/MDwalks-UI/commit/c743761f729c3fae9946718091551063ccd68a5b)), closes [#673](https://github.com/linewalks/MDwalks-UI/issues/673)
-* 바 차트 스타일가이드 적용 ([d0ed420](https://github.com/linewalks/MDwalks-UI/commit/d0ed4204424e855d5bdbfd5ef0cf3b21916a762e)), closes [#670](https://github.com/linewalks/MDwalks-UI/issues/670)
-
 
 
 ## [0.13.33](https://github.com/linewalks/MDwalks-UI/compare/v0.13.30...v0.13.33) (2020-06-30)
