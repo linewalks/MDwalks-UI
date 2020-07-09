@@ -79,5 +79,4 @@ Toast.propTypes = {
   variant: PropTypes.string,
 }
 
-
 export default Toast

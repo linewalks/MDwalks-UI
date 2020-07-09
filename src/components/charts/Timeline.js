@@ -386,7 +386,6 @@ class Timeline extends Component {
 
       gYAxisGrid.select('.domain').remove()
 
-
       gData
         .selectAll('circle')
         .transition()
@@ -448,7 +447,6 @@ class Timeline extends Component {
 
       gYAxisGrid.select('.domain').remove()
 
-
       gXAxis
         .transition()
         .duration(500)
@@ -490,7 +488,6 @@ class Timeline extends Component {
     if (!Array.isArray(data)) return 'typeOfVariable'
     return null
   }
-
 
   render() {
     if (this.checkDataValidation()) {

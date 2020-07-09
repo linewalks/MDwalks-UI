@@ -58,5 +58,4 @@ class Sequence extends Component {
   }
 }
 
-
 export default Sequence;

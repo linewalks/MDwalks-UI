@@ -117,7 +117,6 @@ describe('function', () => {
     expect(instance.createLinkId(['a', 'b', 'c'])).toEqual(['aXb', 'bXc'])
   })
 
-
   it('link connect check false', () => {
     expect(instance.linkConnectCheck('ER Admission', 'Index Invasive Treatment')).toBe(false);
   })

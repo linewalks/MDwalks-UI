@@ -65,7 +65,6 @@ describe('xTickFormatterCustom', () => {
   })
 })
 
-
 describe('dateFormat', () => {
   it('', () => {
     const date = new Date('2020-05-26 10:09')

@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import { colorV1 } from '@src/assets/styles/variables'
 import { tableSize } from '@src/assets/styles/tableProperties'
 
-
 const TableWrap = styled.div`
   border: 1px solid ${colorV1.$grey05};
   border-radius: 8px;
