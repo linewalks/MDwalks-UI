@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import _ from 'lodash'
 import * as font from '@src/assets/styles/font'
 import PropTypes from 'prop-types'
@@ -13,120 +13,77 @@ const getSelectedListByChecked = (data) => _.chain(data)
   .map(({ id }) => `${id}`)
   .value()
 
-class CheckList extends React.Component {
-  constructor(props) {
-    super(props)
+const CheckList = ({
+  data,
+  layout,
+  disabled,
+  checkVisible,
+  limit,
+  onChange,
+  onError,
+  formatter,
+}) => {
+  const [selectedList, setSelectedList] = useState(getSelectedListByChecked(data))
 
-    const { data } = this.props
+  useEffect(() => {
+    setSelectedList(getSelectedListByChecked(data))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
-    const selectedList = getSelectedListByChecked(data)
-
-    this.state = {
-      selectedList,
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    const { data } = this.props
-    if (!_.isEqual(prevProps.data, data)) {
-      this.onUpdateSelectedList(data)
-    }
-  }
-
-  onUpdateSelectedList(data) {
-    const selectedList = getSelectedListByChecked(data)
-
-    this.setState({
-      selectedList,
-    })
-  }
-
-  onErrorTrigger() {
-    const { onError, limit } = this.props
+  const onErrorTrigger = () => {
     if (_.isFunction(onError)) {
       onError({ limit })
     }
   }
 
-  onChangeTrigger(id) {
-    const { disabled, limit, onChange } = this.props
+  const onChangeTrigger = (id) => {
     if (disabled) return
-    let { selectedList } = this.state
 
-    if (selectedList.includes(`${id}`) === false && this.getCheckCount() >= limit) {
-      this.onErrorTrigger()
+    if (_.includes(selectedList, `${id}`) === false && selectedList.length >= limit) {
+      onErrorTrigger()
       return
     }
 
-    if (selectedList.includes(`${id}`)) {
-      selectedList = _.without(selectedList, `${id}`)
+    let newSelectedList
+    if (_.includes(selectedList, `${id}`)) {
+      newSelectedList = _.without(selectedList, `${id}`)
     } else {
-      selectedList.push(`${id}`)
+      newSelectedList = _.concat(selectedList, `${id}`)
     }
 
-    this.setState({
-      selectedList,
-    })
+    setSelectedList(newSelectedList)
 
     if (_.isFunction(onChange)) {
-      onChange({ selectedList })
+      onChange({ newSelectedList })
     }
   }
 
-  getCheckCount() {
-    const { selectedList } = this.state
-    return _.filter(selectedList).length
-  }
+  return (
+    <>
+      {
+        !_.isEmpty(data) && data.map((item) => {
+          const { id, name } = item
+          const checked = _.includes(selectedList, `${id}`)
+          const text = formatter ? formatter(item) : name
 
-  unCheckedById(id) {
-    const { onChange } = this.props
-    let { selectedList } = this.state
-    if (selectedList.includes(`${id}`)) {
-      selectedList = _.without(selectedList, `${id}`)
-      this.setState({
-        selectedList,
-      })
-
-      if (_.isFunction(onChange)) {
-        onChange({ selectedList })
+          if (!checkVisible && checked) return null;
+          return (
+            <Item key={`checkItem${id}`} disabled={disabled} layout={layout}>
+              <label>
+                <img src={checked ? IcnChecked : IcnUnchecked} width="24px" height="24px" style={{ borderRadius: '4px' }} alt="" />
+                <font.TextOverflow>{text}</font.TextOverflow>
+                <input type="checkbox" disabled={disabled} checked={checked} onChange={() => onChangeTrigger(id)} />
+              </label>
+            </Item>
+          )
+        })
       }
-    }
-  }
-
-  render() {
-    const {
-      data, disabled, formatter, checkVisible, layout,
-    } = this.props
-    const { selectedList } = this.state
-    return (
-      <>
-        {
-          data.map((item) => {
-            const { id, name } = item
-            const checked = selectedList.includes(`${id}`)
-            const text = formatter ? formatter(item) : name
-
-            if (!checkVisible && checked) return null;
-            return (
-              <Item key={`checkItem${id}`} disabled={disabled} layout={layout}>
-                <label>
-                  <img src={checked ? IcnChecked : IcnUnchecked} width="24px" height="24px" style={{ borderRadius: '4px' }} alt="" />
-                  <font.TextOverflow>{text}</font.TextOverflow>
-                  <input type="checkbox" disabled={disabled} checked={checked} onChange={() => this.onChangeTrigger(id)} />
-                  {/* <img src={IcnAddSm} width="24px" height="24px" alt="" /> */}
-                </label>
-              </Item>
-            )
-          })
-        }
-      </>
-    )
-  }
+    </>
+  )
 }
 
 CheckList.defaultProps = {
   layout: ChartConfig.Layout.VERTICAL,
-  // layout: ChartConfig.Layout.HORIZONTAL,
   limit: 5,
   disabled: false,
   checkVisible: true,
