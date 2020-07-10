@@ -24,7 +24,6 @@ export const color = {
   $alert_red: '#ff3c3c',
   $azure: '#189bff',
 
-
   $pathway_link_blue: 'rgba(24, 155, 255, 0.4)', // solid_default
   $pathway_link_red: 'rgba(255, 58, 31, 0.4)', // alert_red
   $solid_default: '#189bff',

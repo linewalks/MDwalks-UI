@@ -9,7 +9,6 @@ describe('timeFormatConvert', () => {
   })
 })
 
-
 describe('getDateDiff', () => {
   let startTime;
   let endTime;
