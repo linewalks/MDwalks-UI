@@ -39,16 +39,16 @@ const CheckList = ({
   const onChangeTrigger = (id) => {
     if (disabled) return
 
-    if (selectedList.includes(`${id}`) === false && selectedList.length >= limit) {
+    if (_.includes(selectedList, `${id}`) === false && selectedList.length >= limit) {
       onErrorTrigger()
       return
     }
 
-    let newSelectedList = [...selectedList]
-    if (newSelectedList.includes(`${id}`)) {
-      newSelectedList = _.without(newSelectedList, `${id}`)
+    let newSelectedList
+    if (_.includes(selectedList, `${id}`)) {
+      newSelectedList = _.without(selectedList, `${id}`)
     } else {
-      newSelectedList.push(`${id}`)
+      newSelectedList = _.concat(selectedList, `${id}`)
     }
 
     setSelectedList(newSelectedList)
@@ -61,9 +61,9 @@ const CheckList = ({
   return (
     <>
       {
-        data.map((item) => {
+        !_.isEmpty(data) && data.map((item) => {
           const { id, name } = item
-          const checked = selectedList.includes(`${id}`)
+          const checked = _.includes(selectedList, `${id}`)
           const text = formatter ? formatter(item) : name
 
           if (!checkVisible && checked) return null;
