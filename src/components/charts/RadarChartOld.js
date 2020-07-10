@@ -117,7 +117,6 @@ class RadarChartOld extends Component {
     return null
   }
 
-
   render() {
     if (this.checkDataValidation()) {
       return <div>{errorMessage(this.checkDataValidation())}</div>

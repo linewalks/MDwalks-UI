@@ -70,7 +70,6 @@ describe('chartTitle', () => {
   })
 })
 
-
 describe('LegendList', () => {
   it('hide 인 경우', () => {
     expect(commonTag.LegendList({ hide: true })).toBe(null)

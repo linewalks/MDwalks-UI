@@ -97,7 +97,6 @@ describe('getStartAndEndTime', () => {
   })
 })
 
-
 it('circleDataFilter', () => {
   // startTime, endTime 이 같은 것을 필터링 한다
   const data = [
@@ -141,7 +140,6 @@ it('errorMessage', () => {
   expect(chartUtility.errorMessage('typeOfVariable')).toBe('type is invalid')
   expect(chartUtility.errorMessage('haveData')).toBe('No data is provided')
 })
-
 
 it('getTextStyleForHighcharts', () => {
   const expected = {

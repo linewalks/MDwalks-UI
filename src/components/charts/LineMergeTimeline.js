@@ -139,7 +139,6 @@ class LineMergeTimeline extends Component {
 
     gLineYAxisGrid.select('.domain').remove()
 
-
     // 1. Creat Line XAxis GridLines
     const lineXAxisGridLines = d3
       .axisRight(lineYAxisScale)
@@ -171,14 +170,12 @@ class LineMergeTimeline extends Component {
       .attr('stroke-width', 1)
       .style('pointer-events', 'none')
 
-
     // 1. Create vertical line text
     const verticalLineText = svg
       .append('text')
       .attr('class', `${styles.verticalLineText} ${fontStyle.fs12} ${fontStyle.bold}`)
       .attr('y', xAxisHeight)
       .attr('fill', colorV1.$grey09)
-
 
     // 2. Create vertical line mouse event
     const mouseover = () => {
@@ -398,7 +395,6 @@ class LineMergeTimeline extends Component {
       .tickSize(-timelineYAxisGridHeight)
       .tickFormat('')
 
-
     // 3. Render Timeline YAxis Gridlines
     const gTimelineYAxisGrid = gTimelineGrid
       .append('g')
@@ -491,7 +487,6 @@ class LineMergeTimeline extends Component {
         .on('mouseout', () => this.getRootElement().select(`.${styles.tooltip}`).transition().duration(200)
           .style('opacity', 0))
     })
-
 
     // 3. Render Timeline Circle
     timelineData.forEach((data, idx) => {
@@ -639,7 +634,6 @@ class LineMergeTimeline extends Component {
         .selectAll('.tick line')
         .remove()
 
-
       // Line Chart Grid
       this.getRootElement().select('.lineYAxisGrid').selectAll('tick').remove()
 
@@ -652,7 +646,6 @@ class LineMergeTimeline extends Component {
         .transition()
         .duration(500)
         .call(lineYAxisGridLines)
-
 
       this.getRootElement().select('.lineYAxisGrid')
         .selectAll('.tick line')
@@ -763,7 +756,6 @@ class LineMergeTimeline extends Component {
         .selectAll('.tick line')
         .remove()
 
-
       // Initialize Line Chart Grid
       const lineYAxisGridLines = d3
         .axisTop(xAxisScale)
@@ -774,7 +766,6 @@ class LineMergeTimeline extends Component {
         .transition()
         .duration(500)
         .call(lineYAxisGridLines)
-
 
       this.getRootElement().select('.lineYAxisGrid')
         .selectAll('.tick line')
@@ -803,7 +794,6 @@ class LineMergeTimeline extends Component {
         .attr('stroke-dasharray', '2')
 
       this.getRootElement().select('.timelineYAxisGrid').select('.domain').remove()
-
 
       // Initialize Line Chart Data
       this.getRootElement().select('.gLine')
@@ -857,7 +847,6 @@ class LineMergeTimeline extends Component {
       endTime: Date.parse(end),
     }
   }
-
 
   renderLineMergeTimeline = (timeData, lineData) => {
     const timelineData = timeData;
@@ -1022,11 +1011,10 @@ LineMergeTimeline.propTypes = {
   scoreClickEvent: PropTypes.func,
   brushEvent: PropTypes.func,
   lineData: PropTypes.shape({
-    xaxis: PropTypes.array,
-    data: PropTypes.array,
+    xaxis: PropTypes.arrayOf(PropTypes.string),
+    data: PropTypes.arrayOf(PropTypes.shape({})),
   }),
   resetBtnId: PropTypes.string,
 }
-
 
 export default LineMergeTimeline

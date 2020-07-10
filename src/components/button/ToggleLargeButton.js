@@ -80,7 +80,6 @@ class ToggleLargeButton extends React.Component {
     return null
   }
 
-
   changeBtn = ({ target: { value } }) => {
     const { onChange } = this.props
 
@@ -135,6 +134,5 @@ ToggleLargeButton.propTypes = {
   ).isRequired,
   onChange: PropTypes.func,
 }
-
 
 export default ToggleLargeButton;
