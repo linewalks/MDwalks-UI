@@ -1011,8 +1011,8 @@ LineMergeTimeline.propTypes = {
   scoreClickEvent: PropTypes.func,
   brushEvent: PropTypes.func,
   lineData: PropTypes.shape({
-    xaxis: PropTypes.arrayOf(),
-    data: PropTypes.arrayOf(),
+    xaxis: PropTypes.arrayOf(PropTypes.string),
+    data: PropTypes.arrayOf(PropTypes.shape({})),
   }),
   resetBtnId: PropTypes.string,
 }
