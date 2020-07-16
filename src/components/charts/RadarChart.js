@@ -49,6 +49,10 @@ const RadarChart = ({
   theme,
   textMap,
   legend,
+  width,
+  height,
+  outerRadius,
+  margin,
 }) => {
   const newDataKey = [].concat(dataKey).reverse()
   const colors = getColorsByTheme(theme, newDataKey.length).reverse()
@@ -60,12 +64,12 @@ const RadarChart = ({
       <commonTag.LegendList data={legendData} textMap={textMap} hide={legend.hide} />
       <Rechart.RadarChart
         data={data}
-        width={700}
-        height={520}
-        margin={{}}
-        cx={350}
-        cy={270}
-        outerRadius={250}
+        width={width}
+        height={height}
+        margin={margin}
+        cx={_.divide(width, 2)}
+        cy={_.divide(height, 2)}
+        outerRadius={outerRadius}
         style={{
           margin: '0 auto',
         }}
@@ -99,9 +103,17 @@ RadarChart.defaultProps = {
   dataKey: ['value', []],
   theme: Themes.ThemeComparePrimarySea2,
   textMap: {},
-  margin: {},
   legend: {
     hide: false,
+  },
+  width: 700,
+  height: 456,
+  outerRadius: 200,
+  margin: {
+    top: 5,
+    right: 5,
+    bottom: 20,
+    left: 5,
   },
 }
 
@@ -125,6 +137,9 @@ RadarChart.propTypes = {
   legend: PropTypes.shape({
     hide: PropTypes.bool,
   }),
+  width: PropTypes.number,
+  height: PropTypes.number,
+  outerRadius: PropTypes.number,
 }
 
 export default RadarChart
