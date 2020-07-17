@@ -53,4 +53,63 @@ module.exports = {
     },
   },
   styleguideDir: 'docs',
+  pagePerSection: true,
+  sections: [
+    {
+      name: 'Typography',
+      components: () => ['src/components/layout/Heading.js'],
+      sections: [
+        {
+          name: 'Font',
+          content: 'src/assets/styles/font.md'
+        }
+      ],
+    },
+    {
+      name: 'Chart',
+      components: () => [
+        'src/components/ChartColor.js',
+        'src/components/common/commonTag.js',
+        'src/components/charts/BarGauge.js',
+        'src/components/charts/RadiusGauge.js',
+        'src/components/charts/LineChart.js',
+        'src/components/charts/BarChart.js',
+        'src/components/charts/BarChartMulti.js',
+        'src/components/charts/Histogram.js',
+        'src/components/charts/PieChart.js',
+        'src/components/charts/Timeline.js',
+        'src/components/charts/LineMergeTimeline.js',
+        'src/components/charts/SankeyChart.js',
+        'src/components/charts/RadarChart.js',
+        'src/components/charts/TimeToEvent.js',
+        'src/components/charts/TreeMap.js',
+      ]
+    },
+    {
+      name: 'Component',
+      components: () => [
+        'src/components/button/Button.js',
+        'src/components/button/ButtonLink.js',
+        'src/components/button/ButtonTextLink.js',
+        'src/components/button/TextLink.js',
+        'src/components/button/ToggleButton.js',
+        'src/components/button/ToggleLargeButton.js',
+        'src/components/card/SelectedCard.js',
+        'src/components/card/SummaryCard.js',
+        'src/components/form/RadioBox.js',
+        'src/components/form/SelectBox.js',
+        'src/components/layout/Image.js',
+        'src/components/layout/Navbar.js',
+        'src/components/layout/Footer.js',
+        'src/components/layout/Tabs.js',
+        'src/components/list/CheckList.js',
+        'src/components/list/RadioList.js',
+        'src/components/modal/Modal.js',
+        'src/components/pagination/Pagination.js',
+        'src/components/table/EmptyPlaceHolder.js',
+        'src/components/table/Descriptions.js',
+        'src/components/table/Table.js',
+      ]
+    }
+  ]
 }
