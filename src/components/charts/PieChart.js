@@ -106,15 +106,13 @@ const PieChart = ({
   nameKey,
   layout,
   theme,
-  colorList,
   isPercent,
   textMap,
   legend: _legend,
 }) => {
-  // const colors = colorList || colorSet[theme] || colorSet.blue
-  const colors = colorList || getColorsByTheme(theme, data.length)
+  // const colors = colorSet[theme] || colorSet.blue
+  const colors = getColorsByTheme(theme, data.length)
 
-  // console.log(data.length)
   const defaultLegend = _.extend({
     isPercent: null,
     dataKey: null,
@@ -204,7 +202,6 @@ PieChart.defaultProps = {
   theme: Themes.ThemeComparePrimarySea,
   isPercent: false,
   textMap: {},
-  colorList: null,
   legend: {
     hide: false,
   },
@@ -225,7 +222,6 @@ PieChart.propTypes = {
   ]),
   isPercent: PropTypes.bool,
   textMap: PropTypes.shape({}),
-  colorList: PropTypes.arrayOf(PropTypes.string),
   legend: PropTypes.shape({
     isPercent: PropTypes.bool,
     dataKey: PropTypes.string,
