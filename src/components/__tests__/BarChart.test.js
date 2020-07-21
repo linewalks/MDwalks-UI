@@ -254,7 +254,6 @@ describe('Label Component', () => {
   })
 })
 
-
 describe('Group', () => {
   let component;
   beforeEach(() => {

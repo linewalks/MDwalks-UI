@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 
@@ -62,7 +61,6 @@ class TreeMap extends Component {
     if (!Array.isArray(data)) return 'typeOfVariable'
     return null
   }
-
 
   render() {
     if (this.checkDataValidation()) {

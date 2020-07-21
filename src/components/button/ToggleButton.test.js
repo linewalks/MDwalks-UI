@@ -38,7 +38,6 @@ describe('ToggleButton Component', () => {
     expect(onChange).toHaveBeenCalledTimes(1)
   })
 
-
   it('두번째 항목을 클릭하면 onChange 에 "BB" 을 넘긴다', () => {
     component.find('button').at(1).simulate('click')
     expect(onChange).toHaveBeenCalledWith('BB')
@@ -46,7 +45,6 @@ describe('ToggleButton Component', () => {
 
   it('첫째 항목을 클릭하면 onChange 에 "AA" 을 넘긴다', () => {
     component.find('button').at(1).simulate('click')
-
 
     component.find('button').at(0).simulate('click')
     expect(onChange).toHaveBeenCalledWith('AA')

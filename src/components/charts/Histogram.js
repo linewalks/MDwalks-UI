@@ -169,7 +169,6 @@ class Histogram extends Component {
       .attr('r', 5)
       .style('fill', (d, i) => this.colors[i])
 
-
     // add legend text
     gLegend
       .selectAll('legend')

@@ -206,7 +206,6 @@ const LoadingThree = styled.span`
   animation-delay: 0.3s
 `
 
-
 const ButtonTag = styled(font.TextTag).attrs((props = {}) => {
   const size = props.size || 'md'
   const { variant, bold } = props

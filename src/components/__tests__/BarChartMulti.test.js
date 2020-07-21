@@ -74,7 +74,6 @@ const data = [
   ],
 ]
 
-
 describe('BarChartMulti', () => {
   it('set Property', () => {
     const YAxisWidth = 60
