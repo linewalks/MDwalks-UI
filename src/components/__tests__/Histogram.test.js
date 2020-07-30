@@ -42,9 +42,9 @@ describe('Histogram Component', () => {
     component = mount(<Histogram />)
     expect(component.html()).toContain('No data is provided')
 
-    expect(instance.yAxisScale.domain()).toEqual([1, 25000])
-    expect(instance.yAxis.tickValues()).toEqual([1, 10, 100, 1000, 10000, 25000])
-    expect(instance.gridXAxis.tickValues()).toEqual([1, 10, 100, 1000, 10000, 25000])
+    expect(instance.yAxisScale.domain()).toEqual([1, 100000])
+    expect(instance.yAxis.tickValues()).toEqual([1, 10, 100, 1000, 10000, 100000])
+    expect(instance.gridXAxis.tickValues()).toEqual([1, 10, 100, 1000, 10000, 100000])
   })
 
   it('histogram renders when data is provided', () => {
@@ -59,16 +59,6 @@ describe('Histogram Component', () => {
 
   it('데이터를 받으면 평균선 문구 Average Risk Score가 렌더링 되어야한다', () => {
     expect(component.html()).toContain('Average Risk Score')
-  })
-
-  it('yMaxValue값을 props로 받으면, yAxisScale 도메인과 tickValue 최대값이 변경되어야 한다.', () => {
-    component.setProps({
-      yMaxValue: 40000,
-    })
-
-    expect(instance.yAxisScale.domain()).toEqual([1, 40000])
-    expect(instance.yAxis.tickValues()).toEqual([1, 10, 100, 1000, 10000, 40000])
-    expect(instance.gridXAxis.tickValues()).toEqual([1, 10, 100, 1000, 10000, 40000])
   })
 
   it('onChage 함수를 props로 받으면, selectbox를 선택할 때, onChange가 호출되어야 한다.', () => {
