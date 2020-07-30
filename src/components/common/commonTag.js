@@ -125,7 +125,10 @@ LegendList.defaultProps = {
 LegendList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     text: PropTypes.string.isRequired,
-    color: PropTypes.string,
+    color: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string),
+    ]),
   })),
   textMap: PropTypes.shape({}),
   hide: PropTypes.bool,
