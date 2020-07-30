@@ -221,7 +221,7 @@ TimeToEvent.propTypes = {
   theme: PropTypes.oneOf([
     Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal,
     Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold,
-    Themes.ThemeArrangeQuinaryBerry,
+    Themes.ThemeArrangeQuinaryBerry, Themes.ThemeComparePrimarySea2,
   ]),
   margin: PropTypes.shape({
     top: PropTypes.number,
