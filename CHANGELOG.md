@@ -1,3 +1,17 @@
+## [0.13.36](https://github.com/linewalks/MDwalks-UI/compare/v0.13.35...v0.13.36) (2020-08-04)
+
+
+### Bug Fixes
+
+* PropTypes Warning 제거 ([c0d16d8](https://github.com/linewalks/MDwalks-UI/commit/c0d16d83502b790a05dade302fb199d8cd443a0a)), closes [#702](https://github.com/linewalks/MDwalks-UI/issues/702)
+
+
+### Features
+
+* **Histogram:** 스타일 가이드 적용 ([2aa88ac](https://github.com/linewalks/MDwalks-UI/commit/2aa88aca4d59716a6872eba0c7d6fe4209157d62)), closes [#675](https://github.com/linewalks/MDwalks-UI/issues/675)
+
+
+
 ## [0.13.35](https://github.com/linewalks/MDwalks-UI/compare/v0.13.34...v0.13.35) (2020-07-21)
 
 

@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
 import PropTypes from 'prop-types'
-import styles from '@Charts/Histogram.module.css';
 import _ from 'lodash'
 import { renderSVG, generateGroup, errorMessage } from '@src/helper/chartUtility'
-import { color, colorV1 } from '@src/assets/styles/variables'
+import { colorV1 } from '@src/assets/styles/variables'
 import fontStyle from '@src/assets/styles/font.module.sass'
 import SelectBox from '@Components/form/SelectBox'
+import styled from 'styled-components'
 
 import {
   getColorsByTheme,
   Themes,
 } from '@Components/ChartColor'
+
+const GDropDown = styled.div`
+  position: absolute;
+  top: -8px;
+  right: 0px;
+`
 
 class Histogram extends Component {
   constructor(props) {
@@ -19,15 +25,16 @@ class Histogram extends Component {
     const { chartWidth, chartHeight, theme } = this.props
     this.options = {
       width: chartWidth || 1140,
-      height: chartHeight || 385,
+      height: chartHeight || 367,
       defaultPadding: {
         top: 67,
         right: 0,
-        left: 43,
+        left: 59,
         bottom: 34,
       },
     };
 
+    this.yAxisWidth = 34
     this.colors = getColorsByTheme(theme)
 
     this.fakeData = {
@@ -37,7 +44,7 @@ class Histogram extends Component {
     };
     this.xAxisWidth = this.options.width
       - this.options.defaultPadding.left
-      - this.options.defaultPadding.right
+      - this.options.defaultPadding.right - this.yAxisWidth
 
     this.yAxisHeight = this.options.height
       - this.options.defaultPadding.top
@@ -50,7 +57,7 @@ class Histogram extends Component {
 
     this.yAxisScale = d3
       .scaleLog()
-      .domain([1e0, 2e4 + 5e3])
+      .domain([1, 1e5])
       .range([this.yAxisHeight, 0])
 
     this.rootElement = React.createRef();
@@ -66,20 +73,20 @@ class Histogram extends Component {
     // 1. Create xAxis group
     const gXAxis = generateGroup(this.getRootElement().select('.histogram'), {
       className: 'gXAxis',
-      xOffset: defaultPadding.left,
+      xOffset: defaultPadding.left + this.yAxisWidth,
       yOffset: height - defaultPadding.bottom,
     })
 
     // 2. Render xAxis
     gXAxis.call(xAxis)
-    gXAxis.selectAll('.domain').attr('stroke', '#c4c4c4')
+    gXAxis.selectAll('.domain').attr('stroke', colorV1.$grey06)
     gXAxis.selectAll('.tick line').remove()
     gXAxis
       .selectAll('.tick text')
       .attr('font-size', 14)
-      .attr('opacity', 0.6)
+      .attr('dy', 8)
       .attr('font-family', 'Spoqa Han Sans')
-      .style('fill', color.$black)
+      .style('fill', colorV1.$grey08)
   }
 
   createYAxis = (yAxis) => {
@@ -88,22 +95,20 @@ class Histogram extends Component {
     // 1. Create yAxis group
     const gYAxis = generateGroup(this.getRootElement().select('.histogram'), {
       className: 'gYAxis',
-      xOffset: defaultPadding.left,
+      xOffset: defaultPadding.left + this.yAxisWidth,
       yOffset: defaultPadding.top,
     })
 
     // 2. Render yAxis
     gYAxis.call(yAxis)
     gYAxis.selectAll('.domain').remove()
-    gYAxis.selectAll('.tick line').attr('x2', -6).attr('stroke', color.$line_graph_xy_grey)
-    gYAxis.selectAll('.tick:last-child line').attr('stroke', color.$line_btn_grey)
-    gYAxis.selectAll('.tick:last-child text').attr('class', `${fontStyle.fs14} ${fontStyle.bold}`).style('fill', colorV1.$grey08).text('명')
+    gYAxis.selectAll('.tick line').attr('stroke', colorV1.$grey04)
+    gYAxis.selectAll('.tick:first-child line').attr('stroke', colorV1.$grey06)
     gYAxis
       .selectAll('.tick text')
       .attr('font-size', 14)
       .attr('font-family', 'Spoqa Han Sans')
-      .style('fill', color.$black)
-      .attr('opacity', 0.4)
+      .style('fill', colorV1.$grey08)
   }
 
   createHistogramData = (data, binsNumber = 10) => {
@@ -122,7 +127,7 @@ class Histogram extends Component {
     const { defaultPadding } = this.options
     const gBar = generateGroup(this.getRootElement().select('.histogram'), {
       className: 'gBar',
-      xOffset: defaultPadding.left,
+      xOffset: defaultPadding.left + this.yAxisWidth,
       yOffset: defaultPadding.top,
     })
 
@@ -164,7 +169,7 @@ class Histogram extends Component {
       .data(args)
       .enter()
       .append('circle')
-      .attr('cx', (d, i) => 5 + (86 * i))
+      .attr('cx', (d, i) => 5 + (81 * i))
       .attr('cy', 10)
       .attr('r', 5)
       .style('fill', (d, i) => this.colors[i])
@@ -175,12 +180,13 @@ class Histogram extends Component {
       .data(args)
       .enter()
       .append('text')
-      .attr('x', (d, i) => 18 + (86 * i))
-      .attr('y', 15)
+      .attr('x', (d, i) => 18 + (81 * i))
+      .attr('y', 10)
       .text((d) => d)
       .attr('text-anchor', 'start')
       .attr('class', fontStyle.fs14)
       .attr('font-family', 'Spoqa Han Sans')
+      .attr('dominant-baseline', 'central')
       .style('fill', colorV1.$grey08)
   }
 
@@ -189,15 +195,15 @@ class Histogram extends Component {
 
     const gXAxisGridLine = generateGroup(this.getRootElement().select('.histogram'), {
       className: 'gXAxisGridLine',
-      xOffset: defaultPadding.left,
+      xOffset: defaultPadding.left + this.yAxisWidth,
       yOffset: defaultPadding.top,
     })
 
     // 2. Render gridXAxis
     gXAxisGridLine.call(gridXAxis)
     gXAxisGridLine.selectAll('.domain').remove()
-    gXAxisGridLine.selectAll('.tick line').attr('stroke', color.$line_graph_xy_grey)
-    gXAxisGridLine.select('.tick:last-child line').attr('stroke', color.$line_btn_grey)
+    gXAxisGridLine.selectAll('.tick line').attr('stroke', colorV1.$grey04)
+    gXAxisGridLine.selectAll('.tick:first-child line').attr('stroke', colorV1.$grey06)
     gXAxisGridLine.selectAll('.tick text').remove()
   }
 
@@ -206,7 +212,7 @@ class Histogram extends Component {
 
     const gRiskMeanLine = generateGroup(this.getRootElement().select('.histogram'), {
       className: 'gRiskMeanLine',
-      xOffset: defaultPadding.left,
+      xOffset: defaultPadding.left + this.yAxisWidth,
       yOffset: defaultPadding.top,
     })
 
@@ -232,35 +238,27 @@ class Histogram extends Component {
 
   renderHistogram = (data) => {
     const { width, height } = this.options
-    const { yMaxValue } = this.props
     const { risks } = data
     const bins = this.createHistogramData(risks)
     const svg = renderSVG(this.getRootElement(), width, height)
     generateGroup(svg, { className: 'histogram' })
-    const tickValues = [1e0, 1e1, 1e2, 1e3, 1e4, 2e4 + 5e3]
+    const tickValues = [1e0, 1e1, 1e2, 1e3, 1e4, 1e5]
 
     const xAxis = d3.axisBottom(this.xAxisScale)
       .tickPadding(14)
       .ticks(10)
       .tickSize(0)
 
-    if (yMaxValue) {
-      tickValues[_.findLastIndex(tickValues)] = yMaxValue
-      this.yAxisScale = d3
-        .scaleLog()
-        .domain([1e0, yMaxValue])
-        .range([this.yAxisHeight, 0])
-    }
-
     // 10^n으로 바꾸는 포맷 함수
     const superscript = '⁰¹²³⁴⁵⁶⁷⁸⁹';
     const formatPower = (d) => superscript[d]
     const yAxis = d3
       .axisLeft(this.yAxisScale)
-      .tickPadding(21)
-      .tickSize(0)
+      .tickPadding(16)
+      .tickSize(8)
       .tickValues(tickValues)
-      .ticks(5, (d) => (`10${formatPower(Math.log10(d))}`))
+      .ticks(5)
+      .tickFormat((d) => `10${formatPower(Math.log10(d))}`)
 
     this.yAxis = yAxis
 
@@ -277,6 +275,7 @@ class Histogram extends Component {
     this.createXAxisGridLines(gridXAxis)
     this.createBar(bins)
     this.createRiskMeanLine(data)
+    this.createUnitLabel()
   }
 
   removeHistogram = () => {
@@ -294,15 +293,9 @@ class Histogram extends Component {
 
   componentDidUpdate = (prevProps) => {
     const {
-      data, yMaxValue, onChange, initOnChangeFlag,
+      data, onChange, initOnChangeFlag,
     } = this.props
     if (!_.isEqual(prevProps.data, data)) {
-      this.removeHistogram()
-      this.renderHistogram(data)
-      if (initOnChangeFlag) onChange(10, this.createHistogramData(data.risks))
-    }
-
-    if (!_.isEqual(prevProps.yMaxValue, yMaxValue)) {
       this.removeHistogram()
       this.renderHistogram(data)
       if (initOnChangeFlag) onChange(10, this.createHistogramData(data.risks))
@@ -331,6 +324,23 @@ class Histogram extends Component {
     onChange(value, bins)
   }
 
+  createUnitLabel = () => {
+    const { unit } = this.props
+    const { defaultPadding } = this.options
+
+    const gUnit = generateGroup(this.getRootElement().select('.histogram'), {
+      className: 'gUnit',
+      xOffset: 7,
+      yOffset: defaultPadding.top + 132,
+    })
+
+    gUnit
+      .append('text')
+      .attr('class', `${fontStyle.fs14} ${fontStyle.bold}`)
+      .style('fill', colorV1.$grey08)
+      .text(unit)
+  }
+
   render() {
     const dropDownList = [10, 20, 50, 100]
 
@@ -340,7 +350,7 @@ class Histogram extends Component {
 
     return (
       <div ref={this.rootElement} style={{ position: 'relative' }}>
-        <div className={styles.gDropDown}>
+        <GDropDown>
           <span className={`${fontStyle.fs14} ${fontStyle.fc_grey10}`}>
             Bins :
           </span>
@@ -353,7 +363,7 @@ class Histogram extends Component {
               }
             </select>
           </SelectBox>
-        </div>
+        </GDropDown>
       </div>
     )
   }
@@ -361,12 +371,12 @@ class Histogram extends Component {
 
 Histogram.defaultProps = {
   data: undefined,
-  yMaxValue: undefined,
   chartWidth: undefined,
   chartHeight: undefined,
   onChange: () => {},
   initOnChangeFlag: false,
   theme: Themes.ThemeComparePrimarySea1,
+  unit: '명',
 }
 
 Histogram.propTypes = {
@@ -374,7 +384,6 @@ Histogram.propTypes = {
     risks: PropTypes.arrayOf(PropTypes.number),
     patientRisk: PropTypes.number,
   }),
-  yMaxValue: PropTypes.number,
   chartWidth: PropTypes.number,
   chartHeight: PropTypes.number,
   onChange: PropTypes.func,
@@ -385,6 +394,7 @@ Histogram.propTypes = {
     Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
     Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
   ]),
+  unit: PropTypes.string,
 }
 
 export default Histogram
