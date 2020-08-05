@@ -59,7 +59,7 @@ const CheckListExample = () => {
       <Button variant="primary" onClick={checkedAll}>checked All</Button>
       <Button variant="primary" onClick={unCheckedAll}>unChecked All</Button>
       <CheckList
-        origin={data}
+        data={data}
         limit={limit}
         onChange={onChange}
         onError={onError}

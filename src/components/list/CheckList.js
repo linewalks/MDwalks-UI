@@ -10,6 +10,8 @@ import ChartConfig from '@src/helper/ChartConfig'
 import * as font from '@src/assets/styles/font'
 
 const CheckList = ({
+  data,
+  selected,
   layout,
   disabled,
   checkVisible,
@@ -17,8 +19,6 @@ const CheckList = ({
   onChange,
   onError,
   formatter,
-  origin,
-  selected,
 }) => {
   const handleOnChange = (id) => {
     if (disabled) return
@@ -40,7 +40,7 @@ const CheckList = ({
   return (
     <>
       {
-        !_.isEmpty(origin) && origin.map((item) => {
+        !_.isEmpty(data) && data.map((item) => {
           const { id, name } = item
           const checked = _.includes(selected, id)
           const text = formatter ? formatter(item) : name
@@ -72,7 +72,7 @@ CheckList.defaultProps = {
 }
 
 CheckList.propTypes = {
-  origin: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
   selected: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   ).isRequired,

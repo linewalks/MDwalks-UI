@@ -54,7 +54,7 @@ describe('defaut', () => {
     onError = jest.fn()
     wrapper = mount(
       <CheckList
-        origin={data}
+        data={data}
         selected={selected}
         limit={limit}
         onChange={onChange}
@@ -124,7 +124,7 @@ describe('OnError', () => {
     onError = jest.fn()
     wrapper = mount(
       <CheckList
-        origin={data}
+        data={data}
         selected={selected}
         limit={limit}
         onChange={onChange}
@@ -180,7 +180,7 @@ describe('disabled', () => {
     onError = jest.fn()
     wrapper = mount(
       <CheckList
-        origin={data}
+        data={data}
         selected={selected}
         limit={limit}
         onChange={onChange}
@@ -226,7 +226,7 @@ describe('checkVisible 가 false 인 경우', () => {
     onError = jest.fn()
     wrapper = mount(
       <CheckList
-        origin={data}
+        data={data}
         selected={selected}
         limit={limit}
         onChange={onChange}
