@@ -30,27 +30,41 @@ const CheckListExample = () => {
       id: 6,
       name: 'name 6',
     },
-  ])
+  ]);
+
+  const [selected, setSelected] = useState([]);
 
   const unCheckedAll = () => {
-    const newData = _.map(data, (item) => ({...item, checked: false}))
-    setData(newData)
+    setSelected([]);
   }
 
   const checkedAll = () => {
-    const newData = _.map(data, (item) => ({...item, checked: true}))
-    setData(newData)
+    const newSelected = _.map(data, (item) => item.id);
+    setSelected(newSelected);
+  }
+
+  const onChange = (id, newSelected) => {
+    console.log(id, newSelected)
+    setSelected(newSelected)
+  }
+
+  const onError = ({ limit }) => {
+    console.error(limit)
   }
 
   const limit = 5
-  let onChange
-  let onError
 
   return (
     <>
       <Button variant="primary" onClick={checkedAll}>checked All</Button>
       <Button variant="primary" onClick={unCheckedAll}>unChecked All</Button>
-      <CheckList data={data} limit={limit} onChange={onChange} onError={onError} />
+      <CheckList
+        origin={data}
+        limit={limit}
+        onChange={onChange}
+        onError={onError}
+        selected={selected}
+      />
     </>
   )
 }
