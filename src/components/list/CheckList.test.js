@@ -7,21 +7,18 @@ import _ from 'lodash'
 import ChartConfig from '@src/helper/ChartConfig'
 
 /*
- * 선택이 변경 시 onChange 발생, param 으로는 선택된 id 를 넘긴다
- * isDisabeld 시 선택이 되지 않는다
+ * 선택이 변경 시 onChange 발생, param 으로는 선택된 id와 selected 를 넘긴다
+ * disabled 시 선택이 되지 않는다
  * 6개 이상 선택 되지 않는다
  * 6개 이상 호출 시 onError 발생 limit 계수를 넘긴다
  * limit 의 default 는 5
- * unCheckedById 호출 시 해당 id 를 selectedList 에서 삭제 한다
- * option: limit
- * props.checkVisible 가 false 인 경우 선택 된 것은 보이지 않는다
+ * props.checkVisible 가 false 인 경우 선택하면 해당 Item은 사라진다.
  */
 describe('defaut', () => {
   const data = [
     {
       id: 1,
       name: 'name 1',
-      checked: true,
     },
     {
       id: 2,
@@ -49,13 +46,21 @@ describe('defaut', () => {
   let wrapper
   let onChange
   let onError
-  let selectedList
+  let selected
 
   beforeEach(() => {
-    selectedList = ['1']
+    selected = [1]
     onChange = jest.fn()
     onError = jest.fn()
-    wrapper = mount(<CheckList data={data} limit={limit} onChange={onChange} onError={onError} />)
+    wrapper = mount(
+      <CheckList
+        data={data}
+        selected={selected}
+        limit={limit}
+        onChange={onChange}
+        onError={onError}
+      />,
+    )
   })
 
   it('default', () => {
@@ -68,20 +73,24 @@ describe('defaut', () => {
   })
 
   it('check', () => {
-    expect(wrapper.find('input[type="checkbox"]').last().prop('checked')).toBeFalsy()
     wrapper.find('input[type="checkbox"]').last().simulate('change')
     wrapper.update()
-    expect(wrapper.find('input[type="checkbox"]').last().prop('checked')).toBeTruthy()
+    const expectedId = _.last(data).id
+    const expectedSelected = [...selected, expectedId]
+    expect(onChange).toHaveBeenCalledWith(expectedId, expectedSelected)
   })
 
   it('onChange', () => {
-    selectedList.push('6')
+    const lastId = _.last(data).id
+    const firstId = _.first(data).id
     wrapper.find('input[type="checkbox"]').last().simulate('change')
-    expect(onChange).toHaveBeenCalledWith({ newSelectedList: selectedList })
 
-    selectedList = _.without(selectedList, '6')
-    wrapper.find('input[type="checkbox"]').last().simulate('change')
-    expect(onChange).toHaveBeenCalledWith({ newSelectedList: selectedList })
+    const expected = [...selected, lastId]
+    expect(onChange).toHaveBeenLastCalledWith(lastId, expected)
+
+    wrapper.setProps({ selected: expected })
+    wrapper.find('input[type="checkbox"]').first().simulate('change')
+    expect(onChange).toHaveBeenLastCalledWith(firstId, _.without(expected, firstId))
   })
 })
 
@@ -107,11 +116,21 @@ describe('OnError', () => {
   let wrapper
   let onChange
   let onError
+  let selected
 
   beforeEach(() => {
+    selected = [1, 2]
     onChange = jest.fn()
     onError = jest.fn()
-    wrapper = mount(<CheckList data={data} limit={limit} onChange={onChange} onError={onError} />)
+    wrapper = mount(
+      <CheckList
+        data={data}
+        selected={selected}
+        limit={limit}
+        onChange={onChange}
+        onError={onError}
+      />,
+    )
   })
 
   it('false 인 항목을 click 시 onError 호출, onChange 는 호출 되지 않는다, onError 호출 시 limit 를 넘긴다', () => {
@@ -153,12 +172,21 @@ describe('disabled', () => {
   let wrapper
   let onChange
   let onError
+  let selected
 
   beforeEach(() => {
+    selected = [1]
     onChange = jest.fn()
     onError = jest.fn()
     wrapper = mount(
-      <CheckList data={data} limit={limit} disabled onChange={onChange} onError={onError} />,
+      <CheckList
+        data={data}
+        selected={selected}
+        limit={limit}
+        onChange={onChange}
+        onError={onError}
+        disabled
+      />,
     )
   })
 
@@ -175,12 +203,10 @@ describe('checkVisible 가 false 인 경우', () => {
     {
       id: 1,
       name: 'name 1',
-      checked: true,
     },
     {
       id: 2,
       name: 'name 2',
-      checked: true,
     },
     {
       id: 3,
@@ -192,23 +218,26 @@ describe('checkVisible 가 false 인 경우', () => {
   let wrapper
   let onChange
   let onError
+  let selected
 
   beforeEach(() => {
+    selected = [1]
     onChange = jest.fn()
     onError = jest.fn()
     wrapper = mount(
       <CheckList
         data={data}
+        selected={selected}
         limit={limit}
-        checkVisible={false}
         onChange={onChange}
         onError={onError}
+        checkVisible={false}
       />,
     )
   })
 
   it('default', () => {
-    const expected = data.map(({ name, checked }) => (checked ? '' : name)).join('')
-    expect(wrapper.text()).toBe(expected)
+    wrapper.find('input[type="checkbox"]').first().simulate('change')
+    expect(wrapper.text()).toBe('name 2name 3')
   })
 })
