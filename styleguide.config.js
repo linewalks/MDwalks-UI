@@ -61,8 +61,8 @@ module.exports = {
       sections: [
         {
           name: 'Font',
-          content: 'src/assets/styles/font.md'
-        }
+          content: 'src/assets/styles/font.md',
+        },
       ],
     },
     {
@@ -83,7 +83,7 @@ module.exports = {
         'src/components/charts/RadarChart.js',
         'src/components/charts/TimeToEvent.js',
         'src/components/charts/TreeMap.js',
-      ]
+      ],
     },
     {
       name: 'Component',
@@ -96,7 +96,6 @@ module.exports = {
         'src/components/button/ToggleLargeButton.js',
         'src/components/card/SelectedCard.js',
         'src/components/card/SummaryCard.js',
-        'src/components/form/RadioBox.js',
         'src/components/form/SelectBox.js',
         'src/components/layout/Image.js',
         'src/components/layout/Navbar.js',
@@ -110,7 +109,7 @@ module.exports = {
         'src/components/table/EmptyPlaceHolder.js',
         'src/components/table/Descriptions.js',
         'src/components/table/Table.js',
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 }
