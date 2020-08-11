@@ -20,7 +20,6 @@ import Histogram from '@Components/charts/Histogram'
 import Modal from '@Components/modal/Modal'
 import CheckList from '@Components/list/CheckList'
 import RadioList from '@Components/list/RadioList'
-import RadioBox from '@Components/form/RadioBox'
 import RadarChart from '@Components/charts/RadarChart'
 import RadarChartOld from '@Components/charts/RadarChartOld'
 import TreeMap from '@Components/charts/TreeMap'
@@ -73,7 +72,6 @@ export {
   Modal,
   CheckList,
   RadioList,
-  RadioBox,
   font,
   variables,
   tableProperties,

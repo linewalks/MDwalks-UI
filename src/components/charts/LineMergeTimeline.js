@@ -435,7 +435,7 @@ class LineMergeTimeline extends Component {
       (name) => ColorSetMap[name],
     )
 
-    const circleColorList = _.map(['teal600', 'sea600', 'rose200'], (name) => ColorSetMap[name])
+    const circleColorList = _.map(['teal600', 'sea600', 'rose200', 'bluegrey300', 'bluegrey230', 'bluegrey170', 'bluegrey120', 'bluegrey80', 'bluegrey50'], (name) => ColorSetMap[name])
 
     // Create Timeline Chart
     const circleColorScale = d3.scaleOrdinal()
