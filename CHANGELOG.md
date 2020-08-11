@@ -1,3 +1,22 @@
+## [0.13.37](https://github.com/linewalks/MDwalks-UI/compare/v0.13.35...v0.13.37) (2020-08-11)
+
+
+### Bug Fixes
+
+* PropTypes Warning 제거 ([c0d16d8](https://github.com/linewalks/MDwalks-UI/commit/c0d16d83502b790a05dade302fb199d8cd443a0a)), closes [#702](https://github.com/linewalks/MDwalks-UI/issues/702)
+
+
+### Features
+
+* **CheckBox:** Checkbox의 기본형태를 구현 ([d7555bd](https://github.com/linewalks/MDwalks-UI/commit/d7555bd201c3db20317d2f7fe31862279b1da37b))
+* **CheckList:** CheckList의 기본형 구현 ([636b4ec](https://github.com/linewalks/MDwalks-UI/commit/636b4ec00dee8dd4e141caa8a51647e7eb948bdf))
+* **Histogram:** 스타일 가이드 적용 ([2aa88ac](https://github.com/linewalks/MDwalks-UI/commit/2aa88aca4d59716a6872eba0c7d6fe4209157d62)), closes [#675](https://github.com/linewalks/MDwalks-UI/issues/675)
+* **LineMergedTimeline:** circle 컬러셋 추가 ([5a0744a](https://github.com/linewalks/MDwalks-UI/commit/5a0744a3ce012bc68918d07fd9d9fef35840282a)), closes [#712](https://github.com/linewalks/MDwalks-UI/issues/712)
+* **RadioBox:** 컴포넌트를 제거합니다 RadioList와 RadioBox가 RadioList로 병합됨 ([f479988](https://github.com/linewalks/MDwalks-UI/commit/f47998891cb61a965d5f8d99517164a9251157f3))
+* **RadioList:** 컴포넌트 개편 layout 적용 및 동작 방식 변경 ([170af59](https://github.com/linewalks/MDwalks-UI/commit/170af597ec250e71319b88cc54287d48a1871f61))
+
+
+
 ## [0.13.36](https://github.com/linewalks/MDwalks-UI/compare/v0.13.35...v0.13.36) (2020-08-04)
 
 
