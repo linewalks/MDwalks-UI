@@ -5,11 +5,14 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 import * as font from '@src/assets/styles/font'
+import * as variables from '@src/assets/styles/variables'
 import ChartConfig from '@src/helper/ChartConfig'
 import fontStyle from '@src/assets/styles/font.module.sass'
 
 import IcnChecked from '@Components/list/radio-button-checked-default.svg'
 import IcnUnchecked from '@Components/list/radio-button-unchecked-default.svg'
+
+const { colorV1 } = variables
 
 const Outer = styled.section`
   display: flex;
@@ -18,6 +21,7 @@ const Outer = styled.section`
 
 const Inner = styled.div`
   display: inline-block;
+  width: 100%;
 
   ${(props) => (props.align === 'center' ? `margin: 0 auto` : '')}
   ${(props) => (props.align === 'left' ? `margin-right: auto` : '')}
@@ -27,24 +31,28 @@ const Inner = styled.div`
 `
 
 const Box = styled.div`
-  ${(props) => (props.layout === ChartConfig.Layout.HORIZONTAL ? ' display: inline-block' : 'display: block')};
-  margin-bottom: 24px;
+  ${(props) => (props.layout === ChartConfig.Layout.HORIZONTAL ? 'display: inline-block' : 'display: block')};
+  ${(props) => (props.layout === ChartConfig.Layout.VERTICAL && 'width: inherit;')};
+  padding: 12px 24px 12px 16px;
+  height: 48px;
 
-  &:not(:last-child) {
-    margin-right: 24px;
+  &:hover {
+    border-radius: 8px;
+    background: ${colorV1.$pmblue02};
   }
 `
 
 const Label = styled.label.attrs(() => ({
-  className: [fontStyle.fs16, fontStyle.fc_grey09, fontStyle.bold].join(' '),
+  className: [fontStyle.fs16, fontStyle.fc_grey09].join(' '),
 }))`
   display: flex;
   align-items: center;
+  height: 100%;
 
   span {
     position: relative;
-    font-size: 0;
   }
+
   input {
     position: absolute;
     top: 0;
@@ -93,8 +101,8 @@ const RadioList = ({
                 <Label disabled={itemDisabled}>
                   <span>
                     <input type="radio" disabled={itemDisabled} checked={checked} onChange={() => onChangeTrigger(id)} />
-                    <img src={checked ? IcnChecked : IcnUnchecked} width="24px" height="24px" style={{ borderRadius: '12px' }} alt="" />
                   </span>
+                  <img src={checked ? IcnChecked : IcnUnchecked} width="24px" height="24px" style={{ borderRadius: '12px' }} alt="" />
                   <font.TextOverflow>{text}</font.TextOverflow>
                 </Label>
               </Box>
