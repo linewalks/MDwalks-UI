@@ -20,6 +20,22 @@ const mockData = {
 ```
 
 ```js
+import { Themes } from '@Components/ChartColor';
+
+<PieChart
+  title="Gender Distribution"
+  data={[
+    { gender_name: 'M', count: 4300, rate: 0.43 },
+    { gender_name: 'F', count: 5700, rate: 0.57 },
+  ]}
+  textMap={{ M: '남성', F: '여성' }}
+  nameKey={'gender_name'}
+  dataKey={'count'}
+  theme={Themes.ThemeComparePrimarySea}
+/>
+```
+
+```js
 import { Themes } from '@Components/ChartColor'
 import * as commonTag from '@Components/common/commonTag'
 

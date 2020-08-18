@@ -57,6 +57,33 @@ import { Themes } from '@Components/ChartColor';
 />
 ```
 
+
+```js
+import { Themes } from '@Components/ChartColor';
+
+<BarChart
+  title="Default"
+  data={[
+    {
+      age: 20,
+      Persons: 88,
+      weight: 100,
+    },
+    {
+      age: 30,
+      Persons: 272,
+      weight: 200,
+    },
+  ]}
+  xDataKey="age"
+  xData={{ unit: '대' }}
+  yDataKey="Persons"
+  yData={{ unit: '명' }}
+  textMap={{ Persons: '사람수' }}
+  theme={Themes.ThemeArrangePrimarySea}
+/>
+```
+
 ```js
 import { Themes } from '@Components/ChartColor';
 
