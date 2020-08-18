@@ -1,3 +1,17 @@
+## [0.13.38](https://github.com/linewalks/MDwalks-UI/compare/v0.13.37...v0.13.38) (2020-08-18)
+
+
+### Bug Fixes
+
+* **RadioList:** formatter를 처리하도록 수정 및 md 케이스 추가 ([5019b88](https://github.com/linewalks/MDwalks-UI/commit/5019b884a5bb749c9e283eb058856ab60edf54cf))
+
+
+### Features
+
+* **BarChart:** barSize 추가 ([8adc9b9](https://github.com/linewalks/MDwalks-UI/commit/8adc9b990e819dbcefbc4f9972aa65425992d34a))
+
+
+
 ## [0.13.37](https://github.com/linewalks/MDwalks-UI/compare/v0.13.35...v0.13.37) (2020-08-11)
 
 

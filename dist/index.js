@@ -25989,7 +25989,8 @@ var BarChart = function BarChart(_ref) {
       yData = _ref.yData,
       scroll = _ref.scroll,
       width = _ref.width,
-      chartHeight = _ref.chartHeight;
+      chartHeight = _ref.chartHeight,
+      barSize = _ref.barSize;
   var newYDataKey = [].concat(yDataKey);
   var colors = '';
   var legendData;
@@ -26045,7 +26046,6 @@ var BarChart = function BarChart(_ref) {
     barCount = 1;
   }
 
-  var barSize = getBarSize(barCount, layout);
   var barGap = 1;
   var labelMarginBottom = 35;
   var height;
@@ -26071,7 +26071,7 @@ var BarChart = function BarChart(_ref) {
   XAxis.defaultProps.unit = xData.unit;
   YAxis.defaultProps.unit = yData.unit;
   Rechart.Bar.defaultProps.stackId = stackId;
-  Rechart.Bar.defaultProps.barSize = barSize;
+  Rechart.Bar.defaultProps.barSize = barSize || getBarSize(barCount, layout);
   return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(chartTitle, null, title), /*#__PURE__*/React__default.createElement(LegendList, {
     data: legendData,
     textMap: textMap,
@@ -26220,7 +26220,8 @@ BarChart.defaultProps = {
   yData: {},
   scroll: {},
   width: Rechart.BarChart.defaultProps.width,
-  chartHeight: 303
+  chartHeight: 303,
+  barSize: null
 };
 BarChart.propTypes = {
   title: propTypes.string,
@@ -26258,7 +26259,8 @@ BarChart.propTypes = {
     y: propTypes.number
   }),
   width: propTypes.number,
-  chartHeight: propTypes.number
+  chartHeight: propTypes.number,
+  barSize: propTypes.number
 };
 
 function _templateObject$d() {
@@ -27796,7 +27798,7 @@ function _templateObject6$2() {
 }
 
 function _templateObject5$3() {
-  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  height: ", "px;\n\n  ", ";\n  bottom: -1px;\n  width: 100%;\n  left: 0;\n\n  display: ", ";\n}\n"]);
+  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  height: ", "px;\n\n  ", ";\n  bottom: -1px;\n  width: 100%;\n  left: 0;\n\n  display: ", ";\n"]);
 
   _templateObject5$3 = function _templateObject5() {
     return data;
@@ -27866,13 +27868,13 @@ var Tab = styled__default.span.attrs(function (props) {
 })(_templateObject4$6(), function (props) {
   return props.type === TYPE.CATEGORY ? typeCategory : typeTitle;
 });
-var TabUnderLine = styled__default.div.attrs(function () {})(_templateObject5$3(), UnderLineSize, function (props) {
+var TabUnderLine = styled__default.div(_templateObject5$3(), UnderLineSize, function (props) {
   return props.type === TYPE.TITLE ? "" : "background-color: ".concat(colorV1.$pmblue);
 }, function (props) {
   return props['aria-selected'] ? 'block' : 'none';
 });
 var Hidden = styled.css(_templateObject6$2());
-var TabPane = styled__default.div.attrs()(_templateObject7$1(), function (props) {
+var TabPane = styled__default.div(_templateObject7$1(), function (props) {
   return props['aria-hidden'] ? Hidden : '';
 });
 
@@ -28686,7 +28688,7 @@ var IcnChecked$1 = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My
 var IcnUnchecked$1 = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwLjkiIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjQzRDNEM0IiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+';
 
 function _templateObject4$8() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n\n  span {\n    position: relative;\n    font-size: 0;\n  }\n  input {\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    z-index: 1;\n    cursor: pointer;\n    opacity: 0;\n  }\n  img {\n    margin-right: 12px;\n  }\n  cursor: pointer;\n  ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n  height: 100%;\n\n  span {\n    position: relative;\n  }\n\n  input {\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    z-index: 1;\n    cursor: pointer;\n    opacity: 0;\n  }\n  img {\n    margin-right: 12px;\n  }\n  cursor: pointer;\n  ", "\n"]);
 
   _templateObject4$8 = function _templateObject4() {
     return data;
@@ -28696,7 +28698,7 @@ function _templateObject4$8() {
 }
 
 function _templateObject3$c() {
-  var data = _taggedTemplateLiteral(["\n  ", ";\n  margin-bottom: 24px;\n\n  &:not(:last-child) {\n    margin-right: 24px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", ";\n  ", ";\n  padding: 12px 24px 12px 16px;\n  height: 48px;\n\n  &:hover {\n    border-radius: 8px;\n    background: ", ";\n  }\n"]);
 
   _templateObject3$c = function _templateObject3() {
     return data;
@@ -28706,7 +28708,7 @@ function _templateObject3$c() {
 }
 
 function _templateObject2$g() {
-  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n\n  ", "\n  ", "\n  ", "\n\n  margin-bottom: -24px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  width: 100%;\n\n  ", "\n  ", "\n  ", "\n\n  margin-bottom: -24px;\n"]);
 
   _templateObject2$g = function _templateObject2() {
     return data;
@@ -28724,6 +28726,7 @@ function _templateObject$m() {
 
   return data;
 }
+var colorV1$1 = colorV1;
 var Outer = styled__default.section(_templateObject$m());
 var Inner = styled__default.div(_templateObject2$g(), function (props) {
   return props.align === 'center' ? "margin: 0 auto" : '';
@@ -28733,11 +28736,13 @@ var Inner = styled__default.div(_templateObject2$g(), function (props) {
   return props.align === 'right' ? "margin-left: auto" : '';
 });
 var Box$3 = styled__default.div(_templateObject3$c(), function (props) {
-  return props.layout === ChartConfig.Layout.HORIZONTAL ? ' display: inline-block' : 'display: block';
-});
+  return props.layout === ChartConfig.Layout.HORIZONTAL ? 'display: inline-block' : 'display: block';
+}, function (props) {
+  return props.layout === ChartConfig.Layout.VERTICAL && 'width: inherit;';
+}, colorV1$1.$pmblue02);
 var Label = styled__default.label.attrs(function () {
   return {
-    className: [fontStyle.fs16, fontStyle.fc_grey09, fontStyle.bold].join(' ')
+    className: [fontStyle.fs16, fontStyle.fc_grey09].join(' ')
   };
 })(_templateObject4$8(), function (props) {
   return props.disabled ? 'cursor: not-allowed;' : '';
@@ -28780,7 +28785,7 @@ var RadioList = function RadioList(_ref) {
       onChange: function onChange() {
         return onChangeTrigger(id);
       }
-    }), /*#__PURE__*/React__default.createElement("img", {
+    })), /*#__PURE__*/React__default.createElement("img", {
       src: checked ? IcnChecked$1 : IcnUnchecked$1,
       width: "24px",
       height: "24px",
@@ -28788,7 +28793,7 @@ var RadioList = function RadioList(_ref) {
         borderRadius: '12px'
       },
       alt: ""
-    })), /*#__PURE__*/React__default.createElement(TextOverflow, null, text)));
+    }), /*#__PURE__*/React__default.createElement(TextOverflow, null, text)));
   })));
 };
 
@@ -60470,7 +60475,7 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.37";
+var version$1 = "0.13.38";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;

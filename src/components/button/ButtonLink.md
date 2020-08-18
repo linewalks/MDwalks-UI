@@ -1,6 +1,5 @@
 ButtonLink example:
 
 ```js
-<ButtonLink pizza="🍕">11</ButtonLink>
-<ButtonLink pizza="🍕">11</ButtonLink>
+<ButtonLink onClick={() => console.log('Clicked buttonLink.')}>11</ButtonLink>
 ```

@@ -1,5 +1,68 @@
 CheckList example:
 
+#### deafult
+```js
+<CheckList
+  data={[
+    {
+      id: 1,
+      name: 'name 1',
+    },
+    {
+      id: 2,
+      name: 'name 2',
+    },
+    {
+      id: 3,
+      name: 'name 3',
+    },
+  ]}
+  limit={3}
+  onChange={() => {}}
+  onError={() => {}}
+  selected={[1]}
+/>
+```
+
+#### using formatter
+```js
+import { useState } from 'react';
+const formatter = (item) => [<span>{item.id}</span>, <span style={{ marginLeft: 12 }}>{item.name}</span>];
+
+const CheckListExample = () => {
+  const [selected, setSelected] = useState([1])
+  const onChange = (id, newSelected) => {
+    console.log(id, newSelected)
+    setSelected(newSelected)
+  }
+  return (
+    <CheckList
+      data={[
+        {
+          id: 1,
+          name: 'name 1',
+        },
+        {
+          id: 2,
+          name: 'name 2',
+        },
+        {
+          id: 3,
+          name: 'name 3',
+        },
+      ]}
+      limit={2}
+      formatter={formatter}
+      onChange={onChange}
+      onError={() => {}}
+      selected={selected}
+    />
+  );
+}
+
+CheckListExample();
+```
+
 ```js
 import { useState } from 'react';
 import Button from '@Components/button/Button';
@@ -8,7 +71,6 @@ const CheckListExample = () => {
     {
       id: 1,
       name: 'name 1',
-      checked: true,
     },
     {
       id: 2,

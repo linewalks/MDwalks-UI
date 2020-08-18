@@ -18,6 +18,21 @@ LegendList example:
   ]}
 />
 ```
+```js
+<LegendList
+  data={[
+    {
+      color: 'red',
+      text: 'persons',
+    },
+    {
+      color: 'blue',
+      text: 'ages',
+    }
+  ]}
+  textMap={{ persons: '환자군', ages: '연령대' }}
+/>
+```
 
 #### Multiple Color : 
 ```js
