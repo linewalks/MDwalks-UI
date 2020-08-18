@@ -1,5 +1,6 @@
 Tabs example:
 
+##### Tabs가 이단으로 적용되어야 할 경우 메인 탭과 서브 탭의 차별을 주려면 type={TYPE.TITLE}이 필수로 들어가야합니다.
 ```js
 import { TabPane, TYPE } from '@Components/layout/Tabs';
 

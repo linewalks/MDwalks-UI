@@ -62,7 +62,7 @@ const Tab = styled.span.attrs((props) => {
   text-align: center;
 `
 
-const TabUnderLine = styled.div.attrs(() => {})`
+const TabUnderLine = styled.div`
   position: absolute;
   height: ${UnderLineSize}px;
 
@@ -72,7 +72,6 @@ const TabUnderLine = styled.div.attrs(() => {})`
   left: 0;
 
   display: ${(props) => (props['aria-selected'] ? 'block' : 'none')};
-}
 `
 
 const Hidden = css`
@@ -83,7 +82,7 @@ const Hidden = css`
   pointer-events: none;
 `
 
-export const TabPane = styled.div.attrs()`
+export const TabPane = styled.div`
   ${(props) => (props['aria-hidden'] ? Hidden : '')}
 `
 

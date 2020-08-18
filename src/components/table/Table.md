@@ -221,7 +221,7 @@ showTable()
 ```
 
 
-#### Vertical Scroll Table(Cutom)
+#### Vertical Scroll Table(Custom)
 ```js
 import styled from 'styled-components'
 
