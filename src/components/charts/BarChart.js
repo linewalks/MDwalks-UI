@@ -47,6 +47,7 @@ const BarChart = ({
   scroll,
   width,
   chartHeight,
+  barSize,
 }) => {
   const newYDataKey = [].concat(yDataKey);
 
@@ -92,8 +93,6 @@ const BarChart = ({
     barCount = 1
   }
 
-  const barSize = getBarSize(barCount, layout)
-
   const barGap = 1
 
   const labelMarginBottom = 35
@@ -124,7 +123,7 @@ const BarChart = ({
   YAxis.defaultProps.unit = yData.unit
 
   Rechart.Bar.defaultProps.stackId = stackId
-  Rechart.Bar.defaultProps.barSize = barSize
+  Rechart.Bar.defaultProps.barSize = barSize || getBarSize(barCount, layout)
 
   return (
     <div>
@@ -286,6 +285,7 @@ BarChart.defaultProps = {
   scroll: {},
   width: Rechart.BarChart.defaultProps.width,
   chartHeight: 303,
+  barSize: null,
 }
 
 BarChart.propTypes = {
@@ -336,6 +336,7 @@ BarChart.propTypes = {
   }),
   width: PropTypes.number,
   chartHeight: PropTypes.number,
+  barSize: PropTypes.number,
 }
 
 export default BarChart
