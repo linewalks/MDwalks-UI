@@ -41,7 +41,10 @@ const ModalExample = () => {
             <Button variant="basic_line" size="lg">Cancel</Button>
             <Button variant="primary" size="lg">Submit</Button>
           </div>
-        }>Contents</Modal>
+        }>
+          Contents
+          <div style={{ height: 400 }}></div>
+        </Modal>
       </>
     )
 }

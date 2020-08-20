@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -44,13 +44,13 @@ const ModalBox = styled.div`
 
 const Header = styled.header`
   > div {
-    display: flex
-    alignItems: baseline;
+    display: flex;
+    align-items: baseline;
   }
 
-  margin-bottom: 30px
+  margin-bottom: 30px;
   button {
-    line-height: 1
+    line-height: 1;
   }
 `
 
@@ -94,56 +94,66 @@ const Footer = styled.footer`
 
 const Modal = ({
   title, isOpen, isLoading, closeModal, description, footer, children,
-}) => (
-  <>
-    {
-      isOpen && (
-        <Overlay isLoading={isLoading}>
-          {
-            isLoading && (
-              <Loading />
-            )
-          }
-        </Overlay>
-      )
+}) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflowY = 'hidden'
+    } else {
+      document.body.style.overflowY = ''
     }
-    {
-      isOpen && (
-        <ModalBox>
-          <Header>
-            <div>
-              <Heading size="22" opacity="8">{title}</Heading>
-              <div style={{ marginLeft: 'auto', marginTop: '-10px', marginRight: '-10px' }}>
-                <button onClick={closeModal} type="button">
-                  <img src={icnPopupCloseMd} width="34x" height="34px" alt="" />
-                </button>
-              </div>
-            </div>
+  }, [isOpen])
+
+  return (
+    <>
+      {
+        isOpen && (
+          <Overlay isLoading={isLoading}>
             {
-              description && (
-                <font.TextTag as="p" size={14} opacity={6} style={{ marginTop: '6px' }}>{description}</font.TextTag>
+              isLoading && (
+                <Loading />
               )
             }
-          </Header>
-
-          <Contents as="article">
-            {children}
-          </Contents>
-          {
-            footer && (
-              <Footer>
-                <div>
-                  {footer}
+          </Overlay>
+        )
+      }
+      {
+        isOpen && (
+          <ModalBox>
+            <Header>
+              <div>
+                <Heading size="22" opacity="8">{title}</Heading>
+                <div style={{ marginLeft: 'auto', marginTop: '-10px', marginRight: '-10px' }}>
+                  <button onClick={closeModal} type="button">
+                    <img src={icnPopupCloseMd} width="34x" height="34px" alt="" />
+                  </button>
                 </div>
-              </Footer>
-            )
-          }
-        </ModalBox>
-      )
-    }
+              </div>
+              {
+                description && (
+                  <font.TextTag as="p" size={14} opacity={6} style={{ marginTop: '6px' }}>{description}</font.TextTag>
+                )
+              }
+            </Header>
 
-  </>
-)
+            <Contents as="article">
+              {children}
+            </Contents>
+            {
+              footer && (
+                <Footer>
+                  <div>
+                    {footer}
+                  </div>
+                </Footer>
+              )
+            }
+          </ModalBox>
+        )
+      }
+
+    </>
+  )
+}
 
 Modal.defaultProps = {
   title: '',
