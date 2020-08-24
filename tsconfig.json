@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "dist",
+    "baseUrl": "./",
+    "target": "es5",
+    "lib": ["es6", "dom", "dom.iterable", "esnext"],
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "jsx": "react",
+    "typeRoots": ["./typings"]
+  },
+  "include": ["typings"],
+  "exclude": [
+    "node_modules",
+    "dist",
+  ]
+}
