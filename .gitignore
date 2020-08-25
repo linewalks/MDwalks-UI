@@ -1,3 +1,4 @@
 node_modules
 .docz
 coverage
+yarn-error.log

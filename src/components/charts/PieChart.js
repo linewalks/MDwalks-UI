@@ -9,7 +9,7 @@ import * as font from '@src/assets/styles/font'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as commonTag from '@Components/common/commonTag'
 import { getColorsByTheme, Themes } from '@Components/ChartColor'
-
+import { colorV1 } from '@src/assets/styles/variables'
 import ChartConfig from '@src/helper/ChartConfig'
 
 const Dot = styled(commonTag.Dot).attrs(() => ({}))`
@@ -21,12 +21,12 @@ const Dot = styled(commonTag.Dot).attrs(() => ({}))`
 const size = {
   pie: {
     OffsetX: 18,
-    outerRadius: 88,
+    outerRadius: 92,
   },
 }
 
 const PieLegend = styled.div`
-  ${(props) => (props.layout === ChartConfig.Layout.HORIZONTAL ? 'margin-left: 56px;' : 'margin-top: 26px;')}
+  ${(props) => (props.layout === ChartConfig.Layout.HORIZONTAL ? 'margin-left: 56px;' : 'margin-top: 24px;')}
   width: 100%;
   display: flex;
   align-items: center;
@@ -47,7 +47,7 @@ const PieLegend = styled.div`
   }
 
   li:not(:last-child) {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
   }
 `
 
@@ -137,7 +137,7 @@ const PieChart = ({
       <commonTag.chartTitle>{title}</commonTag.chartTitle>
       <Layout layout={layout}>
         <Rechart.ResponsiveContainer
-          width={size.pie.outerRadius * 2 + size.pie.OffsetX}
+          width={size.pie.outerRadius * 2}
           height={size.pie.outerRadius * 2}
         >
           <Rechart.PieChart margin={{
@@ -148,7 +148,7 @@ const PieChart = ({
               data={data}
               dataKey={dataKey}
               nameKey={nameKey}
-              innerRadius={44}
+              innerRadius={48}
               outerRadius={size.pie.outerRadius}
               fill="#8884d8"
               isAnimationActive={false}
@@ -179,7 +179,7 @@ const PieChart = ({
               return (
                 <li key={key}>
                   <Dot color={colors[index]} />
-                  <p>{label}</p>
+                  <font.TextTag as="p" color={colorV1.$grey09}>{label}</font.TextTag>
                   <font.TextTag bold>
                     {valueConvertText(entry[legend.dataKey])}
                   </font.TextTag>
@@ -215,6 +215,9 @@ PieChart.propTypes = {
   layout: ChartConfig.Layout.propTypes,
   theme: PropTypes.oneOf([
     'blue', 'green', 'compare',
+    Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal,
+    Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold,
+    Themes.ThemeArrangeQuinaryBerry,
     Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
     Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3,
     Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,

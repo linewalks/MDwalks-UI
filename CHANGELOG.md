@@ -1,3 +1,18 @@
+## [0.13.39](https://github.com/linewalks/MDwalks-UI/compare/v0.13.38...v0.13.39) (2020-08-25)
+
+
+### Bug Fixes
+
+* **PieChart:** 누락된 theme 추가 ([ef28837](https://github.com/linewalks/MDwalks-UI/commit/ef28837d507b13f4fb20c83617e0d59297e02190))
+* modal이 오픈 된 후 body에 스크롤이 동작하지 않아야 합니다 ([d20bc35](https://github.com/linewalks/MDwalks-UI/commit/d20bc355833942cd8d253e13169cdf2dab24cab9))
+
+
+### Features
+
+* 타입스크립트 설정 ([2eb6e1f](https://github.com/linewalks/MDwalks-UI/commit/2eb6e1fb23f3dfb774e326e8aa8241004f37314a)), closes [#727](https://github.com/linewalks/MDwalks-UI/issues/727)
+
+
+
 ## [0.13.38](https://github.com/linewalks/MDwalks-UI/compare/v0.13.37...v0.13.38) (2020-08-18)
 
 
