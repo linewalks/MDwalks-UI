@@ -100,7 +100,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "enzyme-adapter-react-16.3": "^1.7.2",
-    "highcharts": "^7.1.2",
+    "highcharts": "^7.2.2",
     "highcharts-react-official": "^2.2.2",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
