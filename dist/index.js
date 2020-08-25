@@ -315,7 +315,7 @@ var lodash = createCommonjsModule(function (module, exports) {
   var undefined$1;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.19';
+  var VERSION = '4.17.20';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -15891,7 +15891,7 @@ var lodash = createCommonjsModule(function (module, exports) {
      * // => [{ 'a': 4, 'b': 5, 'c': 6 }]
      *
      * // Checking for several possible values
-     * _.filter(users, _.overSome([_.matches({ 'a': 1 }), _.matches({ 'a': 4 })]));
+     * _.filter(objects, _.overSome([_.matches({ 'a': 1 }), _.matches({ 'a': 4 })]));
      * // => [{ 'a': 1, 'b': 2, 'c': 3 }, { 'a': 4, 'b': 5, 'c': 6 }]
      */
     function matches(source) {
@@ -15928,7 +15928,7 @@ var lodash = createCommonjsModule(function (module, exports) {
      * // => { 'a': 4, 'b': 5, 'c': 6 }
      *
      * // Checking for several possible values
-     * _.filter(users, _.overSome([_.matchesProperty('a', 1), _.matchesProperty('a', 4)]));
+     * _.filter(objects, _.overSome([_.matchesProperty('a', 1), _.matchesProperty('a', 4)]));
      * // => [{ 'a': 1, 'b': 2, 'c': 3 }, { 'a': 4, 'b': 5, 'c': 6 }]
      */
     function matchesProperty(path, srcValue) {
@@ -28445,7 +28445,7 @@ function _templateObject4$7() {
 }
 
 function _templateObject3$a() {
-  var data = _taggedTemplateLiteral(["\n  > div {\n    display: flex\n    alignItems: baseline;\n  }\n\n  margin-bottom: 30px\n  button {\n    line-height: 1\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  > div {\n    display: flex;\n    align-items: baseline;\n  }\n\n  margin-bottom: 30px;\n  button {\n    line-height: 1;\n  }\n"]);
 
   _templateObject3$a = function _templateObject3() {
     return data;
@@ -28502,6 +28502,13 @@ var Modal = function Modal(_ref) {
       description = _ref.description,
       footer = _ref.footer,
       children = _ref.children;
+  React.useEffect(function () {
+    if (isOpen) {
+      document.body.style.overflowY = 'hidden';
+    } else {
+      document.body.style.overflowY = '';
+    }
+  }, [isOpen]);
   return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, isOpen && /*#__PURE__*/React__default.createElement(Overlay, {
     isLoading: isLoading
   }, isLoading && /*#__PURE__*/React__default.createElement(Loading, null)), isOpen && /*#__PURE__*/React__default.createElement(ModalBox, null, /*#__PURE__*/React__default.createElement(Header, null, /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(Heading, {
@@ -30466,7 +30473,7 @@ function _templateObject3$d() {
 }
 
 function _templateObject2$h() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  width: 100%;\n  display: flex;\n  align-items: center;\n\n  ul {\n    width: 100%;\n  }\n\n  li {\n    padding-left: 16px;\n    position: relative;\n    display: flex;\n\n    span:last-child {\n      margin-left: auto;\n      padding-left: 16px;\n    }\n  }\n\n  li:not(:last-child) {\n    margin-bottom: 8px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  width: 100%;\n  display: flex;\n  align-items: center;\n\n  ul {\n    width: 100%;\n  }\n\n  li {\n    padding-left: 16px;\n    position: relative;\n    display: flex;\n\n    span:last-child {\n      margin-left: auto;\n      padding-left: 16px;\n    }\n  }\n\n  li:not(:last-child) {\n    margin-bottom: 16px;\n  }\n"]);
 
   _templateObject2$h = function _templateObject2() {
     return data;
@@ -30490,11 +30497,11 @@ var Dot$2 = styled__default(Dot).attrs(function () {
 var size$2 = {
   pie: {
     OffsetX: 18,
-    outerRadius: 88
+    outerRadius: 92
   }
 };
 var PieLegend = styled__default.div(_templateObject2$h(), function (props) {
-  return props.layout === ChartConfig.Layout.HORIZONTAL ? 'margin-left: 56px;' : 'margin-top: 26px;';
+  return props.layout === ChartConfig.Layout.HORIZONTAL ? 'margin-left: 56px;' : 'margin-top: 24px;';
 });
 var Layout$1 = styled__default.section(_templateObject3$d(), function (props) {
   return props.layout === ChartConfig.Layout.HORIZONTAL ? "\n    display: flex;\n  " : '';
@@ -30584,7 +30591,7 @@ var PieChart = function PieChart(_ref2) {
   return /*#__PURE__*/React__default.createElement("div", null, /*#__PURE__*/React__default.createElement(chartTitle, null, title), /*#__PURE__*/React__default.createElement(Layout$1, {
     layout: layout
   }, /*#__PURE__*/React__default.createElement(Rechart.ResponsiveContainer, {
-    width: size$2.pie.outerRadius * 2 + size$2.pie.OffsetX,
+    width: size$2.pie.outerRadius * 2,
     height: size$2.pie.outerRadius * 2
   }, /*#__PURE__*/React__default.createElement(Rechart.PieChart, {
     margin: {
@@ -30597,7 +30604,7 @@ var PieChart = function PieChart(_ref2) {
     data: data,
     dataKey: dataKey,
     nameKey: nameKey,
-    innerRadius: 44,
+    innerRadius: 48,
     outerRadius: size$2.pie.outerRadius,
     fill: "#8884d8",
     isAnimationActive: false
@@ -30630,7 +30637,10 @@ var PieChart = function PieChart(_ref2) {
       key: key
     }, /*#__PURE__*/React__default.createElement(Dot$2, {
       color: colors[index]
-    }), /*#__PURE__*/React__default.createElement("p", null, label), /*#__PURE__*/React__default.createElement(TextTag, {
+    }), /*#__PURE__*/React__default.createElement(TextTag, {
+      as: "p",
+      color: colorV1.$grey09
+    }, label), /*#__PURE__*/React__default.createElement(TextTag, {
       bold: true
     }, valueConvertText(entry[legend.dataKey])));
   })))));
@@ -30655,7 +30665,7 @@ PieChart.propTypes = {
   dataKey: propTypes.string,
   nameKey: propTypes.string,
   layout: ChartConfig.Layout.propTypes,
-  theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3]),
+  theme: propTypes.oneOf(['blue', 'green', 'compare', Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal, Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold, Themes.ThemeArrangeQuinaryBerry, Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3]),
   isPercent: propTypes.bool,
   textMap: propTypes.shape({}),
   legend: propTypes.shape({
@@ -60475,7 +60485,7 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.38";
+var version$1 = "0.13.39";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;
