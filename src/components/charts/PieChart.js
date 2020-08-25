@@ -215,6 +215,9 @@ PieChart.propTypes = {
   layout: ChartConfig.Layout.propTypes,
   theme: PropTypes.oneOf([
     'blue', 'green', 'compare',
+    Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal,
+    Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold,
+    Themes.ThemeArrangeQuinaryBerry,
     Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
     Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3,
     Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
