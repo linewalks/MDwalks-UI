@@ -17,7 +17,7 @@ const includeModule = [
   'Navbar', 'Pagination',
   'RadarChart', 'RadarChartOld', 'RadioList',
   'RadiusGauge', 'SankeyChart',
-  'SelectBox', 'SelectedCard',
+  'SelectBox', 'Tooltip', 'SelectedCard',
   'SummaryCard', 'Table',
   'Tabs', 'TimeToEvent', 'TimeToEventOld', 'PieChart',
   'Timeline', 'ToastCtr',
