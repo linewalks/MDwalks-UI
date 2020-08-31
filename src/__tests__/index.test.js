@@ -8,7 +8,7 @@ const includeModule = [
   'version',
   'BarChart', 'BarChartMulti', 'BarGauge',
   'Button', 'ButtonLink', 'TextLink',
-  'ButtonTextLink', 'CheckList',
+  'ButtonTextLink', 'CheckBox', 'CheckList',
   'DateUtility', 'Descriptions',
   'EmptyPlaceHolder', 'Footer',
   'Heading', 'Histogram',
