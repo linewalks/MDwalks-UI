@@ -60576,7 +60576,7 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.39";
+var version$1 = "0.13.40";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;
