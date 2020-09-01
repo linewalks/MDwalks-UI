@@ -38,5 +38,5 @@ export default {
     // ts 작업이 끝나면 추가
     // typescript({ useTsconfigDeclarationDir: true }),
   ],
-  external: ['react', 'styled-components', 'd3', 'recharts'],
+  external: ['react', 'styled-components', 'd3', 'recharts', 'antd'],
 }
