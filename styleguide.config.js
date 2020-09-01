@@ -97,6 +97,7 @@ module.exports = {
         'src/components/card/SelectedCard.js',
         'src/components/card/SummaryCard.js',
         'src/components/form/SelectBox.js',
+        'src/components/form/Tooltip.js',
         'src/components/layout/Image.js',
         'src/components/layout/Navbar.js',
         'src/components/layout/Footer.js',

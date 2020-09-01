@@ -18,6 +18,7 @@ import Heading from '@Components/layout/Heading'
 import Tabs from '@Components/layout/Tabs'
 import Histogram from '@Components/charts/Histogram'
 import Modal from '@Components/modal/Modal'
+import CheckBox from '@Components/list/CheckBox'
 import CheckList from '@Components/list/CheckList'
 import RadioList from '@Components/list/RadioList'
 import RadarChart from '@Components/charts/RadarChart'
@@ -37,6 +38,7 @@ import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as commonTag from '@Components/common/commonTag'
 
 import SelectBox from '@Components/form/SelectBox'
+import Tooltip from '@Components/form/Tooltip'
 import * as font from '@src/assets/styles/font'
 import * as variables from '@src/assets/styles/variables'
 import * as tableProperties from '@src/assets/styles/tableProperties'
@@ -70,6 +72,7 @@ export {
   Heading,
   Tabs,
   Modal,
+  CheckBox,
   CheckList,
   RadioList,
   font,
@@ -88,6 +91,7 @@ export {
   RadarChart,
   RadarChartOld,
   SelectBox,
+  Tooltip,
   TreeMap,
   TimeToEvent,
   TimeToEventOld,

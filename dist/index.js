@@ -10,6 +10,7 @@ var styled = require('styled-components');
 var styled__default = _interopDefault(styled);
 var d3 = require('d3');
 var Rechart = require('recharts');
+var antd = require('antd');
 var events = require('events');
 
 function _typeof(obj) {
@@ -28604,6 +28605,57 @@ var Item = styled__default.div.attrs(function (props) {
 var IcnChecked = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjMTg5QkZGIiByeD0iNCIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik01LjA3NSAxMy4zOWExLjUgMS41IDAgMCAxIDIuMTIyIDBsMS43NjcgMS43NjYgNy40MjUtNy40MjRhMS41IDEuNSAwIDAgMSAyLjEyMSAyLjEyMmwtOC40NyA4LjQ3YTEuNSAxLjUgMCAwIDEtMi4xMzYuMDE1TDUuMDc1IDE1LjUxYTEuNSAxLjUgMCAwIDEgMC0yLjEyeiIvPgogICAgPC9nPgo8L3N2Zz4=';
 
 var IcnUnchecked = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxyZWN0IHdpZHRoPSIyMiIgaGVpZ2h0PSIyMiIgeD0iMSIgeT0iMSIgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9IiNDNEM0QzQiIHN0cm9rZS13aWR0aD0iMiIgcng9IjQiLz4KPC9zdmc+';
+
+var CheckBox = function CheckBox(_ref) {
+  var text = _ref.text,
+      disabled = _ref.disabled,
+      onChange = _ref.onChange,
+      formatter = _ref.formatter,
+      defaultChecked = _ref.defaultChecked;
+
+  var _useState = React.useState(defaultChecked),
+      _useState2 = _slicedToArray(_useState, 2),
+      checked = _useState2[0],
+      setChecked = _useState2[1];
+
+  var newText = formatter ? formatter(text) : text;
+
+  var handleOnChange = function handleOnChange(evt) {
+    setChecked(evt.target.checked);
+    onChange(evt.target.checked);
+  };
+
+  return /*#__PURE__*/React__default.createElement(Item, {
+    disabled: disabled
+  }, /*#__PURE__*/React__default.createElement("label", null, /*#__PURE__*/React__default.createElement("img", {
+    src: checked ? IcnChecked : IcnUnchecked,
+    width: "24px",
+    height: "24px",
+    style: {
+      borderRadius: '4px'
+    },
+    alt: ""
+  }), /*#__PURE__*/React__default.createElement(TextOverflow, null, newText), /*#__PURE__*/React__default.createElement("input", {
+    type: "checkbox",
+    checked: checked,
+    disabled: disabled,
+    onChange: handleOnChange
+  })));
+};
+
+CheckBox.defaultProps = {
+  disabled: false,
+  onChange: null,
+  formatter: null,
+  defaultChecked: false
+};
+CheckBox.propTypes = {
+  text: propTypes.string.isRequired,
+  disabled: propTypes.bool,
+  onChange: propTypes.func,
+  formatter: propTypes.func,
+  defaultChecked: propTypes.bool
+};
 
 var CheckList = function CheckList(_ref) {
   var data = _ref.data,
@@ -58559,6 +58611,45 @@ ToggleButton.propTypes = {
   onChange: propTypes.func
 };
 
+function _templateObject$x() {
+  var data = _taggedTemplateLiteral(["\n  display: inline;\n  position: relative;\n\n  .ant-tooltip-arrow {\n    visibility: hidden;\n  }\n\n  .ant-tooltip-inner {\n    width: 360px;\n    padding: 12px 14px;\n    box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);\n    border: 1px solid ", ";\n    border-radius: 4px;\n    font-size: 14px;\n    letter-spacing: -0.5px;\n    background-color: ", ";\n    color: ", ";\n  }\n\n  .ant-tooltip-placement-bottomLeft {\n    left: 0px !important; \n  }\n"]);
+
+  _templateObject$x = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var WrapTooltip = styled__default.div(_templateObject$x(), colorV1.$grey08, color.$primary_white, colorV1.$grey09);
+
+var Tooltip = function Tooltip(_ref) {
+  var desc = _ref.desc,
+      children = _ref.children,
+      innerStyle = _ref.innerStyle;
+  return /*#__PURE__*/React__default.createElement(WrapTooltip, null, /*#__PURE__*/React__default.createElement(antd.Tooltip, {
+    getPopupContainer: function getPopupContainer(triggerNode) {
+      return triggerNode.parentNode;
+    },
+    placement: "bottomLeft",
+    title: desc
+  }, /*#__PURE__*/React__default.createElement("span", {
+    style: innerStyle
+  }, children)));
+};
+
+Tooltip.defaultProps = {
+  desc: null,
+  children: null,
+  innerStyle: {
+    fontWeight: 'bold'
+  }
+};
+Tooltip.propTypes = {
+  desc: propTypes.string,
+  children: propTypes.oneOfType([propTypes.string, propTypes.number, propTypes.elementType]),
+  innerStyle: propTypes.shape({})
+};
+
 var timeFormatConvert = function timeFormatConvert(time) {
   var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'YYYY-MM-DD';
   var d = new Date(time);
@@ -60087,10 +60178,10 @@ function _templateObject2$n() {
   return data;
 }
 
-function _templateObject$x() {
+function _templateObject$y() {
   var data = _taggedTemplateLiteral(["\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.2);\n  border: 2px solid ", ";\n  background-color: ", ";\n  padding: 15px 56px 15px 24px;\n  min-width: 700px;\n  ", "\n  text-align: center;\n  position: relative;\n\n  &:not(:last-child) {\n    margin-bottom: 20px;\n  }\n"]);
 
-  _templateObject$x = function _templateObject() {
+  _templateObject$y = function _templateObject() {
     return data;
   };
 
@@ -60102,7 +60193,7 @@ var Box$6 = styled__default.section.attrs(function () {
     size: 16,
     opacity: 8
   };
-})(_templateObject$x(), function (props) {
+})(_templateObject$y(), function (props) {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
 var InnerBox$1 = styled__default.article(_templateObject2$n());
@@ -60222,16 +60313,16 @@ function _templateObject2$o() {
   return data;
 }
 
-function _templateObject$y() {
+function _templateObject$z() {
   var data = _taggedTemplateLiteral(["\n  from {\n    opacity: 0;\n    transform: translateY(-20px);\n  }\n\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n"]);
 
-  _templateObject$y = function _templateObject() {
+  _templateObject$z = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var fadeInDown = styled.keyframes(_templateObject$y());
+var fadeInDown = styled.keyframes(_templateObject$z());
 var fadeOutUp = styled.keyframes(_templateObject2$o());
 var List = styled__default.section(_templateObject3$k(), fadeInDown, fadeOutUp);
 
@@ -60485,7 +60576,7 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.39";
+var version$1 = "0.13.40";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;
@@ -60494,6 +60585,7 @@ exports.Button = Button;
 exports.ButtonLink = ButtonLink;
 exports.ButtonTextLink = ButtonTextLink;
 exports.ChartColor = ChartColor$1;
+exports.CheckBox = CheckBox;
 exports.CheckList = CheckList;
 exports.DateUtility = DateUtility;
 exports.Descriptions = Descriptions;
@@ -60524,6 +60616,7 @@ exports.TimeToEventOld = TimeToEventOld;
 exports.Timeline = Timeline;
 exports.ToastCtr = ToastCtr;
 exports.ToggleButton = ToggleButton;
+exports.Tooltip = Tooltip;
 exports.TooltipBox = TooltipBox;
 exports.TreeMap = TreeMap;
 exports.chartUtility = chartUtility;

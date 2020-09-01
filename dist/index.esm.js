@@ -2,7 +2,8 @@ import React, { useState, Component, useEffect, Children, isValidElement, cloneE
 import styled, { css, keyframes } from 'styled-components';
 import * as d3 from 'd3';
 import { scaleLinear, selection, select, scaleTime, axisTop, scalePoint, axisRight, scaleOrdinal, schemePaired, mouse, timeFormat, axisBottom, brushX, event, axisLeft, line, range, randomBates, scaleLog, histogram, timeYear } from 'd3';
-import { XAxis as XAxis$1, YAxis as YAxis$1, CartesianGrid as CartesianGrid$1, Bar, ResponsiveContainer, BarChart as BarChart$1, Label as Label$1, Tooltip, Cell, LineChart as LineChart$1, Line, PolarAngleAxis as PolarAngleAxis$1, RadarChart as RadarChart$1, PolarGrid, Radar, ComposedChart, ReferenceLine, ZAxis, Scatter, PieChart as PieChart$1, Pie } from 'recharts';
+import { XAxis as XAxis$1, YAxis as YAxis$1, CartesianGrid as CartesianGrid$1, Bar, ResponsiveContainer, BarChart as BarChart$1, Label as Label$1, Tooltip as Tooltip$1, Cell, LineChart as LineChart$1, Line, PolarAngleAxis as PolarAngleAxis$1, RadarChart as RadarChart$1, PolarGrid, Radar, ComposedChart, ReferenceLine, ZAxis, Scatter, PieChart as PieChart$1, Pie } from 'recharts';
+import { Tooltip as Tooltip$2 } from 'antd';
 import { EventEmitter } from 'events';
 
 function _typeof(obj) {
@@ -26111,7 +26112,7 @@ var BarChart = function BarChart(_ref) {
     offset: 24,
     position: "left",
     style: LabelStyle
-  })), !lodash.isUndefined(themes) && /*#__PURE__*/React.createElement(Tooltip, {
+  })), !lodash.isUndefined(themes) && /*#__PURE__*/React.createElement(Tooltip$1, {
     isPercent: isPercent,
     textMap: textMap,
     content: TooltipCompareContent,
@@ -26136,7 +26137,7 @@ var BarChart = function BarChart(_ref) {
         fill: fill
       });
     }));
-  }), lodash.isUndefined(themes) && /*#__PURE__*/React.createElement(Tooltip, {
+  }), lodash.isUndefined(themes) && /*#__PURE__*/React.createElement(Tooltip$1, {
     isPercent: isPercent,
     textMap: textMap,
     content: TooltipBox,
@@ -26354,7 +26355,7 @@ var BarChartMulti = function BarChartMulti(_ref) {
       tickFormatter: tickFormatter,
       width: YAxisWidth,
       domain: domain
-    }), /*#__PURE__*/React.createElement(Tooltip, {
+    }), /*#__PURE__*/React.createElement(Tooltip$1, {
       isPercent: isPercent,
       textMap: textMap,
       content: TooltipBox,
@@ -26498,7 +26499,7 @@ var LineChart = function LineChart(_ref) {
     angle: yLabelAngle,
     position: "insideLeft",
     style: LabelStyle$1
-  })), /*#__PURE__*/React.createElement(Tooltip, {
+  })), /*#__PURE__*/React.createElement(Tooltip$1, {
     isPercent: isPercent,
     textMap: textMap,
     content: TooltipBox,
@@ -28598,6 +28599,57 @@ var IcnChecked = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5v
 
 var IcnUnchecked = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxyZWN0IHdpZHRoPSIyMiIgaGVpZ2h0PSIyMiIgeD0iMSIgeT0iMSIgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9IiNDNEM0QzQiIHN0cm9rZS13aWR0aD0iMiIgcng9IjQiLz4KPC9zdmc+';
 
+var CheckBox = function CheckBox(_ref) {
+  var text = _ref.text,
+      disabled = _ref.disabled,
+      onChange = _ref.onChange,
+      formatter = _ref.formatter,
+      defaultChecked = _ref.defaultChecked;
+
+  var _useState = useState(defaultChecked),
+      _useState2 = _slicedToArray(_useState, 2),
+      checked = _useState2[0],
+      setChecked = _useState2[1];
+
+  var newText = formatter ? formatter(text) : text;
+
+  var handleOnChange = function handleOnChange(evt) {
+    setChecked(evt.target.checked);
+    onChange(evt.target.checked);
+  };
+
+  return /*#__PURE__*/React.createElement(Item, {
+    disabled: disabled
+  }, /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("img", {
+    src: checked ? IcnChecked : IcnUnchecked,
+    width: "24px",
+    height: "24px",
+    style: {
+      borderRadius: '4px'
+    },
+    alt: ""
+  }), /*#__PURE__*/React.createElement(TextOverflow, null, newText), /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    checked: checked,
+    disabled: disabled,
+    onChange: handleOnChange
+  })));
+};
+
+CheckBox.defaultProps = {
+  disabled: false,
+  onChange: null,
+  formatter: null,
+  defaultChecked: false
+};
+CheckBox.propTypes = {
+  text: propTypes.string.isRequired,
+  disabled: propTypes.bool,
+  onChange: propTypes.func,
+  formatter: propTypes.func,
+  defaultChecked: propTypes.bool
+};
+
 var CheckList = function CheckList(_ref) {
   var data = _ref.data,
       selected = _ref.selected,
@@ -28909,7 +28961,7 @@ var RadarChart = function RadarChart(_ref2) {
     style: {
       margin: '0 auto'
     }
-  }, /*#__PURE__*/React.createElement(Tooltip, {
+  }, /*#__PURE__*/React.createElement(Tooltip$1, {
     content: tooltipContent
   }), /*#__PURE__*/React.createElement(PolarGrid, {
     stroke: colorV1.$grey04
@@ -30121,7 +30173,7 @@ var TimeToEvent = function TimeToEvent(_ref6) {
   }, /*#__PURE__*/React.createElement(CartesianGrid, {
     strokeDasharray: "2 2",
     horizontal: false
-  }), showTooltip && /*#__PURE__*/React.createElement(Tooltip, {
+  }), showTooltip && /*#__PURE__*/React.createElement(Tooltip$1, {
     content: tooltipContent$1
   }), lodash.map(yTicks, function (tick) {
     return /*#__PURE__*/React.createElement(ReferenceLine, {
@@ -30607,7 +30659,7 @@ var PieChart = function PieChart(_ref2) {
       key: key,
       fill: colors[index]
     });
-  })), /*#__PURE__*/React.createElement(Tooltip, {
+  })), /*#__PURE__*/React.createElement(Tooltip$1, {
     textMap: textMap,
     content: function content(props) {
       return tooltipContent$2(lodash.extend(props, {
@@ -58552,6 +58604,45 @@ ToggleButton.propTypes = {
   onChange: propTypes.func
 };
 
+function _templateObject$x() {
+  var data = _taggedTemplateLiteral(["\n  display: inline;\n  position: relative;\n\n  .ant-tooltip-arrow {\n    visibility: hidden;\n  }\n\n  .ant-tooltip-inner {\n    width: 360px;\n    padding: 12px 14px;\n    box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);\n    border: 1px solid ", ";\n    border-radius: 4px;\n    font-size: 14px;\n    letter-spacing: -0.5px;\n    background-color: ", ";\n    color: ", ";\n  }\n\n  .ant-tooltip-placement-bottomLeft {\n    left: 0px !important; \n  }\n"]);
+
+  _templateObject$x = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var WrapTooltip = styled.div(_templateObject$x(), colorV1.$grey08, color.$primary_white, colorV1.$grey09);
+
+var Tooltip = function Tooltip(_ref) {
+  var desc = _ref.desc,
+      children = _ref.children,
+      innerStyle = _ref.innerStyle;
+  return /*#__PURE__*/React.createElement(WrapTooltip, null, /*#__PURE__*/React.createElement(Tooltip$2, {
+    getPopupContainer: function getPopupContainer(triggerNode) {
+      return triggerNode.parentNode;
+    },
+    placement: "bottomLeft",
+    title: desc
+  }, /*#__PURE__*/React.createElement("span", {
+    style: innerStyle
+  }, children)));
+};
+
+Tooltip.defaultProps = {
+  desc: null,
+  children: null,
+  innerStyle: {
+    fontWeight: 'bold'
+  }
+};
+Tooltip.propTypes = {
+  desc: propTypes.string,
+  children: propTypes.oneOfType([propTypes.string, propTypes.number, propTypes.elementType]),
+  innerStyle: propTypes.shape({})
+};
+
 var timeFormatConvert = function timeFormatConvert(time) {
   var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'YYYY-MM-DD';
   var d = new Date(time);
@@ -60080,10 +60171,10 @@ function _templateObject2$n() {
   return data;
 }
 
-function _templateObject$x() {
+function _templateObject$y() {
   var data = _taggedTemplateLiteral(["\n  border-radius: 10px;\n  box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.2);\n  border: 2px solid ", ";\n  background-color: ", ";\n  padding: 15px 56px 15px 24px;\n  min-width: 700px;\n  ", "\n  text-align: center;\n  position: relative;\n\n  &:not(:last-child) {\n    margin-bottom: 20px;\n  }\n"]);
 
-  _templateObject$x = function _templateObject() {
+  _templateObject$y = function _templateObject() {
     return data;
   };
 
@@ -60095,7 +60186,7 @@ var Box$6 = styled.section.attrs(function () {
     size: 16,
     opacity: 8
   };
-})(_templateObject$x(), function (props) {
+})(_templateObject$y(), function (props) {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
 var InnerBox$1 = styled.article(_templateObject2$n());
@@ -60215,16 +60306,16 @@ function _templateObject2$o() {
   return data;
 }
 
-function _templateObject$y() {
+function _templateObject$z() {
   var data = _taggedTemplateLiteral(["\n  from {\n    opacity: 0;\n    transform: translateY(-20px);\n  }\n\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n"]);
 
-  _templateObject$y = function _templateObject() {
+  _templateObject$z = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var fadeInDown = keyframes(_templateObject$y());
+var fadeInDown = keyframes(_templateObject$z());
 var fadeOutUp = keyframes(_templateObject2$o());
 var List = styled.section(_templateObject3$k(), fadeInDown, fadeOutUp);
 
@@ -60478,6 +60569,6 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.39";
+var version$1 = "0.13.40";
 
-export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, RadarChart, RadarChartOld, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, TimeToEventOld, Timeline, ToastCtr, ToggleButton, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, Notifications as notifications, tableProperties$1 as tableProperties, variables, version$1 as version };
+export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckBox, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, RadarChart, RadarChartOld, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, TimeToEventOld, Timeline, ToastCtr, ToggleButton, Tooltip, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, Notifications as notifications, tableProperties$1 as tableProperties, variables, version$1 as version };
