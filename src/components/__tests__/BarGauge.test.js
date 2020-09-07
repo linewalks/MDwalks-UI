@@ -17,14 +17,14 @@ const toHaveStyleRules = (component, property, options) => {
 describe('BarGauge Component', () => {
   it('Score Props has vaild number 0', () => {
     const tree = renderer.create(<BarGauge score={0} />)
-    toHaveStyleRules(tree.toJSON().children[0], {
+    toHaveStyleRules(tree.toJSON().children[0].children[0], {
       width: '0%',
     })
   })
 
   it('Score Props has vaild number 100', () => {
     const tree = renderer.create(<BarGauge score={100} />)
-    toHaveStyleRules(tree.toJSON().children[0], {
+    toHaveStyleRules(tree.toJSON().children[0].children[0], {
       width: '100%',
     })
   })
@@ -32,5 +32,12 @@ describe('BarGauge Component', () => {
   it('Score Props excluded Range renders error messege', () => {
     const wrapper = shallow(<BarGauge score={200} />)
     expect(wrapper.html()).toEqual('<div>Invalid Score</div>')
+  })
+
+  it('threshold 값을 가지면, threshold를 렌더해야 한다', () => {
+    const tree = renderer.create(<BarGauge score={70} threshold={20} />)
+    toHaveStyleRules(tree.toJSON().children[0], {
+      left: '20px',
+    })
   })
 })
