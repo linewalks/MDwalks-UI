@@ -39,7 +39,7 @@ const Threshold = styled.div`
   width: 3px;
   height: 16px;
   top: 0;
-  left: ${(props) => (_.isNumber(props.threshold) && `${props.threshold}px`)};
+  left: ${(props) => `${props.threshold}px`};
   margin-top: -2px;
   margin-left: -1.5px;
   background-color: ${colorV1.$red01};
@@ -52,7 +52,9 @@ const BarGauge = ({ score, theme, threshold }) => {
   if (_.inRange(score, 0, 101)) {
     return (
       <Container>
-        {threshold && _.inRange(threshold, 0, 101) && <Threshold threshold={threshold} />}
+        {_.isNumber(threshold)
+          && _.inRange(threshold, 0, 101)
+          && <Threshold threshold={threshold} />}
         <FillContainer>
           <Fill score={score} theme={colors} />
         </FillContainer>
