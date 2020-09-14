@@ -99,12 +99,10 @@ describe('OnError', () => {
     {
       id: 1,
       name: 'name 1',
-      checked: true,
     },
     {
       id: 2,
       name: 'name 2',
-      checked: true,
     },
     {
       id: 3,
@@ -150,17 +148,15 @@ describe('OnError', () => {
   })
 })
 
-describe('disabled', () => {
+describe('component disabled', () => {
   const data = [
     {
       id: 1,
       name: 'name 1',
-      checked: true,
     },
     {
       id: 2,
       name: 'name 2',
-      checked: true,
     },
     {
       id: 3,
@@ -193,6 +189,52 @@ describe('disabled', () => {
   it('disabled 인 경우 click 되지 않는다', () => {
     expect(wrapper.find('input[type="checkbox"]').first().prop('disabled')).toBe(true)
     wrapper.find('input[type="checkbox"]').first().simulate('change')
+    expect(onError).not.toHaveBeenCalled()
+    expect(onChange).not.toHaveBeenCalled()
+  })
+})
+
+describe('개별 항목 disabled', () => {
+  const data = [
+    {
+      id: 1,
+      name: 'name 1',
+    },
+    {
+      id: 2,
+      name: 'name 2',
+      disabled: true,
+    },
+    {
+      id: 3,
+      name: 'name 3',
+    },
+  ]
+
+  const limit = 2
+  let wrapper
+  let onChange
+  let onError
+  let selected
+
+  beforeEach(() => {
+    selected = [1]
+    onChange = jest.fn()
+    onError = jest.fn()
+    wrapper = mount(
+      <CheckList
+        data={data}
+        selected={selected}
+        limit={limit}
+        onChange={onChange}
+        onError={onError}
+      />,
+    )
+  })
+
+  it('disabled 인 경우 click 되지 않는다', () => {
+    expect(wrapper.find('input[type="checkbox"]').at(1).prop('disabled')).toBe(true)
+    wrapper.find('input[type="checkbox"]').at(1).simulate('change')
     expect(onError).not.toHaveBeenCalled()
     expect(onChange).not.toHaveBeenCalled()
   })
