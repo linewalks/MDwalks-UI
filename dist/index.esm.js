@@ -1,5 +1,5 @@
 import React, { useState, Component, useEffect, Children, isValidElement, cloneElement } from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import * as d3 from 'd3';
 import { scaleLinear, selection, select, scaleTime, axisTop, scalePoint, axisRight, scaleOrdinal, schemePaired, mouse, timeFormat, axisBottom, brushX, event, axisLeft, line, range, randomBates, scaleLog, histogram, timeYear } from 'd3';
 import { XAxis as XAxis$1, YAxis as YAxis$1, CartesianGrid as CartesianGrid$1, Bar, ResponsiveContainer, BarChart as BarChart$1, Label as Label$1, Tooltip as Tooltip$1, Cell, LineChart as LineChart$1, Line, PolarAngleAxis as PolarAngleAxis$1, RadarChart as RadarChart$1, PolarGrid, Radar, ComposedChart, ReferenceLine, ZAxis, Scatter, PieChart as PieChart$1, Pie } from 'recharts';
@@ -19039,8 +19039,38 @@ var ChartColor$1 = /*#__PURE__*/Object.freeze({
   'default': ChartColor
 });
 
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  position: absolute;\n  width: 3px;\n  height: 16px;\n  top: 0;\n  left: ", ";\n  margin-top: -2px;\n  margin-left: -1.5px;\n  background-color: ", ";\n  border: 1px solid ", ";\n  border-radius: 0.5px;\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  background-image: ", ";\n  height: 100%;\n  width: ", ";\n  animation: ", " 1.5;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$1() {
+  var data = _taggedTemplateLiteral(["\n  0% {\n    width: 0;\n  }\n"]);
+
+  _templateObject3$1 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject2$1() {
-  var data = _taggedTemplateLiteral(["\n  background-image: ", ";\n  height: 100%;\n  width: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  background: #f2f2f2;\n  height: 12px;\n  width: 100px;\n  border-radius: 2px;\n  overflow: hidden;\n"]);
 
   _templateObject2$1 = function _templateObject2() {
     return data;
@@ -19050,7 +19080,7 @@ function _templateObject2$1() {
 }
 
 function _templateObject$1() {
-  var data = _taggedTemplateLiteral(["\n  background: #f2f2f2;\n  position: relative;\n  height: 6px;\n  width: 100px;\n  border-radius: 2px;\n  overflow: hidden;\n"]);
+  var data = _taggedTemplateLiteral(["\n  position: relative;\n"]);
 
   _templateObject$1 = function _templateObject() {
     return data;
@@ -19059,32 +19089,42 @@ function _templateObject$1() {
   return data;
 }
 var Container = styled.div(_templateObject$1());
-var Fill = styled.div(_templateObject2$1(), function (props) {
+var FillContainer = styled.div(_templateObject2$1());
+var fillLinear = keyframes(_templateObject3$1());
+var Fill = styled.div(_templateObject4(), function (props) {
   return props.theme ? "linear-gradient(to right, ".concat(props.theme[0], ", ").concat(props.theme[2], " 100px)") : 'auto';
 }, function (props) {
   return lodash.isNumber(props.score) ? "".concat(props.score, "%") : 'auto';
-});
+}, fillLinear);
+var Threshold = styled.div(_templateObject5(), function (props) {
+  return "".concat(props.threshold, "px");
+}, colorV1.$red01, color.$primary_white);
 
 var BarGauge = function BarGauge(_ref) {
   var score = _ref.score,
-      theme = _ref.theme;
+      theme = _ref.theme,
+      threshold = _ref.threshold;
   var colors = getColorsByTheme(theme);
 
   if (lodash.inRange(score, 0, 101)) {
-    return /*#__PURE__*/React.createElement(Container, null, /*#__PURE__*/React.createElement(Fill, {
+    return /*#__PURE__*/React.createElement(Container, null, lodash.isNumber(threshold) && lodash.inRange(threshold, 0, 101) && /*#__PURE__*/React.createElement(Threshold, {
+      threshold: threshold
+    }), /*#__PURE__*/React.createElement(FillContainer, null, /*#__PURE__*/React.createElement(Fill, {
       score: score,
       theme: colors
-    }));
+    })));
   }
 
   return /*#__PURE__*/React.createElement("div", null, "Invalid Score");
 };
 
 BarGauge.defaultProps = {
-  theme: Themes.ThemeArrangeGradientPrimarySea
+  theme: Themes.ThemeArrangeGradientPrimarySea,
+  threshold: undefined
 };
 BarGauge.propTypes = {
   score: propTypes.number.isRequired,
+  threshold: propTypes.number,
   theme: propTypes.oneOf([Themes.ThemeArrangeGradientPrimarySea, Themes.ThemeArrangeGradientSecondaryTeal])
 };
 
@@ -19123,15 +19163,20 @@ var RadiusGauge = function RadiusGauge(_ref) {
   var width = _ref.width,
       height = _ref.height,
       score = _ref.score,
+      threshold = _ref.threshold,
       theme = _ref.theme;
   var cx = 150;
   var cy = 103;
   var radius = 103;
   var angleScale = scaleLinear().domain([0, 1]).range([0, 180]);
   var colors = getColorsByTheme(theme);
-  var pinColor = ColorSetMap.sea200;
+  var pinColor = ColorSetMap.sea300;
 
-  if (score >= 0 && score <= 1) {
+  var inRange = function inRange(number) {
+    return number >= 0 && number <= 1;
+  };
+
+  if (inRange(score)) {
     return /*#__PURE__*/React.createElement("svg", {
       width: width,
       height: height,
@@ -19157,13 +19202,28 @@ var RadiusGauge = function RadiusGauge(_ref) {
       d: "M 50,160 A ".concat(radius, " ").concat(radius, " 0 1 1 250 160"),
       fill: "none",
       stroke: "url(#gaugeGradient)",
-      strokeWidth: "12"
-    })), /*#__PURE__*/React.createElement("path", {
-      transform: "translate(75, 150) rotate(".concat(angleScale(score), ", 75, 3.1)"),
+      strokeWidth: "14"
+    })), lodash.isNumber(threshold) && inRange(threshold) && /*#__PURE__*/React.createElement("g", {
+      transform: "translate(75, 150) rotate(".concat(angleScale(threshold), ", 75, 3.1)")
+    }, /*#__PURE__*/React.createElement("path", {
+      fill: colorV1.$red01,
+      fillRule: "nonzero",
+      d: "M46.25-44.75v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2h1v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5z",
+      transform: "translate(-1444 -882) translate(1281 684) translate(21 192) translate(122 9) rotate(-90 46.75 1)"
+    })), /*#__PURE__*/React.createElement("g", {
+      transform: "translate(75, 150) rotate(".concat(angleScale(score), ", 75, 3.1)")
+    }, /*#__PURE__*/React.createElement("path", {
       fill: pinColor,
       fillRule: "evenodd",
-      d: "M1.605 4.5l64.83 2.434A3.437 3.437 0 0 0 70 3.5 3.437 3.437 0 0 0 66.434.066L1.605 2.5a1 1 0 0 0 0 1.998z"
-    }), /*#__PURE__*/React.createElement("g", {
+      d: "M.966 2.98L72.896.002c2.176-.09 4.012 1.627 4.1 3.834L77 4c0 2.21-1.765 4-3.943 4l-.16-.003L.967 5.02C.41 4.998-.023 4.522 0 3.958c.021-.531.441-.957.965-.979z"
+    }), /*#__PURE__*/React.createElement("circle", {
+      fill: pinColor,
+      fillRule: "evenodd",
+      cx: "73",
+      cy: "4",
+      r: "4",
+      transform: "rotate(-90 73 4)"
+    })), /*#__PURE__*/React.createElement("g", {
       transform: "translate(0, 55)",
       className: fontStyle.fs13,
       style: {
@@ -19206,12 +19266,14 @@ RadiusGauge.defaultProps = {
   width: undefined,
   height: undefined,
   score: undefined,
+  threshold: undefined,
   theme: Themes.ThemeArrangeGradientPrimarySea
 };
 RadiusGauge.propTypes = {
   width: propTypes.number,
   height: propTypes.number,
   score: propTypes.number,
+  threshold: propTypes.number,
   theme: propTypes.oneOf([Themes.ThemeArrangeGradientPrimarySea, Themes.ThemeArrangeGradientSecondaryTeal])
 };
 
@@ -22032,10 +22094,10 @@ var hexToRGB = function hexToRGB(hex, alpha) {
   return "rgb(".concat(rgb.join(','), ")");
 };
 
-function _templateObject3$1() {
+function _templateObject3$2() {
   var data = _taggedTemplateLiteral(["\n  display: -webkit-box;\n  -webkit-box-orient: vertical;\n  -webkit-line-clamp: ", ";\n  width: ", ";\n  overflow: hidden;\n"]);
 
-  _templateObject3$1 = function _templateObject3() {
+  _templateObject3$2 = function _templateObject3() {
     return data;
   };
 
@@ -22079,7 +22141,7 @@ TextOverflow.defaultProps = {
 TextOverflow.propTypes = {
   width: propTypes.string
 };
-var TextOverflowMulti = styled.p(_templateObject3$1(), function (props) {
+var TextOverflowMulti = styled.p(_templateObject3$2(), function (props) {
   return props.line;
 }, function (props) {
   return props.width;
@@ -22101,20 +22163,20 @@ var font$1 = /*#__PURE__*/Object.freeze({
   TextOverflowMulti: TextOverflowMulti
 });
 
-function _templateObject4() {
+function _templateObject4$1() {
   var data = _taggedTemplateLiteral([""]);
 
-  _templateObject4 = function _templateObject4() {
+  _templateObject4$1 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$2() {
+function _templateObject3$3() {
   var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  border-radius: 25px;\n  box-shadow: 0 4px 10px 0 ", ";\n  background-color: #002b4f;\n  padding: 11px 24px 10px;\n"]);
 
-  _templateObject3$2 = function _templateObject3() {
+  _templateObject3$3 = function _templateObject3() {
     return data;
   };
 
@@ -22144,14 +22206,14 @@ var Wrap1200 = styled.div(_templateObject$3());
 var Arrow = styled.article(_templateObject2$3(), function (props) {
   return props.isLastHighlighted ? '#ff4757' : '#002b4f';
 });
-var CardContatiner = styled.div(_templateObject3$2(), hexToRGB(color.$primary_navy, 0.16));
+var CardContatiner = styled.div(_templateObject3$3(), hexToRGB(color.$primary_navy, 0.16));
 var Card = styled(TextTag).attrs({
   size: '20',
   bold: true,
   style: {
     color: '#ffffff'
   }
-})(_templateObject4());
+})(_templateObject4$1());
 
 var SelectedCard = function SelectedCard(_ref) {
   var selectedElement = _ref.selectedElement,
@@ -22199,30 +22261,30 @@ function _templateObject6() {
   return data;
 }
 
-function _templateObject5() {
+function _templateObject5$1() {
   var data = _taggedTemplateLiteral(["\n"]);
 
-  _templateObject5 = function _templateObject5() {
+  _templateObject5$1 = function _templateObject5() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject4$1() {
+function _templateObject4$2() {
   var data = _taggedTemplateLiteral(["\n  position: relative;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  cursor: ", ";\n"]);
 
-  _templateObject4$1 = function _templateObject4() {
+  _templateObject4$2 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$3() {
+function _templateObject3$4() {
   var data = _taggedTemplateLiteral(["\n  width: 282px;\n  height: 160px;\n  border-radius: 8px;\n  box-shadow: 0 1px 8px 0 rgba(117, 127, 139, 0.36);\n  background-color: #ffffff;\n  font-size: 0;\n  display: inline-block;\n  text-align: center;\n  margin-right: 24px;\n\n  &:last-child {\n    margin-right: 0;\n  }\n\n  dl {\n    width: 100%;\n    text-align: right;\n    padding-right: 44px;\n\n    margin: 0;\n  }\n\n  ", "\n"]);
 
-  _templateObject3$3 = function _templateObject3() {
+  _templateObject3$4 = function _templateObject3() {
     return data;
   };
 
@@ -22250,18 +22312,18 @@ function _templateObject$4() {
 }
 var Wrap1200$1 = styled.div(_templateObject$4());
 var hover = css(_templateObject2$4());
-var Article = styled.article(_templateObject3$3(), function (props) {
+var Article = styled.article(_templateObject3$4(), function (props) {
   if (props.events) return hover;
   return null;
 });
-var EventElement = styled.div(_templateObject4$1(), function (props) {
+var EventElement = styled.div(_templateObject4$2(), function (props) {
   return props.onClick ? 'pointer' : '';
 });
 var DT = styled.dt.attrs(function () {
   return {
     className: [fontStyle.fs16, fontStyle.fc_grey08, fontStyle.bold].join(' ')
   };
-})(_templateObject5());
+})(_templateObject5$1());
 var DD = styled.dd.attrs(function () {
   return {
     className: [fontStyle.fs40, fontStyle.fc_grey10, fontStyle.bold].join(' ')
@@ -23251,20 +23313,20 @@ var ICO_DOWN_DISABLE = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy
 
 var ICO_UP_DISABLE = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgMTYgOCI+CiAgICA8cGF0aCBmaWxsPSIjOTc5Nzk3IiBmaWxsLW9wYWNpdHk9Ii40IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00LjMwNSA0Ljc5NmwyLjk4NS0zLjAxYTEgMSAwIDAgMSAxLjQyIDBsMi45ODUgMy4wMWExIDEgMCAwIDEtLjcxIDEuNzA0aC01Ljk3YTEgMSAwIDAgMS0uNzEtMS43MDR6Ii8+Cjwvc3ZnPg==';
 
-function _templateObject4$2() {
+function _templateObject4$3() {
   var data = _taggedTemplateLiteral(["\n  border-bottom: 1px solid ", ";\n"]);
 
-  _templateObject4$2 = function _templateObject4() {
+  _templateObject4$3 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$4() {
+function _templateObject3$5() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  > span {\n    position: relative;\n    width: 16px;\n    height: 100%;\n    margin-left: 8px;\n  }\n  img {\n    position: absolute;\n  }\n\n  img:first-child {\n    top: 50%;\n    margin-top: -8px;\n  }\n\n  img:last-child {\n    bottom: 50%;\n    margin-bottom: -8px;\n  }\n\n  width: 100%;\n  cursor: ", ";\n"]);
 
-  _templateObject3$4 = function _templateObject3() {
+  _templateObject3$5 = function _templateObject3() {
     return data;
   };
 
@@ -23307,10 +23369,10 @@ var Th = styled.th.attrs(function (_ref3) {
 var SortButton = styled.button.attrs(function (_ref5) {
   var size = _ref5.size;
   return _objectSpread2({}, tableSize[size].thead);
-})(_templateObject3$4(), Text, function (props) {
+})(_templateObject3$5(), Text, function (props) {
   return props.disabled ? 'not-allowed' : 'pointer';
 });
-var Thead = styled.thead(_templateObject4$2(), colorV1.$grey04);
+var Thead = styled.thead(_templateObject4$3(), colorV1.$grey04);
 
 var TrEmpty = function TrEmpty() {
   return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "\xA0"));
@@ -23517,20 +23579,20 @@ THead.propTypes = {
 
 var icnNoData = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE5OCAxNDAiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9InByZWZpeF9fYSIgZD0iTTE4OCAwbC4wMDIgMTIxLjg0MUMxNjguMDM2IDEwOS45IDEzMy4zOTMgMTAyIDk0IDEwMmMtMzkuMzk0IDAtNzQuMDM3IDcuOS05NC4wMDMgMTkuODQyTDAgMGgxODh6Ii8+CiAgICAgICAgPHBhdGggaWQ9InByZWZpeF9fZSIgZD0iTTI2IDBoNjIuMzc2YzEuMTE2IDAgMi4xOC40NjUgMi45MzcgMS4yODRsMjEuNjI0IDIzLjM4Yy42ODMuNzQgMS4wNjMgMS43MSAxLjA2MyAyLjcxNlYxMTdjMCAyLjIxLTEuNzkgNC00IDRIMjRjLTIuMjEgMC00LTEuNzktNC00VjZjMC0zLjMxNCAyLjY4Ni02IDYtNnoiLz4KICAgICAgICA8cGF0aCBpZD0icHJlZml4X19mIiBkPSJNMjYgMGg2MS41NzdjMS42MjkgMCAzLjE4Ny42NjIgNC4zMTggMS44MzRsMjAuNDIzIDIxLjE3YzEuMDggMS4xMTkgMS42ODIgMi42MTIgMS42ODIgNC4xNjZWMTEwYzAgMy4zMTQtMi42ODYgNi02IDZIMjZjLTMuMzE0IDAtNi0yLjY4Ni02LTZWNmMwLTMuMzE0IDIuNjg2LTYgNi02eiIvPgogICAgICAgIDxwYXRoIGlkPSJwcmVmaXhfX2kiIGQ9Ik0xMDIgMzVjMTIuNzAzIDAgMjMgMTAuMjk3IDIzIDIzcy0xMC4yOTcgMjMtMjMgMjMtMjMtMTAuMjk3LTIzLTIzIDEwLjI5Ny0yMyAyMy0yM3ptMCAyYy0xMS41OTggMC0yMSA5LjQwMi0yMSAyMXM5LjQwMiAyMSAyMSAyMSAyMS05LjQwMiAyMS0yMS05LjQwMi0yMS0yMS0yMXptLTUuNjU3IDEzLjkyOUwxMDIgNTYuNTg2bDUuNjU4LTUuNjU3Yy4zOS0uMzkgMS4wMjQtLjM5IDEuNDE0IDAgLjM5LjM5LjM5IDEuMDI0IDAgMS40MTRsLTUuNjU3IDUuNjU4IDUuNjU3IDUuNjU2Yy4zOS4zOS4zOSAxLjAyNCAwIDEuNDE0LS4zOS4zOS0xLjAyNC4zOS0xLjQxNCAwbC01LjY1OC01LjY1Ni01LjY1NiA1LjY1NmMtLjM5LjM5LTEuMDI0LjM5LTEuNDE0IDAtLjM5LS4zOS0uMzktMS4wMjQgMC0xLjQxNEwxMDAuNTg1IDU4bC01LjY1Ni01LjY1OGMtLjM5LS4zOS0uMzktMS4wMjQgMC0xLjQxNC4zOS0uMzkgMS4wMjQtLjM5IDEuNDE0IDB6Ii8+CiAgICAgICAgPGZpbHRlciBpZD0icHJlZml4X19jIiB3aWR0aD0iMTE3LjMlIiBoZWlnaHQ9IjEyNi40JSIgeD0iLTguNiUiIHk9Ii0xNC42JSIgZmlsdGVyVW5pdHM9Im9iamVjdEJvdW5kaW5nQm94Ij4KICAgICAgICAgICAgPGZlT2Zmc2V0IGR5PSItMiIgaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9InNoYWRvd09mZnNldE91dGVyMSIvPgogICAgICAgICAgICA8ZmVHYXVzc2lhbkJsdXIgaW49InNoYWRvd09mZnNldE91dGVyMSIgcmVzdWx0PSJzaGFkb3dCbHVyT3V0ZXIxIiBzdGREZXZpYXRpb249IjYiLz4KICAgICAgICAgICAgPGZlQ29sb3JNYXRyaXggaW49InNoYWRvd0JsdXJPdXRlcjEiIHZhbHVlcz0iMCAwIDAgMCAwLjM5MjE1Njg2MyAwIDAgMCAwIDAuNjQzMTM3MjU1IDAgMCAwIDAgMC45NTI5NDExNzYgMCAwIDAgMC41NjM4NjU4MjIgMCIvPgogICAgICAgIDwvZmlsdGVyPgogICAgICAgIDxmaWx0ZXIgaWQ9InByZWZpeF9faCIgd2lkdGg9IjE1NC4zJSIgaGVpZ2h0PSIxNTQuMyUiIHg9Ii0yNy4yJSIgeT0iLTI1JSIgZmlsdGVyVW5pdHM9Im9iamVjdEJvdW5kaW5nQm94Ij4KICAgICAgICAgICAgPGZlT2Zmc2V0IGR5PSIxIiBpbj0iU291cmNlQWxwaGEiIHJlc3VsdD0ic2hhZG93T2Zmc2V0T3V0ZXIxIi8+CiAgICAgICAgICAgIDxmZUdhdXNzaWFuQmx1ciBpbj0ic2hhZG93T2Zmc2V0T3V0ZXIxIiByZXN1bHQ9InNoYWRvd0JsdXJPdXRlcjEiIHN0ZERldmlhdGlvbj0iNCIvPgogICAgICAgICAgICA8ZmVDb2xvck1hdHJpeCBpbj0ic2hhZG93Qmx1ck91dGVyMSIgdmFsdWVzPSIwIDAgMCAwIDAuMzg4MjM1Mjk0IDAgMCAwIDAgMC42MzkyMTU2ODYgMCAwIDAgMCAwLjk1Mjk0MTE3NiAwIDAgMCAxIDAiLz4KICAgICAgICA8L2ZpbHRlcj4KICAgICAgICA8ZWxsaXBzZSBpZD0icHJlZml4X19kIiBjeD0iOTUiIGN5PSIxNzQiIHJ4PSIxMTAiIHJ5PSI3MiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1IDEwKSI+CiAgICAgICAgPG1hc2sgaWQ9InByZWZpeF9fYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI3ByZWZpeF9fYSIvPgogICAgICAgIDwvbWFzaz4KICAgICAgICA8ZyBmaWxsPSIjMDAwIiBtYXNrPSJ1cmwoI3ByZWZpeF9fYikiPgogICAgICAgICAgICA8dXNlIGZpbHRlcj0idXJsKCNwcmVmaXhfX2MpIiB4bGluazpocmVmPSIjcHJlZml4X19kIi8+CiAgICAgICAgPC9nPgogICAgICAgIDxnIG1hc2s9InVybCgjcHJlZml4X19iKSI+CiAgICAgICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM1KSI+CiAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjQzBEN0ZDIiBkPSJNNiAyM2g2Ny41NDNjMS42MyAwIDMuMTkuNjYzIDQuMzIgMS44MzZsMjIuNDU3IDIzLjMwMmMxLjA3OCAxLjExOCAxLjY4IDIuNjEgMS42OCA0LjE2NFYxNDNjMCAzLjMxNC0yLjY4NiA2LTYgNkg2Yy0zLjMxNCAwLTYtMi42ODYtNi02VjI5YzAtMy4zMTQgMi42ODYtNiA2LTZ6Ii8+CiAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNwcmVmaXhfX2UiLz4KICAgICAgICAgICAgICAgIDxtYXNrIGlkPSJwcmVmaXhfX2ciIGZpbGw9IiNmZmYiPgogICAgICAgICAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI3ByZWZpeF9fZiIvPgogICAgICAgICAgICAgICAgPC9tYXNrPgogICAgICAgICAgICAgICAgPHVzZSBmaWxsPSIjODZBRkY0IiB4bGluazpocmVmPSIjcHJlZml4X19mIi8+CiAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjQzBEN0ZDIiBkPSJNOTAuNzI4LTYuMTY0bDI4LjY4NiAzMC40NzljLjM3OC40MDIuMzYgMS4wMzUtLjA0MyAxLjQxMy0uMTg2LjE3NS0uNDMuMjcyLS42ODUuMjcySDkzYy0yLjIxIDAtNC0xLjc5LTQtNFYtNS40NzhjMC0uNTUzLjQ0OC0xIDEtMSAuMjc2IDAgLjU0LjExMy43MjguMzE0eiIgbWFzaz0idXJsKCNwcmVmaXhfX2cpIi8+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPGcgbWFzaz0idXJsKCNwcmVmaXhfX2IpIj4KICAgICAgICAgICAgPHVzZSBmaWxsPSIjMDAwIiBmaWx0ZXI9InVybCgjcHJlZml4X19oKSIgeGxpbms6aHJlZj0iI3ByZWZpeF9faSIvPgogICAgICAgICAgICA8dXNlIGZpbGw9IiNGRkYiIHhsaW5rOmhyZWY9IiNwcmVmaXhfX2kiLz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==';
 
-function _templateObject4$3() {
+function _templateObject4$4() {
   var data = _taggedTemplateLiteral(["\n"]);
 
-  _templateObject4$3 = function _templateObject4() {
+  _templateObject4$4 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$5() {
+function _templateObject3$6() {
   var data = _taggedTemplateLiteral(["\n  width: 198px;\n  height: 140px;\n  margin-bottom: 8px;\n  font-size: 0;\n"]);
 
-  _templateObject3$5 = function _templateObject3() {
+  _templateObject3$6 = function _templateObject3() {
     return data;
   };
 
@@ -23562,12 +23624,12 @@ var EmptyContainer = styled.section(_templateObject$6(), function (props) {
 var EmptyInner = styled.div(_templateObject2$6());
 var EmptyDescription = styled.img.attrs({
   src: "".concat(icnNoData)
-})(_templateObject3$5());
+})(_templateObject3$6());
 var EmptyText = styled.p.attrs(function () {
   return {
     className: [fontStyle.fs18, fontStyle.fc_grey08].join(' ')
   };
-})(_templateObject4$3());
+})(_templateObject4$4());
 
 var EmptyPlaceHolder = function EmptyPlaceHolder(_ref) {
   var height = _ref.height;
@@ -25221,30 +25283,30 @@ function _templateObject6$1() {
   return data;
 }
 
-function _templateObject5$1() {
+function _templateObject5$2() {
   var data = _taggedTemplateLiteral(["\n  margin-bottom: 30px;\n  > span:not(:last-child) {\n    margin-right: 24px;\n  }\n"]);
 
-  _templateObject5$1 = function _templateObject5() {
+  _templateObject5$2 = function _templateObject5() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject4$4() {
+function _templateObject4$5() {
   var data = _taggedTemplateLiteral(["\n  background-color: ", ";\n  display: inline-block;\n  width: 10px;\n  height: 10px;\n  border-radius: 5px;\n"]);
 
-  _templateObject4$4 = function _templateObject4() {
+  _templateObject4$5 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$6() {
+function _templateObject3$7() {
   var data = _taggedTemplateLiteral(["\n  border-radius: 10px;\n  box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);\n\n  background-color: ", ";\n  padding: 30px;\n"]);
 
-  _templateObject3$6 = function _templateObject3() {
+  _templateObject3$7 = function _templateObject3() {
     return data;
   };
 
@@ -25272,13 +25334,13 @@ function _templateObject$9() {
 }
 var LegendWrap = styled.section(_templateObject$9());
 var BoxShadow = styled.article(_templateObject2$8());
-var BoxShadowInner = styled.div(_templateObject3$6(), color.$primary_white);
-var Dot = styled.span(_templateObject4$4(), function (props) {
+var BoxShadowInner = styled.div(_templateObject3$7(), color.$primary_white);
+var Dot = styled.span(_templateObject4$5(), function (props) {
   return props.color;
 });
 var Legend = styled.article.attrs({
   className: [fontStyle.fs14, fontStyle.fc_grey08]
-})(_templateObject5$1());
+})(_templateObject5$2());
 var LegendList = function LegendList(_ref) {
   var data = _ref.data,
       textMap = _ref.textMap,
@@ -25408,10 +25470,10 @@ var commonTag = /*#__PURE__*/Object.freeze({
   chartTitle: chartTitle
 });
 
-function _templateObject3$7() {
+function _templateObject3$8() {
   var data = _taggedTemplateLiteral(["\n  border-bottom: 1px solid ", ";\n"]);
 
-  _templateObject3$7 = function _templateObject3() {
+  _templateObject3$8 = function _templateObject3() {
     return data;
   };
 
@@ -25443,7 +25505,7 @@ var TableBox = styled.table(_templateObject2$9(), colorV1.$grey06, function (pro
 }, function (props) {
   return props.className.split(' ').includes('sideFit') ? sideFit : null;
 });
-var WrapScrollTables = styled.div(_templateObject3$7(), colorV1.$grey06);
+var WrapScrollTables = styled.div(_templateObject3$8(), colorV1.$grey06);
 
 var Columns = function Columns(_ref) {
   var columns = _ref.columns;
@@ -25575,30 +25637,30 @@ Table.propTypes = {
   size: propTypes.string
 };
 
-function _templateObject5$2() {
+function _templateObject5$3() {
   var data = _taggedTemplateLiteral(["\n  color: ", ";\n  ", ";\n  font-family: \"Spoqa Han Sans\";\n  background: #ffffff;\n  font-weight: normal;\n  text-align: left;\n  padding: ", ";\n"]);
 
-  _templateObject5$2 = function _templateObject5() {
+  _templateObject5$3 = function _templateObject5() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject4$5() {
+function _templateObject4$6() {
   var data = _taggedTemplateLiteral(["\n  color: ", ";\n  ", ";\n  font-family: \"Spoqa Han Sans\";\n  background: ", ";\n  font-weight: bold;\n  text-align: left;\n  padding: ", ";\n"]);
 
-  _templateObject4$5 = function _templateObject4() {
+  _templateObject4$6 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$8() {
+function _templateObject3$9() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    border-bottom: 1px solid ", ";\n  }\n"]);
 
-  _templateObject3$8 = function _templateObject3() {
+  _templateObject3$9 = function _templateObject3() {
     return data;
   };
 
@@ -25626,9 +25688,9 @@ function _templateObject$b() {
 }
 var TableWrap = styled.div(_templateObject$b(), colorV1.$grey05);
 var Table$1 = styled.table(_templateObject2$a());
-var Tr = styled.tr(_templateObject3$8(), colorV1.$grey04);
-var Th$1 = styled.th(_templateObject4$5(), colorV1.$grey08, "font-size: ".concat(tableSize.medium.thead.size, "px"), colorV1.$grey03, tableSize.medium.thead.padding);
-var Td$1 = styled.td(_templateObject5$2(), colorV1.$grey10, "font-size: ".concat(tableSize.medium.tbody.size, "px"), tableSize.medium.tbody.padding);
+var Tr = styled.tr(_templateObject3$9(), colorV1.$grey04);
+var Th$1 = styled.th(_templateObject4$6(), colorV1.$grey08, "font-size: ".concat(tableSize.medium.thead.size, "px"), colorV1.$grey03, tableSize.medium.thead.padding);
+var Td$1 = styled.td(_templateObject5$3(), colorV1.$grey10, "font-size: ".concat(tableSize.medium.tbody.size, "px"), tableSize.medium.tbody.padding);
 var isLastCell = function isLastCell(_ref2) {
   var cellTotal = _ref2.cellTotal,
       cellCurrent = _ref2.cellCurrent;
@@ -27791,30 +27853,30 @@ function _templateObject6$2() {
   return data;
 }
 
-function _templateObject5$3() {
+function _templateObject5$4() {
   var data = _taggedTemplateLiteral(["\n  position: absolute;\n  height: ", "px;\n\n  ", ";\n  bottom: -1px;\n  width: 100%;\n  left: 0;\n\n  display: ", ";\n"]);
 
-  _templateObject5$3 = function _templateObject5() {
+  _templateObject5$4 = function _templateObject5() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject4$6() {
+function _templateObject4$7() {
   var data = _taggedTemplateLiteral(["\n  ", ";\n\n  cursor: pointer;\n  display: inline-block;\n  text-align: center;\n"]);
 
-  _templateObject4$6 = function _templateObject4() {
+  _templateObject4$7 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$9() {
+function _templateObject3$a() {
   var data = _taggedTemplateLiteral(["\n  color: ", " !important;\n\n  &:not(:last-child) {\n    margin-right: 40px;\n  }\n\n  transition: color 0.5s ease;\n  &:hover {\n    color: ", " !important;\n  }\n"]);
 
-  _templateObject3$9 = function _templateObject3() {
+  _templateObject3$a = function _templateObject3() {
     return data;
   };
 
@@ -27851,7 +27913,7 @@ var UnderLineSize = 3;
 var typeCategory = css(_templateObject2$d(), function (props) {
   return props['aria-selected'] ? colorV1.$pmblue : colorV1.$grey08;
 }, 13 + UnderLineSize, colorV1.$pmblue);
-var typeTitle = css(_templateObject3$9(), function (props) {
+var typeTitle = css(_templateObject3$a(), function (props) {
   return props['aria-selected'] ? colorV1.$grey10 : colorV1.$grey07;
 }, colorV1.$grey10);
 var Tab = styled.span.attrs(function (props) {
@@ -27859,10 +27921,10 @@ var Tab = styled.span.attrs(function (props) {
   return {
     className: className
   };
-})(_templateObject4$6(), function (props) {
+})(_templateObject4$7(), function (props) {
   return props.type === TYPE.CATEGORY ? typeCategory : typeTitle;
 });
-var TabUnderLine = styled.div(_templateObject5$3(), UnderLineSize, function (props) {
+var TabUnderLine = styled.div(_templateObject5$4(), UnderLineSize, function (props) {
   return props.type === TYPE.TITLE ? "" : "background-color: ".concat(colorV1.$pmblue);
 }, function (props) {
   return props['aria-selected'] ? 'block' : 'none';
@@ -28418,30 +28480,30 @@ function _templateObject6$3() {
   return data;
 }
 
-function _templateObject5$4() {
+function _templateObject5$5() {
   var data = _taggedTemplateLiteral(["\n  border: 16px solid #63a3f3; /* Light grey */\n  border-top: 16px solid #d5e7fd; /* Blue */\n  border-radius: 50%;\n  width: 120px;\n  height: 120px;\n  animation: spin 2s linear infinite;\n\n  @keyframes spin {\n    0% { transform: rotate(0deg); }\n    100% { transform: rotate(360deg); }\n  }\n\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  margin-left: -60px;\n  margin-top: -60px;\n"]);
 
-  _templateObject5$4 = function _templateObject5() {
+  _templateObject5$5 = function _templateObject5() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject4$7() {
+function _templateObject4$8() {
   var data = _taggedTemplateLiteral(["\n"]);
 
-  _templateObject4$7 = function _templateObject4() {
+  _templateObject4$8 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$a() {
+function _templateObject3$b() {
   var data = _taggedTemplateLiteral(["\n  > div {\n    display: flex;\n    align-items: baseline;\n  }\n\n  margin-bottom: 30px;\n  button {\n    line-height: 1;\n  }\n"]);
 
-  _templateObject3$a = function _templateObject3() {
+  _templateObject3$b = function _templateObject3() {
     return data;
   };
 
@@ -28480,12 +28542,12 @@ var Overlay = styled.div(_templateObject$k(), hexToRGB(color.$black, 0.6), funct
   return props.isLoading ? zIndex.$modalOverlayLoading : zIndex.$modalOverlay;
 });
 var ModalBox = styled.div(_templateObject2$e(), size$1.minWidth, size$1.borderRadius, color.$primary_white, zIndex.$modal, size$1.modalPadding);
-var Header = styled.header(_templateObject3$a());
+var Header = styled.header(_templateObject3$b());
 var Contents = styled(TextTag).attrs({
   size: '18',
   bold: false
-})(_templateObject4$7());
-var Loading = styled.div(_templateObject5$4());
+})(_templateObject4$8());
+var Loading = styled.div(_templateObject5$5());
 var Footer$1 = styled.footer(_templateObject6$3(), size$1.footerMarginTop, size$1.footerPaddingTop, color.$line_graph_xy_grey, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding);
 
 var Modal = function Modal(_ref) {
@@ -28551,10 +28613,10 @@ Modal.propTypes = {
   footer: propTypes.node
 };
 
-function _templateObject3$b() {
+function _templateObject3$c() {
   var data = _taggedTemplateLiteral(["\n  label {\n    display: block;\n    padding: 12px 24px;\n    display: flex;\n    align-items: center;\n    img {\n      margin-right: 12px;\n    }\n  }\n  input {\n    display: none;\n  }\n\n  ", ";\n  ", "\n"]);
 
-  _templateObject3$b = function _templateObject3() {
+  _templateObject3$c = function _templateObject3() {
     return data;
   };
 
@@ -28589,7 +28651,7 @@ var Item = styled.div.attrs(function (props) {
   return {
     className: [fontStyle.fs16, fontColorClassName].join(' ')
   };
-})(_templateObject3$b(), function (props) {
+})(_templateObject3$c(), function (props) {
   return props.layout === ChartConfig.Layout.HORIZONTAL ? ' display: inline-block' : 'display: block';
 }, function (props) {
   return props.disabled ? CssDiable : CssEnable;
@@ -28739,20 +28801,20 @@ var IcnChecked$1 = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My
 
 var IcnUnchecked$1 = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwLjkiIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjQzRDNEM0IiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+';
 
-function _templateObject4$8() {
+function _templateObject4$9() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n  height: 100%;\n\n  span {\n    position: relative;\n  }\n\n  input {\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    z-index: 1;\n    cursor: pointer;\n    opacity: 0;\n  }\n  img {\n    margin-right: 12px;\n  }\n  cursor: pointer;\n  ", "\n"]);
 
-  _templateObject4$8 = function _templateObject4() {
+  _templateObject4$9 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$c() {
+function _templateObject3$d() {
   var data = _taggedTemplateLiteral(["\n  ", ";\n  ", ";\n  padding: 12px 24px 12px 16px;\n  height: 48px;\n\n  &:hover {\n    border-radius: 8px;\n    background: ", ";\n  }\n"]);
 
-  _templateObject3$c = function _templateObject3() {
+  _templateObject3$d = function _templateObject3() {
     return data;
   };
 
@@ -28787,7 +28849,7 @@ var Inner = styled.div(_templateObject2$g(), function (props) {
 }, function (props) {
   return props.align === 'right' ? "margin-left: auto" : '';
 });
-var Box$3 = styled.div(_templateObject3$c(), function (props) {
+var Box$3 = styled.div(_templateObject3$d(), function (props) {
   return props.layout === ChartConfig.Layout.HORIZONTAL ? 'display: inline-block' : 'display: block';
 }, function (props) {
   return props.layout === ChartConfig.Layout.VERTICAL && 'width: inherit;';
@@ -28796,7 +28858,7 @@ var Label = styled.label.attrs(function () {
   return {
     className: [fontStyle.fs16, fontStyle.fc_grey09].join(' ')
   };
-})(_templateObject4$8(), function (props) {
+})(_templateObject4$9(), function (props) {
   return props.disabled ? 'cursor: not-allowed;' : '';
 });
 
@@ -30507,10 +30569,10 @@ TimeToEventOld.propTypes = {
   theme: propTypes.oneOf([Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1, Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3, Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1, Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3])
 };
 
-function _templateObject3$d() {
+function _templateObject3$e() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n"]);
 
-  _templateObject3$d = function _templateObject3() {
+  _templateObject3$e = function _templateObject3() {
     return data;
   };
 
@@ -30548,7 +30610,7 @@ var size$2 = {
 var PieLegend = styled.div(_templateObject2$h(), function (props) {
   return props.layout === ChartConfig.Layout.HORIZONTAL ? 'margin-left: 56px;' : 'margin-top: 24px;';
 });
-var Layout$1 = styled.section(_templateObject3$d(), function (props) {
+var Layout$1 = styled.section(_templateObject3$e(), function (props) {
   return props.layout === ChartConfig.Layout.HORIZONTAL ? "\n    display: flex;\n  " : '';
 }, function (props) {
   return props.layout === ChartConfig.Layout.VERTICAL ? "\n    .recharts-responsive-container {\n      margin: 0 auto;\n    };\n  " : '';
@@ -30741,30 +30803,30 @@ function _templateObject6$4() {
   return data;
 }
 
-function _templateObject5$5() {
+function _templateObject5$6() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.2s\n"]);
 
-  _templateObject5$5 = function _templateObject5() {
+  _templateObject5$6 = function _templateObject5() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject4$9() {
+function _templateObject4$a() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.0s\n"]);
 
-  _templateObject4$9 = function _templateObject4() {
+  _templateObject4$a = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$e() {
+function _templateObject3$f() {
   var data = _taggedTemplateLiteral(["\n  opacity: 0;\n  animation: ", " 1.3s infinite;\n"]);
 
-  _templateObject3$e = function _templateObject3() {
+  _templateObject3$f = function _templateObject3() {
     return data;
   };
 
@@ -30912,9 +30974,9 @@ var setBtnColor = function setBtnColor(props) {
 };
 
 var fade = keyframes(_templateObject2$i());
-var LoadingBase = css(_templateObject3$e(), fade);
-var LoadingOne = styled.span(_templateObject4$9(), LoadingBase);
-var LoadingTwo = styled.span(_templateObject5$5(), LoadingBase);
+var LoadingBase = css(_templateObject3$f(), fade);
+var LoadingOne = styled.span(_templateObject4$a(), LoadingBase);
+var LoadingTwo = styled.span(_templateObject5$6(), LoadingBase);
 var LoadingThree = styled.span(_templateObject6$4(), LoadingBase);
 var ButtonTag = styled(TextTag).attrs(function () {
   var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -31086,10 +31148,10 @@ ButtonTextLink.propTypes = {
   id: propTypes.string
 };
 
-function _templateObject3$f() {
+function _templateObject3$g() {
   var data = _taggedTemplateLiteral(["\n  display: inline-block;\n\n  vertical-align: middle;\n  > div {\n    display: flex;\n    align-items: center;\n  }\n\n  ", " {\n    &:first-child {\n      margin-right: 8px;\n    }\n    &:last-child {\n      margin-left: 8px;\n    }\n  }\n"]);
 
-  _templateObject3$f = function _templateObject3() {
+  _templateObject3$g = function _templateObject3() {
     return data;
   };
 
@@ -31131,7 +31193,7 @@ var TextLinkTag = styled(TextTag).attrs(function () {
   return props.fontSize;
 });
 var Icon$1 = styled.img(_templateObject2$j());
-var TextLinkIconTag = styled(TextLinkTag)(_templateObject3$f(), Icon$1);
+var TextLinkIconTag = styled(TextLinkTag)(_templateObject3$g(), Icon$1);
 
 var TextLink = function TextLink(props) {
   var href = props.href,
@@ -57847,20 +57909,20 @@ var IcnMessageComplete = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3
 
 var IcnToastCompleteCloseDefault = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgxNnYxNkgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHBhdGggZmlsbD0iIzE4OUJGRiIgZD0iTTgtMmExIDEgMCAwIDEgMSAxbC0uMDAxIDcuOTk5TDE3IDdhMSAxIDAgMCAxIDAgMmwtOC4wMDEtLjAwMUw5IDE3YTEgMSAwIDAgMS0yIDBsLS4wMDEtOC4wMDFMLTEgOWExIDEgMCAxIDEgMC0ybDcuOTk5LS4wMDFMNy0xYTEgMSAwIDAgMSAxLTF6IiBtYXNrPSJ1cmwoI2IpIiB0cmFuc2Zvcm09InJvdGF0ZSgtNDUgOCA4KSIvPgogICAgPC9nPgo8L3N2Zz4=';
 
-function _templateObject4$a() {
+function _templateObject4$b() {
   var data = _taggedTemplateLiteral(["\n  position: absolute;\n  line-height: 0;\n  right: 16px;\n  top: 16px;\n"]);
 
-  _templateObject4$a = function _templateObject4() {
+  _templateObject4$b = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$g() {
+function _templateObject3$h() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n\n  p {\n    margin-left: 8px;\n    line-height: 1.34em;\n  }\n"]);
 
-  _templateObject3$g = function _templateObject3() {
+  _templateObject3$h = function _templateObject3() {
     return data;
   };
 
@@ -57896,8 +57958,8 @@ var Box$4 = styled.section.attrs(function () {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
 var InnerBox = styled.article(_templateObject2$k());
-var TextBox = styled.div(_templateObject3$g());
-var CloseButton = styled.button(_templateObject4$a());
+var TextBox = styled.div(_templateObject3$h());
+var CloseButton = styled.button(_templateObject4$b());
 
 var Toast = function Toast(_ref) {
   var children = _ref.children,
@@ -58155,30 +58217,30 @@ Input.propTypes = {
   max: propTypes.number.isRequired
 };
 
-function _templateObject5$6() {
+function _templateObject5$7() {
   var data = _taggedTemplateLiteral(["\n  img {\n    border-radius: 8px;\n  }\n  ", ";\n  font-size: 0;\n  &:first-child {\n    margin-right: 16px;\n  }\n\n  &:last-child {\n    margin-left: 16px;\n  }\n\n  ", ";\n"]);
 
-  _templateObject5$6 = function _templateObject5() {
+  _templateObject5$7 = function _templateObject5() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject4$b() {
+function _templateObject4$c() {
   var data = _taggedTemplateLiteral(["\n  border-radius: 4px;\n\n  ", ";\n  ", ";\n  ", ";\n"]);
 
-  _templateObject4$b = function _templateObject4() {
+  _templateObject4$c = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$h() {
+function _templateObject3$i() {
   var data = _taggedTemplateLiteral(["\n  &:not(:last-child) {\n    margin-left: 8px;\n  }\n  letter-spacing: -0.5px;\n  color: ", ";\n  ", ";\n"]);
 
-  _templateObject3$h = function _templateObject3() {
+  _templateObject3$i = function _templateObject3() {
     return data;
   };
 
@@ -58212,17 +58274,17 @@ var PaginationInner = styled.div(_templateObject2$l(), function (props) {
 }, function (props) {
   return props.align === 'right' ? "margin-left: auto" : '';
 });
-var PageText = styled.span(_templateObject3$h(), colorV1.$grey10, function (props) {
+var PageText = styled.span(_templateObject3$i(), colorV1.$grey10, function (props) {
   return props.size === 'sm' ? "font-size: 14px;" : "font-size: 16px;";
 });
-var ButtonPage = styled.button(_templateObject4$b(), function (props) {
+var ButtonPage = styled.button(_templateObject4$c(), function (props) {
   return props.selected ? "background-color: ".concat(colorV1.$grey08) : '';
 }, function (props) {
   return props.selected ? "color: ".concat(color.$primary_white) : "color: ".concat(colorV1.$grey8);
 }, function (props) {
   return props.size === 'sm' ? "\n      font-size: 14px;\n      min-width: 32px;\n      height: 32px;\n    " : "\n      font-size: 16px;\n      min-width: 42px;\n      height: 42px;\n    ";
 });
-var ButtonMove = styled.button(_templateObject5$6(), function (props) {
+var ButtonMove = styled.button(_templateObject5$7(), function (props) {
   return props.selected ? "background-color: ".concat(colorV1.$grey03) : '';
 }, function (props) {
   return props.size === 'sm' ? "\n      height: 32px;\n    " : "\n      height: 42px;\n    ";
@@ -58438,10 +58500,10 @@ Pagination.propTypes = {
   align: propTypes.oneOf(['center', 'left', 'right'])
 };
 
-function _templateObject3$i() {
+function _templateObject3$j() {
   var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: ", "px;\n  min-width: ", "px;\n  height: ", "px;\n  padding: ", ";\n  border-radius: ", "px;\n  outline: none;\n  text-align: center;\n\n  &:not(:last-child) {\n    margin-right: 8px;\n  }\n  ", ";\n  background-color: ", ";\n  &:hover {\n    background-color: ", ";\n    ", ";\n  }\n"]);
 
-  _templateObject3$i = function _templateObject3() {
+  _templateObject3$j = function _templateObject3() {
     return data;
   };
 
@@ -58505,7 +58567,7 @@ var ToggleBtn = styled.button.attrs(function () {
   return {
     className: "".concat(fontStyle.font, " ").concat(fontStyle.bold)
   };
-})(_templateObject3$i(), colorV1.$grey10, function (props) {
+})(_templateObject3$j(), colorV1.$grey10, function (props) {
   return props.fontSize;
 }, function (props) {
   return props.minWidth;
@@ -60141,20 +60203,20 @@ TransitionGroup.propTypes = process.env.NODE_ENV !== "production" ? {
 } : {};
 TransitionGroup.defaultProps = defaultProps;
 
-function _templateObject4$c() {
+function _templateObject4$d() {
   var data = _taggedTemplateLiteral(["\n  position: absolute;\n  line-height: 0;\n  right: 16px;\n  top: 16px;\n  font-size: 0;\n"]);
 
-  _templateObject4$c = function _templateObject4() {
+  _templateObject4$d = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$j() {
+function _templateObject3$k() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n\n  h4 {\n    margin-right: 8px;\n  }\n\n  img {\n    margin-right: 8px;\n  }\n\n  p {\n    line-height: 1.34em;\n  }\n"]);
 
-  _templateObject3$j = function _templateObject3() {
+  _templateObject3$k = function _templateObject3() {
     return data;
   };
 
@@ -60190,8 +60252,8 @@ var Box$6 = styled.section.attrs(function () {
   return props.variant === 'error' ? color.$alert_red : color.$solid_default;
 }, color.$primary_white, Text);
 var InnerBox$1 = styled.article(_templateObject2$n());
-var TextBox$1 = styled.div(_templateObject3$j());
-var CloseButton$1 = styled.button(_templateObject4$c());
+var TextBox$1 = styled.div(_templateObject3$k());
+var CloseButton$1 = styled.button(_templateObject4$d());
 
 var Notification = /*#__PURE__*/function (_React$Component) {
   _inherits(Notification, _React$Component);
@@ -60286,10 +60348,10 @@ Notification.propTypes = {
   onRequestHide: propTypes.func
 };
 
-function _templateObject3$k() {
+function _templateObject3$l() {
   var data = _taggedTemplateLiteral(["\n  box-sizing: border-box;\n  position: fixed;\n  top: 99px;\n  left: 50%;\n  margin-left: -350px;\n  z-index: 999999;\n  max-height: calc(100% - 30px -99px);\n  overflow-x: hidden;\n  overflow-y: auto;\n\n  .item-enter {\n    animation: ", " 100ms linear;\n    animation-fill-mode: both;\n  }\n\n  .item-enter-active {\n  }\n\n  .item-exit {\n    animation: ", " 100ms linear;\n    animation-fill-mode: both;\n  }\n\n  .item-exit-active {\n  }\n"]);
 
-  _templateObject3$k = function _templateObject3() {
+  _templateObject3$l = function _templateObject3() {
     return data;
   };
 
@@ -60317,7 +60379,7 @@ function _templateObject$z() {
 }
 var fadeInDown = keyframes(_templateObject$z());
 var fadeOutUp = keyframes(_templateObject2$o());
-var List = styled.section(_templateObject3$k(), fadeInDown, fadeOutUp);
+var List = styled.section(_templateObject3$l(), fadeInDown, fadeOutUp);
 
 var Notifications = function Notifications(props) {
   var notifications = props.notifications,
@@ -60569,6 +60631,6 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.40";
+var version$1 = "0.13.41";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckBox, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, RadarChart, RadarChartOld, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, TimeToEventOld, Timeline, ToastCtr, ToggleButton, Tooltip, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, Notifications as notifications, tableProperties$1 as tableProperties, variables, version$1 as version };
