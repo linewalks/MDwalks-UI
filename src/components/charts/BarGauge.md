@@ -14,6 +14,13 @@ SummaryCard example:
 
 ```js
 <BarGauge
+  score={70}
+  threshold={20}
+  />
+```
+
+```js
+<BarGauge
   score={101}
   />
 ```

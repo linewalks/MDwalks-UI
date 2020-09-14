@@ -1,3 +1,18 @@
+## [0.13.41](https://github.com/linewalks/MDwalks-UI/compare/v0.13.40...v0.13.41) (2020-09-14)
+
+
+### Bug Fixes
+
+* **BarGauge:** BarGauge의 임계치가 0일 때, 0을 렌더 ([326b0b5](https://github.com/linewalks/MDwalks-UI/commit/326b0b537b85848c88c1471961b7cf24f2c16901)), closes [#741](https://github.com/linewalks/MDwalks-UI/issues/741)
+
+
+### Features
+
+* BarGauge 임계치 선 추가 ([510fe3d](https://github.com/linewalks/MDwalks-UI/commit/510fe3dd545eafb86a292b21e694d8cf4d664ffc)), closes [#739](https://github.com/linewalks/MDwalks-UI/issues/739)
+* Radius Gague 임계치 선 추가 ([21ee993](https://github.com/linewalks/MDwalks-UI/commit/21ee9938751d227b469bfebe00b2fdd54d3370da)), closes [#744](https://github.com/linewalks/MDwalks-UI/issues/744)
+
+
+
 ## [0.13.40](https://github.com/linewalks/MDwalks-UI/compare/v0.13.39...v0.13.40) (2020-09-01)
 
 
