@@ -127,7 +127,7 @@ const TBody = ({
         <EmptyTbody>
           <tr>
             <td colSpan={EmptyPlaceHolderGetColSpan()}>
-              <EmptyPlaceHolder height={196} text={placeholder} />
+              <EmptyPlaceHolder text={placeholder} />
             </td>
           </tr>
         </EmptyTbody>
