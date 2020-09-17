@@ -24,17 +24,17 @@ const EmptyDescription = styled.img.attrs({
   font-size: 0;
 `
 
-const EmptyText = styled.p.attrs(() => ({
+const EmptyText = styled.div.attrs(() => ({
   className: [fontStyle.fs18, fontStyle.fc_grey08].join(' '),
 }))`
 `
 
-const EmptyPlaceHolder = ({ height }) => (
+const EmptyPlaceHolder = ({ height, text }) => (
   <EmptyContainer height={height}>
     <EmptyInner>
       <EmptyDescription />
       <EmptyText>
-        There is no data
+        {text}
       </EmptyText>
     </EmptyInner>
   </EmptyContainer>
@@ -42,10 +42,12 @@ const EmptyPlaceHolder = ({ height }) => (
 
 EmptyPlaceHolder.defaultProps = {
   height: undefined,
+  text: 'There is no data',
 }
 
 EmptyPlaceHolder.propTypes = {
   height: PropTypes.number,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 }
 
 export default EmptyPlaceHolder

@@ -54,6 +54,7 @@ const TBody = ({
   wrapTd,
   appendRow,
   size,
+  placeholder,
 }) => {
   let singlevelHeader = headers
 
@@ -126,7 +127,7 @@ const TBody = ({
         <EmptyTbody>
           <tr>
             <td colSpan={EmptyPlaceHolderGetColSpan()}>
-              <EmptyPlaceHolder />
+              <EmptyPlaceHolder text={placeholder} />
             </td>
           </tr>
         </EmptyTbody>
@@ -141,6 +142,7 @@ TBody.defaultProps = {
   wrapTd: null,
   appendRow: null,
   size: 'medium',
+  placeholder: undefined,
 }
 
 TBody.propTypes = {
@@ -154,6 +156,7 @@ TBody.propTypes = {
   wrapTd: PropTypes.func,
   appendRow: PropTypes.func,
   size: PropTypes.string,
+  placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 }
 
 export default TBody;

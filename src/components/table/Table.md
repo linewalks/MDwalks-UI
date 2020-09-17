@@ -104,12 +104,14 @@ show()
 </Table>
 ```
 
-##### Empty List Table
+##### Empty List Table(rowData empty)
 ```js
 <Table
   data={{
     headers: ['a', 'b', 'c'],
-  }}>
+  }}
+  placeholder={(<div>즐거운 두 줄 만들기 <br/> 두줄이 되었어요!</div>)}
+  >
 </Table>
 ```
 
