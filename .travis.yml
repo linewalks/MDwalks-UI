@@ -3,6 +3,7 @@ node_js:
 - 10
 branches:
   only:
+  - develop
 before_install:
 install:
 - yarn install
