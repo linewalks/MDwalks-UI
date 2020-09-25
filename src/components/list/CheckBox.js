@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import Item from '@Components/list/Item'
@@ -17,6 +17,10 @@ const CheckBox = ({
     setChecked(evt.target.checked)
     onChange(evt.target.checked)
   }
+
+  useEffect(() => {
+    setChecked(defaultChecked)
+  }, [defaultChecked])
 
   return (
     <Item disabled={disabled}>
