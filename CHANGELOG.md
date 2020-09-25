@@ -1,3 +1,19 @@
+## [0.13.42](https://github.com/linewalks/MDwalks-UI/compare/v0.13.41...v0.13.42) (2020-09-25)
+
+
+### Bug Fixes
+
+* **CheckBox:** useEffect 추가 ([8413aba](https://github.com/linewalks/MDwalks-UI/commit/8413abac045e733d45aa6a51347a8a1af4b58b4d)), closes [#758](https://github.com/linewalks/MDwalks-UI/issues/758)
+* lineMergedTimeline 오타 수정 ([7969a17](https://github.com/linewalks/MDwalks-UI/commit/7969a175434eae1c9e3a86f8c56ef893fda33fbf)), closes [#752](https://github.com/linewalks/MDwalks-UI/issues/752)
+
+
+### Features
+
+* **checklist:** 개별 disabled 기능 추가 ([cb9a490](https://github.com/linewalks/MDwalks-UI/commit/cb9a49032fbffb4ffe74f4e01f8374e81821d0ed))
+* **EmptyPlaceHolder:** text를 받을 수 있도록 변경 ([c90e5df](https://github.com/linewalks/MDwalks-UI/commit/c90e5df5d32e0a45776b219d8a62d8d5cf037ee1))
+
+
+
 ## [0.13.41](https://github.com/linewalks/MDwalks-UI/compare/v0.13.40...v0.13.41) (2020-09-14)
 
 

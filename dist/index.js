@@ -21867,13 +21867,15 @@ var SankeyChart = /*#__PURE__*/function (_React$Component) {
       var _assertThisInitialize = _assertThisInitialized(_this),
           mapLinks = _assertThisInitialize.mapLinks;
 
-      link.append('path').attr('class', 'sankey-link').attr('id', function (_ref5) {
+      function getId(_ref5) {
         var source = _ref5.source,
             target = _ref5.target;
         var id = "".concat(strIdConvert([source.name, target.name]));
         mapLinks.set(id, this);
         return id;
-      }).attr('d', function (_ref6) {
+      }
+
+      link.append('path').attr('class', 'sankey-link').attr('id', getId).attr('d', function (_ref6) {
         var path = _ref6.path;
         return path;
       }).style('stroke-width', function (d) {
@@ -23632,24 +23634,27 @@ var EmptyInner = styled__default.div(_templateObject2$6());
 var EmptyDescription = styled__default.img.attrs({
   src: "".concat(icnNoData)
 })(_templateObject3$6());
-var EmptyText = styled__default.p.attrs(function () {
+var EmptyText = styled__default.div.attrs(function () {
   return {
     className: [fontStyle.fs18, fontStyle.fc_grey08].join(' ')
   };
 })(_templateObject4$4());
 
 var EmptyPlaceHolder = function EmptyPlaceHolder(_ref) {
-  var height = _ref.height;
+  var height = _ref.height,
+      text = _ref.text;
   return /*#__PURE__*/React__default.createElement(EmptyContainer, {
     height: height
-  }, /*#__PURE__*/React__default.createElement(EmptyInner, null, /*#__PURE__*/React__default.createElement(EmptyDescription, null), /*#__PURE__*/React__default.createElement(EmptyText, null, "There is no data")));
+  }, /*#__PURE__*/React__default.createElement(EmptyInner, null, /*#__PURE__*/React__default.createElement(EmptyDescription, null), /*#__PURE__*/React__default.createElement(EmptyText, null, text)));
 };
 
 EmptyPlaceHolder.defaultProps = {
-  height: undefined
+  height: undefined,
+  text: 'There is no data'
 };
 EmptyPlaceHolder.propTypes = {
-  height: propTypes.number
+  height: propTypes.number,
+  text: propTypes.oneOfType([propTypes.string, propTypes.node])
 };
 
 function _templateObject2$7() {
@@ -23690,7 +23695,8 @@ var TBody = function TBody(_ref4) {
       rowData = _ref4.rowData,
       wrapTd = _ref4.wrapTd,
       appendRow = _ref4.appendRow,
-      size = _ref4.size;
+      size = _ref4.size,
+      placeholder = _ref4.placeholder;
   var singlevelHeader = headers;
 
   if (subHeaders && wrapTd) {
@@ -23751,7 +23757,9 @@ var TBody = function TBody(_ref4) {
 
   return lodash.isEmpty(rowData) ? /*#__PURE__*/React__default.createElement(EmptyTbody, null, /*#__PURE__*/React__default.createElement("tr", null, /*#__PURE__*/React__default.createElement("td", {
     colSpan: EmptyPlaceHolderGetColSpan()
-  }, /*#__PURE__*/React__default.createElement(EmptyPlaceHolder, null)))) : /*#__PURE__*/React__default.createElement(ListTBody, {
+  }, /*#__PURE__*/React__default.createElement(EmptyPlaceHolder, {
+    text: placeholder
+  })))) : /*#__PURE__*/React__default.createElement(ListTBody, {
     isHaveRowSpan: isHaveRowSpan,
     size: size
   }, createBody(rowData));
@@ -23763,7 +23771,8 @@ TBody.defaultProps = {
   rowData: [],
   wrapTd: null,
   appendRow: null,
-  size: 'medium'
+  size: 'medium',
+  placeholder: undefined
 };
 TBody.propTypes = {
   headers: propTypes.arrayOf(propTypes.oneOfType([propTypes.number, propTypes.string, propTypes.object])),
@@ -23771,7 +23780,8 @@ TBody.propTypes = {
   rowData: propTypes.arrayOf(propTypes.oneOfType([propTypes.object, propTypes.array, propTypes.string, propTypes.number])),
   wrapTd: propTypes.func,
   appendRow: propTypes.func,
-  size: propTypes.string
+  size: propTypes.string,
+  placeholder: propTypes.oneOfType([propTypes.string, propTypes.node])
 };
 
 function _templateObject$8() {
@@ -25544,7 +25554,8 @@ var Table = function Table(_ref2) {
       loading = _ref2.loading,
       scroll = _ref2.scroll,
       columns = _ref2.columns,
-      size = _ref2.size;
+      size = _ref2.size,
+      placeholder = _ref2.placeholder;
 
   if (lodash.isEmpty(data)) {
     return /*#__PURE__*/React__default.createElement("div", null, "There is no data", /*#__PURE__*/React__default.createElement("br", null), "Please search agains");
@@ -25576,7 +25587,8 @@ var Table = function Table(_ref2) {
       wrapTd: wrapTd,
       appendRow: appendRow,
       rowSpanCount: rowSpanCount,
-      size: size
+      size: size,
+      placeholder: placeholder
     }))), /*#__PURE__*/React__default.createElement(TableBox, {
       className: className,
       notBottom: true
@@ -25605,7 +25617,8 @@ var Table = function Table(_ref2) {
     wrapTd: wrapTd,
     appendRow: appendRow,
     rowSpanCount: rowSpanCount,
-    size: size
+    size: size,
+    placeholder: placeholder
   }), /*#__PURE__*/React__default.createElement(TFoot, {
     footData: data.footData,
     size: size
@@ -25622,7 +25635,8 @@ Table.defaultProps = {
   loading: false,
   scroll: {},
   columns: [],
-  size: 'medium'
+  size: 'medium',
+  placeholder: undefined
 };
 Table.propTypes = {
   columns: propTypes.arrayOf(propTypes.oneOfType([propTypes.string, propTypes.number])),
@@ -25641,7 +25655,8 @@ Table.propTypes = {
   scroll: propTypes.shape({
     y: propTypes.number
   }),
-  size: propTypes.string
+  size: propTypes.string,
+  placeholder: propTypes.oneOfType([propTypes.string, propTypes.node])
 };
 
 function _templateObject5$3() {
@@ -27025,7 +27040,8 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "createLineYAxis", function (lineYAxisScale) {
       var _this$options2 = _this.options,
           yAxisWidth = _this$options2.yAxisWidth,
-          xAxisHeight = _this$options2.xAxisHeight; // 1. Create Line YAxis group
+          xAxisHeight = _this$options2.xAxisHeight;
+      var line = _this.props.yAxisChartLabel.line; // 1. Create Line YAxis group
 
       var gLineYAxis = generateGroup(_this.getRootElement().select('.timeline'), {
         className: styles$2.gLineYAxis,
@@ -27038,7 +27054,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
       }).tickPadding(17); // 3. Add LineTitle
       // const lineTitle =
 
-      _this.getRootElement().select('.timeline').append('text').text('Risk per visiting').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + 6).attr('class', "".concat(fontStyle.fs14, " ").concat(fontStyle.bold)).style('fill', colorV1.$grey09); // 4. Render Line YAxis
+      _this.getRootElement().select('.timeline').append('text').text(line).attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + 6).attr('class', "".concat(fontStyle.fs14, " ").concat(fontStyle.bold)).style('fill', colorV1.$grey09); // 4. Render Line YAxis
 
 
       gLineYAxis.call(lineYAxis);
@@ -27170,7 +27186,8 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
           defaultMargin = _this$options6.defaultMargin,
           xAxisHeight = _this$options6.xAxisHeight,
           lineYAxisHeight = _this$options6.lineYAxisHeight,
-          yAxisWidth = _this$options6.yAxisWidth; // 1. Create Timeline Label Group
+          yAxisWidth = _this$options6.yAxisWidth;
+      var bar = _this.props.yAxisChartLabel.bar; // 1. Create Timeline Label Group
 
       var gTimelineLabels = generateGroup(_this.getRootElement().select('.timeline'), {
         className: styles$2.timelineLabels,
@@ -27179,7 +27196,7 @@ var LineMergeTimeline = /*#__PURE__*/function (_Component) {
       }); // 2. Render Timeline Label
       // const timelineTitle =
 
-      _this.getRootElement().select('.timeline').append('text').text('Clinical Timeline').attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + lineYAxisHeight + defaultMargin.top + 6).attr('class', "".concat(fontStyle.fs14, " ").concat(fontStyle.bold)).style('fill', colorV1.$grey09);
+      _this.getRootElement().select('.timeline').append('text').text(bar).attr('text-anchor', 'end').attr('dx', -23).attr('x', yAxisWidth).attr('y', xAxisHeight + lineYAxisHeight + defaultMargin.top + 6).attr('class', "".concat(fontStyle.fs14, " ").concat(fontStyle.bold)).style('fill', colorV1.$grey09);
 
       gTimelineLabels.selectAll('.timelineLabel').data(timelineData).enter().append('text').text(function (d) {
         return d.label[d.label.length - 1];
@@ -27706,7 +27723,11 @@ LineMergeTimeline.defaultProps = {
   scoreClickEvent: null,
   brushEvent: null,
   lineData: null,
-  resetBtnId: undefined
+  resetBtnId: undefined,
+  yAxisChartLabel: {
+    line: 'Risk Score per Visiting',
+    bar: 'Clinical Timeline'
+  }
 };
 LineMergeTimeline.propTypes = {
   timeData: propTypes.arrayOf(propTypes.shape({
@@ -27729,7 +27750,11 @@ LineMergeTimeline.propTypes = {
     xaxis: propTypes.arrayOf(propTypes.string),
     data: propTypes.arrayOf(propTypes.shape({}))
   }),
-  resetBtnId: propTypes.string
+  resetBtnId: propTypes.string,
+  yAxisChartLabel: propTypes.shape({
+    line: propTypes.string,
+    bar: propTypes.string
+  })
 };
 
 function _templateObject$e() {
@@ -28687,6 +28712,9 @@ var CheckBox = function CheckBox(_ref) {
     onChange(evt.target.checked);
   };
 
+  React.useEffect(function () {
+    setChecked(defaultChecked);
+  }, [defaultChecked]);
   return /*#__PURE__*/React__default.createElement(Item, {
     disabled: disabled
   }, /*#__PURE__*/React__default.createElement("label", null, /*#__PURE__*/React__default.createElement("img", {
@@ -28732,6 +28760,9 @@ var CheckList = function CheckList(_ref) {
 
   var handleOnChange = function handleOnChange(id) {
     if (disabled) return;
+    if (lodash.find(data, function (item) {
+      return item.id === id;
+    }).disabled) return;
 
     if (!lodash.includes(selected, id) && selected.length >= limit) {
       if (lodash.isFunction(onError)) {
@@ -28759,10 +28790,11 @@ var CheckList = function CheckList(_ref) {
     var checked = lodash.includes(selected, id);
 
     var text = formatter ? formatter(item) : name;
+    var isDisabled = item.disabled || false;
     if (!checkVisible && checked) return null;
     return /*#__PURE__*/React__default.createElement(Item, {
       key: "checkItem".concat(id),
-      disabled: disabled,
+      disabled: disabled || isDisabled,
       layout: layout
     }, /*#__PURE__*/React__default.createElement("label", null, /*#__PURE__*/React__default.createElement("img", {
       src: checked ? IcnChecked : IcnUnchecked,
@@ -28774,7 +28806,7 @@ var CheckList = function CheckList(_ref) {
       alt: ""
     }), /*#__PURE__*/React__default.createElement(TextOverflow, null, text), /*#__PURE__*/React__default.createElement("input", {
       type: "checkbox",
-      disabled: disabled,
+      disabled: disabled || isDisabled,
       checked: checked,
       onChange: function onChange() {
         return handleOnChange(id);
@@ -60638,7 +60670,7 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.13.41";
+var version$1 = "0.13.42";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;

@@ -72,6 +72,7 @@ class LineMergeTimeline extends Component {
 
   createLineYAxis = (lineYAxisScale) => {
     const { yAxisWidth, xAxisHeight } = this.options
+    const { yAxisChartLabel: { line } } = this.props
     // 1. Create Line YAxis group
     const gLineYAxis = generateGroup(this.getRootElement().select('.timeline'), {
       className: styles.gLineYAxis,
@@ -90,7 +91,7 @@ class LineMergeTimeline extends Component {
     // const lineTitle =
     this.getRootElement().select('.timeline')
       .append('text')
-      .text('Risk per visiting')
+      .text(line)
       .attr('text-anchor', 'end')
       .attr('dx', -23)
       .attr('x', yAxisWidth)
@@ -319,7 +320,7 @@ class LineMergeTimeline extends Component {
     const {
       defaultPadding, defaultMargin, xAxisHeight, lineYAxisHeight, yAxisWidth,
     } = this.options
-
+    const { yAxisChartLabel: { bar } } = this.props
     // 1. Create Timeline Label Group
     const gTimelineLabels = generateGroup(this.getRootElement().select('.timeline'), {
       className: styles.timelineLabels,
@@ -331,7 +332,7 @@ class LineMergeTimeline extends Component {
     // const timelineTitle =
     this.getRootElement().select('.timeline')
       .append('text')
-      .text('Clinical Timeline')
+      .text(bar)
       .attr('text-anchor', 'end')
       .attr('dx', -23)
       .attr('x', yAxisWidth)
@@ -987,6 +988,10 @@ LineMergeTimeline.defaultProps = {
   brushEvent: null,
   lineData: null,
   resetBtnId: undefined,
+  yAxisChartLabel: {
+    line: 'Risk Score per Visiting',
+    bar: 'Clinical Timeline',
+  },
 }
 
 LineMergeTimeline.propTypes = {
@@ -1015,6 +1020,10 @@ LineMergeTimeline.propTypes = {
     data: PropTypes.arrayOf(PropTypes.shape({})),
   }),
   resetBtnId: PropTypes.string,
+  yAxisChartLabel: PropTypes.shape({
+    line: PropTypes.string,
+    bar: PropTypes.string,
+  }),
 }
 
 export default LineMergeTimeline

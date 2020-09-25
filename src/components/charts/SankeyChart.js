@@ -151,14 +151,16 @@ class SankeyChart extends React.Component {
 
     const { mapLinks } = this
 
+    function getId({ source, target }) {
+      const id = `${strIdConvert([source.name, target.name])}`
+      mapLinks.set(id, this)
+      return id
+    }
+
     link
       .append('path')
       .attr('class', 'sankey-link')
-      .attr('id', function ({ source, target }) {
-        const id = `${strIdConvert([source.name, target.name])}`
-        mapLinks.set(id, this)
-        return id
-      })
+      .attr('id', getId)
       .attr('d', ({ path }) => path)
       .style('stroke-width', (d) => Math.max(1, d.width))
       .style('opacity', 0.04)

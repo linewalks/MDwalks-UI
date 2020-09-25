@@ -110,6 +110,7 @@ module.exports = {
         'src/components/table/EmptyPlaceHolder.js',
         'src/components/table/Descriptions.js',
         'src/components/table/Table.js',
+        'src/components/paper/Heatmap.js',
       ],
     },
   ],

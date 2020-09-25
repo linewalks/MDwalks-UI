@@ -97,7 +97,7 @@ Columns.propTypes = {
 
 const Table = ({
   data, rowSpanCount, wrapTh, wrapTd, appendRow, className,
-  loading, scroll, columns, size,
+  loading, scroll, columns, size, placeholder,
 }) => {
   if (_.isEmpty(data)) {
     return (
@@ -133,6 +133,7 @@ const Table = ({
               appendRow={appendRow}
               rowSpanCount={rowSpanCount}
               size={size}
+              placeholder={placeholder}
             />
           </TableBox>
         </commonTag.WrapperScrollBars>
@@ -162,6 +163,7 @@ const Table = ({
         appendRow={appendRow}
         rowSpanCount={rowSpanCount}
         size={size}
+        placeholder={placeholder}
       />
       <TFoot footData={data.footData} size={size} />
     </TableBox>
@@ -179,6 +181,7 @@ Table.defaultProps = {
   scroll: {},
   columns: [],
   size: 'medium',
+  placeholder: undefined,
 }
 
 Table.propTypes = {
@@ -210,6 +213,7 @@ Table.propTypes = {
     y: PropTypes.number,
   }),
   size: PropTypes.string,
+  placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 }
 
 export default Table

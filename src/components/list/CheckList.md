@@ -45,10 +45,15 @@ const CheckListExample = () => {
         {
           id: 2,
           name: 'name 2',
+          disabled: true,
         },
         {
           id: 3,
           name: 'name 3',
+        },
+        {
+          id: 4,
+          name: 'name 4',
         },
       ]}
       limit={2}

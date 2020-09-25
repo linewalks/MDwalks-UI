@@ -1,5 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
+import { act } from 'react-dom/test-utils'
 import CheckBox from './CheckBox'
 
 const spyOnChange = jest.fn()
@@ -44,5 +45,12 @@ describe('CheckBox', () => {
     )
 
     expect(wrapper.find('input').prop('checked')).toBeTruthy()
+
+    act(() => {
+      wrapper.setProps({ defaultChecked: false })
+    })
+    wrapper.update()
+
+    expect(wrapper.find('input').prop('checked')).toBeFalsy()
   })
 })

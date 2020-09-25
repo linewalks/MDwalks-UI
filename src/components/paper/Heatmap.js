@@ -102,23 +102,24 @@ class Heatmap extends Component {
       .style('padding', '5px');
 
     // Three function that change the tooltip when user hover / move / leave a cell
-    const mouseover = function (d) {
+    function mouseover(d) {
       tooltip
         .style('opacity', 1)
         .text(`Weight: ${d.value}`)
         .style('left', `${x(d.group) + 450}px`)
         .style('top', `${y(metadata[d.variable]) + 80}px`);
+
       d3.select(this)
         .style('stroke', 'black')
         .style('opacity', 1);
-    };
+    }
 
-    const mouseleave = function () {
+    function mouseleave() {
       tooltip.style('opacity', 0);
       d3.select(this)
         .style('stroke', 'none')
         .style('opacity', 0.8);
-    };
+    }
 
     // add the squares
     svg

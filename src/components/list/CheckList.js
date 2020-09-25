@@ -22,6 +22,7 @@ const CheckList = ({
 }) => {
   const handleOnChange = (id) => {
     if (disabled) return
+    if (_.find(data, (item) => item.id === id).disabled) return
     if (!_.includes(selected, id) && selected.length >= limit) {
       if (_.isFunction(onError)) {
         onError({ limit })
@@ -44,14 +45,15 @@ const CheckList = ({
           const { id, name } = item
           const checked = _.includes(selected, id)
           const text = formatter ? formatter(item) : name
+          const isDisabled = item.disabled || false
 
-          if (!checkVisible && checked) return null;
+          if (!checkVisible && checked) return null
           return (
-            <Item key={`checkItem${id}`} disabled={disabled} layout={layout}>
+            <Item key={`checkItem${id}`} disabled={disabled || isDisabled} layout={layout}>
               <label>
                 <img src={checked ? IcnChecked : IcnUnchecked} width="24px" height="24px" style={{ borderRadius: '4px' }} alt="" />
                 <font.TextOverflow>{text}</font.TextOverflow>
-                <input type="checkbox" disabled={disabled} checked={checked} onChange={() => handleOnChange(id)} />
+                <input type="checkbox" disabled={disabled || isDisabled} checked={checked} onChange={() => handleOnChange(id)} />
               </label>
             </Item>
           )
