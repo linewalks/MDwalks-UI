@@ -8,14 +8,14 @@ import * as font from '@src/assets/styles/font'
 import { colorV1 } from '@src/assets/styles/variables'
 import { tableSize } from '@src/assets/styles/tableProperties'
 
-import ICO_DOWN from '@src/assets/svg/table/icn_sort_down_default.svg'
-import ICO_UP from '@src/assets/svg/table/icn_sort_up_default.svg'
+import ICO_DOWN from '@src/assets/svg/table/icn_sort_down_filled_unselected_grey07_16.svg'
+import ICO_UP from '@src/assets/svg/table/icn_sort_up_filled_unselected_grey07_16.svg'
 
-import ICO_DOWN_FOCUS from '@src/assets/svg/table/icn_sort_down_focus.svg'
-import ICO_UP_FOCUS from '@src/assets/svg/table/icn_sort_up_focus.svg'
+import ICO_DOWN_FOCUS from '@src/assets/svg/table/icn_sort_down_filled_selected_grey09_16.svg'
+import ICO_UP_FOCUS from '@src/assets/svg/table/icn_sort_up_filled_selected_grey09_16.svg'
 
-import ICO_DOWN_DISABLE from '@src/assets/svg/table/icn_sort_down_disable.svg'
-import ICO_UP_DISABLE from '@src/assets/svg/table/icn_sort_up_disable.svg'
+import ICO_DOWN_DISABLE from '@src/assets/svg/table/icn_sort_down_filled_disabled_grey06_16.svg'
+import ICO_UP_DISABLE from '@src/assets/svg/table/icn_sort_up_filled_disabled_grey06_16.svg'
 
 const Td = styled.td.attrs(({ size }) => ({
   ...tableSize[size].thead.subHeader,

@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
 import fontStyle from '@src/assets/styles/font.module.sass'
 
-import icnMoreModalMdDefault from '@src/assets/svg/icn-more-modal-md-default.svg';
+import icnMoreModalMdDefault from '@src/assets/svg/icn_arrow_upright_24.svg';
 
 const Wrap1200 = styled.div`
   max-width: 1200px;
@@ -87,7 +87,7 @@ const SummaryCard = ({ className, data, events }) => {
               </dl>
               {
                 events[name] && (
-                  <Icon src={icnMoreModalMdDefault} width="34px" height="34px" alt="open modal" />
+                  <Icon src={icnMoreModalMdDefault} width="24px" height="24px" alt="open modal" />
                 )
               }
             </EventElement>

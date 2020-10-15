@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import icnNoData from '@src/assets/svg/icn-nodata.svg';
+import icnNoData from '@src/assets/svg/picto_nodata.svg';
 import fontStyle from '@src/assets/styles/font.module.sass'
 
 const EmptyContainer = styled.section`

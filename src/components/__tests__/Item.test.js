@@ -45,9 +45,8 @@ describe('style', () => {
     const item = renderer.create(<Item disabled={disabled} layout={layout} />).toJSON()
 
     expect(_.includes(item.props.className, fontStyle.fc_grey06)).toBe(true)
-
-    expect(item).toHaveStyleRule('opacity', '0.4', {
-      modifier: 'img',
+    expect(item).toHaveStyleRule('cursor', 'not-allowed', {
+      modifier: 'label',
     })
   })
 })

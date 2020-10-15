@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <g fill="none" fill-rule="evenodd" opacity=".4">
+        <g>
+            <g>
+                <g transform="translate(-691 -419) translate(48 291) translate(643 128)">
+                    <circle cx="12" cy="12" r="11.9" fill="#189BFF"/>
+                    <circle cx="12" cy="12" r="4" fill="#FFF"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
