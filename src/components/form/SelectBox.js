@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 import * as font from '@src/assets/styles/font'
 import { color } from '@src/assets/styles/variables'
 
-import icnSelectOpenSm from '@src/assets/svg/icn_select_open_sm.svg';
-import icnSelectOpenXs from '@src/assets/svg/icn_select_open_xs.svg';
+import icnSelectOpenSm from '@src/assets/svg/icn_chevron_down_24.svg';
+import icnSelectOpenXs from '@src/assets/svg/icn_chevron_down_16.svg';
 
 const SelectSize = {
   xLarge: {

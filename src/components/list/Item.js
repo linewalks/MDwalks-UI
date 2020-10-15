@@ -17,9 +17,9 @@ const CssEnable = css`
   }
 `
 
-const CssDiable = css`
-  img {
-    opacity: 0.4;
+const CssDisable = css`
+  label {
+    cursor: not-allowed;
   }
 `
 const Item = styled.div.attrs((props) => {
@@ -42,7 +42,7 @@ const Item = styled.div.attrs((props) => {
   }
 
   ${(props) => (props.layout === ChartConfig.Layout.HORIZONTAL ? ' display: inline-block' : 'display: block')};
-  ${(props) => (props.disabled ? CssDiable : CssEnable)}
+  ${(props) => (props.disabled ? CssDisable : CssEnable)}
 `
 
 export default Item

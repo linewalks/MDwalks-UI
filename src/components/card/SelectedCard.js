@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import backgroundArrow from '@src/assets/svg/icn-12-px.svg';
+import backgroundArrow from '@src/assets/svg/icn_chevron_filled_right_16.svg';
 import * as font from '@src/assets/styles/font'
 import { color } from '@src/assets/styles/variables'
 import { hexToRGB } from '@Components/button/utility'

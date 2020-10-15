@@ -9,8 +9,10 @@ import * as variables from '@src/assets/styles/variables'
 import ChartConfig from '@src/helper/ChartConfig'
 import fontStyle from '@src/assets/styles/font.module.sass'
 
-import IcnChecked from '@Components/list/radio-button-checked-default.svg'
-import IcnUnchecked from '@Components/list/radio-button-unchecked-default.svg'
+import IcnChecked from '@src/assets/svg/radiobox/btn_radiobutton_checked_24.svg'
+import IcnUnchecked from '@src/assets/svg/radiobox/btn_radiobutton_unchecked_24.svg'
+import IcnCheckedDisabled from '@src/assets/svg/radiobox/btn_radiobutton_checked_disabled_24.svg'
+import IcnUncheckedDisabled from '@src/assets/svg/radiobox/btn_radiobutton_unchecked_disabled_24.svg'
 
 const { colorV1 } = variables
 
@@ -60,14 +62,12 @@ const Label = styled.label.attrs(() => ({
     bottom: 0;
     left: 0;
     z-index: 1;
-    cursor: pointer;
     opacity: 0;
   }
   img {
     margin-right: 12px;
   }
-  cursor: pointer;
-  ${(props) => (props.disabled ? 'cursor: not-allowed;' : '')}
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 `
 
 const RadioList = ({
@@ -83,6 +83,14 @@ const RadioList = ({
     if (disabled) return
     if (_.isEqual(id, selected)) return
     onChange(id)
+  }
+
+  const getRadioIcon = (isDisabled, isSelected) => {
+    if (isDisabled) {
+      return isSelected ? IcnCheckedDisabled : IcnUncheckedDisabled
+    }
+
+    return isSelected ? IcnChecked : IcnUnchecked
   }
 
   return (
@@ -102,7 +110,7 @@ const RadioList = ({
                   <span>
                     <input type="radio" disabled={itemDisabled} checked={checked} onChange={() => onChangeTrigger(id)} />
                   </span>
-                  <img src={checked ? IcnChecked : IcnUnchecked} width="24px" height="24px" style={{ borderRadius: '12px' }} alt="" />
+                  <img src={getRadioIcon(disabled, checked)} width="24px" height="24px" style={{ borderRadius: '12px' }} alt="" />
                   <font.TextOverflow>{text}</font.TextOverflow>
                 </Label>
               </Box>

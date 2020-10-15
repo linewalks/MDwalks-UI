@@ -5,8 +5,10 @@ import _ from 'lodash'
 
 import { color, colorV1 } from '@src/assets/styles/variables'
 
-import btnNext from '@src/assets/svg/pagination/btn_next.svg';
-import btnPre from '@src/assets/svg/pagination/btn_pre.svg';
+import btnNext from '@src/assets/svg/pagination/btn_pagination_next_42.svg'
+import btnPre from '@src/assets/svg/pagination/btn_pagination_previous_42.svg'
+import btnNextSm from '@src/assets/svg/pagination/btn_pagination_next_32.svg'
+import btnPreSm from '@src/assets/svg/pagination/btn_pagination_previous_32.svg'
 
 import Input from '@Components/pagination/Input'
 
@@ -190,7 +192,7 @@ class Pagination extends Component {
             disabled={this.disablePrevButton()}
             onClick={() => (this.movePrevPage.bind(this)())}
           >
-            <img type="image" src={btnPre} width={imageSize} height={imageSize} alt="move previous" />
+            <img src={size === 'sm' ? btnPreSm : btnPre} width={imageSize} height={imageSize} alt="move previous" />
           </ButtonMove>
           {
             simple
@@ -230,7 +232,7 @@ class Pagination extends Component {
             disabled={this.disableNextButton()}
             onClick={() => (this.moveNextPage.bind(this)())}
           >
-            <img type="image" src={btnNext} width={imageSize} height={imageSize} alt="move next" />
+            <img src={size === 'sm' ? btnNextSm : btnNext} width={imageSize} height={imageSize} alt="move next" />
           </ButtonMove>
         </PaginationInner>
       </PaginationBox>
