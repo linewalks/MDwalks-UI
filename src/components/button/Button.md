@@ -3,7 +3,7 @@ Button example:
 ```js
 const ButtonExample = () => {
   return (
-    <section>
+    <section style={{ backgroundColor: '#f8f9fa' }}>
       <div style={{ marginBottom: 10 }}>
         <Button variant="primary">primary</Button>
         <Button variant="basic">basic</Button>
@@ -23,10 +23,12 @@ const ButtonExample = () => {
       </div>
 
       <div style={{ marginBottom: 10 }}>
-        <Button variant="primary" isLoading="true">primary</Button>
-        <Button variant="primary_line" isLoading="true">primary_line</Button>
-        <Button variant="basic" isLoading="true">basic</Button>
-        <Button variant="basic_line" isLoading="true">basic_line</Button>
+        <Button variant="primary" isLoading>primary</Button>
+        <Button variant="primary_line" isLoading>primary_line</Button>
+        <Button variant="basic" isLoading>basic</Button>
+        <Button variant="basic_line" isLoading>basic_line</Button>
+        <Button variant="primary_light" isLoading>primary_light</Button>
+        <Button variant="basic_light" isLoading>basic_light</Button>
       </div>
 
       <div style={{ marginBottom: 10 }}>
@@ -34,13 +36,8 @@ const ButtonExample = () => {
         <Button variant="primary_line" as="a">primary_line</Button>
         <Button variant="basic" as="a">basic</Button>
         <Button variant="basic_line" as="a">basic_line</Button>
-      </div>
-
-      <div style={{ marginBottom: 10 }}>
-        <Button variant="primary" size="xlg">primary</Button>
-        <Button variant="primary_line" size="xlg">primary_line</Button>
-        <Button variant="basic" size="xlg">basic</Button>
-        <Button variant="basic_line" size="xlg">basic_line</Button>
+        <Button variant="primary_light" as="a">primary_light</Button>
+        <Button variant="basic_light" as="a">basic_light</Button>
       </div>
 
       <div style={{ marginBottom: 10 }}>
@@ -48,6 +45,17 @@ const ButtonExample = () => {
         <Button variant="primary_line" size="lg">primary_line</Button>
         <Button variant="basic" size="lg">basic</Button>
         <Button variant="basic_line" size="lg">basic_line</Button>
+        <Button variant="primary_light" size="lg">primary_light</Button>
+        <Button variant="basic_light" size="lg">basic_light</Button>
+      </div>
+
+      <div style={{ marginBottom: 10 }}>
+        <Button variant="primary" size="xlg">primary</Button>
+        <Button variant="primary_line" size="xlg">primary_line</Button>
+        <Button variant="basic" size="xlg">basic</Button>
+        <Button variant="basic_line" size="xlg">basic_line</Button>
+        <Button variant="primary_light" size="xlg">primary_light</Button>
+        <Button variant="basic_light" size="xlg">basic_light</Button>
       </div>
     </section>
   )
