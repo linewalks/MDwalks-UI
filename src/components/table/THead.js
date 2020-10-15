@@ -8,7 +8,7 @@ import * as font from '@src/assets/styles/font'
 import { colorV1 } from '@src/assets/styles/variables'
 import { tableSize } from '@src/assets/styles/tableProperties'
 
-import ICO_DOWN from '@src/assets/svg/table/icn_sort_down_filled_unselected_grey07__16.svg'
+import ICO_DOWN from '@src/assets/svg/table/icn_sort_down_filled_unselected_grey07_16.svg'
 import ICO_UP from '@src/assets/svg/table/icn_sort_up_filled_unselected_grey07_16.svg'
 
 import ICO_DOWN_FOCUS from '@src/assets/svg/table/icn_sort_down_filled_selected_grey09_16.svg'
