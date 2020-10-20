@@ -76,7 +76,7 @@ const RadioListExample = () => {
     { id: 4, name: 'name 21' },
   ])
   const [selected, setSelected] = useState(1)
-  const [selected1, setSelected1] = useState(2)
+  const [selected1, setSelected1] = useState(22)
   
   const unCheckedAll = () => {
     setSelected(null)

@@ -3,9 +3,11 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import Item from '@Components/list/Item'
-import IcnChecked from '@Components/list/check-box-checked-default.svg'
-import IcnUnchecked from '@Components/list/check-box-unchecked-default.svg'
 import * as font from '@src/assets/styles/font'
+import IcnChecked from '@src/assets/svg/checkbox/btn_checkbox_checked_24.svg'
+import IcnUnchecked from '@src/assets/svg/checkbox/btn_checkbox_unchecked_24.svg'
+import IcnCheckedDisabled from '@src/assets/svg/checkbox/btn_checkbox_checked_disabled_24.svg'
+import IcnUncheckedDisabled from '@src/assets/svg/checkbox/btn_checkbox_unchecked_disabled_24.svg'
 
 const CheckBox = ({
   text, disabled, onChange, formatter, defaultChecked,
@@ -18,6 +20,14 @@ const CheckBox = ({
     onChange(evt.target.checked)
   }
 
+  const getCheckIcon = (isDisabled, isChecked) => {
+    if (isDisabled) {
+      return isChecked ? IcnCheckedDisabled : IcnUncheckedDisabled
+    }
+
+    return isChecked ? IcnChecked : IcnUnchecked
+  }
+
   useEffect(() => {
     setChecked(defaultChecked)
   }, [defaultChecked])
@@ -25,7 +35,7 @@ const CheckBox = ({
   return (
     <Item disabled={disabled}>
       <label>
-        <img src={checked ? IcnChecked : IcnUnchecked} width="24px" height="24px" style={{ borderRadius: '4px' }} alt="" />
+        <img src={getCheckIcon(disabled, checked)} width="24px" height="24px" style={{ borderRadius: '4px' }} alt="" />
         <font.TextOverflow>{newText}</font.TextOverflow>
         <input type="checkbox" checked={checked} disabled={disabled} onChange={handleOnChange} />
       </label>

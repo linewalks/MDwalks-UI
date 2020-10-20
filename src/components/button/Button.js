@@ -220,6 +220,8 @@ const ButtonTag = styled(font.TextTag).attrs((props = {}) => {
     primary: BtnColor.primary,
     primary_line: BtnColor.primary_line,
     basic: BtnColor.basic,
+    primary_light: BtnColor.primary_light,
+    basic_light: BtnColor.basic_light,
   }[variant] || BtnColor.basic_line
 
   const fontSize = {
