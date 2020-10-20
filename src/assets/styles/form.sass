@@ -13,16 +13,12 @@
 
 $input-height: 64px
 
-// select.default-title
-//   color: rgba($black, 0.3)
-
 form
   width: 100%
 
-  input:not([type=search]):not([type=url]):not([type=hidden]):not([type=button]):not([type=submit]),
-  select
-    border-radius: 10px
-    border: solid 1px $line_search_grey
+  input:not([type=search]):not([type=url]):not([type=hidden]):not([type=button]):not([type=submit])
+    border-radius: 8px
+    border: solid 1px $grey05
     background-color: $primary_white
 
     height: $input-height
@@ -31,66 +27,61 @@ form
     padding: 0 24px
     letter-spacing: -0.5px
 
-    @extend .body_r_16
-    @extend .black_opacity_8
+    @extend .fs16
 
     box-sizing: border-box
 
     @include placeholder
-      // select.default-title
-      color: rgba($black, 0.3)
+      color: $grey07
 
     &:focus 
-      border-color: $azure
+      border-width: 2px
+      border-color: $pmblue
+      box-shadow: 0 2px 18px 0 rgba(109, 120, 132, 0.28)
 
     &:disabled
-      background-color: rgba(0, 0, 0, 0.04) !important
-      @extend .black_opacity_5
-
-// .field:not(:last-child)
-  // margin-bottom: 20px
+      border-color: $grey05
 
 .field
   label, .label
-    @extend .body_r_18
-    @extend .black_opacity_8
-    margin-bottom: 10px
+    @extend .fs14
+    color: $grey09
+    margin-bottom: 8px
 
   &:not(:last-child)
     margin-bottom: 20px
 
   p.error, div.error
     margin-top: 10px
-    @extend .body_r_14
-    color: $legend_timeline_red_01
+    @extend .fs14
+    color: $red01
 
   p.error:empty
     display: none
 
   input.error, select.error
-    border-color: $legend_timeline_red_01 !important
+    border-width: 2px
+    border-color: $red01 !important
 
 .field
   div.info
-    margin-top: 10px
     display: flex
     align-items: center
-    // align-self: stretch
-    @extend .body_r_14
-    @extend .black_opacity_3
+    @extend .fs14
 
     img
       margin-right: 6px
 
   div.info.info-check
-    color: #005ea5
+    color: $pmnavy
   
 p.form-error, div.form-error
-  @extend .body_r_16
-  color: $legend_timeline_red_01
+  @extend .fs16
+  color: $red01
 
   display: flex
   align-items: center
+  justify-content: center
 
   img
     margin-right: 10px
@@ -115,26 +106,9 @@ p.form-error, div.form-error
     &:not(:first-child)
       margin-left: 10px
 
-// padding ?
-input[type=submit]
-  border-radius: 10px
-  height: 60px
-  background-color: $azure
-  box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16)
-  display: block
-  width: 100%
-  color: $primary_white // ?
-  @extend .body_r_18
-  cursor: pointer
-
-a.link
-  color: $azure
-  @extend .body_r_16
-
 a.link-option
-  @extend .body_b_16
-  @extend .black_opacity_6
-
+  @extend .fs16
+  color: $grey09
   text-decoration: underline
 
 

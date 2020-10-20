@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
+import { color, colorV1 } from '@src/assets/styles/variables'
 
 import icnSelectOpenSm from '@src/assets/svg/icn_chevron_down_24.svg';
 import icnSelectOpenXs from '@src/assets/svg/icn_chevron_down_16.svg';
@@ -15,7 +15,7 @@ const SelectSize = {
     padding: '20px 64px 20px 24px',
     iconSize: '24px',
     marginRight: '0px',
-    borderRadius: '10px',
+    borderRadius: '8px',
     backgroundImage: icnSelectOpenSm,
     backgroundPosition: 'calc(100% - 20px) center',
   },
@@ -51,7 +51,7 @@ const setSelectSize = (props) => `
     border-radius: ${props.SizeObject.borderRadius};
     background: url(${props.SizeObject.backgroundImage}) no-repeat ${color.$primary_white} ${props.SizeObject.backgroundPosition};
 
-    border: 1px solid ${color.$line_search_grey}
+    border: 1px solid ${colorV1.$grey05}
   }
 
   &:not(:last-child) {
@@ -66,7 +66,7 @@ const setSelectSize = (props) => `
 `
 
 // size : xlg, lg, md
-const Box = styled.div.attrs(({ size = 'md', disabled }) => {
+const Box = styled.div.attrs(({ size = 'md' }) => {
   const SizeObject = ({
     xlg: SelectSize.xLarge,
     md: SelectSize.middle,
@@ -74,19 +74,20 @@ const Box = styled.div.attrs(({ size = 'md', disabled }) => {
 
   return {
     size: SizeObject.fontSize,
-    opacity: disabled ? 2 : 8,
     SizeObject,
   }
 })`
   select {
     ${font.Text}
     &:focus {
-      box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.16);
+      border: 2px solid ${colorV1.$pmblue};
+      box-shadow: 0 2px 18px 0 rgba(109, 120, 132, 0.28);
     }
 
     &:disabled {
-      background-color: rgba(0, 0, 0, 0.04);
-      color: rgba(0, 0, 0, 0.2);
+      background-color: ${colorV1.$grey03};
+      border-color: ${colorV1.$grey05};
+      color: ${colorV1.$grey06};
     }
 
     -webkit-appearance: none;
@@ -105,7 +106,8 @@ const Box = styled.div.attrs(({ size = 'md', disabled }) => {
   }
 
   select:invalid {
-    color: rgba(0, 0, 0, 0.3);
+    color: ${colorV1.$grey10};
+    border: 2px solid ${colorV1.$red01};
   }
 
   ${setSelectSize}
