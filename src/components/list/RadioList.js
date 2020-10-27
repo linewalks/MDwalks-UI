@@ -67,6 +67,11 @@ const Label = styled.label.attrs(() => ({
   img {
     margin-right: 12px;
   }
+
+  img:hover:not(:disabled) {
+    box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);
+  }
+
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 `
 

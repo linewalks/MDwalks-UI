@@ -8,9 +8,41 @@ import IcnChecked from '@src/assets/svg/checkbox/btn_checkbox_checked_24.svg'
 import IcnUnchecked from '@src/assets/svg/checkbox/btn_checkbox_unchecked_24.svg'
 import IcnCheckedDisabled from '@src/assets/svg/checkbox/btn_checkbox_checked_disabled_24.svg'
 import IcnUncheckedDisabled from '@src/assets/svg/checkbox/btn_checkbox_unchecked_disabled_24.svg'
+import IcnCheckedSm from '@src/assets/svg/checkbox/btn_checkbox_checked_16.svg'
+import IcnUncheckedSm from '@src/assets/svg/checkbox/btn_checkbox_unchecked_16.svg'
+import IcnCheckedDisabledSm from '@src/assets/svg/checkbox/btn_checkbox_checked_disabled_16.svg'
+import IcnUncheckedDisabledSm from '@src/assets/svg/checkbox/btn_checkbox_unchecked_disabled_16.svg'
+
+const IcnList = {
+  sm: {
+    default: {
+      checked: IcnCheckedSm,
+      unchecked: IcnUncheckedSm,
+    },
+    disabled: {
+      checked: IcnCheckedDisabledSm,
+      unchecked: IcnUncheckedDisabledSm,
+    },
+  },
+  md: {
+    default: {
+      checked: IcnChecked,
+      unchecked: IcnUnchecked,
+    },
+    disabled: {
+      checked: IcnCheckedDisabled,
+      unchecked: IcnUncheckedDisabled,
+    },
+  },
+}
 
 const CheckBox = ({
-  text, disabled, onChange, formatter, defaultChecked,
+  text,
+  disabled,
+  onChange,
+  formatter,
+  defaultChecked,
+  size,
 }) => {
   const [checked, setChecked] = useState(defaultChecked)
   const newText = formatter ? formatter(text) : text
@@ -22,11 +54,13 @@ const CheckBox = ({
 
   const getCheckIcon = (isDisabled, isChecked) => {
     if (isDisabled) {
-      return isChecked ? IcnCheckedDisabled : IcnUncheckedDisabled
+      return isChecked ? IcnList[size].disabled.checked : IcnList[size].disabled.unchecked
     }
 
-    return isChecked ? IcnChecked : IcnUnchecked
+    return isChecked ? IcnList[size].default.checked : IcnList[size].default.unchecked
   }
+
+  const getImgSize = () => (size === 'sm' ? '16px' : '24px')
 
   useEffect(() => {
     setChecked(defaultChecked)
@@ -35,8 +69,8 @@ const CheckBox = ({
   return (
     <Item disabled={disabled}>
       <label>
-        <img src={getCheckIcon(disabled, checked)} width="24px" height="24px" style={{ borderRadius: '4px' }} alt="" />
-        <font.TextOverflow>{newText}</font.TextOverflow>
+        <img src={getCheckIcon(disabled, checked)} width={getImgSize()} height={getImgSize()} style={{ borderRadius: '4px' }} alt="" />
+        <font.TextOverflow style={{ fontSize: size === 'sm' ? 14 : 16 }}>{newText}</font.TextOverflow>
         <input type="checkbox" checked={checked} disabled={disabled} onChange={handleOnChange} />
       </label>
     </Item>
@@ -48,6 +82,7 @@ CheckBox.defaultProps = {
   onChange: null,
   formatter: null,
   defaultChecked: false,
+  size: 'md',
 }
 
 CheckBox.propTypes = {
@@ -56,6 +91,7 @@ CheckBox.propTypes = {
   onChange: PropTypes.func,
   formatter: PropTypes.func,
   defaultChecked: PropTypes.bool,
+  size: PropTypes.oneOf(['sm', 'md']),
 }
 
 export default CheckBox
