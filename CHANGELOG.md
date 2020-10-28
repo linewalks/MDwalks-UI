@@ -1,3 +1,12 @@
+# [0.14.0](https://github.com/linewalks/MDwalks-UI/compare/v0.13.43...v0.14.0) (2020-10-28)
+
+
+### Features
+
+* **Table:** defaultSort 추가 ([63d8ef4](https://github.com/linewalks/MDwalks-UI/commit/63d8ef402ed431a15e33806992a7accb6f364db6)), closes [#770](https://github.com/linewalks/MDwalks-UI/issues/770)
+
+
+
 ## [0.13.43](https://github.com/linewalks/MDwalks-UI/compare/v0.13.42...v0.13.43) (2020-10-20)
 
 

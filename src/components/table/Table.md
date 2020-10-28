@@ -132,7 +132,17 @@ import React, { useState, useEffect } from 'react'
         size="small"
         loading={loading}
         data={{
-          headers: ['a', 'b', { text: 'c', sort: function(a, b) { console.log(a, b) } }],
+          headers: [
+            'a',
+            {
+              text: 'b',
+              sort: function(a, b) { console.log(a, b) }
+            },
+            {
+              text: 'c',
+              sort: function(a, b) { console.log(a, b) }
+            }
+          ],
           rowData: [
             [1, 2, 3],
             [4, 5, 6],
@@ -143,6 +153,8 @@ import React, { useState, useEffect } from 'react'
             ['t4', 't5', 't6']
           ]
         }}
+        sortOrderList={['asc', 'desc', '']}
+        defaultSort={null}
       >
       </Table>
     </>

@@ -8,6 +8,7 @@ import THead from '@Table/THead'
 
 //  - colSpan 적용
 //  - wrapTh 적용
+const sortOrderList = ['asc', 'desc', '']
 
 describe('headerData, subHeaderData 둘 다 없는 경우', () => {
   let wrapper
@@ -15,7 +16,7 @@ describe('headerData, subHeaderData 둘 다 없는 경우', () => {
   it('headerData 가 없는 경우', () => {
     wrapper = mount(
       <table>
-        <THead />
+        <THead sortOrderList={sortOrderList} />
       </table>,
     )
     expect(wrapper.find('tr')).toHaveLength(1)
@@ -35,6 +36,7 @@ describe('subHeaderData 가 없는 경우', () => {
       <table>
         <THead
           headers={headers}
+          sortOrderList={sortOrderList}
         />
       </table>,
     )
@@ -64,6 +66,7 @@ describe('subHeaderData 가 없는 경우', () => {
         <THead
           headers={headers}
           wrapTh={wrapTh}
+          sortOrderList={sortOrderList}
         />
       </table>,
     )
@@ -95,6 +98,7 @@ describe('subHeaderData 가 있는 경우', () => {
         <THead
           headers={headers}
           subHeaders={subHeaders}
+          sortOrderList={sortOrderList}
         />
       </table>,
     )
@@ -120,6 +124,7 @@ describe('subHeaderData 가 있는 경우', () => {
           headers={headers}
           subHeaders={subHeaders}
           wrapTh={wrapTh}
+          sortOrderList={sortOrderList}
         />
       </table>,
     )
@@ -153,6 +158,7 @@ describe('sort', () => {
       <table>
         <THead
           headers={headers}
+          sortOrderList={sortOrderList}
         />
       </table>,
     )

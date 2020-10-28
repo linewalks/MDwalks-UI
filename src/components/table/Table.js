@@ -97,7 +97,8 @@ Columns.propTypes = {
 
 const Table = ({
   data, rowSpanCount, wrapTh, wrapTd, appendRow, className,
-  loading, scroll, columns, size, placeholder,
+  loading, scroll, columns, size, placeholder, defaultSort,
+  sortOrderList,
 }) => {
   if (_.isEmpty(data)) {
     return (
@@ -120,6 +121,8 @@ const Table = ({
             wrapTh={wrapTh}
             loading={loading}
             size={size}
+            sortOrderList={sortOrderList}
+            defaultSort={defaultSort}
           />
         </TableBox>
         <commonTag.WrapperScrollBars scroll={scroll}>
@@ -154,6 +157,8 @@ const Table = ({
         wrapTh={wrapTh}
         loading={loading}
         size={size}
+        sortOrderList={sortOrderList}
+        defaultSort={defaultSort}
       />
       <TBody
         headers={data.headers}
@@ -182,6 +187,8 @@ Table.defaultProps = {
   columns: [],
   size: 'medium',
   placeholder: undefined,
+  sortOrderList: ['desc', 'asc', ''],
+  defaultSort: {},
 }
 
 Table.propTypes = {
@@ -214,6 +221,11 @@ Table.propTypes = {
   }),
   size: PropTypes.string,
   placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  sortOrderList: PropTypes.arrayOf(PropTypes.string),
+  defaultSort: PropTypes.shape({
+    text: PropTypes.string,
+    order: PropTypes.number,
+  }),
 }
 
 export default Table

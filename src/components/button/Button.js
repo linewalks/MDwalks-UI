@@ -82,8 +82,7 @@ const BtnColor = {
     backgroundColor: colorV1.$pmblue,
     color: color.$primary_white,
     hover: {
-      backgroundColor: '#008af3',
-      color: color.$primary_white,
+      backgroundColor: '#028af2',
     },
     disabled: {
       backgroundColor: colorV1.$grey03,
@@ -95,9 +94,7 @@ const BtnColor = {
     color: colorV1.$pmblue,
     border: `1px solid ${colorV1.$pmblue}`,
     hover: {
-      boxShadow: '0 4px 10px 0 rgba(0,0,0,0.08)',
-      backgroundColor: color.$primary_white,
-      color: colorV1.$pmblue,
+      boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)',
       border: `1px solid ${colorV1.$pmblue}`,
     },
     disabled: {
@@ -122,9 +119,7 @@ const BtnColor = {
     color: colorV1.$grey09,
     border: `1px solid ${colorV1.$grey05}`,
     hover: {
-      boxShadow: `0 1px 8px 0 rgba(117, 127, 139, 0.36)`,
-      backgroundColor: color.$primary_white,
-      color: colorV1.$grey09,
+      boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)',
       border: `1px solid ${colorV1.$grey05}`,
     },
     disabled: {
@@ -136,8 +131,7 @@ const BtnColor = {
     backgroundColor: color.$primary_white,
     color: colorV1.$pmblue,
     hover: {
-      backgroundColor: colorV1.$grey03,
-      color: colorV1.$pmblue,
+      boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)',
     },
     disabled: {
       backgroundColor: colorV1.$grey03,
@@ -148,8 +142,7 @@ const BtnColor = {
     backgroundColor: color.$primary_white,
     color: colorV1.$grey09,
     hover: {
-      backgroundColor: colorV1.$grey03,
-      color: colorV1.$grey09,
+      boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)',
     },
     disabled: {
       backgroundColor: colorV1.$grey03,
