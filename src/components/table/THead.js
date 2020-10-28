@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import _ from 'lodash'
@@ -172,24 +172,37 @@ HeaderTextSort.propTypes = {
 }
 
 const THead = ({
-  headers, wrapTh, subHeaders, loading, size,
+  headers, wrapTh, subHeaders, loading, size, sortOrderList, defaultSort,
 }) => {
   const [toggle, setToggle] = useState({})
+  const [toggleIdx, setToggleIdx] = useState({})
 
   const onSort = (text, sort) => {
     let toggleDumy = { ...toggle }
+    let toggleIdxDumy = { ...toggleIdx }
 
-    if (!toggleDumy[text]) { // 없다면 처음, 그러면 다른 것들도 초기화
-      toggleDumy = _.mapValues(toggleDumy, () => (''))
-      toggleDumy[text] = 'asc'
-    } else if (toggleDumy[text] === 'asc') {
-      toggleDumy[text] = 'desc'
-    } else {
-      toggleDumy[text] = ''
+    if (!toggleIdxDumy[text]) {
+      toggleIdxDumy = _.mapValues(toggleIdxDumy, () => (0))
+      toggleIdxDumy[text] = 0
     }
 
-    setToggle(toggleDumy)
-    sort(text, toggleDumy[text])
+    if (!toggleDumy[text]) {
+      toggleDumy = _.mapValues(toggleDumy, () => (''))
+      const [initSort] = sortOrderList
+      toggleDumy[text] = initSort
+    }
+
+    const nextIdx = toggleIdxDumy[text] + 1
+
+    setToggle({
+      ...toggleDumy,
+      [text]: sortOrderList[toggleIdxDumy[text]],
+    })
+    setToggleIdx({
+      ...toggleIdxDumy,
+      [text]: nextIdx === sortOrderList.length ? 0 : nextIdx,
+    })
+    sort(text, sortOrderList[toggleIdxDumy[text]])
   }
 
   const createSubHeader = (subHeaderData) => {
@@ -251,6 +264,21 @@ const THead = ({
       </Thead>
     )
   }
+  /* eslint-disable react-hooks/rules-of-hooks */
+  useEffect(() => {
+    if (!_.isEmpty(defaultSort)) {
+      const { text, order } = defaultSort
+      setToggle((prevToggle) => ({
+        ...prevToggle,
+        [text]: sortOrderList[order],
+      }))
+      const nextOrder = order + 1
+      setToggleIdx((prevToggleIdx) => ({
+        ...prevToggleIdx,
+        [text]: nextOrder === sortOrderList.length ? 0 : nextOrder,
+      }))
+    }
+  }, [defaultSort, sortOrderList])
 
   return (
     <Thead>
@@ -266,6 +294,7 @@ THead.defaultProps = {
   subHeaders: undefined,
   loading: false,
   size: 'medium',
+  defaultSort: {},
 }
 
 THead.propTypes = {
@@ -279,6 +308,11 @@ THead.propTypes = {
   subHeaders: PropTypes.shape({}),
   loading: PropTypes.bool,
   size: PropTypes.string,
+  sortOrderList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  defaultSort: PropTypes.shape({
+    text: PropTypes.string,
+    order: PropTypes.number,
+  }),
 }
 
 export default THead
