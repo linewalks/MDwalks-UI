@@ -14,19 +14,9 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              modules: true,
-              localIdentName: '[name]__[local]__[hash:base64:5]',
-            },
-          },
+          'style-loader',
+          'css-loader',
         ],
-        include: path.resolve(__dirname, '../'),
       },
       {
         test: /\.(svg)(\?.*)?$/,
@@ -46,7 +36,6 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              // Prefer `dart-sass`
               implementation: sass,
             },
           },

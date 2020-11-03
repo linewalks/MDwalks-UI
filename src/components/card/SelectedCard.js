@@ -3,8 +3,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import backgroundArrow from '@src/assets/svg/icn_chevron_filled_right_16.svg';
 import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
-import { hexToRGB } from '@Components/button/utility'
+import { color, colorV1 } from '@src/assets/styles/variables'
 
 const Wrap1200 = styled.div`
   max-width: 1200px;
@@ -17,27 +16,27 @@ export const Arrow = styled.article`
   background-repeat: no-repeat;
   background-position-x: 100%;
   background-position-y: center;
-  padding-right: 18px;
+  padding-right: 24px;
   margin-right: 8px;
 
   &:last-child div {
-    background-color: ${(props) => (props.isLastHighlighted ? '#ff4757' : '#002b4f')};
+    background-color: ${(props) => (props.isLastHighlighted ? '#ff4757' : color.$primary_white)};
   }
 `
 
 const CardContatiner = styled.div`
   display: inline-block;
-  border-radius: 25px;
-  box-shadow: 0 4px 10px 0 ${hexToRGB(color.$primary_navy, 0.16)};
-  background-color: #002b4f;
-  padding: 11px 24px 10px;
+  border: 1px solid ${colorV1.$grey05};
+  border-radius: 20px;
+  background-color: ${color.$primary_white};
+  padding: 8px 16px;
 `
 
 export const Card = styled(font.TextTag).attrs({
-  size: '20',
+  size: '16',
   bold: true,
   style: {
-    color: '#ffffff',
+    color: colorV1.$grey09,
   },
 })``
 
