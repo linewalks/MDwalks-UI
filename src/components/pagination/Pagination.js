@@ -38,7 +38,7 @@ export const ButtonPage = styled.button`
   border-radius: 4px;
 
   ${(props) => (props.selected ? `background-color: ${color.$grey08}` : '')};
-  ${(props) => (props.selected ? `color: ${color.$white}` : `color: ${color.$grey8}`)};
+  ${(props) => (props.selected ? `color: ${color.$white}` : `color: ${color.$grey08}`)};
   ${(props) => (props.size === 'sm'
     ? `
       font-size: 14px;
