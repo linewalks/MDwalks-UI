@@ -1,3 +1,17 @@
+## [0.14.1](https://github.com/linewalks/MDwalks-UI/compare/v0.14.0...v0.14.1) (2020-11-04)
+
+
+### Bug Fixes
+
+* **Pagination:** color 정리 ([44e808a](https://github.com/linewalks/MDwalks-UI/commit/44e808a6019c0c7203858d376f3f36909e59a1e9)), closes [#779](https://github.com/linewalks/MDwalks-UI/issues/779)
+
+
+### Features
+
+* **variable:** color 정리 ([43145d1](https://github.com/linewalks/MDwalks-UI/commit/43145d153f4a2de72facf398f424837d96d36e36)), closes [#779](https://github.com/linewalks/MDwalks-UI/issues/779)
+
+
+
 # [0.14.0](https://github.com/linewalks/MDwalks-UI/compare/v0.13.43...v0.14.0) (2020-10-28)
 
 
