@@ -1,5 +1,5 @@
 import * as Rechart from 'recharts'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 class YAxis extends Rechart.YAxis {
 }
@@ -9,7 +9,7 @@ YAxis.defaultProps = {
   axisLine: false,
   tickLine: false,
   tickMargin: 10,
-  stroke: colorV1.$grey08,
+  stroke: color.$grey08,
   fontSize: 14,
   custom: true,
 }

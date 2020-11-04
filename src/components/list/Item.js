@@ -13,7 +13,7 @@ const CssEnable = css`
     box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);
   }
   &:hover {
-    background-color: ${(props) => (props.layout === ChartConfig.Layout.VERTICAL ? color.$secondary_blue : 'transparent')};
+    background-color: ${(props) => (props.layout === ChartConfig.Layout.VERTICAL ? color.$pmblue02 : 'transparent')};
   }
 `
 

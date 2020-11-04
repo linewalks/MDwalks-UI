@@ -4,7 +4,7 @@ import _ from 'lodash'
 import * as Rechart from 'recharts'
 import PropTypes from 'prop-types'
 import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import TooltipCompareContent from '@Components/tooltip/TooltipCompareContent'
 import * as commonTag from '@Components/common/commonTag'
@@ -18,7 +18,7 @@ import YAxis from '@Components/charts/cartesian/YAxis'
 import CartesianGrid from '@Components/charts/cartesian/CartesianGrid'
 
 const LabelStyle = {
-  fill: colorV1.$grey08, fontWeight: 'bold', fontSize: '14px',
+  fill: color.$grey08, fontWeight: 'bold', fontSize: '14px',
 }
 
 export const tickFormatterCustom = (value, isPercent) => {

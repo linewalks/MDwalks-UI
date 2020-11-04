@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import styled, { keyframes } from 'styled-components'
-import { color, colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 import {
   getColorsByTheme,
@@ -42,8 +42,8 @@ const Threshold = styled.div`
   left: ${(props) => `${props.threshold}px`};
   margin-top: -2px;
   margin-left: -1.5px;
-  background-color: ${colorV1.$red01};
-  border: 1px solid ${color.$primary_white};
+  background-color: ${color.$red01};
+  border: 1px solid ${color.$white};
   border-radius: 0.5px;
 `
 

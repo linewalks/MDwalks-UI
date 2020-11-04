@@ -1,6 +1,6 @@
 {
   "name": "MDwalks-UI",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
@@ -66,7 +66,7 @@
     "@types/styled-components": "^5.1.2",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
-    "docz": "^2.0.0-rc.67",
+    "css-loader": "4.3.0",
     "enzyme-to-json": "^3.4.0",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.0.1",
@@ -74,6 +74,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^2.3.0",
+    "file-loader": "^6.2.0",
     "husky": "^3.0.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "24.7.1",
@@ -86,10 +87,12 @@
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-svg": "^2.0.0",
-    "sass-loader": "^8.0.2",
+    "sass-loader": "^10.0.4",
     "scheduler": "0.14.0",
+    "style-loader": "^2.0.0",
     "ts-jest": "^26.2.0",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.2",
+    "webpack": "4.44.2"
   },
   "dependencies": {
     "antd": "^3.23.4",

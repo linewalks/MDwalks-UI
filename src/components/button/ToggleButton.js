@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import fontStyle from '@src/assets/styles/font.module.sass'
-import { color, colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 export const BtnSize = {
   large: {
@@ -38,7 +38,7 @@ const BoxShadow = css`
 
 const ButtonContainer = styled.section`
   height: ${(props) => (props.height)}px;
-  background-color: ${colorV1.$grey04};
+  background-color: ${color.$grey04};
   border-radius: ${(props) => (props.height / 2)}px;
   padding: 2px;
   display: table;
@@ -47,7 +47,7 @@ const ButtonContainer = styled.section`
 const ToggleBtn = styled.button.attrs(() => ({
   className: `${fontStyle.font} ${fontStyle.bold}`,
 }))`
-  color: ${colorV1.$grey10};
+  color: ${color.$grey10};
   font-size: ${(props) => (props.fontSize)}px;
   min-width: ${(props) => (props.minWidth)}px;
   height: ${(props) => (props.height)}px;
@@ -60,9 +60,9 @@ const ToggleBtn = styled.button.attrs(() => ({
     margin-right: 8px;
   }
   ${BoxShadow};
-  background-color: ${(props) => (props.selected ? color.$primary_white : colorV1.$grey04)};
+  background-color: ${(props) => (props.selected ? color.$white : color.$grey04)};
   &:hover {
-    background-color: ${(props) => (props.selected ? color.$primary_white : colorV1.$grey05)};
+    background-color: ${(props) => (props.selected ? color.$white : color.$grey05)};
     ${BoxShadow};
   }
 `

@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash'
 import styled from 'styled-components';
 import PropTypes from 'prop-types'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 export const ColorSet = {
   'Primary-Sea': {
@@ -212,7 +212,7 @@ const getColorsOfBubble = () => {
       _.fromPairs(_.zip('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.slice(0, list.length).split(''), list)),
       {
         START_CIRCLE: ColorSet['Primary-Sea'].sea700,
-        END_CIRCLE: colorV1.$red01,
+        END_CIRCLE: color.$red01,
       },
     )
 }

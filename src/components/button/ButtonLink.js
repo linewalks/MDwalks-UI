@@ -25,9 +25,9 @@ const ButtonLinkTag = styled(font.TextTag).attrs((props = {}) => {
   display: inline-block;
   box-sizing: border-box;
 
-  color: ${color.$solid_default};
+  color: ${color.$pmblue};
   &:hover {
-    color: ${color.$solid_hover};
+    color: ${color.$pmblue_dark};
   }
 
   &:first-child {

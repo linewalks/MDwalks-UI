@@ -20,19 +20,19 @@ exports[`Selected Snapshot ER Admission to Re-operation 1`] = `
             id="Index_Invasive_Treatment"
             rx="4"
             ry="4"
-            style="fill: #002d4f; cursor: pointer;"
+            style="fill: #091840; cursor: pointer;"
             width="25"
             x="0"
             y="244.77634112792293"
           />
           <text
             dy="0.35em"
-            fill="rgba(0, 0, 0, 0.4)"
+            fill="#6d7884"
             font-famliy="Spoqa Han Sans"
             font-size="14"
             font-stretch="normal"
             font-style="normal"
-            font-weight="normal"
+            font-weight="bold"
             letter-spacing="0.5px"
             line-height="normal"
             text-anchor="middle"
@@ -48,19 +48,19 @@ exports[`Selected Snapshot ER Admission to Re-operation 1`] = `
             id="In_Hospital_Death"
             rx="4"
             ry="4"
-            style="fill: #002d4f; cursor: pointer;"
+            style="fill: #091840; cursor: pointer;"
             width="25"
             x="975"
             y="95.43055292598069"
           />
           <text
             dy="0.35em"
-            fill="rgba(0, 0, 0, 0.4)"
+            fill="#6d7884"
             font-famliy="Spoqa Han Sans"
             font-size="14"
             font-stretch="normal"
             font-style="normal"
-            font-weight="normal"
+            font-weight="bold"
             letter-spacing="0.5px"
             line-height="normal"
             text-anchor="middle"
@@ -76,19 +76,19 @@ exports[`Selected Snapshot ER Admission to Re-operation 1`] = `
             id="ER_Admission"
             rx="4"
             ry="4"
-            style="fill: #002d4f; cursor: pointer;"
+            style="fill: #091840; cursor: pointer;"
             width="25"
             x="0"
             y="0"
           />
           <text
             dy="0.35em"
-            fill="rgba(0, 0, 0, 0.4)"
+            fill="#6d7884"
             font-famliy="Spoqa Han Sans"
             font-size="14"
             font-stretch="normal"
             font-style="normal"
-            font-weight="normal"
+            font-weight="bold"
             letter-spacing="0.5px"
             line-height="normal"
             text-anchor="middle"
@@ -104,19 +104,19 @@ exports[`Selected Snapshot ER Admission to Re-operation 1`] = `
             id="Re-operation"
             rx="4"
             ry="4"
-            style="fill: #002d4f; cursor: pointer;"
+            style="fill: #091840; cursor: pointer;"
             width="25"
             x="487.5"
             y="36.18594496381957"
           />
           <text
             dy="0.35em"
-            fill="rgba(0, 0, 0, 0.4)"
+            fill="#6d7884"
             font-famliy="Spoqa Han Sans"
             font-size="14"
             font-stretch="normal"
             font-style="normal"
-            font-weight="normal"
+            font-weight="bold"
             letter-spacing="0.5px"
             line-height="normal"
             text-anchor="middle"
@@ -132,19 +132,19 @@ exports[`Selected Snapshot ER Admission to Re-operation 1`] = `
             id="ER_Death"
             rx="4"
             ry="4"
-            style="fill: #002d4f; cursor: pointer;"
+            style="fill: #091840; cursor: pointer;"
             width="25"
             x="975"
             y="214.63935622721866"
           />
           <text
             dy="0.35em"
-            fill="rgba(0, 0, 0, 0.4)"
+            fill="#6d7884"
             font-famliy="Spoqa Han Sans"
             font-size="14"
             font-stretch="normal"
             font-style="normal"
-            font-weight="normal"
+            font-weight="bold"
             letter-spacing="0.5px"
             line-height="normal"
             text-anchor="middle"
@@ -164,7 +164,7 @@ exports[`Selected Snapshot ER Admission to Re-operation 1`] = `
             class="sankey-link"
             d="M25,71.58817056396148C256.25,71.58817056396148,256.25,107.77411552778099,487.5,107.77411552778099"
             id="ER_AdmissionXRe-operation"
-            style="stroke-width: 143.1763411279229; opacity: 1; stroke: rgba(24, 155, 255, 0.4);"
+            style="stroke-width: 143.1763411279229; stroke: rgba(44,111,245,0.64); opacity: 1;"
           />
         </g>
         <g>
@@ -172,7 +172,7 @@ exports[`Selected Snapshot ER Admission to Re-operation 1`] = `
             class="sankey-link"
             d="M25,249.38817056396144C500,249.38817056396144,500,221.13784315981837,975,221.13784315981837"
             id="Index_Invasive_TreatmentXER_Death"
-            style="stroke-width: 9.223658872077024; opacity: 0.04; stroke: #000000;"
+            style="stroke-width: 9.223658872077024; stroke: rgba(48,56,65,0.12);"
           />
         </g>
         <g>
@@ -180,7 +180,7 @@ exports[`Selected Snapshot ER Admission to Re-operation 1`] = `
             class="sankey-link"
             d="M512.5,44.99034661443853C743.75,44.99034661443853,743.75,104.23495457659965,975,104.23495457659965"
             id="Re-operationXIn_Hospital_Death"
-            style="stroke-width: 17.608803301237955; opacity: 0.04; stroke: #000000;"
+            style="stroke-width: 17.608803301237955; stroke: rgba(48,56,65,0.12);"
           />
         </g>
         <g>
@@ -188,7 +188,7 @@ exports[`Selected Snapshot ER Admission to Re-operation 1`] = `
             class="sankey-link"
             d="M512.5,54.73807701333813C743.75,54.73807701333813,743.75,215.58268497549923,975,215.58268497549923"
             id="Re-operationXER_Death"
-            style="stroke-width: 1.8866574965612095; opacity: 0.04; stroke: #000000;"
+            style="stroke-width: 1.8866574965612095; stroke: rgba(48,56,65,0.12);"
           />
         </g>
       </g>
@@ -217,19 +217,19 @@ exports[`Selected Snapshot Re-operation to ER Admission 1`] = `
             id="Index_Invasive_Treatment"
             rx="4"
             ry="4"
-            style="fill: #002d4f; cursor: pointer;"
+            style="fill: #091840; cursor: pointer;"
             width="25"
             x="0"
             y="244.77634112792293"
           />
           <text
             dy="0.35em"
-            fill="rgba(0, 0, 0, 0.4)"
+            fill="#6d7884"
             font-famliy="Spoqa Han Sans"
             font-size="14"
             font-stretch="normal"
             font-style="normal"
-            font-weight="normal"
+            font-weight="bold"
             letter-spacing="0.5px"
             line-height="normal"
             text-anchor="middle"
@@ -245,19 +245,19 @@ exports[`Selected Snapshot Re-operation to ER Admission 1`] = `
             id="In_Hospital_Death"
             rx="4"
             ry="4"
-            style="fill: #002d4f; cursor: pointer;"
+            style="fill: #091840; cursor: pointer;"
             width="25"
             x="975"
             y="95.43055292598069"
           />
           <text
             dy="0.35em"
-            fill="rgba(0, 0, 0, 0.4)"
+            fill="#6d7884"
             font-famliy="Spoqa Han Sans"
             font-size="14"
             font-stretch="normal"
             font-style="normal"
-            font-weight="normal"
+            font-weight="bold"
             letter-spacing="0.5px"
             line-height="normal"
             text-anchor="middle"
@@ -273,19 +273,19 @@ exports[`Selected Snapshot Re-operation to ER Admission 1`] = `
             id="ER_Admission"
             rx="4"
             ry="4"
-            style="fill: #002d4f; cursor: pointer;"
+            style="fill: #091840; cursor: pointer;"
             width="25"
             x="0"
             y="0"
           />
           <text
             dy="0.35em"
-            fill="rgba(0, 0, 0, 0.4)"
+            fill="#6d7884"
             font-famliy="Spoqa Han Sans"
             font-size="14"
             font-stretch="normal"
             font-style="normal"
-            font-weight="normal"
+            font-weight="bold"
             letter-spacing="0.5px"
             line-height="normal"
             text-anchor="middle"
@@ -301,19 +301,19 @@ exports[`Selected Snapshot Re-operation to ER Admission 1`] = `
             id="Re-operation"
             rx="4"
             ry="4"
-            style="fill: #002d4f; cursor: pointer;"
+            style="fill: #091840; cursor: pointer;"
             width="25"
             x="487.5"
             y="36.18594496381957"
           />
           <text
             dy="0.35em"
-            fill="rgba(0, 0, 0, 0.4)"
+            fill="#6d7884"
             font-famliy="Spoqa Han Sans"
             font-size="14"
             font-stretch="normal"
             font-style="normal"
-            font-weight="normal"
+            font-weight="bold"
             letter-spacing="0.5px"
             line-height="normal"
             text-anchor="middle"
@@ -329,19 +329,19 @@ exports[`Selected Snapshot Re-operation to ER Admission 1`] = `
             id="ER_Death"
             rx="4"
             ry="4"
-            style="fill: #002d4f; cursor: pointer;"
+            style="fill: #091840; cursor: pointer;"
             width="25"
             x="975"
             y="214.63935622721866"
           />
           <text
             dy="0.35em"
-            fill="rgba(0, 0, 0, 0.4)"
+            fill="#6d7884"
             font-famliy="Spoqa Han Sans"
             font-size="14"
             font-stretch="normal"
             font-style="normal"
-            font-weight="normal"
+            font-weight="bold"
             letter-spacing="0.5px"
             line-height="normal"
             text-anchor="middle"
@@ -361,7 +361,7 @@ exports[`Selected Snapshot Re-operation to ER Admission 1`] = `
             class="sankey-link"
             d="M25,71.58817056396148C256.25,71.58817056396148,256.25,107.77411552778099,487.5,107.77411552778099"
             id="ER_AdmissionXRe-operation"
-            style="stroke-width: 143.1763411279229; opacity: 1; stroke: rgba(255, 58, 31, 0.4);"
+            style="stroke-width: 143.1763411279229; stroke: rgba(252,108,92,0.64); opacity: 1;"
           />
         </g>
         <g>
@@ -369,7 +369,7 @@ exports[`Selected Snapshot Re-operation to ER Admission 1`] = `
             class="sankey-link"
             d="M25,249.38817056396144C500,249.38817056396144,500,221.13784315981837,975,221.13784315981837"
             id="Index_Invasive_TreatmentXER_Death"
-            style="stroke-width: 9.223658872077024; opacity: 0.04; stroke: #000000;"
+            style="stroke-width: 9.223658872077024; stroke: rgba(48,56,65,0.12);"
           />
         </g>
         <g>
@@ -377,7 +377,7 @@ exports[`Selected Snapshot Re-operation to ER Admission 1`] = `
             class="sankey-link"
             d="M512.5,44.99034661443853C743.75,44.99034661443853,743.75,104.23495457659965,975,104.23495457659965"
             id="Re-operationXIn_Hospital_Death"
-            style="stroke-width: 17.608803301237955; opacity: 0.04; stroke: #000000;"
+            style="stroke-width: 17.608803301237955; stroke: rgba(48,56,65,0.12);"
           />
         </g>
         <g>
@@ -385,7 +385,7 @@ exports[`Selected Snapshot Re-operation to ER Admission 1`] = `
             class="sankey-link"
             d="M512.5,54.73807701333813C743.75,54.73807701333813,743.75,215.58268497549923,975,215.58268497549923"
             id="Re-operationXER_Death"
-            style="stroke-width: 1.8866574965612095; opacity: 0.04; stroke: #000000;"
+            style="stroke-width: 1.8866574965612095; stroke: rgba(48,56,65,0.12);"
           />
         </g>
       </g>
@@ -414,19 +414,19 @@ exports[`Selected Snapshot default 1`] = `
             id="Index_Invasive_Treatment"
             rx="4"
             ry="4"
-            style="fill: #002d4f; cursor: pointer;"
+            style="fill: #091840; cursor: pointer;"
             width="25"
             x="0"
             y="244.77634112792293"
           />
           <text
             dy="0.35em"
-            fill="rgba(0, 0, 0, 0.4)"
+            fill="#6d7884"
             font-famliy="Spoqa Han Sans"
             font-size="14"
             font-stretch="normal"
             font-style="normal"
-            font-weight="normal"
+            font-weight="bold"
             letter-spacing="0.5px"
             line-height="normal"
             text-anchor="middle"
@@ -442,19 +442,19 @@ exports[`Selected Snapshot default 1`] = `
             id="In_Hospital_Death"
             rx="4"
             ry="4"
-            style="fill: #002d4f; cursor: pointer;"
+            style="fill: #091840; cursor: pointer;"
             width="25"
             x="975"
             y="95.43055292598069"
           />
           <text
             dy="0.35em"
-            fill="rgba(0, 0, 0, 0.4)"
+            fill="#6d7884"
             font-famliy="Spoqa Han Sans"
             font-size="14"
             font-stretch="normal"
             font-style="normal"
-            font-weight="normal"
+            font-weight="bold"
             letter-spacing="0.5px"
             line-height="normal"
             text-anchor="middle"
@@ -470,19 +470,19 @@ exports[`Selected Snapshot default 1`] = `
             id="ER_Admission"
             rx="4"
             ry="4"
-            style="fill: #002d4f; cursor: pointer;"
+            style="fill: #091840; cursor: pointer;"
             width="25"
             x="0"
             y="0"
           />
           <text
             dy="0.35em"
-            fill="rgba(0, 0, 0, 0.4)"
+            fill="#6d7884"
             font-famliy="Spoqa Han Sans"
             font-size="14"
             font-stretch="normal"
             font-style="normal"
-            font-weight="normal"
+            font-weight="bold"
             letter-spacing="0.5px"
             line-height="normal"
             text-anchor="middle"
@@ -498,19 +498,19 @@ exports[`Selected Snapshot default 1`] = `
             id="Re-operation"
             rx="4"
             ry="4"
-            style="fill: #002d4f; cursor: pointer;"
+            style="fill: #091840; cursor: pointer;"
             width="25"
             x="487.5"
             y="36.18594496381957"
           />
           <text
             dy="0.35em"
-            fill="rgba(0, 0, 0, 0.4)"
+            fill="#6d7884"
             font-famliy="Spoqa Han Sans"
             font-size="14"
             font-stretch="normal"
             font-style="normal"
-            font-weight="normal"
+            font-weight="bold"
             letter-spacing="0.5px"
             line-height="normal"
             text-anchor="middle"
@@ -526,19 +526,19 @@ exports[`Selected Snapshot default 1`] = `
             id="ER_Death"
             rx="4"
             ry="4"
-            style="fill: #002d4f; cursor: pointer;"
+            style="fill: #091840; cursor: pointer;"
             width="25"
             x="975"
             y="214.63935622721866"
           />
           <text
             dy="0.35em"
-            fill="rgba(0, 0, 0, 0.4)"
+            fill="#6d7884"
             font-famliy="Spoqa Han Sans"
             font-size="14"
             font-stretch="normal"
             font-style="normal"
-            font-weight="normal"
+            font-weight="bold"
             letter-spacing="0.5px"
             line-height="normal"
             text-anchor="middle"
@@ -558,7 +558,7 @@ exports[`Selected Snapshot default 1`] = `
             class="sankey-link"
             d="M25,71.58817056396148C256.25,71.58817056396148,256.25,107.77411552778099,487.5,107.77411552778099"
             id="ER_AdmissionXRe-operation"
-            style="stroke-width: 143.1763411279229; opacity: 0.04; stroke: #000000;"
+            style="stroke-width: 143.1763411279229; stroke: rgba(48,56,65,0.12);"
           />
         </g>
         <g>
@@ -566,7 +566,7 @@ exports[`Selected Snapshot default 1`] = `
             class="sankey-link"
             d="M25,249.38817056396144C500,249.38817056396144,500,221.13784315981837,975,221.13784315981837"
             id="Index_Invasive_TreatmentXER_Death"
-            style="stroke-width: 9.223658872077024; opacity: 0.04; stroke: #000000;"
+            style="stroke-width: 9.223658872077024; stroke: rgba(48,56,65,0.12);"
           />
         </g>
         <g>
@@ -574,7 +574,7 @@ exports[`Selected Snapshot default 1`] = `
             class="sankey-link"
             d="M512.5,44.99034661443853C743.75,44.99034661443853,743.75,104.23495457659965,975,104.23495457659965"
             id="Re-operationXIn_Hospital_Death"
-            style="stroke-width: 17.608803301237955; opacity: 0.04; stroke: #000000;"
+            style="stroke-width: 17.608803301237955; stroke: rgba(48,56,65,0.12);"
           />
         </g>
         <g>
@@ -582,7 +582,7 @@ exports[`Selected Snapshot default 1`] = `
             class="sankey-link"
             d="M512.5,54.73807701333813C743.75,54.73807701333813,743.75,215.58268497549923,975,215.58268497549923"
             id="Re-operationXER_Death"
-            style="stroke-width: 1.8866574965612095; opacity: 0.04; stroke: #000000;"
+            style="stroke-width: 1.8866574965612095; stroke: rgba(48,56,65,0.12);"
           />
         </g>
       </g>

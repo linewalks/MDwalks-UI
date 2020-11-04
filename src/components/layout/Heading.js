@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 import * as font from '@src/assets/styles/font'
 
 const Text = styled.header`
   ${font.Text};
-  color: ${colorV1.$grey10};
+  color: ${color.$grey10};
 `
 
 const Heading = ({

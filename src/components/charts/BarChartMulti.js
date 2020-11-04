@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import styled from 'styled-components'
 
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 import fontStyle from '@src/assets/styles/font.module.sass'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as commonTag from '@Components/common/commonTag'
@@ -22,7 +22,7 @@ import CartesianGrid from '@Components/charts/cartesian/CartesianGrid'
 
 const Box = styled.article`
   &:not(:last-child) {
-    border-right: 1px dashed ${colorV1.$grey05};
+    border-right: 1px dashed ${color.$grey05};
   }
 `
 

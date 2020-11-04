@@ -35,7 +35,7 @@ const ModalBox = styled.div`
   transform: translate(-50%, -50%);
   min-width: ${size.minWidth};
   border-radius: ${size.borderRadius};
-  background-color: ${color.$primary_white};
+  background-color: ${color.$white};
   box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
   z-index: ${zIndex.$modal};
 
@@ -83,7 +83,7 @@ const Loading = styled.div`
 const Footer = styled.footer`
   margin-top: ${size.footerMarginTop};
   padding-top: ${size.footerPaddingTop};
-  border-top: 1px solid ${color.$line_graph_xy_grey};
+  border-top: 1px solid ${color.$grey04};
   text-align: right;
 
   margin-left: -${size.modalPadding};

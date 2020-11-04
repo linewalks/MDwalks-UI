@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { color, colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 const InputBox = styled.input`
-  color: ${colorV1.$grey10};
+  color: ${color.$grey10};
   letter-spacing: -0.5px;
   text-align: center;
   line-height: 1;
@@ -14,7 +14,7 @@ const InputBox = styled.input`
   padding: 7px 18px;
   border-radius: 21px;
   border: solid 1px #dce0e4;
-  background-color: ${color.primary_white};
+  background-color: ${color.$white};
 `
 
 // 범위도 추가 되어야겟다

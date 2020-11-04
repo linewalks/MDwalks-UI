@@ -3,7 +3,7 @@ import styled, { css, keyframes } from 'styled-components'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import * as font from '@src/assets/styles/font'
-import { color, colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 export const BtnDefaultCss = css`
   border:0 none;
@@ -79,74 +79,74 @@ export const setBtnSize = (props) => `
 
 const BtnColor = {
   primary: {
-    backgroundColor: colorV1.$pmblue,
-    color: color.$primary_white,
+    backgroundColor: color.$pmblue,
+    color: color.$white,
     hover: {
-      backgroundColor: '#028af2',
+      backgroundColor: color.$pmblue_dark,
     },
     disabled: {
-      backgroundColor: colorV1.$grey03,
-      color: colorV1.$grey06,
+      backgroundColor: color.$grey03,
+      color: color.$grey06,
     },
   },
   primary_line: {
-    backgroundColor: color.$primary_white,
-    color: colorV1.$pmblue,
-    border: `1px solid ${colorV1.$pmblue}`,
+    backgroundColor: color.$white,
+    color: color.$pmblue,
+    border: `1px solid ${color.$pmblue}`,
     hover: {
       boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)',
-      border: `1px solid ${colorV1.$pmblue}`,
+      border: `1px solid ${color.$pmblue}`,
     },
     disabled: {
-      backgroundColor: colorV1.$grey03,
-      color: colorV1.$grey06,
+      backgroundColor: color.$grey03,
+      color: color.$grey06,
     },
   },
   basic: {
-    backgroundColor: colorV1.$grey04,
-    color: colorV1.$grey09,
+    backgroundColor: color.$grey04,
+    color: color.$grey09,
     hover: {
-      backgroundColor: colorV1.$grey05,
-      color: colorV1.$grey09,
+      backgroundColor: color.$grey05,
+      color: color.$grey09,
     },
     disabled: {
-      backgroundColor: colorV1.$grey03,
-      color: colorV1.$grey06,
+      backgroundColor: color.$grey03,
+      color: color.$grey06,
     },
   },
   basic_line: {
-    backgroundColor: color.$primary_white,
-    color: colorV1.$grey09,
-    border: `1px solid ${colorV1.$grey05}`,
+    backgroundColor: color.$white,
+    color: color.$grey09,
+    border: `1px solid ${color.$grey05}`,
     hover: {
       boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)',
-      border: `1px solid ${colorV1.$grey05}`,
+      border: `1px solid ${color.$grey05}`,
     },
     disabled: {
-      backgroundColor: colorV1.$grey03,
-      color: colorV1.$grey06,
+      backgroundColor: color.$grey03,
+      color: color.$grey06,
     },
   },
   primary_light: {
-    backgroundColor: color.$primary_white,
-    color: colorV1.$pmblue,
+    backgroundColor: color.$white,
+    color: color.$pmblue,
     hover: {
       boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)',
     },
     disabled: {
-      backgroundColor: colorV1.$grey03,
-      color: colorV1.$grey06,
+      backgroundColor: color.$grey03,
+      color: color.$grey06,
     },
   },
   basic_light: {
-    backgroundColor: color.$primary_white,
-    color: colorV1.$grey09,
+    backgroundColor: color.$white,
+    color: color.$grey09,
     hover: {
       boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)',
     },
     disabled: {
-      backgroundColor: colorV1.$grey03,
-      color: colorV1.$grey06,
+      backgroundColor: color.$grey03,
+      color: color.$grey06,
     },
   },
 }
