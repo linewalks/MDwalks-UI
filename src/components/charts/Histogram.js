@@ -3,7 +3,7 @@ import * as d3 from 'd3'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { renderSVG, generateGroup, errorMessage } from '@src/helper/chartUtility'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 import fontStyle from '@src/assets/styles/font.module.sass'
 import SelectBox from '@Components/form/SelectBox'
 import styled from 'styled-components'
@@ -79,14 +79,14 @@ class Histogram extends Component {
 
     // 2. Render xAxis
     gXAxis.call(xAxis)
-    gXAxis.selectAll('.domain').attr('stroke', colorV1.$grey06)
+    gXAxis.selectAll('.domain').attr('stroke', color.$grey06)
     gXAxis.selectAll('.tick line').remove()
     gXAxis
       .selectAll('.tick text')
       .attr('font-size', 14)
       .attr('dy', 8)
       .attr('font-family', 'Spoqa Han Sans')
-      .style('fill', colorV1.$grey08)
+      .style('fill', color.$grey08)
   }
 
   createYAxis = (yAxis) => {
@@ -102,13 +102,13 @@ class Histogram extends Component {
     // 2. Render yAxis
     gYAxis.call(yAxis)
     gYAxis.selectAll('.domain').remove()
-    gYAxis.selectAll('.tick line').attr('stroke', colorV1.$grey04)
-    gYAxis.selectAll('.tick:first-child line').attr('stroke', colorV1.$grey06)
+    gYAxis.selectAll('.tick line').attr('stroke', color.$grey04)
+    gYAxis.selectAll('.tick:first-child line').attr('stroke', color.$grey06)
     gYAxis
       .selectAll('.tick text')
       .attr('font-size', 14)
       .attr('font-family', 'Spoqa Han Sans')
-      .style('fill', colorV1.$grey08)
+      .style('fill', color.$grey08)
   }
 
   createHistogramData = (data, binsNumber = 10) => {
@@ -187,7 +187,7 @@ class Histogram extends Component {
       .attr('class', fontStyle.fs14)
       .attr('font-family', 'Spoqa Han Sans')
       .attr('dominant-baseline', 'central')
-      .style('fill', colorV1.$grey08)
+      .style('fill', color.$grey08)
   }
 
   createXAxisGridLines = (gridXAxis) => {
@@ -202,8 +202,8 @@ class Histogram extends Component {
     // 2. Render gridXAxis
     gXAxisGridLine.call(gridXAxis)
     gXAxisGridLine.selectAll('.domain').remove()
-    gXAxisGridLine.selectAll('.tick line').attr('stroke', colorV1.$grey04)
-    gXAxisGridLine.selectAll('.tick:first-child line').attr('stroke', colorV1.$grey06)
+    gXAxisGridLine.selectAll('.tick line').attr('stroke', color.$grey04)
+    gXAxisGridLine.selectAll('.tick:first-child line').attr('stroke', color.$grey06)
     gXAxisGridLine.selectAll('.tick text').remove()
   }
 
@@ -230,7 +230,7 @@ class Histogram extends Component {
       .attr('x', this.xAxisScale(data.avgRisk) + 4)
       .attr('y', 12)
       .attr('class', `${fontStyle.fs12} ${fontStyle.bold}`)
-      .style('fill', colorV1.$grey09)
+      .style('fill', color.$grey09)
       .text('Average Risk Score')
   }
 
@@ -337,7 +337,7 @@ class Histogram extends Component {
     gUnit
       .append('text')
       .attr('class', `${fontStyle.fs14} ${fontStyle.bold}`)
-      .style('fill', colorV1.$grey08)
+      .style('fill', color.$grey08)
       .text(unit)
   }
 

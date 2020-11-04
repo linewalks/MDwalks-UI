@@ -24,7 +24,7 @@ it('ButtonLink', () => {
     boxSizing: 'border-box',
     color: '#189bff',
     hover: {
-      color: '#0070c6',
+      color: '#028af2',
     },
     firstChild: {
       paddingLeft: '0',
@@ -57,7 +57,7 @@ describe('ButtonLink', () => {
       boxSizing: 'border-box',
       color: '#189bff',
       hover: {
-        color: '#0070c6',
+        color: '#028af2',
       },
       firstChild: {
         paddingLeft: '0',

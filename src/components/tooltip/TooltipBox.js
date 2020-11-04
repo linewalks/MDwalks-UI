@@ -17,7 +17,7 @@ const TooltipBoxTag = styled.div`
   width: 250px;
   border-radius: 4px;
   box-shadow: 0 2px 6px 0 rgba(0, 45, 79, 0.2);
-  border: solid 1px ${color.$menu_grey};
+  border: solid 1px ${color.$grey08};
   background-color: rgba(255, 255, 255, 1);
 
   padding: 12px 14px;

@@ -16,7 +16,7 @@ describe('style', () => {
 
     const item = renderer.create(<Item disabled={disabled} layout={layout} />).toJSON()
     expect(item).toHaveStyleRule('display', 'block')
-    expect(item).toHaveStyleRule('background-color', color.$secondary_blue, {
+    expect(item).toHaveStyleRule('background-color', color.$pmblue02, {
       modifier: ':hover',
     })
 

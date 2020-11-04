@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 
 import styled from 'styled-components'
 
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 import { tableSize } from '@src/assets/styles/tableProperties'
 
 const TableWrap = styled.div`
-  border: 1px solid ${colorV1.$grey05};
+  border: 1px solid ${color.$grey05};
   border-radius: 8px;
   overflow: hidden;
 `
@@ -19,22 +19,22 @@ const Table = styled.table`
 `
 const Tr = styled.tr`
   &:not(:last-child) {
-    border-bottom: 1px solid ${colorV1.$grey04};
+    border-bottom: 1px solid ${color.$grey04};
   }
 `
 
 const Th = styled.th`
-  color: ${colorV1.$grey08};
+  color: ${color.$grey08};
   ${`font-size: ${tableSize.medium.thead.size}px`};
   font-family: "Spoqa Han Sans";
-  background: ${colorV1.$grey03};
+  background: ${color.$grey03};
   font-weight: bold;
   text-align: left;
   padding: ${tableSize.medium.thead.padding};
 `
 
 const Td = styled.td`
-  color: ${colorV1.$grey10};
+  color: ${color.$grey10};
   ${`font-size: ${tableSize.medium.tbody.size}px`};
   font-family: "Spoqa Han Sans";
   background: #ffffff;

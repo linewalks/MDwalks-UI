@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash';
 import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 import { tableSize } from '@src/assets/styles/tableProperties'
 
 const TFootTag = styled.tfoot.attrs(({ size }) => ({
@@ -17,10 +17,10 @@ const TFootTag = styled.tfoot.attrs(({ size }) => ({
     font-family: "Spoqa Han Sans";
   }
   tr {
-    border-top: 1px solid ${colorV1.$grey04};
+    border-top: 1px solid ${color.$grey04};
   }
   tr:first-child {
-    border-top: 1px solid ${colorV1.$grey06};
+    border-top: 1px solid ${color.$grey06};
   }
 `
 

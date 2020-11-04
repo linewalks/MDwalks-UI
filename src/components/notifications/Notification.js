@@ -18,8 +18,8 @@ const Box = styled.section.attrs(() => ({
 }))`
   border-radius: 10px;
   box-shadow: 0 4px 10px 0 rgba(0, 45, 79, 0.2);
-  border: 2px solid ${(props) => (props.variant === 'error' ? color.$alert_red : color.$solid_default)};
-  background-color: ${color.$primary_white};
+  border: 2px solid ${(props) => (props.variant === 'error' ? color.$red01 : color.$pmblue)};
+  background-color: ${color.$white};
   padding: 15px 56px 15px 24px;
   min-width: 700px;
   ${font.Text}

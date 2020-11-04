@@ -10,7 +10,7 @@ import {
 } from '@src/helper/chartUtility'
 import { getColorsByTheme, Themes, ColorSetMap } from '@Components/ChartColor'
 import fontStyle from '@src/assets/styles/font.module.sass'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 class LineMergeTimeline extends Component {
   rootElement = React.createRef()
@@ -62,12 +62,12 @@ class LineMergeTimeline extends Component {
 
     // 2. Render xAxis
     gXAxis.call(xAxis)
-    gXAxis.selectAll('.domain').attr('stroke', colorV1.$grey06).attr('d', 'M0.5 0V0.5H942.5 V0.5')
+    gXAxis.selectAll('.domain').attr('stroke', color.$grey06).attr('d', 'M0.5 0V0.5H942.5 V0.5')
     gXAxis.selectAll('.tick line').remove()
     gXAxis
       .selectAll('.tick text')
       .attr('class', fontStyle.fs14)
-      .style('fill', colorV1.$grey08)
+      .style('fill', color.$grey08)
   }
 
   createLineYAxis = (lineYAxisScale) => {
@@ -97,7 +97,7 @@ class LineMergeTimeline extends Component {
       .attr('x', yAxisWidth)
       .attr('y', xAxisHeight + 6)
       .attr('class', `${fontStyle.fs14} ${fontStyle.bold}`)
-      .style('fill', colorV1.$grey09)
+      .style('fill', color.$grey09)
 
     // 4. Render Line YAxis
     gLineYAxis.call(lineYAxis)
@@ -106,7 +106,7 @@ class LineMergeTimeline extends Component {
     gLineYAxis
       .selectAll('.tick text')
       .attr('class', fontStyle.fs14)
-      .style('fill', colorV1.$grey08)
+      .style('fill', color.$grey08)
   }
 
   createLineGrid = (xAxisScale, lineYAxisScale) => {
@@ -135,7 +135,7 @@ class LineMergeTimeline extends Component {
     // 4. CSS Line YAxis
     gLineYAxisGrid
       .selectAll('.tick line')
-      .attr('stroke', colorV1.$grey04)
+      .attr('stroke', color.$grey04)
       .attr('stroke-dasharray', '2')
 
     gLineYAxisGrid.select('.domain').remove()
@@ -154,7 +154,7 @@ class LineMergeTimeline extends Component {
       .call(lineXAxisGridLines)
 
     // 3. CSS Line XAxis
-    gLineXAxisGrid.selectAll('.tick line').attr('stroke', colorV1.$grey04).attr('x2', this.xAxisWidth)
+    gLineXAxisGrid.selectAll('.tick line').attr('stroke', color.$grey04).attr('x2', this.xAxisWidth)
     gLineXAxisGrid.select('.domain').remove()
   }
 
@@ -176,7 +176,7 @@ class LineMergeTimeline extends Component {
       .append('text')
       .attr('class', `${styles.verticalLineText} ${fontStyle.fs12} ${fontStyle.bold}`)
       .attr('y', xAxisHeight)
-      .attr('fill', colorV1.$grey09)
+      .attr('fill', color.$grey09)
 
     // 2. Create vertical line mouse event
     const mouseover = () => {
@@ -193,7 +193,7 @@ class LineMergeTimeline extends Component {
         .attr('x2', xAxisScale(linePositionX))
         .attr('y1', xAxisHeight)
         .attr('y2', height - xAxisHeight - overViewAxisHeight)
-        .attr('stroke', colorV1.$grey09)
+        .attr('stroke', color.$grey09)
 
       verticalLineText
         .text(d3.timeFormat('%Y.%m.%d')(lineScale.invert(d3.mouse(nodes[i])[0])))
@@ -338,7 +338,7 @@ class LineMergeTimeline extends Component {
       .attr('x', yAxisWidth)
       .attr('y', xAxisHeight + lineYAxisHeight + defaultMargin.top + 6)
       .attr('class', `${fontStyle.fs14} ${fontStyle.bold}`)
-      .style('fill', colorV1.$grey09)
+      .style('fill', color.$grey09)
 
     gTimelineLabels
       .selectAll('.timelineLabel')
@@ -350,7 +350,7 @@ class LineMergeTimeline extends Component {
       .attr('y', (d) => timelineYAxisScale(d.label[d.label.length - 1]))
       .attr('text-anchor', 'end')
       .attr('class', fontStyle.fs14)
-      .style('fill', colorV1.$grey08)
+      .style('fill', color.$grey08)
   }
 
   createTimelineXAxis = (xAxis) => {
@@ -367,7 +367,7 @@ class LineMergeTimeline extends Component {
 
     // 2. Render Timeline XAxis
     gTimelineXAxis.call(xAxis)
-    gTimelineXAxis.selectAll('.domain').attr('stroke', colorV1.$grey06).attr('d', 'M0.5 0V0.5H942.5V0.5')
+    gTimelineXAxis.selectAll('.domain').attr('stroke', color.$grey06).attr('d', 'M0.5 0V0.5H942.5V0.5')
     gTimelineXAxis.selectAll('.tick').remove()
   }
 
@@ -404,7 +404,7 @@ class LineMergeTimeline extends Component {
 
     gTimelineYAxisGrid
       .selectAll('.tick line')
-      .attr('stroke', colorV1.$grey04)
+      .attr('stroke', color.$grey04)
       .attr('stroke-dasharray', '2')
 
     gTimelineYAxisGrid.select('.domain').remove()
@@ -422,7 +422,7 @@ class LineMergeTimeline extends Component {
       .attr('transform', `translate(0, ${defaultPadding.top - 5})`)
       .call(timelineXAxisGridLines)
 
-    gTimelineXAxisGrid.selectAll('.tick line').attr('stroke', colorV1.$grey04)
+    gTimelineXAxisGrid.selectAll('.tick line').attr('stroke', color.$grey04)
     gTimelineXAxisGrid.select('.domain').remove()
   }
 
@@ -549,7 +549,7 @@ class LineMergeTimeline extends Component {
         .tickSize(-overViewAxisHeight)
         .tickFormat(''),
     )
-    overViewGrid.selectAll('.domain').attr('stroke', colorV1.$grey07)
+    overViewGrid.selectAll('.domain').attr('stroke', color.$grey07)
     overViewGrid.selectAll('.tick line').attr('stroke', 'none')
 
     // 3. Render OverViewXAxis
@@ -559,12 +559,12 @@ class LineMergeTimeline extends Component {
       yOffset: overViewAxisHeight,
     }).call(d3.axisBottom(xAxisScale).tickPadding(17))
 
-    overViewXAxis.selectAll('.domain').attr('stroke', colorV1.$grey07).attr('d', 'M0.5 0V0.5H942.5V0.5')
+    overViewXAxis.selectAll('.domain').attr('stroke', color.$grey07).attr('d', 'M0.5 0V0.5H942.5V0.5')
     overViewXAxis.selectAll('.tick line').remove()
     overViewXAxis
       .selectAll('.tick text')
       .attr('class', fontStyle.fs14)
-      .style('fill', colorV1.$grey08)
+      .style('fill', color.$grey08)
 
     // 4. Render OverView Cover Line
     this.getRootElement().select('.timeline')
@@ -573,7 +573,7 @@ class LineMergeTimeline extends Component {
       .attr('x2', width - defaultPadding.right)
       .attr('y1', height - overViewAxisHeight - defaultPadding.bottom + 10)
       .attr('y2', height - overViewAxisHeight - defaultPadding.bottom + 10)
-      .attr('stroke', colorV1.$grey07)
+      .attr('stroke', color.$grey07)
 
     this.getRootElement().select('.timeline')
       .append('line')
@@ -581,7 +581,7 @@ class LineMergeTimeline extends Component {
       .attr('x2', width - defaultPadding.right)
       .attr('y1', height - defaultPadding.bottom + 10)
       .attr('y2', height - defaultPadding.bottom + 10)
-      .attr('stroke', colorV1.$grey07)
+      .attr('stroke', color.$grey07)
   }
 
   createBrush = (xAxisScale, lineScale, xAxis, line, overViewXAxisScale) => {
@@ -620,13 +620,13 @@ class LineMergeTimeline extends Component {
         .call(xAxis)
         .selectAll('.tick text')
         .attr('class', fontStyle.fs14)
-        .style('fill', colorV1.$grey08)
+        .style('fill', color.$grey08)
 
       this.getRootElement().select(`.${styles.xAxis}`)
         .transition()
         .duration(500)
         .selectAll('.domain')
-        .attr('stroke', colorV1.$grey06)
+        .attr('stroke', color.$grey06)
         .attr('d', 'M0.5 0V0.5H942.5V0.5')
 
       this.getRootElement().select(`.${styles.xAxis}`)
@@ -650,7 +650,7 @@ class LineMergeTimeline extends Component {
 
       this.getRootElement().select('.lineYAxisGrid')
         .selectAll('.tick line')
-        .attr('stroke', colorV1.$grey04)
+        .attr('stroke', color.$grey04)
         .attr('stroke-dasharray', '2')
 
       this.getRootElement().select('.lineYAxisGrid').select('.domain').remove()
@@ -674,7 +674,7 @@ class LineMergeTimeline extends Component {
 
       this.getRootElement().select('.timelineYAxisGrid')
         .selectAll('.tick line')
-        .attr('stroke', colorV1.$grey04)
+        .attr('stroke', color.$grey04)
         .attr('stroke-dasharray', '2')
 
       this.getRootElement().select('.timelineYAxisGrid').select('.domain').remove()
@@ -742,13 +742,13 @@ class LineMergeTimeline extends Component {
         .call(xAxis)
         .selectAll('.tick text')
         .attr('class', fontStyle.fs14)
-        .style('fill', colorV1.$grey08)
+        .style('fill', color.$grey08)
 
       this.getRootElement().select(`.${styles.xAxis}`)
         .transition()
         .duration(500)
         .selectAll('.domain')
-        .attr('stroke', colorV1.$grey06)
+        .attr('stroke', color.$grey06)
         .attr('d', 'M0.5 0V0.5H942.5 V0.5')
 
       this.getRootElement().select(`.${styles.xAxis}`)
@@ -770,7 +770,7 @@ class LineMergeTimeline extends Component {
 
       this.getRootElement().select('.lineYAxisGrid')
         .selectAll('.tick line')
-        .attr('stroke', colorV1.$grey04)
+        .attr('stroke', color.$grey04)
         .attr('stroke-dasharray', '2')
 
       this.getRootElement().select('.lineYAxisGrid').select('.domain').remove()
@@ -791,7 +791,7 @@ class LineMergeTimeline extends Component {
 
       this.getRootElement().select('.timelineYAxisGrid')
         .selectAll('.tick line')
-        .attr('stroke', colorV1.$grey04)
+        .attr('stroke', color.$grey04)
         .attr('stroke-dasharray', '2')
 
       this.getRootElement().select('.timelineYAxisGrid').select('.domain').remove()

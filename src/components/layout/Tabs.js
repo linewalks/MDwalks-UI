@@ -4,7 +4,7 @@ import _ from 'lodash'
 import PropTypes from 'prop-types'
 
 import fontStyle from '@src/assets/styles/font.module.sass'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 export const TYPE = {
   CATEGORY: 'catogory',
@@ -12,14 +12,14 @@ export const TYPE = {
 }
 
 const TabBox = styled.section`
-  ${(props) => (props.type === TYPE.CATEGORY ? `border-bottom: 1px solid ${colorV1.$grey05};` : '')}
+  ${(props) => (props.type === TYPE.CATEGORY ? `border-bottom: 1px solid ${color.$grey05};` : '')}
   margin-bottom: 24px;
 `
 
 const UnderLineSize = 3
 
 const typeCategory = css`
-  color: ${(props) => (props['aria-selected'] ? colorV1.$pmblue : colorV1.$grey08)} !important;
+  color: ${(props) => (props['aria-selected'] ? color.$pmblue : color.$grey08)} !important;
 
   padding: 14px 10px ${13 + UnderLineSize}px;
   &:not(:last-child) {
@@ -28,14 +28,14 @@ const typeCategory = css`
 
   transition: color 0.5s ease;
   &:hover {
-    color: ${colorV1.$pmblue} !important;
+    color: ${color.$pmblue} !important;
   }
 
   position: relative;
 `
 
 const typeTitle = css`
-  color: ${(props) => (props['aria-selected'] ? colorV1.$grey10 : colorV1.$grey07)} !important;
+  color: ${(props) => (props['aria-selected'] ? color.$grey10 : color.$grey07)} !important;
 
   &:not(:last-child) {
     margin-right: 40px;
@@ -43,7 +43,7 @@ const typeTitle = css`
 
   transition: color 0.5s ease;
   &:hover {
-    color: ${colorV1.$grey10} !important;
+    color: ${color.$grey10} !important;
   }
 `
 
@@ -66,7 +66,7 @@ const TabUnderLine = styled.div`
   position: absolute;
   height: ${UnderLineSize}px;
 
-  ${(props) => (props.type === TYPE.TITLE ? `` : `background-color: ${colorV1.$pmblue}`)};
+  ${(props) => (props.type === TYPE.TITLE ? `` : `background-color: ${color.$pmblue}`)};
   bottom: -1px;
   width: 100%;
   left: 0;

@@ -9,7 +9,7 @@ import * as font from '@src/assets/styles/font'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as commonTag from '@Components/common/commonTag'
 import { getColorsByTheme, Themes } from '@Components/ChartColor'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 import ChartConfig from '@src/helper/ChartConfig'
 
 const Dot = styled(commonTag.Dot).attrs(() => ({}))`
@@ -179,7 +179,7 @@ const PieChart = ({
               return (
                 <li key={key}>
                   <Dot color={colors[index]} />
-                  <font.TextTag as="p" color={colorV1.$grey09}>{label}</font.TextTag>
+                  <font.TextTag as="p" color={color.$grey09}>{label}</font.TextTag>
                   <font.TextTag bold>
                     {valueConvertText(entry[legend.dataKey])}
                   </font.TextTag>

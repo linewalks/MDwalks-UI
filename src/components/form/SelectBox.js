@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import * as font from '@src/assets/styles/font'
-import { color, colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 import icnSelectOpenSm from '@src/assets/svg/icn_chevron_down_24.svg';
 import icnSelectOpenXs from '@src/assets/svg/icn_chevron_down_16.svg';
@@ -49,9 +49,9 @@ const setSelectSize = (props) => `
     padding: ${props.SizeObject.padding};
     min-width: ${props.SizeObject.minWidth};
     border-radius: ${props.SizeObject.borderRadius};
-    background: url(${props.SizeObject.backgroundImage}) no-repeat ${color.$primary_white} ${props.SizeObject.backgroundPosition};
+    background: url(${props.SizeObject.backgroundImage}) no-repeat ${color.$white} ${props.SizeObject.backgroundPosition};
 
-    border: 1px solid ${colorV1.$grey05}
+    border: 1px solid ${color.$grey05}
   }
 
   &:not(:last-child) {
@@ -59,7 +59,7 @@ const setSelectSize = (props) => `
   }
 
   option {
-    background-color: #ffffff;
+    background-color: ${color.$white};
   }
 
   display: inline-block;
@@ -80,14 +80,14 @@ const Box = styled.div.attrs(({ size = 'md' }) => {
   select {
     ${font.Text}
     &:focus {
-      border: 2px solid ${colorV1.$pmblue};
+      border: 2px solid ${color.$pmblue};
       box-shadow: 0 2px 18px 0 rgba(109, 120, 132, 0.28);
     }
 
     &:disabled {
-      background-color: ${colorV1.$grey03};
-      border-color: ${colorV1.$grey05};
-      color: ${colorV1.$grey06};
+      background-color: ${color.$grey03};
+      border-color: ${color.$grey05};
+      color: ${color.$grey06};
     }
 
     -webkit-appearance: none;
@@ -106,8 +106,8 @@ const Box = styled.div.attrs(({ size = 'md' }) => {
   }
 
   select:invalid {
-    color: ${colorV1.$grey10};
-    border: 2px solid ${colorV1.$red01};
+    color: ${color.$grey10};
+    border: 2px solid ${color.$red01};
   }
 
   ${setSelectSize}

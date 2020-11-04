@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
-import { color, colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 import btnNext from '@src/assets/svg/pagination/btn_pagination_next_42.svg'
 import btnPre from '@src/assets/svg/pagination/btn_pagination_previous_42.svg'
@@ -30,15 +30,15 @@ export const PageText = styled.span`
     margin-left: 8px;
   }
   letter-spacing: -0.5px;
-  color: ${colorV1.$grey10};
+  color: ${color.$grey10};
   ${(props) => (props.size === 'sm' ? `font-size: 14px;` : `font-size: 16px;`)};
 `
 
 export const ButtonPage = styled.button`
   border-radius: 4px;
 
-  ${(props) => (props.selected ? `background-color: ${colorV1.$grey08}` : '')};
-  ${(props) => (props.selected ? `color: ${color.$primary_white}` : `color: ${colorV1.$grey8}`)};
+  ${(props) => (props.selected ? `background-color: ${color.$grey08}` : '')};
+  ${(props) => (props.selected ? `color: ${color.$white}` : `color: ${color.$grey8}`)};
   ${(props) => (props.size === 'sm'
     ? `
       font-size: 14px;
@@ -57,7 +57,7 @@ export const ButtonMove = styled.button`
   img {
     border-radius: 8px;
   }
-  ${(props) => (props.selected ? `background-color: ${colorV1.$grey03}` : '')};
+  ${(props) => (props.selected ? `background-color: ${color.$grey03}` : '')};
   font-size: 0;
   &:first-child {
     margin-right: 16px;

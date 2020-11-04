@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 import * as sankeyCircular from 'd3-sankey-circular'
 import _ from 'lodash'
 import { color } from '@src/assets/styles/variables'
-
+import { ColorSetMap } from '@Components/ChartColor'
+import { hexToRGB } from '@Components/button/utility'
 import { strIdConvert } from '@src/helper/chartUtility'
 
 class SankeyChart extends React.Component {
@@ -34,7 +35,7 @@ class SankeyChart extends React.Component {
 
   highlightLink = () => {
     const { selectedNodes } = this.state
-    this.d3.selectAll(`.sankey-link`).style('opacity', 0.04).style('stroke', '#000000')
+    this.d3.selectAll(`.sankey-link`).style('stroke', hexToRGB(color.$grey10, 0.12))
 
     const ids = this.createLinkId(selectedNodes)
 
@@ -47,9 +48,9 @@ class SankeyChart extends React.Component {
       const targetXPosition = this.getRootElement().select(`#${target}`).attr('x')
 
       if (targetXPosition > sourceXPosition) {
-        forwardPath.style('opacity', 1).style('stroke', color.$pathway_link_blue)
+        forwardPath.style('opacity', 1).style('stroke', hexToRGB(ColorSetMap.sea300, 0.64))
       } else {
-        reversePath.style('opacity', 1).style('stroke', color.$pathway_link_red)
+        reversePath.style('opacity', 1).style('stroke', hexToRGB(ColorSetMap.rose200, 0.64))
       }
     }
   }
@@ -115,7 +116,7 @@ class SankeyChart extends React.Component {
       .attr('rx', 4)
       .attr('ry', 4)
       .attr('id', (d) => strIdConvert(d.name))
-      .style('fill', '#002d4f')
+      .style('fill', ColorSetMap.sea700)
       .style('cursor', 'pointer')
 
     // Render node name
@@ -124,11 +125,11 @@ class SankeyChart extends React.Component {
       .attr('x', (d) => (d.x0 + d.x1) / 2)
       .attr('y', (d) => d.y0 - 12)
       .attr('dy', '0.35em')
-      .attr('fill', 'rgba(0, 0, 0, 0.4)')
+      .attr('fill', color.$grey08)
       .attr('font-famliy', 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif')
       .attr('text-anchor', 'middle')
       .attr('font-size', '14')
-      .attr('font-weight', 'normal')
+      .attr('font-weight', 'bold')
       .attr('font-style', 'normal')
       .attr('font-stretch', 'normal')
       .attr('line-height', 'normal')
@@ -163,8 +164,7 @@ class SankeyChart extends React.Component {
       .attr('id', getId)
       .attr('d', ({ path }) => path)
       .style('stroke-width', (d) => Math.max(1, d.width))
-      .style('opacity', 0.04)
-      .style('stroke', '#000000') // reset 과 동일
+      .style('stroke', hexToRGB(color.$grey10, 0.12)) // reset 과 동일
 
     this.mapLinks = mapLinks
     // link.selectAll(`.sankey-link`).style('opacity', 0.04).style('stroke', '#000000')

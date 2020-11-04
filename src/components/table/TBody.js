@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash'
 import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 import { tableSize } from '@src/assets/styles/tableProperties'
 import PropTypes from 'prop-types'
 import EmptyPlaceHolder from './EmptyPlaceHolder'
@@ -12,8 +12,8 @@ const ListTBody = styled.tbody.attrs(({ size }) => ({
   ...tableSize[size].tbody,
 }))`
   .td[rowspan] {
-    border-left: 1px solid ${colorV1.$grey04};
-    border-right: 1px solid ${colorV1.$grey04};
+    border-left: 1px solid ${color.$grey04};
+    border-right: 1px solid ${color.$grey04};
   }
 
   .td[rowspan]:first-child {
@@ -24,10 +24,10 @@ const ListTBody = styled.tbody.attrs(({ size }) => ({
     border-right: none;
   }
 
-  ${({ isHaveRowSpan }) => (isHaveRowSpan ? `` : `.tr:hover { background: ${colorV1.$grey01}; }`)}
+  ${({ isHaveRowSpan }) => (isHaveRowSpan ? `` : `.tr:hover { background: ${color.$grey01}; }`)}
   
   .tr:not(:first-child) {
-    border-top: 1px solid ${colorV1.$grey04};
+    border-top: 1px solid ${color.$grey04};
   }
 
   .td {

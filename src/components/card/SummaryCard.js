@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
 import fontStyle from '@src/assets/styles/font.module.sass'
-
+import { color } from '@src/assets/styles/variables'
 import icnMoreModalMdDefault from '@src/assets/svg/icn_arrow_upright_24.svg';
 
 const Wrap1200 = styled.div`
@@ -24,7 +24,7 @@ export const Article = styled.article`
   height: 160px;
   border-radius: 8px;
   box-shadow: 0 1px 8px 0 rgba(117, 127, 139, 0.36);
-  background-color: #ffffff;
+  background-color: ${color.$white};
   font-size: 0;
   display: inline-block;
   text-align: center;
