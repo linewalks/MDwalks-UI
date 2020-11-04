@@ -4,7 +4,7 @@ import * as antd from 'antd'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-import { color, colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 const WrapTooltip = styled.div`
   display: inline;
@@ -18,12 +18,12 @@ const WrapTooltip = styled.div`
     width: 360px;
     padding: 12px 14px;
     box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);
-    border: 1px solid ${colorV1.$grey08};
+    border: 1px solid ${color.$grey08};
     border-radius: 4px;
     font-size: 14px;
     letter-spacing: -0.5px;
-    background-color: ${color.$primary_white};
-    color: ${colorV1.$grey09};
+    background-color: ${color.$white};
+    color: ${color.$grey09};
   }
 
   .ant-tooltip-placement-bottomLeft {

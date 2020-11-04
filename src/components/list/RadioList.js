@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 import * as font from '@src/assets/styles/font'
-import * as variables from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 import ChartConfig from '@src/helper/ChartConfig'
 import fontStyle from '@src/assets/styles/font.module.sass'
 
@@ -13,8 +13,6 @@ import IcnChecked from '@src/assets/svg/radiobox/btn_radiobutton_checked_24.svg'
 import IcnUnchecked from '@src/assets/svg/radiobox/btn_radiobutton_unchecked_24.svg'
 import IcnCheckedDisabled from '@src/assets/svg/radiobox/btn_radiobutton_checked_disabled_24.svg'
 import IcnUncheckedDisabled from '@src/assets/svg/radiobox/btn_radiobutton_unchecked_disabled_24.svg'
-
-const { colorV1 } = variables
 
 const Outer = styled.section`
   display: flex;
@@ -40,7 +38,7 @@ const Box = styled.div`
 
   &:hover {
     border-radius: 8px;
-    background: ${colorV1.$pmblue02};
+    background: ${color.$pmblue02};
   }
 `
 

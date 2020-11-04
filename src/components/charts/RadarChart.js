@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Rechart from 'recharts'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 import * as commonTag from '@Components/common/commonTag'
 import {
   getColorsByTheme, Themes,
@@ -77,7 +77,7 @@ const RadarChart = ({
         <Rechart.Tooltip
           content={tooltipContent}
         />
-        <Rechart.PolarGrid stroke={colorV1.$grey04} />
+        <Rechart.PolarGrid stroke={color.$grey04} />
         <PolarAngleAxis dataKey={nameKey} />
         {
           newDataKey.map((entry, index) => (

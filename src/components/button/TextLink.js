@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import * as font from '@src/assets/styles/font'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 const colorSet = {
-  basic: colorV1.$grey09,
-  primary: colorV1.$pmblue,
+  basic: color.$grey09,
+  primary: color.$pmblue,
 }
 
 const TextLinkTag = styled(font.TextTag).attrs(() => ({

@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Rechart from 'recharts'
 import PropTypes from 'prop-types'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 import * as commonTag from '@Components/common/commonTag'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import {
@@ -165,9 +165,9 @@ const TimeToEvent = ({
             )
           }
           {
-            _.map(yTicks, (tick) => (<Rechart.ReferenceLine key={`ReferenceLine${tick}`} y={tick} stroke={colorV1.$grey04} />))
+            _.map(yTicks, (tick) => (<Rechart.ReferenceLine key={`ReferenceLine${tick}`} y={tick} stroke={color.$grey04} />))
           }
-          <Rechart.ReferenceLine y={_.last(yTicks)} stroke={colorV1.$grey06} />
+          <Rechart.ReferenceLine y={_.last(yTicks)} stroke={color.$grey06} />
           <XAxis dataKey="value" type="number" tickFormatter={xTickFormatter} ticks={xTicks} domain={xDomain} />
           <YAxis type="number" tickFormatter={yTickFormatter} ticks={yTicks} domain={yDomain} />
           <Rechart.ZAxis dataKey="z" range={[0, 300]} />

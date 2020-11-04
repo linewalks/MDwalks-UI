@@ -5,7 +5,7 @@ import _ from 'lodash'
 import isEmpty from 'lodash/isEmpty';
 import styled from 'styled-components'
 import * as font from '@src/assets/styles/font'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 import { tableSize } from '@src/assets/styles/tableProperties'
 
 import ICO_DOWN from '@src/assets/svg/table/icn_sort_down_filled_unselected_grey07_16.svg'
@@ -23,7 +23,7 @@ const Td = styled.td.attrs(({ size }) => ({
   ${font.Text}
   ${({ padding }) => (`padding: ${padding}`)};
   text-align: center;
-  background: ${colorV1.$grey02};
+  background: ${color.$grey02};
 `
 
 const Th = styled.th.attrs(({ size }) => ({
@@ -32,7 +32,7 @@ const Th = styled.th.attrs(({ size }) => ({
   ${font.Text}
   ${({ padding }) => (`padding: ${padding}`)};
   text-align: center;
-  background: ${colorV1.$grey02};
+  background: ${color.$grey02};
 
   &:first-child {
     border-radius: 8px 0 0 0;
@@ -72,7 +72,7 @@ const SortButton = styled.button.attrs(({ size }) => ({
 `
 
 const Thead = styled.thead`
-  border-bottom: 1px solid ${colorV1.$grey04};
+  border-bottom: 1px solid ${color.$grey04};
 `
 
 const TrEmpty = () => (

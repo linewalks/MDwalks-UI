@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer'
 import 'jest-styled-components'
 
 import Tabs, { TYPE } from '@Components/layout/Tabs';
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 const {
   Tab, TabPane, TabUnderLine, TabBox,
@@ -13,32 +13,32 @@ const {
 describe('Style', () => {
   it('Tab 이 selected 된 경우 color 값이 지정된다', () => {
     const tab = renderer.create(<Tab aria-selected type={TYPE.CATEGORY} />).toJSON()
-    expect(tab).toHaveStyleRule('color', `${colorV1.$pmblue} !important`)
-    expect(tab).toHaveStyleRule('color', `${colorV1.$pmblue} !important`, {
+    expect(tab).toHaveStyleRule('color', `${color.$pmblue} !important`)
+    expect(tab).toHaveStyleRule('color', `${color.$pmblue} !important`, {
       modifier: ':hover',
     })
   })
 
   it('Tab 이 selected 되지 않는 경우', () => {
     const tab = renderer.create(<Tab aria-selected={false} type={TYPE.CATEGORY} />).toJSON()
-    expect(tab).toHaveStyleRule('color', `${colorV1.$grey08} !important`)
-    expect(tab).toHaveStyleRule('color', `${colorV1.$pmblue} !important`, {
+    expect(tab).toHaveStyleRule('color', `${color.$grey08} !important`)
+    expect(tab).toHaveStyleRule('color', `${color.$pmblue} !important`, {
       modifier: ':hover',
     })
   })
 
   it('Tab 이 selected 된 경우 color 값이 지정된다', () => {
     const tab = renderer.create(<Tab aria-selected type={TYPE.TITLE} />).toJSON()
-    expect(tab).toHaveStyleRule('color', `${colorV1.$grey10} !important`)
-    expect(tab).toHaveStyleRule('color', `${colorV1.$grey10} !important`, {
+    expect(tab).toHaveStyleRule('color', `${color.$grey10} !important`)
+    expect(tab).toHaveStyleRule('color', `${color.$grey10} !important`, {
       modifier: ':hover',
     })
   })
 
   it('Tab 이 selected 되지 않는 경우', () => {
     const tab = renderer.create(<Tab aria-selected={false} type={TYPE.TITLE} />).toJSON()
-    expect(tab).toHaveStyleRule('color', `${colorV1.$grey07} !important`)
-    expect(tab).toHaveStyleRule('color', `${colorV1.$grey10} !important`, {
+    expect(tab).toHaveStyleRule('color', `${color.$grey07} !important`)
+    expect(tab).toHaveStyleRule('color', `${color.$grey10} !important`, {
       modifier: ':hover',
     })
   })
@@ -46,19 +46,19 @@ describe('Style', () => {
   it('tabUnderLine 이 selected 된 경우 backgorund-color, display 값이 지정 된다', () => {
     const tabUnderLine = renderer.create(<TabUnderLine aria-selected />).toJSON()
     expect(tabUnderLine).toHaveStyleRule('display', 'block')
-    expect(tabUnderLine).toHaveStyleRule('background-color', colorV1.$pmblue)
+    expect(tabUnderLine).toHaveStyleRule('background-color', color.$pmblue)
   })
 
   it('tabUnderLine 이 selected 되지 않는 경우', () => {
     const tabUnderLine = renderer.create(<TabUnderLine />).toJSON()
     expect(tabUnderLine).toHaveStyleRule('display', 'none')
-    expect(tabUnderLine).toHaveStyleRule('background-color', colorV1.$pmblue)
+    expect(tabUnderLine).toHaveStyleRule('background-color', color.$pmblue)
   })
 
   it('tabUnderLine 은 type 이 Title 인 경우 background 가 없다', () => {
     const tabUnderLine = renderer.create(<TabUnderLine aria-selected type={TYPE.TITLE} />).toJSON()
     expect(tabUnderLine).toHaveStyleRule('display', 'block')
-    expect(tabUnderLine).not.toHaveStyleRule('background-color', colorV1.$pmblue)
+    expect(tabUnderLine).not.toHaveStyleRule('background-color', color.$pmblue)
   })
 
   it('TabPane 이 hidden 된 경우', () => {
@@ -78,7 +78,7 @@ describe('Style', () => {
     })
     it(`type ${TYPE.CATEGORY}`, () => {
       const tabBox = renderer.create(<TabBox type={TYPE.CATEGORY} />).toJSON()
-      expect(tabBox).toHaveStyleRule('border-bottom', `1px solid ${colorV1.$grey05}`)
+      expect(tabBox).toHaveStyleRule('border-bottom', `1px solid ${color.$grey05}`)
     })
   })
 })

@@ -8,7 +8,7 @@ import {
 } from '@Components/ChartColor'
 import _ from 'lodash'
 import fontStyle from '@src/assets/styles/font.module.sass'
-import { colorV1 } from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 
 const RadiusGauge = ({
   width,
@@ -62,7 +62,7 @@ const RadiusGauge = ({
           && inRange(threshold) && (
             <g transform={`translate(75, 150) rotate(${angleScale(threshold)}, 75, 3.1)`}>
               <path
-                fill={colorV1.$red01}
+                fill={color.$red01}
                 fillRule="nonzero"
                 d="M46.25-44.75v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2c0 .276.224.5.5.5s.5-.224.5-.5v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5zm0 5v2h1v-2c0-.276-.224-.5-.5-.5s-.5.224-.5.5z"
                 transform="translate(-1444 -882) translate(1281 684) translate(21 192) translate(122 9) rotate(-90 46.75 1)"
@@ -77,7 +77,7 @@ const RadiusGauge = ({
         <g
           transform="translate(0, 55)"
           className={fontStyle.fs13}
-          style={{ textAnchor: 'middle', fill: colorV1.$grey08 }}
+          style={{ textAnchor: 'middle', fill: color.$grey08 }}
         >
           <text
             x={cx - Math.round(120 * Math.cos(0))}
@@ -117,7 +117,7 @@ const RadiusGauge = ({
         <g
           transform="translate(150, 200)"
           className={`${fontStyle.fs32} ${fontStyle.bold}`}
-          style={{ textAnchor: 'middle', fill: colorV1.$grey10 }}
+          style={{ textAnchor: 'middle', fill: color.$grey10 }}
         >
           <text>{`${score}`.slice(0, 4)}</text>
         </g>

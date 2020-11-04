@@ -32,7 +32,7 @@ export const BoxShadowInner = styled.div`
   border-radius: 10px;
   box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);
 
-  background-color: ${color.$primary_white};
+  background-color: ${color.$white};
   padding: 30px;
 `
 

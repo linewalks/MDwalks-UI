@@ -6,7 +6,7 @@ import THead from '@Components/table/THead';
 import TBody from '@Components/table/TBody';
 import TFoot from '@Components/table/TFoot';
 import styled, { css } from 'styled-components'
-import * as variables from '@src/assets/styles/variables'
+import { color } from '@src/assets/styles/variables'
 import * as commonTag from '@Components/common/commonTag'
 
 const sideFit = css`
@@ -61,7 +61,7 @@ const TableBox = styled.table`
   border-spacing: 0;
   width: 100%;
 
-  border-bottom: 1px solid ${variables.colorV1.$grey06};
+  border-bottom: 1px solid ${color.$grey06};
 
   ${(props) => (props.notBottom ? 'border-bottom: none' : '')};
 
@@ -69,7 +69,7 @@ const TableBox = styled.table`
 `
 
 const WrapScrollTables = styled.div`
-  border-bottom: 1px solid ${variables.colorV1.$grey06};
+  border-bottom: 1px solid ${color.$grey06};
 `
 
 const Columns = ({ columns }) => (
