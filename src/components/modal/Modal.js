@@ -1,21 +1,23 @@
 import React, { useEffect } from 'react'
+import _ from 'lodash'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 import Heading from '@Components/layout/Heading'
+import Button from '@Components/button/Button'
 import { color, zIndex } from '@src/assets/styles/variables'
 import * as font from '@src/assets/styles/font'
+import fontStyle from '@src/assets/styles/font.module.sass'
 import { hexToRGB } from '@Components/button/utility'
-import icnPopupCloseMd from '@src/assets/svg/icn_close_32.svg';
+import icnPopupCloseMd from '@src/assets/svg/icn_close_32.svg'
 
 const size = {
   modalPadding: '30px',
-  borderRadius: '10px',
+  borderRadius: '8px',
+  minWidth: '480px',
   maxWidth: '1200px',
-  maxHeight: '800px',
   footerMarginTop: '24px',
   footerPaddingTop: '24px',
-  minWidth: '480px',
 }
 
 const Overlay = styled.div`
@@ -36,9 +38,8 @@ const ModalBox = styled.div`
   min-width: ${size.minWidth};
   border-radius: ${size.borderRadius};
   background-color: ${color.$white};
-  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
+  box-shadow: 0 3px 22px 0 rgba(109, 120, 132, 0.24);
   z-index: ${zIndex.$modal};
-
   padding: ${size.modalPadding};
 `
 
@@ -58,6 +59,7 @@ const Contents = styled(font.TextTag).attrs({
   size: '18',
   bold: false,
 })`
+  padding-bottom: 16px;
 `
 
 const Loading = styled.div`
@@ -81,19 +83,55 @@ const Loading = styled.div`
 `
 
 const Footer = styled.footer`
-  margin-top: ${size.footerMarginTop};
   padding-top: ${size.footerPaddingTop};
-  border-top: 1px solid ${color.$grey04};
+  ${({ isExistsContents }) => (isExistsContents && `border-top: 1px solid ${color.$grey04}`)};
   text-align: right;
+`
 
-  margin-left: -${size.modalPadding};
-  margin-right: -${size.modalPadding};
-  padding-left: ${size.modalPadding};
-  padding-right: ${size.modalPadding};
+const basicButtons = ({
+  type,
+  onCancel,
+  onConfirm,
+  closeModal,
+}) => {
+  const wrappedOnCancel = () => {
+    onCancel()
+    closeModal()
+  }
+  const wrappedOnConfirm = () => {
+    onConfirm()
+    closeModal()
+  }
+  return (
+    <div>
+      {
+        type && _.isEqual(type, 'confirm') && (
+          <Button variant="basic_line" onClick={wrappedOnCancel}>Cancel</Button>
+        )
+      }
+      <Button variant="primary" onClick={wrappedOnConfirm}>Confirm</Button>
+    </div>
+  )
+}
+
+const WrapDescription = styled.p.attrs({
+  className: [fontStyle.fs14, fontStyle.fc_grey08].join(' '),
+})`
+  margin-top: 8px;
 `
 
 const Modal = ({
-  title, isOpen, isLoading, closeModal, description, footer, children,
+  variant,
+  type,
+  title,
+  isOpen,
+  isLoading,
+  closeModal,
+  description,
+  footer,
+  children,
+  onCancel,
+  onConfirm,
 }) => {
   useEffect(() => {
     if (isOpen) {
@@ -121,16 +159,20 @@ const Modal = ({
           <ModalBox>
             <Header>
               <div>
-                <Heading size="22" opacity="8">{title}</Heading>
-                <div style={{ marginLeft: 'auto', marginTop: '-10px', marginRight: '-10px' }}>
-                  <button onClick={closeModal} type="button">
-                    <img src={icnPopupCloseMd} width="32x" height="32px" alt="close" />
-                  </button>
-                </div>
+                <Heading size="22">{title}</Heading>
+                {
+                  _.isEqual(variant, 'layer') && (
+                    <div style={{ marginLeft: 'auto' }}>
+                      <button onClick={closeModal} type="button">
+                        <img src={icnPopupCloseMd} width="32px" height="32px" alt="close" />
+                      </button>
+                    </div>
+                  )
+                }
               </div>
               {
                 description && (
-                  <font.TextTag as="p" size={14} opacity={6} style={{ marginTop: '6px' }}>{description}</font.TextTag>
+                  <WrapDescription>{description}</WrapDescription>
                 )
               }
             </Header>
@@ -140,10 +182,24 @@ const Modal = ({
             </Contents>
             {
               footer && (
-                <Footer>
+                <Footer isExistsContents>
                   <div>
                     {footer}
                   </div>
+                </Footer>
+              )
+            }
+            {
+              _.isEmpty(footer) && _.isEqual(variant, 'basic') && (
+                <Footer>
+                  {
+                    basicButtons({
+                      type,
+                      onCancel,
+                      onConfirm,
+                      closeModal,
+                    })
+                  }
                 </Footer>
               )
             }
@@ -156,21 +212,29 @@ const Modal = ({
 }
 
 Modal.defaultProps = {
+  variant: 'layer',
+  type: 'confirm',
   title: '',
   isOpen: undefined,
   isLoading: undefined,
   closeModal: () => {},
   description: '',
   footer: null,
+  onCancel: () => {},
+  onConfirm: () => {},
 }
 
 Modal.propTypes = {
+  variant: PropTypes.oneOf(['basic', 'layer']),
+  type: PropTypes.oneOf(['alert', 'confirm']),
   title: PropTypes.string,
   isOpen: PropTypes.bool,
   isLoading: PropTypes.bool,
   closeModal: PropTypes.func,
   description: PropTypes.string,
   footer: PropTypes.node,
+  onCancel: PropTypes.func,
+  onConfirm: PropTypes.func,
 }
 
 export default Modal
