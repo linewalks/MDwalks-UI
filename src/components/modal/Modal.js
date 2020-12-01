@@ -84,7 +84,6 @@ const Loading = styled.div`
 
 const Footer = styled.footer`
   padding-top: ${size.footerPaddingTop};
-  ${({ isExistsContents }) => (isExistsContents && `border-top: 1px solid ${color.$grey04}`)};
   text-align: right;
 `
 
@@ -120,6 +119,12 @@ const WrapDescription = styled.p.attrs({
   margin-top: 8px;
 `
 
+const FooterBar = styled.div`
+  border-top: solid 1px ${color.$grey04};
+  margin-left: -30px;
+  margin-right: -30px;
+`
+
 const Modal = ({
   variant,
   type,
@@ -132,6 +137,7 @@ const Modal = ({
   children,
   onCancel,
   onConfirm,
+  isExistsScroll,
 }) => {
   useEffect(() => {
     if (isOpen) {
@@ -181,8 +187,13 @@ const Modal = ({
               {children}
             </Contents>
             {
+              isExistsScroll && (
+                <FooterBar />
+              )
+            }
+            {
               footer && (
-                <Footer isExistsContents>
+                <Footer>
                   <div>
                     {footer}
                   </div>
@@ -222,6 +233,7 @@ Modal.defaultProps = {
   footer: null,
   onCancel: () => {},
   onConfirm: () => {},
+  isExistsScroll: false,
 }
 
 Modal.propTypes = {
@@ -235,6 +247,7 @@ Modal.propTypes = {
   footer: PropTypes.node,
   onCancel: PropTypes.func,
   onConfirm: PropTypes.func,
+  isExistsScroll: PropTypes.bool, // 모달 내부에 스크롤이 존재하는 경우 true
 }
 
 export default Modal

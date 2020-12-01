@@ -132,6 +132,7 @@ const ModalExample = () => {
         type="confirm"
         onCancel={() => {alert('cancel')}}
         onConfirm={() => {alert('confirm')}}
+        isExistsScroll
       >
         <div style={{ height: 400 }}>콘텐츠 최소 피드백 텍스트는 1줄입니다.</div>
       </Modal>
