@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
@@ -172,7 +173,7 @@ HeaderTextSort.propTypes = {
 }
 
 const THead = ({
-  headers, wrapTh, subHeaders, loading, size, sortOrderList, defaultSort,
+  headers, wrapTh, subHeaders, loading, size, sortOrderList, defaultSort, resetSort, setResetSort,
 }) => {
   const [toggle, setToggle] = useState({})
   const [toggleIdx, setToggleIdx] = useState({})
@@ -280,6 +281,14 @@ const THead = ({
     }
   }, [defaultSort, sortOrderList])
 
+  useEffect(() => {
+    if (resetSort) {
+      setToggle({})
+      setToggleIdx({})
+      setResetSort(false)
+    }
+  }, [resetSort])
+
   return (
     <Thead>
       {createHeader(headers)}
@@ -295,6 +304,8 @@ THead.defaultProps = {
   loading: false,
   size: 'medium',
   defaultSort: {},
+  resetSort: false,
+  setResetSort: () => {},
 }
 
 THead.propTypes = {
@@ -313,6 +324,8 @@ THead.propTypes = {
     text: PropTypes.string,
     order: PropTypes.number,
   }),
+  resetSort: PropTypes.bool,
+  setResetSort: PropTypes.func,
 }
 
 export default THead

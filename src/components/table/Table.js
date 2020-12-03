@@ -98,7 +98,7 @@ Columns.propTypes = {
 const Table = ({
   data, rowSpanCount, wrapTh, wrapTd, appendRow, className,
   loading, scroll, columns, size, placeholder, defaultSort,
-  sortOrderList,
+  sortOrderList, resetSort, setResetSort,
 }) => {
   if (_.isEmpty(data)) {
     return (
@@ -123,6 +123,8 @@ const Table = ({
             size={size}
             sortOrderList={sortOrderList}
             defaultSort={defaultSort}
+            resetSort={resetSort}
+            setResetSort={setResetSort}
           />
         </TableBox>
         <commonTag.WrapperScrollBars scroll={scroll}>
@@ -159,6 +161,8 @@ const Table = ({
         size={size}
         sortOrderList={sortOrderList}
         defaultSort={defaultSort}
+        resetSort={resetSort}
+        setResetSort={setResetSort}
       />
       <TBody
         headers={data.headers}
@@ -189,6 +193,8 @@ Table.defaultProps = {
   placeholder: undefined,
   sortOrderList: ['desc', 'asc', ''],
   defaultSort: {},
+  resetSort: false,
+  setResetSort: () => {},
 }
 
 Table.propTypes = {
@@ -226,6 +232,8 @@ Table.propTypes = {
     text: PropTypes.string,
     order: PropTypes.number,
   }),
+  resetSort: PropTypes.bool,
+  setResetSort: PropTypes.func,
 }
 
 export default Table
