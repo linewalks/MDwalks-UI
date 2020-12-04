@@ -1,6 +1,11 @@
 ## [0.14.2](https://github.com/linewalks/MDwalks-UI/compare/v0.14.1...v0.14.2) (2020-12-04)
 
 
+### Features
+
+* **Modal:** variant, type 추가
+* **Table:** 정렬을 초기화하는 기능 추가
+
 
 ## [0.14.1](https://github.com/linewalks/MDwalks-UI/compare/v0.14.0...v0.14.1) (2020-11-04)
 
