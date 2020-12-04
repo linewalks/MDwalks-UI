@@ -23450,7 +23450,9 @@ var THead = function THead(_ref9) {
       loading = _ref9.loading,
       size = _ref9.size,
       sortOrderList = _ref9.sortOrderList,
-      defaultSort = _ref9.defaultSort;
+      defaultSort = _ref9.defaultSort,
+      resetSort = _ref9.resetSort,
+      setResetSort = _ref9.setResetSort;
 
   var _useState = useState({}),
       _useState2 = _slicedToArray(_useState, 2),
@@ -23559,6 +23561,13 @@ var THead = function THead(_ref9) {
       });
     }
   }, [defaultSort, sortOrderList]);
+  useEffect(function () {
+    if (resetSort) {
+      setToggle({});
+      setToggleIdx({});
+      setResetSort(false);
+    }
+  }, [resetSort]);
   return /*#__PURE__*/React.createElement(Thead, null, createHeader(headers), isEmpty_1(subHeaders) ? null : createSubHeader(subHeaders));
 };
 
@@ -23568,7 +23577,9 @@ THead.defaultProps = {
   subHeaders: undefined,
   loading: false,
   size: 'medium',
-  defaultSort: {}
+  defaultSort: {},
+  resetSort: false,
+  setResetSort: function setResetSort() {}
 };
 THead.propTypes = {
   headers: propTypes.arrayOf(propTypes.oneOfType([propTypes.string, propTypes.shape()])),
@@ -23580,7 +23591,9 @@ THead.propTypes = {
   defaultSort: propTypes.shape({
     text: propTypes.string,
     order: propTypes.number
-  })
+  }),
+  resetSort: propTypes.bool,
+  setResetSort: propTypes.func
 };
 
 var icnNoData = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTk4IiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE5OCAxNDAiPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggaWQ9ImFybDdpcTYwc2EiIGQ9Ik0xOTMgMTBsLjAwMiAxMjEuODQxQzE3My4wMzYgMTE5LjkgMTM4LjM5MyAxMTIgOTkgMTEyYy0zOS4zOTQgMC03NC4wMzcgNy45LTk0LjAwMyAxOS44NDJMNSAxMGgxODh6Ii8+CiAgICAgICAgPHBhdGggaWQ9IjM5OGM5NTFrMmUiIGQ9Ik0yNiAwaDYyLjM3NmMxLjExNiAwIDIuMTguNDY1IDIuOTM3IDEuMjg0bDIxLjYyNCAyMy4zOGMuNjgzLjc0IDEuMDYzIDEuNzEgMS4wNjMgMi43MTZWMTE3YzAgMi4yMS0xLjc5IDQtNCA0SDI0Yy0yLjIxIDAtNC0xLjc5LTQtNFY2YzAtMy4zMTQgMi42ODYtNiA2LTZ6Ii8+CiAgICAgICAgPHBhdGggaWQ9InA4OHhjY2FlcmYiIGQ9Ik0yNiAwaDYxLjU3N2MxLjYyOSAwIDMuMTg3LjY2MiA0LjMxOCAxLjgzNGwyMC40MjMgMjEuMTdjMS4wOCAxLjExOSAxLjY4MiAyLjYxMiAxLjY4MiA0LjE2NlYxMTBjMCAzLjMxNC0yLjY4NiA2LTYgNkgyNmMtMy4zMTQgMC02LTIuNjg2LTYtNlY2YzAtMy4zMTQgMi42ODYtNiA2LTZ6Ii8+CiAgICAgICAgPHBhdGggaWQ9IjZ1ODRjZG9temkiIGQ9Ik0xMDcgNDVjMTIuNzAzIDAgMjMgMTAuMjk3IDIzIDIzcy0xMC4yOTcgMjMtMjMgMjMtMjMtMTAuMjk3LTIzLTIzIDEwLjI5Ny0yMyAyMy0yM3ptMCAyYy0xMS41OTggMC0yMSA5LjQwMi0yMSAyMXM5LjQwMiAyMSAyMSAyMSAyMS05LjQwMiAyMS0yMS05LjQwMi0yMS0yMS0yMXptLTUuNjU3IDEzLjkyOUwxMDcgNjYuNTg2bDUuNjU4LTUuNjU3Yy4zOS0uMzkgMS4wMjQtLjM5IDEuNDE0IDAgLjM5LjM5LjM5IDEuMDI0IDAgMS40MTRsLTUuNjU3IDUuNjU4IDUuNjU3IDUuNjU2Yy4zOS4zOS4zOSAxLjAyNCAwIDEuNDE0LS4zOS4zOS0xLjAyNC4zOS0xLjQxNCAwbC01LjY1OC01LjY1Ni01LjY1NiA1LjY1NmMtLjM5LjM5LTEuMDI0LjM5LTEuNDE0IDAtLjM5LS4zOS0uMzktMS4wMjQgMC0xLjQxNEwxMDUuNTg1IDY4bC01LjY1Ni01LjY1OGMtLjM5LS4zOS0uMzktMS4wMjQgMC0xLjQxNC4zOS0uMzkgMS4wMjQtLjM5IDEuNDE0IDB6Ii8+CiAgICAgICAgPGZpbHRlciBpZD0iZTFleXRwMWF3YyIgd2lkdGg9IjExNy4zJSIgaGVpZ2h0PSIxMjYuNCUiIHg9Ii04LjYlIiB5PSItMTQuNiUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+CiAgICAgICAgICAgIDxmZU9mZnNldCBkeT0iLTIiIGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJzaGFkb3dPZmZzZXRPdXRlcjEiLz4KICAgICAgICAgICAgPGZlR2F1c3NpYW5CbHVyIGluPSJzaGFkb3dPZmZzZXRPdXRlcjEiIHJlc3VsdD0ic2hhZG93Qmx1ck91dGVyMSIgc3RkRGV2aWF0aW9uPSI2Ii8+CiAgICAgICAgICAgIDxmZUNvbG9yTWF0cml4IGluPSJzaGFkb3dCbHVyT3V0ZXIxIiB2YWx1ZXM9IjAgMCAwIDAgMC4zOTIxNTY4NjMgMCAwIDAgMCAwLjY0MzEzNzI1NSAwIDAgMCAwIDAuOTUyOTQxMTc2IDAgMCAwIDAuNTYzODY1ODIyIDAiLz4KICAgICAgICA8L2ZpbHRlcj4KICAgICAgICA8ZmlsdGVyIGlkPSJkcXRkZjA3YzVoIiB3aWR0aD0iMTU0LjMlIiBoZWlnaHQ9IjE1NC4zJSIgeD0iLTI3LjIlIiB5PSItMjUlIiBmaWx0ZXJVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giPgogICAgICAgICAgICA8ZmVPZmZzZXQgZHk9IjEiIGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJzaGFkb3dPZmZzZXRPdXRlcjEiLz4KICAgICAgICAgICAgPGZlR2F1c3NpYW5CbHVyIGluPSJzaGFkb3dPZmZzZXRPdXRlcjEiIHJlc3VsdD0ic2hhZG93Qmx1ck91dGVyMSIgc3RkRGV2aWF0aW9uPSI0Ii8+CiAgICAgICAgICAgIDxmZUNvbG9yTWF0cml4IGluPSJzaGFkb3dCbHVyT3V0ZXIxIiB2YWx1ZXM9IjAgMCAwIDAgMC4zODgyMzUyOTQgMCAwIDAgMCAwLjYzOTIxNTY4NiAwIDAgMCAwIDAuOTUyOTQxMTc2IDAgMCAwIDEgMCIvPgogICAgICAgIDwvZmlsdGVyPgogICAgICAgIDxlbGxpcHNlIGlkPSIwanZzY3V2OWdkIiBjeD0iMTAwIiBjeT0iMTg0IiByeD0iMTEwIiByeT0iNzIiLz4KICAgIDwvZGVmcz4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0OSAtNjU5MSkgdHJhbnNsYXRlKDQ4IDY0OTcpIHRyYW5zbGF0ZSg1MDEgOTQpIj4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMCAwSDE5OFYxNDBIMHoiLz4KICAgICAgICAgICAgICAgICAgICA8bWFzayBpZD0iM2Q0MHMyMzdpYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgICAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2FybDdpcTYwc2EiLz4KICAgICAgICAgICAgICAgICAgICA8L21hc2s+CiAgICAgICAgICAgICAgICAgICAgPGcgZmlsbD0iIzAwMCIgbWFzaz0idXJsKCMzZDQwczIzN2liKSI+CiAgICAgICAgICAgICAgICAgICAgICAgIDx1c2UgZmlsdGVyPSJ1cmwoI2UxZXl0cDFhd2MpIiB4bGluazpocmVmPSIjMGp2c2N1djlnZCIvPgogICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgICAgICA8ZyBtYXNrPSJ1cmwoIzNkNDBzMjM3aWIpIj4KICAgICAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDAgMTApIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGZpbGw9IiNDMEQ3RkMiIGQ9Ik02IDIzaDY3LjU0M2MxLjYzIDAgMy4xOS42NjMgNC4zMiAxLjgzNmwyMi40NTcgMjMuMzAyYzEuMDc4IDEuMTE4IDEuNjggMi42MSAxLjY4IDQuMTY0VjE0M2MwIDMuMzE0LTIuNjg2IDYtNiA2SDZjLTMuMzE0IDAtNi0yLjY4Ni02LTZWMjljMC0zLjMxNCAyLjY4Ni02IDYtNnoiLz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx1c2UgZmlsbD0iI0ZGRiIgeGxpbms6aHJlZj0iIzM5OGM5NTFrMmUiLz4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxtYXNrIGlkPSJnYmZrdHZneXpnIiBmaWxsPSIjZmZmIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8dXNlIHhsaW5rOmhyZWY9IiNwODh4Y2NhZXJmIi8+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L21hc2s+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiM5MkI5RkMiIHhsaW5rOmhyZWY9IiNwODh4Y2NhZXJmIi8+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjQzBEN0ZDIiBkPSJNOTAuNzI4LTYuMTY0bDI4LjY4NiAzMC40NzljLjM3OC40MDIuMzYgMS4wMzUtLjA0MyAxLjQxMy0uMTg2LjE3NS0uNDMuMjcyLS42ODUuMjcySDkzYy0yLjIxIDAtNC0xLjc5LTQtNFYtNS40NzhjMC0uNTUzLjQ0OC0xIDEtMSAuMjc2IDAgLjU0LjExMy43MjguMzE0eiIgbWFzaz0idXJsKCNnYmZrdHZneXpnKSIvPgogICAgICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgICAgIDxnIG1hc2s9InVybCgjM2Q0MHMyMzdpYikiPgogICAgICAgICAgICAgICAgICAgICAgICA8dXNlIGZpbGw9IiMwMDAiIGZpbHRlcj0idXJsKCNkcXRkZjA3YzVoKSIgeGxpbms6aHJlZj0iIzZ1ODRjZG9temkiLz4KICAgICAgICAgICAgICAgICAgICAgICAgPHVzZSBmaWxsPSIjRkZGIiB4bGluazpocmVmPSIjNnU4NGNkb216aSIvPgogICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+';
@@ -25554,7 +25567,9 @@ var Table = function Table(_ref2) {
       size = _ref2.size,
       placeholder = _ref2.placeholder,
       defaultSort = _ref2.defaultSort,
-      sortOrderList = _ref2.sortOrderList;
+      sortOrderList = _ref2.sortOrderList,
+      resetSort = _ref2.resetSort,
+      setResetSort = _ref2.setResetSort;
 
   if (lodash.isEmpty(data)) {
     return /*#__PURE__*/React.createElement("div", null, "There is no data", /*#__PURE__*/React.createElement("br", null), "Please search agains");
@@ -25573,7 +25588,9 @@ var Table = function Table(_ref2) {
       loading: loading,
       size: size,
       sortOrderList: sortOrderList,
-      defaultSort: defaultSort
+      defaultSort: defaultSort,
+      resetSort: resetSort,
+      setResetSort: setResetSort
     })), /*#__PURE__*/React.createElement(WrapperScrollBars, {
       scroll: scroll
     }, /*#__PURE__*/React.createElement(TableBox, {
@@ -25612,7 +25629,9 @@ var Table = function Table(_ref2) {
     loading: loading,
     size: size,
     sortOrderList: sortOrderList,
-    defaultSort: defaultSort
+    defaultSort: defaultSort,
+    resetSort: resetSort,
+    setResetSort: setResetSort
   }), /*#__PURE__*/React.createElement(TBody, {
     headers: data.headers,
     subHeaders: data.subHeaders,
@@ -25641,7 +25660,9 @@ Table.defaultProps = {
   size: 'medium',
   placeholder: undefined,
   sortOrderList: ['desc', 'asc', ''],
-  defaultSort: {}
+  defaultSort: {},
+  resetSort: false,
+  setResetSort: function setResetSort() {}
 };
 Table.propTypes = {
   columns: propTypes.arrayOf(propTypes.oneOfType([propTypes.string, propTypes.number])),
@@ -25666,7 +25687,9 @@ Table.propTypes = {
   defaultSort: propTypes.shape({
     text: propTypes.string,
     order: propTypes.number
-  })
+  }),
+  resetSort: propTypes.bool,
+  setResetSort: propTypes.func
 };
 
 function _templateObject5$3() {
@@ -28508,10 +28531,18 @@ Histogram.propTypes = {
   unit: propTypes.string
 };
 
-var icnPopupCloseMd = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wIDBIMzJWMzJIMHoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMTMzIC0xNjEyKSB0cmFuc2xhdGUoMCA4MTQpIHRyYW5zbGF0ZSgxMTYgNzc4KSB0cmFuc2xhdGUoMTAxNyAyMCkiLz4KICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZmlsbD0iIzRENTY2MSIgZD0iTTUuNzEgNC4yOTJMMTYuMDUgMTQuNjM0bDEwLjI0LTEwLjIzOGMuMzktLjM5IDEuMDI0LS4zOSAxLjQxNCAwbC4wMDMuMDAzYy4zOS4zOS4zOSAxLjAyNCAwIDEuNDE0bC0xMC4yNCAxMC4yMzggMTAuMTM2IDEwLjEzNmMuMzkuMzkuMzkgMS4wMjQgMCAxLjQxNGwtLjAwMy4wMDNjLS4zOS4zOS0xLjAyNC4zOS0xLjQxNCAwTDE2LjA1MSAxNy40NjggNS44MTMgMjcuNzA4Yy0uMzkuMzktMS4wMjQuMzktMS40MTQgMGwtLjAwMy0uMDAzYy0uMzktLjM5LS4zOS0xLjAyNCAwLTEuNDE0bDEwLjIzOC0xMC4yNEw0LjI5MiA1LjcxYy0uMzktLjM5LS4zOS0xLjAyNCAwLTEuNDE0bC4wMDMtLjAwM2MuMzktLjM5IDEuMDI0LS4zOSAxLjQxNCAweiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTExMzMgLTE2MTIpIHRyYW5zbGF0ZSgwIDgxNCkgdHJhbnNsYXRlKDExNiA3NzgpIHRyYW5zbGF0ZSgxMDE3IDIwKSIvPgogICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+';
+function _templateObject7$2() {
+  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  ", "\n"]);
+
+  _templateObject7$2 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
 
 function _templateObject6$3() {
-  var data = _taggedTemplateLiteral(["\n  margin-top: ", ";\n  padding-top: ", ";\n  border-top: 1px solid ", ";\n  text-align: right;\n\n  margin-left: -", ";\n  margin-right: -", ";\n  padding-left: ", ";\n  padding-right: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.3s\n"]);
 
   _templateObject6$3 = function _templateObject6() {
     return data;
@@ -28521,7 +28552,7 @@ function _templateObject6$3() {
 }
 
 function _templateObject5$5() {
-  var data = _taggedTemplateLiteral(["\n  border: 16px solid #63a3f3; /* Light grey */\n  border-top: 16px solid #d5e7fd; /* Blue */\n  border-radius: 50%;\n  width: 120px;\n  height: 120px;\n  animation: spin 2s linear infinite;\n\n  @keyframes spin {\n    0% { transform: rotate(0deg); }\n    100% { transform: rotate(360deg); }\n  }\n\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  margin-left: -60px;\n  margin-top: -60px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.2s\n"]);
 
   _templateObject5$5 = function _templateObject5() {
     return data;
@@ -28531,7 +28562,7 @@ function _templateObject5$5() {
 }
 
 function _templateObject4$8() {
-  var data = _taggedTemplateLiteral(["\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.0s\n"]);
 
   _templateObject4$8 = function _templateObject4() {
     return data;
@@ -28541,7 +28572,7 @@ function _templateObject4$8() {
 }
 
 function _templateObject3$b() {
-  var data = _taggedTemplateLiteral(["\n  > div {\n    display: flex;\n    align-items: center;\n  }\n\n  margin-bottom: 30px;\n  button {\n    line-height: 1;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  opacity: 0;\n  animation: ", " 1.3s infinite;\n"]);
 
   _templateObject3$b = function _templateObject3() {
     return data;
@@ -28551,7 +28582,7 @@ function _templateObject3$b() {
 }
 
 function _templateObject2$e() {
-  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  min-width: ", ";\n  border-radius: ", ";\n  background-color: ", ";\n  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);\n  z-index: ", ";\n\n  padding: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  0% { opacity: 0; }\n  50% { opacity: 0; }\n  100% { opacity: 1; }\n"]);
 
   _templateObject2$e = function _templateObject2() {
     return data;
@@ -28561,7 +28592,7 @@ function _templateObject2$e() {
 }
 
 function _templateObject$k() {
-  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background-color: ", ";\n  z-index: ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  border:0 none;\n  background-color:transparent;\n  cursor:pointer;\n  transition: background-color 0.3s, color 0.3s ease, border-color 0.3s ease;\n  line-height: 1.34em;\n\n  img {\n    vertical-align: middle;\n  }\n\n  &:hover {\n    text-decoration: none;\n  }\n\n  &:disabled {\n    cursor: not-allowed;\n  }\n"]);
 
   _templateObject$k = function _templateObject() {
     return data;
@@ -28569,35 +28600,347 @@ function _templateObject$k() {
 
   return data;
 }
+var BtnDefaultCss = css(_templateObject$k());
+var BtnSize = {
+  xLarge: {
+    minWidth: '100%',
+    height: '60px',
+    borderRadius: '10px',
+    padding: '16px 20px',
+    img: {
+      margin: '8px'
+    },
+    marginRight: '0'
+  },
+  large: {
+    minWidth: '100px',
+    height: '42px',
+    borderRadius: '21px',
+    padding: '10px 20px',
+    img: {
+      margin: '8px'
+    },
+    marginRight: '8px'
+  },
+  middle: {
+    minWidth: '90px',
+    height: '34px',
+    borderRadius: '17px',
+    padding: '7px 18px',
+    img: {
+      margin: '6px'
+    },
+    marginRight: '8px'
+  }
+};
+var setBtnSize = function setBtnSize(props) {
+  return "\n  height: ".concat(props.BtnSizeObject.height, ";\n  border-radius: ").concat(props.BtnSizeObject.borderRadius, ";\n  padding: ").concat(props.BtnSizeObject.padding, ";\n  min-width: ").concat(props.BtnSizeObject.minWidth, ";\n\n  &:not(:last-child) {\n    margin-right: ").concat(props.BtnSizeObject.marginRight, ";\n  }\n\n  img:first-child {\n    margin-right: ").concat(props.BtnSizeObject.img.margin, ";\n  }\n\n  img:last-child {\n    margin-left: ").concat(props.BtnSizeObject.img.margin, ";\n  }\n");
+};
+var BtnColor = {
+  primary: {
+    backgroundColor: color.$pmblue,
+    color: color.$white,
+    hover: {
+      backgroundColor: color.$pmblue_dark
+    },
+    disabled: {
+      backgroundColor: color.$grey03,
+      color: color.$grey06
+    }
+  },
+  primary_line: {
+    backgroundColor: color.$white,
+    color: color.$pmblue,
+    border: "1px solid ".concat(color.$pmblue),
+    hover: {
+      boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)',
+      border: "1px solid ".concat(color.$pmblue)
+    },
+    disabled: {
+      backgroundColor: color.$grey03,
+      color: color.$grey06
+    }
+  },
+  basic: {
+    backgroundColor: color.$grey04,
+    color: color.$grey09,
+    hover: {
+      backgroundColor: color.$grey05,
+      color: color.$grey09
+    },
+    disabled: {
+      backgroundColor: color.$grey03,
+      color: color.$grey06
+    }
+  },
+  basic_line: {
+    backgroundColor: color.$white,
+    color: color.$grey09,
+    border: "1px solid ".concat(color.$grey05),
+    hover: {
+      boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)',
+      border: "1px solid ".concat(color.$grey05)
+    },
+    disabled: {
+      backgroundColor: color.$grey03,
+      color: color.$grey06
+    }
+  },
+  primary_light: {
+    backgroundColor: color.$white,
+    color: color.$pmblue,
+    hover: {
+      boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)'
+    },
+    disabled: {
+      backgroundColor: color.$grey03,
+      color: color.$grey06
+    }
+  },
+  basic_light: {
+    backgroundColor: color.$white,
+    color: color.$grey09,
+    hover: {
+      boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)'
+    },
+    disabled: {
+      backgroundColor: color.$grey03,
+      color: color.$grey06
+    }
+  }
+};
+
+var setBtnColor = function setBtnColor(props) {
+  return "\n  box-shadow: ".concat(props.BtnColorObject.boxShadow || 'none', ";\n  background-color: ").concat(props.BtnColorObject.backgroundColor, ";\n  color: ").concat(props.BtnColorObject.color, ";\n\n  border: ").concat(props.BtnColorObject.border || 'none', ";\n\n  &:hover:not(:disabled) {\n    box-shadow: ").concat(props.BtnColorObject.hover.boxShadow || 'none', ";\n    background-color: ").concat(props.BtnColorObject.hover.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.hover.color, ";\n    border: ").concat(props.BtnColorObject.hover.border || 'none', ";\n  }\n\n  &:disabled {\n    box-shadow: ").concat(props.BtnColorObject.disabled.boxShadow || 'none', ";\n    background-color: ").concat(props.BtnColorObject.disabled.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.disabled.color, ";\n    border: ").concat(props.BtnColorObject.disabled.border || 'none', ";\n  }\n");
+};
+
+var fade = keyframes(_templateObject2$e());
+var LoadingBase = css(_templateObject3$b(), fade);
+var LoadingOne = styled.span(_templateObject4$8(), LoadingBase);
+var LoadingTwo = styled.span(_templateObject5$5(), LoadingBase);
+var LoadingThree = styled.span(_templateObject6$3(), LoadingBase);
+var ButtonTag = styled(TextTag).attrs(function () {
+  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var size = props.size || 'md';
+  var variant = props.variant,
+      bold = props.bold;
+  var BtnSizeObject = {
+    xlg: BtnSize.xLarge,
+    md: BtnSize.middle,
+    lg: BtnSize.large
+  }[size];
+  var BtnColorObject = {
+    primary: BtnColor.primary,
+    primary_line: BtnColor.primary_line,
+    basic: BtnColor.basic,
+    primary_light: BtnColor.primary_light,
+    basic_light: BtnColor.basic_light
+  }[variant] || BtnColor.basic_line;
+  var fontSize = {
+    xlg: 18,
+    md: 14,
+    lg: 16
+  }[size];
+  return {
+    size: fontSize,
+    bold: bold || true,
+    BtnSizeObject: BtnSizeObject,
+    BtnColorObject: BtnColorObject
+  };
+})(_templateObject7$2(), BtnDefaultCss, setBtnSize, setBtnColor);
+
+var Button = function Button(props) {
+  var isLoading = props.isLoading,
+      propsAs = props.as,
+      disabled = props.disabled,
+      children = props.children,
+      size = props.size,
+      variant = props.variant,
+      style = props.style,
+      onClick = props.onClick,
+      id = props.id;
+  var showLoading = isLoading;
+
+  if (lodash.isString(isLoading)) {
+    showLoading = isLoading === 'true';
+  }
+
+  return /*#__PURE__*/React.createElement(ButtonTag, {
+    id: id,
+    as: propsAs,
+    disabled: disabled || showLoading,
+    size: size,
+    variant: variant,
+    style: style,
+    onClick: onClick
+  }, showLoading ? 'loading' : children, showLoading && /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(LoadingOne, null, "."), /*#__PURE__*/React.createElement(LoadingTwo, null, "."), /*#__PURE__*/React.createElement(LoadingThree, null, ".")));
+};
+
+Button.defaultProps = {
+  isLoading: 'false',
+  disabled: false,
+  as: 'button',
+  size: 'md',
+  variant: 'basic_line',
+  style: {},
+  onClick: function onClick() {},
+  id: undefined
+};
+Button.propTypes = {
+  isLoading: propTypes.oneOfType([propTypes.string, propTypes.bool]),
+  disabled: propTypes.bool,
+  as: propTypes.string,
+  size: propTypes.string,
+  variant: propTypes.string,
+  style: propTypes.shape({}),
+  onClick: propTypes.func,
+  id: propTypes.string
+};
+
+var icnPopupCloseMd = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wIDBIMzJWMzJIMHoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMTMzIC0xNjEyKSB0cmFuc2xhdGUoMCA4MTQpIHRyYW5zbGF0ZSgxMTYgNzc4KSB0cmFuc2xhdGUoMTAxNyAyMCkiLz4KICAgICAgICAgICAgICAgICAgICAgICAgPHBhdGggZmlsbD0iIzRENTY2MSIgZD0iTTUuNzEgNC4yOTJMMTYuMDUgMTQuNjM0bDEwLjI0LTEwLjIzOGMuMzktLjM5IDEuMDI0LS4zOSAxLjQxNCAwbC4wMDMuMDAzYy4zOS4zOS4zOSAxLjAyNCAwIDEuNDE0bC0xMC4yNCAxMC4yMzggMTAuMTM2IDEwLjEzNmMuMzkuMzkuMzkgMS4wMjQgMCAxLjQxNGwtLjAwMy4wMDNjLS4zOS4zOS0xLjAyNC4zOS0xLjQxNCAwTDE2LjA1MSAxNy40NjggNS44MTMgMjcuNzA4Yy0uMzkuMzktMS4wMjQuMzktMS40MTQgMGwtLjAwMy0uMDAzYy0uMzktLjM5LS4zOS0xLjAyNCAwLTEuNDE0bDEwLjIzOC0xMC4yNEw0LjI5MiA1LjcxYy0uMzktLjM5LS4zOS0xLjAyNCAwLTEuNDE0bC4wMDMtLjAwM2MuMzktLjM5IDEuMDI0LS4zOSAxLjQxNCAweiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTExMzMgLTE2MTIpIHRyYW5zbGF0ZSgwIDgxNCkgdHJhbnNsYXRlKDExNiA3NzgpIHRyYW5zbGF0ZSgxMDE3IDIwKSIvPgogICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+';
+
+function _templateObject8() {
+  var data = _taggedTemplateLiteral(["\n  border-top: solid 1px ", ";\n  margin-left: -30px;\n  margin-right: -30px;\n"]);
+
+  _templateObject8 = function _templateObject8() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject7$3() {
+  var data = _taggedTemplateLiteral(["\n  margin-top: 8px;\n"]);
+
+  _templateObject7$3 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6$4() {
+  var data = _taggedTemplateLiteral(["\n  padding-top: ", ";\n  text-align: right;\n"]);
+
+  _templateObject6$4 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5$6() {
+  var data = _taggedTemplateLiteral(["\n  border: 16px solid #63a3f3; /* Light grey */\n  border-top: 16px solid #d5e7fd; /* Blue */\n  border-radius: 50%;\n  width: 120px;\n  height: 120px;\n  animation: spin 2s linear infinite;\n\n  @keyframes spin {\n    0% { transform: rotate(0deg); }\n    100% { transform: rotate(360deg); }\n  }\n\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  margin-left: -60px;\n  margin-top: -60px;\n"]);
+
+  _templateObject5$6 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4$9() {
+  var data = _taggedTemplateLiteral(["\n  padding-bottom: 16px;\n"]);
+
+  _templateObject4$9 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$c() {
+  var data = _taggedTemplateLiteral(["\n  > div {\n    display: flex;\n    align-items: center;\n  }\n\n  margin-bottom: 30px;\n  button {\n    line-height: 1;\n  }\n"]);
+
+  _templateObject3$c = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$f() {
+  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  min-width: ", ";\n  border-radius: ", ";\n  background-color: ", ";\n  box-shadow: 0 3px 22px 0 rgba(109, 120, 132, 0.24);\n  z-index: ", ";\n  padding: ", ";\n"]);
+
+  _templateObject2$f = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$l() {
+  var data = _taggedTemplateLiteral(["\n  position: fixed;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background-color: ", ";\n  z-index: ", ";\n"]);
+
+  _templateObject$l = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
 var size$1 = {
   modalPadding: '30px',
-  borderRadius: '10px',
+  borderRadius: '8px',
+  minWidth: '480px',
   maxWidth: '1200px',
-  maxHeight: '800px',
   footerMarginTop: '24px',
-  footerPaddingTop: '24px',
-  minWidth: '480px'
+  footerPaddingTop: '24px'
 };
-var Overlay = styled.div(_templateObject$k(), hexToRGB(color.$black, 0.6), function (props) {
+var Overlay = styled.div(_templateObject$l(), hexToRGB(color.$black, 0.6), function (props) {
   return props.isLoading ? zIndex.$modalOverlayLoading : zIndex.$modalOverlay;
 });
-var ModalBox = styled.div(_templateObject2$e(), size$1.minWidth, size$1.borderRadius, color.$white, zIndex.$modal, size$1.modalPadding);
-var Header = styled.header(_templateObject3$b());
+var ModalBox = styled.div(_templateObject2$f(), size$1.minWidth, size$1.borderRadius, color.$white, zIndex.$modal, size$1.modalPadding);
+var Header = styled.header(_templateObject3$c());
 var Contents = styled(TextTag).attrs({
   size: '18',
   bold: false
-})(_templateObject4$8());
-var Loading = styled.div(_templateObject5$5());
-var Footer$1 = styled.footer(_templateObject6$3(), size$1.footerMarginTop, size$1.footerPaddingTop, color.$grey04, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding, size$1.modalPadding);
+})(_templateObject4$9());
+var Loading = styled.div(_templateObject5$6());
+var Footer$1 = styled.footer(_templateObject6$4(), size$1.footerPaddingTop);
 
-var Modal = function Modal(_ref) {
-  var title = _ref.title,
-      isOpen = _ref.isOpen,
-      isLoading = _ref.isLoading,
-      closeModal = _ref.closeModal,
-      description = _ref.description,
-      footer = _ref.footer,
-      children = _ref.children;
+var basicButtons = function basicButtons(_ref) {
+  var type = _ref.type,
+      onCancel = _ref.onCancel,
+      onConfirm = _ref.onConfirm,
+      closeModal = _ref.closeModal;
+
+  var wrappedOnCancel = function wrappedOnCancel() {
+    onCancel();
+    closeModal();
+  };
+
+  var wrappedOnConfirm = function wrappedOnConfirm() {
+    onConfirm();
+    closeModal();
+  };
+
+  return /*#__PURE__*/React.createElement("div", null, type && lodash.isEqual(type, 'confirm') && /*#__PURE__*/React.createElement(Button, {
+    variant: "basic_line",
+    onClick: wrappedOnCancel
+  }, "Cancel"), /*#__PURE__*/React.createElement(Button, {
+    variant: "primary",
+    onClick: wrappedOnConfirm
+  }, "Confirm"));
+};
+
+var WrapDescription = styled.p.attrs({
+  className: [fontStyle.fs14, fontStyle.fc_grey08].join(' ')
+})(_templateObject7$3());
+var FooterBar = styled.div(_templateObject8(), color.$grey04);
+
+var Modal = function Modal(_ref2) {
+  var variant = _ref2.variant,
+      type = _ref2.type,
+      title = _ref2.title,
+      isOpen = _ref2.isOpen,
+      isLoading = _ref2.isLoading,
+      closeModal = _ref2.closeModal,
+      description = _ref2.description,
+      footer = _ref2.footer,
+      children = _ref2.children,
+      onCancel = _ref2.onCancel,
+      onConfirm = _ref2.onConfirm,
+      isExistsScroll = _ref2.isExistsScroll;
   useEffect(function () {
     if (isOpen) {
       document.body.style.overflowY = 'hidden';
@@ -28608,90 +28951,96 @@ var Modal = function Modal(_ref) {
   return /*#__PURE__*/React.createElement(React.Fragment, null, isOpen && /*#__PURE__*/React.createElement(Overlay, {
     isLoading: isLoading
   }, isLoading && /*#__PURE__*/React.createElement(Loading, null)), isOpen && /*#__PURE__*/React.createElement(ModalBox, null, /*#__PURE__*/React.createElement(Header, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Heading, {
-    size: "22",
-    opacity: "8"
-  }, title), /*#__PURE__*/React.createElement("div", {
+    size: "22"
+  }, title), lodash.isEqual(variant, 'layer') && /*#__PURE__*/React.createElement("div", {
     style: {
-      marginLeft: 'auto',
-      marginTop: '-10px',
-      marginRight: '-10px'
+      marginLeft: 'auto'
     }
   }, /*#__PURE__*/React.createElement("button", {
     onClick: closeModal,
     type: "button"
   }, /*#__PURE__*/React.createElement("img", {
     src: icnPopupCloseMd,
-    width: "32x",
+    width: "32px",
     height: "32px",
     alt: "close"
-  })))), description && /*#__PURE__*/React.createElement(TextTag, {
-    as: "p",
-    size: 14,
-    opacity: 6,
-    style: {
-      marginTop: '6px'
-    }
-  }, description)), /*#__PURE__*/React.createElement(Contents, {
+  })))), description && /*#__PURE__*/React.createElement(WrapDescription, null, description)), /*#__PURE__*/React.createElement(Contents, {
     as: "article"
-  }, children), footer && /*#__PURE__*/React.createElement(Footer$1, null, /*#__PURE__*/React.createElement("div", null, footer))));
+  }, children), isExistsScroll && /*#__PURE__*/React.createElement(FooterBar, null), footer && /*#__PURE__*/React.createElement(Footer$1, null, /*#__PURE__*/React.createElement("div", null, footer)), lodash.isEmpty(footer) && lodash.isEqual(variant, 'basic') && /*#__PURE__*/React.createElement(Footer$1, null, basicButtons({
+    type: type,
+    onCancel: onCancel,
+    onConfirm: onConfirm,
+    closeModal: closeModal
+  }))));
 };
 
 Modal.defaultProps = {
+  variant: 'layer',
+  type: 'confirm',
   title: '',
   isOpen: undefined,
   isLoading: undefined,
   closeModal: function closeModal() {},
   description: '',
-  footer: null
+  footer: null,
+  onCancel: function onCancel() {},
+  onConfirm: function onConfirm() {},
+  isExistsScroll: false
 };
 Modal.propTypes = {
+  variant: propTypes.oneOf(['basic', 'layer']),
+  type: propTypes.oneOf(['alert', 'confirm']),
   title: propTypes.string,
   isOpen: propTypes.bool,
   isLoading: propTypes.bool,
   closeModal: propTypes.func,
   description: propTypes.string,
-  footer: propTypes.node
+  footer: propTypes.node,
+  onCancel: propTypes.func,
+  onConfirm: propTypes.func,
+  isExistsScroll: propTypes.bool // 모달 내부에 스크롤이 존재하는 경우 true
+
 };
 
-function _templateObject3$c() {
+function _templateObject3$d() {
   var data = _taggedTemplateLiteral(["\n  label {\n    display: block;\n    padding: 12px 24px;\n    display: flex;\n    align-items: center;\n    img {\n      margin-right: 12px;\n    }\n  }\n  input {\n    display: none;\n  }\n\n  ", ";\n  ", "\n"]);
 
-  _templateObject3$c = function _templateObject3() {
+  _templateObject3$d = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$f() {
+function _templateObject2$g() {
   var data = _taggedTemplateLiteral(["\n  label {\n    cursor: not-allowed;\n  }\n"]);
 
-  _templateObject2$f = function _templateObject2() {
+  _templateObject2$g = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$l() {
+function _templateObject$m() {
   var data = _taggedTemplateLiteral(["\n  label {\n    cursor: pointer;\n  }\n  img:hover:not(:disabled) {\n    box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);\n  }\n  &:hover {\n    background-color: ", ";\n  }\n"]);
 
-  _templateObject$l = function _templateObject() {
+  _templateObject$m = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var CssEnable = css(_templateObject$l(), function (props) {
+var CssEnable = css(_templateObject$m(), function (props) {
   return props.layout === ChartConfig.Layout.VERTICAL ? color.$pmblue02 : 'transparent';
 });
-var CssDisable = css(_templateObject2$f());
+var CssDisable = css(_templateObject2$g());
 var Item = styled.div.attrs(function (props) {
   var fontColorClassName = props.disabled ? fontStyle.fc_grey06 : fontStyle.fc_grey09;
   return {
     className: [fontStyle.fs16, fontColorClassName].join(' ')
   };
-})(_templateObject3$c(), function (props) {
+})(_templateObject3$d(), function (props) {
   return props.layout === ChartConfig.Layout.HORIZONTAL ? ' display: inline-block' : 'display: block';
 }, function (props) {
   return props.disabled ? CssDisable : CssEnable;
@@ -28948,54 +29297,54 @@ var IcnCheckedDisabled$1 = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3
 
 var IcnUncheckedDisabled$1 = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgb3BhY2l0eT0iLjQiPgogICAgICAgIDxnIGZpbGw9IiNGRkYiIHN0cm9rZT0iI0IwQjhDMSIgc3Ryb2tlLXdpZHRoPSIyIj4KICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNjQzIC00MTkpIHRyYW5zbGF0ZSg0OCAyOTEpIHRyYW5zbGF0ZSg1OTUgMTI4KSI+CiAgICAgICAgICAgICAgICAgICAgPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAuOSIvPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=';
 
-function _templateObject4$9() {
+function _templateObject4$a() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n  height: 100%;\n\n  span {\n    position: relative;\n  }\n\n  input {\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    z-index: 1;\n    opacity: 0;\n  }\n  img {\n    margin-right: 12px;\n  }\n\n  img:hover:not(:disabled) {\n    box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);\n  }\n\n  cursor: ", ";\n"]);
 
-  _templateObject4$9 = function _templateObject4() {
+  _templateObject4$a = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$d() {
+function _templateObject3$e() {
   var data = _taggedTemplateLiteral(["\n  ", ";\n  ", ";\n  padding: 12px 24px 12px 16px;\n  height: 48px;\n\n  &:hover {\n    border-radius: 8px;\n    background: ", ";\n  }\n"]);
 
-  _templateObject3$d = function _templateObject3() {
+  _templateObject3$e = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$g() {
+function _templateObject2$h() {
   var data = _taggedTemplateLiteral(["\n  display: inline-block;\n  width: 100%;\n\n  ", "\n  ", "\n  ", "\n\n  margin-bottom: -24px;\n"]);
 
-  _templateObject2$g = function _templateObject2() {
+  _templateObject2$h = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$m() {
+function _templateObject$n() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  align-items: center;\n"]);
 
-  _templateObject$m = function _templateObject() {
+  _templateObject$n = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Outer = styled.section(_templateObject$m());
-var Inner = styled.div(_templateObject2$g(), function (props) {
+var Outer = styled.section(_templateObject$n());
+var Inner = styled.div(_templateObject2$h(), function (props) {
   return props.align === 'center' ? "margin: 0 auto" : '';
 }, function (props) {
   return props.align === 'left' ? "margin-right: auto" : '';
 }, function (props) {
   return props.align === 'right' ? "margin-left: auto" : '';
 });
-var Box$3 = styled.div(_templateObject3$d(), function (props) {
+var Box$3 = styled.div(_templateObject3$e(), function (props) {
   return props.layout === ChartConfig.Layout.HORIZONTAL ? 'display: inline-block' : 'display: block';
 }, function (props) {
   return props.layout === ChartConfig.Layout.VERTICAL && 'width: inherit;';
@@ -29004,7 +29353,7 @@ var Label = styled.label.attrs(function () {
   return {
     className: [fontStyle.fs16, fontStyle.fc_grey09].join(' ')
   };
-})(_templateObject4$9(), function (_ref) {
+})(_templateObject4$a(), function (_ref) {
   var disabled = _ref.disabled;
   return disabled ? 'not-allowed' : 'pointer';
 });
@@ -30164,30 +30513,30 @@ TimeToEvent.propTypes = {
   showTooltip: propTypes.bool
 };
 
-function _templateObject3$e() {
+function _templateObject3$f() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n"]);
 
-  _templateObject3$e = function _templateObject3() {
+  _templateObject3$f = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$h() {
+function _templateObject2$i() {
   var data = _taggedTemplateLiteral(["\n  ", "\n  width: 100%;\n  display: flex;\n  align-items: center;\n\n  ul {\n    width: 100%;\n  }\n\n  li {\n    padding-left: 16px;\n    position: relative;\n    display: flex;\n\n    span:last-child {\n      margin-left: auto;\n      padding-left: 16px;\n    }\n  }\n\n  li:not(:last-child) {\n    margin-bottom: 16px;\n  }\n"]);
 
-  _templateObject2$h = function _templateObject2() {
+  _templateObject2$i = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$n() {
+function _templateObject$o() {
   var data = _taggedTemplateLiteral(["\n  position: absolute;\n  top: 5px;\n  left: 0;\n"]);
 
-  _templateObject$n = function _templateObject() {
+  _templateObject$o = function _templateObject() {
     return data;
   };
 
@@ -30195,17 +30544,17 @@ function _templateObject$n() {
 }
 var Dot$2 = styled(Dot).attrs(function () {
   return {};
-})(_templateObject$n());
+})(_templateObject$o());
 var size$2 = {
   pie: {
     OffsetX: 18,
     outerRadius: 92
   }
 };
-var PieLegend = styled.div(_templateObject2$h(), function (props) {
+var PieLegend = styled.div(_templateObject2$i(), function (props) {
   return props.layout === ChartConfig.Layout.HORIZONTAL ? 'margin-left: 56px;' : 'margin-top: 24px;';
 });
-var Layout$1 = styled.section(_templateObject3$e(), function (props) {
+var Layout$1 = styled.section(_templateObject3$f(), function (props) {
   return props.layout === ChartConfig.Layout.HORIZONTAL ? "\n    display: flex;\n  " : '';
 }, function (props) {
   return props.layout === ChartConfig.Layout.VERTICAL ? "\n    .recharts-responsive-container {\n      margin: 0 auto;\n    };\n  " : '';
@@ -30376,272 +30725,6 @@ PieChart.propTypes = {
     nameKey: propTypes.string,
     hide: propTypes.bool
   })
-};
-
-function _templateObject7$2() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  ", "\n"]);
-
-  _templateObject7$2 = function _templateObject7() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject6$4() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.3s\n"]);
-
-  _templateObject6$4 = function _templateObject6() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject5$6() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.2s\n"]);
-
-  _templateObject5$6 = function _templateObject5() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject4$a() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  animation-delay: 0.0s\n"]);
-
-  _templateObject4$a = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject3$f() {
-  var data = _taggedTemplateLiteral(["\n  opacity: 0;\n  animation: ", " 1.3s infinite;\n"]);
-
-  _templateObject3$f = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2$i() {
-  var data = _taggedTemplateLiteral(["\n  0% { opacity: 0; }\n  50% { opacity: 0; }\n  100% { opacity: 1; }\n"]);
-
-  _templateObject2$i = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject$o() {
-  var data = _taggedTemplateLiteral(["\n  border:0 none;\n  background-color:transparent;\n  cursor:pointer;\n  transition: background-color 0.3s, color 0.3s ease, border-color 0.3s ease;\n  line-height: 1.34em;\n\n  img {\n    vertical-align: middle;\n  }\n\n  &:hover {\n    text-decoration: none;\n  }\n\n  &:disabled {\n    cursor: not-allowed;\n  }\n"]);
-
-  _templateObject$o = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var BtnDefaultCss = css(_templateObject$o());
-var BtnSize = {
-  xLarge: {
-    minWidth: '100%',
-    height: '60px',
-    borderRadius: '10px',
-    padding: '16px 20px',
-    img: {
-      margin: '8px'
-    },
-    marginRight: '0'
-  },
-  large: {
-    minWidth: '100px',
-    height: '42px',
-    borderRadius: '21px',
-    padding: '10px 20px',
-    img: {
-      margin: '8px'
-    },
-    marginRight: '8px'
-  },
-  middle: {
-    minWidth: '90px',
-    height: '34px',
-    borderRadius: '17px',
-    padding: '7px 18px',
-    img: {
-      margin: '6px'
-    },
-    marginRight: '8px'
-  }
-};
-var setBtnSize = function setBtnSize(props) {
-  return "\n  height: ".concat(props.BtnSizeObject.height, ";\n  border-radius: ").concat(props.BtnSizeObject.borderRadius, ";\n  padding: ").concat(props.BtnSizeObject.padding, ";\n  min-width: ").concat(props.BtnSizeObject.minWidth, ";\n\n  &:not(:last-child) {\n    margin-right: ").concat(props.BtnSizeObject.marginRight, ";\n  }\n\n  img:first-child {\n    margin-right: ").concat(props.BtnSizeObject.img.margin, ";\n  }\n\n  img:last-child {\n    margin-left: ").concat(props.BtnSizeObject.img.margin, ";\n  }\n");
-};
-var BtnColor = {
-  primary: {
-    backgroundColor: color.$pmblue,
-    color: color.$white,
-    hover: {
-      backgroundColor: color.$pmblue_dark
-    },
-    disabled: {
-      backgroundColor: color.$grey03,
-      color: color.$grey06
-    }
-  },
-  primary_line: {
-    backgroundColor: color.$white,
-    color: color.$pmblue,
-    border: "1px solid ".concat(color.$pmblue),
-    hover: {
-      boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)',
-      border: "1px solid ".concat(color.$pmblue)
-    },
-    disabled: {
-      backgroundColor: color.$grey03,
-      color: color.$grey06
-    }
-  },
-  basic: {
-    backgroundColor: color.$grey04,
-    color: color.$grey09,
-    hover: {
-      backgroundColor: color.$grey05,
-      color: color.$grey09
-    },
-    disabled: {
-      backgroundColor: color.$grey03,
-      color: color.$grey06
-    }
-  },
-  basic_line: {
-    backgroundColor: color.$white,
-    color: color.$grey09,
-    border: "1px solid ".concat(color.$grey05),
-    hover: {
-      boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)',
-      border: "1px solid ".concat(color.$grey05)
-    },
-    disabled: {
-      backgroundColor: color.$grey03,
-      color: color.$grey06
-    }
-  },
-  primary_light: {
-    backgroundColor: color.$white,
-    color: color.$pmblue,
-    hover: {
-      boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)'
-    },
-    disabled: {
-      backgroundColor: color.$grey03,
-      color: color.$grey06
-    }
-  },
-  basic_light: {
-    backgroundColor: color.$white,
-    color: color.$grey09,
-    hover: {
-      boxShadow: '0 1px 8px 0 rgba(109, 120, 132, 0.36)'
-    },
-    disabled: {
-      backgroundColor: color.$grey03,
-      color: color.$grey06
-    }
-  }
-};
-
-var setBtnColor = function setBtnColor(props) {
-  return "\n  box-shadow: ".concat(props.BtnColorObject.boxShadow || 'none', ";\n  background-color: ").concat(props.BtnColorObject.backgroundColor, ";\n  color: ").concat(props.BtnColorObject.color, ";\n\n  border: ").concat(props.BtnColorObject.border || 'none', ";\n\n  &:hover:not(:disabled) {\n    box-shadow: ").concat(props.BtnColorObject.hover.boxShadow || 'none', ";\n    background-color: ").concat(props.BtnColorObject.hover.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.hover.color, ";\n    border: ").concat(props.BtnColorObject.hover.border || 'none', ";\n  }\n\n  &:disabled {\n    box-shadow: ").concat(props.BtnColorObject.disabled.boxShadow || 'none', ";\n    background-color: ").concat(props.BtnColorObject.disabled.backgroundColor, ";\n    color: ").concat(props.BtnColorObject.disabled.color, ";\n    border: ").concat(props.BtnColorObject.disabled.border || 'none', ";\n  }\n");
-};
-
-var fade = keyframes(_templateObject2$i());
-var LoadingBase = css(_templateObject3$f(), fade);
-var LoadingOne = styled.span(_templateObject4$a(), LoadingBase);
-var LoadingTwo = styled.span(_templateObject5$6(), LoadingBase);
-var LoadingThree = styled.span(_templateObject6$4(), LoadingBase);
-var ButtonTag = styled(TextTag).attrs(function () {
-  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var size = props.size || 'md';
-  var variant = props.variant,
-      bold = props.bold;
-  var BtnSizeObject = {
-    xlg: BtnSize.xLarge,
-    md: BtnSize.middle,
-    lg: BtnSize.large
-  }[size];
-  var BtnColorObject = {
-    primary: BtnColor.primary,
-    primary_line: BtnColor.primary_line,
-    basic: BtnColor.basic,
-    primary_light: BtnColor.primary_light,
-    basic_light: BtnColor.basic_light
-  }[variant] || BtnColor.basic_line;
-  var fontSize = {
-    xlg: 18,
-    md: 14,
-    lg: 16
-  }[size];
-  return {
-    size: fontSize,
-    bold: bold || true,
-    BtnSizeObject: BtnSizeObject,
-    BtnColorObject: BtnColorObject
-  };
-})(_templateObject7$2(), BtnDefaultCss, setBtnSize, setBtnColor);
-
-var Button = function Button(props) {
-  var isLoading = props.isLoading,
-      propsAs = props.as,
-      disabled = props.disabled,
-      children = props.children,
-      size = props.size,
-      variant = props.variant,
-      style = props.style,
-      onClick = props.onClick,
-      id = props.id;
-  var showLoading = isLoading;
-
-  if (lodash.isString(isLoading)) {
-    showLoading = isLoading === 'true';
-  }
-
-  return /*#__PURE__*/React.createElement(ButtonTag, {
-    id: id,
-    as: propsAs,
-    disabled: disabled || showLoading,
-    size: size,
-    variant: variant,
-    style: style,
-    onClick: onClick
-  }, showLoading ? 'loading' : children, showLoading && /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(LoadingOne, null, "."), /*#__PURE__*/React.createElement(LoadingTwo, null, "."), /*#__PURE__*/React.createElement(LoadingThree, null, ".")));
-};
-
-Button.defaultProps = {
-  isLoading: 'false',
-  disabled: false,
-  as: 'button',
-  size: 'md',
-  variant: 'basic_line',
-  style: {},
-  onClick: function onClick() {},
-  id: undefined
-};
-Button.propTypes = {
-  isLoading: propTypes.oneOfType([propTypes.string, propTypes.bool]),
-  disabled: propTypes.bool,
-  as: propTypes.string,
-  size: propTypes.string,
-  variant: propTypes.string,
-  style: propTypes.shape({}),
-  onClick: propTypes.func,
-  id: propTypes.string
 };
 
 function _templateObject$p() {
@@ -60223,6 +60306,6 @@ NotificationContainer.defaultProps = {
   leaveTimeout: 400
 };
 
-var version$1 = "0.14.1";
+var version$1 = "0.14.2";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckBox, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, RadarChart, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, Timeline, ToastCtr, ToggleButton, Tooltip, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, Notifications as notifications, tableProperties$1 as tableProperties, variables, version$1 as version };
