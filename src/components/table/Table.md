@@ -115,18 +115,58 @@ show()
 </Table>
 ```
 
-##### Sort List Table
+##### Basic Sort List Table
 ```js
 import React, { useState, useEffect } from 'react'
+import Button from '@Components/button/Button'
+
+(() => {
+  return (
+    <>
+      <Table
+        size="small"
+        data={{
+          headers: [
+            'a',
+            {
+              text: 'b',
+              sort: function(a, b) { console.log(a, b) }
+            },
+            'c',
+          ],
+          rowData: [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+          ],
+        }}
+        sortOrderList={['asc', 'desc', '']}
+      >
+      </Table>
+    </>
+  )
+})()
+```
+
+##### Sort List Table With sort reset.
+```js
+import React, { useState, useEffect } from 'react'
+import Button from '@Components/button/Button'
 
 (() => {
   const [loading, setLoading] = useState(false)
+  const [clearSort, setClearSort] = useState(false)
+
   const onChange = (e) => {
     setLoading(e.target.checked)
+  }
+  const handleReset = () => {
+    setClearSort(true)
   }
 
   return (
     <>
+      <Button onClick={handleReset}>Reset Sorting</Button>
       <input type="checkbox" onChange={onChange} /><span>loading</span>
       <Table
         size="small"
@@ -155,12 +195,13 @@ import React, { useState, useEffect } from 'react'
         }}
         sortOrderList={['asc', 'desc', '']}
         defaultSort={null}
+        resetSort={clearSort}
+        setResetSort={setClearSort}
       >
       </Table>
     </>
   )
 })()
-
 ```
 
 #### scroll Array List
