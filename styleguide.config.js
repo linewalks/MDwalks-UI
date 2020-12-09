@@ -57,7 +57,7 @@ module.exports = {
   sections: [
     {
       name: 'Typography',
-      components: () => ['src/components/layout/Heading.js'],
+      components: () => ['src/components/layout/Heading.tsx'],
       sections: [
         {
           name: 'Font',
