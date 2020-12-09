@@ -25,6 +25,7 @@ export default {
     babel({
       babelHelpers: 'bundled',
       exclude: 'node_modules/**',
+      extensions: ['.js', '.ts', '.tsx'],
     }),
     postcss({
       modules: true,
@@ -33,7 +34,7 @@ export default {
     nodeResolve({
       mainFields: ['browser', 'jsnext', 'module', 'main'],
     }),
-    commonjs({ extensions: ['.js', '.ts'] }),
+    commonjs({ extensions: ['.js', '.ts', '.tsx'] }),
     url(),
     json(),
     typescript(),
