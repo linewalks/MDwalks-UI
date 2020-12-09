@@ -1,9 +1,8 @@
 import React from 'react'
 import styled, { css, keyframes } from 'styled-components'
-import PropTypes from 'prop-types'
 import _ from 'lodash'
-import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
+import * as font from '../../assets/styles/font'
+import { color } from '../../assets/styles/variables'
 
 export const BtnDefaultCss = css`
   border:0 none;
@@ -199,7 +198,17 @@ const LoadingThree = styled.span`
   animation-delay: 0.3s
 `
 
-const ButtonTag = styled(font.TextTag).attrs((props = {}) => {
+interface BtnTagProps {
+  id?: string;
+  as?: React.ElementType;
+  disabled?: boolean;
+  size: string;
+  variant: 'primary' | 'primary_line' | 'basic' | 'basic_line' | 'primary_light' | 'basic_light';
+  style?: object;
+  bold?: boolean;
+}
+
+const ButtonTag = styled(font.TextTag).attrs((props: BtnTagProps) => {
   const size = props.size || 'md'
   const { variant, bold } = props
 
@@ -235,7 +244,13 @@ const ButtonTag = styled(font.TextTag).attrs((props = {}) => {
   ${setBtnColor}
 `
 
-const Button = (props) => {
+interface ButtonProps extends BtnTagProps {
+  isLoading?: boolean | string;
+  children: React.ReactNode;
+  onClick?: React.MouseEvent;
+}
+
+const Button = (props: ButtonProps) => {
   const {
     isLoading,
     as: propsAs,
@@ -288,20 +303,6 @@ Button.defaultProps = {
   style: {},
   onClick: () => {},
   id: undefined,
-}
-
-Button.propTypes = {
-  isLoading: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.bool,
-  ]),
-  disabled: PropTypes.bool,
-  as: PropTypes.string,
-  size: PropTypes.string,
-  variant: PropTypes.string,
-  style: PropTypes.shape({}),
-  onClick: PropTypes.func,
-  id: PropTypes.string,
 }
 
 export default Button

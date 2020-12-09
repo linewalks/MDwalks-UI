@@ -88,7 +88,7 @@ module.exports = {
     {
       name: 'Component',
       components: () => [
-        'src/components/button/Button.js',
+        'src/components/button/Button.tsx',
         'src/components/button/ButtonLink.js',
         'src/components/button/ButtonTextLink.js',
         'src/components/button/TextLink.js',
