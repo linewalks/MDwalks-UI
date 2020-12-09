@@ -25,7 +25,8 @@ import RadarChart from '@Components/charts/RadarChart'
 import TreeMap from '@Components/charts/TreeMap'
 import TimeToEvent from '@Components/charts/TimeToEvent'
 import PieChart from '@Components/charts/PieChart'
-import Button from '@Components/button/Button'
+// import Button from '@Components/button/Button'
+import Button from './components/button/Button'
 import ButtonLink from '@Components/button/ButtonLink'
 import ButtonTextLink from '@Components/button/ButtonTextLink'
 import TextLink from '@Components/button/TextLink'
@@ -44,7 +45,7 @@ import * as chartUtility from '@src/helper/chartUtility'
 
 import * as DateUtility from '@src/helper/DateUtility'
 
-import notifications from '@Components/notifications'
+// import notifications from '@Components/notifications'
 import * as ChartColor from '@Components/ChartColor'
 
 import { version } from '../package.json'
@@ -82,7 +83,7 @@ export {
   ButtonTextLink,
   TextLink,
   ToggleButton,
-  ToastCtr,
+  // ToastCtr,
   TooltipBox,
   commonTag,
   Histogram,
@@ -94,6 +95,6 @@ export {
   PieChart,
   Pagination,
   DateUtility,
-  notifications,
+  // notifications,
   ChartColor,
 }

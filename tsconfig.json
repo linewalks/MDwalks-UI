@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "declarationDir": "dist",
     "baseUrl": "./",
+    "allowJs": true,
     "target": "es5",
     "lib": ["es6", "dom", "dom.iterable", "esnext"],
     "sourceMap": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "module": "esnext",
+    "module": "ESNext",
     "moduleResolution": "node",
+    "importHelpers": true,
     "resolveJsonModule": true,
     "jsx": "react",
     "typeRoots": ["./typings"]
