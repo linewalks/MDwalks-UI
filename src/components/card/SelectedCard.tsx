@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
-import backgroundArrow from '@src/assets/svg/icn_chevron_filled_right_16.svg';
-import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
+import backgroundArrow from '../../assets/svg/icn_chevron_filled_right_16.svg'
+import * as font from '../../assets/styles/font'
+import { color } from '../../assets/styles/variables'
 
 const Wrap1200 = styled.div`
   max-width: 1200px;
@@ -11,7 +10,12 @@ const Wrap1200 = styled.div`
   margin: 0 auto
 `
 
-export const Arrow = styled.article`
+interface ArrowProps {
+  isLastHighlighted: boolean;
+  style?: object;
+}
+
+export const Arrow = styled.article<ArrowProps>`
   display: inline-block;
   background-repeat: no-repeat;
   background-position-x: 100%;
@@ -40,7 +44,11 @@ export const Card = styled(font.TextTag).attrs({
   },
 })``
 
-const SelectedCard = ({ selectedElement, isLastHighlighted }) => (
+interface SelectedCardProps extends ArrowProps {
+  selectedElement: string[];
+}
+
+const SelectedCard = ({ selectedElement, isLastHighlighted }: SelectedCardProps) => (
   <Wrap1200>
     {
       selectedElement.map((element, idx) => {
@@ -64,11 +72,6 @@ const SelectedCard = ({ selectedElement, isLastHighlighted }) => (
 SelectedCard.defaultProps = {
   selectedElement: [],
   isLastHighlighted: false,
-}
-
-SelectedCard.propTypes = {
-  selectedElement: PropTypes.arrayOf(PropTypes.string),
-  isLastHighlighted: PropTypes.bool,
 }
 
 export default SelectedCard
