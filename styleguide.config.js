@@ -90,7 +90,7 @@ module.exports = {
       components: () => [
         'src/components/button/Button.tsx',
         'src/components/button/ButtonLink.tsx',
-        'src/components/button/ButtonTextLink.js',
+        'src/components/button/ButtonTextLink.tsx',
         'src/components/button/TextLink.js',
         'src/components/button/ToggleButton.js',
         'src/components/card/SelectedCard.tsx',
