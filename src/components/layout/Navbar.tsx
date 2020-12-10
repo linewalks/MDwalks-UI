@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { color } from '@src/assets/styles/variables'
+import { color } from '../../assets/styles/variables'
 
 const NavbarBox = styled.nav`
   height: 70px;
@@ -18,7 +18,12 @@ const NavbarBox = styled.nav`
   border-bottom: 1px solid ${color.$grey05};
 `
 
-const Navbar = ({ style, children }) => (
+interface NavbarProps {
+  style: object;
+  children: React.ReactNode;
+}
+
+const Navbar = ({ style, children }: NavbarProps) => (
   <NavbarBox style={style}>
     { children }
   </NavbarBox>
