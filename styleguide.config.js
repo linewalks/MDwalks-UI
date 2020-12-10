@@ -98,7 +98,7 @@ module.exports = {
         'src/components/form/SelectBox.js',
         'src/components/form/Tooltip.js',
         'src/components/layout/Image.js',
-        'src/components/layout/Navbar.js',
+        'src/components/layout/Navbar.tsx',
         'src/components/layout/Footer.tsx',
         'src/components/layout/Tabs.js',
         'src/components/list/CheckList.js',
