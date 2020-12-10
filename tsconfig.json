@@ -15,7 +15,7 @@
     "jsx": "react",
     "typeRoots": ["./typings"]
   },
-  "include": ["typings"],
+  "include": ["typings", "src/*"],
   "exclude": [
     "node_modules",
     "dist",
