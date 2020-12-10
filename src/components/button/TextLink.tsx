@@ -1,20 +1,23 @@
 import React from 'react';
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
-import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
+import * as font from '../../assets/styles/font'
+import { color } from '../../assets/styles/variables'
 
 const colorSet = {
   basic: color.$grey09,
   primary: color.$pmblue,
 }
 
+interface TextLinkTagProps {
+  variant: string;
+  underline: string;
+  fontSize: number;
+}
+
 const TextLinkTag = styled(font.TextTag).attrs(() => ({
   bold: true,
-}))`
-  &, &:hover {
-    color: ${(props) => (colorSet[props.variant])};
-  }
+}))<TextLinkTagProps>`
+  color: ${(props) => (colorSet[props.variant])};
 
   &:hover {
     text-decoration: underline;
@@ -45,8 +48,19 @@ const TextLinkIconTag = styled(TextLinkTag)`
     }
   }
 `
+interface TextLinkProps extends TextLinkTagProps {
+  href: string;
+  target: string;
+  rel: string;
+  style: object;
+  size: string;
+  hasIcon: boolean;
+  children: React.ReactNode;
+  as: React.ElementType;
+  src: string;
+}
 
-const TextLink = (props) => {
+const TextLink = (props: TextLinkProps) => {
   const {
     href,
     target,
@@ -109,16 +123,6 @@ TextLink.defaultProps = {
   variant: 'basic',
   underline: false,
   hasIcon: false,
-}
-TextLink.propTypes = {
-  href: PropTypes.string,
-  target: PropTypes.string,
-  rel: PropTypes.string,
-  style: PropTypes.shape({}),
-  size: PropTypes.string,
-  variant: PropTypes.string,
-  underline: PropTypes.bool,
-  hasIcon: PropTypes.bool,
 }
 
 TextLink.Icon = Icon
