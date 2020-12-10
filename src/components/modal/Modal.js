@@ -58,6 +58,7 @@ const Header = styled.header`
 const Contents = styled(font.TextTag).attrs({
   size: '18',
   bold: false,
+  color: color.$grey10,
 })`
   padding-bottom: 16px;
 `
@@ -105,10 +106,10 @@ const basicButtons = ({
     <div>
       {
         type && _.isEqual(type, 'confirm') && (
-          <Button variant="basic_line" onClick={wrappedOnCancel}>Cancel</Button>
+          <Button variant="basic_line" size="lg" onClick={wrappedOnCancel}>Cancel</Button>
         )
       }
-      <Button variant="primary" onClick={wrappedOnConfirm}>Confirm</Button>
+      <Button variant="primary" size="lg" onClick={wrappedOnConfirm}>Confirm</Button>
     </div>
   )
 }
@@ -168,7 +169,7 @@ const Modal = ({
                 <Heading size="22">{title}</Heading>
                 {
                   _.isEqual(variant, 'layer') && (
-                    <div style={{ marginLeft: 'auto' }}>
+                    <div style={{ marginLeft: 'auto', marginTop: '-10px', marginRight: '-10px' }}>
                       <button onClick={closeModal} type="button">
                         <img src={icnPopupCloseMd} width="32px" height="32px" alt="close" />
                       </button>
