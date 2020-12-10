@@ -1,12 +1,20 @@
 import React from 'react';
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
-import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
+import * as font from '../../assets/styles/font'
+import { color } from '../../assets/styles/variables'
+import { BtnDefaultCss, BtnSize, setBtnSize } from './Button'
 
-import { BtnDefaultCss, BtnSize, setBtnSize } from '@Components/button/Button'
+interface BtnLinkProps {
+  as?: React.ElementType;
+  size: string;
+  style?: object;
+  onClick: () => void;
+  id?: string;
+  bold?: boolean;
+  children: React.ReactNode;
+}
 
-const ButtonLinkTag = styled(font.TextTag).attrs((props = {}) => {
+const ButtonLinkTag = styled(font.TextTag).attrs((props: BtnLinkProps) => {
   const { size, bold } = props
   const BtnSizeObject = size === 'md' ? BtnSize.middle : BtnSize.large
   const FontSize = size === 'md' ? 14 : 16
@@ -35,7 +43,7 @@ const ButtonLinkTag = styled(font.TextTag).attrs((props = {}) => {
   }
 `
 
-const ButtonLink = (props) => {
+const ButtonLink = (props: BtnLinkProps) => {
   const {
     as: propsAs,
     children,
@@ -64,13 +72,6 @@ ButtonLink.defaultProps = {
   styled: {},
   onClick: () => {},
   id: undefined,
-}
-ButtonLink.propTypes = {
-  as: PropTypes.string,
-  size: PropTypes.string,
-  styled: PropTypes.shape({}),
-  onClick: PropTypes.func,
-  id: PropTypes.string,
 }
 
 export default ButtonLink
