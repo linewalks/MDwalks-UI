@@ -3,21 +3,21 @@
     "baseUrl": "./",
     "allowJs": true,
     "target": "es5",
-    "lib": ["es6", "dom", "dom.iterable", "esnext"],
+    "lib": ["es6", "es2017", "dom", "dom.iterable", "esnext"],
     "sourceMap": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "module": "ESNext",
+    "module": "es2015",
     "moduleResolution": "node",
     "importHelpers": true,
     "resolveJsonModule": true,
     "jsx": "react",
     "typeRoots": ["./typings"]
   },
-  "include": ["typings", "src/*"],
+  "include": ["typings", "src/**/*"],
   "exclude": [
     "node_modules",
-    "dist",
+    "dist"
   ]
 }
