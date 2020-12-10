@@ -94,7 +94,7 @@ module.exports = {
         'src/components/button/TextLink.js',
         'src/components/button/ToggleButton.js',
         'src/components/card/SelectedCard.tsx',
-        'src/components/card/SummaryCard.js',
+        'src/components/card/SummaryCard.tsx',
         'src/components/form/SelectBox.js',
         'src/components/form/Tooltip.js',
         'src/components/layout/Image.tsx',

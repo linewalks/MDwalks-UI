@@ -1,9 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components'
-import PropTypes from 'prop-types'
-import fontStyle from '@src/assets/styles/font.module.sass'
-import { color } from '@src/assets/styles/variables'
-import icnMoreModalMdDefault from '@src/assets/svg/icn_arrow_upright_24.svg';
+import fontStyle from '../../assets/styles/font.module.sass'
+import { color } from '../../assets/styles/variables'
+import icnMoreModalMdDefault from '../../assets/svg/icn_arrow_upright_24.svg'
 
 const Wrap1200 = styled.div`
   max-width: 1200px;
@@ -19,7 +18,17 @@ const hover = css`
   }
 `
 
-export const Article = styled.article`
+interface summaryCardProps {
+  className: string;
+  data: {
+    [key: string]: string | number
+  },
+  events: {
+    [key: string]: () => void;
+  }
+}
+
+export const Article = styled.article<{ events: any }>`
   width: 282px;
   height: 160px;
   border-radius: 8px;
@@ -42,10 +51,7 @@ export const Article = styled.article`
     margin: 0;
   }
 
-  ${(props) => {
-    if (props.events) return hover
-    return null
-  }}
+  ${({ events }) => (events && hover)}
 `
 
 export const EventElement = styled.div`
@@ -72,7 +78,7 @@ const Icon = styled.img`
   top: 8px;
 `
 
-const SummaryCard = ({ className, data, events }) => {
+const SummaryCard = ({ className, data, events }: summaryCardProps) => {
   const summaryData = Object.entries(data);
   return (
     <Wrap1200>
@@ -102,12 +108,6 @@ SummaryCard.defaultProps = {
   className: '',
   data: {},
   events: {},
-}
-
-SummaryCard.propTypes = {
-  className: PropTypes.string,
-  data: PropTypes.shape({}),
-  events: PropTypes.shape({}),
 }
 
 export default SummaryCard
