@@ -35,7 +35,7 @@ import ToggleButton from './components/button/ToggleButton'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as commonTag from '@Components/common/commonTag'
 
-import SelectBox from '@Components/form/SelectBox'
+import SelectBox from './components/form/SelectBox'
 import Tooltip from '@Components/form/Tooltip'
 import * as font from '@src/assets/styles/font'
 import * as variables from '@src/assets/styles/variables'

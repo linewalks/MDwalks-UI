@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
-import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
+import * as font from '../../assets/styles/font'
+import { color } from '../../assets/styles/variables'
 
-import icnSelectOpenSm from '@src/assets/svg/icn_chevron_down_24.svg';
-import icnSelectOpenXs from '@src/assets/svg/icn_chevron_down_16.svg';
+import icnSelectOpenSm from '../../assets/svg/icn_chevron_down_24.svg'
+import icnSelectOpenXs from '../../assets/svg/icn_chevron_down_16.svg'
 
 const SelectSize = {
   xLarge: {
@@ -66,7 +65,7 @@ const setSelectSize = (props) => `
 `
 
 // size : xlg, lg, md
-const Box = styled.div.attrs(({ size = 'md' }) => {
+const Box = styled.div.attrs(({ size = 'md' }: { size: string; }) => {
   const SizeObject = ({
     xlg: SelectSize.xLarge,
     md: SelectSize.middle,
@@ -113,7 +112,13 @@ const Box = styled.div.attrs(({ size = 'md' }) => {
   ${setSelectSize}
 `
 
-const SelectBox = ({ style, children, size }) => (
+interface SelectBoxProps {
+  style: object;
+  children: React.ReactNode;
+  size: 'md' | 'lg' | 'xlg';
+}
+
+const SelectBox = ({ style, children, size }: SelectBoxProps) => (
   <Box style={style} size={size}>
     {children}
   </Box>
@@ -121,10 +126,6 @@ const SelectBox = ({ style, children, size }) => (
 
 SelectBox.defaultProps = {
   size: 'md',
-}
-
-SelectBox.propTypes = {
-  size: PropTypes.string,
 }
 
 export default SelectBox
