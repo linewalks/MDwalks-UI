@@ -31,7 +31,7 @@ import ButtonTextLink from './components/button/ButtonTextLink'
 import TextLink from './components/button/TextLink'
 // import ToastCtr from '@Components/toast/ToastCtr'
 import Pagination from '@Components/pagination/Pagination'
-import ToggleButton from '@Components/button/ToggleButton'
+import ToggleButton from './components/button/ToggleButton'
 import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as commonTag from '@Components/common/commonTag'
 

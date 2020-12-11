@@ -1,9 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components'
-import PropTypes from 'prop-types'
 import _ from 'lodash'
-import fontStyle from '@src/assets/styles/font.module.sass'
-import { color } from '@src/assets/styles/variables'
+import fontStyle from '../../assets/styles/font.module.sass'
+import { color } from '../../assets/styles/variables'
 
 export const BtnSize = {
   large: {
@@ -32,11 +31,15 @@ export const BtnSize = {
   },
 }
 
-const BoxShadow = css`
+const BoxShadow = css<{ selected: boolean; }>`
   box-shadow: ${(props) => (props.selected ? '0 1px 8px 0 rgba(117, 127, 139, 0.36);' : null)}
 `
 
-const ButtonContainer = styled.section`
+interface ButtonContainerProps {
+  height: number;
+}
+
+const ButtonContainer = styled.section<ButtonContainerProps>`
   height: ${(props) => (props.height)}px;
   background-color: ${color.$grey04};
   border-radius: ${(props) => (props.height / 2)}px;
@@ -44,9 +47,17 @@ const ButtonContainer = styled.section`
   display: table;
 `
 
+interface ToggleBtnProps extends ButtonContainerProps {
+  fontSize: number;
+  minWidth: number;
+  padding: string;
+  selected: boolean;
+  onClick: (e:React.SyntheticEvent) => void;
+}
+
 const ToggleBtn = styled.button.attrs(() => ({
   className: `${fontStyle.font} ${fontStyle.bold}`,
-}))`
+}))<ToggleBtnProps>`
   color: ${color.$grey10};
   font-size: ${(props) => (props.fontSize)}px;
   min-width: ${(props) => (props.minWidth)}px;
@@ -67,7 +78,32 @@ const ToggleBtn = styled.button.attrs(() => ({
   }
 `
 
-class ToggleButton extends React.Component {
+interface IState {
+  active: string;
+}
+
+interface IData {
+  type: string;
+  text: string;
+}
+
+interface IProps {
+  data: IData[];
+  size: 'md' | 'lg';
+  onChange: (value: string) => void;
+}
+
+const defaultProps = {
+  onChange: () => {},
+  size: 'md',
+}
+
+class ToggleButton extends React.Component<IProps, IState> {
+  static defaultProps = {
+    onChange: () => {},
+    size: 'md',
+  }
+
   constructor(props) {
     super(props);
     const { data } = this.props
@@ -77,7 +113,8 @@ class ToggleButton extends React.Component {
     }
   }
 
-  changeBtn = ({ target: { value } }) => {
+  changeBtn = (e) => {
+    const { target: { value } } = e
     const { onChange } = this.props
     this.setState({
       active: value,
@@ -122,20 +159,4 @@ class ToggleButton extends React.Component {
   }
 }
 
-ToggleButton.defaultProps = {
-  onChange: () => {},
-  size: 'md',
-}
-
-ToggleButton.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.string,
-      text: PropTypes.string,
-    }),
-  ).isRequired,
-  size: PropTypes.oneOf(['md', 'lg']),
-  onChange: PropTypes.func,
-}
-
-export default ToggleButton;
+export default ToggleButton
