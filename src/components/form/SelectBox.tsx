@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 import * as font from '../../assets/styles/font'
 import { color } from '../../assets/styles/variables'
 
@@ -127,10 +126,6 @@ const SelectBox = ({ style, children, size }: SelectBoxProps) => (
 
 SelectBox.defaultProps = {
   size: 'md',
-}
-
-SelectBox.propTypes = {
-  size: PropTypes.string,
 }
 
 export default SelectBox
