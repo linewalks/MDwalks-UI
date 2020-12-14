@@ -1,11 +1,16 @@
 // import React from 'react';
 import styled, { css } from 'styled-components'
-import fontStyle from '@src/assets/styles/font.module.sass'
-import { color } from '@src/assets/styles/variables'
+import fontStyle from '../../assets/styles/font.module.sass'
+import { color } from '../../assets/styles/variables'
 
-import ChartConfig from '@src/helper/ChartConfig'
+import ChartConfig from '../../helper/ChartConfig'
 
-const CssEnable = css`
+interface ItemProps {
+  layout: 'horizontal' | 'vertical';
+  disabled: boolean;
+}
+
+const CssEnable = css<ItemProps>`
   label {
     cursor: pointer;
   }
@@ -22,12 +27,12 @@ const CssDisable = css`
     cursor: not-allowed;
   }
 `
-const Item = styled.div.attrs((props) => {
+const Item = styled.div.attrs((props: ItemProps) => {
   const fontColorClassName = props.disabled ? fontStyle.fc_grey06 : fontStyle.fc_grey09
   return {
     className: [fontStyle.fs16, fontColorClassName].join(' '),
   }
-})`
+})<ItemProps>`
   label {
     display: block;
     padding: 12px 24px;
@@ -41,7 +46,7 @@ const Item = styled.div.attrs((props) => {
     display: none;
   }
 
-  ${(props) => (props.layout === ChartConfig.Layout.HORIZONTAL ? ' display: inline-block' : 'display: block')};
+  display: ${({ layout }) => (layout === ChartConfig.Layout.HORIZONTAL ? 'inline-block' : 'block')};
   ${(props) => (props.disabled ? CssDisable : CssEnable)}
 `
 
