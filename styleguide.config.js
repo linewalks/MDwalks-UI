@@ -96,7 +96,7 @@ module.exports = {
         'src/components/card/SelectedCard.tsx',
         'src/components/card/SummaryCard.tsx',
         'src/components/form/SelectBox.tsx',
-        'src/components/form/Tooltip.js',
+        'src/components/form/Tooltip.tsx',
         'src/components/layout/Image.tsx',
         'src/components/layout/Navbar.js',
         'src/components/layout/Footer.tsx',

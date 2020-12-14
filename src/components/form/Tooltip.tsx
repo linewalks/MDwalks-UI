@@ -2,9 +2,8 @@
 import React from 'react'
 import * as antd from 'antd'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 
-import { color } from '@src/assets/styles/variables'
+import { color } from '../../assets/styles/variables'
 
 const WrapTooltip = styled.div`
   display: inline;
@@ -31,13 +30,21 @@ const WrapTooltip = styled.div`
   }
 `
 
+interface TooltipProps {
+  desc: string;
+  children: React.ReactNode;
+  innerStyle: {
+    [styleKey:string]: string;
+  }
+}
+
 const Tooltip = ({
   desc,
   children,
   innerStyle,
-}) => (
+}: TooltipProps) => (
   <WrapTooltip>
-    <antd.Tooltip getPopupContainer={(triggerNode) => triggerNode.parentNode} placement="bottomLeft" title={desc}>
+    <antd.Tooltip getPopupContainer={(triggerNode: HTMLElement) => triggerNode.parentNode as HTMLElement} placement="bottomLeft" title={desc}>
       <span style={innerStyle}>{children}</span>
     </antd.Tooltip>
   </WrapTooltip>
@@ -49,12 +56,6 @@ Tooltip.defaultProps = {
   innerStyle: {
     fontWeight: 'bold',
   },
-}
-
-Tooltip.propTypes = {
-  desc: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.elementType]),
-  innerStyle: PropTypes.shape({}),
 }
 
 export default Tooltip
