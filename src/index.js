@@ -36,7 +36,7 @@ import TooltipBox from '@Components/tooltip/TooltipBox'
 import * as commonTag from '@Components/common/commonTag'
 
 import SelectBox from './components/form/SelectBox'
-import Tooltip from '@Components/form/Tooltip'
+import Tooltip from './components/form/Tooltip'
 import * as font from '@src/assets/styles/font'
 import * as variables from '@src/assets/styles/variables'
 import * as tableProperties from '@src/assets/styles/tableProperties'
