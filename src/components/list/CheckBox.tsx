@@ -1,17 +1,15 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-
-import Item from '@Components/list/Item'
-import * as font from '@src/assets/styles/font'
-import IcnChecked from '@src/assets/svg/checkbox/btn_checkbox_checked_24.svg'
-import IcnUnchecked from '@src/assets/svg/checkbox/btn_checkbox_unchecked_24.svg'
-import IcnCheckedDisabled from '@src/assets/svg/checkbox/btn_checkbox_checked_disabled_24.svg'
-import IcnUncheckedDisabled from '@src/assets/svg/checkbox/btn_checkbox_unchecked_disabled_24.svg'
-import IcnCheckedSm from '@src/assets/svg/checkbox/btn_checkbox_checked_16.svg'
-import IcnUncheckedSm from '@src/assets/svg/checkbox/btn_checkbox_unchecked_16.svg'
-import IcnCheckedDisabledSm from '@src/assets/svg/checkbox/btn_checkbox_checked_disabled_16.svg'
-import IcnUncheckedDisabledSm from '@src/assets/svg/checkbox/btn_checkbox_unchecked_disabled_16.svg'
+import Item from './Item'
+import * as font from '../../assets/styles/font'
+import IcnChecked from '../../assets/svg/checkbox/btn_checkbox_checked_24.svg'
+import IcnUnchecked from '../../assets/svg/checkbox/btn_checkbox_unchecked_24.svg'
+import IcnCheckedDisabled from '../../assets/svg/checkbox/btn_checkbox_checked_disabled_24.svg'
+import IcnUncheckedDisabled from '../../assets/svg/checkbox/btn_checkbox_unchecked_disabled_24.svg'
+import IcnCheckedSm from '../../assets/svg/checkbox/btn_checkbox_checked_16.svg'
+import IcnUncheckedSm from '../../assets/svg/checkbox/btn_checkbox_unchecked_16.svg'
+import IcnCheckedDisabledSm from '../../assets/svg/checkbox/btn_checkbox_checked_disabled_16.svg'
+import IcnUncheckedDisabledSm from '../../assets/svg/checkbox/btn_checkbox_unchecked_disabled_16.svg'
 
 const IcnList = {
   sm: {
@@ -36,6 +34,15 @@ const IcnList = {
   },
 }
 
+interface CheckBoxProps {
+  text: string;
+  disabled: boolean;
+  onChange: (e:React.FormEventHandler<HTMLInputElement>) => void;
+  formatter: (text:string) => string;
+  defaultChecked: boolean;
+  size: 'sm' | 'md';
+}
+
 const CheckBox = ({
   text,
   disabled,
@@ -43,7 +50,7 @@ const CheckBox = ({
   formatter,
   defaultChecked,
   size,
-}) => {
+}: CheckBoxProps) => {
   const [checked, setChecked] = useState(defaultChecked)
   const newText = formatter ? formatter(text) : text
 
@@ -83,15 +90,6 @@ CheckBox.defaultProps = {
   formatter: null,
   defaultChecked: false,
   size: 'md',
-}
-
-CheckBox.propTypes = {
-  text: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  onChange: PropTypes.func,
-  formatter: PropTypes.func,
-  defaultChecked: PropTypes.bool,
-  size: PropTypes.oneOf(['sm', 'md']),
 }
 
 export default CheckBox

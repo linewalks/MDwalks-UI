@@ -50,4 +50,4 @@ const Item = styled.div.attrs((props: ItemProps) => {
   ${(props) => (props.disabled ? CssDisable : CssEnable)}
 `
 
-export default Item
+export default Item as React.FunctionComponent<{ disabled: boolean ;}>

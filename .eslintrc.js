@@ -28,7 +28,7 @@ module.exports = {
     ],
     "rules": {
         'react/jsx-filename-extension': [1, {
-          "extensions": [".js", ".jsx"]
+          "extensions": [".js", ".jsx", "tsx"]
         }],
         // 더블도 지원해야 하는 경우가 있을까?
         'quotes': ['error', 'single', {
