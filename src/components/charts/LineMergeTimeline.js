@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as d3 from 'd3'
 import _ from 'lodash'
@@ -16,7 +16,7 @@ class LineMergeTimeline extends Component {
   rootElement = React.createRef()
 
   constructor(props) {
-    super(props);
+    super(props)
     const { chartWidth, chartHeight } = this.props
 
     this.options = {
@@ -227,20 +227,20 @@ class LineMergeTimeline extends Component {
     const { scoreClickEvent } = this.props
     // Create Line Chart
     //  Create Line Color Gradient
-    const defs = svg.append('defs');
+    const defs = svg.append('defs')
 
     const gradient = defs.append('linearGradient')
       .attr('id', 'svgGradient')
       .attr('x1', '0%')
       .attr('x2', '0%')
       .attr('y1', '0%')
-      .attr('y2', '100%');
+      .attr('y2', '100%')
 
     gradient.append('stop')
       .attr('class', 'start')
       .attr('offset', '0%')
       .attr('stop-color', _.nth(getColorsByTheme(Themes.ThemeArrangeGradientPrimarySea), 2))
-      .attr('stop-opacity', 1);
+      .attr('stop-opacity', 1)
 
     gradient.append('stop')
       .attr('class', 'end')
@@ -275,7 +275,7 @@ class LineMergeTimeline extends Component {
         return _lineChartData.every((el) => el.y === lineChartFirstYValue) ? colorScale(lineYAxisScale(lineChartFirstYValue)) : 'url(#svgGradient)'
       })
       .attr('stroke-width', 2)
-      .attr('d', line);
+      .attr('d', line)
 
     // 3. Render Line Point
     gLine
@@ -731,7 +731,7 @@ class LineMergeTimeline extends Component {
     const {
       lineYAxisHeight, height, xAxisHeight, defaultMargin, defaultPadding, overViewAxisHeight,
     } = this.options
-    const { brushEvent } = this.props;
+    const { brushEvent } = this.props
     d3.select(`#${id}`).on('click', () => {
       // Initialize XAxisScale, VerticalLineScale
       xAxisScale.domain(overViewXAxisScale.domain())
@@ -850,8 +850,8 @@ class LineMergeTimeline extends Component {
   }
 
   renderLineMergeTimeline = (timeData, lineData) => {
-    const timelineData = timeData;
-    const lineChartData = lineDataFormatConvert(lineData);
+    const timelineData = timeData
+    const lineChartData = lineDataFormatConvert(lineData)
     const {
       width, height,
       overViewAxisHeight, yAxisWidth,
@@ -975,7 +975,7 @@ class LineMergeTimeline extends Component {
 
     return (
       <div ref={this.rootElement} className={styles.timelineChart} />
-    );
+    )
   }
 }
 
