@@ -1,18 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
 import _ from 'lodash'
-import PropTypes from 'prop-types'
-import Item from '@Components/list/Item'
-import IcnChecked from '@src/assets/svg/checkbox/btn_checkbox_checked_24.svg'
-import IcnUnchecked from '@src/assets/svg/checkbox/btn_checkbox_unchecked_24.svg'
-import IcnCheckedDisabled from '@src/assets/svg/checkbox/btn_checkbox_checked_disabled_24.svg'
-import IcnUncheckedDisabled from '@src/assets/svg/checkbox/btn_checkbox_unchecked_disabled_24.svg'
-import IcnCheckedSm from '@src/assets/svg/checkbox/btn_checkbox_checked_16.svg'
-import IcnUncheckedSm from '@src/assets/svg/checkbox/btn_checkbox_unchecked_16.svg'
-import IcnCheckedDisabledSm from '@src/assets/svg/checkbox/btn_checkbox_checked_disabled_16.svg'
-import IcnUncheckedDisabledSm from '@src/assets/svg/checkbox/btn_checkbox_unchecked_disabled_16.svg'
-import ChartConfig from '@src/helper/ChartConfig'
-import * as font from '@src/assets/styles/font'
+import Item from './Item'
+import IcnChecked from '../../assets/svg/checkbox/btn_checkbox_checked_24.svg'
+import IcnUnchecked from '../../assets/svg/checkbox/btn_checkbox_unchecked_24.svg'
+import IcnCheckedDisabled from '../../assets/svg/checkbox/btn_checkbox_checked_disabled_24.svg'
+import IcnUncheckedDisabled from '../../assets/svg/checkbox/btn_checkbox_unchecked_disabled_24.svg'
+import IcnCheckedSm from '../../assets/svg/checkbox/btn_checkbox_checked_16.svg'
+import IcnUncheckedSm from '../../assets/svg/checkbox/btn_checkbox_unchecked_16.svg'
+import IcnCheckedDisabledSm from '../../assets/svg/checkbox/btn_checkbox_checked_disabled_16.svg'
+import IcnUncheckedDisabledSm from '../../assets/svg/checkbox/btn_checkbox_unchecked_disabled_16.svg'
+import ChartConfig from '../../helper/ChartConfig'
+import * as font from '../../assets/styles/font'
 
 const IcnList = {
   sm: {
@@ -37,6 +36,25 @@ const IcnList = {
   },
 }
 
+interface CheckListDataProps {
+  id: number;
+  name: string;
+  disabled?: boolean;
+}
+
+interface CheckListProps {
+  data: CheckListDataProps[];
+  selected: number[];
+  layout: 'horizontal' | 'vertical';
+  disabled: boolean;
+  checkVisible: boolean;
+  limit: number;
+  onChange: (id: number, selectedList: number[]) => void;
+  onError: () => void;
+  formatter: (string) => string;
+  size: 'sm' | 'md';
+}
+
 const CheckList = ({
   data,
   selected,
@@ -48,8 +66,8 @@ const CheckList = ({
   onError,
   formatter,
   size,
-}) => {
-  const handleOnChange = (id) => {
+}: CheckListProps) => {
+  const handleOnChange = (id: number) => {
     if (disabled) return
     if (_.find(data, (item) => item.id === id).disabled) return
     if (!_.includes(selected, id) && selected.length >= limit) {
@@ -111,21 +129,6 @@ CheckList.defaultProps = {
   onError: null,
   formatter: null,
   size: 'md',
-}
-
-CheckList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  selected: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  ).isRequired,
-  layout: PropTypes.string,
-  disabled: PropTypes.bool,
-  checkVisible: PropTypes.bool,
-  limit: PropTypes.number,
-  onChange: PropTypes.func,
-  onError: PropTypes.func,
-  formatter: PropTypes.func,
-  size: PropTypes.oneOf(['sm', 'md']),
 }
 
 export default CheckList
