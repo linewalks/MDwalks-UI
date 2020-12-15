@@ -6,8 +6,8 @@ import { color } from '../../assets/styles/variables'
 import ChartConfig from '../../helper/ChartConfig'
 
 interface ItemProps {
-  layout: 'horizontal' | 'vertical';
-  disabled: boolean;
+  layout?: 'horizontal' | 'vertical';
+  disabled?: boolean;
 }
 
 const CssEnable = css<ItemProps>`
@@ -50,4 +50,4 @@ const Item = styled.div.attrs((props: ItemProps) => {
   ${(props) => (props.disabled ? CssDisable : CssEnable)}
 `
 
-export default Item as React.FunctionComponent<{ disabled: boolean ;}>
+export default Item as React.FunctionComponent<ItemProps>
