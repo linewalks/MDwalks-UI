@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
@@ -34,7 +34,7 @@ class Timeline extends Component {
     // Create xAxis
     // 1. Get min, max time
     const { startTime, endTime } = getStartAndEndTime(
-      timelineData.map((d) => d.dataPoints).flat(),
+      _.flatten(timelineData.map((d) => d.dataPoints)),
     )
     // 2. Create x axis scale
     const xAxisScale = d3
@@ -337,7 +337,7 @@ class Timeline extends Component {
     const brushRightTopPositionY = overViewAxisHeight
 
     const brushed = () => {
-      const { brushEvent } = this.props;
+      const { brushEvent } = this.props
       const { selection } = d3.event
       if (selection === null) return
 
@@ -478,6 +478,11 @@ class Timeline extends Component {
   }
 
   componentDidMount = () => {
+    const { data } = this.props
+    return !this.checkDataValidation() && this.renderTimeline(data)
+  }
+
+  componentDidUpdate = () => {
     const { data } = this.props
     return !this.checkDataValidation() && this.renderTimeline(data)
   }
