@@ -1,6 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import RadioList from './RadioList'
+import RadioList from '@Components/list/RadioList'
 
 const callback = jest.fn()
 
