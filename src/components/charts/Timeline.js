@@ -34,7 +34,7 @@ class Timeline extends Component {
     // Create xAxis
     // 1. Get min, max time
     const { startTime, endTime } = getStartAndEndTime(
-      timelineData.map((d) => d.dataPoints).flat(),
+      _.flatten(timelineData.map((d) => d.dataPoints)),
     )
     // 2. Create x axis scale
     const xAxisScale = d3

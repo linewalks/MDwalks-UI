@@ -138,9 +138,35 @@ describe('Timeline', () => {
   ]
 
   it('default', () => {
+    const defaultData = [
+      {
+        dataPoints: [
+          {
+            startTime: '2015-06-24T00:00:00',
+            endTime: '2015-06-25T00:00:00',
+          },
+        ],
+        label: [
+          'b',
+        ],
+        order: 0,
+      },
+      {
+        dataPoints: [
+          {
+            startTime: '2015-06-26T00:00:00',
+            endTime: '2015-06-27T00:00:00',
+          },
+        ],
+        label: [
+          'c',
+        ],
+        order: 1,
+      },
+    ]
     const wrapper = mount(
       <Timeline
-        data={[]}
+        data={defaultData}
       />,
     )
 
