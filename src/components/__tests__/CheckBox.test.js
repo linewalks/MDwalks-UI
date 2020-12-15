@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { act } from 'react-dom/test-utils'
-import CheckBox from './CheckBox'
+import CheckBox from '@Components/list/CheckBox'
 
 const spyOnChange = jest.fn()
 
