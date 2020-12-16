@@ -74,17 +74,17 @@ const Label = styled.label.attrs(() => ({
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 `
 interface RadioListDataProps {
-  id: number;
+  id: number | string;
   name: string;
   disabled?: boolean;
 }
 
 interface RadioListProps {
   data: RadioListDataProps[];
-  selected: number[];
+  selected: number[] | string[];
   disabled: boolean;
   onChange: (id: string) => void;
-  formatter: (string) => string;
+  formatter?: (item: RadioListDataProps) => string | React.ReactNode;
   align: 'center' | 'left' | 'right';
   layout: 'horizontal' | 'vertical';
 }
