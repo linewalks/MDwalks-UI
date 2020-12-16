@@ -2,35 +2,36 @@
 import React from 'react'
 import _ from 'lodash'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 
-import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
-import ChartConfig from '@src/helper/ChartConfig'
-import fontStyle from '@src/assets/styles/font.module.sass'
+import * as font from '../../assets/styles/font'
+import { color } from '../../assets/styles/variables'
+import ChartConfig from '../../helper/ChartConfig'
+import fontStyle from '../../assets/styles/font.module.sass'
 
-import IcnChecked from '@src/assets/svg/radiobox/btn_radiobutton_checked_24.svg'
-import IcnUnchecked from '@src/assets/svg/radiobox/btn_radiobutton_unchecked_24.svg'
-import IcnCheckedDisabled from '@src/assets/svg/radiobox/btn_radiobutton_checked_disabled_24.svg'
-import IcnUncheckedDisabled from '@src/assets/svg/radiobox/btn_radiobutton_unchecked_disabled_24.svg'
+import IcnChecked from '../../assets/svg/radiobox/btn_radiobutton_checked_24.svg'
+import IcnUnchecked from '../../assets/svg/radiobox/btn_radiobutton_unchecked_24.svg'
+import IcnCheckedDisabled from '../../assets/svg/radiobox/btn_radiobutton_checked_disabled_24.svg'
+import IcnUncheckedDisabled from '../../assets/svg/radiobox/btn_radiobutton_unchecked_disabled_24.svg'
 
 const Outer = styled.section`
   display: flex;
   align-items: center;
 `
 
-const Inner = styled.div`
+const autoMargin = {
+  center: 'margin: 0 auto',
+  left: 'margin-right: auto',
+  right: 'margin-left: auto',
+}
+
+const Inner = styled.div<{ align: 'center' | 'left' | 'right'; }>`
   display: inline-block;
   width: 100%;
-
-  ${(props) => (props.align === 'center' ? `margin: 0 auto` : '')}
-  ${(props) => (props.align === 'left' ? `margin-right: auto` : '')}
-  ${(props) => (props.align === 'right' ? `margin-left: auto` : '')}
-
+  ${({ align }) => autoMargin[align]};
   margin-bottom: -24px;
 `
 
-const Box = styled.div`
+const Box = styled.div<{ layout: 'horizontal' | 'vertical'; }>`
   ${(props) => (props.layout === ChartConfig.Layout.HORIZONTAL ? 'display: inline-block' : 'display: block')};
   ${(props) => (props.layout === ChartConfig.Layout.VERTICAL && 'width: inherit;')};
   padding: 12px 24px 12px 16px;
@@ -44,7 +45,7 @@ const Box = styled.div`
 
 const Label = styled.label.attrs(() => ({
   className: [fontStyle.fs16, fontStyle.fc_grey09].join(' '),
-}))`
+}))<{ disabled: boolean; }>`
   display: flex;
   align-items: center;
   height: 100%;
@@ -72,6 +73,21 @@ const Label = styled.label.attrs(() => ({
 
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 `
+interface RadioListDataProps {
+  id: number | string;
+  name: string;
+  disabled?: boolean;
+}
+
+interface RadioListProps {
+  data: RadioListDataProps[];
+  selected: number[] | string[];
+  disabled: boolean;
+  onChange: (id: string) => void;
+  formatter?: (item: RadioListDataProps) => string | React.ReactNode;
+  align: 'center' | 'left' | 'right';
+  layout: 'horizontal' | 'vertical';
+}
 
 const RadioList = ({
   data,
@@ -81,7 +97,7 @@ const RadioList = ({
   formatter,
   align,
   layout,
-}) => {
+}: RadioListProps) => {
   const onChangeTrigger = (id) => {
     if (disabled) return
     if (_.isEqual(id, selected)) return
@@ -132,22 +148,6 @@ RadioList.defaultProps = {
   formatter: null,
   align: 'center',
   layout: ChartConfig.Layout.VERTICAL,
-}
-
-RadioList.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      name: PropTypes.string.isRequired,
-      disabled: PropTypes.bool,
-    }),
-  ).isRequired,
-  selected: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  disabled: PropTypes.bool,
-  onChange: PropTypes.func,
-  formatter: PropTypes.func,
-  align: PropTypes.oneOf(['center', 'left', 'right']),
-  layout: PropTypes.string,
 }
 
 export default RadioList
