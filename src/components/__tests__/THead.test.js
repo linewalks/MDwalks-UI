@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 import _ from 'lodash'
-import { mount } from 'enzyme';
+import { mount } from 'enzyme'
 import THead from '@Table/THead'
 
 // 빈경우

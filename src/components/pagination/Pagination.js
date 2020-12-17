@@ -12,12 +12,13 @@ import btnPreSm from '@src/assets/svg/pagination/btn_pagination_previous_32.svg'
 
 import Input from '@Components/pagination/Input'
 
-const PaginationBox = styled.section`
+export const PaginationBox = styled.section`
   display: flex;
   align-items: center;
+  ${({ isHidden }) => isHidden && 'display: none;'};
 `
 
-const PaginationInner = styled.div`
+export const PaginationInner = styled.div`
   display: inline-block;
 
   ${(props) => (props.align === 'center' ? `margin: 0 auto` : '')}
@@ -184,7 +185,7 @@ class Pagination extends Component {
     const imageSize = size === 'sm' ? 32 : 42
 
     return (
-      <PaginationBox style={this.isHidden() ? { display: 'none' } : {}}>
+      <PaginationBox isHidden={this.isHidden()}>
         <PaginationInner align={align}>
           <ButtonMove
             type="button"
