@@ -1,6 +1,10 @@
 // update ColorSet
 
-export const color = {
+interface Color {
+  [colorName: string]: string;
+}
+
+export const color: Color = {
   $black: '#000000',
   $white: '#ffffff',
 
@@ -27,18 +31,44 @@ export const color = {
   $green01: '#00bf70',
 }
 
-export const size = {
+interface Size {
+  [key: string]: string;
+}
+
+export const size: Size = {
   $footer_height: '60px',
   $footer_margin_top: '80px',
 }
 
-export const zIndex = {
+interface ZIndex {
+  [key: string]: number;
+}
+
+export const zIndex: ZIndex = {
   $modalOverlay: 1000,
   $modal: 1001,
   $modalOverlayLoading: 1002,
 }
 
-export const tableProperties = {
+interface DefaultTableProp {
+  size: number;
+  color: string;
+  bold?: boolean;
+}
+
+interface RestTableProp {
+  padding: string;
+  subHeader?: DefaultTableProp
+}
+
+
+interface TableProperties {
+  [size: string]: {
+    [elementType: string]: DefaultTableProp & RestTableProp
+  }
+}
+
+export const tableProperties: TableProperties = {
   small: {
     thead: {
       size: 13,
