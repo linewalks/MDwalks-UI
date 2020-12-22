@@ -40,7 +40,7 @@ const includeModule = [
   'TimeToEvent',
   'PieChart',
   'Timeline',
-  // 'ToastCtr',
+  'Toast',
   'ToggleButton',
   'TooltipBox',
   'TreeMap',

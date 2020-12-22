@@ -29,7 +29,7 @@ import Button from './components/button/Button'
 import ButtonLink from './components/button/ButtonLink'
 import ButtonTextLink from './components/button/ButtonTextLink'
 import TextLink from './components/button/TextLink'
-// import ToastCtr from '@Components/toast/ToastCtr'
+import * as Toast from '@Components/Toast/ToastProvider'
 import Pagination from '@Components/pagination/Pagination'
 import ToggleButton from './components/button/ToggleButton'
 import TooltipBox from '@Components/tooltip/TooltipBox'
@@ -82,7 +82,7 @@ export {
   ButtonTextLink,
   TextLink,
   ToggleButton,
-  // ToastCtr,
+  Toast,
   TooltipBox,
   commonTag,
   Histogram,
