@@ -1,5 +1,5 @@
 import { babel } from '@rollup/plugin-babel'
-import { nodeResolve } from '@rollup/plugin-node-resolve'
+import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import postcss from 'rollup-plugin-postcss'
 import json from '@rollup/plugin-json'
@@ -13,12 +13,10 @@ export default {
     {
       file: pkg.main,
       format: 'cjs',
-      sourcemap: true,
     },
     {
       file: pkg.module,
       format: 'esm',
-      sourcemap: true,
     },
   ],
   plugins: [
@@ -39,5 +37,5 @@ export default {
     json(),
     typescript(),
   ],
-  external: ['react', 'styled-components', 'd3', 'recharts', 'antd', 'typescript', 'tslib'],
+  external: ['react', 'react-dom', 'styled-components', 'd3', 'recharts', 'antd', 'typescript', 'tslib'],
 }
