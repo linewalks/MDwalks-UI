@@ -7,6 +7,11 @@ Toast example:
 ##### 4. ToastData의 message는 커스텀 가능합니다.
 
 ```js
+/*
+개인프로젝트에서 사용시
+import { Toast } from 'MDwalks-UI'
+로 import를 변경해서사용하세요.
+*/
 import * as Toast from '@Components/Toast'
 import Button from '@Components/button/Button'
 import { color } from '@src/assets/styles/variables'

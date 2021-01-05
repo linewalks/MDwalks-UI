@@ -45,7 +45,7 @@ const CloseBtn = styled.button.attrs({
 })`
   position: absolute;
   top: 50%;
-  transform: translate(-50%);
+  transform: translateY(-50%);
   right: 24px;
 `
 
