@@ -18,7 +18,7 @@ describe('Toast Component', () => {
     }
 
     removeSpy = jest.spyOn(toastEvent, 'remove')
-  
+
     render(
       <ToastContext.Provider value={{ addToast: toastEvent.add, removeToast: toastEvent.remove }}>
         <Toast toastId="toast_1" type="info" message="hello" duration={1000} />

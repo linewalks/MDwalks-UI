@@ -4,7 +4,7 @@ import React, {
 import ReactDOM from 'react-dom'
 import _ from 'lodash'
 import styled from 'styled-components'
-import Toast from './Toast'
+import Toast from '@Components/Toast/Toast'
 
 const ToastContainer = styled.div`
   position: fixed;

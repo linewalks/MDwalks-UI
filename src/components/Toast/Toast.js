@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 import PropTypes from 'prop-types'
-import { useToast } from './ToastProvider'
+import { useToast } from '@Components/Toast/ToastProvider'
 import { color } from '../../assets/styles/variables.ts'
 import icnInfoCircle from '../../assets/svg/toast/icn_done_circle_filled_pmblue_24.svg'
 import icnWarningCircle from '../../assets/svg/toast/icn_error_circle_filled_red01_24.svg'
@@ -44,7 +44,8 @@ const CloseBtn = styled.button.attrs({
   type: 'button',
 })`
   position: absolute;
-  top: 24px;
+  top: 50%;
+  transform: translate(-50%);
   right: 24px;
 `
 
