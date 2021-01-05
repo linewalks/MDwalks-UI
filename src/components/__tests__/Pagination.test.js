@@ -18,7 +18,7 @@ it('defaultProps', () => {
   expect(wrapper.state('selectPage')).toBe(1)
   expect(wrapper.state('totalPage')).toBe(1)
   expect(wrapper.state('drawPageCnt')).toBe(1)
-  expect(wrapper.prop('size')).toBe(undefined)
+  expect(wrapper.prop('size')).toBe('md')
   expect(wrapper.state('list')).toEqual(_.range(1, 2))
 })
 

@@ -1,24 +1,23 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 import _ from 'lodash'
 
-import { color } from '@src/assets/styles/variables'
+import { color } from '../../assets/styles/variables'
 
-import btnNext from '@src/assets/svg/pagination/btn_pagination_next_42.svg'
-import btnPre from '@src/assets/svg/pagination/btn_pagination_previous_42.svg'
-import btnNextSm from '@src/assets/svg/pagination/btn_pagination_next_32.svg'
-import btnPreSm from '@src/assets/svg/pagination/btn_pagination_previous_32.svg'
+import btnNext from '../../assets/svg/pagination/btn_pagination_next_42.svg'
+import btnPre from '../../assets/svg/pagination/btn_pagination_previous_42.svg'
+import btnNextSm from '../../assets/svg/pagination/btn_pagination_next_32.svg'
+import btnPreSm from '../../assets/svg/pagination/btn_pagination_previous_32.svg'
 
-import Input from '@Components/pagination/Input'
+import Input from './Input'
 
-export const PaginationBox = styled.section`
+export const PaginationBox = styled.section<{ isHidden: boolean; }>`
   display: flex;
   align-items: center;
   ${({ isHidden }) => isHidden && 'display: none;'};
 `
 
-export const PaginationInner = styled.div`
+export const PaginationInner = styled.div<{ align: 'center' | 'left' | 'right'; }>`
   display: inline-block;
 
   ${(props) => (props.align === 'center' ? `margin: 0 auto` : '')}
@@ -26,7 +25,7 @@ export const PaginationInner = styled.div`
   ${(props) => (props.align === 'right' ? `margin-left: auto` : '')}
 `
 
-export const PageText = styled.span`
+export const PageText = styled.span<{ size: 'sm' | 'md' }>`
   &:not(:last-child) {
     margin-left: 8px;
   }
@@ -35,7 +34,7 @@ export const PageText = styled.span`
   ${(props) => (props.size === 'sm' ? `font-size: 14px;` : `font-size: 16px;`)};
 `
 
-export const ButtonPage = styled.button`
+export const ButtonPage = styled.button<{ selected: boolean; size: 'sm' | 'md'; }>`
   border-radius: 4px;
 
   ${(props) => (props.selected ? `background-color: ${color.$grey08}` : '')};
@@ -53,12 +52,17 @@ export const ButtonPage = styled.button`
     `
   )};
 `
+interface IButtonMove {
+  size: 'sm' | 'md';
+  disabled: boolean;
+  onClick: () => void;
+}
 
-export const ButtonMove = styled.button`
+export const ButtonMove = styled.button<IButtonMove>`
   img {
     border-radius: 8px;
   }
-  ${(props) => (props.selected ? `background-color: ${color.$grey03}` : '')};
+  ${(props) => (props.disabled ? `background-color: ${color.$grey03}` : '')};
   font-size: 0;
   &:first-child {
     margin-right: 16px;
@@ -78,7 +82,33 @@ export const ButtonMove = styled.button`
   )};
 `
 
-class Pagination extends Component {
+interface IProps {
+  size: 'sm' | 'md';
+  onChange: (page: number) => void;
+  selectPage: number;
+  totalPage: number;
+  drawPageCnt: number;
+  simple: boolean;
+  align: 'center' | 'left' | 'right';
+}
+
+interface IState {
+  selectPage: number;
+  totalPage: number;
+  drawPageCnt: number;
+  list: number[];
+}
+
+class Pagination extends Component <IProps, IState>{
+  static defaultProps = {
+    onChange: () => {},
+    size: 'md',
+    selectPage: 1,
+    totalPage: 1,
+    drawPageCnt: 1,
+    simple: false,
+    align: 'center',
+  }
   constructor(props) {
     super(props)
     const {
@@ -92,9 +122,8 @@ class Pagination extends Component {
       selectPage,
       totalPage,
       drawPageCnt: size === 'sm' ? 1 : drawPageCnt,
+      list: [],
     }
-
-    this.state.list = this.getPageList()
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -119,7 +148,7 @@ class Pagination extends Component {
   // from 0
   getCurrentPageCnt() {
     const { selectPage, drawPageCnt } = this.state
-    return parseInt((selectPage - 1) / drawPageCnt, 10)
+    return parseInt(`${(selectPage - 1) / drawPageCnt}`, 10)
   }
 
   getPageList() {
@@ -165,19 +194,19 @@ class Pagination extends Component {
     return selectPage <= drawPageCnt
   }
 
-  movePrevPage() {
-    this.onChange(this.getPrevPage())
-  }
+  movePrevPage = () => this.onChange(this.getPrevPage())
 
-  moveNextPage() {
-    this.onChange(this.getNextPage())
-  }
+  moveNextPage = () => this.onChange(this.getNextPage())
 
   isHidden() {
     const { totalPage } = this.state
     return totalPage === 0
   }
 
+  componentDidMount = () => {
+    const list = this.getPageList()
+    this.setState({ list })
+  }
   render() {
     const { size, simple, align } = this.props
     const { selectPage, totalPage } = this.state
@@ -191,7 +220,7 @@ class Pagination extends Component {
             type="button"
             size={size}
             disabled={this.disablePrevButton()}
-            onClick={() => (this.movePrevPage.bind(this)())}
+            onClick={this.movePrevPage}
           >
             <img src={size === 'sm' ? btnPreSm : btnPre} width={imageSize} height={imageSize} alt="move previous" />
           </ButtonMove>
@@ -200,10 +229,9 @@ class Pagination extends Component {
             && (
               <>
                 <Input
-                  size={size}
                   initPage={selectPage * 1}
                   max={totalPage}
-                  onChange={(page) => ((this.onChange.bind(this))(page))}
+                  onChange={(page) => (this.onChange(page))}
                 />
                 <PageText size={size}>
                   /
@@ -231,7 +259,7 @@ class Pagination extends Component {
             type="button"
             size={size}
             disabled={this.disableNextButton()}
-            onClick={() => (this.moveNextPage.bind(this)())}
+            onClick={this.moveNextPage}
           >
             <img src={size === 'sm' ? btnNextSm : btnNext} width={imageSize} height={imageSize} alt="move next" />
           </ButtonMove>
@@ -239,26 +267,6 @@ class Pagination extends Component {
       </PaginationBox>
     )
   }
-}
-
-Pagination.defaultProps = {
-  onChange: () => {},
-  size: undefined,
-  selectPage: 1,
-  totalPage: 1,
-  drawPageCnt: 1,
-  simple: false,
-  align: 'center',
-}
-
-Pagination.propTypes = {
-  onChange: PropTypes.func,
-  size: PropTypes.string,
-  selectPage: PropTypes.number,
-  totalPage: PropTypes.number,
-  drawPageCnt: PropTypes.number,
-  simple: PropTypes.bool,
-  align: PropTypes.oneOf(['center', 'left', 'right']),
 }
 
 export default Pagination
