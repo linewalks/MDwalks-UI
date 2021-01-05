@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
-import { color } from '@src/assets/styles/variables'
+import { color } from '../../assets/styles/variables'
 
 const InputBox = styled.input`
   color: ${color.$grey10};
@@ -17,10 +16,16 @@ const InputBox = styled.input`
   background-color: ${color.$white};
 `
 
+interface InputProps {
+  initPage: number;
+  onChange: (page: number) => void;
+  min: number;
+  max: number;
+}
 // 범위도 추가 되어야겟다
 const Input = ({
-  initPage, size, min, onChange, max,
-}) => {
+  initPage, min, onChange, max,
+}: InputProps) => {
   const [page, setPage] = useState(initPage);
   const pattern = `^[0-9]+$`
 
@@ -58,7 +63,6 @@ const Input = ({
 
   return (
     <InputBox
-      inputsize={size}
       size={String(page).length || 1}
       value={page}
       pattern={pattern}
@@ -71,16 +75,7 @@ const Input = ({
 Input.defaultProps = {
   onChange: () => {},
   min: 1,
-  size: undefined,
   initPage: 1,
-}
-
-Input.propTypes = {
-  initPage: PropTypes.number,
-  onChange: PropTypes.func,
-  size: PropTypes.string,
-  min: PropTypes.number,
-  max: PropTypes.number.isRequired,
 }
 
 export default Input
