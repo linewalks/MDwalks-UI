@@ -16,7 +16,9 @@ const Text = styled.header<TextProps>`
 interface HeadingProps {
   size: string;
   children: React.ReactNode;
-  style: object;
+  style?: {
+    [key:string]: string;
+  };
 }
 
 const Heading = ({

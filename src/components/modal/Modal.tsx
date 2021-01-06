@@ -3,13 +3,13 @@ import _ from 'lodash'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-import Heading from '@Components/layout/Heading'
-import Button from '@Components/button/Button'
-import { color, zIndex } from '@src/assets/styles/variables'
-import * as font from '@src/assets/styles/font'
-import fontStyle from '@src/assets/styles/font.module.sass'
-import icnPopupCloseMd from '@src/assets/svg/icn_close_32.svg'
-import { hexToRGB } from '../button/utility.ts'
+import Heading from '../layout/Heading'
+import Button from '../button/Button'
+import { color, zIndex } from '../../assets/styles/variables'
+import * as font from '../../assets/styles/font'
+import fontStyle from '../../assets/styles/font.module.sass'
+import icnPopupCloseMd from '../../assets/svg/icn_close_32.svg'
+import { hexToRGB } from '../button/utility'
 
 const size = {
   modalPadding: '30px',
@@ -20,7 +20,7 @@ const size = {
   footerPaddingTop: '24px',
 }
 
-const Overlay = styled.div`
+const Overlay = styled.div<{ isLoading: boolean; }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -88,12 +88,19 @@ const Footer = styled.footer`
   text-align: right;
 `
 
+interface basicButtonsProps {
+  type: 'alert' | 'confirm';
+  closeModal: () => void;
+  onCancel: () => void;
+  onConfirm: () => void;
+}
+
 const basicButtons = ({
   type,
   onCancel,
   onConfirm,
   closeModal,
-}) => {
+}: basicButtonsProps) => {
   const wrappedOnCancel = () => {
     onCancel()
     closeModal()
@@ -126,6 +133,21 @@ const FooterBar = styled.div`
   margin-right: -30px;
 `
 
+interface ModalProps {
+  variant: 'basic' | 'layer';
+  type: 'alert' | 'confirm';
+  title: string;
+  isOpen: boolean;
+  isLoading: boolean;
+  description: string;
+  children: React.ReactNode;
+  footer: React.ReactNode;
+  closeModal: () => void;
+  onCancel: () => void;
+  onConfirm: () => void;
+  isExistsScroll: boolean;
+}
+
 const Modal = ({
   variant,
   type,
@@ -139,7 +161,7 @@ const Modal = ({
   onCancel,
   onConfirm,
   isExistsScroll,
-}) => {
+}: ModalProps) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflowY = 'hidden'

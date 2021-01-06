@@ -102,7 +102,7 @@ module.exports = {
         'src/components/list/CheckList.tsx',
         'src/components/list/CheckBox.tsx',
         'src/components/list/RadioList.tsx',
-        'src/components/modal/Modal.js',
+        'src/components/modal/Modal.tsx',
         'src/components/pagination/Pagination.tsx',
         'src/components/table/EmptyPlaceHolder.js',
         'src/components/table/Descriptions.js',
