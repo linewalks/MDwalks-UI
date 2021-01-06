@@ -8,8 +8,8 @@ import Button from '@Components/button/Button'
 import { color, zIndex } from '@src/assets/styles/variables'
 import * as font from '@src/assets/styles/font'
 import fontStyle from '@src/assets/styles/font.module.sass'
-import { hexToRGB } from '@Components/button/utility'
 import icnPopupCloseMd from '@src/assets/svg/icn_close_32.svg'
+import { hexToRGB } from '../button/utility.ts'
 
 const size = {
   modalPadding: '30px',

@@ -1,7 +1,7 @@
 /* Suma el porcentaje indicado a un color (RR, GG o BB) hexadecimal para aclararlo */
-export const addLight = (color, amount) => {
+export const addLight = (color:string, amount:number):string => {
   const cc = parseInt(color, 16) + amount;
-  let c = (cc > 255) ? 255 : (cc);
+  let c:string | number = (cc > 255) ? 255 : (cc);
   c = (c.toString(16).length > 1) ? c.toString(16) : `0${c.toString(16)}`;
   return c;
 }
@@ -12,28 +12,28 @@ export const addLight = (color, amount) => {
 } */
 
 /* Aclara un color hexadecimal de 6 caracteres #RRGGBB segun el porcentaje indicado */
-export const lighten = (colorOrigin, amountOrigin) => {
+export const lighten = (colorOrigin:string, amountOrigin:number):string => {
   const color = (colorOrigin.indexOf('#') >= 0) ? colorOrigin.substring(1, colorOrigin.length) : colorOrigin;
-  const amount = parseInt((255 * amountOrigin) / 100, 10)
+  const amount = parseInt(`${(255 * amountOrigin) / 100}`, 10)
   return `#${addLight(color.substring(0, 2), amount)}${addLight(color.substring(2, 4), amount)}${addLight(color.substring(4, 6), amount)}`;
 }
 
 /* Resta el porcentaje indicado a un color (RR, GG o BB) hexadecimal para oscurecerlo */
-export const subtractLight = (color, amount) => {
+export const subtractLight = (color:string, amount:number):number | string => {
   const cc = parseInt(color, 16) - amount;
-  let c = (cc < 0) ? 0 : (cc);
+  let c:number | string = (cc < 0) ? 0 : (cc);
   c = (c.toString(16).length > 1) ? c.toString(16) : `0${c.toString(16)}`;
   return c;
 }
 
 /* Oscurece un color hexadecimal de 6 caracteres #RRGGBB segun el porcentaje indicado */
-export const darken = (colorOrigin, amountOrigin) => {
+export const darken = (colorOrigin:string, amountOrigin:number):string => {
   const color = (colorOrigin.indexOf('#') >= 0) ? colorOrigin.substring(1, colorOrigin.length) : colorOrigin;
-  const amount = parseInt((255 * amountOrigin) / 100, 10);
+  const amount = parseInt(`${(255 * amountOrigin) / 100}`, 10);
   return `#${subtractLight(color.substring(0, 2), amount)}${subtractLight(color.substring(2, 4), amount)}${subtractLight(color.substring(4, 6), amount)}`;
 }
 
-export const hexToRGB = (hex, alpha) => {
+export const hexToRGB = (hex:string, alpha:number):string => {
   const r = parseInt(hex.slice(1, 3), 16)
   const g = parseInt(hex.slice(3, 5), 16)
   const b = parseInt(hex.slice(5, 7), 16)
