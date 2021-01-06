@@ -1,10 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import fontStyle from '@src/assets/styles/font.module.sass'
-import { color } from '@src/assets/styles/variables'
+import fontStyle from '../../assets/styles/font.module.sass'
+import { color } from '../../assets/styles/variables'
 import _ from 'lodash'
-import PropTypes from 'prop-types'
-import * as commonTag from '@Components/common/commonTag'
+import * as commonTag from '../common/commonTag'
 
 const Dot = styled(commonTag.Dot).attrs(() => ({
 }))`
@@ -39,7 +38,12 @@ const TooltipBoxTag = styled.div`
   }
 `
 
-export const valueConvertText = (value, { isPercent, convert }) => {
+interface IConvertUtil {
+  isPercent: boolean;
+  convert: (value: number) => string;
+}
+
+export const valueConvertText = (value: number, { isPercent, convert }: IConvertUtil): string | React.ReactNode=> {
   if (convert) {
     return convert(value)
   }
@@ -60,16 +64,19 @@ valueConvertText.defaultProps = {
   convert: null,
 }
 
-valueConvertText.propTypes = {
-  value: PropTypes.number.isRequired,
-  isPercent: PropTypes.bool,
-  convert: PropTypes.func,
+interface TooltipBoxProps {
+  payload: { [key: string]: any; }[];
+  dataKey: string;
+  nameKey: string;
+  width: string | number;
+  isPercent: boolean;
+  textMap: any;
 }
 
 const TooltipBox = ({
   payload, dataKey = 'value', nameKey = 'name',
   width, isPercent = false, textMap,
-}) => {
+}: TooltipBoxProps) => {
   if (!_.isArray(payload)) return null
 
   return (
@@ -106,19 +113,6 @@ TooltipBox.defaultProps = {
   width: 250,
   isPercent: false,
   textMap: {},
-}
-
-TooltipBox.propTypes = {
-  payload: PropTypes.arrayOf(PropTypes.shape({})),
-  dataKey: PropTypes.string,
-  nameKey: PropTypes.string,
-  width: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-  isPercent: PropTypes.bool,
-  textMap: PropTypes.shape({}),
-  // convert: PropTypes.func,
 }
 
 export default TooltipBox

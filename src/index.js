@@ -32,7 +32,7 @@ import TextLink from './components/button/TextLink'
 import * as Toast from '@Components/Toast'
 import Pagination from './components/pagination/Pagination'
 import ToggleButton from './components/button/ToggleButton'
-import TooltipBox from '@Components/tooltip/TooltipBox'
+import TooltipBox from './components/tooltip/TooltipBox'
 import * as commonTag from '@Components/common/commonTag'
 
 import SelectBox from './components/form/SelectBox'
