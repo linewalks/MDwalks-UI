@@ -26,7 +26,7 @@ module.exports = {
     'src/components/table/TFoot.js',
     'src/components/table/Columns.js',
     'src/components/list/Item.tsx',
-    'src/components/button/utility.js',
+    'src/components/button/utility.ts',
     'src/components/pagination/Input.js',,
 
     'src/components/notifications/index.js',
