@@ -1,13 +1,22 @@
 import React from 'react'
 import _ from 'lodash'
-import PropTypes from 'prop-types'
+import TooltipBox from './TooltipBox'
 
-import TooltipBox from '@Components/tooltip/TooltipBox'
+interface TooltipCompareContentProps {
+  active: boolean;
+  payload: any[];
+  isPercent: boolean;
+  textMap: any;
+  dataKey: string;
+  nameKey: string;
+  colorObject: string[][];
+  colorKeyMap: string[];
+}
 
 const TooltipCompareContent = ({
   active, payload, dataKey, nameKey,
   isPercent, textMap, colorObject, colorKeyMap,
-}) => {
+}: TooltipCompareContentProps) => {
   if (active) {
     const converted = _.map(payload, (e, i) => {
       const index = _.findIndex(colorKeyMap, (name) => (name === e.payload.name))
@@ -39,17 +48,6 @@ TooltipCompareContent.defaultProps = {
   nameKey: 'name',
   colorObject: [],
   colorKeyMap: [],
-}
-
-TooltipCompareContent.propTypes = {
-  active: PropTypes.bool,
-  payload: PropTypes.arrayOf(PropTypes.shape({})),
-  isPercent: PropTypes.bool,
-  textMap: PropTypes.shape({}),
-  dataKey: PropTypes.string,
-  nameKey: PropTypes.string,
-  colorObject: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-  colorKeyMap: PropTypes.arrayOf(PropTypes.string),
 }
 
 export default TooltipCompareContent
