@@ -247,7 +247,7 @@ const ButtonTag = styled(font.TextTag).attrs((props: BtnTagProps) => {
 interface ButtonProps extends BtnTagProps {
   isLoading?: boolean | string;
   children: React.ReactNode;
-  onClick?: React.MouseEvent;
+  onClick?: () => void;
 }
 
 const Button = (props: ButtonProps) => {
