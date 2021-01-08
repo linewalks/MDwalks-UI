@@ -37,7 +37,7 @@ import * as commonTag from '@Components/common/commonTag'
 
 import SelectBox from './components/form/SelectBox'
 import Tooltip from './components/form/Tooltip'
-import * as font from '@src/assets/styles/font'
+import * as font from './assets/styles/font'
 import * as variables from './assets/styles/variables'
 import * as tableProperties from '@src/assets/styles/tableProperties'
 import * as chartUtility from '@src/helper/chartUtility'

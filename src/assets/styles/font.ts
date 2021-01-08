@@ -1,7 +1,6 @@
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
-import { hexToRGB } from '@Components/button/utility'
-import { color } from '@src/assets/styles/variables'
+import { hexToRGB } from '../../components/button/utility'
+import { color } from './variables'
 
 const font = {
   base: {
@@ -9,19 +8,30 @@ const font = {
   },
 }
 
-export const Text = (props) => `
+interface IText {
+  size: string | number;
+  bold?: boolean;
+  opacity: number;
+  color: string;
+}
+
+export const Text = (props: IText) => `
   font-size: ${props.size ? `${props.size}px` : `${font.base.size}px`};
 
   font-weight: ${props.bold ? 'bold' : 'normal'};
   letter-spacing: -0.5px;
-  color: ${hexToRGB(props.color ? props.color : color.$black, props.opacity ? (props.opacity * 0.1).toFixed(2) : 1)};
+  color: ${hexToRGB(props.color ? props.color : color.$black, props.opacity ? +(props.opacity * 0.1).toFixed(2) : 1)};
 `;
 
 export const TextTag = styled.span`
   ${Text}
 `
 
-export const TextOverflow = styled.p`
+interface ITextOverflow {
+  width: string;
+}
+
+export const TextOverflow = styled.p<ITextOverflow>`
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -33,11 +43,11 @@ TextOverflow.defaultProps = {
   width: '100%',
 }
 
-TextOverflow.propTypes = {
-  width: PropTypes.string,
+interface ITextOverflowMulti extends ITextOverflow{
+  line: number;
 }
 
-export const TextOverflowMulti = styled.p`
+export const TextOverflowMulti = styled.p<ITextOverflowMulti>`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: ${(props) => (props.line)};
@@ -48,9 +58,4 @@ export const TextOverflowMulti = styled.p`
 TextOverflowMulti.defaultProps = {
   width: '100%',
   line: 2,
-}
-
-TextOverflowMulti.propTypes = {
-  width: PropTypes.string,
-  line: PropTypes.number,
 }

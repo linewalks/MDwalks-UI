@@ -10,7 +10,7 @@ module.exports = {
     path.resolve(__dirname, 'src/assets/styles/spoqaHansans.css'),
   ],
   components: [
-    'src/assets/styles/font.js',
+    'src/assets/styles/font.ts',
     'src/components/**/*.{js,jsx,ts,tsx}',
   ],
   moduleAliases: {
