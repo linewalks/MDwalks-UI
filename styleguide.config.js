@@ -21,7 +21,7 @@ module.exports = {
   },
   version,
   ignore: ignore.concat([
-    'src/components/table/THead.js',
+    'src/components/table/THead.tsx',
     'src/components/table/TBody.js',
     'src/components/table/TFoot.js',
     'src/components/table/Columns.js',
