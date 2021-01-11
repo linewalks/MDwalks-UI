@@ -105,7 +105,7 @@ module.exports = {
         'src/components/modal/Modal.tsx',
         'src/components/pagination/Pagination.tsx',
         'src/components/table/EmptyPlaceHolder.tsx',
-        'src/components/table/Descriptions.js',
+        'src/components/table/Descriptions.tsx',
         'src/components/table/Table.js',
         'src/components/Toast/Toast.js',
         'src/components/paper/Heatmap.js',
