@@ -1,24 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 
 import _ from 'lodash'
-import isEmpty from 'lodash/isEmpty';
 import styled from 'styled-components'
-import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
-import { tableSize } from '@src/assets/styles/tableProperties'
+import * as font from '../../assets/styles/font'
+import { color } from '../../assets/styles/variables'
+import { tableSize } from '../../assets/styles/tableProperties'
 
-import ICO_DOWN from '@src/assets/svg/table/icn_sort_down_filled_unselected_grey07_16.svg'
-import ICO_UP from '@src/assets/svg/table/icn_sort_up_filled_unselected_grey07_16.svg'
+import ICO_DOWN from '../../assets/svg/table/icn_sort_down_filled_unselected_grey07_16.svg'
+import ICO_UP from '../../assets/svg/table/icn_sort_up_filled_unselected_grey07_16.svg'
 
-import ICO_DOWN_FOCUS from '@src/assets/svg/table/icn_sort_down_filled_selected_grey09_16.svg'
-import ICO_UP_FOCUS from '@src/assets/svg/table/icn_sort_up_filled_selected_grey09_16.svg'
+import ICO_DOWN_FOCUS from '../../assets/svg/table/icn_sort_down_filled_selected_grey09_16.svg'
+import ICO_UP_FOCUS from '../../assets/svg/table/icn_sort_up_filled_selected_grey09_16.svg'
 
-import ICO_DOWN_DISABLE from '@src/assets/svg/table/icn_sort_down_filled_disabled_grey06_16.svg'
-import ICO_UP_DISABLE from '@src/assets/svg/table/icn_sort_up_filled_disabled_grey06_16.svg'
+import ICO_DOWN_DISABLE from '../../assets/svg/table/icn_sort_down_filled_disabled_grey06_16.svg'
+import ICO_UP_DISABLE from '../../assets/svg/table/icn_sort_up_filled_disabled_grey06_16.svg'
 
-const Td = styled.td.attrs(({ size }) => ({
+interface ISize {
+  size: 'small' | 'medium';
+}
+
+const Td = styled.td.attrs(({ size }:ISize) => ({
   ...tableSize[size].thead.subHeader,
 }))`
   ${font.Text}
@@ -27,7 +29,7 @@ const Td = styled.td.attrs(({ size }) => ({
   background: ${color.$grey02};
 `
 
-const Th = styled.th.attrs(({ size }) => ({
+const Th = styled.th.attrs(({ size }:ISize) => ({
   ...tableSize[size].thead,
 }))`
   ${font.Text}
@@ -44,7 +46,7 @@ const Th = styled.th.attrs(({ size }) => ({
   }
 `
 
-const SortButton = styled.button.attrs(({ size }) => ({
+const SortButton = styled.button.attrs(({ size }:ISize) => ({
   ...tableSize[size].thead,
 }))`
   ${font.Text}
@@ -82,7 +84,12 @@ const TrEmpty = () => (
   </tr>
 )
 
-const HeaderText = ({ text, wrapTh }) => (
+interface HeaderTextProps {
+  text: string;
+  wrapTh?: (th: any) => void;
+}
+
+const HeaderText = ({ text, wrapTh }:HeaderTextProps) => (
   wrapTh
     ? wrapTh({ text })
     : <div>{text}</div>
@@ -92,12 +99,12 @@ HeaderText.defaultProps = {
   wrapTh: undefined,
 }
 
-HeaderText.propTypes = {
-  text: PropTypes.string.isRequired,
-  wrapTh: PropTypes.func,
+interface HeaderSortIconProps {
+  sort: 'asc' | 'desc' | '';
+  loading: boolean;
 }
 
-export const HeaderSortIcon = ({ sort, loading }) => {
+export const HeaderSortIcon = ({ sort, loading }:HeaderSortIconProps) => {
   if (loading) {
     return (
       <span>
@@ -138,14 +145,17 @@ HeaderSortIcon.defaultProps = {
   sort: '',
 }
 
-HeaderSortIcon.propTypes = {
-  loading: PropTypes.bool,
-  sort: PropTypes.string,
+interface HeaderTextSortProps {
+  text: string;
+  sort: (order:string) => void;
+  loading: boolean;
+  size: 'small' | 'medium';
+  toggle: any;
 }
 
 const HeaderTextSort = ({
   text, sort, toggle, loading, size,
-}) => (
+}:HeaderTextSortProps) => (
   <SortButton
     disabled={loading}
     type="button"
@@ -164,17 +174,30 @@ HeaderTextSort.defaultProps = {
   size: 'medium',
 }
 
-HeaderTextSort.propTypes = {
-  text: PropTypes.string.isRequired,
-  sort: PropTypes.func,
-  toggle: PropTypes.shape({}),
-  loading: PropTypes.bool,
-  size: PropTypes.string,
+interface THeadProps {
+  headers: any[];
+  wrapTh: () => void;
+  subHeaders: any;
+  loading: boolean;
+  size: 'small' | 'medium';
+  sortOrderList: string[];
+  defaultSort: {
+    text: string;
+    order: number;
+  };
+  resetSort: boolean;
+  setResetSort: (isReset?:boolean) => void;
+}
+
+interface IHeaderRow {
+  colSpan?: number;
+  text?: string;
+  sort?: (header: string, order: 'asc' | 'desc' | '') => void;
 }
 
 const THead = ({
   headers, wrapTh, subHeaders, loading, size, sortOrderList, defaultSort, resetSort, setResetSort,
-}) => {
+}:THeadProps) => {
   const [toggle, setToggle] = useState({})
   const [toggleIdx, setToggleIdx] = useState({})
 
@@ -220,14 +243,14 @@ const THead = ({
 
   const createHeader = (headerData) => (
     <tr>
-      {headerData.map((row) => {
+      {headerData.map((row:string | IHeaderRow) => {
         let rowSpan
         let colSpan
 
         const text = _.isObject(row) ? row.text : row
         const sort = _.isObject(row) && row.sort ? () => onSort(text, row.sort) : null
 
-        if (row.colSpan) {
+        if (_.isObject(row) && row.colSpan) {
           colSpan = row.colSpan
         }
 
@@ -258,7 +281,7 @@ const THead = ({
     </tr>
   )
 
-  if (isEmpty(subHeaders) && isEmpty(headers)) {
+  if (_.isEmpty(subHeaders) && _.isEmpty(headers)) {
     return (
       <Thead>
         <TrEmpty />
@@ -292,7 +315,7 @@ const THead = ({
   return (
     <Thead>
       {createHeader(headers)}
-      {isEmpty(subHeaders) ? null : createSubHeader(subHeaders)}
+      {_.isEmpty(subHeaders) ? null : createSubHeader(subHeaders)}
     </Thead>
   )
 };
@@ -306,26 +329,6 @@ THead.defaultProps = {
   defaultSort: {},
   resetSort: false,
   setResetSort: () => {},
-}
-
-THead.propTypes = {
-  headers: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.shape(),
-    ]),
-  ),
-  wrapTh: PropTypes.func,
-  subHeaders: PropTypes.shape({}),
-  loading: PropTypes.bool,
-  size: PropTypes.string,
-  sortOrderList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  defaultSort: PropTypes.shape({
-    text: PropTypes.string,
-    order: PropTypes.number,
-  }),
-  resetSort: PropTypes.bool,
-  setResetSort: PropTypes.func,
 }
 
 export default THead
