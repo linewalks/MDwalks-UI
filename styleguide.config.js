@@ -104,7 +104,7 @@ module.exports = {
         'src/components/list/RadioList.tsx',
         'src/components/modal/Modal.tsx',
         'src/components/pagination/Pagination.tsx',
-        'src/components/table/EmptyPlaceHolder.js',
+        'src/components/table/EmptyPlaceHolder.tsx',
         'src/components/table/Descriptions.js',
         'src/components/table/Table.js',
         'src/components/Toast/Toast.js',

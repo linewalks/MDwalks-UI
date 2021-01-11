@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
-import icnNoData from '@src/assets/svg/picto_nodata.svg';
-import fontStyle from '@src/assets/styles/font.module.sass'
+import icnNoData from '../../assets/svg/picto_nodata.svg';
+import fontStyle from '../../assets/styles/font.module.sass'
 
-const EmptyContainer = styled.section`
+const EmptyContainer = styled.section<{ height: number; }>`
   display: flex;
   align-items: center;
   height: ${(props) => (props.height ? `${props.height}px` : 'auto')};
@@ -29,7 +28,12 @@ const EmptyText = styled.div.attrs(() => ({
 }))`
 `
 
-const EmptyPlaceHolder = ({ height, text }) => (
+interface EmptyPlaceHolderProps {
+  height: number;
+  text: string | React.ReactNode;
+}
+
+const EmptyPlaceHolder = ({ height, text }:EmptyPlaceHolderProps) => (
   <EmptyContainer height={height}>
     <EmptyInner>
       <EmptyDescription />
@@ -43,11 +47,6 @@ const EmptyPlaceHolder = ({ height, text }) => (
 EmptyPlaceHolder.defaultProps = {
   height: undefined,
   text: 'There is no data',
-}
-
-EmptyPlaceHolder.propTypes = {
-  height: PropTypes.number,
-  text: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 }
 
 export default EmptyPlaceHolder
