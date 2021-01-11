@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 
 import TBody from '@Components/table/TBody';
-import TFoot from '@Components/table/TFoot';
 import styled, { css } from 'styled-components'
 import { color } from '@src/assets/styles/variables'
 import * as commonTag from '@Components/common/commonTag'
-import THead from './THead.tsx';
+import THead from './THead.tsx'
+import TFoot from './TFoot.tsx'
 
 const sideFit = css`
   tbody {

@@ -1,12 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 import _ from 'lodash';
 import styled from 'styled-components'
-import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
-import { tableSize } from '@src/assets/styles/tableProperties'
+import * as font from '../../assets/styles/font'
+import { color } from '../../assets/styles/variables'
+import { tableSize } from '../../assets/styles/tableProperties'
 
-const TFootTag = styled.tfoot.attrs(({ size }) => ({
+interface ISize {
+  size: 'small' | 'medium';
+}
+
+const TFootTag = styled.tfoot.attrs(({ size }:ISize) => ({
   ...tableSize[size].tfoot,
 }))`
   td {
@@ -24,14 +27,23 @@ const TFootTag = styled.tfoot.attrs(({ size }) => ({
   }
 `
 
-const TFoot = ({ footData, size }) => {
+interface TFootProps extends ISize {
+  footData: any[];
+}
+
+interface IRow {
+  colSpan?: number;
+  text?: string;
+}
+
+const TFoot = ({ footData, size }:TFootProps) => {
   const createFooter = () => (
     _.map(footData, (data, i) => {
       const trKey = `footer${data.join(' ')}${i}`
       return (
         <tr key={trKey}>
           {
-            _.map(data, (row, j) => {
+            _.map(data, (row:IRow, j) => {
               let colSpan
               const text = _.isObject(row) ? row.text : row
               const tdKey = `footeritem${text}${j}`
@@ -60,13 +72,6 @@ const TFoot = ({ footData, size }) => {
 TFoot.defaultProps = {
   footData: undefined,
   size: 'medium',
-}
-
-TFoot.propTypes = {
-  footData: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string, PropTypes.number]),
-  ),
-  size: PropTypes.string,
 }
 
 export default TFoot
