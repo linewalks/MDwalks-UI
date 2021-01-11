@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { hexToRGB } from '../../components/button/utility'
 import { color } from './variables'
 
@@ -8,27 +8,26 @@ const font = {
   },
 }
 
-interface IText {
-  size: string | number;
+export interface IText {
+  size?: string | number;
   bold?: boolean;
-  opacity: number;
-  color: string;
+  opacity?: number;
+  color?: string;
 }
 
-export const Text = (props: IText) => `
-  font-size: ${props.size ? `${props.size}px` : `${font.base.size}px`};
-
-  font-weight: ${props.bold ? 'bold' : 'normal'};
+export const Text = css`
+  font-size: ${(props: IText) => props.size ? `${props.size}px` : `${font.base.size}px`};
+  font-weight: ${(props: IText) => props.bold ? 'bold' : 'normal'};
   letter-spacing: -0.5px;
-  color: ${hexToRGB(props.color ? props.color : color.$black, props.opacity ? +(props.opacity * 0.1).toFixed(2) : 1)};
-`;
+  color: ${(props: IText) => hexToRGB(props.color ? props.color : color.$black, props.opacity ? +(props.opacity * 0.1).toFixed(2) : 1)};
+`
 
 export const TextTag = styled.span`
   ${Text}
 `
 
 interface ITextOverflow {
-  width: string;
+  width?: string;
 }
 
 export const TextOverflow = styled.p<ITextOverflow>`

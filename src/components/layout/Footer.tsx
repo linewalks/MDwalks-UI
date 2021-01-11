@@ -13,12 +13,7 @@ const FooterWrap = styled.footer`
   box-sizing: border-box;
 `
 
-interface FooterBoxProps {
-  size: string;
-  opacity: string;
-}
-
-const FooterBox = styled.div<FooterBoxProps>`
+const FooterBox = styled.div<font.IText>`
   ${font.Text}
   border-top: 1px solid ${color.$grey04};
   height: ${size.$footer_height};
@@ -37,7 +32,7 @@ interface FooterProps {
 
 const Footer = ({ style }: FooterProps) => (
   <FooterWrap style={style}>
-    <FooterBox size="12" opacity="6" style={{ color: color.$grey08 }}>
+    <FooterBox size="12" opacity={6} style={{ color: color.$grey08 }}>
       <p>
         © 2020 linewalks. All rights reserved.
       </p>
