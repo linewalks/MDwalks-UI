@@ -1,10 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types'
-
 import styled from 'styled-components'
-
-import { color } from '@src/assets/styles/variables'
-import { tableSize } from '@src/assets/styles/tableProperties'
+import { color } from '../../assets/styles/variables'
+import { tableSize } from '../../assets/styles/tableProperties'
 
 const TableWrap = styled.div`
   border: 1px solid ${color.$grey05};
@@ -23,9 +20,13 @@ const Tr = styled.tr`
   }
 `
 
-const Th = styled.th`
+interface ITh {
+  width: string;
+}
+
+const Th = styled.th<ITh>`
   color: ${color.$grey08};
-  ${`font-size: ${tableSize.medium.thead.size}px`};
+  font-size: ${tableSize.medium.thead.size}px;
   font-family: "Spoqa Han Sans";
   background: ${color.$grey03};
   font-weight: bold;
@@ -33,11 +34,16 @@ const Th = styled.th`
   padding: ${tableSize.medium.thead.padding};
 `
 
-const Td = styled.td`
+interface ITd {
+  width: string;
+  colSpan?: number;
+}
+
+const Td = styled.td<ITd>`
   color: ${color.$grey10};
-  ${`font-size: ${tableSize.medium.tbody.size}px`};
+  font-size: ${tableSize.medium.tbody.size}px;
   font-family: "Spoqa Han Sans";
-  background: #ffffff;
+  background: ${color.$white};;
   font-weight: normal;
   text-align: left;
   padding: ${tableSize.medium.tbody.padding};
@@ -56,7 +62,14 @@ const Td = styled.td`
     a : 0, d : 3, e : 4
 */
 
-export const isLastRow = ({ cellTotal, cellCount, rowCurrent }) => {
+interface ICell {
+  cellTotal?: number;
+  cellCount?: number;
+  cellCurrent?: number;
+  rowCurrent?: number;
+}
+
+export const isLastRow = ({ cellTotal, cellCount, rowCurrent }:ICell) => {
   const rowCount = (() => {
     if (cellTotal % cellCount === 0) {
       return cellTotal / cellCount
@@ -67,23 +80,29 @@ export const isLastRow = ({ cellTotal, cellCount, rowCurrent }) => {
   return rowCount === rowCurrent + 1
 }
 
-export const isLastCell = ({ cellTotal, cellCurrent }) => cellTotal === cellCurrent
+export const isLastCell = ({ cellTotal, cellCurrent }:ICell) => cellTotal === cellCurrent
 
-export const hasRow = ({ cellTotal, cellCount, cellCurrent }) => {
-  if (!isLastCell(cellTotal, cellCurrent)) return false
+export const hasRow = ({ cellTotal, cellCount, cellCurrent }:ICell) => {
+  if (isLastCell({ cellTotal, cellCurrent })) return false
   if (cellCount === 1) return false
-  return cellTotal === cellCurrent + 1
+  return cellTotal === (cellCurrent + 1)
 }
 
-export const getColspan = ({ cellTotal, cellCount }) => {
+export const getColspan = ({ cellTotal, cellCount }:ICell) => {
   if (cellTotal % cellCount === 0) return 0
   return (cellCount - (cellTotal % cellCount)) * 2 + 1
 }
 
-const Descriptions = ({ data, cellCount = 2, colWidths = [] }) => {
+interface DescriptionsProps {
+  data: any[];
+  cellCount: number;
+  colWidths: number[];
+}
+
+const Descriptions = ({ data, cellCount = 2, colWidths = [] }:DescriptionsProps) => {
   const createTable = () => {
     const table = []
-    let props = {}
+    let props:ICell = {}
     let thWidth
     let tdWidth
 
@@ -127,12 +146,6 @@ Descriptions.defaultProps = {
   data: [],
   cellCount: 2,
   colWidths: [],
-}
-
-Descriptions.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({})),
-  cellCount: PropTypes.number,
-  colWidths: PropTypes.arrayOf(PropTypes.number),
 }
 
 export default Descriptions
