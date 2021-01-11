@@ -1,14 +1,16 @@
 import React from 'react';
 import _ from 'lodash'
 import styled from 'styled-components'
-import * as font from '@src/assets/styles/font'
-import { color } from '@src/assets/styles/variables'
-import { tableSize } from '@src/assets/styles/tableProperties'
-import PropTypes from 'prop-types'
-import EmptyPlaceHolder from './EmptyPlaceHolder.tsx'
+import * as font from '../../assets/styles/font'
+import { color } from '../../assets/styles/variables'
+import { tableSize } from '../../assets/styles/tableProperties'
+import EmptyPlaceHolder from './EmptyPlaceHolder'
 
+interface ISize {
+  size: 'small' | 'medium';
+}
 // .td 가 존재하는 이유는 appendRow 에 스타일을 적용하지 않기 위해서 이다
-const ListTBody = styled.tbody.attrs(({ size }) => ({
+const ListTBody = styled.tbody.attrs(({ size }:ISize) => ({
   ...tableSize[size].tbody,
 }))`
   .td[rowspan] {
@@ -47,6 +49,15 @@ const EmptyTbody = styled.tbody`
   }
 `
 
+interface TBodyProps extends ISize {
+  headers: any[];
+  subHeaders: any;
+  rowData: any[];
+  wrapTd: (data:any) => React.ReactNode;
+  appendRow: (data:any, idx:number) => void;
+  placeholder: React.ReactNode | string;
+}
+
 const TBody = ({
   headers,
   subHeaders,
@@ -55,7 +66,7 @@ const TBody = ({
   appendRow,
   size,
   placeholder,
-}) => {
+}:TBodyProps) => {
   let singlevelHeader = headers
 
   if (subHeaders && wrapTd) {
@@ -74,7 +85,7 @@ const TBody = ({
       [
         <tr key={data} className="tr">
           {
-          _.chain(Object.values(data)).reverse().map((row, i) => {
+          _.chain(Object.values(data)).reverse().map((row: any | { rowSpan: number; className: string; }, i) => {
             const { rowSpan, className = '' } = row || ''
             const drawIdx = singlevelHeader.length - i - 1
 
@@ -143,20 +154,6 @@ TBody.defaultProps = {
   appendRow: null,
   size: 'medium',
   placeholder: undefined,
-}
-
-TBody.propTypes = {
-  headers: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
-  ),
-  subHeaders: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string])),
-  rowData: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string, PropTypes.number]),
-  ),
-  wrapTd: PropTypes.func,
-  appendRow: PropTypes.func,
-  size: PropTypes.string,
-  placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 }
 
 export default TBody;
