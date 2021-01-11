@@ -23,7 +23,7 @@ module.exports = {
   ignore: ignore.concat([
     'src/components/table/THead.tsx',
     'src/components/table/TBody.js',
-    'src/components/table/TFoot.js',
+    'src/components/table/TFoot.tsx',
     'src/components/table/Columns.js',
     'src/components/list/Item.tsx',
     'src/components/button/utility.ts',
