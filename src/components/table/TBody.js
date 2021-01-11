@@ -5,7 +5,7 @@ import * as font from '@src/assets/styles/font'
 import { color } from '@src/assets/styles/variables'
 import { tableSize } from '@src/assets/styles/tableProperties'
 import PropTypes from 'prop-types'
-import EmptyPlaceHolder from './EmptyPlaceHolder'
+import EmptyPlaceHolder from './EmptyPlaceHolder.tsx'
 
 // .td 가 존재하는 이유는 appendRow 에 스타일을 적용하지 않기 위해서 이다
 const ListTBody = styled.tbody.attrs(({ size }) => ({

@@ -8,7 +8,7 @@ interface TextProps {
   bold: boolean;
 }
 
-const Text = styled.header<TextProps>`
+const Text = styled.header<TextProps | font.IText>`
   ${font.Text};
   color: ${color.$grey10};
 `
