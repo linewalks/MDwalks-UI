@@ -97,7 +97,7 @@ module.exports = {
         'src/components/layout/Image.tsx',
         'src/components/layout/Navbar.js',
         'src/components/layout/Footer.tsx',
-        'src/components/layout/Tabs.js',
+        'src/components/layout/Tabs.tsx',
         'src/components/list/CheckList.tsx',
         'src/components/list/CheckBox.tsx',
         'src/components/list/RadioList.tsx',
