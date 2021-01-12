@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 import _ from 'lodash'
-import styled from 'styled-components';
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { color } from '@src/assets/styles/variables'
+import { color } from '../assets/styles/variables'
 
 export const ColorSet = {
   'Primary-Sea': {
@@ -235,7 +235,7 @@ export const getListWhenNotMatch = (ThemeObj, dataSize) => {
     if (dataSize % validSize === 0) {
       count = dataSize / validSize
     } else {
-      count = parseInt(dataSize / validSize, 10) + 1
+      count = parseInt(`${dataSize / validSize}`, 10) + 1
     }
 
     list = _.chain(_.range(0, count))
@@ -258,7 +258,7 @@ export const getColorsByTheme = (theme, size) => {
 
   const themeName = _.isUndefined(theme) ? Themes.ThemeArrangePrimarySea : theme
 
-  let list = []
+  let list:any = []
 
   const dataSize = Math.max(2, size || 0)
 
@@ -311,7 +311,7 @@ const ThemeBox = styled.div`
   }
 `
 
-const ColorBox = styled.section`
+const ColorBox = styled.section<{ size?:number; value:string;}>`
   display: inline-block;
   width: ${(props) => (props.size ? `${props.size}px` : '100px')};
   height: ${(props) => (props.size ? `${props.size}px` : '100px')};
@@ -351,7 +351,7 @@ export const ChartColorTheme = ({ themeName }) => (
     </p>
     <article>
       {
-        _.map(ThemeMap[themeName], (value, key) => (
+        _.map(ThemeMap[themeName], (value:string, key) => (
           <div key={key}>
             <h4>{key}</h4>
             <div>

@@ -156,7 +156,7 @@ LegendList.propTypes = {
     Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
     Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3,
     Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
-    Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
+    Themes.ThemeCompareSecondaryTeal3,
   ]),
 }
 
