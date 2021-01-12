@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 import _ from 'lodash'
 import styled, { css } from 'styled-components'
-import { color } from '@src/assets/styles/variables'
-import * as commonTag from '@Components/common/commonTag'
-import THead from './THead.tsx'
-import TBody from './TBody.tsx'
-import TFoot from './TFoot.tsx'
+import { color } from '../../assets/styles/variables'
+import * as commonTag from '../common/commonTag'
+import THead from './THead'
+import TBody from './TBody'
+import TFoot from './TFoot'
 
 const sideFit = css`
   tbody {
@@ -55,14 +54,17 @@ const sideFit = css`
   }
 `
 
-const TableBox = styled.table`
+interface ITableBox {
+  notBottom?: boolean;
+  className?: string;
+}
+
+const TableBox = styled.table<ITableBox>`
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
 
-  border-bottom: 1px solid ${color.$grey06};
-
-  ${(props) => (props.notBottom ? 'border-bottom: none' : '')};
+  border-bottom:   ${(props) => (props.notBottom ? 'none' : `1px solid ${color.$grey06}`)};
 
   ${(props) => (props.className.split(' ').includes('sideFit') ? sideFit : null)}
 `
@@ -71,7 +73,11 @@ const WrapScrollTables = styled.div`
   border-bottom: 1px solid ${color.$grey06};
 `
 
-const Columns = ({ columns }) => (
+interface IColumns {
+  columns?: number[];
+}
+
+const Columns = ({ columns }:IColumns) => (
   !_.isEmpty(columns) && (
     <colgroup>
       {
@@ -88,17 +94,39 @@ Columns.defaultProps = {
   columns: {},
 }
 
-Columns.propTypes = {
-  columns: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  ),
+interface TableProps extends IColumns {
+  data: {
+    headers: any[];
+    subHeaders?: {
+      [key:string]: string[];
+    };
+    rowData: any[];
+    footData: any[];
+  };
+  wrapTh: () => void;
+  wrapTd: (data:any) => React.ReactNode;
+  appendRow: () => void;
+  className?: string;
+  loading: boolean;
+  scroll?: {
+    y: number;
+  };
+  placeholder?: React.ReactNode | string;
+  sortOrderList?: string[];
+  defaultSort?: {
+    text: string;
+    order: number;
+  };
+  resetSort?: boolean;
+  setResetSort?: () => void;
+  size: 'small' | 'medium';
 }
 
 const Table = ({
-  data, rowSpanCount, wrapTh, wrapTd, appendRow, className,
+  data, wrapTh, wrapTd, appendRow, className,
   loading, scroll, columns, size, placeholder, defaultSort,
   sortOrderList, resetSort, setResetSort,
-}) => {
+}:TableProps) => {
   if (_.isEmpty(data)) {
     return (
       <div>
@@ -135,7 +163,6 @@ const Table = ({
               rowData={data.rowData}
               wrapTd={wrapTd}
               appendRow={appendRow}
-              rowSpanCount={rowSpanCount}
               size={size}
               placeholder={placeholder}
             />
@@ -169,7 +196,6 @@ const Table = ({
         rowData={data.rowData}
         wrapTd={wrapTd}
         appendRow={appendRow}
-        rowSpanCount={rowSpanCount}
         size={size}
         placeholder={placeholder}
       />
@@ -194,45 +220,6 @@ Table.defaultProps = {
   defaultSort: {},
   resetSort: false,
   setResetSort: () => {},
-}
-
-Table.propTypes = {
-  columns: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  ),
-  data: PropTypes.shape({
-    headers: PropTypes.arrayOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.shape(),
-      ]),
-    ),
-    subHeaders: PropTypes.shape({}),
-    rowData: PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string, PropTypes.number]),
-    ),
-    footData: PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string, PropTypes.number]),
-    ),
-  }),
-  rowSpanCount: PropTypes.number,
-  wrapTh: PropTypes.func,
-  wrapTd: PropTypes.func,
-  appendRow: PropTypes.func,
-  className: PropTypes.string,
-  loading: PropTypes.bool,
-  scroll: PropTypes.shape({
-    y: PropTypes.number,
-  }),
-  size: PropTypes.string,
-  placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  sortOrderList: PropTypes.arrayOf(PropTypes.string),
-  defaultSort: PropTypes.shape({
-    text: PropTypes.string,
-    order: PropTypes.number,
-  }),
-  resetSort: PropTypes.bool,
-  setResetSort: PropTypes.func,
 }
 
 export default Table
