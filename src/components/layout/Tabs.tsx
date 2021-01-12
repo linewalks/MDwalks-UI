@@ -1,18 +1,21 @@
-import React from 'react';
+import React from 'react'
 import styled, { css } from 'styled-components'
 import _ from 'lodash'
-import PropTypes from 'prop-types'
 
-import fontStyle from '@src/assets/styles/font.module.sass'
-import { color } from '@src/assets/styles/variables'
+import fontStyle from '../../assets/styles/font.module.sass'
+import { color } from '../../assets/styles/variables'
 
 export const TYPE = {
-  CATEGORY: 'catogory',
+  CATEGORY: 'category',
   TITLE: 'title',
 }
 
-const TabBox = styled.section`
-  ${(props) => (props.type === TYPE.CATEGORY ? `border-bottom: 1px solid ${color.$grey05};` : '')}
+interface IType {
+  type: 'category' | 'title';
+}
+
+const TabBox = styled.section<IType>`
+  border-bottom: ${(props) => (_.isEqual(props.type, TYPE.CATEGORY) && `1px solid ${color.$grey05}`)};
   margin-bottom: 24px;
 `
 
@@ -47,7 +50,7 @@ const typeTitle = css`
   }
 `
 
-const Tab = styled.span.attrs((props) => {
+const Tab = styled.span.attrs((props:IType) => {
   const className = [
     (props.type === TYPE.CATEGORY ? fontStyle.fs16 : fontStyle.fs22),
     fontStyle.bold,
@@ -66,7 +69,7 @@ const TabUnderLine = styled.div`
   position: absolute;
   height: ${UnderLineSize}px;
 
-  ${(props) => (props.type === TYPE.TITLE ? `` : `background-color: ${color.$pmblue}`)};
+  ${(props:IType) => (props.type === TYPE.TITLE ? `` : `background-color: ${color.$pmblue}`)};
   bottom: -1px;
   width: 100%;
   left: 0;
@@ -86,10 +89,29 @@ export const TabPane = styled.div`
   ${(props) => (props['aria-hidden'] ? Hidden : '')}
 `
 
-class Tabs extends React.Component {
+interface IProps extends IType {
+  defaultactivekey: string;
+  onChange?: (key:string) => void;
+}
+
+interface IState {
+  activeKey: string;
+  renderObj: any;
+}
+
+class Tabs extends React.Component<IProps, IState> {
+  static Tab: any;
+  static TabPane: any;
+  static TabUnderLine: any;
+  static TabBox: any;
+  static defaultProps = {
+    defaultactivekey: String(0),
+    type: TYPE.CATEGORY,
+    onChange: () => {},
+  }
+
   constructor(props) {
     super(props)
-
     const { defaultactivekey } = this.props
 
     const activeKey = defaultactivekey
@@ -125,7 +147,7 @@ class Tabs extends React.Component {
     const contents = []
     const { children, type } = this.props
 
-    React.Children.forEach(children, (child, index) => {
+    React.Children.forEach(children, (child:any, index) => {
       const key = child.key || String(index)
       tabs.push(
         React.cloneElement(
@@ -163,18 +185,6 @@ class Tabs extends React.Component {
       </article>
     )
   }
-}
-
-Tabs.defaultProps = {
-  defaultactivekey: String(0),
-  type: TYPE.CATEGORY,
-  onChange: () => {},
-}
-
-Tabs.propTypes = {
-  defaultactivekey: PropTypes.string,
-  type: PropTypes.oneOf([TYPE.CATEGORY, TYPE.TITLE]),
-  onChange: PropTypes.func,
 }
 
 Tabs.Tab = Tab
