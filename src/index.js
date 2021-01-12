@@ -33,7 +33,7 @@ import * as Toast from './components/Toast'
 import Pagination from './components/pagination/Pagination'
 import ToggleButton from './components/button/ToggleButton'
 import TooltipBox from './components/tooltip/TooltipBox'
-import * as commonTag from '@Components/common/commonTag'
+import * as commonTag from './components/common/commonTag'
 
 import SelectBox from './components/form/SelectBox'
 import Tooltip from './components/form/Tooltip'

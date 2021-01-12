@@ -1,12 +1,12 @@
 import React from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
 import _ from 'lodash'
-import { color } from '@src/assets/styles/variables'
-import fontStyle from '@src/assets/styles/font.module.sass'
+import { color } from '../../assets/styles/variables'
+import fontStyle from '../../assets/styles/font.module.sass'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-import { getColorsByTheme, Themes } from '@Components/ChartColor'
+import { getColorsByTheme, Themes } from '../ChartColor'
 
 const LegendWrap = styled.section`
   display: flex;
@@ -45,7 +45,7 @@ export const Dot = styled.span`
 `
 
 export const Legend = styled.article.attrs({
-  className: [fontStyle.fs14, fontStyle.fc_grey08],
+  className: [fontStyle.fs14, fontStyle.fc_grey08].join(' '),
 })`
   margin-bottom: 30px;
   > span:not(:last-child) {
@@ -53,14 +53,27 @@ export const Legend = styled.article.attrs({
   }
 `
 
+interface ILegendListData {
+  text: string;
+  color?: string[] | string[][];
+}
+
+interface LegendListProps {
+  data: ILegendListData[];
+  textMap: any;
+  hide: boolean;
+  theme: any;
+  themes: string[];
+}
+
 export const LegendList = ({
   data, textMap, hide, theme, themes,
-}) => {
+}:LegendListProps) => {
   if (hide) {
     return null
   }
 
-  let colors = ''
+  let colors: string | string[] = ''
   let newLegendData
 
   if (!_.isUndefined(themes)) {
