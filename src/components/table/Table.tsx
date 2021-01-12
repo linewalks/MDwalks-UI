@@ -103,11 +103,11 @@ interface TableProps extends IColumns {
     rowData: any[];
     footData: any[];
   };
-  wrapTh: () => void;
-  wrapTd: (data:any) => React.ReactNode;
-  appendRow: () => void;
+  wrapTh?: () => void;
+  wrapTd?: (data:any) => React.ReactNode;
+  appendRow?: () => void;
   className?: string;
-  loading: boolean;
+  loading?: boolean;
   scroll?: {
     y: number;
   };
