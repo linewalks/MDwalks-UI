@@ -4,7 +4,7 @@ import React, {
 import ReactDOM from 'react-dom'
 import _ from 'lodash'
 import styled from 'styled-components'
-import Toast from '@Components/Toast/Toast'
+import Toast from './Toast'
 
 const ToastContainer = styled.div`
   position: fixed;
@@ -13,7 +13,19 @@ const ToastContainer = styled.div`
   transform: translateX(-50%);
 `
 
-export const ToastContext = createContext()
+interface IToast {
+  toastId: string;
+  type: 'info' | 'warning';
+  message: string | React.ReactNode;
+  duration: number;
+}
+
+interface IToastCtx {
+  addToast: (toast:IToast) => void;
+  removeToast: (id:string) => void;
+}
+
+export const ToastContext = createContext<IToastCtx>(null)
 
 export const ToastProvider = ({ children }) => {
   const [toastList, setToastList] = useState([])

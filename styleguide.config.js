@@ -106,7 +106,7 @@ module.exports = {
         'src/components/table/EmptyPlaceHolder.tsx',
         'src/components/table/Descriptions.tsx',
         'src/components/table/Table.tsx',
-        'src/components/Toast/Toast.js',
+        'src/components/Toast/Toast.tsx',
         'src/components/paper/Heatmap.js',
       ],
     },

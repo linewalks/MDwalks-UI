@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
-import PropTypes from 'prop-types'
-import { useToast } from '@Components/Toast/ToastProvider'
-import { color } from '../../assets/styles/variables.ts'
+import { useToast } from './ToastProvider'
+import { color } from '../../assets/styles/variables'
 import icnInfoCircle from '../../assets/svg/toast/icn_done_circle_filled_pmblue_24.svg'
 import icnWarningCircle from '../../assets/svg/toast/icn_error_circle_filled_red01_24.svg'
 import icnInfoClose from '../../assets/svg/toast/icn_close_pmblue_16.svg'
@@ -22,7 +21,12 @@ const fadeOut = keyframes`
   }
 `
 
-const ToastBox = styled.div`
+interface IToastBox {
+  type: 'info' | 'warning';
+  duration: number;
+}
+
+const ToastBox = styled.div<IToastBox>`
   min-width: 440px;
   min-height: 64px;
   padding: 20px 72px;
@@ -60,12 +64,19 @@ const Icon = {
   },
 }
 
+interface ToastProps {
+  toastId: string;
+  type: 'info' | 'warning';
+  message: string | React.ReactNode;
+  duration: number;
+}
+
 const Toast = ({
   toastId,
   type,
   message,
   duration,
-}) => {
+}:ToastProps) => {
   const { remove } = useToast()
 
   useEffect(() => {
@@ -110,13 +121,6 @@ const Toast = ({
 Toast.defaultProps = {
   type: 'info',
   duration: 4000,
-}
-
-Toast.propTypes = {
-  toastId: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['info', 'warning']),
-  message: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
-  duration: PropTypes.number,
 }
 
 export default Toast
