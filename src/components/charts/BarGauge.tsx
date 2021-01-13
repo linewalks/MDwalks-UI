@@ -28,6 +28,7 @@ const fillLinear = keyframes`
 
 interface IFill {
   score: number;
+  theme: string;
 }
 
 const Fill = styled.div<IFill>`
