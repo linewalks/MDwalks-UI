@@ -1,19 +1,14 @@
-// TimelineChart Component Util
 import * as d3 from 'd3'
-import ChartConfig from '@src/helper/ChartConfig'
+// TimelineChart Component Util
+import ChartConfig from './ChartConfig'
 
 // Sankey Component Util
-export const strIdConvert = (id) => [].concat(id).map((name) => name.split(' ').join('_')).join('X')
+export const strIdConvert = (id:string):string => [].concat(id).map((name) => name.split(' ').join('_')).join('X')
 
-export const renderSVG = (domObj, width, height) => {
-  if (!(domObj instanceof d3.selection)) {
-    throw new Error('domObj is not a d3.selection')
-  }
-  return domObj
+export const renderSVG = (domObj:d3.Selection<SVGElement, {}, HTMLElement, any>, width:string | number, height: string | number) => domObj
     .append('svg')
     .attr('width', width)
     .attr('height', height)
-}
 
 export const generateGroup = (anchorEl, { className = '', xOffset = 0, yOffset = 0 }) => anchorEl
   .append('g')
@@ -38,13 +33,13 @@ export const getStartAndEndTime = (dataPoints) => {
     if (Date.parse(d.startTime) < Date.parse(startTime)) {
       startTime = d.startTime
     }
-    if (Date.parse(d.endTime) > Date.parse(endTime)) {
+    if (Date.parse(d.endTime) > Date.parse(`${endTime}`)) {
       endTime = d.endTime
     }
   })
   return {
     startTime: Date.parse(startTime),
-    endTime: Date.parse(endTime),
+    endTime: Date.parse(`${endTime}`),
   }
 }
 

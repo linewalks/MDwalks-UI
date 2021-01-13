@@ -40,7 +40,7 @@ import Tooltip from './components/form/Tooltip'
 import * as font from './assets/styles/font'
 import * as variables from './assets/styles/variables'
 import * as tableProperties from '@src/assets/styles/tableProperties'
-import * as chartUtility from '@src/helper/chartUtility'
+import * as chartUtility from './helper/chartUtility'
 
 import * as DateUtility from '@src/helper/DateUtility'
 

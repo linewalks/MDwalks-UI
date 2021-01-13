@@ -12,15 +12,6 @@ it('strIdConvert', () => {
 })
 
 describe('renderSVG', () => {
-  it('throw', () => {
-    const div = document.createElement('div')
-    try {
-      chartUtility.renderSVG(div)
-    } catch (e) {
-      expect(e.message).toBe('domObj is not a d3.selection')
-    }
-  })
-
   it('default', () => {
     const div = d3.create('div')
     const svg = chartUtility.renderSVG(div)
