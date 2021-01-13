@@ -247,7 +247,7 @@ export const getListWhenNotMatch = (ThemeObj, dataSize) => {
   return list
 }
 
-export const getColorsByTheme = (theme, size) => {
+export const getColorsByTheme = (theme:string, size:any = 0) => {
   if (isBubble(theme)) {
     return getColorsOfBubble()
   }

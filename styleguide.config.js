@@ -67,7 +67,7 @@ module.exports = {
       components: () => [
         'src/components/ChartColor.tsx',
         'src/components/common/commonTag.tsx',
-        'src/components/charts/BarGauge.js',
+        'src/components/charts/BarGauge.tsx',
         'src/components/charts/RadiusGauge.js',
         'src/components/charts/LineChart.js',
         'src/components/charts/BarChart.js',

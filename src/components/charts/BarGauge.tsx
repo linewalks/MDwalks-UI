@@ -1,13 +1,12 @@
 import React from 'react'
 import _ from 'lodash'
-import PropTypes from 'prop-types'
 import styled, { keyframes } from 'styled-components'
-import { color } from '@src/assets/styles/variables'
+import { color } from '../../assets/styles/variables'
 
 import {
   getColorsByTheme,
   Themes,
-} from '@Components/ChartColor'
+} from '../ChartColor'
 
 const Container = styled.div`
   position: relative;
@@ -27,14 +26,22 @@ const fillLinear = keyframes`
   }
 `
 
-const Fill = styled.div`
+interface IFill {
+  score: number;
+}
+
+const Fill = styled.div<IFill>`
   background-image: ${(props) => (props.theme ? `linear-gradient(to right, ${props.theme[0]}, ${props.theme[2]} 100px)` : 'auto')};
   height: 100%;
   width: ${(props) => (_.isNumber(props.score) ? `${props.score}%` : 'auto')};
   animation: ${fillLinear} 1.5;
 `
 
-const Threshold = styled.div`
+interface IThreshold {
+  threshold: number;
+}
+
+const Threshold = styled.div<IThreshold>`
   position: absolute;
   width: 3px;
   height: 16px;
@@ -47,7 +54,13 @@ const Threshold = styled.div`
   border-radius: 0.5px;
 `
 
-const BarGauge = ({ score, theme, threshold }) => {
+interface BarGaugeProps {
+  score: number;
+  threshold?: number;
+  theme: 'theme-arrange-gradient-primary-sea' | 'theme-arrange-gradient-secondary-teal';
+}
+
+const BarGauge = ({ score, theme, threshold }:BarGaugeProps) => {
   const colors = getColorsByTheme(theme)
   if (_.inRange(score, 0, 101)) {
     return (
@@ -70,15 +83,6 @@ const BarGauge = ({ score, theme, threshold }) => {
 BarGauge.defaultProps = {
   theme: Themes.ThemeArrangeGradientPrimarySea,
   threshold: undefined,
-}
-
-BarGauge.propTypes = {
-  score: PropTypes.number.isRequired,
-  threshold: PropTypes.number,
-  theme: PropTypes.oneOf([
-    Themes.ThemeArrangeGradientPrimarySea,
-    Themes.ThemeArrangeGradientSecondaryTeal,
-  ]),
 }
 
 export default BarGauge

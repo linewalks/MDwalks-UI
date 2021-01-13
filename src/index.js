@@ -1,4 +1,4 @@
-import BarGauge from '@Components/charts/BarGauge'
+import BarGauge from './components/charts/BarGauge'
 import RadiusGauge from '@Components/charts/RadiusGauge'
 import SankeyChart from '@Components/charts/SankeyChart'
 import SelectedCard from './components/card/SelectedCard'
