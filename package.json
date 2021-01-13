@@ -67,6 +67,7 @@
     "@rollup/plugin-url": "^6.0.0",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
+    "@types/d3": "^6.2.0",
     "@types/jest": "^26.0.10",
     "@types/lodash": "^4.14.165",
     "@types/react": "^16.9.46",
