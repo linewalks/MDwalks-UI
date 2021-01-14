@@ -1,14 +1,21 @@
-import React from 'react';
+import React from 'react'
 import * as d3 from 'd3'
-import PropTypes from 'prop-types'
 import {
   getColorsByTheme,
   Themes,
   ColorSetMap,
-} from '@Components/ChartColor'
+} from '../ChartColor'
 import _ from 'lodash'
-import fontStyle from '@src/assets/styles/font.module.sass'
-import { color } from '@src/assets/styles/variables'
+import fontStyle from '../../assets/styles/font.module.sass'
+import { color } from '../../assets/styles/variables'
+
+interface RadiusGaugeProps {
+  width: number;
+  height: number;
+  score: number;
+  threshold: number;
+  theme: 'theme-arrange-gradient-primary-sea' | 'theme-arrange-gradient-secondary-teal'
+}
 
 const RadiusGauge = ({
   width,
@@ -16,7 +23,7 @@ const RadiusGauge = ({
   score,
   threshold,
   theme,
-}) => {
+}:RadiusGaugeProps) => {
   const cx = 150;
   const cy = 103;
   const radius = 103;
@@ -135,17 +142,6 @@ RadiusGauge.defaultProps = {
   score: undefined,
   threshold: undefined,
   theme: Themes.ThemeArrangeGradientPrimarySea,
-}
-
-RadiusGauge.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
-  score: PropTypes.number,
-  threshold: PropTypes.number,
-  theme: PropTypes.oneOf([
-    Themes.ThemeArrangeGradientPrimarySea,
-    Themes.ThemeArrangeGradientSecondaryTeal,
-  ]),
 }
 
 export default RadiusGauge;

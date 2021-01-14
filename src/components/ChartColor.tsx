@@ -82,7 +82,11 @@ export const toCamel = (s) => (
     ))
 )
 
-export const ColorSetMap = _.chain(ColorSet)
+interface IColorSetMap {
+  [colorName: string]: string;
+}
+
+export const ColorSetMap:IColorSetMap = _.chain(ColorSet)
   .values()
   .reduce((sum, obj) => (_.extend(sum, obj)), {})
   .value()
