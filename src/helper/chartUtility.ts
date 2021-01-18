@@ -5,7 +5,7 @@ import ChartConfig from './ChartConfig'
 // Sankey Component Util
 export const strIdConvert = (id:string):string => [].concat(id).map((name) => name.split(' ').join('_')).join('X')
 
-export const renderSVG = (domObj:d3.selection<SVGElement, {}, HTMLElement, any>, width:string | number, height: string | number) => domObj
+export const renderSVG = (domObj:d3.Selection<HTMLDivElement, {}, SVGAElement, any>, width:string | number, height: string | number) => domObj
     .append('svg')
     .attr('width', width)
     .attr('height', height)
