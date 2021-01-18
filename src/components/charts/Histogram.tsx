@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
-import PropTypes from 'prop-types'
 import _ from 'lodash'
-import { renderSVG, generateGroup, errorMessage } from '@src/helper/chartUtility'
-import { color } from '@src/assets/styles/variables'
-import fontStyle from '@src/assets/styles/font.module.sass'
-import SelectBox from '@Components/form/SelectBox'
+import { renderSVG, generateGroup, errorMessage } from '../../helper/chartUtility'
+import { color } from '../../assets/styles/variables'
+import fontStyle from '../../assets/styles/font.module.sass'
+import SelectBox from '../form/SelectBox'
 import styled from 'styled-components'
 
 import {
   getColorsByTheme,
   Themes,
-} from '@Components/ChartColor'
+} from '../ChartColor'
 
 const GDropDown = styled.div`
   position: absolute;
@@ -19,7 +18,45 @@ const GDropDown = styled.div`
   right: 0px;
 `
 
-class Histogram extends Component {
+interface IProps {
+  data: {
+    risks: number[];
+    patientRisk: number;
+  };
+  chartWidth: number;
+  chartHeight: number;
+  onChange: (value:number, bins:any[]) => void;
+  initOnChangeFlag: boolean;
+  theme: string;
+  unit: string;
+}
+class Histogram extends Component<IProps, null> {
+  static defaultProps = {
+    data: undefined,
+    chartWidth: undefined,
+    chartHeight: undefined,
+    onChange: () => {},
+    initOnChangeFlag: false,
+    theme: Themes.ThemeComparePrimarySea1,
+    unit: '명',
+  }
+
+  public options: {
+    width: number;
+    height: number;
+    defaultPadding: any;
+  };
+  public yAxisWidth: number;
+  public colors: string;
+  public fakeData: any;
+  public xAxisWidth: number;
+  public yAxisHeight: number;
+  public xAxisScale: any;
+  public yAxisScale: any;
+  public yAxis: any;
+  public gridXAxis: any;
+  private rootElement = React.createRef<HTMLDivElement>();
+
   constructor(props) {
     super(props);
     const { chartWidth, chartHeight, theme } = this.props
@@ -59,8 +96,6 @@ class Histogram extends Component {
       .scaleLog()
       .domain([1, 1e5])
       .range([this.yAxisHeight, 0])
-
-    this.rootElement = React.createRef();
   }
 
   getRootElement() {
@@ -258,7 +293,7 @@ class Histogram extends Component {
       .tickSize(8)
       .tickValues(tickValues)
       .ticks(5)
-      .tickFormat((d) => `10${formatPower(Math.log10(d))}`)
+      .tickFormat((d:number) => `10${formatPower(Math.log10(d))}`)
 
     this.yAxis = yAxis
 
@@ -367,34 +402,6 @@ class Histogram extends Component {
       </div>
     )
   }
-}
-
-Histogram.defaultProps = {
-  data: undefined,
-  chartWidth: undefined,
-  chartHeight: undefined,
-  onChange: () => {},
-  initOnChangeFlag: false,
-  theme: Themes.ThemeComparePrimarySea1,
-  unit: '명',
-}
-
-Histogram.propTypes = {
-  data: PropTypes.shape({
-    risks: PropTypes.arrayOf(PropTypes.number),
-    patientRisk: PropTypes.number,
-  }),
-  chartWidth: PropTypes.number,
-  chartHeight: PropTypes.number,
-  onChange: PropTypes.func,
-  initOnChangeFlag: PropTypes.bool,
-  theme: PropTypes.oneOf([
-    Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
-    Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3,
-    Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
-    Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
-  ]),
-  unit: PropTypes.string,
 }
 
 export default Histogram

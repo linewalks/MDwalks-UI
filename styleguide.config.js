@@ -72,7 +72,7 @@ module.exports = {
         'src/components/charts/LineChart.js',
         'src/components/charts/BarChart.js',
         'src/components/charts/BarChartMulti.js',
-        'src/components/charts/Histogram.js',
+        'src/components/charts/Histogram.tsx',
         'src/components/charts/PieChart.js',
         'src/components/charts/Timeline.js',
         'src/components/charts/LineMergeTimeline.js',
