@@ -1,9 +1,10 @@
+import React from 'react'
 import * as Rechart from 'recharts'
 import { color } from '@src/assets/styles/variables'
 
-class YAxis extends Rechart.YAxis {
-}
+const YAxis = (props) => <Rechart.YAxis {...props} />
 
+YAxis.displayName = 'YAxis'
 YAxis.defaultProps = {
   ...Rechart.YAxis.defaultProps,
   axisLine: false,

@@ -1,9 +1,10 @@
+import React from 'react'
 import * as Rechart from 'recharts'
 import { color } from '@src/assets/styles/variables'
 
-class CartesianGrid extends Rechart.CartesianGrid {
-}
+const CartesianGrid = (props) => <Rechart.CartesianGrid {...props} />
 
+CartesianGrid.displayName = 'CartesianGrid'
 CartesianGrid.defaultProps = {
   ...Rechart.CartesianGrid.defaultProps,
   stroke: color.$grey04,
