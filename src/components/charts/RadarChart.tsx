@@ -1,20 +1,24 @@
 import React from 'react'
 import * as Rechart from 'recharts'
-import { color } from '@src/assets/styles/variables'
-import * as commonTag from '@Components/common/commonTag'
+import { color } from '../../assets/styles/variables'
+import * as commonTag from '../common/commonTag'
 import {
   getColorsByTheme, Themes,
-} from '@Components/ChartColor'
-import TooltipBox from '@Components/tooltip/TooltipBox'
+} from '../ChartColor'
+import TooltipBox from '../tooltip/TooltipBox'
 
 import _ from 'lodash'
-import PropTypes from 'prop-types'
 
-import PolarAngleAxis from '@Components/charts/cartesian/PolarAngleAxis'
+interface tooltipContentProps {
+  active: boolean;
+  payload: any;
+  nameKey: string;
+  textMap: any;
+}
 
 const tooltipContent = ({
   active, payload, nameKey, textMap,
-}) => {
+}:tooltipContentProps) => {
   if (active) {
     return (
       <TooltipBox
@@ -34,11 +38,24 @@ tooltipContent.defaultProps = {
   nameKey: 'name',
 }
 
-tooltipContent.propTypes = {
-  active: PropTypes.bool,
-  payload: PropTypes.arrayOf(PropTypes.shape({})),
-  textMap: PropTypes.shape({}),
-  nameKey: PropTypes.string,
+interface RadarChartProps {
+  data: any[];
+  nameKey: string;
+  dataKey: string | string[];
+  theme: string;
+  textMap?: any;
+  margin?: {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+  };
+  legend?: {
+    hide: boolean;
+  };
+  width?:number;
+  height?:number;
+  outerRadius?:number;
 }
 
 // Legend 클릭 시 Radar 를 toggle 하려면 Radar의 props 인 hide 을 사용하세요
@@ -53,7 +70,7 @@ const RadarChart = ({
   height,
   outerRadius,
   margin,
-}) => {
+}:RadarChartProps) => {
   const newDataKey = [].concat(dataKey).reverse()
   const colors = getColorsByTheme(theme, newDataKey.length).reverse()
   const legendData = _.chain(newDataKey)
@@ -78,7 +95,14 @@ const RadarChart = ({
           content={tooltipContent}
         />
         <Rechart.PolarGrid stroke={color.$grey04} />
-        <PolarAngleAxis dataKey={nameKey} />
+        <Rechart.PolarAngleAxis
+          axisLine={{ stroke: color.$grey06 }}
+          tickLine={false}
+          stroke={color.$grey08}
+          fontSize={14}
+          custom={true}
+          dataKey={nameKey}
+        />
         {
           newDataKey.map((entry, index) => (
             <Rechart.Radar
@@ -115,31 +139,6 @@ RadarChart.defaultProps = {
     bottom: 20,
     left: 5,
   },
-}
-
-RadarChart.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({})),
-  nameKey: PropTypes.string,
-  dataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-  theme: PropTypes.oneOf([
-    Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
-    Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3,
-    Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
-    Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
-  ]),
-  textMap: PropTypes.shape({}),
-  margin: PropTypes.shape({
-    top: PropTypes.number,
-    right: PropTypes.number,
-    bottom: PropTypes.number,
-    left: PropTypes.number,
-  }),
-  legend: PropTypes.shape({
-    hide: PropTypes.bool,
-  }),
-  width: PropTypes.number,
-  height: PropTypes.number,
-  outerRadius: PropTypes.number,
 }
 
 export default RadarChart
