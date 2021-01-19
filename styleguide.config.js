@@ -69,7 +69,7 @@ module.exports = {
         'src/components/common/commonTag.tsx',
         'src/components/charts/BarGauge.tsx',
         'src/components/charts/RadiusGauge.tsx',
-        'src/components/charts/LineChart.js',
+        'src/components/charts/LineChart.tsx',
         'src/components/charts/BarChart.js',
         'src/components/charts/BarChartMulti.js',
         'src/components/charts/Histogram.tsx',

@@ -1,16 +1,15 @@
 import React from 'react'
 import _ from 'lodash'
 import * as Rechart from 'recharts'
-import PropTypes from 'prop-types'
-import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
-import { color } from '@src/assets/styles/variables'
-import TooltipBox from '@Components/tooltip/TooltipBox'
-import * as commonTag from '@Components/common/commonTag'
-import { getColorsByTheme, Themes } from '@Components/ChartColor'
+import EmptyPlaceHolder from '../table/EmptyPlaceHolder'
+import { color } from '../../assets/styles/variables'
+import TooltipBox from '../tooltip/TooltipBox'
+import * as commonTag from '../common/commonTag'
+import { getColorsByTheme, Themes } from '../ChartColor'
 
-import XAxis from '@Components/charts/cartesian/XAxis'
-import YAxis from '@Components/charts/cartesian/YAxis'
-import CartesianGrid from '@Components/charts/cartesian/CartesianGrid'
+import XAxis from './cartesian/XAxis'
+import YAxis from './cartesian/YAxis'
+import CartesianGrid from './cartesian/CartesianGrid'
 
 const LabelStyle = {
   fill: color.$grey08,
@@ -31,6 +30,43 @@ const HoverDotStyle = {
   strokeWidth: 3,
 }
 
+interface LineChartProps {
+  title?: string;
+  data: any[];
+  xDataKey: string;
+  yDataKey: string | string[];
+  theme: string;
+  isPercent?: boolean;
+  textMap?: any;
+  margin?: {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+  };
+  legend?: {
+    hide: boolean;
+  };
+  xData?: {
+    label: {
+      value: string;
+    };
+    unit: string;
+  };
+  yData?: {
+    label: {
+      value: string;
+    };
+    unit: string;
+  };
+  height?: number;
+  xAxisType?: 'category' | 'number';
+  xAxisTicks?: number[] | string[];
+  yAxisTicks?: number[] | string[];
+  lineDot?: boolean;
+  yLabelAngle?: number;
+}
+
 const LineChart = ({
   title,
   data,
@@ -49,7 +85,7 @@ const LineChart = ({
   yAxisTicks,
   lineDot,
   yLabelAngle,
-}) => {
+}:LineChartProps) => {
   const newYDataKey = [].concat(yDataKey)
   const colors = getColorsByTheme(theme, newYDataKey.length)
   const legendData = _.chain(newYDataKey)
@@ -160,48 +196,6 @@ LineChart.defaultProps = {
   yAxisTicks: null,
   lineDot: true,
   yLabelAngle: 0,
-}
-
-LineChart.propTypes = {
-  title: PropTypes.string,
-  data: PropTypes.arrayOf(PropTypes.shape({})),
-  xDataKey: PropTypes.string,
-  yDataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-  theme: PropTypes.oneOf([
-    'blue', 'green', 'compare',
-    Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal,
-    Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold,
-    Themes.ThemeArrangeQuinaryBerry, Themes.ThemeCompareSecondaryTeal,
-  ]),
-  isPercent: PropTypes.bool,
-  textMap: PropTypes.shape({}),
-  margin: PropTypes.shape({
-    top: PropTypes.number,
-    right: PropTypes.number,
-    bottom: PropTypes.number,
-    left: PropTypes.number,
-  }),
-  legend: PropTypes.shape({
-    hide: PropTypes.bool,
-  }),
-  xData: PropTypes.shape({
-    label: PropTypes.shape({
-      value: PropTypes.string.isRequired,
-    }),
-    unit: PropTypes.string,
-  }),
-  yData: PropTypes.shape({
-    label: PropTypes.shape({
-      value: PropTypes.string.isRequired,
-    }),
-    unit: PropTypes.string,
-  }),
-  height: PropTypes.number,
-  xAxisType: PropTypes.oneOf(['category', 'number']),
-  xAxisTicks: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
-  yAxisTicks: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
-  lineDot: PropTypes.bool,
-  yLabelAngle: PropTypes.number,
 }
 
 export default LineChart

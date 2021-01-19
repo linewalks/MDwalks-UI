@@ -1,8 +1,8 @@
+import React from 'react'
 import * as Rechart from 'recharts'
 import { color } from '@src/assets/styles/variables'
 
-class XAxis extends Rechart.XAxis {
-}
+const XAxis = (props) => <Rechart.XAxis {...props} />
 
 XAxis.defaultProps = {
   ...Rechart.XAxis.defaultProps,
@@ -14,4 +14,5 @@ XAxis.defaultProps = {
   custom: true,
 }
 
+XAxis.displayName = 'XAxis'
 export default XAxis

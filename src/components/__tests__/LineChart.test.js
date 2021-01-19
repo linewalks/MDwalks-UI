@@ -47,33 +47,6 @@ const data = [
 
 describe('LineChart Component', () => {
   let component;
-  beforeEach(() => {
-    component = mount(
-      <LineChart
-        title="Example"
-        data={data}
-        xDataKey="age"
-        yDataKey="Persons"
-        theme="blue"
-      />,
-    )
-  })
-
-  it('데이터가 없을 때, placeholder를 렌더링 해야 한다.', () => {
-    component.setProps({ data: [] })
-    expect(component.find(EmptyPlaceHolder)).toHaveLength(1)
-  })
-
-  it('데이터가 있을 때, linechart를 렌더링 해야 한다.', () => {
-    const { Line, XAxis, YAxis } = getChilds(component, Rechart.LineChart)
-    expect(Line).toHaveLength(1)
-    expect(XAxis[0].props.children).toBe(undefined)
-    expect(YAxis[0].props.children).toBe(undefined)
-  })
-})
-
-describe('LineChart Component', () => {
-  let component;
 
   beforeEach(() => {
     component = mount(
@@ -97,9 +70,13 @@ describe('LineChart Component', () => {
     )
   })
 
+  it('데이터가 없을 때, placeholder를 렌더링 해야 한다.', () => {
+    component.setProps({ data: [] })
+    expect(component.find(EmptyPlaceHolder)).toHaveLength(1)
+  })
+
   it('데이터가 있을 때, linechart를 렌더링 해야 한다.', () => {
     const { Line, XAxis, YAxis } = getChilds(component, Rechart.LineChart)
-
     expect(XAxis[0].props.children.type.displayName).toBe('Label')
     expect(YAxis[0].props.children.type.displayName).toBe('Label')
     expect(Line).toHaveLength(1)
