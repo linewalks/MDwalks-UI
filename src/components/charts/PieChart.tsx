@@ -2,15 +2,14 @@ import React from 'react'
 import * as Rechart from 'recharts'
 
 import _ from 'lodash'
-import PropTypes from 'prop-types'
 
 import styled from 'styled-components'
-import * as font from '@src/assets/styles/font'
-import TooltipBox from '@Components/tooltip/TooltipBox'
-import * as commonTag from '@Components/common/commonTag'
-import { getColorsByTheme, Themes } from '@Components/ChartColor'
-import { color } from '@src/assets/styles/variables'
-import ChartConfig from '@src/helper/ChartConfig'
+import * as font from '../../assets/styles/font'
+import TooltipBox from '../tooltip/TooltipBox'
+import * as commonTag from '../common/commonTag'
+import { getColorsByTheme, Themes } from '../ChartColor'
+import { color } from '../../assets/styles/variables'
+import ChartConfig from '../../helper/ChartConfig'
 
 const Dot = styled(commonTag.Dot).attrs(() => ({}))`
   position: absolute;
@@ -25,7 +24,11 @@ const size = {
   },
 }
 
-const PieLegend = styled.div`
+interface ILayout {
+  layout: 'horizontal' | 'vertical';
+}
+
+const PieLegend = styled.div<ILayout>`
   ${(props) => (props.layout === ChartConfig.Layout.HORIZONTAL ? 'margin-left: 56px;' : 'margin-top: 24px;')}
   width: 100%;
   display: flex;
@@ -51,7 +54,7 @@ const PieLegend = styled.div`
   }
 `
 
-const Layout = styled.section`
+const Layout = styled.section<ILayout>`
   ${(props) => (props.layout === ChartConfig.Layout.HORIZONTAL ? `
     display: flex;
   ` : '')}
@@ -62,10 +65,19 @@ const Layout = styled.section`
   ` : '')}
 `
 
+interface tooltipContentProps {
+  active: boolean;
+  payload: any;
+  isPercent: boolean;
+  textMap: any;
+  dataKey: string;
+  nameKey; string;
+}
+
 const tooltipContent = ({
   active, payload, dataKey, nameKey,
   isPercent, textMap,
-}) => {
+}:tooltipContentProps) => {
   if (active) {
     const converted = _.map(payload, (e) => e.payload)
     return (
@@ -90,13 +102,20 @@ tooltipContent.defaultProps = {
   nameKey: 'name',
 }
 
-tooltipContent.propTypes = {
-  active: PropTypes.bool,
-  payload: PropTypes.shape({}),
-  isPercent: PropTypes.bool,
-  textMap: PropTypes.shape({}),
-  dataKey: PropTypes.string,
-  nameKey: PropTypes.string,
+interface PieChartProps extends ILayout {
+  title?: string;
+  data: any[];
+  dataKey: string;
+  nameKey: string;
+  theme: string;
+  isPercent?: boolean;
+  textMap?: any;
+  legend?: {
+    isPercent: boolean;
+    datakey: string;
+    nameKey: string;
+    hide: boolean;
+  };
 }
 
 const PieChart = ({
@@ -109,7 +128,7 @@ const PieChart = ({
   isPercent,
   textMap,
   legend: _legend,
-}) => {
+}:PieChartProps) => {
   // const colors = colorSet[theme] || colorSet.blue
   const colors = getColorsByTheme(theme, data.length)
 
@@ -205,32 +224,6 @@ PieChart.defaultProps = {
   legend: {
     hide: false,
   },
-}
-
-PieChart.propTypes = {
-  title: PropTypes.string,
-  data: PropTypes.arrayOf(PropTypes.shape({})),
-  dataKey: PropTypes.string,
-  nameKey: PropTypes.string,
-  layout: ChartConfig.Layout.propTypes,
-  theme: PropTypes.oneOf([
-    'blue', 'green', 'compare',
-    Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal,
-    Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold,
-    Themes.ThemeArrangeQuinaryBerry,
-    Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
-    Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3,
-    Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
-    Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
-  ]),
-  isPercent: PropTypes.bool,
-  textMap: PropTypes.shape({}),
-  legend: PropTypes.shape({
-    isPercent: PropTypes.bool,
-    dataKey: PropTypes.string,
-    nameKey: PropTypes.string,
-    hide: PropTypes.bool,
-  }),
 }
 
 export default PieChart
