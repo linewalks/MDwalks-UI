@@ -5,7 +5,11 @@ import styled from 'styled-components'
 
 import { color } from '../../assets/styles/variables'
 
-const WrapTooltip = styled.div`
+interface WrapTooltipProps {
+  width: number;
+}
+
+const WrapTooltip = styled.div<WrapTooltipProps>`
   display: inline;
   position: relative;
 
@@ -14,7 +18,7 @@ const WrapTooltip = styled.div`
   }
 
   .ant-tooltip-inner {
-    width: 360px;
+    width: ${(props) => (`${props.width}px`)};
     padding: 12px 14px;
     box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);
     border: 1px solid ${color.$grey08};
@@ -25,10 +29,14 @@ const WrapTooltip = styled.div`
     color: ${color.$grey09};
   }
 
-  .ant-tooltip-placement-bottomLeft {
-    left: 0px !important; 
+  .ant-tooltip-placement-left,
+  .ant-tooltip-placement-leftBottom,
+  .ant-tooltip-placement-leftTop {
+    left: ${(props) => (`-${props.width + 5}px`)} !important;
   }
 `
+
+type PlacementProps = 'top' | 'bottom' | 'left' | 'right'
 
 interface TooltipProps {
   desc: string;
@@ -36,16 +44,24 @@ interface TooltipProps {
   innerStyle: {
     [styleKey:string]: string;
   }
+  placement: PlacementProps;
+  width: number;
 }
 
 const Tooltip = ({
   desc,
   children,
   innerStyle,
+  placement,
+  width,
 }: TooltipProps) => (
-  <WrapTooltip>
-    <antd.Tooltip getPopupContainer={(triggerNode: HTMLElement) => triggerNode.parentNode as HTMLElement} placement="bottomLeft" title={desc}>
-      <span style={innerStyle}>{children}</span>
+  <WrapTooltip width={width}>
+    <antd.Tooltip
+      getPopupContainer={(triggerNode: HTMLElement) => triggerNode.parentNode as HTMLElement}
+      placement={placement}
+      title={desc}
+    >
+      <span className="tooltip-span-child" style={innerStyle}>{children}</span>
     </antd.Tooltip>
   </WrapTooltip>
 )
@@ -56,6 +72,8 @@ Tooltip.defaultProps = {
   innerStyle: {
     fontWeight: 'bold',
   },
+  placement: 'bottomLeft',
+  width: 180,
 }
 
 export default Tooltip
