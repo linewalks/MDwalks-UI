@@ -31,40 +31,40 @@ const HoverDotStyle = {
 }
 
 interface LineChartProps {
-  title: string;
+  title?: string;
   data: any[];
   xDataKey: string;
   yDataKey: string | string[];
   theme: string;
-  isPercent: boolean;
-  textMap: any;
-  margin: {
+  isPercent?: boolean;
+  textMap?: any;
+  margin?: {
     top: number;
     right: number;
     bottom: number;
     left: number;
   };
-  legend: {
+  legend?: {
     hide: boolean;
   };
-  xData: {
+  xData?: {
     label: {
       value: string;
     };
     unit: string;
   };
-  yData: {
+  yData?: {
     label: {
       value: string;
     };
     unit: string;
   };
-  height: number;
-  xAxisType: 'category' | 'number';
-  xAxisTicks: number[] | string[];
-  yAxisTicks: number[] | string[];
-  lineDot: boolean;
-  yLabelAngle: number;
+  height?: number;
+  xAxisType?: 'category' | 'number';
+  xAxisTicks?: number[] | string[];
+  yAxisTicks?: number[] | string[];
+  lineDot?: boolean;
+  yLabelAngle?: number;
 }
 
 const LineChart = ({
