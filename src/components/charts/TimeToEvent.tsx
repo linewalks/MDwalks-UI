@@ -1,19 +1,18 @@
 import React from 'react'
 import * as Rechart from 'recharts'
-import PropTypes from 'prop-types'
-import { color } from '@src/assets/styles/variables'
-import * as commonTag from '@Components/common/commonTag'
-import TooltipBox from '@Components/tooltip/TooltipBox'
+import { color } from '../../assets/styles/variables'
+import * as commonTag from '../common/commonTag'
+import TooltipBox from '../tooltip/TooltipBox'
 import {
   getColorsByTheme, Themes,
-} from '@Components/ChartColor'
+} from '../ChartColor'
 
 import _ from 'lodash'
 
-import XAxis from '@Components/charts/cartesian/XAxis'
-import YAxis from '@Components/charts/cartesian/YAxis'
-import CartesianGrid from '@Components/charts/cartesian/CartesianGrid'
-import fontStyle from '@src/assets/styles/font.module.sass'
+import XAxis from './cartesian/XAxis'
+import YAxis from './cartesian/YAxis'
+import CartesianGrid from './cartesian/CartesianGrid'
+import fontStyle from '../../assets/styles/font.module.sass'
 
 export const dateFormat = (date) => (
   // new Date(date)
@@ -31,10 +30,19 @@ export const dateFormat = (date) => (
     .replace(/,\s/, ' ')
 )
 
+interface tooltipContentProps {
+  active: boolean;
+  payload: any;
+  isPercent: boolean;
+  textMap: any;
+  dataKey: string;
+  nameKey: string;
+}
+
 const tooltipContent = ({
   active, payload, dataKey, nameKey,
   isPercent, textMap,
-}) => {
+}:tooltipContentProps) => {
   if (active) {
     const converted = _.map(payload, (e) => {
       const value = dateFormat(e.payload.value)
@@ -61,15 +69,6 @@ tooltipContent.defaultProps = {
   textMap: {},
   dataKey: 'value',
   nameKey: 'name',
-}
-
-tooltipContent.propTypes = {
-  active: PropTypes.bool,
-  payload: PropTypes.shape({}),
-  isPercent: PropTypes.bool,
-  textMap: PropTypes.shape({}),
-  dataKey: PropTypes.string,
-  nameKey: PropTypes.string,
 }
 
 export const yTickFormatterCustom = ({ order }, textMap = {}) => (
@@ -101,18 +100,40 @@ export const convertData = (arr) => (
 )
 
 export const appendOrder = (arr) => (
-  _.map(arr, (o, index) => ({ ...o, order: arr.length - index }))
+  _.map(arr, (o, index:number) => ({ ...o, order: arr.length - index }))
 )
+
+interface IData {
+  start: number;
+  end: number;
+  name: string;
+}
+
+interface TimeToEventProps {
+  data: IData[];
+  theme: string;
+  margin?: {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+  };
+  legend?: {
+    hide: boolean;
+  };
+  xData?: {
+    unit: string;
+  };
+  showTooltip?: boolean;
+}
 
 const TimeToEvent = ({
   data, theme, margin, xData, legend, showTooltip,
-}) => {
-  let startDate = _.minBy(data, 'start').start
-  startDate = new Date(startDate)
+}:TimeToEventProps) => {
+  let startDate:Date = new Date(_.minBy(data, 'start').start)
   startDate.setDate(1)
   startDate.setMonth(0)
-  let endDate = _.maxBy(data, 'end').end
-  endDate = new Date(endDate)
+  let endDate:Date = new Date(_.maxBy(data, 'end').end)
   endDate.setDate(31)
   endDate.setMonth(11)
 
@@ -210,35 +231,6 @@ TimeToEvent.defaultProps = {
   },
   xData: {},
   showTooltip: true,
-}
-
-TimeToEvent.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    start: PropTypes.number,
-    end: PropTypes.number,
-    name: PropTypes.string,
-  })),
-  theme: PropTypes.oneOf([
-    Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal,
-    Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold,
-    Themes.ThemeArrangeQuinaryBerry, Themes.ThemeComparePrimarySea2,
-  ]),
-  margin: PropTypes.shape({
-    top: PropTypes.number,
-    right: PropTypes.number,
-    bottom: PropTypes.number,
-    left: PropTypes.number,
-  }),
-  legend: PropTypes.shape({
-    hide: PropTypes.bool,
-  }),
-  xData: PropTypes.shape({
-    label: PropTypes.shape({
-      value: PropTypes.string.isRequired,
-    }),
-    unit: PropTypes.string,
-  }),
-  showTooltip: PropTypes.bool,
 }
 
 export default TimeToEvent
