@@ -76,7 +76,7 @@ module.exports = {
         'src/components/charts/PieChart.tsx',
         'src/components/charts/Timeline.js',
         'src/components/charts/LineMergeTimeline.js',
-        'src/components/charts/SankeyChart.js',
+        'src/components/charts/SankeyChart.tsx',
         'src/components/charts/RadarChart.tsx',
         'src/components/charts/TimeToEvent.tsx',
         'src/components/charts/TreeMap.js',

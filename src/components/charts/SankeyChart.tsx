@@ -3,14 +3,76 @@ import * as d3Core from 'd3'
 import PropTypes from 'prop-types'
 import * as sankeyCircular from 'd3-sankey-circular'
 import _ from 'lodash'
-import { color } from '@src/assets/styles/variables'
-import { ColorSetMap } from '@Components/ChartColor'
-import { hexToRGB } from '@Components/button/utility'
-import { strIdConvert } from '@src/helper/chartUtility'
+import { color } from '../../assets/styles/variables'
+import { ColorSetMap } from '../ChartColor'
+import { hexToRGB } from '../button/utility'
+import { strIdConvert } from '../../helper/chartUtility'
 
-class SankeyChart extends React.Component {
-  rootElement = React.createRef()
+interface ILink {
+  source: string;
+  target: string;
+  value: number;
+}
 
+interface INode {
+  name: string;
+}
+
+interface IProps {
+  selectedNodes?: any[];
+  defaultNode?: string[];
+  onChange?: (selectedNodes:any[]) => void;
+  data: {
+    links: ILink[];
+    nodes: INode[];
+  };
+  options?: {
+    height: number;
+    width: number;
+    margin: {
+      top: number;
+      right: number;
+      bottom: number;
+      left: number;
+    };
+    nodeWidth: number;
+    iterations: number;
+    circularLinkGap: number;
+  };
+  resetBtnId: string;
+}
+
+interface IState {
+  selectedNodes: any[]
+}
+
+class SankeyChart extends React.Component<IProps, IState> {
+  static defaultProps = {
+    selectedNodes: [],
+    defaultNode: [],
+    onChange: () => {},
+    options: {
+      height: 254,
+      width: 1000,
+      nodeWidth: 25,
+      nodePadding: 20,
+      iterations: 15,
+      circularLinkGap: 1,
+      margin: {
+        top: 100,
+        right: 100,
+        bottom: 100,
+        left: 100,
+      },
+    },
+    resetBtnId: undefined,
+  }
+
+  public d3: any;
+  public mapLinks: any;
+  public sankey: any;
+  public svg: any;
+  private rootElement = React.createRef<HTMLDivElement>()
   constructor(props) {
     super(props)
     this.d3 = { ...d3Core, ...sankeyCircular }
@@ -190,8 +252,7 @@ class SankeyChart extends React.Component {
   }
 
   renderSankey = () => {
-    const { d3 } = this
-    const { options, data, onChange } = this.props
+    const { options, data } = this.props
 
     const {
       height,
@@ -225,12 +286,10 @@ class SankeyChart extends React.Component {
     const nodes = this.renderNodes(nodeG, sankeyData.nodes, { width })
     this.renderLinks(linkG, sankeyData.links)
 
-    this.attachEventHandlersToNode(d3, nodes, {
-      onChange,
-    })
+    this.attachEventHandlersToNode(nodes)
   }
 
-  attachEventHandlersToNode = (d3, nodes) => {
+  attachEventHandlersToNode = (nodes) => {
     nodes.on('click', (node) => {
       const { selectedNodes } = this.state
       const prevSelectedNode = _.last(selectedNodes)
@@ -250,7 +309,6 @@ class SankeyChart extends React.Component {
     if (!_.isEmpty(resetBtnId)) {
       this.d3.select(`#${resetBtnId}`).on('click', this.resetSankey)
     }
-
     if (!_.isEmpty(data)) {
       this.renderSankey()
       this.highlightLink()
@@ -275,8 +333,8 @@ class SankeyChart extends React.Component {
   }
 
   resetSankey = () => {
-    const { defaultdNode } = this.props
-    this.setState({ selectedNodes: defaultdNode })
+    const { defaultNode } = this.props
+    this.setState({ selectedNodes: defaultNode })
   }
 
   render() {
@@ -287,51 +345,6 @@ class SankeyChart extends React.Component {
       <div ref={this.rootElement} />
     )
   }
-}
-
-SankeyChart.defaultProps = {
-  selectedNodes: [],
-  defaultdNode: [],
-  onChange: () => {},
-  options: {
-    height: 254,
-    width: 1000,
-    nodeWidth: 25,
-    nodePadding: 20,
-    iterations: 15,
-    circularLinkGap: 1,
-    margin: {
-      top: 100,
-      right: 100,
-      bottom: 100,
-      left: 100,
-    },
-  },
-  resetBtnId: undefined,
-}
-
-SankeyChart.propTypes = {
-  selectedNodes: PropTypes.arrayOf(PropTypes.any),
-  defaultdNode: PropTypes.arrayOf(PropTypes.string),
-  onChange: PropTypes.func,
-  data: PropTypes.shape({
-    links: PropTypes.arrayOf(PropTypes.shape()),
-    nodes: PropTypes.arrayOf(PropTypes.shape()),
-  }).isRequired,
-  options: PropTypes.shape({
-    height: PropTypes.number,
-    width: PropTypes.number,
-    margin: PropTypes.shape({
-      top: PropTypes.number,
-      right: PropTypes.number,
-      bottom: PropTypes.number,
-      left: PropTypes.number,
-    }),
-    nodeWidth: PropTypes.number,
-    iterations: PropTypes.number,
-    circularLinkGap: PropTypes.number,
-  }),
-  resetBtnId: PropTypes.string,
 }
 
 export default SankeyChart
