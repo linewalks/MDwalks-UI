@@ -2,20 +2,19 @@
 import React from 'react'
 import _ from 'lodash'
 import * as Rechart from 'recharts'
-import PropTypes from 'prop-types'
-import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
-import { color } from '@src/assets/styles/variables'
-import TooltipBox from '@Components/tooltip/TooltipBox'
-import TooltipCompareContent from '@Components/tooltip/TooltipCompareContent'
-import * as commonTag from '@Components/common/commonTag'
-import { getColorsByTheme, Themes, ColorSet } from '@Components/ChartColor'
+import EmptyPlaceHolder from '../table/EmptyPlaceHolder'
+import { color } from '../../assets/styles/variables'
+import TooltipBox from '../tooltip/TooltipBox'
+import TooltipCompareContent from '../tooltip/TooltipCompareContent'
+import * as commonTag from '../common/commonTag'
+import { getColorsByTheme, Themes, ColorSet } from '../ChartColor'
 
-import { getBarSize } from '@src/helper/chartUtility'
-import ChartConfig from '@src/helper/ChartConfig'
+import { getBarSize } from '../../helper/chartUtility'
+import ChartConfig from '../../helper/ChartConfig'
 
-import XAxis from '@Components/charts/cartesian/XAxis'
-import YAxis from '@Components/charts/cartesian/YAxis'
-import CartesianGrid from '@Components/charts/cartesian/CartesianGrid'
+import XAxis from './cartesian/XAxis'
+import YAxis from './cartesian/YAxis'
+import CartesianGrid from './cartesian/CartesianGrid'
 
 const LabelStyle = {
   fill: color.$grey08, fontWeight: 'bold', fontSize: '14px',
@@ -27,6 +26,46 @@ export const tickFormatterCustom = (value, isPercent) => {
   }
   const newValue = Number(value).toLocaleString()
   return newValue
+}
+
+interface BarChartProps {
+  title?: string;
+  data: any;
+  layout: 'horozontal' | 'vertical';
+  stackId?: string | number;
+  xDataKey: string;
+  yDataKey: string | string[];
+  themes: string[];
+  theme: string;
+  isPercent?:boolean;
+  textMap?:any;
+  margin?: {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+  };
+  legend?: {
+    hide: boolean;
+  };
+  xData?: {
+    label: {
+      value: string;
+    };
+    unit: string;
+  };
+  yData?: {
+    label: {
+      value: string;
+    };
+    unit: string;
+  };
+  scroll?: {
+    y: number;
+  };
+  width?: number;
+  chartHeight?: number;
+  barSize?: number;
 }
 
 const BarChart = ({
@@ -48,10 +87,10 @@ const BarChart = ({
   width,
   chartHeight,
   barSize,
-}) => {
+}:BarChartProps) => {
   const newYDataKey = [].concat(yDataKey);
 
-  let colors = ''
+  let colors: string | string[] = ''
   let legendData
 
   if (!_.isUndefined(themes)) { // group
@@ -286,57 +325,6 @@ BarChart.defaultProps = {
   width: Rechart.BarChart.defaultProps.width,
   chartHeight: 303,
   barSize: null,
-}
-
-BarChart.propTypes = {
-  title: PropTypes.string,
-  data: PropTypes.arrayOf(PropTypes.shape({})),
-  layout: ChartConfig.Layout.propTypes,
-  stackId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  xDataKey: PropTypes.string,
-  yDataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-  themes: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
-  theme: PropTypes.oneOf([
-    'blue', 'green', 'compare',
-    Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal,
-    Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold,
-    Themes.ThemeArrangeQuinaryBerry,
-    Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
-    Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3,
-    Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
-    Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
-  ]),
-  isPercent: PropTypes.bool,
-  textMap: PropTypes.shape({}),
-  margin: PropTypes.shape({
-    top: PropTypes.number,
-    right: PropTypes.number,
-    bottom: PropTypes.number,
-    left: PropTypes.number,
-  }),
-  legend: PropTypes.shape({
-    hide: PropTypes.bool,
-  }),
-  xData: PropTypes.shape({
-    label: PropTypes.shape({
-      value: PropTypes.string.isRequired,
-    }),
-    unit: PropTypes.string,
-  }),
-  yData: PropTypes.shape({
-    label: PropTypes.shape({
-      value: PropTypes.string.isRequired,
-    }),
-    unit: PropTypes.string,
-  }),
-  scroll: PropTypes.shape({
-    y: PropTypes.number,
-  }),
-  width: PropTypes.number,
-  chartHeight: PropTypes.number,
-  barSize: PropTypes.number,
 }
 
 export default BarChart

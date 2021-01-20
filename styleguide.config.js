@@ -70,7 +70,7 @@ module.exports = {
         'src/components/charts/BarGauge.tsx',
         'src/components/charts/RadiusGauge.tsx',
         'src/components/charts/LineChart.tsx',
-        'src/components/charts/BarChart.js',
+        'src/components/charts/BarChart.tsx',
         'src/components/charts/BarChartMulti.js',
         'src/components/charts/Histogram.tsx',
         'src/components/charts/PieChart.tsx',
