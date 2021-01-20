@@ -18,6 +18,7 @@
   "include": ["typings", "src/**/*"],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "**/*.test.js"
   ]
 }

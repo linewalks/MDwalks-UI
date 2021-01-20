@@ -4,27 +4,39 @@ import _ from 'lodash'
 
 import styled from 'styled-components'
 
-import { color } from '@src/assets/styles/variables'
-import fontStyle from '@src/assets/styles/font.module.sass'
-import TooltipBox from '@Components/tooltip/TooltipBox'
-import * as commonTag from '@Components/common/commonTag'
-import EmptyPlaceHolder from '@Components/table/EmptyPlaceHolder'
+import { color } from '../../assets/styles/variables'
+import fontStyle from '../../assets/styles/font.module.sass'
+import TooltipBox from '../tooltip/TooltipBox'
+import * as commonTag from '../common/commonTag'
+import EmptyPlaceHolder from '../table/EmptyPlaceHolder'
 
-import PropTypes from 'prop-types'
-// import { getColorsByTheme } from '@Components/ChartColor'
-import { getColorsByTheme, Themes, ColorSet } from '@Components/ChartColor'
+import { getColorsByTheme, Themes, ColorSet } from '../ChartColor'
 
-import { getBarSize } from '@src/helper/chartUtility'
+import { getBarSize } from '../../helper/chartUtility'
 
-import XAxis from '@Components/charts/cartesian/XAxis'
-import YAxis from '@Components/charts/cartesian/YAxis'
-import CartesianGrid from '@Components/charts/cartesian/CartesianGrid'
+import XAxis from './cartesian/XAxis'
+import YAxis from './cartesian/YAxis'
+import CartesianGrid from './cartesian/CartesianGrid'
 
 const Box = styled.article`
   &:not(:last-child) {
     border-right: 1px dashed ${color.$grey05};
   }
 `
+
+interface BarChartMultiProps {
+  title?: string;
+  data: any;
+  xDataKey: string;
+  yDataKey: string | string[];
+  isPercent?: boolean;
+  textMap?: any;
+  theme: string;
+  legend: {
+    hide: boolean;
+  };
+  height?: number;
+}
 
 const BarChartMulti = ({
   title,
@@ -36,7 +48,7 @@ const BarChartMulti = ({
   textMap,
   legend,
   height,
-}) => {
+}:BarChartMultiProps) => {
   const newYDataKey = [].concat(yDataKey)
   const colors = getColorsByTheme(theme, newYDataKey.length)
   const legendData = _.chain(newYDataKey)
@@ -134,29 +146,6 @@ BarChartMulti.defaultProps = {
     hide: false,
   },
   height: 303,
-}
-
-BarChartMulti.propTypes = {
-  title: PropTypes.string,
-  data: PropTypes.arrayOf(PropTypes.any),
-  xDataKey: PropTypes.string,
-  yDataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-  isPercent: PropTypes.bool,
-  textMap: PropTypes.shape({}),
-  theme: PropTypes.oneOf([
-    'blue', 'green', 'compare',
-    Themes.ThemeArrangePrimarySea, Themes.ThemeArrangeSecondaryTeal,
-    Themes.ThemeArrangeTertiaryRose, Themes.ThemeArrangeQuaternaryGold,
-    Themes.ThemeArrangeQuinaryBerry,
-    Themes.ThemeComparePrimarySea, Themes.ThemeComparePrimarySea1,
-    Themes.ThemeComparePrimarySea2, Themes.ThemeComparePrimarySea3,
-    Themes.ThemeCompareSecondaryTeal, Themes.ThemeCompareSecondaryTeal1,
-    Themes.ThemeCompareSecondaryTea2, Themes.ThemeCompareSecondaryTeal3,
-  ]),
-  legend: PropTypes.shape({
-    hide: PropTypes.bool,
-  }),
-  height: PropTypes.number,
 }
 
 export default BarChartMulti

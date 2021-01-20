@@ -71,7 +71,7 @@ module.exports = {
         'src/components/charts/RadiusGauge.tsx',
         'src/components/charts/LineChart.tsx',
         'src/components/charts/BarChart.tsx',
-        'src/components/charts/BarChartMulti.js',
+        'src/components/charts/BarChartMulti.tsx',
         'src/components/charts/Histogram.tsx',
         'src/components/charts/PieChart.tsx',
         'src/components/charts/Timeline.js',
