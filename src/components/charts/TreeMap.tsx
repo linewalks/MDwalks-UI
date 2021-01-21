@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
 
 import Highcharts from 'highcharts';
 import highchartsTreeMap from 'highcharts/modules/treemap';
 import highchartsHeatMap from 'highcharts/modules/heatmap'
 import HighchartsReact from 'highcharts-react-official';
 import _ from 'lodash'
-import { errorMessage } from '@src/helper/chartUtility'
+import { errorMessage } from '../../helper/chartUtility'
 
-class TreeMap extends Component {
+interface IProps {
+  data: any[];
+  title?: string;
+}
+
+class TreeMap extends Component <IProps, null> {
+  static defaultProps = {
+    data: [],
+    title: '',
+  }
+
+  public options: any;
   constructor(props) {
     super(props)
     if (typeof Highcharts === 'object') {
@@ -73,16 +83,6 @@ class TreeMap extends Component {
       </div>
     );
   }
-}
-
-TreeMap.defaultProps = {
-  data: [],
-  title: '',
-}
-
-TreeMap.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape()),
-  title: PropTypes.string,
 }
 
 export default TreeMap;

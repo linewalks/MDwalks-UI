@@ -79,7 +79,7 @@ module.exports = {
         'src/components/charts/SankeyChart.tsx',
         'src/components/charts/RadarChart.tsx',
         'src/components/charts/TimeToEvent.tsx',
-        'src/components/charts/TreeMap.js',
+        'src/components/charts/TreeMap.tsx',
       ],
     },
     {
