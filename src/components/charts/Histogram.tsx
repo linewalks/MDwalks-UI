@@ -30,7 +30,7 @@ interface IProps {
   theme: string;
   unit: string;
 }
-class Histogram extends Component<IProps, null> {
+class Histogram extends Component<IProps> {
   static defaultProps = {
     data: undefined,
     chartWidth: undefined,
