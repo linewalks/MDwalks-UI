@@ -50,7 +50,7 @@ interface ILineMergeTimeline {
   }
 }
 
-class LineMergeTimeline extends Component<ILineMergeTimeline, null> {
+class LineMergeTimeline extends Component<ILineMergeTimeline> {
   static defaultProps = {
     timeData: undefined,
     scale: {},

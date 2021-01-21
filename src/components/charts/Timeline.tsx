@@ -31,7 +31,7 @@ interface IProps {
   data: IData[];
 }
 
-class Timeline extends Component<IProps, null> {
+class Timeline extends Component<IProps> {
   static defaultProps = {
     brushEvent: () => {},
   }

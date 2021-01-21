@@ -12,7 +12,7 @@ interface IProps {
   title?: string;
 }
 
-class TreeMap extends Component <IProps, null> {
+class TreeMap extends Component <IProps> {
   static defaultProps = {
     data: [],
     title: '',
