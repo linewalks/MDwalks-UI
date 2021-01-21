@@ -198,6 +198,7 @@ const LineMergeTimelineExample = () => (
         start: "2000-03-08T15:43:00",
         end: "2015-06-26T00:00:00"
       }}
+      scoreClickEvent={(d, i) => console.log(d, i)}
     />
   </>
 )
