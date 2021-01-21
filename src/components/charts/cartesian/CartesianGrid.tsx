@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Rechart from 'recharts'
-import { color } from '@src/assets/styles/variables'
+import { color } from '../../../assets/styles/variables'
 
 const CartesianGrid = (props) => <Rechart.CartesianGrid {...props} />
 
