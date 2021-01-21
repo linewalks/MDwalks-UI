@@ -74,7 +74,7 @@ module.exports = {
         'src/components/charts/BarChartMulti.tsx',
         'src/components/charts/Histogram.tsx',
         'src/components/charts/PieChart.tsx',
-        'src/components/charts/Timeline.js',
+        'src/components/charts/Timeline.tsx',
         'src/components/charts/LineMergeTimeline.js',
         'src/components/charts/SankeyChart.tsx',
         'src/components/charts/RadarChart.tsx',

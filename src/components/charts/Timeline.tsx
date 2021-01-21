@@ -1,18 +1,42 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import _ from 'lodash'
 
 import * as d3 from 'd3'
 import isEmpty from 'lodash/isEmpty'
-import styles from '@Charts/Timeline.module.css'
+import styles from './Timeline.module.sass'
 
 import {
   renderSVG, generateGroup, getStartAndEndTime,
   circleDataFilter, rectDataFilter, labelList, errorMessage,
-} from '@src/helper/chartUtility'
+} from '../../helper/chartUtility'
 
-class Timeline extends Component {
-  rootElement = React.createRef()
+interface ITime {
+  start: Date;
+  end: Date;
+}
+
+interface IDataPoint {
+  startTime: string;
+  endTime: string;
+}
+
+interface IData {
+  dataPoints: IDataPoint[];
+  label: string[];
+  order: number;
+}
+
+interface IProps {
+  brushEvent: (time:ITime) => void;
+  data: IData[];
+}
+
+class Timeline extends Component<IProps, null> {
+  static defaultProps = {
+    brushEvent: () => {},
+  }
+
+  private rootElement = React.createRef<HTMLDivElement>()
 
   getRootElement() {
     return d3.select(this.rootElement.current)
@@ -107,7 +131,7 @@ class Timeline extends Component {
     const yAxisGridLines = d3
       .axisTop(xAxisScale)
       .tickSize(-yAxisGridHeight)
-      .tickFormat('')
+      .tickFormat(() => '')
 
     // Render YAxis Gridlines
     const gYAxisGrid = gGrid
@@ -126,7 +150,7 @@ class Timeline extends Component {
     const xAxisGridLines = d3
       .axisRight(yAxisScale)
       .tickSize(xAxisWidth)
-      .tickFormat('')
+      .tickFormat(() => '')
 
     // Render XAxis Gridlines
     const gXAxisGrid = gGrid
@@ -155,7 +179,7 @@ class Timeline extends Component {
     }
 
     const mousemove = (d, i, nodes) => {
-      const date = xAxisScale.invert(d3.mouse(nodes[i])[0])
+      const date:any = xAxisScale.invert(d3.mouse(nodes[i])[0])
       const linePositionX = Date.parse(date)
 
       focus
@@ -302,7 +326,7 @@ class Timeline extends Component {
       d3
         .axisTop(xAxisScale)
         .tickSize(-overViewAxisHeight)
-        .tickFormat(''),
+        .tickFormat(() => ''),
     )
     overViewGrid.selectAll('.domain').attr('stroke', '#003964')
     overViewGrid.selectAll('.tick line').attr('stroke', 'none')
@@ -348,10 +372,10 @@ class Timeline extends Component {
         .domain([startTime, endTime])
         .range([0, xAxisWidth])
 
-      const start = overViewXAxisScale.invert(brushStart)
-      const end = overViewXAxisScale.invert(brushEnd)
+      const start:any = overViewXAxisScale.invert(brushStart)
+      const end:any = overViewXAxisScale.invert(brushEnd)
       const time = { start, end }
-
+    
       xAxisScale.domain([Date.parse(start), Date.parse(end)])
       lineScale.domain([Date.parse(start), Date.parse(end)])
 
@@ -372,7 +396,7 @@ class Timeline extends Component {
       const yAxisGridLines1 = d3
         .axisTop(xAxisScale)
         .tickSize(-yAxisGridHeight)
-        .tickFormat('')
+        .tickFormat(() => '')
 
       gYAxisGrid
         .transition()
@@ -433,7 +457,7 @@ class Timeline extends Component {
       const yAxisGridLines1 = d3
         .axisTop(xAxisScale)
         .tickSize(-yAxisGridHeight)
-        .tickFormat('')
+        .tickFormat(() => '')
 
       gYAxisGrid
         .transition()
@@ -503,21 +527,6 @@ class Timeline extends Component {
       <div ref={this.rootElement} className={styles.timelineChart} />
     );
   }
-}
-
-Timeline.defaultProps = {
-  brushEvent: () => {},
-}
-
-Timeline.propTypes = {
-  brushEvent: PropTypes.func,
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      dataPoints: PropTypes.arrayOf(PropTypes.shape()),
-      label: PropTypes.arrayOf(PropTypes.string),
-      order: PropTypes.number,
-    }),
-  ).isRequired,
 }
 
 export default Timeline;
