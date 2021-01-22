@@ -1,21 +1,21 @@
 import _ from 'lodash'
 
-export const timeFormatConvert = (time, format = 'YYYY-MM-DD') => {
-  const d = new Date(time)
+export const timeFormatConvert = (time:string, format:string = 'YYYY-MM-DD'):string => {
+  const d:Date = new Date(time)
 
   return format
-    .replace('YYYY', d.getFullYear())
+    .replace('YYYY', `${d.getFullYear()}`)
     .replace('MM', (`0${d.getMonth() + 1}`).slice(-2))
     .replace('DD', (`0${d.getDate()}`).slice(-2))
     .replace('HH', (`0${d.getHours()}`).slice(-2))
     .replace('mm', (`0${d.getMinutes()}`).slice(-2))
 }
 
-export const isDate = (arg) => (_.isDate(arg) && !_.isNaN(arg.valueOf()));
+export const isDate = (arg:Date):boolean => (_.isDate(arg) && !_.isNaN(arg.valueOf()));
 
-export const isValidPeriod = (startTime, endTime) => {
-  const startDate = new Date(startTime);
-  const endDate = new Date(endTime);
+export const isValidPeriod = (startTime:string, endTime:string):boolean => {
+  const startDate:Date = new Date(startTime);
+  const endDate:Date = new Date(endTime);
 
   if (!isDate(startDate) || !isDate(endDate)) {
     throw new Error('Parameter is wrong.');
@@ -28,16 +28,16 @@ export const isValidPeriod = (startTime, endTime) => {
   return true;
 }
 
-const getMonthDiff = (dateFrom, dateTo) => (
+const getMonthDiff = (dateFrom:Date, dateTo:Date):number => (
   dateTo.getMonth() - dateFrom.getMonth()
     + (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
 )
 
-const getDayDiff = (dateFrom, dateTo) => (
+const getDayDiff = (dateFrom:Date, dateTo:Date):number => (
   Math.ceil(Math.abs(dateTo.getTime() - dateFrom.getTime()) / (1000 * 60 * 60 * 24))
 )
 
-export const pathwayTableTimeFormatter = (dateFrom, dateTo) => {
+export const pathwayTableTimeFormatter = (dateFrom:Date, dateTo:Date):string => {
   const month = getMonthDiff(dateFrom, dateTo)
   const day = getDayDiff(dateFrom, dateTo)
 
@@ -63,7 +63,7 @@ export const pathwayTableTimeFormatter = (dateFrom, dateTo) => {
   return arr.join(' ')
 }
 
-export const getDateDiff = (startTime, endTime) => {
+export const getDateDiff = (startTime:string, endTime:string):string => {
   let rStr = '';
   try {
     isValidPeriod(startTime, endTime);

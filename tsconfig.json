@@ -19,6 +19,10 @@
   "exclude": [
     "node_modules",
     "dist",
-    "**/*.test.js"
+    "**/*.test.js",
+    "src/data/*",
+    "src/components/paper/*",
+    "src/components/notifications/*",
+    "src/components/__tests__/utils.js",
   ]
 }

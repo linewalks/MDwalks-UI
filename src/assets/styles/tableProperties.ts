@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { color } from '@src/assets/styles/variables'
+import { color } from './variables'
 
 export const tableSize = {
   small: {
