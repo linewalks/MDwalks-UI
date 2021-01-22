@@ -39,10 +39,10 @@ import SelectBox from './components/form/SelectBox'
 import Tooltip from './components/form/Tooltip'
 import * as font from './assets/styles/font'
 import * as variables from './assets/styles/variables'
-import * as tableProperties from '@src/assets/styles/tableProperties'
+import * as tableProperties from './assets/styles/tableProperties'
 import * as chartUtility from './helper/chartUtility'
 
-import * as DateUtility from '@src/helper/DateUtility'
+import * as DateUtility from './helper/DateUtility'
 
 // import notifications from '@Components/notifications'
 import * as ChartColor from './components/ChartColor'
