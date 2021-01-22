@@ -1,42 +1,43 @@
-import babel from 'rollup-plugin-babel'
-import resolve from '@rollup/plugin-node-resolve'
+import { babel } from '@rollup/plugin-babel'
+import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import postcss from 'rollup-plugin-postcss'
 import json from '@rollup/plugin-json'
-import svg from 'rollup-plugin-svg'
-// import typescript from 'rollup-plugin-typescript2'
+import url from '@rollup/plugin-url'
+import typescript from '@rollup/plugin-typescript'
 import pkg from './package.json'
 
 export default {
-  input: 'src/index.js',
+  input: 'src/index.ts',
   output: [
     {
       file: pkg.main,
       format: 'cjs',
+      sourcemap: true,
     },
     {
       file: pkg.module,
       format: 'esm',
+      sourcemap: true,
     },
   ],
   plugins: [
     babel({
+      babelHelpers: 'bundled',
       exclude: 'node_modules/**',
+      extensions: ['.js', '.ts', '.tsx'],
     }),
     postcss({
       modules: true,
       extensions: ['.css'],
     }),
-    resolve({
+    nodeResolve({
       mainFields: ['browser', 'jsnext', 'module', 'main'],
     }),
-    commonjs(),
-    svg({
-      base64: true,
-    }),
+    commonjs({ extensions: ['.js', '.ts', '.tsx'] }),
+    url(),
     json(),
-    // ts 작업이 끝나면 추가
-    // typescript({ useTsconfigDeclarationDir: true }),
+    typescript(),
   ],
-  external: ['react', 'styled-components', 'd3', 'recharts', 'antd'],
+  external: ['react', 'react-dom', 'styled-components', 'd3', 'recharts', 'antd', 'typescript', 'tslib'],
 }

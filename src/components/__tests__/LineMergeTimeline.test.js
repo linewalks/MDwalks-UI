@@ -1,6 +1,6 @@
-import React from 'react';
-import { mount } from 'enzyme';
-import LineMergeTimeline from '@Charts/LineMergeTimeline';
+import React from 'react'
+import { mount } from 'enzyme'
+import LineMergeTimeline from '@Charts/LineMergeTimeline'
 
 const timelineData = [
   {
