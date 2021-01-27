@@ -26,99 +26,58 @@ Modified Date | Author | Comment
 ### Feature Details
 
 #### table size
-```javascript
-<Table
-  data={{
-    headers: ['a', 'b', 'c'],
-    rowData: [[1, 2, 3]],
-  }}
-  size='small'  // default: medium
-/>
-```
+- `Table`의 사이즈는 `src/assets/styles/tableProperties.ts` 파일에 정의되어 있다.
+- small | medium 두 종류로 정의되어 있다.
 
 #### sorting
-```javascript
-<Table
-  size="small"
-  data={{
-    headers: [
-      'a',
-      {
-        text: 'b',
-        sort: (a, b) => {console.log(a, b)}
-      },
-      'c',
-    ],
-    rowData: [
-      [1, 2, 3],
-      [4, 5, 6],
-      [7, 8, 9],
-    ],
-  }}
-  sortOrderList={['asc', 'desc', '']}
->
-</Table>
-```
-
+- `sorting`은 `THead.tsx`에 정의되어 있다.
+- `sortOrderList`, `defaultSort`, `resetSort`, `setResetSort`의 prop 값이 해당 기능에 영향을 미친다.
+- 기능을 수행하는데 영향을 미치는 함수 및 styled-component 는 다음과 같다.
+  - `SortButton`(styled-component)
+    - button img css 속성값을 정의
+  - `HeaderSortIcon`
+    - parameter
+      ```javascript
+      loading: false;
+      sort: '';
+      ```
+    - return
+      - `React.ReactNode`
+    - description
+      - `desc`, `asc`, ` ` 상태에 따라 icon의 형태 정의
+  - `HeaderTextSort`
+    - parameter
+      ```javascript
+      text: string;
+      sort: (order:string) => void;
+      loading: boolean;
+      size: 'small' | 'medium';
+      toggle: any;
+      ```
+    - return
+      - `React.ReactNode`
+    - description
+      - `SortButton`, `HeaderSortIcon`을 사용하여 정렬 버튼이 추가된 컴포넌트 리턴
+  - `createHeader`
+    - parameter
+      ```javascript
+      // basic type
+      row: string;
+      // sorting type 
+      colSpan?: number;
+      text?: string;
+      sort?: (header: string, order: 'asc' | 'desc' | '') => void;
+      ```
+    - description
+      - `sort` 기능이 존재하는 경우 `HeaderTextSort` 함수를 적용한 컴포넌트 리턴
+  - `useEffect` 내에 `defaultSort` 정의 영역
+    - `defaultSort`가 존재하는 경우 정렬 버튼의 초기 값을 설정한다.
+  
 #### scroll
-```javascript
-<Table
-  columns={[100, 'auto', 300]}
-  scroll={{ y: 215 }}
-  data={{
-    headers: ['a', 'b', 'c'],
-    rowData: [
-      [1, 2, 3],
-      [4, 5, 6],
-      [7, 8, 9],
-      [10, 11, 12],
-      [13, 14, 15],
-    ],
-  }}
-/>
-```
-
+  - description scroll
+  
 #### sub header
-```javascript
-<Table
-  data={{
-    headers: ['2013년', '2014년', '성장률'],
-    subHeaders: {
-      "2013년": ['처방건수', '비율'],
-      "2014년": ['처방건수', '비율'],
-      "성장률": ['CAGR', 'YOY'],
-    },
-    group: {
-      '유지': ['A'],
-      '추가': ['AB', 'AC'],
-      '변경': ['B']
-    },
-    rowData: [
-      {
-        'a1': '3,112',
-        'a2': '64.7%',
-        'b1': '3,474',
-        'b2': '66.3%',
-        'c1': '12.6%',
-        'c2': '33.2%',
-      },
-    ]
-  }}
-/>
-```
+  - descrition sub header
 
 #### table footer
-```javascript
-<Table
-  data={{
-    headers: ['a', 'b', 'c'],
-    rowData: [
-      [1, 2, 3],
-    ],
-    footData: [
-      ['t1', 't2', 't3'],
-      ['t4', 't5', 't6']
-    ]
-  }}
-/>
-```
+  - description table footer
