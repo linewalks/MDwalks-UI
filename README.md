@@ -22,6 +22,11 @@
   yarn styleguide
   ```
 
+* run component definition docs
+  ```bash
+  yarn docstart
+  ```
+
 ## 2. build
 * code build
   ```bash

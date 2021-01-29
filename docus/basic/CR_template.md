@@ -1,7 +1,10 @@
-# MDwalks-UI 컴포넌트 정의서 템플릿
-Modified Date | Author | Comment
---- | --- | --- |
-2021-01-26 | Seonyeong Jang | 템플릿 초안 작성(예시는 테이블)
+---
+id : CR_template
+title: Definition Template
+description: 아래는 예시 템플릿 입니다. 아래와 같은 형태로 작성해주시면 됩니다. id는 .md 파일 고유의 이름으로 파일명과 동일하게 작성해주세요. title은 해당 페이지의 최상단에 노출됩니다.
+keywords:
+  - Template
+---
 
 ### Name
 * Table
