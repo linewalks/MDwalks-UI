@@ -12,7 +12,9 @@
     "eslint": "eslint ./src/**/*.js ./src/**/**/*.js",
     "eslint:fix": "eslint ./src/**/*.js ./src/**/**/*.js --fix",
     "clear:branch": "git branch --merged | grep -v \\* | xargs -n 1 git branch -d",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && yarn build && yarn build:docs && git add ."
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && yarn build && yarn build:docs && git add .",
+    "docstart": "docusaurus start -p 8942",
+    "docbuild": "docusaurus build"
   },
   "jest": {
     "testPathIgnorePatterns": [
@@ -99,8 +101,12 @@
     "webpack": "4.44.2"
   },
   "dependencies": {
+    "@docusaurus/core": "2.0.0-alpha.70",
+    "@docusaurus/preset-classic": "2.0.0-alpha.70",
+    "@mdx-js/react": "^1.6.21",
     "@types/d3": "5.16.4",
     "antd": "^3.23.4",
+    "clsx": "^1.1.1",
     "conventional-changelog-cli": "^2.0.28",
     "d3": "^5.9.7",
     "d3-sankey-circular": "^0.34.0",
