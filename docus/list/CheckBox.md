@@ -26,11 +26,11 @@ keywords:
 ### Feature Details
 
 #### formatter
-- Props에서 제공되는 formatter는 아래와 같은 형태를 지닌다.
+- Props에서 제공되는 formatter는 아래와 같이 적용된다.
   ```javascript
   const newText = formatter ? formatter(text) : text
   ```
-- 따라서 특정 입력 텍스트 값에 formatter를 적용하여 주는 역할을 수행한다.
+- 따라서 특정 입력 텍스트 값에 formatter를 적용하여 주는 formatter는 아래와 같은 형태를 지닌다.
   ```javascript
   formatter: (text:string) => (string | React.ReactNode);
   ```
