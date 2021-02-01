@@ -38,7 +38,7 @@ interface CheckBoxProps {
   text: string;
   disabled: boolean;
   onChange: (e:React.FormEventHandler<HTMLInputElement>) => void;
-  formatter: (text:string) => string;
+  formatter: (text:string) => (string | React.ReactNode);
   defaultChecked: boolean;
   size: 'sm' | 'md';
 }

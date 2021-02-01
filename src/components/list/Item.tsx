@@ -1,4 +1,3 @@
-// import React from 'react';
 import styled, { css } from 'styled-components'
 import fontStyle from '../../assets/styles/font.module.sass'
 import { color } from '../../assets/styles/variables'
