@@ -5,9 +5,12 @@ const ignore = ['**/__tests__/**', '**/*.test.{js,jsx,ts,tsx}', '**/*.spec.{js,j
 
 module.exports = {
   title: 'MDwalks-UI Style Guide',
+  webpackConfig: require('./webpack.config.js'),
   require: [
     path.resolve(__dirname, 'src/assets/styles/reset.css'),
     path.resolve(__dirname, 'src/assets/styles/spoqaHansans.css'),
+    path.resolve(__dirname, 'src/assets/styles/layout.sass'),
+    path.resolve(__dirname, 'src/assets/styles/theme.sass'),
   ],
   components: [
     'src/assets/styles/font.ts',
@@ -86,10 +89,10 @@ module.exports = {
       name: 'Component',
       components: () => [
         'src/components/button/Button.tsx',
-        'src/components/button/ButtonLink.tsx',
-        'src/components/button/ButtonTextLink.tsx',
-        'src/components/button/TextLink.tsx',
-        'src/components/button/ToggleButton.tsx',
+        // 'src/components/button/ButtonLink.tsx',
+        // 'src/components/button/ButtonTextLink.tsx',
+        // 'src/components/button/TextLink.tsx',
+        // 'src/components/button/ToggleButton.tsx',
         'src/components/card/SelectedCard.tsx',
         'src/components/card/SummaryCard.tsx',
         'src/components/form/SelectBox.tsx',

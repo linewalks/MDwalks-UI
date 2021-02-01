@@ -26,12 +26,12 @@ import TreeMap from './components/charts/TreeMap'
 import TimeToEvent from './components/charts/TimeToEvent'
 import PieChart from './components/charts/PieChart'
 import Button from './components/button/Button'
-import ButtonLink from './components/button/ButtonLink'
-import ButtonTextLink from './components/button/ButtonTextLink'
-import TextLink from './components/button/TextLink'
+// import ButtonLink from './components/button/ButtonLink'
+// import ButtonTextLink from './components/button/ButtonTextLink'
+// import TextLink from './components/button/TextLink'
 import * as Toast from './components/Toast'
 import Pagination from './components/pagination/Pagination'
-import ToggleButton from './components/button/ToggleButton'
+// import ToggleButton from './components/button/ToggleButton'
 import TooltipBox from './components/tooltip/TooltipBox'
 import * as commonTag from './components/common/commonTag'
 
@@ -41,7 +41,6 @@ import * as font from './assets/styles/font'
 import * as variables from './assets/styles/variables'
 import * as tableProperties from './assets/styles/tableProperties'
 import * as chartUtility from './helper/chartUtility'
-
 import * as DateUtility from './helper/DateUtility'
 
 // import notifications from '@Components/notifications'
@@ -78,10 +77,10 @@ export {
   tableProperties,
   chartUtility,
   Button,
-  ButtonLink,
-  ButtonTextLink,
-  TextLink,
-  ToggleButton,
+  // ButtonLink,
+  // ButtonTextLink,
+  // TextLink,
+  // ToggleButton,
   Toast,
   TooltipBox,
   commonTag,

@@ -30,13 +30,14 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
+              modules: false,
             },
           },
           {
             loader: 'sass-loader',
             options: {
               implementation: sass,
+              sourceMap: false,
             },
           },
         ],
