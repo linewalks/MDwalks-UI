@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import 'jest-styled-components'
-import _ from 'lodash'
+// import _ from 'lodash'
 import Button from '@Components/button/Button'
 
 // const toHaveStyleRules = (component, property, options) => {
