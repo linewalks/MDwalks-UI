@@ -7,7 +7,7 @@ module.exports = {
     common: [],
     form: [],
     layout: [],
-    list: [],
+    list: ['list/CheckBox'],
     modal: [],
     pagination: [],
     paper: [],
