@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow, mount, render } from 'enzyme';
 import renderer from 'react-test-renderer'
 import 'jest-styled-components'
 import _ from 'lodash'
@@ -9,6 +9,7 @@ const toHaveStyleRules = (component, property, options) => {
   let hyphen = ''
   _.each(property, (value, key) => {
     hyphen = key.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`)
+    console.log(component, hyphen, value, options)
     expect(component).toHaveStyleRule(hyphen, value, options)
   })
 }
@@ -152,74 +153,17 @@ describe('default', () => {
 
 describe('Button Size', () => {
   it('large', () => {
-    const tree = renderer.create(<Button size="lg" />).toJSON()
-    const rules = {
-      fontSize: '16px',
-      minWidth: '100px',
-      height: '42px',
-      borderRadius: '21px',
-      padding: '10px 20px',
-      img: {
-        margin: '8px',
-      },
-      marginRight: '8px',
-    }
-
-    expect(tree).toHaveStyleRule('margin-right', rules.marginRight, {
-      modifier: ':not(:last-child)',
-    })
-
-    delete rules.img
-    delete rules.marginRight
-
-    toHaveStyleRules(tree, rules)
+    const wrapper = mount(<Button size="lg" />)
+    expect(wrapper.childAt(0).hasClass('mdwalks_btn_lg')).toBeTruthy()
   })
 
   it('xLarge', () => {
-    const tree = renderer.create(<Button size="xlg" />).toJSON()
-    const rules = {
-      fontSize: '18px',
-      minWidth: '100%',
-      height: '60px',
-      borderRadius: '10px',
-      padding: '16px 20px',
-      img: {
-        margin: '8px',
-      },
-      marginRight: '0',
-    }
-
-    expect(tree).toHaveStyleRule('margin-right', rules.marginRight, {
-      modifier: ':not(:last-child)',
-    })
-
-    delete rules.img
-    delete rules.marginRight
-
-    toHaveStyleRules(tree, rules)
+    const wrapper = mount(<Button size="xlg" />)
+    expect(wrapper.childAt(0).hasClass('mdwalks_btn_xlg')).toBeTruthy()
   })
 
   it('middle', () => {
-    const tree = renderer.create(<Button size="md" />).toJSON()
-    const rules = {
-      fontSize: '14px',
-      minWidth: '90px',
-      height: '34px',
-      borderRadius: '17px',
-      padding: '7px 18px',
-      img: {
-        margin: '6px',
-      },
-      marginRight: '8px',
-    }
-
-    expect(tree).toHaveStyleRule('margin-right', rules.marginRight, {
-      modifier: ':not(:last-child)',
-    })
-
-    delete rules.img
-    delete rules.marginRight
-
-    toHaveStyleRules(tree, rules)
+    const wrapper = mount(<Button size="md" />)
+    expect(wrapper.childAt(0).hasClass('mdwalks_btn_md')).toBeTruthy()
   })
 })
