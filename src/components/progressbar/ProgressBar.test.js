@@ -1,17 +1,12 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import ProgressBar from './ProgressBar'
+import ProgressBar from '@Components/progressbar/ProgressBar'
 
 describe('ProgressBar', () => {
   let wrapper
 
   beforeEach(() => {
-    wrapper = mount(
-      <ProgressBar
-        state={10}
-        totalState={100}
-      />,
-    )
+    wrapper = mount(<ProgressBar state={10} totalState={100} />)
   })
 
   afterEach(() => {
@@ -39,15 +34,21 @@ describe('ProgressBar', () => {
   it('placement', () => {
     let placement = 'top'
     wrapper.setProps({ placement })
-    expect(wrapper.find(`.mwc-progressbar__legendlist-${placement}`)).toHaveLength(1)
+    expect(
+      wrapper.find(`.mwc-progressbar__legendlist-${placement}`),
+    ).toHaveLength(1)
 
     placement = 'bottom'
     wrapper.setProps({ placement })
-    expect(wrapper.find(`.mwc-progressbar__legendlist-${placement}`)).toHaveLength(1)
+    expect(
+      wrapper.find(`.mwc-progressbar__legendlist-${placement}`),
+    ).toHaveLength(1)
 
     placement = 'right'
     wrapper.setProps({ placement })
-    expect(wrapper.find(`.mwc-progressbar__legendlist-${placement}`)).toHaveLength(1)
+    expect(
+      wrapper.find(`.mwc-progressbar__legendlist-${placement}`),
+    ).toHaveLength(1)
   })
 
   it('state', () => {
@@ -59,14 +60,22 @@ describe('ProgressBar', () => {
   it('isNotExistsLabel', () => {
     expect(wrapper.find('.mwc-progressbar__legendlist').text()).toBe('10 / 100')
     wrapper.setProps({ isNotExistsLabel: true })
-    expect(wrapper.find('.mwc-progressbar__legendlist').isEmptyRender()).toBeTruthy()
+    expect(
+      wrapper.find('.mwc-progressbar__legendlist').isEmptyRender(),
+    ).toBeTruthy()
   })
 
   it('strokeColor', () => {
     wrapper.setProps({ strokeColor: 'skyblue' })
-    expect(wrapper.find('.mwc-progressbar__state-current').prop('style').backgroundColor).toBe('skyblue')
+    expect(
+      wrapper.find('.mwc-progressbar__state-current').prop('style')
+        .backgroundColor,
+    ).toBe('skyblue')
 
     wrapper.setProps({ strokeColor: '#d4d4d4' })
-    expect(wrapper.find('.mwc-progressbar__state-current').prop('style').backgroundColor).toBe('#d4d4d4')
+    expect(
+      wrapper.find('.mwc-progressbar__state-current').prop('style')
+        .backgroundColor,
+    ).toBe('#d4d4d4')
   })
 })
