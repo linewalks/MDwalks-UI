@@ -2,6 +2,7 @@ import { babel } from '@rollup/plugin-babel'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import postcss from 'rollup-plugin-postcss'
+import sass from 'rollup-plugin-sass'
 import json from '@rollup/plugin-json'
 import url from '@rollup/plugin-url'
 import typescript from '@rollup/plugin-typescript'
@@ -31,6 +32,7 @@ export default {
       modules: true,
       extensions: ['.css'],
     }),
+    sass(),
     nodeResolve({
       mainFields: ['browser', 'jsnext', 'module', 'main'],
     }),
@@ -39,5 +41,14 @@ export default {
     json(),
     typescript(),
   ],
-  external: ['react', 'react-dom', 'styled-components', 'd3', 'recharts', 'antd', 'typescript', 'tslib'],
+  external: [
+    'react',
+    'react-dom',
+    'styled-components',
+    'd3',
+    'recharts',
+    'antd',
+    'typescript',
+    'tslib',
+  ],
 }

@@ -12,12 +12,13 @@
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-syntax-dynamic-import",
     ["module-resolver", {
-     "alias": {
-       "@src": "./src",
-       "@Components": "./src/components",
-       "@Charts": "./src/components/charts",
-       "@Cards": "./src/components/card"
-     }
-   }]
+      "alias": {
+        "@src": "./src",
+        "@Components": "./src/components",
+        "@Charts": "./src/components/charts",
+        "@Cards": "./src/components/card",
+        "@Styles": "./src/assets/styles"
+      }
+    }]
   ]
 }

@@ -1,7 +1,12 @@
 const path = require('path')
-const { version } = require('./package');
+const { version } = require('./package')
 
-const ignore = ['**/__tests__/**', '**/*.test.{js,jsx,ts,tsx}', '**/*.spec.{js,jsx,ts,tsx}', '**/*.d.ts']
+const ignore = [
+  '**/__tests__/**',
+  '**/*.test.{js,jsx,ts,tsx}',
+  '**/*.spec.{js,jsx,ts,tsx}',
+  '**/*.d.ts',
+]
 
 module.exports = {
   title: 'MDwalks-UI Style Guide',
@@ -18,6 +23,7 @@ module.exports = {
     '@Components': path.resolve(__dirname, 'src/components'),
     '@Charts': path.resolve(__dirname, 'src/components/charts'),
     '@Cards': path.resolve(__dirname, 'src/components/card'),
+    '@Styles': path.resolve(__dirname, 'src/assets/styles'),
   },
   version,
   ignore: ignore.concat([
@@ -26,8 +32,7 @@ module.exports = {
     'src/components/table/TFoot.tsx',
     'src/components/list/Item.tsx',
     'src/components/button/utility.ts',
-    'src/components/pagination/Input.js',,
-
+    'src/components/pagination/Input.js',
     'src/components/notifications/index.js',
     'src/components/notifications/NotificationContainer.js',
     'src/components/notifications/NotificationManager.js',
@@ -39,7 +44,8 @@ module.exports = {
       links: [
         {
           rel: 'stylesheet',
-          href: 'https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css',
+          href:
+            'https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css',
         },
       ],
     },
@@ -108,6 +114,7 @@ module.exports = {
         'src/components/table/Table.tsx',
         'src/components/Toast/Toast.tsx',
         'src/components/paper/Heatmap.js',
+        'src/components/progressbar/ProgressBar.tsx',
       ],
     },
   ],

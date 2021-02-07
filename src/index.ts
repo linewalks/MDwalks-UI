@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import BarGauge from './components/charts/BarGauge'
 import RadiusGauge from './components/charts/RadiusGauge'
 import SankeyChart from './components/charts/SankeyChart'

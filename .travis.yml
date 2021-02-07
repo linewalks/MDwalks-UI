@@ -1,14 +1,19 @@
 language: node_js
 node_js:
-- 10
+  - 10
+  - 12
+  - 14
 branches:
   only:
-  - develop
+    - develop
 before_install:
 install:
-- yarn install
+  - yarn install
 before_script:
 script:
-- yarn
-- yarn test
-
+  - yarn
+  - yarn test
+notifications:
+  email:
+    - yohan@linewalks.com
+    - seonyeong@linewalks.com
