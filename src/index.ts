@@ -48,6 +48,8 @@ import * as DateUtility from './helper/DateUtility'
 // import notifications from '@Components/notifications'
 import * as ChartColor from './components/ChartColor'
 
+import ProgressBar from './components/progressbar/ProgressBar'
+
 import { version } from '../package.json'
 
 export {
@@ -97,4 +99,5 @@ export {
   DateUtility,
   // notifications,
   ChartColor,
+  ProgressBar,
 }
