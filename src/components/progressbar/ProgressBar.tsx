@@ -19,7 +19,7 @@ const ProgressBar = ({
   placement, size, state, totalState, width, isNotExistsLabel, customLabel, strokeColor,
 }: ProgressBarProps) => {
   const percent = _.floor((_.toInteger(state) / _.toInteger(totalState)) * 100)
-  const remainPercent = 100 - percent
+  const remainPercent = _.isNaN(percent) ? 100 : 100 - percent
 
   const label = customLabel || `${state} / ${totalState}`
 
@@ -49,6 +49,7 @@ const ProgressBar = ({
           className={clsx([
             'mwc-progressbar__state-total',
             `mwc-progressbar__state-${remainPercent}`,
+            (_.isNaN(percent) && `mwc-progressbar__state-total-full`),
           ])}
           style={{ width: `${remainPercent}%` }}
         />
@@ -61,7 +62,7 @@ ProgressBar.defaultProps = {
   placement: 'left',
   size: 'md',
   state: 0,
-  totalState: 1,
+  totalState: 0,
   width: 100,
   isNotExistsLabel: false,
   customLabel: null,
