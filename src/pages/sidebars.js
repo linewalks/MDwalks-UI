@@ -3,7 +3,7 @@ module.exports = {
     Basic: ['basic/introduction', 'basic/CR_template'],
     button: ['button/Button', 'button/ButtonLink'],
     card: [],
-    charts: ['charts/cartesian/XAxis', 'charts/cartesian/YAxis'],
+    charts: ['charts/cartesian/XAxis', 'charts/cartesian/YAxis', 'charts/cartesian/CartesianGrid'],
     common: [],
     form: [],
     layout: [],
