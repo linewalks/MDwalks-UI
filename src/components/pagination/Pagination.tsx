@@ -62,7 +62,11 @@ export const ButtonMove = styled.button<IButtonMove>`
   img {
     border-radius: 8px;
   }
-  ${(props) => (props.disabled ? `background-color: ${color.$grey03}` : '')};
+  ${({disabled}) => (disabled && `
+    background-color: transparent;
+    color: ${color.$grey03};
+    cursor: not-allowed;
+  `)};
   font-size: 0;
   &:first-child {
     margin-right: 16px;
