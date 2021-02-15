@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
-import * as font from '../../assets/styles/font'
-import { color } from '../../assets/styles/variables'
+import * as font from '@Styles/font'
+import { color } from '@Styles/variables'
 
 import icnSelectOpenSm from '../../assets/svg/icn_chevron_down_24.svg'
 import icnSelectOpenXs from '../../assets/svg/icn_chevron_down_16.svg'

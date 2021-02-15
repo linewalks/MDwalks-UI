@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
-import fontStyle from '../../assets/styles/font.module.sass'
-import { color } from '../../assets/styles/variables'
+import fontStyle from '@Styles/font.module.sass'
+import { color } from '@Styles/variables'
 
 import ChartConfig from '../../helper/ChartConfig'
 

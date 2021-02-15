@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 import styled, { keyframes } from 'styled-components'
-import { color } from '../../assets/styles/variables'
+import { color } from '@Styles/variables'
 
 import {
   getColorsByTheme,

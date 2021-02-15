@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { color } from '../../assets/styles/variables'
+import { color } from '@Styles/variables'
 
 const InputBox = styled.input`
   color: ${color.$grey10};

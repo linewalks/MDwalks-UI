@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react'
 import Item from './Item'
-import * as font from '../../assets/styles/font'
+import * as font from '@Styles/font'
 import IcnChecked from '../../assets/svg/checkbox/btn_checkbox_checked_24.svg'
 import IcnUnchecked from '../../assets/svg/checkbox/btn_checkbox_unchecked_24.svg'
 import IcnCheckedDisabled from '../../assets/svg/checkbox/btn_checkbox_checked_disabled_24.svg'

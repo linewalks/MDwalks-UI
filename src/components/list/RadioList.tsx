@@ -3,10 +3,10 @@ import React from 'react'
 import _ from 'lodash'
 import styled from 'styled-components'
 
-import * as font from '../../assets/styles/font'
-import { color } from '../../assets/styles/variables'
+import * as font from '@Styles/font'
+import { color } from '@Styles/variables'
 import ChartConfig from '../../helper/ChartConfig'
-import fontStyle from '../../assets/styles/font.module.sass'
+import fontStyle from '@Styles/font.module.sass'
 
 import IcnChecked from '../../assets/svg/radiobox/btn_radiobutton_checked_24.svg'
 import IcnUnchecked from '../../assets/svg/radiobox/btn_radiobutton_unchecked_24.svg'

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import icnNoData from '../../assets/svg/picto_nodata.svg';
-import fontStyle from '../../assets/styles/font.module.sass'
+import fontStyle from '@Styles/font.module.sass'
 
 const EmptyContainer = styled.section<{ height: number; }>`
   display: flex;

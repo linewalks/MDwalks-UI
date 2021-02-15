@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Rechart from 'recharts'
-import { color } from '../../../assets/styles/variables'
+import { color } from '@Styles/variables'
 
 const XAxis = (props) => <Rechart.XAxis {...props} />
 

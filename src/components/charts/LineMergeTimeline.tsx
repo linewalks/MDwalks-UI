@@ -8,8 +8,8 @@ import {
   lineDataFormatConvert, errorMessage,
 } from '../../helper/chartUtility'
 import { getColorsByTheme, Themes, ColorSetMap } from '../ChartColor'
-import fontStyle from '../../assets/styles/font.module.sass'
-import { color } from '../../assets/styles/variables'
+import fontStyle from '@Styles/font.module.sass'
+import { color } from '@Styles/variables'
 
 interface ITime {
   start: string;

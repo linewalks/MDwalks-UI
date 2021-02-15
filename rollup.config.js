@@ -1,8 +1,8 @@
 import { babel } from '@rollup/plugin-babel'
+import alias from '@rollup/plugin-alias'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import postcss from 'rollup-plugin-postcss'
-import sass from 'rollup-plugin-sass'
 import json from '@rollup/plugin-json'
 import url from '@rollup/plugin-url'
 import typescript from '@rollup/plugin-typescript'
@@ -28,11 +28,21 @@ export default {
       exclude: 'node_modules/**',
       extensions: ['.js', '.ts', '.tsx'],
     }),
-    postcss({
-      modules: true,
-      extensions: ['.css'],
+    alias({
+      entries: [
+        { find: '@src', replacement: 'src' },
+        { find: '@Styles', replacement: 'src/assets/styles' },
+        { find: '@Components', replacement: 'src/components' },
+        { find: '@Charts', replacement: 'src/components/charts' },
+        { find: '@Cards', replacement: 'src/components/card' },
+        { find: '@Table', replacement: 'src/components/table' },
+      ],
     }),
-    sass(),
+    postcss({
+      includePaths: ['src/components', 'src/assets/styles'],
+      modules: true,
+      extensions: ['.css', '.sass'],
+    }),
     nodeResolve({
       mainFields: ['browser', 'jsnext', 'module', 'main'],
     }),

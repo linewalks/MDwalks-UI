@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
-import * as font from '../../assets/styles/font'
-import { color } from '../../assets/styles/variables'
+import * as font from '@Styles/font'
+import { color } from '@Styles/variables'
 import { BtnDefaultCss, BtnSize, setBtnSize } from './Button'
 
 interface BtnLinkProps {

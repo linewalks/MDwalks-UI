@@ -1,13 +1,13 @@
 import React from 'react'
 import * as d3 from 'd3'
+import _ from 'lodash'
 import {
   getColorsByTheme,
   Themes,
   ColorSetMap,
-} from '../ChartColor'
-import _ from 'lodash'
-import fontStyle from '../../assets/styles/font.module.sass'
-import { color } from '../../assets/styles/variables'
+} from '@Components/ChartColor'
+import fontStyle from '@Styles/font.module.sass'
+import { color } from '@Styles/variables'
 
 interface RadiusGaugeProps {
   width: number;

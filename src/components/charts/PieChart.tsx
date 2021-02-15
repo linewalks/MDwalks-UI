@@ -4,11 +4,11 @@ import * as Rechart from 'recharts'
 import _ from 'lodash'
 
 import styled from 'styled-components'
-import * as font from '../../assets/styles/font'
+import * as font from '@Styles/font'
 import TooltipBox from '../tooltip/TooltipBox'
 import * as commonTag from '../common/commonTag'
 import { getColorsByTheme, Themes } from '../ChartColor'
-import { color } from '../../assets/styles/variables'
+import { color } from '@Styles/variables'
 import ChartConfig from '../../helper/ChartConfig'
 
 const Dot = styled(commonTag.Dot).attrs(() => ({}))`
