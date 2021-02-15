@@ -29,7 +29,7 @@ keywords:
 - 노드(node) - 데이터들의 이름을 나타내는 것들을 노드라고 한다.
 - 링크(link) - 노드 사이의 연결된 선을 링크라고 한다.
 
-### DataFormat
+#### DataFormat
 ```
 {
   nodes: [
@@ -54,7 +54,7 @@ keywords:
   * target - 연결하려는 노드의 목적지
   * value - 노드 사이의 관계를 표현하는 값
 
-### Methods
+#### Methods
 * render
   * 데이터가 없으면 renderPlaceholder 메소드를 이용하여, placeholder를 렌더링
   * 데이터가 있으면 div만 렌더링

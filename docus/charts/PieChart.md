@@ -39,10 +39,10 @@ keywords:
 #### Rechart.ResponsiveContainer
 - [ResponsiveContainer](https://recharts.org/en-US/api/ResponsiveContainer) 문서 참고
 
-### PieLegend
+#### PieLegend
 - layout props에 따라서 PieLegend의 배치를 바꾼다.
 - valueConvertText를 통하여 데이터를 변환한다. isPercent 속성이 있으면 Percent값을 변환하고, 그것이 아니라면 일반적으로 숫자값을 세자리수마다 ,로 나뉘어서 표기한다. 세자리수마다 ,로 나누기 위하여 toLocaleString 메소드를 이용하였다.
 
-### Rechart.Cell
+#### Rechart.Cell
  - [Rechart.Cell](https://recharts.org/en-US/api/Cell) 문서를 참고하여 사용하였다.
  - 데이터마다 파이차트의 영역을 나누기 위해서 사용
