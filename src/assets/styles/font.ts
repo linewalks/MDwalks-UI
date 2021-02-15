@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { hexToRGB } from '../../components/button/utility'
+import { hexToRGB } from '@Components/button/utility'
 import { color } from './variables'
 
 const font = {

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import * as d3 from 'd3'
 import _ from 'lodash'
 import { renderSVG, generateGroup, errorMessage } from '../../helper/chartUtility'
-import { color } from '../../assets/styles/variables'
-import fontStyle from '../../assets/styles/font.module.sass'
+import { color } from '@Styles/variables'
+import fontStyle from '@Styles/font.module.sass'
 import SelectBox from '../form/SelectBox'
 import styled from 'styled-components'
 

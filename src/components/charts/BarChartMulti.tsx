@@ -4,8 +4,8 @@ import _ from 'lodash'
 
 import styled from 'styled-components'
 
-import { color } from '../../assets/styles/variables'
-import fontStyle from '../../assets/styles/font.module.sass'
+import { color } from '@Styles/variables'
+import fontStyle from '@Styles/font.module.sass'
 import TooltipBox from '../tooltip/TooltipBox'
 import * as commonTag from '../common/commonTag'
 import EmptyPlaceHolder from '../table/EmptyPlaceHolder'

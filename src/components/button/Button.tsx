@@ -1,8 +1,8 @@
 import React from 'react'
 import styled, { css, keyframes } from 'styled-components'
 import _ from 'lodash'
-import * as font from '../../assets/styles/font'
-import { color } from '../../assets/styles/variables'
+import * as font from '@Styles/font'
+import { color } from '@Styles/variables'
 
 export const BtnDefaultCss = css`
   border:0 none;

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
 import _ from 'lodash'
-import { color } from '../../assets/styles/variables'
-import fontStyle from '../../assets/styles/font.module.sass'
+import { color } from '@Styles/variables'
+import fontStyle from '@Styles/font.module.sass'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-import { getColorsByTheme, Themes } from '../ChartColor'
+import { getColorsByTheme, Themes } from '@Components/ChartColor'
 
 const LegendWrap = styled.section`
   display: flex;

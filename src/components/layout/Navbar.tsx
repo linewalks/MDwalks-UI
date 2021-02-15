@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { color } from '../../assets/styles/variables'
+import { color } from '@Styles/variables'
 
 const NavbarBox = styled.nav`
   height: 70px;

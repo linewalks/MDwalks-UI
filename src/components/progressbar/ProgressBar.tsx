@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 import './ProgressBar.sass'
 import clsx from 'clsx'
-import { color } from '../../assets/styles/variables'
+import { color } from '@Styles/variables'
 
 interface ProgressBarProps {
   placement: 'top' | 'right' | 'bottom' | 'left';

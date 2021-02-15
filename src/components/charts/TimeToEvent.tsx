@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Rechart from 'recharts'
-import { color } from '../../assets/styles/variables'
+import { color } from '@Styles/variables'
 import * as commonTag from '../common/commonTag'
 import TooltipBox from '../tooltip/TooltipBox'
 import {
@@ -12,7 +12,7 @@ import _ from 'lodash'
 import XAxis from './cartesian/XAxis'
 import YAxis from './cartesian/YAxis'
 import CartesianGrid from './cartesian/CartesianGrid'
-import fontStyle from '../../assets/styles/font.module.sass'
+import fontStyle from '@Styles/font.module.sass'
 
 export const dateFormat = (date) => (
   // new Date(date)

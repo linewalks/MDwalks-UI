@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { color } from '../../assets/styles/variables'
-import * as font from '../../assets/styles/font'
+import { color } from '@Styles/variables'
+import * as font from '@Styles/font'
 
 interface TextProps {
   size: string;
