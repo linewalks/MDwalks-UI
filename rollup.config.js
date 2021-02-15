@@ -40,7 +40,7 @@ export default {
     }),
     postcss({
       includePaths: ['src/components', 'src/assets/styles'],
-      extensions: ['.css', '.sass'],
+      extensions: ['.css', '.scss', '.sass'],
     }),
     nodeResolve({
       mainFields: ['browser', 'jsnext', 'module', 'main'],
