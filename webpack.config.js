@@ -1,5 +1,5 @@
-const path = require('path');
 const sass = require('node-sass')
+const path = require('path')
 
 module.exports = {
   module: {
@@ -13,10 +13,8 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-        ],
+        exclude: /node_modules/,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(svg)(\?.*)?$/,
@@ -25,13 +23,11 @@ module.exports = {
       },
       {
         test: /\.s[ac]ss$/i,
+        exclude: /node_modules/,
         use: [
           'style-loader',
           {
             loader: 'css-loader',
-            options: {
-              modules: true,
-            },
           },
           {
             loader: 'sass-loader',
@@ -48,4 +44,15 @@ module.exports = {
       },
     ],
   },
-};
+  resolve: {
+    extensions: ['.jsx', '.ts', '.tsx', '.js'],
+    alias: {
+      '@src': path.resolve(__dirname, 'src/'),
+      '@Components': path.resolve(__dirname, 'src/components/'),
+      '@Charts': path.resolve(__dirname, 'src/components/charts/'),
+      '@Cards': path.resolve(__dirname, 'src/components/card'),
+      '@Styles': path.resolve(__dirname, 'src/assets/styles/'),
+      '@Table': path.resolve(__dirname, 'src/components/table/'),
+    },
+  },
+}
