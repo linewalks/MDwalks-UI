@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
-import { color } from '../../assets/styles/variables'
-import { tableSize } from '../../assets/styles/tableProperties'
+import { color } from '@Styles/variables'
+import { tableSize } from '@Styles/tableProperties'
 
 const TableWrap = styled.div`
   border: 1px solid ${color.$grey05};

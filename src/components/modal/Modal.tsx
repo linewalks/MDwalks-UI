@@ -5,9 +5,9 @@ import PropTypes from 'prop-types'
 
 import Heading from '../layout/Heading'
 import Button from '../button/Button'
-import { color, zIndex } from '../../assets/styles/variables'
-import * as font from '../../assets/styles/font'
-import fontStyle from '../../assets/styles/font.module.sass'
+import { color, zIndex } from '@Styles/variables'
+import * as font from '@Styles/font'
+import fontStyle from '@Styles/font.module.sass'
 import icnPopupCloseMd from '../../assets/svg/icn_close_32.svg'
 import { hexToRGB } from '../button/utility'
 

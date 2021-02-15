@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { useToast } from './ToastProvider'
-import { color } from '../../assets/styles/variables'
+import { color } from '@Styles/variables'
 import icnInfoCircle from '../../assets/svg/toast/icn_done_circle_filled_pmblue_24.svg'
 import icnWarningCircle from '../../assets/svg/toast/icn_error_circle_filled_red01_24.svg'
 import icnInfoClose from '../../assets/svg/toast/icn_close_pmblue_16.svg'
 import icnWarinigClose from '../../assets/svg/toast/icn_close_red01_16.svg'
-import fontStyle from '../../assets/styles/font.module.sass'
+import fontStyle from '@Styles/font.module.sass'
 
 const animationDuration = 0.2
 const getAnimationDelayTime = (duration) => (duration / 1000) - animationDuration

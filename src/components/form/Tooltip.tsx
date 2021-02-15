@@ -3,7 +3,7 @@ import React from 'react'
 import * as antd from 'antd'
 import styled from 'styled-components'
 
-import { color } from '../../assets/styles/variables'
+import { color } from '@Styles/variables'
 
 interface WrapTooltipProps {
   width: number;

@@ -2,8 +2,8 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import _ from 'lodash'
 
-import fontStyle from '../../assets/styles/font.module.sass'
-import { color } from '../../assets/styles/variables'
+import fontStyle from '@Styles/font.module.sass'
+import { color } from '@Styles/variables'
 
 export const TYPE = {
   CATEGORY: 'category',

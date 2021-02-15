@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import _ from 'lodash'
 
-import { color } from '../../assets/styles/variables'
+import { color } from '@Styles/variables'
 
 import btnNext from '../../assets/svg/pagination/btn_pagination_next_42.svg'
 import btnPre from '../../assets/svg/pagination/btn_pagination_previous_42.svg'

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components'
 import backgroundArrow from '../../assets/svg/icn_chevron_filled_right_16.svg'
-import * as font from '../../assets/styles/font'
-import { color } from '../../assets/styles/variables'
+import * as font from '@Styles/font'
+import { color } from '@Styles/variables'
 
 const Wrap1200 = styled.div`
   max-width: 1200px;

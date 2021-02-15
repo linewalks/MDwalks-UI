@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components'
-import fontStyle from '../../assets/styles/font.module.sass'
-import { color } from '../../assets/styles/variables'
+import fontStyle from '@Styles/font.module.sass'
+import { color } from '@Styles/variables'
 import icnMoreModalMdDefault from '../../assets/svg/icn_arrow_upright_24.svg'
 
 const Wrap1200 = styled.div`

@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react'
 
 import _ from 'lodash'
 import styled from 'styled-components'
-import * as font from '../../assets/styles/font'
-import { color } from '../../assets/styles/variables'
-import { tableSize } from '../../assets/styles/tableProperties'
+import * as font from '@Styles/font'
+import { color } from '@Styles/variables'
+import { tableSize } from '@Styles/tableProperties'
 
 import ICO_DOWN from '../../assets/svg/table/icn_sort_down_filled_unselected_grey07_16.svg'
 import ICO_UP from '../../assets/svg/table/icn_sort_up_filled_unselected_grey07_16.svg'

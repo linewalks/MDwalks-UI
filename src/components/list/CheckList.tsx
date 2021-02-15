@@ -11,7 +11,7 @@ import IcnUncheckedSm from '../../assets/svg/checkbox/btn_checkbox_unchecked_16.
 import IcnCheckedDisabledSm from '../../assets/svg/checkbox/btn_checkbox_checked_disabled_16.svg'
 import IcnUncheckedDisabledSm from '../../assets/svg/checkbox/btn_checkbox_unchecked_disabled_16.svg'
 import ChartConfig from '../../helper/ChartConfig'
-import * as font from '../../assets/styles/font'
+import * as font from '@Styles/font'
 
 const IcnList = {
   sm: {
