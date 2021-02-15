@@ -30048,7 +30048,7 @@ ProgressBar.defaultProps = {
   strokeColor: null
 };
 
-var version = "0.15.1-test";
+var version = "0.15.2";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;

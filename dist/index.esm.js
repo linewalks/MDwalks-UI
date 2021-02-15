@@ -30018,7 +30018,7 @@ ProgressBar.defaultProps = {
   strokeColor: null
 };
 
-var version = "0.15.1-test";
+var version = "0.15.2";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckBox, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, ProgressBar, RadarChart, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, Timeline, index as Toast, ToggleButton, Tooltip, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, tableProperties$1 as tableProperties, variables, version };
 //# sourceMappingURL=index.esm.js.map
