@@ -11,6 +11,7 @@ module.exports = {
       'charts/LineChart',
       'charts/PieChart',
       'charts/RadarChart',
+      'charts/TimeToEvent',
       'charts/SankeyChart',
       'charts/TreeMap',
     ],
