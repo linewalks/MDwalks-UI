@@ -40,7 +40,6 @@ export default {
     }),
     postcss({
       includePaths: ['src/components', 'src/assets/styles'],
-      modules: true,
       extensions: ['.css', '.sass'],
     }),
     nodeResolve({

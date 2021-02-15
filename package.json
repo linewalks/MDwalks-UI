@@ -1,6 +1,6 @@
 {
   "name": "MDwalks-UI",
-  "version": "0.15.1-test",
+  "version": "0.15.1-test1",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
