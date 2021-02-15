@@ -1,5 +1,7 @@
 # MDwalks-UI
 
+[![Build Status](https://travis-ci.com/linewalks/MDwalks-UI.svg?branch=develop)](https://travis-ci.com/linewalks/MDwalks-UI)
+
 **[Release Notes](https://github.com/linewalks/MDwalks-UI/releases)**
 
 **[History / Changes](CHANGELOG.md)**
@@ -20,6 +22,11 @@
 * run docs
   ```bash
   yarn styleguide
+  ```
+
+* run component definition docs
+  ```bash
+  yarn docstart
   ```
 
 ## 2. build
@@ -54,7 +61,7 @@
 **예시**
 - code reivew 적용
   - improvement(Button): 변경 내용
-  
+
 - eslint 적용
   - improvement(page): eslint 적용
   - improvement(Button): eslint 적용
@@ -62,9 +69,9 @@
 - refactor
   - refactor(Button): remove
   - refactor(Button): move to /src/com/
-  
+
 - package, lib 변경
-  - package(MDwalks-UI): version up 
+  - package(MDwalks-UI): version up
 
 **설명**
 - 줄에는 무엇이 달라졌는지 간략하게 기술한다.
@@ -145,8 +152,8 @@ describe('어떤 함수 또는 컴포런트의', () => {
 
 ## 4. 버전 업 순서
 - git flow feature start 'version.up.${버전}'
-- yarn version 
+- yarn version
 - git push origin feature/version.up.${버전}
 - git push origin --tags
-- github 에서 feature/version.up.${버전} -> develop 으로 머지 
-- github 에서 develop 에서 master 으로 머지 
+- github 에서 feature/version.up.${버전} -> develop 으로 머지
+- github 에서 develop 에서 master 으로 머지

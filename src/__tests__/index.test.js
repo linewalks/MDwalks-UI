@@ -51,6 +51,7 @@ const includeModule = [
   'tableProperties',
   // 'notifications',
   'ChartColor',
+  'ProgressBar',
 ]
 
 it('include module', () => {

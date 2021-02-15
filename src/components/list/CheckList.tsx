@@ -51,7 +51,7 @@ interface CheckListProps {
   limit: number;
   onChange: (id: number, selectedList: number[]) => void;
   onError: () => void;
-  formatter: (string) => string;
+  formatter: (string) => (string | React.ReactNode);
   size: 'sm' | 'md';
 }
 

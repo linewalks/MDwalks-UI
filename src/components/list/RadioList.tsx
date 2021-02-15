@@ -24,14 +24,14 @@ const autoMargin = {
   right: 'margin-left: auto',
 }
 
-const Inner = styled.div<{ align: 'center' | 'left' | 'right'; }>`
+const Inner = styled.div<{ align: 'center' | 'left' | 'right' }>`
   display: inline-block;
   width: 100%;
   ${({ align }) => autoMargin[align]};
   margin-bottom: -24px;
 `
 
-const Box = styled.div<{ layout: 'horizontal' | 'vertical'; }>`
+const Box = styled.div<{ layout: 'horizontal' | 'vertical' }>`
   ${(props) => (props.layout === ChartConfig.Layout.HORIZONTAL ? 'display: inline-block' : 'display: block')};
   ${(props) => (props.layout === ChartConfig.Layout.VERTICAL && 'width: inherit;')};
   padding: 12px 24px 12px 16px;
@@ -45,7 +45,7 @@ const Box = styled.div<{ layout: 'horizontal' | 'vertical'; }>`
 
 const Label = styled.label.attrs(() => ({
   className: [fontStyle.fs16, fontStyle.fc_grey09].join(' '),
-}))<{ disabled: boolean; }>`
+}))<{ disabled: boolean }>`
   display: flex;
   align-items: center;
   height: 100%;

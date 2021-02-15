@@ -1,6 +1,6 @@
 {
   "name": "MDwalks-UI",
-  "version": "0.15.0",
+  "version": "0.15.1",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
@@ -12,7 +12,9 @@
     "eslint": "eslint ./src/**/*.js ./src/**/**/*.js",
     "eslint:fix": "eslint ./src/**/*.js ./src/**/**/*.js --fix",
     "clear:branch": "git branch --merged | grep -v \\* | xargs -n 1 git branch -d",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && yarn build && yarn build:docs && git add ."
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && yarn build && yarn build:docs && git add .",
+    "docstart": "docusaurus start -p 8942",
+    "docbuild": "docusaurus build"
   },
   "jest": {
     "testPathIgnorePatterns": [
@@ -27,9 +29,10 @@
       "^@Components(.*)$": "<rootDir>/src/components/$1",
       "^@Charts(.*)$": "<rootDir>/src/components/charts/$1",
       "^@Cards(.*)$": "<rootDir>/src/components/card/$1",
+      "^@Styles(.*)$": "<rootDir>/src/assets/styles/$1",
       "^@Table(.*)$": "<rootDir>/src/components/table/$1",
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less|sass)$": "identity-obj-proxy"
+      "\\.(css|less|sass|scss)$": "identity-obj-proxy"
     }
   },
   "husky": {
@@ -67,8 +70,9 @@
     "@rollup/plugin-url": "^6.0.0",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
-    "@types/jest": "^26.0.10",
+    "@types/jest": "^26.0.20",
     "@types/lodash": "^4.14.165",
+    "@types/node-sass": "^4.11.1",
     "@types/react": "^16.9.46",
     "@types/styled-components": "^5.1.2",
     "babel-eslint": "^10.0.3",
@@ -91,16 +95,21 @@
     "minimist": "^1.2.2",
     "node-sass": "^4.13.1",
     "rollup-plugin-postcss": "^2.0.3",
+    "rollup-plugin-sass": "^1.2.2",
     "sass-loader": "^10.0.4",
     "scheduler": "0.14.0",
     "style-loader": "^2.0.0",
-    "ts-jest": "^26.2.0",
-    "ts-loader": "^8.0.11",
+    "ts-jest": "^26.5.0",
+    "ts-loader": "^8.0.15",
     "webpack": "4.44.2"
   },
   "dependencies": {
+    "@docusaurus/core": "2.0.0-alpha.70",
+    "@docusaurus/preset-classic": "2.0.0-alpha.70",
+    "@mdx-js/react": "^1.6.21",
     "@types/d3": "5.16.4",
     "antd": "^3.23.4",
+    "clsx": "^1.1.1",
     "conventional-changelog-cli": "^2.0.28",
     "d3": "^5.9.7",
     "d3-sankey-circular": "^0.34.0",

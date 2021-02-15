@@ -1,0 +1,72 @@
+@import "../../assets/styles/variables"
+
+$component: mwc-progressbar 
+
+.#{$component}
+  position: relative
+  display: flex
+  justify-content: cetner
+  align-items: center
+
+.#{$component}__legendlist
+  position: sticky
+  &-md
+    font-size: 16px
+    color: $grey09
+
+  &-sm
+    font-size: 12px
+    color: $grey07
+
+.#{$component}__state
+  display: flex
+
+  &-current,
+  &-total
+    height: 8px
+
+  &-current
+    background-color: $pmblue_dark
+    border-radius: 3px 0 0 3px
+    transition: width 0.5s ease
+
+  &-total
+    background-color: rgba($grey10, 0.1)
+    border-radius: 0 3px 3px 0
+    transition: width 0.5s ease
+
+  &-total-full
+    border-radius: 3px
+
+@mixin position-class($side)
+  .#{$component}-#{$side}
+    @if $side == "top"
+      flex-direction: column
+    @else if $side == "bottom"
+      flex-direction: column-reverse
+    @else if $side == "left"
+      flex-direction: row
+    @else
+      flex-direction: row-reverse
+
+@mixin margin-class($side)
+  .#{$component}__legendlist-#{$side}
+    @if $side == "top"
+      margin-bottom: 4px
+      text-align: center
+    @else if $side == "bottom"
+      margin-top: 4px
+      text-align: center
+    @else if $side == "left"
+      margin-right: 12px
+    @else 
+      margin-left: 12px
+
+
+$sides: ("top", "right", "bottom", "left")
+@mixin generate-margin
+  @each $side in $sides
+    @include margin-class($side)
+    @include position-class($side)
+
+@include generate-margin()
