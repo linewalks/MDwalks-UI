@@ -29461,8 +29461,9 @@ var ButtonPage = styled.button(templateObject_4$d || (templateObject_4$d = __mak
 }, function (props) {
   return props.size === 'sm' ? "\n      font-size: 14px;\n      min-width: 32px;\n      height: 32px;\n    " : "\n      font-size: 16px;\n      min-width: 42px;\n      height: 42px;\n    ";
 });
-var ButtonMove = styled.button(templateObject_5$7 || (templateObject_5$7 = __makeTemplateObject(["\n  img {\n    border-radius: 8px;\n  }\n  ", ";\n  font-size: 0;\n  &:first-child {\n    margin-right: 16px;\n  }\n\n  &:last-child {\n    margin-left: 16px;\n  }\n\n  ", ";\n"], ["\n  img {\n    border-radius: 8px;\n  }\n  ", ";\n  font-size: 0;\n  &:first-child {\n    margin-right: 16px;\n  }\n\n  &:last-child {\n    margin-left: 16px;\n  }\n\n  ", ";\n"])), function (props) {
-  return props.disabled ? "background-color: " + color.$grey03 : '';
+var ButtonMove = styled.button(templateObject_5$7 || (templateObject_5$7 = __makeTemplateObject(["\n  img {\n    border-radius: 8px;\n  }\n  ", ";\n  font-size: 0;\n  &:first-child {\n    margin-right: 16px;\n  }\n\n  &:last-child {\n    margin-left: 16px;\n  }\n\n  ", ";\n"], ["\n  img {\n    border-radius: 8px;\n  }\n  ", ";\n  font-size: 0;\n  &:first-child {\n    margin-right: 16px;\n  }\n\n  &:last-child {\n    margin-left: 16px;\n  }\n\n  ", ";\n"])), function (_a) {
+  var disabled = _a.disabled;
+  return disabled && "\n    background-color: transparent;\n    color: " + color.$grey03 + ";\n    cursor: not-allowed;\n  ";
 }, function (props) {
   return props.size === 'sm' ? "\n      height: 32px;\n    " : "\n      height: 42px;\n    ";
 });
@@ -29889,7 +29890,99 @@ var DateUtility = /*#__PURE__*/Object.freeze({
 	getDateDiff: getDateDiff
 });
 
-var version = "0.15.0";
+function toVal(mix) {
+	var k, y, str='';
 
-export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckBox, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, RadarChart, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, Timeline, index as Toast, ToggleButton, Tooltip, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, tableProperties$1 as tableProperties, variables, version };
+	if (typeof mix === 'string' || typeof mix === 'number') {
+		str += mix;
+	} else if (typeof mix === 'object') {
+		if (Array.isArray(mix)) {
+			for (k=0; k < mix.length; k++) {
+				if (mix[k]) {
+					if (y = toVal(mix[k])) {
+						str && (str += ' ');
+						str += y;
+					}
+				}
+			}
+		} else {
+			for (k in mix) {
+				if (mix[k]) {
+					str && (str += ' ');
+					str += k;
+				}
+			}
+		}
+	}
+
+	return str;
+}
+
+function clsx () {
+	var i=0, tmp, x, str='';
+	while (i < arguments.length) {
+		if (tmp = arguments[i++]) {
+			if (x = toVal(tmp)) {
+				str && (str += ' ');
+				str += x;
+			}
+		}
+	}
+	return str;
+}
+
+var ProgressBar = function (_a) {
+  var placement = _a.placement,
+      size = _a.size,
+      state = _a.state,
+      totalState = _a.totalState,
+      width = _a.width,
+      isNotExistsLabel = _a.isNotExistsLabel,
+      customLabel = _a.customLabel,
+      strokeColor = _a.strokeColor;
+
+  var percent = lodash.floor(lodash.toInteger(state) / lodash.toInteger(totalState) * 100);
+
+  var remainPercent = lodash.isNaN(percent) ? 100 : 100 - percent;
+  var label = customLabel || state + " / " + totalState;
+  return /*#__PURE__*/React.createElement("section", {
+    className: clsx(['mwc-progressbar', "mwc-progressbar-" + placement]),
+    style: {
+      minWidth: width
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: clsx(['mwc-progressbar__legendlist', "mwc-progressbar__legendlist-" + placement, "mwc-progressbar__legendlist-" + size])
+  }, !isNotExistsLabel && label), /*#__PURE__*/React.createElement("div", {
+    className: "mwc-progressbar__state",
+    style: {
+      width: width
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: clsx(['mwc-progressbar__state-current', "mwc-progressbar__state-" + percent]),
+    style: {
+      width: percent + "%",
+      backgroundColor: "" + (color[strokeColor] || strokeColor)
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    className: clsx(['mwc-progressbar__state-total', "mwc-progressbar__state-" + remainPercent, lodash.isNaN(percent) && "mwc-progressbar__state-total-full"]),
+    style: {
+      width: remainPercent + "%"
+    }
+  })));
+};
+
+ProgressBar.defaultProps = {
+  placement: 'left',
+  size: 'md',
+  state: 0,
+  totalState: 0,
+  width: 100,
+  isNotExistsLabel: false,
+  customLabel: null,
+  strokeColor: null
+};
+
+var version = "0.15.1";
+
+export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckBox, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, ProgressBar, RadarChart, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, Timeline, index as Toast, ToggleButton, Tooltip, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, tableProperties$1 as tableProperties, variables, version };
 //# sourceMappingURL=index.esm.js.map
