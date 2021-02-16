@@ -18,12 +18,13 @@ interface ProgressBarProps {
 const ProgressBar = ({
   placement, size, state, totalState, width, isNotExistsLabel, customLabel, strokeColor,
 }: ProgressBarProps) => {
-  const percent = _.isEqual(state, 0) ? 0 : _.floor((_.toInteger(state) / _.toInteger(totalState)) * 100)
+  const percent = _.isEqual(state, 0)
+    ? 0
+    : _.floor((_.toInteger(state) / _.toInteger(totalState)) * 100)
   const remainPercent = _.isNaN(percent) ? 100 : 100 - percent
 
   const label = customLabel || `${state} / ${totalState}`
 
-  console.log(percent, remainPercent, _.isEqual(percent, 0))
   return (
     <section
       className={clsx(['mwc-progressbar', `mwc-progressbar-${placement}`])}
