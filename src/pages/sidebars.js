@@ -14,6 +14,7 @@ module.exports = {
       'charts/RadarChart',
       'charts/TimeToEvent',
       'charts/SankeyChart',
+      'charts/Histogram',
       'charts/TreeMap',
     ],
     common: [],

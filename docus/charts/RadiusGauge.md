@@ -1,7 +1,7 @@
 ---
 id : RadiusGauge
 title: RadiusGauge
-description: MDwalks-EXI에서 Risk Score를 나타내는 svg로 구현된 컴포넌트
+description: svg로 구현된 컴포넌트
 keywords:
   - RadiusGauge
 ---
