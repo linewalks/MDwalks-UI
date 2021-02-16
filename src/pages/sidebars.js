@@ -8,6 +8,7 @@ module.exports = {
       'charts/cartesian/YAxis',
       'charts/cartesian/CartesianGrid',
       'charts/BarGauge',
+      'charts/RadiusGauge',
       'charts/LineChart',
       'charts/PieChart',
       'charts/RadarChart',
