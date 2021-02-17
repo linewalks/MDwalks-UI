@@ -6,7 +6,7 @@ module.exports = {
     charts: [],
     common: [],
     form: [],
-    layout: [],
+    layout: ['layout/Footer', 'layout/Heading'],
     list: ['list/CheckBox', 'list/CheckList', 'list/Item', 'list/RadioList'],
     modal: [],
     pagination: [],
@@ -15,4 +15,4 @@ module.exports = {
     Toast: [],
     tooltip: [],
   },
-};
+}
