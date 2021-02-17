@@ -16,7 +16,6 @@ keywords:
 * (en)Navbar is a basic element that composes Layout and is a component that wraps the menu.
 
 ### Feature
-  - 
   - [NavbarBox](#Navbar-box)
   
 ### Structure

@@ -14,8 +14,8 @@ interface logoProps {
 const Image = ({ logo }: logoProps) => {
   const { src, width, height, alt } = logo
 
-  const path = src.substring(0, src.lastIndexOf('.'));
-  const extension = src.substring(src.lastIndexOf('.') + 1, src.length);
+  const path = src.substring(0, src.lastIndexOf('.'))
+  const extension = src.substring(src.lastIndexOf('.') + 1, src.length)
 
   return (
     <img

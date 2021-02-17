@@ -4,8 +4,8 @@ Image example:
 <Image
   logo={
     {
-      src: 'http://retinaimag.es/img/settings-small.png',
-      alt: '',
+      src: 'https://img.icons8.com/cotton/64/000000/settings--v1.png',
+      alt: 'icon',
     }
   }
 />
