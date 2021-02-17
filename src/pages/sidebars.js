@@ -6,7 +6,7 @@ module.exports = {
     charts: [],
     common: [],
     form: [],
-    layout: ['layout/Footer', 'layout/Heading'],
+    layout: ['layout/Footer', 'layout/Heading', 'layout/Navbar'],
     list: ['list/CheckBox', 'list/CheckList', 'list/Item', 'list/RadioList'],
     modal: [],
     pagination: [],
