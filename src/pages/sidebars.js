@@ -11,6 +11,7 @@ module.exports = {
       'charts/RadiusGauge',
       'charts/LineChart',
       'charts/BarChart',
+      'charts/BarChartMulti',
       'charts/PieChart',
       'charts/RadarChart',
       'charts/TimeToEvent',
