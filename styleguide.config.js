@@ -101,7 +101,7 @@ module.exports = {
         'src/components/form/SelectBox.tsx',
         'src/components/form/Tooltip.tsx',
         'src/components/layout/Image.tsx',
-        'src/components/layout/Navbar.js',
+        'src/components/layout/Navbar.tsx',
         'src/components/layout/Footer.tsx',
         'src/components/layout/Tabs.tsx',
         'src/components/list/CheckList.tsx',

@@ -19,7 +19,9 @@ const NavbarBox = styled.nav`
 `
 
 interface NavbarProps {
-  style: object;
+  style?: {
+    [key:string]: string;
+  },
   children: React.ReactNode;
 }
 
