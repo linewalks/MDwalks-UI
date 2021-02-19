@@ -18,6 +18,7 @@ module.exports = {
       'charts/Histogram',
       'charts/SankeyChart',
       'charts/Timeline',
+      'charts/LineMergeTimeline',
       'charts/TreeMap',
     ],
     common: [],
