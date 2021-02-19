@@ -11,6 +11,7 @@ module.exports = {
       'layout/Heading',
       'layout/Navbar',
       'layout/Image',
+      'layout/Tabs',
     ],
     list: ['list/CheckBox', 'list/CheckList', 'list/Item', 'list/RadioList'],
     modal: [],

@@ -14,7 +14,7 @@ interface IType {
   type: 'category' | 'title';
 }
 
-const TabBox = styled.section<IType>`
+const TabBox = styled.section < IType > `
   border-bottom: ${(props) => (_.isEqual(props.type, TYPE.CATEGORY) && `1px solid ${color.$grey05}`)};
   margin-bottom: 24px;
 `
@@ -101,9 +101,13 @@ interface IState {
 
 class Tabs extends React.Component<IProps, IState> {
   static Tab: any;
+
   static TabPane: any;
+
   static TabUnderLine: any;
+
   static TabBox: any;
+
   static defaultProps = {
     defaultactivekey: String(0),
     type: TYPE.CATEGORY,
