@@ -1,3 +1,37 @@
+## [0.15.3](https://github.com/linewalks/MDwalks-UI/compare/v0.15.2...v0.15.3) (2021-02-19)
+
+
+### Bug Fixes
+
+* **ProgressBar:** border-radius 수정 ([e358431](https://github.com/linewalks/MDwalks-UI/commit/e358431abd66b1ab27a470f25d844b0b12402865))
+
+
+### Features
+
+* **Tabs:** docsaurus 컴포넌트 정의서 작성 ([0a937e6](https://github.com/linewalks/MDwalks-UI/commit/0a937e66bff516d05e19c907bafb212c60389b45))
+* [Docs] charts ([7a9fdad](https://github.com/linewalks/MDwalks-UI/commit/7a9fdad75f9c7513ded7e2b63734b263eb1ec9c5)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+* [Docs] charts ([63be744](https://github.com/linewalks/MDwalks-UI/commit/63be744063a04f2192909718d555c6cb4cfa2871)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+* [Docs] charts ([f10e8e4](https://github.com/linewalks/MDwalks-UI/commit/f10e8e4628cd68ef5ef156a3ebde029592769c50)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+* **Footer:** text 사용 가능 및 year 로직 추가 ([68de69e](https://github.com/linewalks/MDwalks-UI/commit/68de69e89dd7d5b3a3eb1e04bba0723a04c650d3))
+* **Heading:** docsaurus 기본 md 파일 추가 ([b12e105](https://github.com/linewalks/MDwalks-UI/commit/b12e1052e4319535dcb07096ccccc43446c1e6af))
+* **Image:** docsaurus 기본 md 파일 추가 ([2cb274b](https://github.com/linewalks/MDwalks-UI/commit/2cb274b74d6a44ba8f22e13c76638f5b017739ab))
+* **Navbar:** docsaurus 기본 md 파일 추가 ([a8671fd](https://github.com/linewalks/MDwalks-UI/commit/a8671fd5c5042ca5a0d2feb55d4bac55bf217159))
+* [Docs] charts ([c34d988](https://github.com/linewalks/MDwalks-UI/commit/c34d9883dfa9391866b7aa81bfcd7063282eb368)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+* [Docs] charts ([3236eae](https://github.com/linewalks/MDwalks-UI/commit/3236eae6ce0e1afb066754502d401dba1f12a650)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+* [Docs] charts ([683cc1e](https://github.com/linewalks/MDwalks-UI/commit/683cc1e536a6e6ba09a5a71c309c13e6f0864605)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+* [Docs] charts ([52b68c0](https://github.com/linewalks/MDwalks-UI/commit/52b68c0253e78321c6161c34fd875d49f15dd891)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+* [Docs] charts ([4459d78](https://github.com/linewalks/MDwalks-UI/commit/4459d78b7ba9eee20cc47dc9b4e55f8b118bcdc3)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+* [Docs] charts ([2735946](https://github.com/linewalks/MDwalks-UI/commit/2735946ddf8d4560ed3f076cc34d8d526cf83b05)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+* [Docs] charts ([702a8a6](https://github.com/linewalks/MDwalks-UI/commit/702a8a607f6a4c60d62c828dc4755a28742187a6)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+* [Docs] charts ([aa37ff8](https://github.com/linewalks/MDwalks-UI/commit/aa37ff82da41a0528f6e8b17229d98e850c91c69)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+* [Docs] charts ([a4fc85a](https://github.com/linewalks/MDwalks-UI/commit/a4fc85aa0869a5af221034d51216ffa86c84b740)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+* [Docs] charts ([e79e837](https://github.com/linewalks/MDwalks-UI/commit/e79e8375792a4939a5c4a985fbd35c7115712419)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+* [Docs] charts ([bddbc8d](https://github.com/linewalks/MDwalks-UI/commit/bddbc8dae8acc788205b90f3feb38200c5a97cc8)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+* [Docs] charts ([f4fe511](https://github.com/linewalks/MDwalks-UI/commit/f4fe51103f622db087931c607b0242b0593ad6c1)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+* [Docs] charts ([fadf946](https://github.com/linewalks/MDwalks-UI/commit/fadf9467078a5aa23ed761afb8fd5b5543af27d2)), closes [#916](https://github.com/linewalks/MDwalks-UI/issues/916)
+
+
+
 ## [0.15.2](https://github.com/linewalks/MDwalks-UI/compare/v0.15.1-test...v0.15.2) (2021-02-15)
 
 ### Features
