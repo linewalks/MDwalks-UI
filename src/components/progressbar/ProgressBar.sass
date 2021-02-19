@@ -23,7 +23,7 @@ $component: mwc-progressbar
 
   &-current,
   &-total
-    height: 8px
+    height: 6px
 
   &-current
     background-color: $pmblue_dark
@@ -35,7 +35,8 @@ $component: mwc-progressbar
     border-radius: 0 3px 3px 0
     transition: width 0.5s ease
 
-  &-total-full
+  &-full,
+  &-empty
     border-radius: 3px
 
 @mixin position-class($side)

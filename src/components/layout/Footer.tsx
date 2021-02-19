@@ -1,10 +1,11 @@
-import React from 'react';
+import React from 'react'
+import _ from 'lodash'
 import styled from 'styled-components'
 
 import { color, size } from '@Styles/variables'
 import * as font from '@Styles/font'
 
-const FooterWrap = styled.footer`
+const WrapFooter = styled.footer`
   position: absolute;
   bottom: 0;
   height: ${size.$footer_height};
@@ -27,17 +28,29 @@ const FooterBox = styled.div<font.IText>`
 `
 
 interface FooterProps {
-  style: object;
+  style: {
+    [key:string]: string;
+  },
+  text: string;
 }
 
-const Footer = ({ style }: FooterProps) => (
-  <FooterWrap style={style}>
+const getFullYear = () => {
+  const date = new Date()
+  return date.getFullYear()
+}
+
+const Footer = ({ style, text }: FooterProps) => (
+  <WrapFooter style={style}>
     <FooterBox size="12" opacity={6} style={{ color: color.$grey08 }}>
       <p>
-        © 2020 linewalks. All rights reserved.
+        {
+          _.isEmpty(text)
+            ? `© ${getFullYear()} linewalks.  All rights reserved.`
+            : text
+        }
       </p>
     </FooterBox>
-  </FooterWrap>
+  </WrapFooter>
 )
 
 export default Footer
