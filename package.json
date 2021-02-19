@@ -1,6 +1,6 @@
 {
   "name": "MDwalks-UI",
-  "version": "0.15.2",
+  "version": "0.15.3",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
@@ -100,9 +100,9 @@
     "sass-loader": "^10.0.4",
     "scheduler": "0.14.0",
     "style-loader": "^2.0.0",
-    "url-loader": "^4.1.1",
     "ts-jest": "^26.5.0",
     "ts-loader": "^8.0.15",
+    "url-loader": "^4.1.1",
     "webpack": "4.44.2"
   },
   "dependencies": {

@@ -26731,12 +26731,18 @@ var Navbar = function (_a) {
 };
 var templateObject_1$e;
 
-var FooterWrap = styled.footer(templateObject_1$f || (templateObject_1$f = __makeTemplateObject(["\n  position: absolute;\n  bottom: 0;\n  height: ", ";\n  padding: 0;\n  width: 100%;\n  box-sizing: border-box;\n"], ["\n  position: absolute;\n  bottom: 0;\n  height: ", ";\n  padding: 0;\n  width: 100%;\n  box-sizing: border-box;\n"])), size.$footer_height);
+var WrapFooter = styled.footer(templateObject_1$f || (templateObject_1$f = __makeTemplateObject(["\n  position: absolute;\n  bottom: 0;\n  height: ", ";\n  padding: 0;\n  width: 100%;\n  box-sizing: border-box;\n"], ["\n  position: absolute;\n  bottom: 0;\n  height: ", ";\n  padding: 0;\n  width: 100%;\n  box-sizing: border-box;\n"])), size.$footer_height);
 var FooterBox = styled.div(templateObject_2$c || (templateObject_2$c = __makeTemplateObject(["\n  ", "\n  border-top: 1px solid ", ";\n  height: ", ";\n\n  display: flex;\n  align-items: center;\n\n  p {\n    padding-left: 32px;\n  }\n"], ["\n  ", "\n  border-top: 1px solid ", ";\n  height: ", ";\n\n  display: flex;\n  align-items: center;\n\n  p {\n    padding-left: 32px;\n  }\n"])), Text, color.$grey04, size.$footer_height);
 
+var getFullYear = function () {
+  var date = new Date();
+  return date.getFullYear();
+};
+
 var Footer = function (_a) {
-  var style = _a.style;
-  return /*#__PURE__*/React.createElement(FooterWrap, {
+  var style = _a.style,
+      text = _a.text;
+  return /*#__PURE__*/React.createElement(WrapFooter, {
     style: style
   }, /*#__PURE__*/React.createElement(FooterBox, {
     size: "12",
@@ -26744,7 +26750,7 @@ var Footer = function (_a) {
     style: {
       color: color.$grey08
     }
-  }, /*#__PURE__*/React.createElement("p", null, "\u00A9 2020 linewalks. All rights reserved.")));
+  }, /*#__PURE__*/React.createElement("p", null, lodash.isEmpty(text) ? "\u00A9 " + getFullYear() + " linewalks.  All rights reserved." : text)));
 };
 var templateObject_1$f, templateObject_2$c;
 
@@ -29923,7 +29929,7 @@ var DateUtility = /*#__PURE__*/Object.freeze({
 	getDateDiff: getDateDiff
 });
 
-var css_248z$3 = ".mwc-progressbar {\n  position: relative;\n  display: flex;\n  justify-content: cetner;\n  align-items: center; }\n\n.mwc-progressbar__legendlist {\n  position: sticky; }\n  .mwc-progressbar__legendlist-md {\n    font-size: 16px;\n    color: #4d5661; }\n  .mwc-progressbar__legendlist-sm {\n    font-size: 12px;\n    color: #8b96a3; }\n\n.mwc-progressbar__state {\n  display: flex; }\n  .mwc-progressbar__state-current, .mwc-progressbar__state-total {\n    height: 8px; }\n  .mwc-progressbar__state-current {\n    background-color: #028af2;\n    border-radius: 3px 0 0 3px;\n    transition: width 0.5s ease; }\n  .mwc-progressbar__state-total {\n    background-color: rgba(48, 56, 65, 0.1);\n    border-radius: 0 3px 3px 0;\n    transition: width 0.5s ease; }\n  .mwc-progressbar__state-total-full {\n    border-radius: 3px; }\n\n.mwc-progressbar__legendlist-top {\n  margin-bottom: 4px;\n  text-align: center; }\n\n.mwc-progressbar-top {\n  flex-direction: column; }\n\n.mwc-progressbar__legendlist-right {\n  margin-left: 12px; }\n\n.mwc-progressbar-right {\n  flex-direction: row-reverse; }\n\n.mwc-progressbar__legendlist-bottom {\n  margin-top: 4px;\n  text-align: center; }\n\n.mwc-progressbar-bottom {\n  flex-direction: column-reverse; }\n\n.mwc-progressbar__legendlist-left {\n  margin-right: 12px; }\n\n.mwc-progressbar-left {\n  flex-direction: row; }\n";
+var css_248z$3 = ".mwc-progressbar {\n  position: relative;\n  display: flex;\n  justify-content: cetner;\n  align-items: center; }\n\n.mwc-progressbar__legendlist {\n  position: sticky; }\n  .mwc-progressbar__legendlist-md {\n    font-size: 16px;\n    color: #4d5661; }\n  .mwc-progressbar__legendlist-sm {\n    font-size: 12px;\n    color: #8b96a3; }\n\n.mwc-progressbar__state {\n  display: flex; }\n  .mwc-progressbar__state-current, .mwc-progressbar__state-total {\n    height: 6px; }\n  .mwc-progressbar__state-current {\n    background-color: #028af2;\n    border-radius: 3px 0 0 3px;\n    transition: width 0.5s ease; }\n  .mwc-progressbar__state-total {\n    background-color: rgba(48, 56, 65, 0.1);\n    border-radius: 0 3px 3px 0;\n    transition: width 0.5s ease; }\n  .mwc-progressbar__state-full, .mwc-progressbar__state-empty {\n    border-radius: 3px; }\n\n.mwc-progressbar__legendlist-top {\n  margin-bottom: 4px;\n  text-align: center; }\n\n.mwc-progressbar-top {\n  flex-direction: column; }\n\n.mwc-progressbar__legendlist-right {\n  margin-left: 12px; }\n\n.mwc-progressbar-right {\n  flex-direction: row-reverse; }\n\n.mwc-progressbar__legendlist-bottom {\n  margin-top: 4px;\n  text-align: center; }\n\n.mwc-progressbar-bottom {\n  flex-direction: column-reverse; }\n\n.mwc-progressbar__legendlist-left {\n  margin-right: 12px; }\n\n.mwc-progressbar-left {\n  flex-direction: row; }\n";
 styleInject(css_248z$3);
 
 function toVal(mix) {
@@ -29976,9 +29982,7 @@ var ProgressBar = function (_a) {
       isNotExistsLabel = _a.isNotExistsLabel,
       customLabel = _a.customLabel,
       strokeColor = _a.strokeColor;
-
-  var percent = lodash.floor(lodash.toInteger(state) / lodash.toInteger(totalState) * 100);
-
+  var percent = lodash.isEqual(state, 0) ? 0 : lodash.floor(lodash.toInteger(state) / lodash.toInteger(totalState) * 100);
   var remainPercent = lodash.isNaN(percent) ? 100 : 100 - percent;
   var label = customLabel || state + " / " + totalState;
   return /*#__PURE__*/React.createElement("section", {
@@ -29994,13 +29998,13 @@ var ProgressBar = function (_a) {
       width: width
     }
   }, /*#__PURE__*/React.createElement("div", {
-    className: clsx(['mwc-progressbar__state-current', "mwc-progressbar__state-" + percent]),
+    className: clsx(['mwc-progressbar__state-current', "mwc-progressbar__state-" + percent, lodash.isEqual(percent, 100) && "mwc-progressbar__state-full"]),
     style: {
       width: percent + "%",
       backgroundColor: "" + (color[strokeColor] || strokeColor)
     }
   }), /*#__PURE__*/React.createElement("div", {
-    className: clsx(['mwc-progressbar__state-total', "mwc-progressbar__state-" + remainPercent, lodash.isNaN(percent) && "mwc-progressbar__state-total-full"]),
+    className: clsx(['mwc-progressbar__state-total', "mwc-progressbar__state-" + remainPercent, lodash.isEqual(percent, 0) && "mwc-progressbar__state-empty"]),
     style: {
       width: remainPercent + "%"
     }
@@ -30018,7 +30022,7 @@ ProgressBar.defaultProps = {
   strokeColor: null
 };
 
-var version = "0.15.2";
+var version = "0.15.3";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckBox, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, ProgressBar, RadarChart, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, Timeline, index as Toast, ToggleButton, Tooltip, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, tableProperties$1 as tableProperties, variables, version };
 //# sourceMappingURL=index.esm.js.map
