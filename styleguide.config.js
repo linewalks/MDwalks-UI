@@ -100,6 +100,7 @@ module.exports = {
         'src/components/card/SummaryCard.tsx',
         'src/components/form/SelectBox.tsx',
         'src/components/form/Tooltip.tsx',
+        'src/components/form/Input.tsx',
         'src/components/layout/Image.tsx',
         'src/components/layout/Navbar.tsx',
         'src/components/layout/Footer.tsx',
