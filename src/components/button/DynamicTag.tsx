@@ -15,7 +15,7 @@ interface IProps<T> {
   as: T
 }
 
-function ButtonTag<T extends React.ElementType = 'button'>({
+function DynamicTag<T extends React.ElementType = 'button'>({
   as,
   ...rest
 }: OverwritableType<IProps<T>, T>) {
@@ -23,11 +23,11 @@ function ButtonTag<T extends React.ElementType = 'button'>({
   return <ElementType {...rest} />
 }
 
-ButtonTag.defaultProps = {
+DynamicTag.defaultProps = {
   as: 'button',
 }
 
-export default ButtonTag
+export default DynamicTag
 
 // 아래 예시처럼 href, to 등의 props를 넣어 사용할 수 있다.
 // function B() {
@@ -35,17 +35,17 @@ export default ButtonTag
 //     <>
 
 //       {/* Accepts all props of button tag */}
-//       <ButtonTag type="submit">Button</ButtonTag>
+//       <DynamicTag type="submit">Button</DynamicTag>
 
 //       {/* Accepts all props of anchor tag */}
-//       <ButtonTag as="a" href="#">
+//       <DynamicTag as="a" href="#">
 //         Link
-//       </ButtonTag>
+//       </DynamicTag>
 
 //       {/* Accepts all props of Link */}
-//       <ButtonTag as={Link} to="#">
+//       <DynamicTag as={Link} to="#">
 //         Custom Link
-//       </ButtonTag>{' '}
+//       </DynamicTag>{' '}
 
 //     </>
 //   );

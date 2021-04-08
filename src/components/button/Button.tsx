@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 import './Button.sass'
 import clsx from 'clsx'
-import ButtonTag from './DynamicTag'
+import DynamicTag from './DynamicTag'
 
 interface ButtonProps {
   //BtnTagProps
@@ -46,7 +46,7 @@ const Button = (props: ButtonProps) => {
   }
 
   return (
-    <ButtonTag
+    <DynamicTag
       id={id}
       disabled={disabled || showLoading}
       className={clsx([
@@ -67,7 +67,7 @@ const Button = (props: ButtonProps) => {
           <span className="loading-three">.</span>
         </span>
       )}
-    </ButtonTag>
+    </DynamicTag>
   )
 }
 
