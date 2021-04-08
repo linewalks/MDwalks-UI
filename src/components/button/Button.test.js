@@ -1,5 +1,8 @@
 import React from 'react'
-// import { shallow, mount } from 'enzyme'
+import {
+  // shallow,
+  mount,
+} from 'enzyme'
 // import renderer from 'react-test-renderer'
 import 'jest-styled-components'
 import _ from 'lodash'
