@@ -5,7 +5,7 @@ import {
 } from 'enzyme'
 // import renderer from 'react-test-renderer'
 import 'jest-styled-components'
-import _ from 'lodash'
+// import _ from 'lodash'
 import Button from '@Components/button/Button'
 
 // const toHaveStyleRules = (component, property, options) => {
