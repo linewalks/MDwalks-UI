@@ -20,7 +20,6 @@ function ButtonTag<T extends React.ElementType = 'button'>({
   ...rest
 }: OverwritableType<IProps<T>, T>) {
   const ElementType: React.ElementType = as
-  console.log(<ElementType {...rest} />)
   return <ElementType {...rest} />
 }
 
