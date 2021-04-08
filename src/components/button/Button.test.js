@@ -1,17 +1,17 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
-import renderer from 'react-test-renderer'
+// import { shallow, mount } from 'enzyme'
+// import renderer from 'react-test-renderer'
 import 'jest-styled-components'
 import _ from 'lodash'
 import Button from '@Components/button/Button'
 
-const toHaveStyleRules = (component, property, options) => {
-  let hyphen = ''
-  _.each(property, (value, key) => {
-    hyphen = key.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`)
-    expect(component).toHaveStyleRule(hyphen, value, options)
-  })
-}
+// const toHaveStyleRules = (component, property, options) => {
+//   let hyphen = ''
+//   _.each(property, (value, key) => {
+//     hyphen = key.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`)
+//     expect(component).toHaveStyleRule(hyphen, value, options)
+//   })
+// }
 
 // const checkColorRuls = (component, rulesTarget) => {
 //   let { hover, disabled } = rulesTarget
