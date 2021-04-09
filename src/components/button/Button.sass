@@ -17,7 +17,8 @@ $variants: ("primary", "primary_line", "basic","basic_line", "primary_light", "b
   font-weight: bold
   border: none
   background-color: transparent
-  cursor:pointer
+  cursor: pointer
+  outline: none
   transition: background-color 0.3s, color 0.3s ease, border-color 0.3s ease
   line-height: 1.34em
   img 
@@ -70,7 +71,7 @@ $variants: ("primary", "primary_line", "basic","basic_line", "primary_light", "b
       &:disabled
         background-color: $grey03
         color: $grey06
-        border: none;
+        border: none 
         box-shadow: none
     @else if $variant == "primary_line"
       background-color: $white
@@ -82,7 +83,7 @@ $variants: ("primary", "primary_line", "basic","basic_line", "primary_light", "b
       &:disabled
         background-color: $grey03
         color: $grey06
-        border: none;
+        border: none 
         box-shadow: none
     @else if $variant == "basic"
       background-color: $grey04
@@ -93,7 +94,7 @@ $variants: ("primary", "primary_line", "basic","basic_line", "primary_light", "b
       &:disabled
         background-color: $grey03
         color: $grey06
-        border: none;
+        border: none 
         box-shadow: none
     @else if $variant == "basic_line"
       background-color: $white
@@ -105,7 +106,7 @@ $variants: ("primary", "primary_line", "basic","basic_line", "primary_light", "b
       &:disabled
         background-color: $grey03
         color: $grey06
-        border: none;
+        border: none 
         box-shadow: none
     @else if $variant == "primary_light"
       background-color: $white
@@ -115,7 +116,7 @@ $variants: ("primary", "primary_line", "basic","basic_line", "primary_light", "b
       &:disabled
         background-color: $grey03
         color: $grey06
-        border: none;
+        border: none 
         box-shadow: none
     @else if $variant == "basic_light"
       background-color: $white
@@ -125,7 +126,7 @@ $variants: ("primary", "primary_line", "basic","basic_line", "primary_light", "b
       &:disabled
         background-color: $grey03
         color: $grey06
-        border: none;
+        border: none 
         box-shadow: none
 
 
