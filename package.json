@@ -118,7 +118,7 @@
     "d3-simple-slider": "^1.5.4",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "highcharts": "^7.1.2",
+    "highcharts": "^9.0.0",
     "highcharts-react-official": "^2.2.2",
     "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
