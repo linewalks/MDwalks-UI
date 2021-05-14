@@ -120,7 +120,7 @@
     "enzyme-adapter-react-16": "^1.14.0",
     "highcharts": "^7.1.2",
     "highcharts-react-official": "^2.2.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-custom-scrollbars": "^4.2.1",
