@@ -40,7 +40,7 @@ export const ButtonPage = styled.button<{
   selected: boolean
   size: 'sm' | 'md'
 }>`
-  border-radius: 4px;
+  border-radius: 8px;
 
   ${(props) => (props.selected ? `background-color: ${color.$grey08}` : '')};
   ${(props) =>
