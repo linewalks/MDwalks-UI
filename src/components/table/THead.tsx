@@ -17,23 +17,23 @@ import ICO_DOWN_DISABLE from '../../assets/svg/table/icn_sort_down_filled_disabl
 import ICO_UP_DISABLE from '../../assets/svg/table/icn_sort_up_filled_disabled_grey06_16.svg'
 
 interface ISize {
-  size: 'small' | 'medium';
+  size: 'small' | 'medium'
 }
 
-const Td = styled.td.attrs(({ size }:ISize) => ({
+const Td = styled.td.attrs(({ size }: ISize) => ({
   ...tableSize[size].thead.subHeader,
 }))`
   ${font.Text}
-  ${({ padding }) => (`padding: ${padding}`)};
+  ${({ padding }) => `padding: ${padding}`};
   text-align: center;
   background: ${color.$grey02};
 `
 
-const Th = styled.th.attrs(({ size }:ISize) => ({
+const Th = styled.th.attrs(({ size }: ISize) => ({
   ...tableSize[size].thead,
 }))`
   ${font.Text}
-  ${({ padding }) => (`padding: ${padding}`)};
+  ${({ padding }) => `padding: ${padding}`};
   text-align: center;
   background: ${color.$grey02};
 
@@ -46,7 +46,7 @@ const Th = styled.th.attrs(({ size }:ISize) => ({
   }
 `
 
-const SortButton = styled.button.attrs(({ size }:ISize) => ({
+const SortButton = styled.button.attrs(({ size }: ISize) => ({
   ...tableSize[size].thead,
 }))`
   ${font.Text}
@@ -85,26 +85,23 @@ const TrEmpty = () => (
 )
 
 interface HeaderTextProps {
-  text: string;
-  wrapTh?: (th: any) => void;
+  text: string
+  wrapTh?: (th: any) => void
 }
 
-const HeaderText = ({ text, wrapTh }:HeaderTextProps) => (
-  wrapTh
-    ? wrapTh({ text })
-    : <div>{text}</div>
-)
+const HeaderText = ({ text, wrapTh }: HeaderTextProps) =>
+  wrapTh ? wrapTh({ text }) : <div>{text}</div>
 
 HeaderText.defaultProps = {
   wrapTh: undefined,
 }
 
 interface HeaderSortIconProps {
-  sort: 'asc' | 'desc' | '';
-  loading: boolean;
+  sort: 'asc' | 'desc' | ''
+  loading: boolean
 }
 
-export const HeaderSortIcon = ({ sort, loading }:HeaderSortIconProps) => {
+export const HeaderSortIcon = ({ sort, loading }: HeaderSortIconProps) => {
   if (loading) {
     return (
       <span>
@@ -146,22 +143,21 @@ HeaderSortIcon.defaultProps = {
 }
 
 interface HeaderTextSortProps {
-  text: string;
-  sort: (order:string) => void;
-  loading: boolean;
-  size: 'small' | 'medium';
-  toggle: any;
+  text: string
+  sort: (order: string) => void
+  loading: boolean
+  size: 'small' | 'medium'
+  toggle: any
 }
 
 const HeaderTextSort = ({
-  text, sort, toggle, loading, size,
-}:HeaderTextSortProps) => (
-  <SortButton
-    disabled={loading}
-    type="button"
-    onClick={sort}
-    size={size}
-  >
+  text,
+  sort,
+  toggle,
+  loading,
+  size,
+}: HeaderTextSortProps) => (
+  <SortButton disabled={loading} type="button" onClick={sort} size={size}>
     {text}
     <HeaderSortIcon sort={toggle[text]} loading={loading} />
   </SortButton>
@@ -175,29 +171,37 @@ HeaderTextSort.defaultProps = {
 }
 
 interface THeadProps {
-  headers: any[];
-  wrapTh: () => void;
-  subHeaders: any;
-  loading: boolean;
-  size: 'small' | 'medium';
-  sortOrderList: string[];
+  headers: any[]
+  wrapTh: () => void
+  subHeaders: any
+  loading: boolean
+  size: 'small' | 'medium'
+  sortOrderList: string[]
   defaultSort: {
-    text: string;
-    order: number;
-  };
-  resetSort: boolean;
-  setResetSort: (isReset?:boolean) => void;
+    text: string
+    order: number
+  }
+  resetSort: boolean
+  setResetSort: (isReset?: boolean) => void
 }
 
 interface IHeaderRow {
-  colSpan?: number;
-  text?: string;
-  sort?: (header: string, order: 'asc' | 'desc' | '') => void;
+  colSpan?: number
+  text?: string
+  sort?: (header: string, order: 'asc' | 'desc' | '') => void
 }
 
 const THead = ({
-  headers, wrapTh, subHeaders, loading, size, sortOrderList, defaultSort, resetSort, setResetSort,
-}:THeadProps) => {
+  headers,
+  wrapTh,
+  subHeaders,
+  loading,
+  size,
+  sortOrderList,
+  defaultSort,
+  resetSort,
+  setResetSort,
+}: THeadProps) => {
   const [toggle, setToggle] = useState({})
   const [toggleIdx, setToggleIdx] = useState({})
 
@@ -206,12 +210,12 @@ const THead = ({
     let toggleIdxDumy = { ...toggleIdx }
 
     if (!toggleIdxDumy[text]) {
-      toggleIdxDumy = _.mapValues(toggleIdxDumy, () => (0))
+      toggleIdxDumy = _.mapValues(toggleIdxDumy, () => 0)
       toggleIdxDumy[text] = 0
     }
 
     if (!toggleDumy[text]) {
-      toggleDumy = _.mapValues(toggleDumy, () => (''))
+      toggleDumy = _.mapValues(toggleDumy, () => '')
       const [initSort] = sortOrderList
       toggleDumy[text] = initSort
     }
@@ -235,7 +239,11 @@ const THead = ({
       <tr>
         {subTitleGroup.map((subTitle, i) => {
           const key = `subheader_${subTitle}${i}`
-          return <Td key={key} size={size}>{subTitle}</Td>
+          return (
+            <Td key={key} size={size}>
+              {subTitle}
+            </Td>
+          )
         })}
       </tr>
     )
@@ -243,12 +251,13 @@ const THead = ({
 
   const createHeader = (headerData) => (
     <tr>
-      {headerData.map((row:string | IHeaderRow) => {
+      {headerData.map((row: string | IHeaderRow) => {
         let rowSpan
         let colSpan
 
         const text = _.isObject(row) ? row.text : row
-        const sort = _.isObject(row) && row.sort ? () => onSort(text, row.sort) : null
+        const sort =
+          _.isObject(row) && row.sort ? () => onSort(text, row.sort) : null
 
         if (_.isObject(row) && row.colSpan) {
           colSpan = row.colSpan
@@ -268,13 +277,15 @@ const THead = ({
             sort={_.isFunction(sort)}
             size={size}
           >
-            {
-              sort
-                ? HeaderTextSort({
-                  text, sort, toggle, loading, size,
+            {sort
+              ? HeaderTextSort({
+                  text,
+                  sort,
+                  toggle,
+                  loading,
+                  size,
                 })
-                : HeaderText({ text, wrapTh })
-            }
+              : HeaderText({ text, wrapTh })}
           </Th>
         )
       })}
@@ -318,7 +329,7 @@ const THead = ({
       {_.isEmpty(subHeaders) ? null : createSubHeader(subHeaders)}
     </Thead>
   )
-};
+}
 
 THead.defaultProps = {
   headers: undefined,

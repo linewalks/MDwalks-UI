@@ -11,13 +11,15 @@ import btnPreSm from '../../assets/svg/pagination/btn_pagination_previous_32.svg
 
 import Input from './Input'
 
-export const PaginationBox = styled.section<{ isHidden: boolean; }>`
+export const PaginationBox = styled.section<{ isHidden: boolean }>`
   display: flex;
   align-items: center;
   ${({ isHidden }) => isHidden && 'display: none;'};
 `
 
-export const PaginationInner = styled.div<{ align: 'center' | 'left' | 'right'; }>`
+export const PaginationInner = styled.div<{
+  align: 'center' | 'left' | 'right'
+}>`
   display: inline-block;
 
   ${(props) => (props.align === 'center' ? `margin: 0 auto` : '')}
@@ -34,39 +36,45 @@ export const PageText = styled.span<{ size: 'sm' | 'md' }>`
   ${(props) => (props.size === 'sm' ? `font-size: 14px;` : `font-size: 16px;`)};
 `
 
-export const ButtonPage = styled.button<{ selected: boolean; size: 'sm' | 'md'; }>`
+export const ButtonPage = styled.button<{
+  selected: boolean
+  size: 'sm' | 'md'
+}>`
   border-radius: 4px;
 
   ${(props) => (props.selected ? `background-color: ${color.$grey08}` : '')};
-  ${(props) => (props.selected ? `color: ${color.$white}` : `color: ${color.$grey08}`)};
-  ${(props) => (props.size === 'sm'
-    ? `
+  ${(props) =>
+    props.selected ? `color: ${color.$white}` : `color: ${color.$grey08}`};
+  ${(props) =>
+    props.size === 'sm'
+      ? `
       font-size: 14px;
       min-width: 32px;
       height: 32px;
     `
-    : `
+      : `
       font-size: 16px;
       min-width: 42px;
       height: 42px;
-    `
-  )};
+    `};
 `
 interface IButtonMove {
-  size: 'sm' | 'md';
-  disabled: boolean;
-  onClick: () => void;
+  size: 'sm' | 'md'
+  disabled: boolean
+  onClick: () => void
 }
 
 export const ButtonMove = styled.button<IButtonMove>`
   img {
     border-radius: 8px;
   }
-  ${({disabled}) => (disabled && `
+  ${({ disabled }) =>
+    disabled &&
+    `
     background-color: transparent;
     color: ${color.$grey03};
     cursor: not-allowed;
-  `)};
+  `};
   font-size: 0;
   &:first-child {
     margin-right: 16px;
@@ -76,34 +84,34 @@ export const ButtonMove = styled.button<IButtonMove>`
     margin-left: 16px;
   }
 
-  ${(props) => (props.size === 'sm'
-    ? `
+  ${(props) =>
+    props.size === 'sm'
+      ? `
       height: 32px;
     `
-    : `
+      : `
       height: 42px;
-    `
-  )};
+    `};
 `
 
 interface IProps {
-  size: 'sm' | 'md';
-  onChange: (page: number) => void;
-  selectPage: number;
-  totalPage: number;
-  drawPageCnt: number;
-  simple: boolean;
-  align: 'center' | 'left' | 'right';
+  size: 'sm' | 'md'
+  onChange: (page: number) => void
+  selectPage: number
+  totalPage: number
+  drawPageCnt: number
+  simple: boolean
+  align: 'center' | 'left' | 'right'
 }
 
 interface IState {
-  selectPage: number;
-  totalPage: number;
-  drawPageCnt: number;
-  list: number[];
+  selectPage: number
+  totalPage: number
+  drawPageCnt: number
+  list: number[]
 }
 
-class Pagination extends Component <IProps, IState>{
+class Pagination extends Component<IProps, IState> {
   static defaultProps = {
     onChange: () => {},
     size: 'md',
@@ -115,12 +123,7 @@ class Pagination extends Component <IProps, IState>{
   }
   constructor(props) {
     super(props)
-    const {
-      selectPage,
-      totalPage,
-      drawPageCnt,
-      size,
-    } = props
+    const { selectPage, totalPage, drawPageCnt, size } = props
 
     this.state = {
       selectPage,
@@ -226,28 +229,26 @@ class Pagination extends Component <IProps, IState>{
             disabled={this.disablePrevButton()}
             onClick={this.movePrevPage}
           >
-            <img src={size === 'sm' ? btnPreSm : btnPre} width={imageSize} height={imageSize} alt="move previous" />
+            <img
+              src={size === 'sm' ? btnPreSm : btnPre}
+              width={imageSize}
+              height={imageSize}
+              alt="move previous"
+            />
           </ButtonMove>
-          {
-            simple
-            && (
-              <>
-                <Input
-                  initPage={selectPage * 1}
-                  max={totalPage}
-                  onChange={(page) => (this.onChange(page))}
-                />
-                <PageText size={size}>
-                  /
-                </PageText>
-                <PageText size={size}>
-                  {totalPage}
-                </PageText>
-              </>
-            )
-          }
-          {
-            !simple && this.getPageList().map((page) => (
+          {simple && (
+            <>
+              <Input
+                initPage={selectPage * 1}
+                max={totalPage}
+                onChange={(page) => this.onChange(page)}
+              />
+              <PageText size={size}>/</PageText>
+              <PageText size={size}>{totalPage}</PageText>
+            </>
+          )}
+          {!simple &&
+            this.getPageList().map((page) => (
               <ButtonPage
                 type="button"
                 size={size}
@@ -257,15 +258,19 @@ class Pagination extends Component <IProps, IState>{
               >
                 {page}
               </ButtonPage>
-            ))
-          }
+            ))}
           <ButtonMove
             type="button"
             size={size}
             disabled={this.disableNextButton()}
             onClick={this.moveNextPage}
           >
-            <img src={size === 'sm' ? btnNextSm : btnNext} width={imageSize} height={imageSize} alt="move next" />
+            <img
+              src={size === 'sm' ? btnNextSm : btnNext}
+              width={imageSize}
+              height={imageSize}
+              alt="move next"
+            />
           </ButtonMove>
         </PaginationInner>
       </PaginationBox>

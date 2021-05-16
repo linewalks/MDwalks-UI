@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import _ from 'lodash'
 import styled from 'styled-components'
 import * as font from '@Styles/font'
@@ -7,10 +7,10 @@ import { tableSize } from '@Styles/tableProperties'
 import EmptyPlaceHolder from './EmptyPlaceHolder'
 
 interface ISize {
-  size: 'small' | 'medium';
+  size: 'small' | 'medium'
 }
 // .td 가 존재하는 이유는 appendRow 에 스타일을 적용하지 않기 위해서 이다
-const ListTBody = styled.tbody.attrs(({ size }:ISize) => ({
+const ListTBody = styled.tbody.attrs(({ size }: ISize) => ({
   ...tableSize[size].tbody,
 }))`
   .td[rowspan] {
@@ -26,8 +26,9 @@ const ListTBody = styled.tbody.attrs(({ size }:ISize) => ({
     border-right: none;
   }
 
-  ${({ isHaveRowSpan }) => (isHaveRowSpan ? `` : `.tr:hover { background: ${color.$grey01}; }`)}
-  
+  ${({ isHaveRowSpan }) =>
+    isHaveRowSpan ? `` : `.tr:hover { background: ${color.$grey01}; }`}
+
   .tr:not(:first-child) {
     border-top: 1px solid ${color.$grey04};
   }
@@ -37,8 +38,9 @@ const ListTBody = styled.tbody.attrs(({ size }:ISize) => ({
     text-align: center;
   }
 
-  .td > a > div, .td > div {
-    ${(({ padding }) => `padding: ${padding};`)}
+  .td > a > div,
+  .td > div {
+    ${({ padding }) => `padding: ${padding};`}
   }
 `
 
@@ -50,12 +52,12 @@ const EmptyTbody = styled.tbody`
 `
 
 interface TBodyProps extends ISize {
-  headers: any[];
-  subHeaders: any;
-  rowData: any[];
-  wrapTd: (data:any) => React.ReactNode;
-  appendRow: (data:any, idx:number) => void;
-  placeholder: React.ReactNode | string;
+  headers: any[]
+  subHeaders: any
+  rowData: any[]
+  wrapTd: (data: any) => React.ReactNode
+  appendRow: (data: any, idx: number) => void
+  placeholder: React.ReactNode | string
 }
 
 const TBody = ({
@@ -66,7 +68,7 @@ const TBody = ({
   appendRow,
   size,
   placeholder,
-}:TBodyProps) => {
+}: TBodyProps) => {
   let singlevelHeader = headers
 
   if (subHeaders && wrapTd) {
@@ -80,71 +82,71 @@ const TBody = ({
     singlevelHeader = _.flatten(singlevelHeader)
   }
 
-  const createBody = (rowsData) => (
-    rowsData.map((data, idx) => (
-      [
-        <tr key={data} className="tr">
-          {
-          _.chain(Object.values(data)).reverse().map((row: any | { rowSpan: number; className: string; }, i) => {
+  const createBody = (rowsData) =>
+    rowsData.map((data, idx) => [
+      <tr key={data} className="tr">
+        {_.chain(Object.values(data))
+          .reverse()
+          .map((row: any | { rowSpan: number; className: string }, i) => {
             const { rowSpan, className = '' } = row || ''
             const drawIdx = singlevelHeader.length - i - 1
 
             const text = !_.isUndefined(rowSpan) ? row.text : row
 
             return (
-              <td
-                key={drawIdx}
-                className={`td ${className}`}
-                rowSpan={rowSpan}
-              >
-                { wrapTd ? wrapTd({
-                  data, label: singlevelHeader[drawIdx], text, idx: drawIdx,
-                })
-                  : <div>{text}</div> }
+              <td key={drawIdx} className={`td ${className}`} rowSpan={rowSpan}>
+                {wrapTd ? (
+                  wrapTd({
+                    data,
+                    label: singlevelHeader[drawIdx],
+                    text,
+                    idx: drawIdx,
+                  })
+                ) : (
+                  <div>{text}</div>
+                )}
               </td>
             )
-          }).reverse()
-            .value()
-          }
-        </tr>,
-        appendRow ? appendRow(data, idx) : null,
-      ]
-    ))
-  )
+          })
+          .reverse()
+          .value()}
+      </tr>,
+      appendRow ? appendRow(data, idx) : null,
+    ])
 
   const EmptyPlaceHolderGetColSpan = () => {
-    let colSpan;
+    let colSpan
     if (_.isEmpty(headers)) {
       colSpan = 1
       return colSpan
     }
 
-    colSpan = _.size(headers)
-      - _.size(subHeaders)
-      + _.chain(subHeaders)
-        .map()
-        .flattenDeep()
-        .size()
-        .value()
+    colSpan =
+      _.size(headers) -
+      _.size(subHeaders) +
+      _.chain(subHeaders).map().flattenDeep().size().value()
 
     return colSpan
   }
 
-  const isHaveRowSpan = _.some(_.flattenDeep(rowData), (item) => _.has(item, 'rowSpan'))
-
-  return (
-    _.isEmpty(rowData)
-      ? (
-        <EmptyTbody>
-          <tr>
-            <td colSpan={EmptyPlaceHolderGetColSpan()}>
-              <EmptyPlaceHolder text={placeholder} />
-            </td>
-          </tr>
-        </EmptyTbody>
-      ) : <ListTBody isHaveRowSpan={isHaveRowSpan} size={size}>{ createBody(rowData) }</ListTBody>
+  const isHaveRowSpan = _.some(_.flattenDeep(rowData), (item) =>
+    _.has(item, 'rowSpan'),
   )
-};
+
+  return _.isEmpty(rowData) ? (
+    <EmptyTbody>
+      <tr>
+        <td colSpan={EmptyPlaceHolderGetColSpan()}>
+          <EmptyPlaceHolder text={placeholder} />
+        </td>
+      </tr>
+    </EmptyTbody>
+  ) : (
+    <ListTBody isHaveRowSpan={isHaveRowSpan} size={size}>
+      {createBody(rowData)}
+    </ListTBody>
+  )
+}
 
 TBody.defaultProps = {
   headers: [],
@@ -156,4 +158,4 @@ TBody.defaultProps = {
   placeholder: undefined,
 }
 
-export default TBody;
+export default TBody
