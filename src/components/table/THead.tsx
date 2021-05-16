@@ -251,7 +251,7 @@ const THead = ({
 
   const createHeader = (headerData) => (
     <tr>
-      {headerData.map((row: string | IHeaderRow) => {
+      {headerData.map((row: string | IHeaderRow, idx: number) => {
         let rowSpan
         let colSpan
 
@@ -273,7 +273,7 @@ const THead = ({
           <Th
             colSpan={colSpan}
             rowSpan={rowSpan}
-            key={`header_${text}`}
+            key={`header_${idx}_${text}`}
             sort={_.isFunction(sort)}
             size={size}
           >
