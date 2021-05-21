@@ -37,22 +37,22 @@ const IcnList = {
 }
 
 interface CheckListDataProps {
-  id: number;
-  name: string;
-  disabled?: boolean;
+  id: number
+  name: string
+  disabled?: boolean
 }
 
 interface CheckListProps {
-  data: CheckListDataProps[];
-  selected: number[];
-  layout: 'horizontal' | 'vertical';
-  disabled: boolean;
-  checkVisible: boolean;
-  limit: number;
-  onChange: (id: number, selectedList: number[]) => void;
-  onError: () => void;
-  formatter: (string) => (string | React.ReactNode);
-  size: 'sm' | 'md';
+  data: CheckListDataProps[]
+  selected: number[]
+  layout: 'horizontal' | 'vertical'
+  disabled: boolean
+  checkVisible: boolean
+  limit: number
+  onChange: (id: number, selectedList: number[]) => void
+  onError: () => void
+  formatter: (string) => string | React.ReactNode
+  size: 'sm' | 'md'
 }
 
 const CheckList = ({
@@ -87,18 +87,22 @@ const CheckList = ({
 
   const getCheckIcon = (isDisabled, isChecked) => {
     if (isDisabled) {
-      return isChecked ? IcnList[size].disabled.checked : IcnList[size].disabled.unchecked
+      return isChecked
+        ? IcnList[size].disabled.checked
+        : IcnList[size].disabled.unchecked
     }
 
-    return isChecked ? IcnList[size].default.checked : IcnList[size].default.unchecked
+    return isChecked
+      ? IcnList[size].default.checked
+      : IcnList[size].default.unchecked
   }
 
   const getImgSize = () => (size === 'sm' ? '16px' : '24px')
 
   return (
     <>
-      {
-        !_.isEmpty(data) && data.map((item) => {
+      {!_.isEmpty(data) &&
+        data.map((item) => {
           const { id, name } = item
           const checked = _.includes(selected, id)
           const text = formatter ? formatter(item) : name
@@ -106,16 +110,34 @@ const CheckList = ({
 
           if (!checkVisible && checked) return null
           return (
-            <Item key={`checkItem${id}`} disabled={disabled || isDisabled} layout={layout}>
+            <Item
+              key={`checkItem${id}`}
+              disabled={disabled || isDisabled}
+              layout={layout}
+            >
               <label>
-                <img src={getCheckIcon(isDisabled, checked)} width={getImgSize()} height={getImgSize()} style={{ borderRadius: '4px' }} alt="" />
-                <font.TextOverflow style={{ fontSize: size === 'sm' ? 14 : 16 }}>{text}</font.TextOverflow>
-                <input type="checkbox" disabled={disabled || isDisabled} checked={checked} onChange={() => handleOnChange(id)} />
+                <img
+                  src={getCheckIcon(isDisabled, checked)}
+                  width={getImgSize()}
+                  height={getImgSize()}
+                  style={{ borderRadius: '4px' }}
+                  alt=""
+                />
+                <font.TextOverflow
+                  style={{ fontSize: size === 'sm' ? 14 : 16 }}
+                >
+                  {text}
+                </font.TextOverflow>
+                <input
+                  type="checkbox"
+                  disabled={disabled || isDisabled}
+                  checked={checked}
+                  onChange={() => handleOnChange(id)}
+                />
               </label>
             </Item>
           )
-        })
-      }
+        })}
     </>
   )
 }
