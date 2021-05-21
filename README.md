@@ -149,6 +149,11 @@ describe('어떤 함수 또는 컴포런트의', () => {
 - highcharts 외에는 styled.component 를 사용한다
 - component 지원하는 data structure 와 다른 경우 convert 하여 지원하는 data structure 로 만들어 사용한다
 
+### 2021년 추가 목표
+- 어떤 프로젝트에서든 쓰일 수 있도록 사용성을 쉽게 리팩토링
+  - className을 이용해 프로젝트에서 쉬벡 Customize 할 수 있도록
+  - style props를 이용해 style override 할 수 있도록
+
 
 ## 4. 버전 업 순서
 - git flow feature start 'version.up.${버전}'

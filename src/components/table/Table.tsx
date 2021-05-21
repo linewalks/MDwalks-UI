@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import _ from 'lodash'
 import styled, { css } from 'styled-components'
 import { color } from '@Styles/variables'
@@ -9,19 +9,20 @@ import TFoot from './TFoot'
 
 const sideFit = css`
   tbody {
-    .td:first-child, .td:last-child {
+    .td:first-child,
+    .td:last-child {
       white-space: nowrap;
       width: 1%;
     }
 
     .td:first-child > a > div,
     .td:first-child > div {
-      padding-left: 0
+      padding-left: 0;
     }
 
     .td:last-child > a > div,
     .td:last-child > div {
-      padding-right: 0
+      padding-right: 0;
     }
 
     .td:first-child {
@@ -39,7 +40,8 @@ const sideFit = css`
     }
   }
   thead th {
-    &:first-child, &:last-child {
+    &:first-child,
+    &:last-child {
       white-space: nowrap;
       width: 1%;
     }
@@ -55,8 +57,8 @@ const sideFit = css`
 `
 
 interface ITableBox {
-  notBottom?: boolean;
-  className?: string;
+  notBottom?: boolean
+  className?: string
 }
 
 const TableBox = styled.table<ITableBox>`
@@ -64,9 +66,11 @@ const TableBox = styled.table<ITableBox>`
   border-spacing: 0;
   width: 100%;
 
-  border-bottom:   ${(props) => (props.notBottom ? 'none' : `1px solid ${color.$grey06}`)};
+  border-bottom: ${(props) =>
+    props.notBottom ? 'none' : `1px solid ${color.$grey06}`};
 
-  ${(props) => (props.className.split(' ').includes('sideFit') ? sideFit : null)}
+  ${(props) =>
+    props.className.split(' ').includes('sideFit') ? sideFit : null}
 `
 
 const WrapScrollTables = styled.div`
@@ -74,21 +78,18 @@ const WrapScrollTables = styled.div`
 `
 
 interface IColumns {
-  columns?: number[];
+  columns?: number[]
 }
 
-const Columns = ({ columns }:IColumns) => (
+const Columns = ({ columns }: IColumns) =>
   !_.isEmpty(columns) && (
     <colgroup>
-      {
-        _.map(columns, (width, i) => {
-          const key = `columns${i}`
-          return (<col key={key} style={{ width }} />)
-        })
-      }
+      {_.map(columns, (width, i) => {
+        const key = `columns${i}`
+        return <col key={key} style={{ width }} />
+      })}
     </colgroup>
   )
-)
 
 Columns.defaultProps = {
   columns: {},
@@ -96,37 +97,48 @@ Columns.defaultProps = {
 
 interface TableProps extends IColumns {
   data: {
-    headers: any[];
+    headers: any[]
     subHeaders?: {
-      [key:string]: string[];
-    };
-    rowData: any[];
-    footData: any[];
-  };
-  wrapTh?: () => void;
-  wrapTd?: (data:any) => React.ReactNode;
-  appendRow?: () => void;
-  className?: string;
-  loading?: boolean;
+      [key: string]: string[]
+    }
+    rowData: any[]
+    footData: any[]
+  }
+  wrapTh?: () => void
+  wrapTd?: (data: any) => React.ReactNode
+  appendRow?: () => void
+  className?: string
+  loading?: boolean
   scroll?: {
-    y: number;
-  };
-  placeholder?: React.ReactNode | string;
-  sortOrderList?: string[];
+    y: number
+  }
+  placeholder?: React.ReactNode | string
+  sortOrderList?: string[]
   defaultSort?: {
-    text: string;
-    order: number;
-  };
-  resetSort?: boolean;
-  setResetSort?: () => void;
-  size: 'small' | 'medium';
+    text: string
+    order: number
+  }
+  resetSort?: boolean
+  setResetSort?: () => void
+  size: 'small' | 'medium'
 }
 
 const Table = ({
-  data, wrapTh, wrapTd, appendRow, className,
-  loading, scroll, columns, size, placeholder, defaultSort,
-  sortOrderList, resetSort, setResetSort,
-}:TableProps) => {
+  data,
+  wrapTh,
+  wrapTd,
+  appendRow,
+  className,
+  loading,
+  scroll,
+  columns,
+  size,
+  placeholder,
+  defaultSort,
+  sortOrderList,
+  resetSort,
+  setResetSort,
+}: TableProps) => {
   if (_.isEmpty(data)) {
     return (
       <div>
@@ -201,8 +213,8 @@ const Table = ({
       />
       <TFoot footData={data.footData} size={size} />
     </TableBox>
-  );
-};
+  )
+}
 
 Table.defaultProps = {
   data: {},

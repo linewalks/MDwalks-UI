@@ -5,8 +5,8 @@ import { color } from '@Styles/variables'
 import ChartConfig from '../../helper/ChartConfig'
 
 interface ItemProps {
-  layout?: 'horizontal' | 'vertical';
-  disabled?: boolean;
+  layout?: 'horizontal' | 'vertical'
+  disabled?: boolean
 }
 
 const CssEnable = css<ItemProps>`
@@ -17,7 +17,11 @@ const CssEnable = css<ItemProps>`
     box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);
   }
   &:hover {
-    background-color: ${(props) => (props.layout === ChartConfig.Layout.VERTICAL ? color.$pmblue02 : 'transparent')};
+    border-radius: 8px;
+    background-color: ${(props) =>
+      props.layout === ChartConfig.Layout.VERTICAL
+        ? color.$pmblue02
+        : 'transparent'};
   }
 `
 
@@ -27,7 +31,9 @@ const CssDisable = css`
   }
 `
 const Item = styled.div.attrs((props: ItemProps) => {
-  const fontColorClassName = props.disabled ? fontStyle.fc_grey06 : fontStyle.fc_grey09
+  const fontColorClassName = props.disabled
+    ? fontStyle.fc_grey06
+    : fontStyle.fc_grey09
   return {
     className: [fontStyle.fs16, fontColorClassName].join(' '),
   }
@@ -45,7 +51,8 @@ const Item = styled.div.attrs((props: ItemProps) => {
     display: none;
   }
 
-  display: ${({ layout }) => (layout === ChartConfig.Layout.HORIZONTAL ? 'inline-block' : 'block')};
+  display: ${({ layout }) =>
+    layout === ChartConfig.Layout.HORIZONTAL ? 'inline-block' : 'block'};
   ${(props) => (props.disabled ? CssDisable : CssEnable)}
 `
 
