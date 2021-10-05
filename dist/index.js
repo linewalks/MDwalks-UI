@@ -23761,32 +23761,79 @@ THead.defaultProps = {
 };
 var templateObject_1$6, templateObject_2$6, templateObject_3$6, templateObject_4$5;
 
+function toVal(mix) {
+	var k, y, str='';
+
+	if (typeof mix === 'string' || typeof mix === 'number') {
+		str += mix;
+	} else if (typeof mix === 'object') {
+		if (Array.isArray(mix)) {
+			for (k=0; k < mix.length; k++) {
+				if (mix[k]) {
+					if (y = toVal(mix[k])) {
+						str && (str += ' ');
+						str += y;
+					}
+				}
+			}
+		} else {
+			for (k in mix) {
+				if (mix[k]) {
+					str && (str += ' ');
+					str += k;
+				}
+			}
+		}
+	}
+
+	return str;
+}
+
+function clsx () {
+	var i=0, tmp, x, str='';
+	while (i < arguments.length) {
+		if (tmp = arguments[i++]) {
+			if (x = toVal(tmp)) {
+				str && (str += ' ');
+				str += x;
+			}
+		}
+	}
+	return str;
+}
+
 var icnNoData = "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20width%3D%22198%22%20height%3D%22140%22%20viewBox%3D%220%200%20198%20140%22%3E%20%20%20%20%3Cdefs%3E%20%20%20%20%20%20%20%20%3Cpath%20id%3D%22arl7iq60sa%22%20d%3D%22M193%2010l.002%20121.841C173.036%20119.9%20138.393%20112%2099%20112c-39.394%200-74.037%207.9-94.003%2019.842L5%2010h188z%22%2F%3E%20%20%20%20%20%20%20%20%3Cpath%20id%3D%22398c951k2e%22%20d%3D%22M26%200h62.376c1.116%200%202.18.465%202.937%201.284l21.624%2023.38c.683.74%201.063%201.71%201.063%202.716V117c0%202.21-1.79%204-4%204H24c-2.21%200-4-1.79-4-4V6c0-3.314%202.686-6%206-6z%22%2F%3E%20%20%20%20%20%20%20%20%3Cpath%20id%3D%22p88xccaerf%22%20d%3D%22M26%200h61.577c1.629%200%203.187.662%204.318%201.834l20.423%2021.17c1.08%201.119%201.682%202.612%201.682%204.166V110c0%203.314-2.686%206-6%206H26c-3.314%200-6-2.686-6-6V6c0-3.314%202.686-6%206-6z%22%2F%3E%20%20%20%20%20%20%20%20%3Cpath%20id%3D%226u84cdomzi%22%20d%3D%22M107%2045c12.703%200%2023%2010.297%2023%2023s-10.297%2023-23%2023-23-10.297-23-23%2010.297-23%2023-23zm0%202c-11.598%200-21%209.402-21%2021s9.402%2021%2021%2021%2021-9.402%2021-21-9.402-21-21-21zm-5.657%2013.929L107%2066.586l5.658-5.657c.39-.39%201.024-.39%201.414%200%20.39.39.39%201.024%200%201.414l-5.657%205.658%205.657%205.656c.39.39.39%201.024%200%201.414-.39.39-1.024.39-1.414%200l-5.658-5.656-5.656%205.656c-.39.39-1.024.39-1.414%200-.39-.39-.39-1.024%200-1.414L105.585%2068l-5.656-5.658c-.39-.39-.39-1.024%200-1.414.39-.39%201.024-.39%201.414%200z%22%2F%3E%20%20%20%20%20%20%20%20%3Cfilter%20id%3D%22e1eytp1awc%22%20width%3D%22117.3%25%22%20height%3D%22126.4%25%22%20x%3D%22-8.6%25%22%20y%3D%22-14.6%25%22%20filterUnits%3D%22objectBoundingBox%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%3CfeOffset%20dy%3D%22-2%22%20in%3D%22SourceAlpha%22%20result%3D%22shadowOffsetOuter1%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%3CfeGaussianBlur%20in%3D%22shadowOffsetOuter1%22%20result%3D%22shadowBlurOuter1%22%20stdDeviation%3D%226%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%3CfeColorMatrix%20in%3D%22shadowBlurOuter1%22%20values%3D%220%200%200%200%200.392156863%200%200%200%200%200.643137255%200%200%200%200%200.952941176%200%200%200%200.563865822%200%22%2F%3E%20%20%20%20%20%20%20%20%3C%2Ffilter%3E%20%20%20%20%20%20%20%20%3Cfilter%20id%3D%22dqtdf07c5h%22%20width%3D%22154.3%25%22%20height%3D%22154.3%25%22%20x%3D%22-27.2%25%22%20y%3D%22-25%25%22%20filterUnits%3D%22objectBoundingBox%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%3CfeOffset%20dy%3D%221%22%20in%3D%22SourceAlpha%22%20result%3D%22shadowOffsetOuter1%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%3CfeGaussianBlur%20in%3D%22shadowOffsetOuter1%22%20result%3D%22shadowBlurOuter1%22%20stdDeviation%3D%224%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%3CfeColorMatrix%20in%3D%22shadowBlurOuter1%22%20values%3D%220%200%200%200%200.388235294%200%200%200%200%200.639215686%200%200%200%200%200.952941176%200%200%200%201%200%22%2F%3E%20%20%20%20%20%20%20%20%3C%2Ffilter%3E%20%20%20%20%20%20%20%20%3Cellipse%20id%3D%220jvscuv9gd%22%20cx%3D%22100%22%20cy%3D%22184%22%20rx%3D%22110%22%20ry%3D%2272%22%2F%3E%20%20%20%20%3C%2Fdefs%3E%20%20%20%20%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%20%20%20%20%20%20%20%20%3Cg%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%20transform%3D%22translate%28-549%20-6591%29%20translate%2848%206497%29%20translate%28501%2094%29%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M0%200H198V140H0z%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cmask%20id%3D%223d40s237ib%22%20fill%3D%22%23fff%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cuse%20xlink%3Ahref%3D%22%23arl7iq60sa%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fmask%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%20fill%3D%22%23000%22%20mask%3D%22url%28%233d40s237ib%29%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cuse%20filter%3D%22url%28%23e1eytp1awc%29%22%20xlink%3Ahref%3D%22%230jvscuv9gd%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%20mask%3D%22url%28%233d40s237ib%29%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%20transform%3D%22translate%2840%2010%29%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20fill%3D%22%23C0D7FC%22%20d%3D%22M6%2023h67.543c1.63%200%203.19.663%204.32%201.836l22.457%2023.302c1.078%201.118%201.68%202.61%201.68%204.164V143c0%203.314-2.686%206-6%206H6c-3.314%200-6-2.686-6-6V29c0-3.314%202.686-6%206-6z%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cuse%20fill%3D%22%23FFF%22%20xlink%3Ahref%3D%22%23398c951k2e%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cmask%20id%3D%22gbfktvgyzg%22%20fill%3D%22%23fff%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cuse%20xlink%3Ahref%3D%22%23p88xccaerf%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fmask%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cuse%20fill%3D%22%2392B9FC%22%20xlink%3Ahref%3D%22%23p88xccaerf%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20fill%3D%22%23C0D7FC%22%20d%3D%22M90.728-6.164l28.686%2030.479c.378.402.36%201.035-.043%201.413-.186.175-.43.272-.685.272H93c-2.21%200-4-1.79-4-4V-5.478c0-.553.448-1%201-1%20.276%200%20.54.113.728.314z%22%20mask%3D%22url%28%23gbfktvgyzg%29%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%20mask%3D%22url%28%233d40s237ib%29%22%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cuse%20fill%3D%22%23000%22%20filter%3D%22url%28%23dqtdf07c5h%29%22%20xlink%3Ahref%3D%22%236u84cdomzi%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cuse%20fill%3D%22%23FFF%22%20xlink%3Ahref%3D%22%236u84cdomzi%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%3C%2Fg%3E%3C%2Fsvg%3E";
 
 var EmptyContainer = styled__default['default'].section(templateObject_1$7 || (templateObject_1$7 = tslib.__makeTemplateObject(["\n  display: flex;\n  align-items: center;\n  height: ", ";\n"], ["\n  display: flex;\n  align-items: center;\n  height: ", ";\n"])), function (props) {
   return props.height ? props.height + "px" : 'auto';
 });
 var EmptyInner = styled__default['default'].div(templateObject_2$7 || (templateObject_2$7 = tslib.__makeTemplateObject(["\n  text-align: center;\n  padding: 8px;\n  margin: auto;\n"], ["\n  text-align: center;\n  padding: 8px;\n  margin: auto;\n"])));
-var EmptyDescription = styled__default['default'].img.attrs({
-  src: "" + icnNoData
-})(templateObject_3$7 || (templateObject_3$7 = tslib.__makeTemplateObject(["\n  width: 198px;\n  height: 140px;\n  margin-bottom: 8px;\n  font-size: 0;\n"], ["\n  width: 198px;\n  height: 140px;\n  margin-bottom: 8px;\n  font-size: 0;\n"])));
-var EmptyText = styled__default['default'].div.attrs(function () {
+var EmptyDescription = styled__default['default'].img.attrs(function (_a) {
+  var newSrc = _a.newSrc;
   return {
-    className: [fontStyle.fs18, fontStyle.fc_grey08].join(' ')
+    src: "" + (newSrc !== null && newSrc !== void 0 ? newSrc : icnNoData)
   };
-})(templateObject_4$6 || (templateObject_4$6 = tslib.__makeTemplateObject(["\n"], ["\n"])));
+})(templateObject_3$7 || (templateObject_3$7 = tslib.__makeTemplateObject(["\n  width: 198px;\n  height: 140px;\n  margin-bottom: 8px;\n  font-size: 0;\n"], ["\n  width: 198px;\n  height: 140px;\n  margin-bottom: 8px;\n  font-size: 0;\n"])));
+var EmptyText = styled__default['default'].div.attrs({
+  className: clsx(fontStyle.fs18, fontStyle.fc_grey08)
+})(templateObject_4$6 || (templateObject_4$6 = tslib.__makeTemplateObject([""], [""])));
 
 var EmptyPlaceHolder = function (_a) {
   var height = _a.height,
-      text = _a.text;
+      text = _a.text,
+      imgSrc = _a.imgSrc;
+  console.log(imgSrc);
   return /*#__PURE__*/React__default['default'].createElement(EmptyContainer, {
     height: height
-  }, /*#__PURE__*/React__default['default'].createElement(EmptyInner, null, /*#__PURE__*/React__default['default'].createElement(EmptyDescription, null), /*#__PURE__*/React__default['default'].createElement(EmptyText, null, text)));
+  }, /*#__PURE__*/React__default['default'].createElement(EmptyInner, null, /*#__PURE__*/React__default['default'].createElement(EmptyDescription, {
+    newSrc: imgSrc
+  }), /*#__PURE__*/React__default['default'].createElement(EmptyText, null, text)));
 };
 
 EmptyPlaceHolder.defaultProps = {
   height: undefined,
-  text: 'There is no data'
+  text: 'There is no data',
+  imgSrc: undefined
 };
 var templateObject_1$7, templateObject_2$7, templateObject_3$7, templateObject_4$6;
 
@@ -23809,7 +23856,8 @@ var TBody = function (_a) {
       wrapTd = _a.wrapTd,
       appendRow = _a.appendRow,
       size = _a.size,
-      placeholder = _a.placeholder;
+      placeholder = _a.placeholder,
+      emptyImgSrc = _a.emptyImgSrc;
   var singlevelHeader = headers;
 
   if (subHeaders && wrapTd) {
@@ -23871,7 +23919,8 @@ var TBody = function (_a) {
   return lodash.isEmpty(rowData) ? /*#__PURE__*/React__default['default'].createElement(EmptyTbody, null, /*#__PURE__*/React__default['default'].createElement("tr", null, /*#__PURE__*/React__default['default'].createElement("td", {
     colSpan: EmptyPlaceHolderGetColSpan()
   }, /*#__PURE__*/React__default['default'].createElement(EmptyPlaceHolder, {
-    text: placeholder
+    text: placeholder,
+    imgSrc: emptyImgSrc
   })))) : /*#__PURE__*/React__default['default'].createElement(ListTBody, {
     isHaveRowSpan: isHaveRowSpan,
     size: size
@@ -23885,7 +23934,8 @@ TBody.defaultProps = {
   wrapTd: null,
   appendRow: null,
   size: 'medium',
-  placeholder: undefined
+  placeholder: undefined,
+  emptyImgSrc: undefined
 };
 var templateObject_1$8, templateObject_2$8;
 
@@ -23973,7 +24023,8 @@ var Table = function (_a) {
       defaultSort = _a.defaultSort,
       sortOrderList = _a.sortOrderList,
       resetSort = _a.resetSort,
-      setResetSort = _a.setResetSort;
+      setResetSort = _a.setResetSort,
+      emptyImgSrc = _a.emptyImgSrc;
 
   if (lodash.isEmpty(data)) {
     return /*#__PURE__*/React__default['default'].createElement("div", null, "There is no data", /*#__PURE__*/React__default['default'].createElement("br", null), "Please search agains");
@@ -24009,7 +24060,8 @@ var Table = function (_a) {
       wrapTd: wrapTd,
       appendRow: appendRow,
       size: size,
-      placeholder: placeholder
+      placeholder: placeholder,
+      emptyImgSrc: emptyImgSrc
     }))), /*#__PURE__*/React__default['default'].createElement(TableBox, {
       className: className,
       notBottom: true
@@ -24042,7 +24094,8 @@ var Table = function (_a) {
     wrapTd: wrapTd,
     appendRow: appendRow,
     size: size,
-    placeholder: placeholder
+    placeholder: placeholder,
+    emptyImgSrc: emptyImgSrc
   }), /*#__PURE__*/React__default['default'].createElement(TFoot, {
     footData: data.footData,
     size: size
@@ -24064,7 +24117,8 @@ Table.defaultProps = {
   sortOrderList: ['desc', 'asc', ''],
   defaultSort: {},
   resetSort: false,
-  setResetSort: function () {}
+  setResetSort: function () {},
+  emptyImgSrc: undefined
 };
 var templateObject_1$a, templateObject_2$9, templateObject_3$8;
 
@@ -27386,49 +27440,8 @@ function (_super) {
 }(React.Component);
 var templateObject_1$j;
 
-var css_248z$3 = ".mwc-button {\n  font-weight: bold;\n  border: none;\n  background-color: transparent;\n  cursor: pointer;\n  outline: none;\n  transition: background-color 0.3s, color 0.3s ease, border-color 0.3s ease;\n  line-height: 1.34em; }\n  .mwc-button img {\n    vertical-align: middle; }\n  .mwc-button:hover {\n    text-decoration: none; }\n  .mwc-button:disabled {\n    cursor: not-allowed; }\n\n.mwc-button__xlg {\n  min-width: 100%;\n  height: 60px;\n  border-radius: 10px;\n  padding: 16px 20px;\n  font-size: 18px;\n  margin-right: 0px; }\n  .mwc-button__xlg img {\n    margin: 8px; }\n\n.mwc-button__lg {\n  min-width: 100px;\n  height: 42px;\n  border-radius: 21px;\n  padding: 10px 20px;\n  font-size: 16px;\n  margin-right: 8px; }\n  .mwc-button__lg img {\n    margin: 8px; }\n\n.mwc-button__md {\n  min-width: 90px;\n  height: 34px;\n  border-radius: 17px;\n  padding: 7px 18px;\n  font-size: 14px;\n  margin-right: 8px; }\n  .mwc-button__md img {\n    margin: 6px; }\n\n.mwc-button__primary {\n  background-color: #189bff;\n  color: #ffffff; }\n  .mwc-button__primary:hover {\n    background-color: #028af2; }\n  .mwc-button__primary:disabled {\n    background-color: #edf1f5;\n    color: #b0b8c1;\n    border: none;\n    box-shadow: none; }\n\n.mwc-button__primary_line {\n  background-color: #ffffff;\n  color: #189bff;\n  border: 1px solid #189bff; }\n  .mwc-button__primary_line:hover {\n    box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);\n    border: 1px solid #189bff; }\n  .mwc-button__primary_line:disabled {\n    background-color: #edf1f5;\n    color: #b0b8c1;\n    border: none;\n    box-shadow: none; }\n\n.mwc-button__basic {\n  background-color: #e7ebee;\n  color: #4d5661; }\n  .mwc-button__basic:hover {\n    background-color: #d3d9de;\n    color: #4d5661; }\n  .mwc-button__basic:disabled {\n    background-color: #edf1f5;\n    color: #b0b8c1;\n    border: none;\n    box-shadow: none; }\n\n.mwc-button__basic_line {\n  background-color: #ffffff;\n  color: #4d5661;\n  border: 1px solid #d3d9de; }\n  .mwc-button__basic_line:hover {\n    box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);\n    border: 1px solid #d3d9de; }\n  .mwc-button__basic_line:disabled {\n    background-color: #edf1f5;\n    color: #b0b8c1;\n    border: none;\n    box-shadow: none; }\n\n.mwc-button__primary_light {\n  background-color: #ffffff;\n  color: #189bff; }\n  .mwc-button__primary_light:hover {\n    box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36); }\n  .mwc-button__primary_light:disabled {\n    background-color: #edf1f5;\n    color: #b0b8c1;\n    border: none;\n    box-shadow: none; }\n\n.mwc-button__basic_light {\n  background-color: #ffffff;\n  color: #4d5661; }\n  .mwc-button__basic_light:hover {\n    box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36); }\n  .mwc-button__basic_light:disabled {\n    background-color: #edf1f5;\n    color: #b0b8c1;\n    border: none;\n    box-shadow: none; }\n\n@keyframes fade {\n  0% {\n    opacity: 0; }\n  50% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n.loading-one {\n  opacity: 0;\n  animation: fade 1.3s infinite;\n  animation-delay: 0.0s; }\n\n.loading-two {\n  opacity: 0;\n  animation: fade 1.3s infinite;\n  animation-delay: 0.2s; }\n\n.loading-three {\n  opacity: 0;\n  animation: fade 1.3s infinite;\n  animation-delay: 0.3s; }\n";
+var css_248z$3 = ".mwc-button {\n  font-weight: bold;\n  border: none;\n  background-color: transparent;\n  cursor: pointer;\n  outline: none;\n  transition: background-color 0.3s, color 0.3s ease, border-color 0.3s ease;\n  line-height: 1.34em; }\n  .mwc-button img {\n    vertical-align: middle; }\n  .mwc-button:hover {\n    text-decoration: none; }\n  .mwc-button:disabled {\n    cursor: not-allowed; }\n\n.mwc-button__xlg {\n  min-width: 100%;\n  height: 60px;\n  border-radius: 10px;\n  padding: 16px 20px;\n  font-size: 18px; }\n  .mwc-button__xlg img {\n    margin: 8px; }\n\n.mwc-button__lg {\n  min-width: 100px;\n  height: 42px;\n  border-radius: 21px;\n  padding: 10px 20px;\n  font-size: 16px; }\n  .mwc-button__lg img {\n    margin: 8px; }\n\n.mwc-button__md {\n  min-width: 90px;\n  height: 34px;\n  border-radius: 17px;\n  padding: 7px 18px;\n  font-size: 14px; }\n  .mwc-button__md img {\n    margin: 6px; }\n\n.mwc-button__primary {\n  background-color: #189bff;\n  color: #ffffff; }\n  .mwc-button__primary:hover {\n    background-color: #028af2; }\n  .mwc-button__primary:disabled {\n    background-color: #edf1f5;\n    color: #b0b8c1;\n    border: none;\n    box-shadow: none; }\n\n.mwc-button__primary_line {\n  background-color: #ffffff;\n  color: #189bff;\n  border: 1px solid #189bff; }\n  .mwc-button__primary_line:hover {\n    box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);\n    border: 1px solid #189bff; }\n  .mwc-button__primary_line:disabled {\n    background-color: #edf1f5;\n    color: #b0b8c1;\n    border: none;\n    box-shadow: none; }\n\n.mwc-button__basic {\n  background-color: #e7ebee;\n  color: #4d5661; }\n  .mwc-button__basic:hover {\n    background-color: #d3d9de;\n    color: #4d5661; }\n  .mwc-button__basic:disabled {\n    background-color: #edf1f5;\n    color: #b0b8c1;\n    border: none;\n    box-shadow: none; }\n\n.mwc-button__basic_line {\n  background-color: #ffffff;\n  color: #4d5661;\n  border: 1px solid #d3d9de; }\n  .mwc-button__basic_line:hover {\n    box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36);\n    border: 1px solid #d3d9de; }\n  .mwc-button__basic_line:disabled {\n    background-color: #edf1f5;\n    color: #b0b8c1;\n    border: none;\n    box-shadow: none; }\n\n.mwc-button__primary_light {\n  background-color: #ffffff;\n  color: #189bff; }\n  .mwc-button__primary_light:hover {\n    box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36); }\n  .mwc-button__primary_light:disabled {\n    background-color: #edf1f5;\n    color: #b0b8c1;\n    border: none;\n    box-shadow: none; }\n\n.mwc-button__basic_light {\n  background-color: #ffffff;\n  color: #4d5661; }\n  .mwc-button__basic_light:hover {\n    box-shadow: 0 1px 8px 0 rgba(109, 120, 132, 0.36); }\n  .mwc-button__basic_light:disabled {\n    background-color: #edf1f5;\n    color: #b0b8c1;\n    border: none;\n    box-shadow: none; }\n\n@keyframes fade {\n  0% {\n    opacity: 0; }\n  50% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n.loading-one {\n  opacity: 0;\n  animation: fade 1.3s infinite;\n  animation-delay: 0.0s; }\n\n.loading-two {\n  opacity: 0;\n  animation: fade 1.3s infinite;\n  animation-delay: 0.2s; }\n\n.loading-three {\n  opacity: 0;\n  animation: fade 1.3s infinite;\n  animation-delay: 0.3s; }\n";
 styleInject(css_248z$3);
-
-function toVal(mix) {
-	var k, y, str='';
-
-	if (typeof mix === 'string' || typeof mix === 'number') {
-		str += mix;
-	} else if (typeof mix === 'object') {
-		if (Array.isArray(mix)) {
-			for (k=0; k < mix.length; k++) {
-				if (mix[k]) {
-					if (y = toVal(mix[k])) {
-						str && (str += ' ');
-						str += y;
-					}
-				}
-			}
-		} else {
-			for (k in mix) {
-				if (mix[k]) {
-					str && (str += ' ');
-					str += k;
-				}
-			}
-		}
-	}
-
-	return str;
-}
-
-function clsx () {
-	var i=0, tmp, x, str='';
-	while (i < arguments.length) {
-		if (tmp = arguments[i++]) {
-			if (x = toVal(tmp)) {
-				str && (str += ' ');
-				str += x;
-			}
-		}
-	}
-	return str;
-}
 
 function DynamicTag(_a) {
   var as = _a.as,
@@ -27475,17 +27488,17 @@ var Button = function (props) {
     showLoading = isLoading === 'true';
   }
 
-  return /*#__PURE__*/React__default['default'].createElement(DynamicTag, {
+  return /*#__PURE__*/React__default['default'].createElement(DynamicTag, tslib.__assign({
     id: id,
     disabled: disabled || showLoading,
-    className: clsx(["mwc-button", "mwc-button__" + size, "mwc-button__" + variant]),
+    className: clsx("mwc-button", "mwc-button__" + size, "mwc-button__" + variant),
     // style={style}
     style: tslib.__assign(tslib.__assign({}, style), {
       fontWeight: bold ? 'bold' : 'normal'
     }),
     onClick: onClick,
     as: propsAs
-  }, showLoading ? 'loading' : children, showLoading && /*#__PURE__*/React__default['default'].createElement("span", null, /*#__PURE__*/React__default['default'].createElement("span", {
+  }, props), showLoading ? 'loading' : children, showLoading && /*#__PURE__*/React__default['default'].createElement("span", null, /*#__PURE__*/React__default['default'].createElement("span", {
     className: "loading-one"
   }, "."), /*#__PURE__*/React__default['default'].createElement("span", {
     className: "loading-two"
@@ -30028,7 +30041,7 @@ ProgressBar.defaultProps = {
   strokeColor: null
 };
 
-var version = "0.15.4";
+var version = "0.15.5";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;
