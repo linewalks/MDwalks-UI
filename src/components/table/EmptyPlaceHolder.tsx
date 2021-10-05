@@ -40,17 +40,14 @@ interface EmptyPlaceHolderProps {
   imgSrc: string
 }
 
-const EmptyPlaceHolder = ({ height, text, imgSrc }: EmptyPlaceHolderProps) => {
-  console.log(imgSrc)
-  return (
-    <EmptyContainer height={height}>
-      <EmptyInner>
-        <EmptyDescription newSrc={imgSrc} />
-        <EmptyText>{text}</EmptyText>
-      </EmptyInner>
-    </EmptyContainer>
-  )
-}
+const EmptyPlaceHolder = ({ height, text, imgSrc }: EmptyPlaceHolderProps) => (
+  <EmptyContainer height={height}>
+    <EmptyInner>
+      <EmptyDescription newSrc={imgSrc} />
+      <EmptyText>{text}</EmptyText>
+    </EmptyInner>
+  </EmptyContainer>
+)
 
 EmptyPlaceHolder.defaultProps = {
   height: undefined,
