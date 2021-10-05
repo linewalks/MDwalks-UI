@@ -121,6 +121,7 @@ interface TableProps extends IColumns {
   resetSort?: boolean
   setResetSort?: () => void
   size: 'small' | 'medium'
+  emptyImgSrc: string
 }
 
 const Table = ({
@@ -138,6 +139,7 @@ const Table = ({
   sortOrderList,
   resetSort,
   setResetSort,
+  emptyImgSrc,
 }: TableProps) => {
   if (_.isEmpty(data)) {
     return (
@@ -177,6 +179,7 @@ const Table = ({
               appendRow={appendRow}
               size={size}
               placeholder={placeholder}
+              emptyImgSrc={emptyImgSrc}
             />
           </TableBox>
         </commonTag.WrapperScrollBars>
@@ -210,6 +213,7 @@ const Table = ({
         appendRow={appendRow}
         size={size}
         placeholder={placeholder}
+        emptyImgSrc={emptyImgSrc}
       />
       <TFoot footData={data.footData} size={size} />
     </TableBox>
@@ -232,6 +236,7 @@ Table.defaultProps = {
   defaultSort: {},
   resetSort: false,
   setResetSort: () => {},
+  emptyImgSrc: undefined,
 }
 
 export default Table
