@@ -23822,7 +23822,6 @@ var EmptyPlaceHolder = function (_a) {
   var height = _a.height,
       text = _a.text,
       imgSrc = _a.imgSrc;
-  console.log(imgSrc);
   return /*#__PURE__*/React__default['default'].createElement(EmptyContainer, {
     height: height
   }, /*#__PURE__*/React__default['default'].createElement(EmptyInner, null, /*#__PURE__*/React__default['default'].createElement(EmptyDescription, {
@@ -30041,7 +30040,7 @@ ProgressBar.defaultProps = {
   strokeColor: null
 };
 
-var version = "0.15.5";
+var version = "0.15.6";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;

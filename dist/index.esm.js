@@ -23792,7 +23792,6 @@ var EmptyPlaceHolder = function (_a) {
   var height = _a.height,
       text = _a.text,
       imgSrc = _a.imgSrc;
-  console.log(imgSrc);
   return /*#__PURE__*/React.createElement(EmptyContainer, {
     height: height
   }, /*#__PURE__*/React.createElement(EmptyInner, null, /*#__PURE__*/React.createElement(EmptyDescription, {
@@ -30011,7 +30010,7 @@ ProgressBar.defaultProps = {
   strokeColor: null
 };
 
-var version = "0.15.5";
+var version = "0.15.6";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckBox, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, ProgressBar, RadarChart, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, Timeline, index as Toast, ToggleButton, Tooltip, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, tableProperties$1 as tableProperties, variables, version };
 //# sourceMappingURL=index.esm.js.map
