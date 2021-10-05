@@ -49,15 +49,16 @@ const Button = (props: ButtonProps) => {
     <DynamicTag
       id={id}
       disabled={disabled || showLoading}
-      className={clsx([
+      className={clsx(
         `mwc-button`,
         `mwc-button__${size}`,
         `mwc-button__${variant}`,
-      ])}
+      )}
       // style={style}
       style={{ ...style, fontWeight: bold ? 'bold' : 'normal' }}
       onClick={onClick}
       as={propsAs}
+      {...props}
     >
       {showLoading ? 'loading' : children}
       {showLoading && (

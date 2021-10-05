@@ -58,6 +58,7 @@ interface TBodyProps extends ISize {
   wrapTd: (data: any) => React.ReactNode
   appendRow: (data: any, idx: number) => void
   placeholder: React.ReactNode | string
+  emptyImgSrc: string
 }
 
 const TBody = ({
@@ -68,6 +69,7 @@ const TBody = ({
   appendRow,
   size,
   placeholder,
+  emptyImgSrc,
 }: TBodyProps) => {
   let singlevelHeader = headers
 
@@ -137,7 +139,7 @@ const TBody = ({
     <EmptyTbody>
       <tr>
         <td colSpan={EmptyPlaceHolderGetColSpan()}>
-          <EmptyPlaceHolder text={placeholder} />
+          <EmptyPlaceHolder text={placeholder} imgSrc={emptyImgSrc} />
         </td>
       </tr>
     </EmptyTbody>
@@ -156,6 +158,7 @@ TBody.defaultProps = {
   appendRow: null,
   size: 'medium',
   placeholder: undefined,
+  emptyImgSrc: undefined,
 }
 
 export default TBody
