@@ -1,3 +1,12 @@
+## [0.15.6](https://github.com/linewalks/MDwalks-UI/compare/v0.15.5...v0.15.6) (2021-10-05)
+
+
+### Bug Fixes
+
+* 불필요한 로그 제거 ([83da8f1](https://github.com/linewalks/MDwalks-UI/commit/83da8f17f0a162b8d1d132c5ee44c3052b5daaf6))
+
+
+
 ## [0.15.5](https://github.com/linewalks/MDwalks-UI/compare/v0.15.4...v0.15.5) (2021-10-05)
 
 
