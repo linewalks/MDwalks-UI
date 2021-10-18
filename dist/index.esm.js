@@ -27450,24 +27450,17 @@ var Button = function (props) {
       style = props.style,
       onClick = props.onClick,
       id = props.id,
-      bold = props.bold;
-  var showLoading = isLoading;
-
-  if (lodash.isString(isLoading)) {
-    showLoading = isLoading === 'true';
-  }
+      rest = __rest(props, ["as", "isLoading", "disabled", "children", "size", "variant", "style", "onClick", "id"]);
 
   return /*#__PURE__*/React.createElement(DynamicTag, __assign({
     id: id,
-    disabled: disabled || showLoading,
+    disabled: disabled || isLoading,
     className: clsx("mwc-button", "mwc-button__" + size, "mwc-button__" + variant),
     // style={style}
-    style: __assign(__assign({}, style), {
-      fontWeight: bold ? 'bold' : 'normal'
-    }),
+    style: __assign({}, style),
     onClick: onClick,
     as: propsAs
-  }, props), showLoading ? 'loading' : children, showLoading && /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("span", {
+  }, rest), isLoading ? 'loading' : children, isLoading && /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("span", {
     className: "loading-one"
   }, "."), /*#__PURE__*/React.createElement("span", {
     className: "loading-two"
@@ -27484,8 +27477,7 @@ Button.defaultProps = {
   style: {},
   onClick: function () {},
   id: undefined,
-  as: 'button',
-  bold: true
+  as: 'button'
 };
 
 var icnPopupCloseMd = "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%20%20%20%20%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%20%20%20%20%20%20%20%20%3Cg%3E%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M0%200H32V32H0z%22%20transform%3D%22translate%28-1133%20-1612%29%20translate%280%20814%29%20translate%28116%20778%29%20translate%281017%2020%29%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20fill%3D%22%234D5661%22%20d%3D%22M5.71%204.292L16.05%2014.634l10.24-10.238c.39-.39%201.024-.39%201.414%200l.003.003c.39.39.39%201.024%200%201.414l-10.24%2010.238%2010.136%2010.136c.39.39.39%201.024%200%201.414l-.003.003c-.39.39-1.024.39-1.414%200L16.051%2017.468%205.813%2027.708c-.39.39-1.024.39-1.414%200l-.003-.003c-.39-.39-.39-1.024%200-1.414l10.238-10.24L4.292%205.71c-.39-.39-.39-1.024%200-1.414l.003-.003c.39-.39%201.024-.39%201.414%200z%22%20transform%3D%22translate%28-1133%20-1612%29%20translate%280%20814%29%20translate%28116%20778%29%20translate%281017%2020%29%22%2F%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%20%20%20%20%3C%2Fg%3E%20%20%20%20%3C%2Fg%3E%3C%2Fsvg%3E";
@@ -27508,7 +27500,7 @@ var Contents = styled(TextTag).attrs({
   bold: false,
   color: color.$grey10
 })(templateObject_4$9 || (templateObject_4$9 = __makeTemplateObject(["\n  padding-bottom: 16px;\n"], ["\n  padding-bottom: 16px;\n"])));
-var Loading = styled.div(templateObject_5$5 || (templateObject_5$5 = __makeTemplateObject(["\n  border: 16px solid #63a3f3; /* Light grey */\n  border-top: 16px solid #d5e7fd; /* Blue */\n  border-radius: 50%;\n  width: 120px;\n  height: 120px;\n  animation: spin 2s linear infinite;\n\n  @keyframes spin {\n    0% { transform: rotate(0deg); }\n    100% { transform: rotate(360deg); }\n  }\n\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  margin-left: -60px;\n  margin-top: -60px;\n"], ["\n  border: 16px solid #63a3f3; /* Light grey */\n  border-top: 16px solid #d5e7fd; /* Blue */\n  border-radius: 50%;\n  width: 120px;\n  height: 120px;\n  animation: spin 2s linear infinite;\n\n  @keyframes spin {\n    0% { transform: rotate(0deg); }\n    100% { transform: rotate(360deg); }\n  }\n\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  margin-left: -60px;\n  margin-top: -60px;\n"])));
+var Loading = styled.div(templateObject_5$5 || (templateObject_5$5 = __makeTemplateObject(["\n  border: 16px solid #63a3f3; /* Light grey */\n  border-top: 16px solid #d5e7fd; /* Blue */\n  border-radius: 50%;\n  width: 120px;\n  height: 120px;\n  animation: spin 2s linear infinite;\n\n  @keyframes spin {\n    0% {\n      transform: rotate(0deg);\n    }\n    100% {\n      transform: rotate(360deg);\n    }\n  }\n\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  margin-left: -60px;\n  margin-top: -60px;\n"], ["\n  border: 16px solid #63a3f3; /* Light grey */\n  border-top: 16px solid #d5e7fd; /* Blue */\n  border-radius: 50%;\n  width: 120px;\n  height: 120px;\n  animation: spin 2s linear infinite;\n\n  @keyframes spin {\n    0% {\n      transform: rotate(0deg);\n    }\n    100% {\n      transform: rotate(360deg);\n    }\n  }\n\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  margin-left: -60px;\n  margin-top: -60px;\n"])));
 var Footer$1 = styled.footer(templateObject_6$3 || (templateObject_6$3 = __makeTemplateObject(["\n  padding-top: ", ";\n  text-align: right;\n"], ["\n  padding-top: ", ";\n  text-align: right;\n"])), size$1.footerPaddingTop);
 
 var basicButtons = function (_a) {
@@ -27530,6 +27522,9 @@ var basicButtons = function (_a) {
   return /*#__PURE__*/React.createElement("div", null, type && lodash.isEqual(type, 'confirm') && /*#__PURE__*/React.createElement(Button, {
     variant: "basic_line",
     size: "lg",
+    style: {
+      marginRight: 8
+    },
     onClick: wrappedOnCancel
   }, "Cancel"), /*#__PURE__*/React.createElement(Button, {
     variant: "primary",
@@ -30010,7 +30005,7 @@ ProgressBar.defaultProps = {
   strokeColor: null
 };
 
-var version = "0.15.6";
+var version = "0.15.7";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckBox, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, ProgressBar, RadarChart, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, Timeline, index as Toast, ToggleButton, Tooltip, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, tableProperties$1 as tableProperties, variables, version };
 //# sourceMappingURL=index.esm.js.map

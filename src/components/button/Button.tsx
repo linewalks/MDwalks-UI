@@ -18,7 +18,6 @@ interface ButtonProps {
     | 'primary_light'
     | 'basic_light'
   style?: object
-  bold?: boolean
   // //ButtonProps
   isLoading?: boolean
   children: React.ReactNode
@@ -36,32 +35,26 @@ const Button = (props: ButtonProps) => {
     style,
     onClick,
     id,
-    bold,
+    ...rest
   } = props
-
-  let showLoading = isLoading
-
-  if (_.isString(isLoading)) {
-    showLoading = isLoading === 'true'
-  }
 
   return (
     <DynamicTag
       id={id}
-      disabled={disabled || showLoading}
+      disabled={disabled || isLoading}
       className={clsx(
         `mwc-button`,
         `mwc-button__${size}`,
         `mwc-button__${variant}`,
       )}
       // style={style}
-      style={{ ...style, fontWeight: bold ? 'bold' : 'normal' }}
+      style={{ ...style }}
       onClick={onClick}
       as={propsAs}
-      {...props}
+      {...rest}
     >
-      {showLoading ? 'loading' : children}
-      {showLoading && (
+      {isLoading ? 'loading' : children}
+      {isLoading && (
         <span>
           <span className="loading-one">.</span>
           <span className="loading-two">.</span>
@@ -81,7 +74,6 @@ Button.defaultProps = {
   onClick: () => {},
   id: undefined,
   as: 'button',
-  bold: true,
 }
 
 export default Button

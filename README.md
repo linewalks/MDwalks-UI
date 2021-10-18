@@ -156,7 +156,7 @@ describe('어떤 함수 또는 컴포런트의', () => {
 
 
 ## 4. 버전 업 순서
-- git flow feature start 'version.up.${버전}'
+- git checkout -b 'feature/version.up.${버전}'
 - yarn version
 - git push origin feature/version.up.${버전}
 - git push origin --tags
