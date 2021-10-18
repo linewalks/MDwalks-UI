@@ -16,12 +16,6 @@ describe('default', () => {
     expect(wrapper.text()).toBe('loading...')
   })
 
-  it('isLoading by String', () => {
-    const wrapper = mount(<Button isLoading="false">{ButtonText}</Button>)
-    expect(wrapper.text()).toBe(ButtonText)
-    expect(wrapper.text()).not.toBe('loading...')
-  })
-
   it('isLoading by Boolean ', () => {
     const wrapper = mount(<Button isLoading>{ButtonText}</Button>)
     expect(wrapper.text()).not.toBe(ButtonText)

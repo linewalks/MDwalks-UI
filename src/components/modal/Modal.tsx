@@ -20,14 +20,15 @@ const size = {
   footerPaddingTop: '24px',
 }
 
-const Overlay = styled.div<{ isLoading: boolean; }>`
+const Overlay = styled.div<{ isLoading: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   background-color: ${hexToRGB(color.$black, 0.6)};
-  z-index: ${(props) => (props.isLoading ? zIndex.$modalOverlayLoading : zIndex.$modalOverlay)};
+  z-index: ${(props) =>
+    props.isLoading ? zIndex.$modalOverlayLoading : zIndex.$modalOverlay};
 `
 
 const ModalBox = styled.div`
@@ -72,8 +73,12 @@ const Loading = styled.div`
   animation: spin 2s linear infinite;
 
   @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 
   position: absolute;
@@ -89,10 +94,10 @@ const Footer = styled.footer`
 `
 
 interface basicButtonsProps {
-  type: 'alert' | 'confirm';
-  closeModal: () => void;
-  onCancel: () => void;
-  onConfirm: () => void;
+  type: 'alert' | 'confirm'
+  closeModal: () => void
+  onCancel: () => void
+  onConfirm: () => void
 }
 
 const basicButtons = ({
@@ -111,12 +116,19 @@ const basicButtons = ({
   }
   return (
     <div>
-      {
-        type && _.isEqual(type, 'confirm') && (
-          <Button variant="basic_line" size="lg" onClick={wrappedOnCancel}>Cancel</Button>
-        )
-      }
-      <Button variant="primary" size="lg" onClick={wrappedOnConfirm}>Confirm</Button>
+      {type && _.isEqual(type, 'confirm') && (
+        <Button
+          variant="basic_line"
+          size="lg"
+          style={{ marginRight: 8 }}
+          onClick={wrappedOnCancel}
+        >
+          Cancel
+        </Button>
+      )}
+      <Button variant="primary" size="lg" onClick={wrappedOnConfirm}>
+        Confirm
+      </Button>
     </div>
   )
 }
@@ -134,18 +146,18 @@ const FooterBar = styled.div`
 `
 
 interface ModalProps {
-  variant: 'basic' | 'layer';
-  type: 'alert' | 'confirm';
-  title: string;
-  isOpen: boolean;
-  isLoading: boolean;
-  description: string;
-  children: React.ReactNode;
-  footer: React.ReactNode;
-  closeModal: () => void;
-  onCancel: () => void;
-  onConfirm: () => void;
-  isExistsScroll: boolean;
+  variant: 'basic' | 'layer'
+  type: 'alert' | 'confirm'
+  title: string
+  isOpen: boolean
+  isLoading: boolean
+  description: string
+  children: React.ReactNode
+  footer: React.ReactNode
+  closeModal: () => void
+  onCancel: () => void
+  onConfirm: () => void
+  isExistsScroll: boolean
 }
 
 const Modal = ({
@@ -172,75 +184,55 @@ const Modal = ({
 
   return (
     <>
-      {
-        isOpen && (
-          <Overlay isLoading={isLoading}>
-            {
-              isLoading && (
-                <Loading />
-              )
-            }
-          </Overlay>
-        )
-      }
-      {
-        isOpen && (
-          <ModalBox>
-            <Header>
-              <div>
-                <Heading size="22">{title}</Heading>
-                {
-                  _.isEqual(variant, 'layer') && (
-                    <div style={{ marginLeft: 'auto', marginTop: '-10px', marginRight: '-10px' }}>
-                      <button onClick={closeModal} type="button">
-                        <img src={icnPopupCloseMd} width="32px" height="32px" alt="close" />
-                      </button>
-                    </div>
-                  )
-                }
-              </div>
-              {
-                description && (
-                  <WrapDescription>{description}</WrapDescription>
-                )
-              }
-            </Header>
+      {isOpen && (
+        <Overlay isLoading={isLoading}>{isLoading && <Loading />}</Overlay>
+      )}
+      {isOpen && (
+        <ModalBox>
+          <Header>
+            <div>
+              <Heading size="22">{title}</Heading>
+              {_.isEqual(variant, 'layer') && (
+                <div
+                  style={{
+                    marginLeft: 'auto',
+                    marginTop: '-10px',
+                    marginRight: '-10px',
+                  }}
+                >
+                  <button onClick={closeModal} type="button">
+                    <img
+                      src={icnPopupCloseMd}
+                      width="32px"
+                      height="32px"
+                      alt="close"
+                    />
+                  </button>
+                </div>
+              )}
+            </div>
+            {description && <WrapDescription>{description}</WrapDescription>}
+          </Header>
 
-            <Contents as="article">
-              {children}
-            </Contents>
-            {
-              isExistsScroll && (
-                <FooterBar />
-              )
-            }
-            {
-              footer && (
-                <Footer>
-                  <div>
-                    {footer}
-                  </div>
-                </Footer>
-              )
-            }
-            {
-              _.isEmpty(footer) && _.isEqual(variant, 'basic') && (
-                <Footer>
-                  {
-                    basicButtons({
-                      type,
-                      onCancel,
-                      onConfirm,
-                      closeModal,
-                    })
-                  }
-                </Footer>
-              )
-            }
-          </ModalBox>
-        )
-      }
-
+          <Contents as="article">{children}</Contents>
+          {isExistsScroll && <FooterBar />}
+          {footer && (
+            <Footer>
+              <div>{footer}</div>
+            </Footer>
+          )}
+          {_.isEmpty(footer) && _.isEqual(variant, 'basic') && (
+            <Footer>
+              {basicButtons({
+                type,
+                onCancel,
+                onConfirm,
+                closeModal,
+              })}
+            </Footer>
+          )}
+        </ModalBox>
+      )}
     </>
   )
 }
