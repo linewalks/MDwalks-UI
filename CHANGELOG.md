@@ -1,3 +1,12 @@
+## [0.15.7](https://github.com/linewalks/MDwalks-UI/compare/v0.15.6...v0.15.7) (2021-10-18)
+
+
+### Bug Fixes
+
+* 전달되는 props 값 설정 문제 수정 ([7aeee65](https://github.com/linewalks/MDwalks-UI/commit/7aeee658c6f2135a56c3c678cd68bab075b3d9db))
+
+
+
 ## [0.15.6](https://github.com/linewalks/MDwalks-UI/compare/v0.15.5...v0.15.6) (2021-10-05)
 
 
