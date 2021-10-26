@@ -1,3 +1,12 @@
+## [0.15.8](https://github.com/linewalks/MDwalks-UI/compare/v0.15.7...v0.15.8) (2021-10-26)
+
+
+### Bug Fixes
+
+* 버튼 letter-spacing 적용 ([a22e7a8](https://github.com/linewalks/MDwalks-UI/commit/a22e7a89831759c0c185b644dd8a28495dc34e77))
+
+
+
 ## [0.15.7](https://github.com/linewalks/MDwalks-UI/compare/v0.15.6...v0.15.7) (2021-10-18)
 
 
