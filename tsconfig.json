@@ -24,7 +24,7 @@
     "src/data/*",
     "src/components/paper/*",
     "src/components/notifications/*",
-    "src/components/__tests__/utils.js",
+    "src/components/__tests__/utils.js"
   ],
   "paths": {
     "@src/*": ["src/*"],
@@ -32,6 +32,6 @@
     "@Charts/*": ["src/components/charts/*"],
     "@Cards/*": ["src/components/card/*"],
     "@Table/*": ["src/components/table/*"],
-    "@Styles/*": ["src/assets/styles/*"],
-  },
+    "@Styles/*": ["src/assets/styles/*"]
+  }
 }
