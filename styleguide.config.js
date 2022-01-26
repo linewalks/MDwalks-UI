@@ -10,10 +10,7 @@ const ignore = [
 
 module.exports = {
   title: 'MDwalks-UI Style Guide',
-  require: [
-    path.resolve(__dirname, 'src/assets/styles/reset.css'),
-    path.resolve(__dirname, 'src/assets/styles/spoqaHansans.css'),
-  ],
+  require: [path.resolve(__dirname, 'src/assets/styles/reset.css')],
   components: [
     'src/assets/styles/font.ts',
     'src/components/**/*.{js,jsx,ts,tsx}',
@@ -44,15 +41,14 @@ module.exports = {
       links: [
         {
           rel: 'stylesheet',
-          href:
-            'https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css',
+          href: '/src/assets/styles/SpoqaHanSansNeo.css',
         },
       ],
     },
   },
   theme: {
     fontFamily: {
-      base: '"Spoqa Han Sans", sans-serif',
+      base: '"Spoqa Han Sans Neo"',
     },
   },
   styleguideDir: 'docs',
