@@ -101,7 +101,7 @@
     "jest": "^26.6.3",
     "jest-styled-components": "^6.3.3",
     "lint-staged": "^9.4.3",
-    "minimist": "^1.2.2",
+    "minimist": "^1.2.6",
     "node-sass": "^4.13.1",
     "react-styleguidist": "^10.6.1",
     "react-test-renderer": "^16.8.6",
