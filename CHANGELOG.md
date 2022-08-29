@@ -1,3 +1,17 @@
+## [0.15.10](https://github.com/linewalks/MDwalks-UI/compare/v0.15.9...v0.15.10) (2022-08-29)
+
+
+### Bug Fixes
+
+* remove toast function dependency ([4027fee](https://github.com/linewalks/MDwalks-UI/commit/4027fee077015eef3b3021fb94cd008efdc3a06e))
+
+
+### Features
+
+* change font sans to sans neo ([24d33ea](https://github.com/linewalks/MDwalks-UI/commit/24d33ea6bed36a913c929b52d4e628c0114092b2))
+
+
+
 ## [0.15.8](https://github.com/linewalks/MDwalks-UI/compare/v0.15.7...v0.15.8) (2021-10-26)
 
 

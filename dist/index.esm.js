@@ -1,5 +1,5 @@
 import { __makeTemplateObject, __spreadArrays, __extends, __assign, __rest } from 'tslib';
-import React, { useState, useEffect, Component, useContext, createContext } from 'react';
+import React, { useState, useEffect, Component, useRef, useCallback, useContext, createContext } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import * as d3 from 'd3';
 import { scaleLinear, select, scaleTime, axisTop, scalePoint, axisRight, scaleOrdinal, schemePaired, mouse, timeFormat, axisBottom, brushX, event, axisLeft, line, histogram, range, randomBates, scaleLog } from 'd3';
@@ -29295,7 +29295,7 @@ var getAnimationDelayTime = function (duration) {
 };
 
 var fadeOut = keyframes(templateObject_1$r || (templateObject_1$r = __makeTemplateObject(["\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n"], ["\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n"])));
-var ToastBox = styled.div(templateObject_2$k || (templateObject_2$k = __makeTemplateObject(["\n  min-width: 440px;\n  min-height: 64px;\n  padding: 20px 72px;\n  background-color: ", ";\n  border: 2px solid ", ";\n  border-radius: 8px;\n  box-shadow: 0 2px 18px 0 rgba(109, 120, 132, 0.28);\n  position: relative;\n  animation: ", " ", "s linear ", "s 1 forwards;\n"], ["\n  min-width: 440px;\n  min-height: 64px;\n  padding: 20px 72px;\n  background-color: ", ";\n  border: 2px solid ", ";\n  border-radius: 8px;\n  box-shadow: 0 2px 18px 0 rgba(109, 120, 132, 0.28);\n  position: relative;\n  animation: ", " ", "s linear ", "s 1 forwards;\n"])), color.$white, function (_a) {
+var ToastBox = styled.div(templateObject_2$k || (templateObject_2$k = __makeTemplateObject(["\n  min-width: 440px;\n  min-height: 64px;\n  margin-bottom: 8px;\n  padding: 20px 72px;\n  background-color: ", ";\n  border: 2px solid\n    ", ";\n  border-radius: 8px;\n  box-shadow: 0 2px 18px 0 rgba(109, 120, 132, 0.28);\n  position: relative;\n  animation: ", " ", "s linear\n    ", "s 1 forwards;\n"], ["\n  min-width: 440px;\n  min-height: 64px;\n  margin-bottom: 8px;\n  padding: 20px 72px;\n  background-color: ", ";\n  border: 2px solid\n    ", ";\n  border-radius: 8px;\n  box-shadow: 0 2px 18px 0 rgba(109, 120, 132, 0.28);\n  position: relative;\n  animation: ", " ", "s linear\n    ", "s 1 forwards;\n"])), color.$white, function (_a) {
   var type = _a.type;
   return type === 'info' ? color.$pmblue : color.$red01;
 }, fadeOut, animationDuration, function (_a) {
@@ -29323,12 +29323,13 @@ var Toast = function (_a) {
       message = _a.message,
       duration = _a.duration;
   var remove = useToast().remove;
+  var timeoutId = useRef(null);
   useEffect(function () {
-    var timeoutId = setTimeout(function () {
+    timeoutId.current = setTimeout(function () {
       remove(toastId);
     }, duration);
     return function () {
-      return clearTimeout(timeoutId);
+      return clearTimeout(timeoutId.current);
     };
   }, [duration, remove, toastId]);
   return /*#__PURE__*/React.createElement(ToastBox, {
@@ -29361,9 +29362,10 @@ Toast.defaultProps = {
   type: 'info',
   duration: 4000
 };
+var Toast$1 = /*#__PURE__*/React.memo(Toast);
 var templateObject_1$r, templateObject_2$k, templateObject_3$g, templateObject_4$b;
 
-var ToastContainer = styled.div(templateObject_1$s || (templateObject_1$s = __makeTemplateObject(["\n  position: fixed;\n  top: 40px;\n  left: 50%;\n  transform: translateX(-50%);\n"], ["\n  position: fixed;\n  top: 40px;\n  left: 50%;\n  transform: translateX(-50%);\n"])));
+var ToastContainer = styled.section(templateObject_1$s || (templateObject_1$s = __makeTemplateObject(["\n  position: fixed;\n  top: 40px;\n  left: 50%;\n  transform: translateX(-50%);\n"], ["\n  position: fixed;\n  top: 40px;\n  left: 50%;\n  transform: translateX(-50%);\n"])));
 var ToastContext = /*#__PURE__*/createContext(null);
 var ToastProvider = function (_a) {
   var children = _a.children;
@@ -29376,18 +29378,18 @@ var ToastProvider = function (_a) {
       isBrowser = _c[0],
       setIsBrowser = _c[1];
 
-  var addToast = function (toast) {
-    return setToastList(__spreadArrays(toastList, [toast]));
-  };
-
-  var removeToast = function (id) {
+  var addToast = useCallback(function (toast) {
+    return setToastList(function (tl) {
+      return tl.concat(toast);
+    });
+  }, [toastList]);
+  var removeToast = useCallback(function (id) {
     return setToastList(function (prevToastList) {
       return prevToastList.filter(function (toast) {
         return id !== toast.toastId;
       });
     });
-  };
-
+  }, []);
   useEffect(function () {
     setIsBrowser(true);
   }, []);
@@ -29403,7 +29405,7 @@ var ToastProvider = function (_a) {
         type = _a.type,
         message = _a.message,
         duration = _a.duration;
-    return /*#__PURE__*/React.createElement(Toast, {
+    return /*#__PURE__*/React.createElement(Toast$1, {
       key: toastId,
       toastId: toastId,
       type: type,
@@ -30005,7 +30007,7 @@ ProgressBar.defaultProps = {
   strokeColor: null
 };
 
-var version = "0.15.8";
+var version = "0.15.10";
 
 export { BarChart, BarChartMulti, BarGauge, Button, ButtonLink, ButtonTextLink, ChartColor$1 as ChartColor, CheckBox, CheckList, DateUtility, Descriptions, EmptyPlaceHolder, Footer, Heading, Histogram, Image, LineChart, LineMergeTimeline, Modal, Navbar, Pagination, PieChart, ProgressBar, RadarChart, RadioList, RadiusGauge, SankeyChart, SelectBox, SelectedCard, SummaryCard, Table, Tabs, TextLink, TimeToEvent, Timeline, index as Toast, ToggleButton, Tooltip, TooltipBox, TreeMap, chartUtility, commonTag, font$1 as font, tableProperties$1 as tableProperties, variables, version };
 //# sourceMappingURL=index.esm.js.map
