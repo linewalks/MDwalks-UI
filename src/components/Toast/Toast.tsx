@@ -79,7 +79,6 @@ const Toast = ({ toastId, type, message, duration }: ToastProps) => {
 
   const timeoutId = useRef(null)
 
-  console.log(toastId)
   useEffect(() => {
     timeoutId.current = setTimeout(() => {
       remove(toastId)
