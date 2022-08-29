@@ -1,6 +1,6 @@
 {
   "name": "MDwalks-UI",
-  "version": "0.15.10",
+  "version": "0.15.11",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "scripts": {
@@ -128,7 +128,7 @@
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.9.0",
     "react-transition-group": "^4.3.0",
-    "recharts": "^2.1.6",
+    "recharts": "1.8.5",
     "regenerator-runtime": "^0.13.7",
     "styled-components": "^4.3.2",
     "tslib": "^2.3.1",
