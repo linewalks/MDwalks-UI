@@ -29325,7 +29325,7 @@ var getAnimationDelayTime = function (duration) {
 };
 
 var fadeOut = styled.keyframes(templateObject_1$r || (templateObject_1$r = tslib.__makeTemplateObject(["\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n"], ["\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n"])));
-var ToastBox = styled__default['default'].div(templateObject_2$k || (templateObject_2$k = tslib.__makeTemplateObject(["\n  min-width: 440px;\n  min-height: 64px;\n  padding: 20px 72px;\n  background-color: ", ";\n  border: 2px solid ", ";\n  border-radius: 8px;\n  box-shadow: 0 2px 18px 0 rgba(109, 120, 132, 0.28);\n  position: relative;\n  animation: ", " ", "s linear ", "s 1 forwards;\n"], ["\n  min-width: 440px;\n  min-height: 64px;\n  padding: 20px 72px;\n  background-color: ", ";\n  border: 2px solid ", ";\n  border-radius: 8px;\n  box-shadow: 0 2px 18px 0 rgba(109, 120, 132, 0.28);\n  position: relative;\n  animation: ", " ", "s linear ", "s 1 forwards;\n"])), color.$white, function (_a) {
+var ToastBox = styled__default['default'].div(templateObject_2$k || (templateObject_2$k = tslib.__makeTemplateObject(["\n  min-width: 440px;\n  min-height: 64px;\n  margin-bottom: 8px;\n  padding: 20px 72px;\n  background-color: ", ";\n  border: 2px solid\n    ", ";\n  border-radius: 8px;\n  box-shadow: 0 2px 18px 0 rgba(109, 120, 132, 0.28);\n  position: relative;\n  animation: ", " ", "s linear\n    ", "s 1 forwards;\n"], ["\n  min-width: 440px;\n  min-height: 64px;\n  margin-bottom: 8px;\n  padding: 20px 72px;\n  background-color: ", ";\n  border: 2px solid\n    ", ";\n  border-radius: 8px;\n  box-shadow: 0 2px 18px 0 rgba(109, 120, 132, 0.28);\n  position: relative;\n  animation: ", " ", "s linear\n    ", "s 1 forwards;\n"])), color.$white, function (_a) {
   var type = _a.type;
   return type === 'info' ? color.$pmblue : color.$red01;
 }, fadeOut, animationDuration, function (_a) {
@@ -29353,12 +29353,13 @@ var Toast = function (_a) {
       message = _a.message,
       duration = _a.duration;
   var remove = useToast().remove;
+  var timeoutId = React.useRef(null);
   React.useEffect(function () {
-    var timeoutId = setTimeout(function () {
+    timeoutId.current = setTimeout(function () {
       remove(toastId);
     }, duration);
     return function () {
-      return clearTimeout(timeoutId);
+      return clearTimeout(timeoutId.current);
     };
   }, [duration, remove, toastId]);
   return /*#__PURE__*/React__default['default'].createElement(ToastBox, {
@@ -29391,9 +29392,10 @@ Toast.defaultProps = {
   type: 'info',
   duration: 4000
 };
+var Toast$1 = /*#__PURE__*/React__default['default'].memo(Toast);
 var templateObject_1$r, templateObject_2$k, templateObject_3$g, templateObject_4$b;
 
-var ToastContainer = styled__default['default'].div(templateObject_1$s || (templateObject_1$s = tslib.__makeTemplateObject(["\n  position: fixed;\n  top: 40px;\n  left: 50%;\n  transform: translateX(-50%);\n"], ["\n  position: fixed;\n  top: 40px;\n  left: 50%;\n  transform: translateX(-50%);\n"])));
+var ToastContainer = styled__default['default'].section(templateObject_1$s || (templateObject_1$s = tslib.__makeTemplateObject(["\n  position: fixed;\n  top: 40px;\n  left: 50%;\n  transform: translateX(-50%);\n"], ["\n  position: fixed;\n  top: 40px;\n  left: 50%;\n  transform: translateX(-50%);\n"])));
 var ToastContext = /*#__PURE__*/React.createContext(null);
 var ToastProvider = function (_a) {
   var children = _a.children;
@@ -29406,18 +29408,18 @@ var ToastProvider = function (_a) {
       isBrowser = _c[0],
       setIsBrowser = _c[1];
 
-  var addToast = function (toast) {
-    return setToastList(tslib.__spreadArrays(toastList, [toast]));
-  };
-
-  var removeToast = function (id) {
+  var addToast = React.useCallback(function (toast) {
+    return setToastList(function (tl) {
+      return tl.concat(toast);
+    });
+  }, [toastList]);
+  var removeToast = React.useCallback(function (id) {
     return setToastList(function (prevToastList) {
       return prevToastList.filter(function (toast) {
         return id !== toast.toastId;
       });
     });
-  };
-
+  }, []);
   React.useEffect(function () {
     setIsBrowser(true);
   }, []);
@@ -29433,7 +29435,7 @@ var ToastProvider = function (_a) {
         type = _a.type,
         message = _a.message,
         duration = _a.duration;
-    return /*#__PURE__*/React__default['default'].createElement(Toast, {
+    return /*#__PURE__*/React__default['default'].createElement(Toast$1, {
       key: toastId,
       toastId: toastId,
       type: type,
@@ -30035,7 +30037,7 @@ ProgressBar.defaultProps = {
   strokeColor: null
 };
 
-var version = "0.15.9";
+var version = "0.15.10";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;
