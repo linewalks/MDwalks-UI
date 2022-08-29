@@ -1,12 +1,16 @@
 import React, {
-  useState, useEffect, createContext, useContext,
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useCallback,
 } from 'react'
 import ReactDOM from 'react-dom'
 import _ from 'lodash'
 import styled from 'styled-components'
 import Toast from './Toast'
 
-const ToastContainer = styled.div`
+const ToastContainer = styled.section`
   position: fixed;
   top: 40px;
   left: 50%;
@@ -14,15 +18,15 @@ const ToastContainer = styled.div`
 `
 
 interface IToast {
-  toastId: string;
-  type: 'info' | 'warning';
-  message: string | React.ReactNode;
-  duration: number;
+  toastId: string
+  type: 'info' | 'warning'
+  message: string | React.ReactNode
+  duration: number
 }
 
 interface IToastCtx {
-  addToast: (toast:IToast) => void;
-  removeToast: (id:string) => void;
+  addToast: (toast: IToast) => void
+  removeToast: (id: string) => void
 }
 
 export const ToastContext = createContext<IToastCtx>(null)
@@ -30,9 +34,16 @@ export const ToastContext = createContext<IToastCtx>(null)
 export const ToastProvider = ({ children }) => {
   const [toastList, setToastList] = useState([])
   const [isBrowser, setIsBrowser] = useState(false)
-  const addToast = (toast) => setToastList([...toastList, toast])
-  const removeToast = (id) => setToastList(
-    (prevToastList) => (prevToastList.filter((toast) => id !== toast.toastId)),
+  const addToast = useCallback(
+    (toast) => setToastList((tl) => tl.concat(toast)),
+    [toastList],
+  )
+  const removeToast = useCallback(
+    (id) =>
+      setToastList((prevToastList) =>
+        prevToastList.filter((toast) => id !== toast.toastId),
+      ),
+    [],
   )
 
   useEffect(() => {
@@ -41,13 +52,11 @@ export const ToastProvider = ({ children }) => {
 
   return (
     <ToastContext.Provider value={{ addToast, removeToast }}>
-      {
-        isBrowser && ReactDOM.createPortal(
+      {isBrowser &&
+        ReactDOM.createPortal(
           <ToastContainer id="toast_root">
-            {
-              !_.isEmpty(toastList) && toastList.map(({
-                toastId, type, message, duration,
-              }) => (
+            {!_.isEmpty(toastList) &&
+              toastList.map(({ toastId, type, message, duration }) => (
                 <Toast
                   key={toastId}
                   toastId={toastId}
@@ -55,12 +64,10 @@ export const ToastProvider = ({ children }) => {
                   message={message}
                   duration={duration}
                 />
-              ))
-            }
+              ))}
           </ToastContainer>,
           document.body,
-        )
-      }
+        )}
       {children}
     </ToastContext.Provider>
   )
