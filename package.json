@@ -102,7 +102,7 @@
     "jest-styled-components": "^6.3.3",
     "lint-staged": "^9.4.3",
     "minimist": "^1.2.2",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "react-styleguidist": "^10.6.1",
     "react-test-renderer": "^16.8.6",
     "rollup": "^2.34.2",
