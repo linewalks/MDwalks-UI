@@ -1,3 +1,7 @@
+## [0.15.12](https://github.com/linewalks/MDwalks-UI/compare/v0.15.11...v0.15.12) (2022-09-21)
+
+
+
 ## [0.15.11](https://github.com/linewalks/MDwalks-UI/compare/v0.15.10...v0.15.11) (2022-08-29)
 
 
