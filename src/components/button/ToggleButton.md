@@ -5,6 +5,29 @@ ToggleButton example:
   data={[
     {
       type: 'AA',
+      text: <div>환자군</div>,
+    },
+    {
+      type: 'BB',
+      text: '진단수',
+    },
+    {
+      type: 'CC',
+      text: '기타',
+    },
+  ]}
+  onChange={(type) => {
+    console.log(type)
+  }}
+/>
+```
+
+```js
+<ToggleButton
+  size="lg"
+  data={[
+    {
+      type: 'AA',
       text: '환자군',
     },
     {
@@ -21,11 +44,11 @@ ToggleButton example:
 
 ```js
 <ToggleButton
-  size='lg'
+  size="sm"
   data={[
     {
       type: 'AA',
-      text: '환자군',
+      text: <div>환자군</div>,
     },
     {
       type: 'BB',
@@ -36,5 +59,8 @@ ToggleButton example:
       text: '기타',
     },
   ]}
+  onChange={(type) => {
+    console.log(type)
+  }}
 />
 ```

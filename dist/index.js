@@ -29756,9 +29756,21 @@ var BtnSize = {
       fontSize: 14,
       padding: '7px 18px'
     }
+  },
+  small: {
+    box: {
+      height: 32,
+      padding: 2
+    },
+    button: {
+      minWidth: 85,
+      height: 28,
+      fontSize: 14,
+      padding: '5px 16px'
+    }
   }
 };
-var BoxShadow = styled.css(templateObject_1$1 || (templateObject_1$1 = tslib.__makeTemplateObject(["\n  box-shadow: ", "\n"], ["\n  box-shadow: ", "\n"])), function (props) {
+var BoxShadow = styled.css(templateObject_1$1 || (templateObject_1$1 = tslib.__makeTemplateObject(["\n  box-shadow: ", ";\n"], ["\n  box-shadow: ", ";\n"])), function (props) {
   return props.selected ? '0 1px 8px 0 rgba(117, 127, 139, 0.36);' : null;
 });
 var ButtonContainer = styled__default["default"].section(templateObject_2 || (templateObject_2 = tslib.__makeTemplateObject(["\n  height: ", "px;\n  background-color: ", ";\n  border-radius: ", "px;\n  padding: 2px;\n  display: table;\n"], ["\n  height: ", "px;\n  background-color: ", ";\n  border-radius: ", "px;\n  padding: 2px;\n  display: table;\n"])), function (props) {
@@ -29794,15 +29806,14 @@ function (_super) {
   function ToggleButton(props) {
     var _this = _super.call(this, props) || this;
 
-    _this.changeBtn = function (e) {
-      var value = e.target.value;
+    _this.changeBtn = function (type) {
       var onChange = _this.props.onChange;
 
       _this.setState({
-        active: value
+        active: type
       });
 
-      onChange(value);
+      onChange(type);
     };
 
     var data = _this.props.data;
@@ -29823,7 +29834,8 @@ function (_super) {
         size = _a.size;
     var BtnSizeObject = {
       md: BtnSize.middle,
-      lg: BtnSize.large
+      lg: BtnSize.large,
+      sm: BtnSize.small
     }[size];
     return /*#__PURE__*/React__default["default"].createElement(ButtonContainer, {
       height: BtnSizeObject.box.height
@@ -29834,7 +29846,9 @@ function (_super) {
       var selectedCheck = active === type;
       return /*#__PURE__*/React__default["default"].createElement(ToggleBtn, {
         key: type,
-        onClick: _this.changeBtn,
+        onClick: function () {
+          return _this.changeBtn(type);
+        },
         selected: selectedCheck,
         disabled: selectedCheck,
         value: type,
@@ -30023,7 +30037,7 @@ ProgressBar.defaultProps = {
   strokeColor: null
 };
 
-var version = "0.15.11";
+var version = "0.15.12";
 
 exports.BarChart = BarChart;
 exports.BarChartMulti = BarChartMulti;
